@@ -1,7 +1,5 @@
 Dynamically Generating Callback Summaries for Enhancing Static Analysis
 
-ECOOP submission number for the paper: 69
-
 ## Quick-start guide (Kick-the-tires phase)
 ### Running the fast evaluation
 For the fast evaluation, the approach is simple:
@@ -10,11 +8,6 @@ Build the docker container and run it, e.g. using
 ```
 docker run --rm -it $(docker build -q .) /bin/bash Code/RQ-FastEval.sh
 ```
-
-
-
-
-
 
 ## Overview: What does the artifact comprise?
 
@@ -57,7 +50,7 @@ Location: Results/
 
 ## License
 
-We want to publish the artifact under LGPL2
+We published the artifact under LGPL2
 
 ## Complete Evaluation
 For the expensive evaluation, the process is a bit more elaborate.
