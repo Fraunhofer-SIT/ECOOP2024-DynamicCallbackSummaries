@@ -1,0 +1,149 @@
+    private java.lang.String readSPFile(android.content.Context)
+    {
+        java.lang.Throwable $r6;
+        android.content.Context $r1;
+        long $l0, $l1, $l2;
+        java.lang.String[] $r8;
+        java.util.ArrayList $r7;
+        com.centauri.oversea.newnetwork.http.CTIIPManager r0;
+        byte $b3;
+        int $i4, $i5;
+        java.lang.String $r3, $r4, $r5;
+        boolean $z0;
+        android.content.SharedPreferences $r2;
+        java.lang.StringBuilder $r9;
+        java.io.UnsupportedEncodingException $r10;
+
+        r0 := @this: com.centauri.oversea.newnetwork.http.CTIIPManager;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $r2 = staticinvoke <com.centauri.oversea.comm.CTISPTools: android.content.SharedPreferences getSP(android.content.Context,java.lang.String)>($r1, "CentauriOverseaIP");
+
+        $r3 = specialinvoke r0.<com.centauri.oversea.newnetwork.http.CTIIPManager: java.lang.String getIPKey()>();
+
+        $r4 = "";
+
+        $r3 = interfaceinvoke $r2.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>($r3, "");
+
+        $r5 = specialinvoke r0.<com.centauri.oversea.newnetwork.http.CTIIPManager: java.lang.String getUpdateTimeKey()>();
+
+        $l0 = interfaceinvoke $r2.<android.content.SharedPreferences: long getLong(java.lang.String,long)>($r5, 0L);
+
+        $l1 = $l0;
+
+        $l2 = r0.<com.centauri.oversea.newnetwork.http.CTIIPManager: long updateTime>;
+
+        $b3 = $l0 cmp $l2;
+
+        $i4 = (int) $b3;
+
+        if $i4 > 0 goto label01;
+
+        $l1 = $l2;
+
+     label01:
+        r0.<com.centauri.oversea.newnetwork.http.CTIIPManager: long updateTime> = $l1;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r3);
+
+        if $z0 != 0 goto label07;
+
+     label02:
+        $r3 = staticinvoke <java.net.URLDecoder: java.lang.String decode(java.lang.String,java.lang.String)>($r3, "utf-8");
+
+     label03:
+        $r4 = $r3;
+
+        $r9 = new java.lang.StringBuilder;
+
+     label04:
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("readSPFile() decodeIPInfo: ");
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.centauri.comm.CTILog: void i(java.lang.String,java.lang.String)>("APIPManager", $r3);
+
+     label05:
+        goto label07;
+
+     label06:
+        $r6 := @caughtexception;
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("init(): ");
+
+        $r10 = (java.io.UnsupportedEncodingException) $r6;
+
+        $r3 = virtualinvoke $r10.<java.io.UnsupportedEncodingException: java.lang.String getMessage()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.centauri.comm.CTILog: void e(java.lang.String,java.lang.String)>("APIPManager", $r3);
+
+     label07:
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r4);
+
+        if $z0 != 0 goto label10;
+
+        $r7 = r0.<com.centauri.oversea.newnetwork.http.CTIIPManager: java.util.ArrayList ipList>;
+
+        if $r7 == null goto label10;
+
+        $r8 = virtualinvoke $r4.<java.lang.String: java.lang.String[] split(java.lang.String)>(";");
+
+        $i4 = 0;
+
+     label08:
+        $i5 = lengthof $r8;
+
+        if $i4 >= $i5 goto label10;
+
+        $r7 = r0.<com.centauri.oversea.newnetwork.http.CTIIPManager: java.util.ArrayList ipList>;
+
+        $r3 = $r8[$i4];
+
+        $z0 = virtualinvoke $r7.<java.util.ArrayList: boolean contains(java.lang.Object)>($r3);
+
+        if $z0 != 0 goto label09;
+
+        $r7 = r0.<com.centauri.oversea.newnetwork.http.CTIIPManager: java.util.ArrayList ipList>;
+
+        $r3 = $r8[$i4];
+
+        virtualinvoke $r7.<java.util.ArrayList: boolean add(java.lang.Object)>($r3);
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("save ip: ");
+
+        $r3 = $r8[$i4];
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.centauri.comm.CTILog: void i(java.lang.String,java.lang.String)>("APIPManager", $r3);
+
+     label09:
+        $i4 = $i4 + 1;
+
+        goto label08;
+
+     label10:
+        return $r4;
+
+        catch java.io.UnsupportedEncodingException from label02 to label03 with label06;
+        catch java.io.UnsupportedEncodingException from label04 to label05 with label06;
+    }

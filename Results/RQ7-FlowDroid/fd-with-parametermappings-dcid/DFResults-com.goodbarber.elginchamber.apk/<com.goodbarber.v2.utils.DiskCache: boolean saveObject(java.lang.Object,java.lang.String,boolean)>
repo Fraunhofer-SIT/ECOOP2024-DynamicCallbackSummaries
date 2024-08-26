@@ -1,0 +1,108 @@
+    public boolean saveObject(java.lang.Object, java.lang.String, boolean)
+    {
+        java.lang.Throwable $r10;
+        java.io.FileOutputStream r4;
+        java.lang.Exception r3;
+        java.io.File $r6;
+        java.lang.Object $r1;
+        java.io.ObjectOutputStream r5;
+        java.lang.StringBuilder $r8;
+        java.lang.String $r2, $r7, $r9;
+        com.goodbarber.v2.utils.DiskCache r0;
+        boolean $z0, $z1;
+
+        r0 := @this: com.goodbarber.v2.utils.DiskCache;
+
+        $r1 := @parameter0: java.lang.Object;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $z0 := @parameter2: boolean;
+
+        $z1 = 1;
+
+        entermonitor r0;
+
+     label01:
+        $r6 = virtualinvoke r0.<com.goodbarber.v2.utils.DiskCache: java.io.File getFile(java.lang.String,boolean,boolean)>($r2, 1, 1);
+
+     label02:
+        r4 = new java.io.FileOutputStream;
+
+     label03:
+        specialinvoke r4.<java.io.FileOutputStream: void <init>(java.io.File)>($r6);
+
+     label04:
+        r5 = new java.io.ObjectOutputStream;
+
+     label05:
+        specialinvoke r5.<java.io.ObjectOutputStream: void <init>(java.io.OutputStream)>(r4);
+
+        virtualinvoke r5.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>($r1);
+
+        virtualinvoke r5.<java.io.ObjectOutputStream: void close()>();
+
+        virtualinvoke r4.<java.io.FileOutputStream: void close()>();
+
+     label06:
+        $r7 = <com.goodbarber.v2.utils.DiskCache: java.lang.String TAG>;
+
+        $r8 = new java.lang.StringBuilder;
+
+     label07:
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Object written to disk (");
+
+        $r9 = virtualinvoke $r6.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(")");
+
+        $r9 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.goodbarber.v2.utils.GBLog: void i(java.lang.String,java.lang.String)>($r7, $r9);
+
+     label08:
+        exitmonitor r0;
+
+        return $z1;
+
+     label09:
+        r3 := @caughtexception;
+
+     label10:
+        $r7 = <com.goodbarber.v2.utils.DiskCache: java.lang.String TAG>;
+
+        $r8 = new java.lang.StringBuilder;
+
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Impossible to save  ");
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.goodbarber.v2.utils.GBLog: void e(java.lang.String,java.lang.String)>($r7, $r2);
+
+     label11:
+        $z1 = 0;
+
+        goto label08;
+
+     label12:
+        $r10 := @caughtexception;
+
+        exitmonitor r0;
+
+        throw $r10;
+
+        catch java.lang.Exception from label01 to label02 with label09;
+        catch java.lang.Exception from label03 to label04 with label09;
+        catch java.lang.Exception from label05 to label06 with label09;
+        catch java.lang.Exception from label07 to label08 with label09;
+        catch java.lang.Throwable from label01 to label08 with label12;
+        catch java.lang.Throwable from label10 to label11 with label12;
+    }

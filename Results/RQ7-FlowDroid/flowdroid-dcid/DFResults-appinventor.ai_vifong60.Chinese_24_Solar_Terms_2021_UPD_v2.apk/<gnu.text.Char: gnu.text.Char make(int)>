@@ -1,0 +1,44 @@
+    public static gnu.text.Char make(int)
+    {
+        java.lang.Throwable $r4;
+        gnu.text.CharMap $r0, $r3;
+        gnu.text.Char $r1;
+        int $i0;
+        gnu.text.Char[] $r2;
+
+        $i0 := @parameter0: int;
+
+        if $i0 >= 128 goto label1;
+
+        $r2 = <gnu.text.Char: gnu.text.Char[] ascii>;
+
+        $r1 = $r2[$i0];
+
+        return $r1;
+
+     label1:
+        $r0 = <gnu.text.Char: gnu.text.CharMap hashTable>;
+
+        entermonitor $r0;
+
+     label2:
+        $r3 = <gnu.text.Char: gnu.text.CharMap hashTable>;
+
+        $r1 = virtualinvoke $r3.<gnu.text.CharMap: gnu.text.Char get(int)>($i0);
+
+        exitmonitor $r0;
+
+     label3:
+        return $r1;
+
+     label4:
+        $r4 := @caughtexception;
+
+        exitmonitor $r0;
+
+     label5:
+        throw $r4;
+
+        catch java.lang.Throwable from label2 to label3 with label4;
+        catch java.lang.Throwable from label4 to label5 with label4;
+    }

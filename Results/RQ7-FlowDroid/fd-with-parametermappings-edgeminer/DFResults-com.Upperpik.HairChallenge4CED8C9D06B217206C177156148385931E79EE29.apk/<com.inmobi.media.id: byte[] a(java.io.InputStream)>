@@ -1,0 +1,47 @@
+    public static byte[] a(java.io.InputStream) throws java.io.IOException
+    {
+        java.lang.Throwable $r2;
+        byte[] $r1;
+        java.io.ByteArrayOutputStream $r3;
+        int $i0;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $r3 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r3.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r1 = newarray (byte)[4096];
+
+     label1:
+        $i0 = virtualinvoke $r0.<java.io.InputStream: int read(byte[])>($r1);
+
+     label2:
+        if -1 == $i0 goto label5;
+
+     label3:
+        virtualinvoke $r3.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r1, 0, $i0);
+
+     label4:
+        goto label1;
+
+     label5:
+        $r1 = virtualinvoke $r3.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label6:
+        staticinvoke <com.inmobi.media.id: void a(java.io.Closeable)>($r3);
+
+        return $r1;
+
+     label7:
+        $r2 := @caughtexception;
+
+        staticinvoke <com.inmobi.media.id: void a(java.io.Closeable)>($r3);
+
+        throw $r2;
+
+        catch java.lang.Throwable from label1 to label2 with label7;
+        catch java.lang.Throwable from label3 to label4 with label7;
+        catch java.lang.Throwable from label5 to label6 with label7;
+    }

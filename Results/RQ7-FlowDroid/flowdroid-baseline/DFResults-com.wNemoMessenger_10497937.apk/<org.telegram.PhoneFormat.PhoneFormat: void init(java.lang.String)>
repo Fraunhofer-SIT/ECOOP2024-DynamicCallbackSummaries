@@ -1,0 +1,257 @@
+    public void init(java.lang.String)
+    {
+        java.lang.Throwable $r13;
+        android.content.Context $r3;
+        byte[] $r7;
+        java.io.ByteArrayOutputStream $r2, $r19;
+        java.util.HashMap $r20;
+        java.nio.ByteBuffer $r8;
+        android.content.res.AssetManager $r4;
+        java.util.Locale $r12;
+        org.telegram.PhoneFormat.PhoneFormat r0;
+        int $i0;
+        java.lang.String $r1;
+        java.lang.Exception $r10, $r11, $r14, $r15, $r16, $r17, $r18;
+        java.nio.ByteOrder $r9;
+        java.io.InputStream $r5, $r6;
+
+        r0 := @this: org.telegram.PhoneFormat.PhoneFormat;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 = null;
+
+     label01:
+        $r3 = <org.telegram.messenger.ApplicationLoader: android.content.Context applicationContext>;
+
+     label02:
+        $r4 = virtualinvoke $r3.<android.content.Context: android.content.res.AssetManager getAssets()>();
+
+        $r5 = virtualinvoke $r4.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>("PhoneFormats.dat");
+
+     label03:
+        $r6 = $r5;
+
+     label04:
+        $r19 = new java.io.ByteArrayOutputStream;
+
+     label05:
+        specialinvoke $r19.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label06:
+        $r7 = newarray (byte)[1024];
+
+     label07:
+        $i0 = virtualinvoke $r5.<java.io.InputStream: int read(byte[],int,int)>($r7, 0, 1024);
+
+     label08:
+        if $i0 == -1 goto label11;
+
+     label09:
+        virtualinvoke $r19.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r7, 0, $i0);
+
+     label10:
+        goto label07;
+
+     label11:
+        $r7 = virtualinvoke $r19.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        r0.<org.telegram.PhoneFormat.PhoneFormat: byte[] data> = $r7;
+
+        $r8 = staticinvoke <java.nio.ByteBuffer: java.nio.ByteBuffer wrap(byte[])>($r7);
+
+        r0.<org.telegram.PhoneFormat.PhoneFormat: java.nio.ByteBuffer buffer> = $r8;
+
+     label12:
+        $r9 = <java.nio.ByteOrder: java.nio.ByteOrder LITTLE_ENDIAN>;
+
+     label13:
+        virtualinvoke $r8.<java.nio.ByteBuffer: java.nio.ByteBuffer order(java.nio.ByteOrder)>($r9);
+
+     label14:
+        virtualinvoke $r19.<java.io.ByteArrayOutputStream: void close()>();
+
+     label15:
+        goto label17;
+
+     label16:
+        $r10 := @caughtexception;
+
+        staticinvoke <org.telegram.messenger.FileLog: void e(java.lang.Throwable)>($r10);
+
+     label17:
+        if $r5 == null goto label21;
+
+     label18:
+        virtualinvoke $r5.<java.io.InputStream: void close()>();
+
+     label19:
+        goto label21;
+
+     label20:
+        $r11 := @caughtexception;
+
+        staticinvoke <org.telegram.messenger.FileLog: void e(java.lang.Throwable)>($r11);
+
+        goto label21;
+
+     label21:
+        $r12 = staticinvoke <java.util.Locale: java.util.Locale getDefault()>();
+
+        $r1 = virtualinvoke $r12.<java.util.Locale: java.lang.String getCountry()>();
+
+        $r1 = virtualinvoke $r1.<java.lang.String: java.lang.String toLowerCase()>();
+
+        r0.<org.telegram.PhoneFormat.PhoneFormat: java.lang.String defaultCountry> = $r1;
+
+        $r20 = new java.util.HashMap;
+
+        specialinvoke $r20.<java.util.HashMap: void <init>(int)>(255);
+
+        r0.<org.telegram.PhoneFormat.PhoneFormat: java.util.HashMap callingCodeOffsets> = $r20;
+
+        $r20 = new java.util.HashMap;
+
+        specialinvoke $r20.<java.util.HashMap: void <init>(int)>(255);
+
+        r0.<org.telegram.PhoneFormat.PhoneFormat: java.util.HashMap callingCodeCountries> = $r20;
+
+        $r20 = new java.util.HashMap;
+
+        specialinvoke $r20.<java.util.HashMap: void <init>(int)>(10);
+
+        r0.<org.telegram.PhoneFormat.PhoneFormat: java.util.HashMap callingCodeData> = $r20;
+
+        $r20 = new java.util.HashMap;
+
+        specialinvoke $r20.<java.util.HashMap: void <init>(int)>(255);
+
+        r0.<org.telegram.PhoneFormat.PhoneFormat: java.util.HashMap countryCallingCode> = $r20;
+
+        virtualinvoke r0.<org.telegram.PhoneFormat.PhoneFormat: void parseDataHeader()>();
+
+        r0.<org.telegram.PhoneFormat.PhoneFormat: boolean initialzed> = 1;
+
+        return;
+
+     label22:
+        $r13 := @caughtexception;
+
+        $r2 = $r19;
+
+        goto label37;
+
+     label23:
+        $r14 := @caughtexception;
+
+        $r2 = $r19;
+
+        goto label27;
+
+     label24:
+        $r14 := @caughtexception;
+
+        goto label27;
+
+     label25:
+        $r13 := @caughtexception;
+
+        $r6 = null;
+
+        goto label37;
+
+     label26:
+        $r14 := @caughtexception;
+
+        $r6 = null;
+
+     label27:
+        virtualinvoke $r14.<java.lang.Exception: void printStackTrace()>();
+
+     label28:
+        if $r2 == null goto label32;
+
+     label29:
+        virtualinvoke $r2.<java.io.ByteArrayOutputStream: void close()>();
+
+     label30:
+        goto label32;
+
+     label31:
+        $r15 := @caughtexception;
+
+        staticinvoke <org.telegram.messenger.FileLog: void e(java.lang.Throwable)>($r15);
+
+     label32:
+        if $r6 == null goto label46;
+
+     label33:
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+     label34:
+        return;
+
+     label35:
+        $r16 := @caughtexception;
+
+        staticinvoke <org.telegram.messenger.FileLog: void e(java.lang.Throwable)>($r16);
+
+        return;
+
+     label36:
+        $r13 := @caughtexception;
+
+     label37:
+        if $r2 == null goto label41;
+
+     label38:
+        virtualinvoke $r2.<java.io.ByteArrayOutputStream: void close()>();
+
+     label39:
+        goto label41;
+
+     label40:
+        $r17 := @caughtexception;
+
+        staticinvoke <org.telegram.messenger.FileLog: void e(java.lang.Throwable)>($r17);
+
+     label41:
+        if $r6 == null goto label45;
+
+     label42:
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+     label43:
+        goto label45;
+
+     label44:
+        $r18 := @caughtexception;
+
+        staticinvoke <org.telegram.messenger.FileLog: void e(java.lang.Throwable)>($r18);
+
+     label45:
+        throw $r13;
+
+     label46:
+        return;
+
+        catch java.lang.Exception from label02 to label03 with label26;
+        catch java.lang.Throwable from label01 to label03 with label25;
+        catch java.lang.Exception from label05 to label06 with label24;
+        catch java.lang.Throwable from label04 to label05 with label36;
+        catch java.lang.Throwable from label05 to label06 with label36;
+        catch java.lang.Exception from label07 to label08 with label23;
+        catch java.lang.Exception from label09 to label10 with label23;
+        catch java.lang.Exception from label11 to label12 with label23;
+        catch java.lang.Exception from label13 to label14 with label23;
+        catch java.lang.Throwable from label07 to label08 with label22;
+        catch java.lang.Throwable from label09 to label10 with label22;
+        catch java.lang.Throwable from label11 to label14 with label22;
+        catch java.lang.Exception from label14 to label15 with label16;
+        catch java.lang.Exception from label18 to label19 with label20;
+        catch java.lang.Throwable from label27 to label28 with label36;
+        catch java.lang.Exception from label29 to label30 with label31;
+        catch java.lang.Exception from label33 to label34 with label35;
+        catch java.lang.Exception from label38 to label39 with label40;
+        catch java.lang.Exception from label42 to label43 with label44;
+    }

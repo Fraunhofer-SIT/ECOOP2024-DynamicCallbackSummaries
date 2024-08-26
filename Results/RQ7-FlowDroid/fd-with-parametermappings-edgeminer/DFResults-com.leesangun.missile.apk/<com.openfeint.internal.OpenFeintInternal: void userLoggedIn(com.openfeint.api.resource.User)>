@@ -1,0 +1,119 @@
+    private void userLoggedIn(com.openfeint.api.resource.User)
+    {
+        java.lang.Throwable $r14;
+        com.openfeint.internal.OpenFeintInternal r0;
+        java.lang.Runnable $r12;
+        com.openfeint.internal.OpenFeintInternal$LoginDelegate $r11;
+        android.webkit.CookieManager $r7;
+        android.os.Handler $r13;
+        com.openfeint.internal.eventlog.EventLogDispatcher $r3;
+        java.lang.String $r5, $r6;
+        com.openfeint.internal.SyncedStore$Editor $r9;
+        com.openfeint.api.resource.CurrentUser $r2;
+        boolean $z0;
+        com.openfeint.api.OpenFeintDelegate $r10;
+        com.openfeint.internal.SyncedStore $r8;
+        com.openfeint.api.resource.User $r1, $r4;
+
+        r0 := @this: com.openfeint.internal.OpenFeintInternal;
+
+        $r1 := @parameter0: com.openfeint.api.resource.User;
+
+        $r2 = new com.openfeint.api.resource.CurrentUser;
+
+        specialinvoke $r2.<com.openfeint.api.resource.CurrentUser: void <init>()>();
+
+        r0.<com.openfeint.internal.OpenFeintInternal: com.openfeint.api.resource.CurrentUser mCurrentUser> = $r2;
+
+        $r2 = r0.<com.openfeint.internal.OpenFeintInternal: com.openfeint.api.resource.CurrentUser mCurrentUser>;
+
+        virtualinvoke $r2.<com.openfeint.api.resource.CurrentUser: void shallowCopyAncestorType(com.openfeint.internal.resource.Resource)>($r1);
+
+        $r3 = staticinvoke <com.openfeint.internal.eventlog.EventLogDispatcher: com.openfeint.internal.eventlog.EventLogDispatcher getInstance()>();
+
+        virtualinvoke $r3.<com.openfeint.internal.eventlog.EventLogDispatcher: void postEvent(java.lang.String,java.lang.Object)>("login_success.openfeint.com", null);
+
+        $r4 = specialinvoke r0.<com.openfeint.internal.OpenFeintInternal: com.openfeint.api.resource.User lastLoggedInUser()>();
+
+        if $r4 == null goto label1;
+
+        $r5 = virtualinvoke $r4.<com.openfeint.api.resource.User: java.lang.String resourceID()>();
+
+        $r6 = virtualinvoke $r1.<com.openfeint.api.resource.User: java.lang.String resourceID()>();
+
+        $z0 = virtualinvoke $r5.<java.lang.String: boolean equals(java.lang.Object)>($r6);
+
+        if $z0 != 0 goto label2;
+
+     label1:
+        $r7 = staticinvoke <android.webkit.CookieManager: android.webkit.CookieManager getInstance()>();
+
+        virtualinvoke $r7.<android.webkit.CookieManager: void removeAllCookie()>();
+
+     label2:
+        $r8 = virtualinvoke r0.<com.openfeint.internal.OpenFeintInternal: com.openfeint.internal.SyncedStore getPrefs()>();
+
+        $r9 = virtualinvoke $r8.<com.openfeint.internal.SyncedStore: com.openfeint.internal.SyncedStore$Editor edit()>();
+
+     label3:
+        $r5 = virtualinvoke r0.<com.openfeint.internal.OpenFeintInternal: java.lang.String getServerUrl()>();
+
+        virtualinvoke $r9.<com.openfeint.internal.SyncedStore$Editor: void putString(java.lang.String,java.lang.String)>("last_logged_in_server", $r5);
+
+        specialinvoke r0.<com.openfeint.internal.OpenFeintInternal: void saveUserApproval(com.openfeint.internal.SyncedStore$Editor)>($r9);
+
+        specialinvoke r0.<com.openfeint.internal.OpenFeintInternal: void saveUser(com.openfeint.internal.SyncedStore$Editor,com.openfeint.api.resource.User)>($r9, $r1);
+
+     label4:
+        virtualinvoke $r9.<com.openfeint.internal.SyncedStore$Editor: void commit()>();
+
+        $r10 = r0.<com.openfeint.internal.OpenFeintInternal: com.openfeint.api.OpenFeintDelegate mDelegate>;
+
+        if $r10 == null goto label5;
+
+        $r10 = r0.<com.openfeint.internal.OpenFeintInternal: com.openfeint.api.OpenFeintDelegate mDelegate>;
+
+        $r2 = r0.<com.openfeint.internal.OpenFeintInternal: com.openfeint.api.resource.CurrentUser mCurrentUser>;
+
+        virtualinvoke $r10.<com.openfeint.api.OpenFeintDelegate: void userLoggedIn(com.openfeint.api.resource.CurrentUser)>($r2);
+
+     label5:
+        $r11 = r0.<com.openfeint.internal.OpenFeintInternal: com.openfeint.internal.OpenFeintInternal$LoginDelegate mLoginDelegate>;
+
+        if $r11 == null goto label6;
+
+        $r11 = r0.<com.openfeint.internal.OpenFeintInternal: com.openfeint.internal.OpenFeintInternal$LoginDelegate mLoginDelegate>;
+
+        $r2 = r0.<com.openfeint.internal.OpenFeintInternal: com.openfeint.api.resource.CurrentUser mCurrentUser>;
+
+        interfaceinvoke $r11.<com.openfeint.internal.OpenFeintInternal$LoginDelegate: void login(com.openfeint.api.resource.User)>($r2);
+
+     label6:
+        $r12 = r0.<com.openfeint.internal.OpenFeintInternal: java.lang.Runnable mPostLoginRunnable>;
+
+        if $r12 == null goto label7;
+
+        $r13 = r0.<com.openfeint.internal.OpenFeintInternal: android.os.Handler mMainThreadHandler>;
+
+        $r12 = r0.<com.openfeint.internal.OpenFeintInternal: java.lang.Runnable mPostLoginRunnable>;
+
+        virtualinvoke $r13.<android.os.Handler: boolean post(java.lang.Runnable)>($r12);
+
+        r0.<com.openfeint.internal.OpenFeintInternal: java.lang.Runnable mPostLoginRunnable> = null;
+
+     label7:
+        $r5 = virtualinvoke $r1.<com.openfeint.api.resource.User: java.lang.String resourceID()>();
+
+        staticinvoke <com.openfeint.internal.offline.OfflineSupport: void setUserID(java.lang.String)>($r5);
+
+        return;
+
+     label8:
+        $r14 := @caughtexception;
+
+        virtualinvoke $r9.<com.openfeint.internal.SyncedStore$Editor: void commit()>();
+
+        throw $r14;
+
+        catch java.lang.Throwable from label3 to label4 with label8;
+    }

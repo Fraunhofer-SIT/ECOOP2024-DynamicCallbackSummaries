@@ -1,0 +1,130 @@
+    public static o.FileExtension write(java.io.File, long) throws java.io.IOException
+    {
+        java.lang.Throwable $r4;
+        long $l0;
+        byte $b1;
+        o.FileExtension $r0, $r9;
+        int $i2;
+        java.lang.String $r6;
+        boolean $z0;
+        java.io.PrintStream $r5;
+        java.io.IOException $r8;
+        java.lang.IllegalArgumentException $r11;
+        java.io.File $r1, $r2, $r3, $r7;
+        java.lang.StringBuilder $r10;
+
+        $r1 := @parameter0: java.io.File;
+
+        $l0 := @parameter1: long;
+
+        $b1 = $l0 cmp 0L;
+
+        $i2 = (int) $b1;
+
+        if $i2 <= 0 goto label7;
+
+        $r3 = new java.io.File;
+
+        $r2 = $r3;
+
+        specialinvoke $r3.<java.io.File: void <init>(java.io.File,java.lang.String)>($r1, "journal.bkp");
+
+        $z0 = virtualinvoke $r3.<java.io.File: boolean exists()>();
+
+        if $z0 == 0 goto label2;
+
+        $r7 = new java.io.File;
+
+        specialinvoke $r7.<java.io.File: void <init>(java.io.File,java.lang.String)>($r1, "journal");
+
+        $z0 = virtualinvoke $r7.<java.io.File: boolean exists()>();
+
+        if $z0 == 0 goto label1;
+
+        virtualinvoke $r2.<java.io.File: boolean delete()>();
+
+        goto label2;
+
+     label1:
+        $z0 = virtualinvoke $r2.<java.io.File: boolean renameTo(java.io.File)>($r7);
+
+        if $z0 != 0 goto label2;
+
+        $r8 = new java.io.IOException;
+
+        specialinvoke $r8.<java.io.IOException: void <init>()>();
+
+        throw $r8;
+
+     label2:
+        $r9 = new o.FileExtension;
+
+        $r0 = $r9;
+
+        specialinvoke $r9.<o.FileExtension: void <init>(java.io.File,int,int,long)>($r1, 1, 1, $l0);
+
+        $r2 = $r9.<o.FileExtension: java.io.File AudioAttributesImplApi26Parcelizer>;
+
+        $z0 = virtualinvoke $r2.<java.io.File: boolean exists()>();
+
+        if $z0 == 0 goto label6;
+
+     label3:
+        specialinvoke $r9.<o.FileExtension: void AudioAttributesCompatParcelizer()>();
+
+        specialinvoke $r9.<o.FileExtension: void RemoteActionCompatParcelizer()>();
+
+     label4:
+        return $r9;
+
+     label5:
+        $r4 := @caughtexception;
+
+        $r5 = <java.lang.System: java.io.PrintStream out>;
+
+        $r10 = new java.lang.StringBuilder;
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("DiskLruCache ");
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r1);
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" is corrupt: ");
+
+        $r6 = virtualinvoke $r4.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", removing");
+
+        $r6 = virtualinvoke $r10.<java.lang.Object: java.lang.String toString()>();
+
+        virtualinvoke $r5.<java.io.PrintStream: void println(java.lang.String)>($r6);
+
+        virtualinvoke $r0.<o.FileExtension: void close()>();
+
+        $r2 = $r0.<o.FileExtension: java.io.File AudioAttributesCompatParcelizer>;
+
+        staticinvoke <o.ShapeTrimPath$Type: void RemoteActionCompatParcelizer(java.io.File)>($r2);
+
+     label6:
+        virtualinvoke $r1.<java.io.File: boolean mkdirs()>();
+
+        $r9 = new o.FileExtension;
+
+        specialinvoke $r9.<o.FileExtension: void <init>(java.io.File,int,int,long)>($r1, 1, 1, $l0);
+
+        virtualinvoke $r9.<o.FileExtension: void read()>();
+
+        return $r9;
+
+     label7:
+        $r11 = new java.lang.IllegalArgumentException;
+
+        specialinvoke $r11.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>("maxSize <= 0");
+
+        throw $r11;
+
+        catch java.io.IOException from label3 to label4 with label5;
+    }

@@ -1,0 +1,112 @@
+    public void d(java.lang.String, java.io.File) throws java.lang.Exception
+    {
+        java.lang.Throwable $r8, $r9, $r10, $r11;
+        byte[] $r1;
+        com.google.api.services.drive.Drive $r4;
+        com.google.api.services.drive.Drive$Files $r5;
+        java.io.FileOutputStream $r12;
+        e.a.g.j r0;
+        java.io.File $r3;
+        com.google.api.services.drive.Drive$Files$Get $r6;
+        int $i0;
+        java.lang.String $r2;
+        java.io.InputStream $r7;
+
+        r0 := @this: e.a.g.j;
+
+        $r2 := @parameter0: java.lang.String;
+
+        $r3 := @parameter1: java.io.File;
+
+        $r4 = r0.<e.a.g.j: com.google.api.services.drive.Drive a>;
+
+        $r5 = virtualinvoke $r4.<com.google.api.services.drive.Drive: com.google.api.services.drive.Drive$Files files()>();
+
+        $r6 = virtualinvoke $r5.<com.google.api.services.drive.Drive$Files: com.google.api.services.drive.Drive$Files$Get get(java.lang.String)>($r2);
+
+        $r7 = virtualinvoke $r6.<com.google.api.services.drive.Drive$Files$Get: java.io.InputStream executeMediaAsInputStream()>();
+
+     label01:
+        $r12 = new java.io.FileOutputStream;
+
+     label02:
+        specialinvoke $r12.<java.io.FileOutputStream: void <init>(java.io.File)>($r3);
+
+     label03:
+        $r1 = newarray (byte)[4096];
+
+     label04:
+        $i0 = virtualinvoke $r7.<java.io.InputStream: int read(byte[],int,int)>($r1, 0, 4096);
+
+     label05:
+        if $i0 == -1 goto label08;
+
+     label06:
+        virtualinvoke $r12.<java.io.FileOutputStream: void write(byte[],int,int)>($r1, 0, $i0);
+
+     label07:
+        goto label04;
+
+     label08:
+        virtualinvoke $r12.<java.io.FileOutputStream: void flush()>();
+
+     label09:
+        virtualinvoke $r12.<java.io.FileOutputStream: void close()>();
+
+     label10:
+        if $r7 == null goto label22;
+
+        virtualinvoke $r7.<java.io.InputStream: void close()>();
+
+        return;
+
+     label11:
+        $r8 := @caughtexception;
+
+     label12:
+        virtualinvoke $r12.<java.io.FileOutputStream: void close()>();
+
+     label13:
+        goto label16;
+
+     label14:
+        $r9 := @caughtexception;
+
+     label15:
+        virtualinvoke $r8.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r9);
+
+     label16:
+        throw $r8;
+
+     label17:
+        $r10 := @caughtexception;
+
+        if $r7 == null goto label21;
+
+     label18:
+        virtualinvoke $r7.<java.io.InputStream: void close()>();
+
+     label19:
+        goto label21;
+
+     label20:
+        $r11 := @caughtexception;
+
+        virtualinvoke $r10.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r11);
+
+     label21:
+        throw $r10;
+
+     label22:
+        return;
+
+        catch java.lang.Throwable from label01 to label02 with label17;
+        catch java.lang.Throwable from label02 to label03 with label17;
+        catch java.lang.Throwable from label04 to label05 with label11;
+        catch java.lang.Throwable from label06 to label07 with label11;
+        catch java.lang.Throwable from label08 to label09 with label11;
+        catch java.lang.Throwable from label09 to label10 with label17;
+        catch java.lang.Throwable from label12 to label13 with label14;
+        catch java.lang.Throwable from label15 to label17 with label17;
+        catch java.lang.Throwable from label18 to label19 with label20;
+    }

@@ -1,0 +1,238 @@
+    public static android.graphics.Bitmap b(android.content.Context, java.lang.String)
+    {
+        java.net.HttpURLConnection $r6;
+        java.lang.Throwable $r16;
+        android.content.Context $r3;
+        byte[] $r12;
+        java.io.BufferedInputStream $r1;
+        java.net.URL $r4;
+        l.a.p.k$a $r17;
+        java.io.BufferedOutputStream $r2;
+        java.net.URLConnection $r5;
+        int $i0;
+        java.lang.String $r0, $r13;
+        boolean $z0;
+        java.io.FileOutputStream $r11;
+        java.io.File $r9, $r10, $r15;
+        java.lang.Exception $r18;
+        android.graphics.Bitmap $r14;
+        java.io.InputStream $r7, $r8;
+
+        $r3 := @parameter0: android.content.Context;
+
+        $r0 := @parameter1: java.lang.String;
+
+        $r4 = new java.net.URL;
+
+     label01:
+        specialinvoke $r4.<java.net.URL: void <init>(java.lang.String)>($r0);
+
+        $r5 = virtualinvoke $r4.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r6 = (java.net.HttpURLConnection) $r5;
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setConnectTimeout(int)>(20000);
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setReadTimeout(int)>(20000);
+
+        $i0 = virtualinvoke $r6.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label02:
+        if $i0 == 200 goto label03;
+
+        return null;
+
+     label03:
+        $r7 = virtualinvoke $r6.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+     label04:
+        $r8 = $r7;
+
+     label05:
+        $z0 = staticinvoke <l.a.p.c: boolean c()>();
+
+     label06:
+        if $z0 == 0 goto label31;
+
+     label07:
+        $r9 = staticinvoke <l.a.p.c: java.io.File e(android.content.Context)>($r3);
+
+     label08:
+        $r10 = $r9;
+
+        if $r9 == null goto label26;
+
+     label09:
+        $r11 = new java.io.FileOutputStream;
+
+        specialinvoke $r11.<java.io.FileOutputStream: void <init>(java.io.File)>($r9);
+
+     label10:
+        $r1 = new java.io.BufferedInputStream;
+
+        specialinvoke $r1.<java.io.BufferedInputStream: void <init>(java.io.InputStream,int)>($r7, 8192);
+
+        $r2 = new java.io.BufferedOutputStream;
+
+        specialinvoke $r2.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream,int)>($r11, 8192);
+
+     label11:
+        $r12 = newarray (byte)[8192];
+
+     label12:
+        $i0 = virtualinvoke $r1.<java.io.BufferedInputStream: int read(byte[])>($r12);
+
+     label13:
+        if $i0 <= 0 goto label16;
+
+     label14:
+        virtualinvoke $r2.<java.io.BufferedOutputStream: void write(byte[],int,int)>($r12, 0, $i0);
+
+     label15:
+        goto label12;
+
+     label16:
+        virtualinvoke $r2.<java.io.BufferedOutputStream: void flush()>();
+
+        virtualinvoke $r11.<java.io.FileOutputStream: void close()>();
+
+        virtualinvoke $r7.<java.io.InputStream: void close()>();
+
+     label17:
+        $r13 = virtualinvoke $r9.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $r14 = staticinvoke <l.a.p.b: android.graphics.Bitmap b(java.lang.String)>($r13);
+
+     label18:
+        if $r14 == null goto label20;
+
+     label19:
+        $r15 = staticinvoke <l.a.p.c: java.io.File b(android.content.Context,java.lang.String)>($r3, $r0);
+
+        virtualinvoke $r9.<java.io.File: boolean renameTo(java.io.File)>($r15);
+
+     label20:
+        if $r9 == null goto label44;
+
+     label21:
+        virtualinvoke $r9.<java.io.File: boolean delete()>();
+
+     label22:
+        return $r14;
+
+     label23:
+        $r16 := @caughtexception;
+
+        $r8 = null;
+
+        $r11 = null;
+
+        goto label36;
+
+     label24:
+        $r16 := @caughtexception;
+
+        goto label36;
+
+     label25:
+        $r16 := @caughtexception;
+
+        $r11 = null;
+
+        goto label36;
+
+     label26:
+        if $r7 == null goto label28;
+
+     label27:
+        virtualinvoke $r7.<java.io.InputStream: void close()>();
+
+     label28:
+        if $r9 == null goto label45;
+
+     label29:
+        virtualinvoke $r9.<java.io.File: boolean delete()>();
+
+     label30:
+        return null;
+
+     label31:
+        $r17 = new l.a.p.k$a;
+
+        specialinvoke $r17.<l.a.p.k$a: void <init>(java.io.InputStream)>($r7);
+
+        $r14 = staticinvoke <android.graphics.BitmapFactory: android.graphics.Bitmap decodeStream(java.io.InputStream)>($r17);
+
+     label32:
+        if $r7 == null goto label46;
+
+     label33:
+        virtualinvoke $r7.<java.io.InputStream: void close()>();
+
+     label34:
+        return $r14;
+
+     label35:
+        $r16 := @caughtexception;
+
+        $r10 = null;
+
+        $r11 = null;
+
+     label36:
+        if $r8 == null goto label38;
+
+     label37:
+        virtualinvoke $r8.<java.io.InputStream: void close()>();
+
+     label38:
+        if $r11 == null goto label40;
+
+     label39:
+        virtualinvoke $r11.<java.io.FileOutputStream: void close()>();
+
+     label40:
+        if $r10 == null goto label42;
+
+     label41:
+        virtualinvoke $r10.<java.io.File: boolean delete()>();
+
+     label42:
+        throw $r16;
+
+     label43:
+        $r18 := @caughtexception;
+
+        virtualinvoke $r18.<java.lang.Exception: void printStackTrace()>();
+
+        return null;
+
+     label44:
+        return $r14;
+
+     label45:
+        return null;
+
+     label46:
+        return $r14;
+
+        catch java.lang.Exception from label01 to label02 with label43;
+        catch java.lang.Exception from label03 to label04 with label43;
+        catch java.lang.Throwable from label05 to label06 with label35;
+        catch java.lang.Throwable from label07 to label08 with label35;
+        catch java.lang.Throwable from label09 to label10 with label25;
+        catch java.lang.Throwable from label10 to label11 with label24;
+        catch java.lang.Throwable from label12 to label13 with label24;
+        catch java.lang.Throwable from label14 to label15 with label24;
+        catch java.lang.Throwable from label16 to label17 with label24;
+        catch java.lang.Throwable from label17 to label18 with label23;
+        catch java.lang.Throwable from label19 to label20 with label23;
+        catch java.lang.Exception from label21 to label22 with label43;
+        catch java.lang.Exception from label27 to label28 with label43;
+        catch java.lang.Exception from label29 to label30 with label43;
+        catch java.lang.Throwable from label31 to label32 with label35;
+        catch java.lang.Exception from label33 to label34 with label43;
+        catch java.lang.Exception from label37 to label38 with label43;
+        catch java.lang.Exception from label39 to label40 with label43;
+        catch java.lang.Exception from label41 to label43 with label43;
+    }

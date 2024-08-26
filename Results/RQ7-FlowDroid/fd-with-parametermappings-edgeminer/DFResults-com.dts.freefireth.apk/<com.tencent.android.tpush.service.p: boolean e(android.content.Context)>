@@ -1,0 +1,90 @@
+    private static boolean e(android.content.Context)
+    {
+        android.content.Context $r0;
+        long $l0;
+        byte $b1;
+        int $i2;
+        java.lang.StringBuilder $r1, $r5;
+        java.lang.String $r2, $r3, $r4;
+        boolean $z0;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $l0 = staticinvoke <com.tencent.bigdata.baseapi.XGApiConfig: long getFreeVersionAccessId(android.content.Context)>($r0);
+
+        $b1 = $l0 cmp 0L;
+
+        $i2 = (int) $b1;
+
+        if $i2 >= 0 goto label1;
+
+        return 0;
+
+     label1:
+        $z0 = <com.tencent.android.tpush.service.p: boolean e>;
+
+        if $z0 == 0 goto label2;
+
+        staticinvoke <com.tencent.android.tpush.logging.TLogger: void d(java.lang.String,java.lang.String)>("PushServiceNetworkHandler", "isNeedGetFreeVersionInfo-> hasSucessGetFreeVersionInfo");
+
+        return 0;
+
+     label2:
+        $i2 = staticinvoke <com.tencent.android.tpush.service.util.SharePrefsUtil: int getInt(android.content.Context,java.lang.String,int)>($r0, "freeinfo.succ.count", 0);
+
+        $r5 = new java.lang.StringBuilder;
+
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>()>();
+
+        $r1 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("isNeedGetFreeVersionInfo-> succsssCount:");
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i2);
+
+        $r2 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.tencent.android.tpush.logging.TLogger: void d(java.lang.String,java.lang.String)>("PushServiceNetworkHandler", $r2);
+
+        if $i2 < 7 goto label3;
+
+        <com.tencent.android.tpush.service.p: boolean e> = 1;
+
+        return 0;
+
+     label3:
+        $r2 = staticinvoke <com.tencent.android.tpush.service.util.SharePrefsUtil: java.lang.String getString(android.content.Context,java.lang.String,java.lang.String)>($r0, "freeinfo.last.succ.date", "");
+
+        $l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $r3 = staticinvoke <com.tencent.android.tpush.common.l: java.lang.String a(long)>($l0);
+
+        $r5 = new java.lang.StringBuilder;
+
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>()>();
+
+        $r1 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("isNeedGetFreeVersionInfo-> lastSuccessDate:");
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("tody:");
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r4 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.tencent.android.tpush.logging.TLogger: void d(java.lang.String,java.lang.String)>("PushServiceNetworkHandler", $r4);
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r2);
+
+        if $z0 != 0 goto label4;
+
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean equals(java.lang.Object)>($r2);
+
+        if $z0 == 0 goto label4;
+
+        <com.tencent.android.tpush.service.p: boolean e> = 1;
+
+        return 0;
+
+     label4:
+        return 1;
+    }

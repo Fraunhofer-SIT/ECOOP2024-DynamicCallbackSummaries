@@ -1,0 +1,81 @@
+    private void verifyScopes(android.app.Activity)
+    {
+        com.beetalk.sdk.vk.VKAuthHelper r0;
+        java.lang.Object[] $r3;
+        java.lang.String[] $r4;
+        java.lang.NullPointerException r2;
+        com.beetalk.sdk.vk.VKAuthHelper$OnAuthResultListener $r7;
+        com.vk.sdk.VKAccessToken $r6;
+        java.lang.String $r5;
+        android.app.Activity $r1;
+        boolean z0, $z1;
+
+        r0 := @this: com.beetalk.sdk.vk.VKAuthHelper;
+
+        $r1 := @parameter0: android.app.Activity;
+
+        z0 = 1;
+
+        $r3 = newarray (java.lang.Object)[1];
+
+        $r4 = <com.beetalk.sdk.vk.VKAuthHelper: java.lang.String[] SCOPE>;
+
+        $r5 = staticinvoke <java.util.Arrays: java.lang.String toString(java.lang.Object[])>($r4);
+
+        $r3[0] = $r5;
+
+        staticinvoke <com.beetalk.sdk.helper.BBLogger: void d(java.lang.String,java.lang.Object[])>("vk verifying scopes: %s", $r3);
+
+        $r6 = staticinvoke <com.vk.sdk.VKAccessToken: com.vk.sdk.VKAccessToken currentToken()>();
+
+        if $r6 == null goto label4;
+
+        $r4 = <com.beetalk.sdk.vk.VKAuthHelper: java.lang.String[] SCOPE>;
+
+     label1:
+        $z1 = virtualinvoke $r6.<com.vk.sdk.VKAccessToken: boolean hasScope(java.lang.String[])>($r4);
+
+     label2:
+        if $z1 == 0 goto label4;
+
+     label3:
+        if z0 == 0 goto label6;
+
+        $r3 = newarray (java.lang.Object)[0];
+
+        staticinvoke <com.beetalk.sdk.helper.BBLogger: void d(java.lang.String,java.lang.Object[])>("vk scopes verified", $r3);
+
+        $r7 = r0.<com.beetalk.sdk.vk.VKAuthHelper: com.beetalk.sdk.vk.VKAuthHelper$OnAuthResultListener mAuthListener>;
+
+        if $r7 == null goto label7;
+
+        $r7 = r0.<com.beetalk.sdk.vk.VKAuthHelper: com.beetalk.sdk.vk.VKAuthHelper$OnAuthResultListener mAuthListener>;
+
+        interfaceinvoke $r7.<com.beetalk.sdk.vk.VKAuthHelper$OnAuthResultListener: void onLoggedIn()>();
+
+        return;
+
+     label4:
+        z0 = 0;
+
+        goto label3;
+
+     label5:
+        r2 := @caughtexception;
+
+        z0 = 0;
+
+        goto label3;
+
+     label6:
+        $r3 = newarray (java.lang.Object)[0];
+
+        staticinvoke <com.beetalk.sdk.helper.BBLogger: void d(java.lang.String,java.lang.Object[])>("vk scopes verification failed", $r3);
+
+        specialinvoke r0.<com.beetalk.sdk.vk.VKAuthHelper: void startLogin(android.app.Activity)>($r1);
+
+     label7:
+        return;
+
+        catch java.lang.NullPointerException from label1 to label2 with label5;
+    }

@@ -1,0 +1,278 @@
+    public final com.appsflyer.internal.bm valueOf(com.appsflyer.internal.v) throws java.io.IOException
+    {
+        java.net.HttpURLConnection $r6;
+        java.lang.Throwable $r14, $r16;
+        byte[] $r4;
+        java.net.URL $r18;
+        com.appsflyer.internal.v $r1;
+        java.io.BufferedOutputStream $r19;
+        java.net.URLConnection $r5;
+        java.util.Map $r7;
+        int $i0, $i1;
+        java.lang.String $r3, $r12, $r15;
+        boolean $z0;
+        java.io.OutputStream $r13;
+        java.util.Map$Entry $r11;
+        java.util.Iterator $r9;
+        java.util.Set $r8;
+        com.appsflyer.internal.bm $r20;
+        com.appsflyer.internal.bj r0;
+        java.lang.Object $r2, $r10;
+        java.lang.StringBuilder $r17;
+
+        r0 := @this: com.appsflyer.internal.bj;
+
+        $r1 := @parameter0: com.appsflyer.internal.v;
+
+        $r2 = null;
+
+     label01:
+        $r17 = new java.lang.StringBuilder;
+
+     label02:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>(java.lang.String)>("HTTP: url: ");
+
+        $r3 = $r1.<com.appsflyer.internal.v: java.lang.String AFKeystoreWrapper>;
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r17.<java.lang.Object: java.lang.String toString()>();
+
+        staticinvoke <com.appsflyer.AFLogger: void AFInAppEventType(java.lang.String)>($r3);
+
+        $r4 = $r1.<com.appsflyer.internal.v: byte[] AFInAppEventType>;
+
+     label03:
+        if $r4 == null goto label07;
+
+     label04:
+        $r17 = new java.lang.StringBuilder;
+
+     label05:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>(java.lang.String)>("HTTP: data: ");
+
+        $r12 = new java.lang.String;
+
+     label06:
+        $r4 = $r1.<com.appsflyer.internal.v: byte[] AFInAppEventType>;
+
+        specialinvoke $r12.<java.lang.String: void <init>(byte[])>($r4);
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r12);
+
+        $r3 = virtualinvoke $r17.<java.lang.Object: java.lang.String toString()>();
+
+        staticinvoke <com.appsflyer.AFLogger: void AFInAppEventType(java.lang.String)>($r3);
+
+     label07:
+        $r18 = new java.net.URL;
+
+     label08:
+        $r3 = $r1.<com.appsflyer.internal.v: java.lang.String AFKeystoreWrapper>;
+
+        specialinvoke $r18.<java.net.URL: void <init>(java.lang.String)>($r3);
+
+        $r5 = virtualinvoke $r18.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r6 = (java.net.HttpURLConnection) $r5;
+
+     label09:
+        $r3 = $r1.<com.appsflyer.internal.v: java.lang.String valueOf>;
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>($r3);
+
+        $i0 = r0.<com.appsflyer.internal.bj: int AFInAppEventType>;
+
+        virtualinvoke $r6.<java.net.URLConnection: void setConnectTimeout(int)>($i0);
+
+        $i0 = r0.<com.appsflyer.internal.bj: int AFInAppEventType>;
+
+        virtualinvoke $r6.<java.net.URLConnection: void setReadTimeout(int)>($i0);
+
+        virtualinvoke $r6.<java.net.URLConnection: void addRequestProperty(java.lang.String,java.lang.String)>("Content-Type", "application/json");
+
+        $r7 = $r1.<com.appsflyer.internal.v: java.util.Map values>;
+
+        $r8 = interfaceinvoke $r7.<java.util.Map: java.util.Set entrySet()>();
+
+        $r9 = interfaceinvoke $r8.<java.util.Set: java.util.Iterator iterator()>();
+
+     label10:
+        $z0 = interfaceinvoke $r9.<java.util.Iterator: boolean hasNext()>();
+
+     label11:
+        if $z0 == 0 goto label14;
+
+     label12:
+        $r10 = interfaceinvoke $r9.<java.util.Iterator: java.lang.Object next()>();
+
+        $r11 = (java.util.Map$Entry) $r10;
+
+        $r10 = interfaceinvoke $r11.<java.util.Map$Entry: java.lang.Object getKey()>();
+
+        $r3 = (java.lang.String) $r10;
+
+        $r10 = interfaceinvoke $r11.<java.util.Map$Entry: java.lang.Object getValue()>();
+
+        $r12 = (java.lang.String) $r10;
+
+        virtualinvoke $r6.<java.net.URLConnection: void setRequestProperty(java.lang.String,java.lang.String)>($r3, $r12);
+
+     label13:
+        goto label10;
+
+     label14:
+        $r4 = $r1.<com.appsflyer.internal.v: byte[] AFInAppEventType>;
+
+     label15:
+        $z0 = 1;
+
+        if $r4 == null goto label28;
+
+     label16:
+        virtualinvoke $r6.<java.net.URLConnection: void setDoOutput(boolean)>(1);
+
+        $r17 = new java.lang.StringBuilder;
+
+     label17:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>()>();
+
+        $i0 = lengthof $r4;
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r3 = virtualinvoke $r17.<java.lang.Object: java.lang.String toString()>();
+
+        virtualinvoke $r6.<java.net.URLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Length", $r3);
+
+     label18:
+        $r19 = new java.io.BufferedOutputStream;
+
+     label19:
+        $r13 = virtualinvoke $r6.<java.net.URLConnection: java.io.OutputStream getOutputStream()>();
+
+        specialinvoke $r19.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r13);
+
+     label20:
+        virtualinvoke $r19.<java.io.OutputStream: void write(byte[])>($r4);
+
+     label21:
+        virtualinvoke $r19.<java.io.OutputStream: void close()>();
+
+     label22:
+        goto label28;
+
+     label23:
+        $r14 := @caughtexception;
+
+        $r2 = $r19;
+
+        goto label25;
+
+     label24:
+        $r14 := @caughtexception;
+
+     label25:
+        if $r2 == null goto label27;
+
+     label26:
+        $r13 = (java.io.OutputStream) $r2;
+
+        virtualinvoke $r13.<java.io.OutputStream: void close()>();
+
+     label27:
+        throw $r14;
+
+     label28:
+        $i0 = virtualinvoke $r6.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label29:
+        $i1 = $i0 / 100;
+
+        if $i1 == 2 goto label30;
+
+        $z0 = 0;
+
+     label30:
+        $r3 = staticinvoke <com.appsflyer.internal.bj: java.lang.String valueOf(java.net.HttpURLConnection,boolean)>($r6, $z0);
+
+        $r17 = new java.lang.StringBuilder;
+
+     label31:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>(java.lang.String)>("HTTP: response code: ");
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $r12 = virtualinvoke $r6.<java.net.HttpURLConnection: java.lang.String getResponseMessage()>();
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r12);
+
+        $r12 = virtualinvoke $r17.<java.lang.Object: java.lang.String toString()>();
+
+        staticinvoke <com.appsflyer.AFLogger: void AFInAppEventType(java.lang.String)>($r12);
+
+     label32:
+        $r12 = "HTTP: response body: ";
+
+     label33:
+        $r15 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r3);
+
+        $r12 = virtualinvoke $r12.<java.lang.String: java.lang.String concat(java.lang.String)>($r15);
+
+        staticinvoke <com.appsflyer.AFLogger: void AFInAppEventType(java.lang.String)>($r12);
+
+        $r20 = new com.appsflyer.internal.bm;
+
+     label34:
+        $i0 = virtualinvoke $r6.<java.net.HttpURLConnection: int getResponseCode()>();
+
+        specialinvoke $r20.<com.appsflyer.internal.bm: void <init>(java.lang.Object,int,boolean)>($r3, $i0, $z0);
+
+     label35:
+        virtualinvoke $r6.<java.net.HttpURLConnection: void disconnect()>();
+
+        return $r20;
+
+     label36:
+        $r16 := @caughtexception;
+
+        $r2 = $r6;
+
+        goto label38;
+
+     label37:
+        $r16 := @caughtexception;
+
+     label38:
+        if $r2 == null goto label39;
+
+        $r6 = (java.net.HttpURLConnection) $r2;
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void disconnect()>();
+
+     label39:
+        throw $r16;
+
+        catch java.lang.Throwable from label01 to label02 with label37;
+        catch java.lang.Throwable from label02 to label03 with label37;
+        catch java.lang.Throwable from label04 to label05 with label37;
+        catch java.lang.Throwable from label05 to label06 with label37;
+        catch java.lang.Throwable from label06 to label08 with label37;
+        catch java.lang.Throwable from label08 to label09 with label37;
+        catch java.lang.Throwable from label09 to label11 with label36;
+        catch java.lang.Throwable from label12 to label13 with label36;
+        catch java.lang.Throwable from label14 to label15 with label36;
+        catch java.lang.Throwable from label16 to label17 with label36;
+        catch java.lang.Throwable from label17 to label18 with label36;
+        catch java.lang.Throwable from label18 to label19 with label24;
+        catch java.lang.Throwable from label19 to label20 with label24;
+        catch java.lang.Throwable from label20 to label21 with label23;
+        catch java.lang.Throwable from label21 to label22 with label36;
+        catch java.lang.Throwable from label26 to label29 with label36;
+        catch java.lang.Throwable from label30 to label31 with label36;
+        catch java.lang.Throwable from label31 to label32 with label36;
+        catch java.lang.Throwable from label33 to label34 with label36;
+        catch java.lang.Throwable from label34 to label35 with label36;
+    }

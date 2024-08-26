@@ -1,0 +1,83 @@
+    static byte[] readFile(java.io.File)
+    {
+        java.lang.Throwable $r1, $r2, $r3, $r4, $r8;
+        byte[] $r0;
+        java.io.FileInputStream $r6, $r7;
+        java.io.File $r5;
+
+        $r5 := @parameter0: java.io.File;
+
+        $r6 = null;
+
+     label01:
+        $r7 = new java.io.FileInputStream;
+
+     label02:
+        specialinvoke $r7.<java.io.FileInputStream: void <init>(java.io.File)>($r5);
+
+     label03:
+        $r0 = staticinvoke <com.crashlytics.android.core.NativeFileUtils: byte[] readBytes(java.io.InputStream)>($r7);
+
+     label04:
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void closeQuietly(java.io.Closeable)>($r7);
+
+        return $r0;
+
+     label05:
+        $r8 := @caughtexception;
+
+        $r6 = $r7;
+
+        goto label07;
+
+     label06:
+        $r8 := @caughtexception;
+
+     label07:
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void closeQuietly(java.io.Closeable)>($r6);
+
+        throw $r8;
+
+     label08:
+        $r7 = null;
+
+     label09:
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void closeQuietly(java.io.Closeable)>($r7);
+
+        return null;
+
+     label10:
+        $r7 = null;
+
+     label11:
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void closeQuietly(java.io.Closeable)>($r7);
+
+        return null;
+
+     label12:
+        $r1 := @caughtexception;
+
+        goto label10;
+
+     label13:
+        $r2 := @caughtexception;
+
+        goto label08;
+
+     label14:
+        $r3 := @caughtexception;
+
+        goto label11;
+
+     label15:
+        $r4 := @caughtexception;
+
+        goto label09;
+
+        catch java.io.FileNotFoundException from label02 to label03 with label12;
+        catch java.io.IOException from label02 to label03 with label13;
+        catch java.lang.Throwable from label01 to label03 with label06;
+        catch java.io.FileNotFoundException from label03 to label04 with label14;
+        catch java.io.IOException from label03 to label04 with label15;
+        catch java.lang.Throwable from label03 to label04 with label05;
+    }

@@ -1,0 +1,117 @@
+    public static java.lang.String a(java.lang.String, java.lang.String)
+    {
+        java.net.HttpURLConnection $r4;
+        java.io.OutputStream $r5;
+        java.lang.Throwable $r8;
+        java.lang.Object[] $r3;
+        long $l0, $l1;
+        java.io.IOException $r9;
+        java.lang.StringBuilder $r7;
+        java.lang.String $r0, $r1, $r2;
+        java.io.InputStream $r6;
+        double $d0;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r1 := @parameter1: java.lang.String;
+
+     label1:
+        $r2 = staticinvoke <com.kochava.base.ab: java.lang.String f()>();
+
+        $r3 = newarray (java.lang.Object)[5];
+
+        $r3[0] = "SEND>";
+
+        $r3[1] = $r2;
+
+        $r3[2] = $r0;
+
+        $r3[3] = $r1;
+
+        $r3[4] = "<SEND";
+
+        staticinvoke <com.kochava.base.Tracker: void a(int,java.lang.String,java.lang.String,java.lang.Object[])>(4, "UTL", "httpPost", $r3);
+
+        $l0 = staticinvoke <com.kochava.base.ab: long b()>();
+
+        $r4 = staticinvoke <com.kochava.base.ab: java.net.HttpURLConnection a(java.lang.String,java.lang.String,java.lang.String,boolean)>($r0, "POST", $r2, 1);
+
+        virtualinvoke $r4.<java.net.HttpURLConnection: void connect()>();
+
+        $r5 = virtualinvoke $r4.<java.net.HttpURLConnection: java.io.OutputStream getOutputStream()>();
+
+        staticinvoke <com.kochava.base.ab: void a(java.io.OutputStream,java.lang.String)>($r5, $r1);
+
+        $r6 = virtualinvoke $r4.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+        $r1 = staticinvoke <com.kochava.base.ab: java.lang.String a(java.io.InputStream,boolean)>($r6, 1);
+
+        virtualinvoke $r4.<java.net.HttpURLConnection: void disconnect()>();
+
+        $r3 = newarray (java.lang.Object)[5];
+
+        $r3[0] = "RECEIVE>";
+
+        $r3[1] = $r2;
+
+        $r3[2] = $r0;
+
+        $r3[3] = $r1;
+
+        $r3[4] = "<RECEIVE";
+
+        staticinvoke <com.kochava.base.Tracker: void a(int,java.lang.String,java.lang.String,java.lang.Object[])>(4, "UTL", "httpPost", $r3);
+
+        $r3 = newarray (java.lang.Object)[1];
+
+        $r7 = new java.lang.StringBuilder;
+
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Post Duration: ");
+
+        $l1 = staticinvoke <com.kochava.base.ab: long b()>();
+
+     label2:
+        $l0 = $l1 - $l0;
+
+        $d0 = (double) $l0;
+
+        $d0 = $d0 / 1000.0;
+
+     label3:
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(double)>($d0);
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("s to URL: ");
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r0 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r3[0] = $r0;
+
+        staticinvoke <com.kochava.base.Tracker: void a(int,java.lang.String,java.lang.String,java.lang.Object[])>(5, "UTL", "httpPost", $r3);
+
+     label4:
+        return $r1;
+
+     label5:
+        $r8 := @caughtexception;
+
+        $r3 = newarray (java.lang.Object)[1];
+
+        $r3[0] = $r8;
+
+        staticinvoke <com.kochava.base.Tracker: void a(int,java.lang.String,java.lang.String,java.lang.Object[])>(4, "UTL", "httpPost", $r3);
+
+        $r9 = new java.io.IOException;
+
+        $r0 = virtualinvoke $r8.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        specialinvoke $r9.<java.io.IOException: void <init>(java.lang.String)>($r0);
+
+        throw $r9;
+
+        catch java.lang.Throwable from label1 to label2 with label5;
+        catch java.lang.Throwable from label3 to label4 with label5;
+    }

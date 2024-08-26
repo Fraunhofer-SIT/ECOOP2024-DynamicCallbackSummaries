@@ -1,0 +1,66 @@
+    private static void \u0971(java.util.concurrent.ScheduledExecutorService, java.lang.Runnable, long, java.util.concurrent.TimeUnit)
+    {
+        java.util.concurrent.TimeUnit $r0;
+        java.lang.Throwable $r3, $r4;
+        java.util.concurrent.ScheduledExecutorService $r1;
+        long $l0;
+        java.lang.Runnable $r2;
+        boolean $z0;
+
+        $r1 := @parameter0: java.util.concurrent.ScheduledExecutorService;
+
+        $r2 := @parameter1: java.lang.Runnable;
+
+        $l0 := @parameter2: long;
+
+        $r0 := @parameter3: java.util.concurrent.TimeUnit;
+
+        if $r1 == null goto label07;
+
+     label01:
+        $z0 = interfaceinvoke $r1.<java.util.concurrent.ScheduledExecutorService: boolean isShutdown()>();
+
+     label02:
+        if $z0 != 0 goto label07;
+
+     label03:
+        $z0 = interfaceinvoke $r1.<java.util.concurrent.ScheduledExecutorService: boolean isTerminated()>();
+
+     label04:
+        if $z0 != 0 goto label07;
+
+     label05:
+        interfaceinvoke $r1.<java.util.concurrent.ScheduledExecutorService: java.util.concurrent.ScheduledFuture schedule(java.lang.Runnable,long,java.util.concurrent.TimeUnit)>($r2, $l0, $r0);
+
+     label06:
+        return;
+
+     label07:
+        staticinvoke <com.appsflyer.AFLogger: void afWarnLog(java.lang.String)>("scheduler is null, shut downed or terminated");
+
+     label08:
+        return;
+
+     label09:
+        $r3 := @caughtexception;
+
+        staticinvoke <com.appsflyer.AFLogger: void afErrorLog(java.lang.String,java.lang.Throwable)>("scheduleJob failed with Exception", $r3);
+
+        return;
+
+     label10:
+        $r4 := @caughtexception;
+
+        staticinvoke <com.appsflyer.AFLogger: void afErrorLog(java.lang.String,java.lang.Throwable)>("scheduleJob failed with RejectedExecutionException Exception", $r4);
+
+        return;
+
+        catch java.util.concurrent.RejectedExecutionException from label01 to label02 with label10;
+        catch java.util.concurrent.RejectedExecutionException from label03 to label04 with label10;
+        catch java.util.concurrent.RejectedExecutionException from label05 to label06 with label10;
+        catch java.util.concurrent.RejectedExecutionException from label07 to label08 with label10;
+        catch java.lang.Throwable from label01 to label02 with label09;
+        catch java.lang.Throwable from label03 to label04 with label09;
+        catch java.lang.Throwable from label05 to label06 with label09;
+        catch java.lang.Throwable from label07 to label08 with label09;
+    }

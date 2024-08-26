@@ -1,0 +1,44 @@
+    private void send(org.fusesource.mqtt.codec.MessageSupport$Acked, org.fusesource.mqtt.client.Callback)
+    {
+        org.fusesource.mqtt.codec.MQTTFrame $r6;
+        org.fusesource.mqtt.codec.MessageSupport$Acked $r2;
+        org.fusesource.mqtt.client.QoS $r3, $r4;
+        org.fusesource.mqtt.client.CallbackConnection r0;
+        org.fusesource.mqtt.client.Callback $r1;
+        short $s0, $s1;
+        org.fusesource.mqtt.client.CallbackConnection$Request $r5;
+
+        r0 := @this: org.fusesource.mqtt.client.CallbackConnection;
+
+        $r2 := @parameter0: org.fusesource.mqtt.codec.MessageSupport$Acked;
+
+        $r1 := @parameter1: org.fusesource.mqtt.client.Callback;
+
+        $r3 = interfaceinvoke $r2.<org.fusesource.mqtt.codec.MessageSupport$Acked: org.fusesource.mqtt.client.QoS qos()>();
+
+        $r4 = <org.fusesource.mqtt.client.QoS: org.fusesource.mqtt.client.QoS AT_MOST_ONCE>;
+
+        if $r3 == $r4 goto label1;
+
+        $s0 = specialinvoke r0.<org.fusesource.mqtt.client.CallbackConnection: short getNextMessageId()>();
+
+        $s1 = $s0;
+
+        interfaceinvoke $r2.<org.fusesource.mqtt.codec.MessageSupport$Acked: org.fusesource.mqtt.codec.MessageSupport$Acked messageId(short)>($s0);
+
+        goto label2;
+
+     label1:
+        $s1 = 0;
+
+     label2:
+        $r5 = new org.fusesource.mqtt.client.CallbackConnection$Request;
+
+        $r6 = interfaceinvoke $r2.<org.fusesource.mqtt.codec.MessageSupport$Acked: org.fusesource.mqtt.codec.MQTTFrame encode()>();
+
+        specialinvoke $r5.<org.fusesource.mqtt.client.CallbackConnection$Request: void <init>(int,org.fusesource.mqtt.codec.MQTTFrame,org.fusesource.mqtt.client.Callback)>($s1, $r6, $r1);
+
+        specialinvoke r0.<org.fusesource.mqtt.client.CallbackConnection: void send(org.fusesource.mqtt.client.CallbackConnection$Request)>($r5);
+
+        return;
+    }

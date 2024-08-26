@@ -1,0 +1,108 @@
+    private void string(java.lang.String) throws java.io.IOException
+    {
+        java.lang.String[] $r2;
+        char $c4;
+        int $i0, $i1, $i2, $i3;
+        java.io.Writer $r3;
+        java.lang.String $r1, $r4, $r5;
+        com.bugsnag.android.JsonWriter r0;
+        boolean $z0;
+
+        r0 := @this: com.bugsnag.android.JsonWriter;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $z0 = r0.<com.bugsnag.android.JsonWriter: boolean htmlSafe>;
+
+        if $z0 == 0 goto label01;
+
+        $r2 = <com.bugsnag.android.JsonWriter: java.lang.String[] HTML_SAFE_REPLACEMENT_CHARS>;
+
+        goto label02;
+
+     label01:
+        $r2 = <com.bugsnag.android.JsonWriter: java.lang.String[] REPLACEMENT_CHARS>;
+
+     label02:
+        $r3 = r0.<com.bugsnag.android.JsonWriter: java.io.Writer out>;
+
+        $r4 = staticinvoke <runtime.Strings.StringIndexer: java.lang.String b08c60020(java.lang.String)>("10853");
+
+        virtualinvoke $r3.<java.io.Writer: void write(java.lang.String)>($r4);
+
+        $i1 = virtualinvoke $r1.<java.lang.String: int length()>();
+
+        $i2 = 0;
+
+        $i3 = 0;
+
+     label03:
+        if $i2 >= $i1 goto label09;
+
+        $c4 = virtualinvoke $r1.<java.lang.String: char charAt(int)>($i2);
+
+        $i0 = (int) $c4;
+
+        if $i0 >= 128 goto label04;
+
+        $i0 = (int) $c4;
+
+        $r5 = $r2[$i0];
+
+        if $r5 != null goto label06;
+
+        goto label08;
+
+     label04:
+        $i0 = (int) $c4;
+
+        if $i0 != 8232 goto label05;
+
+        $r5 = staticinvoke <runtime.Strings.StringIndexer: java.lang.String b08c60020(java.lang.String)>("10854");
+
+        goto label06;
+
+     label05:
+        $i0 = (int) $c4;
+
+        if $i0 != 8233 goto label08;
+
+        $r5 = staticinvoke <runtime.Strings.StringIndexer: java.lang.String b08c60020(java.lang.String)>("10855");
+
+     label06:
+        if $i3 >= $i2 goto label07;
+
+        $r3 = r0.<com.bugsnag.android.JsonWriter: java.io.Writer out>;
+
+        $i0 = $i2 - $i3;
+
+        virtualinvoke $r3.<java.io.Writer: void write(java.lang.String,int,int)>($r1, $i3, $i0);
+
+     label07:
+        $r3 = r0.<com.bugsnag.android.JsonWriter: java.io.Writer out>;
+
+        virtualinvoke $r3.<java.io.Writer: void write(java.lang.String)>($r5);
+
+        $i3 = $i2 + 1;
+
+     label08:
+        $i2 = $i2 + 1;
+
+        goto label03;
+
+     label09:
+        if $i3 >= $i1 goto label10;
+
+        $r3 = r0.<com.bugsnag.android.JsonWriter: java.io.Writer out>;
+
+        $i1 = $i1 - $i3;
+
+        virtualinvoke $r3.<java.io.Writer: void write(java.lang.String,int,int)>($r1, $i3, $i1);
+
+     label10:
+        $r3 = r0.<com.bugsnag.android.JsonWriter: java.io.Writer out>;
+
+        virtualinvoke $r3.<java.io.Writer: void write(java.lang.String)>($r4);
+
+        return;
+    }

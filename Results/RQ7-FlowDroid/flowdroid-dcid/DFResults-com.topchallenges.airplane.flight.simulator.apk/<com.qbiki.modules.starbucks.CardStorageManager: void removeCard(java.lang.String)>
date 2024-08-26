@@ -1,0 +1,50 @@
+    protected void removeCard(java.lang.String)
+    {
+        com.qbiki.modules.starbucks.CardStorageManager r0;
+        java.io.FileOutputStream r2;
+        java.io.ObjectOutputStream r3;
+        java.util.HashMap $r4;
+        java.lang.String $r1;
+        java.lang.Exception $r5;
+
+        r0 := @this: com.qbiki.modules.starbucks.CardStorageManager;
+
+        $r1 := @parameter0: java.lang.String;
+
+     label1:
+        $r4 = r0.<com.qbiki.modules.starbucks.CardStorageManager: java.util.HashMap mCardsDictionary>;
+
+        virtualinvoke $r4.<java.util.HashMap: java.lang.Object remove(java.lang.Object)>($r1);
+
+     label2:
+        r2 = new java.io.FileOutputStream;
+
+     label3:
+        $r1 = r0.<com.qbiki.modules.starbucks.CardStorageManager: java.lang.String mStorePath>;
+
+        specialinvoke r2.<java.io.FileOutputStream: void <init>(java.lang.String)>($r1);
+
+     label4:
+        r3 = new java.io.ObjectOutputStream;
+
+     label5:
+        specialinvoke r3.<java.io.ObjectOutputStream: void <init>(java.io.OutputStream)>(r2);
+
+        $r4 = r0.<com.qbiki.modules.starbucks.CardStorageManager: java.util.HashMap mCardsDictionary>;
+
+        virtualinvoke r3.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>($r4);
+
+        virtualinvoke r3.<java.io.ObjectOutputStream: void close()>();
+
+     label6:
+        return;
+
+     label7:
+        $r5 := @caughtexception;
+
+        return;
+
+        catch java.lang.Exception from label1 to label2 with label7;
+        catch java.lang.Exception from label3 to label4 with label7;
+        catch java.lang.Exception from label5 to label6 with label7;
+    }

@@ -1,0 +1,253 @@
+    public void parseField(com.alibaba.fastjson.parser.DefaultJSONParser, java.lang.Object, java.lang.reflect.Type, java.util.Map)
+    {
+        com.alibaba.fastjson.parser.deserializer.ObjectDeserializer $r6;
+        java.lang.Throwable $r17;
+        byte[] $r16;
+        java.util.zip.GZIPInputStream $r20;
+        java.io.ByteArrayOutputStream $r21;
+        com.alibaba.fastjson.util.FieldInfo $r8;
+        com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer $r12;
+        com.alibaba.fastjson.parser.deserializer.ContextObjectDeserializer $r14;
+        java.io.ByteArrayInputStream $r19;
+        java.util.Map $r1;
+        int $i0;
+        java.lang.String $r2, $r15;
+        boolean $z0;
+        com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer r0;
+        com.alibaba.fastjson.JSONException $r22;
+        com.alibaba.fastjson.parser.DefaultJSONParser $r3;
+        java.lang.reflect.Type $r5, $r9;
+        java.lang.Object $r4, $r13;
+        java.lang.Class $r11;
+        com.alibaba.fastjson.parser.DefaultJSONParser$ResolveTask $r18;
+        com.alibaba.fastjson.parser.ParserConfig $r7;
+        com.alibaba.fastjson.parser.ParseContext $r10;
+
+        r0 := @this: com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer;
+
+        $r3 := @parameter0: com.alibaba.fastjson.parser.DefaultJSONParser;
+
+        $r4 := @parameter1: java.lang.Object;
+
+        $r5 := @parameter2: java.lang.reflect.Type;
+
+        $r1 := @parameter3: java.util.Map;
+
+        $r6 = r0.<com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer: com.alibaba.fastjson.parser.deserializer.ObjectDeserializer fieldValueDeserilizer>;
+
+        if $r6 != null goto label01;
+
+        $r7 = virtualinvoke $r3.<com.alibaba.fastjson.parser.DefaultJSONParser: com.alibaba.fastjson.parser.ParserConfig getConfig()>();
+
+        virtualinvoke r0.<com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer: com.alibaba.fastjson.parser.deserializer.ObjectDeserializer getFieldValueDeserilizer(com.alibaba.fastjson.parser.ParserConfig)>($r7);
+
+     label01:
+        $r6 = r0.<com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer: com.alibaba.fastjson.parser.deserializer.ObjectDeserializer fieldValueDeserilizer>;
+
+        $r8 = r0.<com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer: com.alibaba.fastjson.util.FieldInfo fieldInfo>;
+
+        $r9 = $r8.<com.alibaba.fastjson.util.FieldInfo: java.lang.reflect.Type fieldType>;
+
+        $z0 = $r5 instanceof java.lang.reflect.ParameterizedType;
+
+        if $z0 == 0 goto label03;
+
+        $r10 = virtualinvoke $r3.<com.alibaba.fastjson.parser.DefaultJSONParser: com.alibaba.fastjson.parser.ParseContext getContext()>();
+
+        if $r10 == null goto label02;
+
+        $r10.<com.alibaba.fastjson.parser.ParseContext: java.lang.reflect.Type type> = $r5;
+
+     label02:
+        if $r9 == $r5 goto label03;
+
+        $r11 = r0.<com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer: java.lang.Class clazz>;
+
+        $r5 = staticinvoke <com.alibaba.fastjson.util.FieldInfo: java.lang.reflect.Type getFieldType(java.lang.Class,java.lang.reflect.Type,java.lang.reflect.Type)>($r11, $r5, $r9);
+
+        $r9 = $r5;
+
+        $r7 = virtualinvoke $r3.<com.alibaba.fastjson.parser.DefaultJSONParser: com.alibaba.fastjson.parser.ParserConfig getConfig()>();
+
+        $r6 = virtualinvoke $r7.<com.alibaba.fastjson.parser.ParserConfig: com.alibaba.fastjson.parser.deserializer.ObjectDeserializer getDeserializer(java.lang.reflect.Type)>($r5);
+
+     label03:
+        $r5 = $r9;
+
+        $z0 = $r6 instanceof com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer;
+
+        if $z0 == 0 goto label04;
+
+        $r8 = r0.<com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer: com.alibaba.fastjson.util.FieldInfo fieldInfo>;
+
+        $i0 = $r8.<com.alibaba.fastjson.util.FieldInfo: int parserFeatures>;
+
+        if $i0 == 0 goto label04;
+
+        $r12 = (com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer) $r6;
+
+        $r8 = r0.<com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer: com.alibaba.fastjson.util.FieldInfo fieldInfo>;
+
+        $r2 = $r8.<com.alibaba.fastjson.util.FieldInfo: java.lang.String name>;
+
+        $r8 = r0.<com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer: com.alibaba.fastjson.util.FieldInfo fieldInfo>;
+
+        $i0 = $r8.<com.alibaba.fastjson.util.FieldInfo: int parserFeatures>;
+
+        $r13 = virtualinvoke $r12.<com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer: java.lang.Object deserialze(com.alibaba.fastjson.parser.DefaultJSONParser,java.lang.reflect.Type,java.lang.Object,int)>($r3, $r9, $r2, $i0);
+
+        goto label06;
+
+     label04:
+        $r8 = r0.<com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer: com.alibaba.fastjson.util.FieldInfo fieldInfo>;
+
+        $r2 = $r8.<com.alibaba.fastjson.util.FieldInfo: java.lang.String format>;
+
+        if $r2 == null goto label05;
+
+        $z0 = $r6 instanceof com.alibaba.fastjson.parser.deserializer.ContextObjectDeserializer;
+
+        if $z0 == 0 goto label05;
+
+        $r14 = (com.alibaba.fastjson.parser.deserializer.ContextObjectDeserializer) $r6;
+
+        $r8 = r0.<com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer: com.alibaba.fastjson.util.FieldInfo fieldInfo>;
+
+        $r15 = $r8.<com.alibaba.fastjson.util.FieldInfo: java.lang.String name>;
+
+        $r8 = r0.<com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer: com.alibaba.fastjson.util.FieldInfo fieldInfo>;
+
+        $r2 = $r8.<com.alibaba.fastjson.util.FieldInfo: java.lang.String format>;
+
+        $r8 = r0.<com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer: com.alibaba.fastjson.util.FieldInfo fieldInfo>;
+
+        $i0 = $r8.<com.alibaba.fastjson.util.FieldInfo: int parserFeatures>;
+
+        $r13 = virtualinvoke $r14.<com.alibaba.fastjson.parser.deserializer.ContextObjectDeserializer: java.lang.Object deserialze(com.alibaba.fastjson.parser.DefaultJSONParser,java.lang.reflect.Type,java.lang.Object,java.lang.String,int)>($r3, $r5, $r15, $r2, $i0);
+
+        goto label06;
+
+     label05:
+        $r8 = r0.<com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer: com.alibaba.fastjson.util.FieldInfo fieldInfo>;
+
+        $r2 = $r8.<com.alibaba.fastjson.util.FieldInfo: java.lang.String name>;
+
+        $r13 = interfaceinvoke $r6.<com.alibaba.fastjson.parser.deserializer.ObjectDeserializer: java.lang.Object deserialze(com.alibaba.fastjson.parser.DefaultJSONParser,java.lang.reflect.Type,java.lang.Object)>($r3, $r5, $r2);
+
+     label06:
+        $z0 = $r13 instanceof byte[];
+
+        if $z0 == 0 goto label20;
+
+        $r8 = r0.<com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer: com.alibaba.fastjson.util.FieldInfo fieldInfo>;
+
+        $r2 = $r8.<com.alibaba.fastjson.util.FieldInfo: java.lang.String format>;
+
+        $r15 = "gzip";
+
+        $z0 = virtualinvoke $r15.<java.lang.String: boolean equals(java.lang.Object)>($r2);
+
+        if $z0 != 0 goto label07;
+
+        $r8 = r0.<com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer: com.alibaba.fastjson.util.FieldInfo fieldInfo>;
+
+        $r2 = $r8.<com.alibaba.fastjson.util.FieldInfo: java.lang.String format>;
+
+        $r15 = "gzip,base64";
+
+        $z0 = virtualinvoke $r15.<java.lang.String: boolean equals(java.lang.Object)>($r2);
+
+        if $z0 == 0 goto label20;
+
+     label07:
+        $r16 = (byte[]) $r13;
+
+        $r20 = new java.util.zip.GZIPInputStream;
+
+        $r19 = new java.io.ByteArrayInputStream;
+
+     label08:
+        specialinvoke $r19.<java.io.ByteArrayInputStream: void <init>(byte[])>($r16);
+
+        specialinvoke $r20.<java.util.zip.GZIPInputStream: void <init>(java.io.InputStream)>($r19);
+
+     label09:
+        $r21 = new java.io.ByteArrayOutputStream;
+
+     label10:
+        specialinvoke $r21.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label11:
+        $r16 = newarray (byte)[1024];
+
+     label12:
+        $i0 = virtualinvoke $r20.<java.util.zip.GZIPInputStream: int read(byte[])>($r16);
+
+     label13:
+        if $i0 != -1 goto label16;
+
+     label14:
+        $r16 = virtualinvoke $r21.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label15:
+        $r13 = $r16;
+
+        goto label20;
+
+     label16:
+        if $i0 <= 0 goto label11;
+
+     label17:
+        virtualinvoke $r21.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r16, 0, $i0);
+
+     label18:
+        goto label11;
+
+     label19:
+        $r17 := @caughtexception;
+
+        $r22 = new com.alibaba.fastjson.JSONException;
+
+        specialinvoke $r22.<com.alibaba.fastjson.JSONException: void <init>(java.lang.String,java.lang.Throwable)>("unzip bytes error.", $r17);
+
+        throw $r22;
+
+     label20:
+        $i0 = virtualinvoke $r3.<com.alibaba.fastjson.parser.DefaultJSONParser: int getResolveStatus()>();
+
+        if $i0 != 1 goto label21;
+
+        $r18 = virtualinvoke $r3.<com.alibaba.fastjson.parser.DefaultJSONParser: com.alibaba.fastjson.parser.DefaultJSONParser$ResolveTask getLastResolveTask()>();
+
+        $r18.<com.alibaba.fastjson.parser.DefaultJSONParser$ResolveTask: com.alibaba.fastjson.parser.deserializer.FieldDeserializer fieldDeserializer> = r0;
+
+        $r10 = virtualinvoke $r3.<com.alibaba.fastjson.parser.DefaultJSONParser: com.alibaba.fastjson.parser.ParseContext getContext()>();
+
+        $r18.<com.alibaba.fastjson.parser.DefaultJSONParser$ResolveTask: com.alibaba.fastjson.parser.ParseContext ownerContext> = $r10;
+
+        virtualinvoke $r3.<com.alibaba.fastjson.parser.DefaultJSONParser: void setResolveStatus(int)>(0);
+
+        return;
+
+     label21:
+        if $r4 != null goto label22;
+
+        $r8 = r0.<com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer: com.alibaba.fastjson.util.FieldInfo fieldInfo>;
+
+        $r2 = $r8.<com.alibaba.fastjson.util.FieldInfo: java.lang.String name>;
+
+        interfaceinvoke $r1.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($r2, $r13);
+
+        return;
+
+     label22:
+        virtualinvoke r0.<com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer: void setValue(java.lang.Object,java.lang.Object)>($r4, $r13);
+
+        return;
+
+        catch java.io.IOException from label08 to label09 with label19;
+        catch java.io.IOException from label10 to label11 with label19;
+        catch java.io.IOException from label12 to label13 with label19;
+        catch java.io.IOException from label14 to label15 with label19;
+        catch java.io.IOException from label17 to label18 with label19;
+    }

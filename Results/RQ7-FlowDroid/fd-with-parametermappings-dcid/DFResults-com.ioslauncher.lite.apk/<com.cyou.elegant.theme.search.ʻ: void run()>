@@ -1,0 +1,329 @@
+    public final void run()
+    {
+        java.net.HttpURLConnection $r4;
+        byte[] $r10;
+        java.net.URL $r24;
+        android.support.v4.content.LocalBroadcastManager $r17;
+        com.cyou.elegant.theme.search.\u02bb r0;
+        boolean $z0;
+        com.cyou.elegant.theme.search.DownloadService $r16;
+        java.lang.Throwable $r11, $r12, $r18, $r19, $r20, $r21, $r22, $r23;
+        android.content.SharedPreferences$Editor $r14;
+        android.content.Context $r7;
+        long $l0;
+        android.content.Intent $r26;
+        java.net.URLConnection $r3;
+        int $i1;
+        java.lang.String $r2, $r15;
+        java.io.FileOutputStream $r9, $r25;
+        java.io.IOException $r28;
+        java.io.File $r8, $r27;
+        android.content.SharedPreferences $r13;
+        java.io.Closeable $r29;
+        java.lang.Object $r1, $r6;
+        java.io.InputStream $r5;
+
+        r0 := @this: com.cyou.elegant.theme.search.\u02bb;
+
+        $r1 = null;
+
+     label01:
+        $r24 = new java.net.URL;
+
+     label02:
+        $r2 = r0.<com.cyou.elegant.theme.search.\u02bb: java.lang.String \u02bd>;
+
+     label03:
+        specialinvoke $r24.<java.net.URL: void <init>(java.lang.String)>($r2);
+
+        $r3 = virtualinvoke $r24.<java.net.URL: java.net.URLConnection openConnection()>();
+
+     label04:
+        $r4 = (java.net.HttpURLConnection) $r3;
+
+     label05:
+        virtualinvoke $r4.<java.net.HttpURLConnection: void setConnectTimeout(int)>(60000);
+
+        virtualinvoke $r4.<java.net.HttpURLConnection: void setReadTimeout(int)>(30000);
+
+        virtualinvoke $r4.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("GET");
+
+        $r5 = virtualinvoke $r4.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+     label06:
+        $r6 = $r5;
+
+     label07:
+        $r2 = r0.<com.cyou.elegant.theme.search.\u02bb: java.lang.String \u02bd>;
+
+     label08:
+        $r2 = staticinvoke <com.cyou.elegant.theme.search.\u02bb.\u02c8: java.lang.String \u02bb(java.lang.String)>($r2);
+
+     label09:
+        $r7 = r0.<com.cyou.elegant.theme.search.\u02bb: android.content.Context \u02bc>;
+
+     label10:
+        $r8 = staticinvoke <com.cyou.elegant.theme.search.\u02bb.\u02c8: java.io.File \u02bb(android.content.Context,java.lang.String)>($r7, $r2);
+
+     label11:
+        $r25 = new java.io.FileOutputStream;
+
+     label12:
+        $r9 = $r25;
+
+     label13:
+        specialinvoke $r25.<java.io.FileOutputStream: void <init>(java.io.File)>($r8);
+
+     label14:
+        $r10 = newarray (byte)[8192];
+
+     label15:
+        $i1 = virtualinvoke $r5.<java.io.InputStream: int read(byte[])>($r10);
+
+     label16:
+        if $i1 == -1 goto label22;
+
+     label17:
+        virtualinvoke $r25.<java.io.FileOutputStream: void write(byte[],int,int)>($r10, 0, $i1);
+
+     label18:
+        goto label15;
+
+     label19:
+        $r11 := @caughtexception;
+
+        $r1 = $r5;
+
+        $r12 = $r11;
+
+     label20:
+        $r28 = (java.io.IOException) $r12;
+
+        virtualinvoke $r28.<java.io.IOException: void printStackTrace()>();
+
+     label21:
+        staticinvoke <com.cyou.elegant.theme.search.\u02bb.\u02cb: void \u02bb(java.net.HttpURLConnection)>($r4);
+
+        $r29 = (java.io.Closeable) $r1;
+
+        staticinvoke <com.cyou.elegant.theme.search.\u02bb.\u02c8: void \u02bb(java.io.Closeable)>($r29);
+
+        staticinvoke <com.cyou.elegant.theme.search.\u02bb.\u02c8: void \u02bb(java.io.Closeable)>($r9);
+
+        return;
+
+     label22:
+        $r2 = r0.<com.cyou.elegant.theme.search.\u02bb: java.lang.String \u02be>;
+
+     label23:
+        $z0 = staticinvoke <com.cyou.elegant.theme.search.\u02bb.\u02c8: boolean \u02bb(java.io.File,java.lang.String)>($r8, $r2);
+
+     label24:
+        if $z0 == 0 goto label39;
+
+     label25:
+        $r7 = r0.<com.cyou.elegant.theme.search.\u02bb: android.content.Context \u02bc>;
+
+     label26:
+        $r13 = virtualinvoke $r7.<android.content.Context: android.content.SharedPreferences getSharedPreferences(java.lang.String,int)>("csv_record", 0);
+
+        $r14 = interfaceinvoke $r13.<android.content.SharedPreferences: android.content.SharedPreferences$Editor edit()>();
+
+        $r2 = interfaceinvoke $r13.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("csv_file_path", "");
+
+        $r15 = virtualinvoke $r8.<java.io.File: java.lang.String getPath()>();
+
+        interfaceinvoke $r14.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putString(java.lang.String,java.lang.String)>("csv_file_path", $r15);
+
+     label27:
+        $l0 = r0.<com.cyou.elegant.theme.search.\u02bb: long \u02bf>;
+
+     label28:
+        interfaceinvoke $r14.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putLong(java.lang.String,long)>("csv_file_time", $l0);
+
+        interfaceinvoke $r14.<android.content.SharedPreferences$Editor: boolean commit()>();
+
+     label29:
+        $r26 = new android.content.Intent;
+
+     label30:
+        specialinvoke $r26.<android.content.Intent: void <init>()>();
+
+        virtualinvoke $r26.<android.content.Intent: android.content.Intent setAction(java.lang.String)>("cyou.elegant.search.download.callback");
+
+        $r15 = virtualinvoke $r8.<java.io.File: java.lang.String getPath()>();
+
+        virtualinvoke $r26.<android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)>("csv_file_path", $r15);
+
+     label31:
+        $r16 = r0.<com.cyou.elegant.theme.search.\u02bb: com.cyou.elegant.theme.search.DownloadService \u02bb>;
+
+     label32:
+        $r17 = staticinvoke <android.support.v4.content.LocalBroadcastManager: android.support.v4.content.LocalBroadcastManager getInstance(android.content.Context)>($r16);
+
+        virtualinvoke $r17.<android.support.v4.content.LocalBroadcastManager: boolean sendBroadcast(android.content.Intent)>($r26);
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r2);
+
+     label33:
+        if $z0 != 0 goto label38;
+
+     label34:
+        $r27 = new java.io.File;
+
+     label35:
+        specialinvoke $r27.<java.io.File: void <init>(java.lang.String)>($r2);
+
+        $z0 = virtualinvoke $r27.<java.io.File: boolean exists()>();
+
+     label36:
+        if $z0 == 0 goto label38;
+
+     label37:
+        virtualinvoke $r27.<java.io.File: boolean delete()>();
+
+     label38:
+        staticinvoke <com.cyou.elegant.theme.search.\u02bb.\u02cb: void \u02bb(java.net.HttpURLConnection)>($r4);
+
+        staticinvoke <com.cyou.elegant.theme.search.\u02bb.\u02c8: void \u02bb(java.io.Closeable)>($r5);
+
+        staticinvoke <com.cyou.elegant.theme.search.\u02bb.\u02c8: void \u02bb(java.io.Closeable)>($r25);
+
+        return;
+
+     label39:
+        $z0 = virtualinvoke $r8.<java.io.File: boolean exists()>();
+
+     label40:
+        if $z0 == 0 goto label38;
+
+     label41:
+        virtualinvoke $r8.<java.io.File: boolean delete()>();
+
+     label42:
+        goto label38;
+
+     label43:
+        $r18 := @caughtexception;
+
+        $r1 = $r4;
+
+        $r19 = $r18;
+
+     label44:
+        $r4 = (java.net.HttpURLConnection) $r1;
+
+        staticinvoke <com.cyou.elegant.theme.search.\u02bb.\u02cb: void \u02bb(java.net.HttpURLConnection)>($r4);
+
+        $r29 = (java.io.Closeable) $r6;
+
+        staticinvoke <com.cyou.elegant.theme.search.\u02bb.\u02c8: void \u02bb(java.io.Closeable)>($r29);
+
+        staticinvoke <com.cyou.elegant.theme.search.\u02bb.\u02c8: void \u02bb(java.io.Closeable)>($r9);
+
+        throw $r19;
+
+     label45:
+        $r19 := @caughtexception;
+
+        $r9 = null;
+
+        $r6 = null;
+
+        goto label44;
+
+     label46:
+        $r20 := @caughtexception;
+
+        $r9 = null;
+
+        $r6 = null;
+
+        $r1 = $r4;
+
+        $r19 = $r20;
+
+        goto label44;
+
+     label47:
+        $r21 := @caughtexception;
+
+        $r9 = null;
+
+        $r1 = $r4;
+
+        $r19 = $r21;
+
+        goto label44;
+
+     label48:
+        $r19 := @caughtexception;
+
+        $r6 = $r1;
+
+        $r1 = $r4;
+
+        goto label44;
+
+     label49:
+        $r12 := @caughtexception;
+
+        $r9 = null;
+
+        $r4 = null;
+
+        goto label20;
+
+     label50:
+        $r22 := @caughtexception;
+
+        $r12 = $r22;
+
+        $r9 = null;
+
+        goto label20;
+
+     label51:
+        $r23 := @caughtexception;
+
+        $r12 = $r23;
+
+        $r9 = null;
+
+        $r1 = $r5;
+
+        goto label20;
+
+        catch java.io.IOException from label03 to label04 with label49;
+        catch java.lang.Throwable from label01 to label02 with label45;
+        catch java.lang.Throwable from label02 to label05 with label45;
+        catch java.io.IOException from label05 to label06 with label50;
+        catch java.lang.Throwable from label05 to label06 with label46;
+        catch java.io.IOException from label08 to label09 with label51;
+        catch java.io.IOException from label10 to label11 with label51;
+        catch java.io.IOException from label13 to label14 with label51;
+        catch java.lang.Throwable from label07 to label12 with label47;
+        catch java.lang.Throwable from label13 to label14 with label47;
+        catch java.io.IOException from label15 to label16 with label19;
+        catch java.io.IOException from label17 to label18 with label19;
+        catch java.lang.Throwable from label15 to label16 with label43;
+        catch java.lang.Throwable from label17 to label18 with label43;
+        catch java.lang.Throwable from label20 to label21 with label48;
+        catch java.io.IOException from label23 to label24 with label19;
+        catch java.io.IOException from label26 to label27 with label19;
+        catch java.io.IOException from label28 to label29 with label19;
+        catch java.io.IOException from label30 to label31 with label19;
+        catch java.io.IOException from label32 to label33 with label19;
+        catch java.io.IOException from label35 to label36 with label19;
+        catch java.io.IOException from label37 to label38 with label19;
+        catch java.lang.Throwable from label22 to label24 with label43;
+        catch java.lang.Throwable from label25 to label30 with label43;
+        catch java.lang.Throwable from label30 to label33 with label43;
+        catch java.lang.Throwable from label34 to label35 with label43;
+        catch java.lang.Throwable from label35 to label36 with label43;
+        catch java.lang.Throwable from label37 to label38 with label43;
+        catch java.io.IOException from label39 to label40 with label19;
+        catch java.io.IOException from label41 to label42 with label19;
+        catch java.lang.Throwable from label39 to label40 with label43;
+        catch java.lang.Throwable from label41 to label42 with label43;
+    }

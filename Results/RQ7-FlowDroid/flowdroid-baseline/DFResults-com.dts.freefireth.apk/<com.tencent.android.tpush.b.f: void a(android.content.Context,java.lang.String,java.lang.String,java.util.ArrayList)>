@@ -1,0 +1,62 @@
+    private void a(android.content.Context, java.lang.String, java.lang.String, java.util.ArrayList)
+    {
+        java.lang.Throwable $r8;
+        android.content.Context $r1;
+        java.util.ArrayList $r4;
+        java.util.List $r5;
+        com.tencent.android.tpush.b.f r0;
+        int $i0;
+        java.lang.StringBuilder $r7;
+        java.lang.String $r2, $r3, $r6;
+
+        r0 := @this: com.tencent.android.tpush.b.f;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r3 := @parameter2: java.lang.String;
+
+        $r4 := @parameter3: java.util.ArrayList;
+
+     label1:
+        $i0 = virtualinvoke $r4.<java.util.ArrayList: int size()>();
+
+     label2:
+        if $i0 <= 50 goto label4;
+
+     label3:
+        $r5 = virtualinvoke $r4.<java.util.ArrayList: java.util.List subList(int,int)>(0, 10);
+
+        interfaceinvoke $r5.<java.util.List: void clear()>();
+
+     label4:
+        $r6 = staticinvoke <com.tencent.android.tpush.common.f: java.lang.String a(java.io.Serializable)>($r4);
+
+        $r6 = staticinvoke <com.tencent.android.tpush.encrypt.Rijndael: java.lang.String encrypt(java.lang.String)>($r6);
+
+        $r7 = new java.lang.StringBuilder;
+
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>()>();
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".tpns.msg.id");
+
+        $r2 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.tencent.bigdata.baseapi.base.PushPreferences: void putString(android.content.Context,java.lang.String,java.lang.String)>($r1, $r2, $r6);
+
+     label5:
+        return;
+
+     label6:
+        $r8 := @caughtexception;
+
+        staticinvoke <com.tencent.android.tpush.logging.TLogger: void e(java.lang.String,java.lang.String,java.lang.Throwable)>("MessageManager", "putSettings", $r8);
+
+        return;
+
+        catch java.lang.Throwable from label1 to label2 with label6;
+        catch java.lang.Throwable from label3 to label5 with label6;
+    }

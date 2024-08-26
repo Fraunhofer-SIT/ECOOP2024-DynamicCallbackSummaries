@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	<extension point="de.codeinspect.analyses.base.Analyses">
+		<Analysis
+            id="EvaluateDynamicCallbackAnalysis"
+            class="reproduce.callbackevaluation.evaluation.Evaluation"
+            platform="de.codeinspect.platforms.android.platforms.IMatchesAndroidApp"
+            runTarget="Main Server Post Analysis"
+            dependsOnAnalyses="PostDynamicAndroidAnalysis">
+		</Analysis>
+	</extension>
+		
+   <extension
+         point="de.codeinspect.analyses.base.Findings">
+      <Finding
+		      category="General"
+            id="Evaluation_VirtualEdgeSummary"
+            type="Information"> 
+         <AnalysisReference
+               analysisID="EvaluateDynamicCallbackAnalysis">
+         </AnalysisReference>
+         <DynamicDescription
+               class="reproduce.callbackevaluation.evaluation.DummyDescriptionProvider">
+         </DynamicDescription>
+      </Finding>
+   </extension>
+   <extension
+         point="de.codeinspect.dynamicvalues.analysisserver.PostAnalysisHook">
+      <PostAnalysisHook
+            class="reproduce.callbackevaluation.evaluation.PostAnalysisHook" />
+   </extension>
+
+   <extension
+         point="de.codeinspect.base.TelemetryReceiver">
+      <LoggingPoint
+            class="reproduce.callbackevaluation.telemetry.TelemetryReceiver" />
+   </extension>
+</plugin>

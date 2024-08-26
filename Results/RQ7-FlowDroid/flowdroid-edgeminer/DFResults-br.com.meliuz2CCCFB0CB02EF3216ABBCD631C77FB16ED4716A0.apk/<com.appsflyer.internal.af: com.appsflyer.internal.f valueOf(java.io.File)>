@@ -1,0 +1,127 @@
+    static com.appsflyer.internal.f valueOf(java.io.File)
+    {
+        java.lang.Throwable $r8, $r9, $r10, $r11;
+        long $l0;
+        java.lang.Exception $r1, $r2;
+        java.io.File $r3;
+        int $i1;
+        char[] $r6;
+        com.appsflyer.internal.f $r0;
+        java.io.FileReader $r4, $r5;
+        java.lang.String $r7;
+
+        $r3 := @parameter0: java.io.File;
+
+        $r4 = null;
+
+     label01:
+        $r5 = new java.io.FileReader;
+
+     label02:
+        specialinvoke $r5.<java.io.FileReader: void <init>(java.io.File)>($r3);
+
+     label03:
+        $l0 = virtualinvoke $r3.<java.io.File: long length()>();
+
+     label04:
+        $i1 = (int) $l0;
+
+     label05:
+        $r6 = newarray (char)[$i1];
+
+     label06:
+        virtualinvoke $r5.<java.io.Reader: int read(char[])>($r6);
+
+     label07:
+        $r0 = new com.appsflyer.internal.f;
+
+     label08:
+        specialinvoke $r0.<com.appsflyer.internal.f: void <init>(char[])>($r6);
+
+        $r7 = virtualinvoke $r3.<java.io.File: java.lang.String getName()>();
+
+        $r0.<com.appsflyer.internal.f: java.lang.String AFKeystoreWrapper> = $r7;
+
+     label09:
+        virtualinvoke $r5.<java.io.Reader: void close()>();
+
+     label10:
+        return $r0;
+
+     label11:
+        $r8 := @caughtexception;
+
+        staticinvoke <com.appsflyer.AFLogger: void valueOf(java.lang.Throwable)>($r8);
+
+        return $r0;
+
+     label12:
+        $r9 := @caughtexception;
+
+        $r4 = $r5;
+
+        goto label14;
+
+     label13:
+        $r9 := @caughtexception;
+
+     label14:
+        if $r4 == null goto label18;
+
+     label15:
+        virtualinvoke $r4.<java.io.Reader: void close()>();
+
+     label16:
+        goto label18;
+
+     label17:
+        $r10 := @caughtexception;
+
+        staticinvoke <com.appsflyer.AFLogger: void valueOf(java.lang.Throwable)>($r10);
+
+     label18:
+        throw $r9;
+
+     label19:
+        $r5 = null;
+
+     label20:
+        if $r5 == null goto label26;
+
+     label21:
+        virtualinvoke $r5.<java.io.Reader: void close()>();
+
+     label22:
+        return null;
+
+     label23:
+        $r11 := @caughtexception;
+
+        staticinvoke <com.appsflyer.AFLogger: void valueOf(java.lang.Throwable)>($r11);
+
+        return null;
+
+     label24:
+        $r1 := @caughtexception;
+
+        goto label19;
+
+     label25:
+        $r2 := @caughtexception;
+
+        goto label20;
+
+     label26:
+        return null;
+
+        catch java.lang.Exception from label02 to label03 with label24;
+        catch java.lang.Throwable from label01 to label03 with label13;
+        catch java.lang.Exception from label03 to label04 with label25;
+        catch java.lang.Exception from label05 to label07 with label25;
+        catch java.lang.Exception from label08 to label09 with label25;
+        catch java.lang.Throwable from label03 to label04 with label12;
+        catch java.lang.Throwable from label06 to label09 with label12;
+        catch java.io.IOException from label09 to label10 with label11;
+        catch java.io.IOException from label15 to label16 with label17;
+        catch java.io.IOException from label21 to label22 with label23;
+    }

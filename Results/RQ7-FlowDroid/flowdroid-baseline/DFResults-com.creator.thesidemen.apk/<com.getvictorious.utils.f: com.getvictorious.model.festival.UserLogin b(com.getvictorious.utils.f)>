@@ -1,0 +1,113 @@
+    public static com.getvictorious.model.festival.UserLogin b(com.getvictorious.utils.f)
+    {
+        java.lang.Throwable $r10, $r11, $r12;
+        byte[] $r4;
+        com.getvictorious.utils.f $r0;
+        com.getvictorious.model.festival.UserLogin $r8;
+        java.io.ObjectInputStream $r6;
+        java.lang.String[] $r2;
+        android.database.sqlite.SQLiteDatabase $r1;
+        java.io.ByteArrayInputStream $r5;
+        int $i0;
+        java.lang.Object $r7;
+        java.lang.ClassNotFoundException $r9;
+        android.database.Cursor $r3;
+
+        $r0 := @parameter0: com.getvictorious.utils.f;
+
+        $r1 = virtualinvoke $r0.<com.getvictorious.utils.f: android.database.sqlite.SQLiteDatabase getWritableDatabase()>();
+
+        $r2 = newarray (java.lang.String)[2];
+
+        $r2[0] = "data";
+
+        $r2[1] = "stored";
+
+        $r3 = virtualinvoke $r1.<android.database.sqlite.SQLiteDatabase: android.database.Cursor query(java.lang.String,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String,java.lang.String,java.lang.String)>("user", $r2, "_id=0", null, null, null, null);
+
+     label01:
+        $i0 = interfaceinvoke $r3.<android.database.Cursor: int getCount()>();
+
+     label02:
+        if $i0 == 0 goto label15;
+
+     label03:
+        interfaceinvoke $r3.<android.database.Cursor: boolean moveToFirst()>();
+
+        $i0 = interfaceinvoke $r3.<android.database.Cursor: int getColumnIndex(java.lang.String)>("data");
+
+        $r4 = interfaceinvoke $r3.<android.database.Cursor: byte[] getBlob(int)>($i0);
+
+     label04:
+        $r5 = new java.io.ByteArrayInputStream;
+
+     label05:
+        specialinvoke $r5.<java.io.ByteArrayInputStream: void <init>(byte[])>($r4);
+
+     label06:
+        $r6 = new java.io.ObjectInputStream;
+
+     label07:
+        specialinvoke $r6.<java.io.ObjectInputStream: void <init>(java.io.InputStream)>($r5);
+
+        $r7 = interfaceinvoke $r6.<java.io.ObjectInput: java.lang.Object readObject()>();
+
+     label08:
+        $r8 = (com.getvictorious.model.festival.UserLogin) $r7;
+
+     label09:
+        interfaceinvoke $r3.<android.database.Cursor: void close()>();
+
+        virtualinvoke $r1.<android.database.sqlite.SQLiteDatabase: void close()>();
+
+        return $r8;
+
+     label10:
+        $r9 := @caughtexception;
+
+     label11:
+        interfaceinvoke $r3.<android.database.Cursor: void close()>();
+
+        virtualinvoke $r1.<android.database.sqlite.SQLiteDatabase: void close()>();
+
+        return null;
+
+     label12:
+        $r10 := @caughtexception;
+
+        interfaceinvoke $r3.<android.database.Cursor: void close()>();
+
+        virtualinvoke $r1.<android.database.sqlite.SQLiteDatabase: void close()>();
+
+        throw $r10;
+
+     label13:
+        $r11 := @caughtexception;
+
+        goto label11;
+
+     label14:
+        $r12 := @caughtexception;
+
+        goto label11;
+
+     label15:
+        $r8 = null;
+
+        goto label09;
+
+        catch java.lang.IllegalArgumentException from label01 to label02 with label14;
+        catch java.lang.IllegalArgumentException from label03 to label04 with label14;
+        catch java.lang.IllegalArgumentException from label05 to label06 with label14;
+        catch java.lang.IllegalArgumentException from label07 to label08 with label14;
+        catch java.io.IOException from label01 to label02 with label13;
+        catch java.io.IOException from label03 to label04 with label13;
+        catch java.io.IOException from label05 to label06 with label13;
+        catch java.io.IOException from label07 to label08 with label13;
+        catch java.lang.ClassNotFoundException from label01 to label02 with label10;
+        catch java.lang.ClassNotFoundException from label03 to label04 with label10;
+        catch java.lang.ClassNotFoundException from label05 to label06 with label10;
+        catch java.lang.ClassNotFoundException from label07 to label08 with label10;
+        catch java.lang.Throwable from label01 to label02 with label12;
+        catch java.lang.Throwable from label03 to label09 with label12;
+    }

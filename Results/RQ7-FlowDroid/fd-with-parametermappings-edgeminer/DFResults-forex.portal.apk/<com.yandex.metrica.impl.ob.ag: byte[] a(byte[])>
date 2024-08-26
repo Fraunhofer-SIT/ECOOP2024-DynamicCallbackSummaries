@@ -1,0 +1,63 @@
+    public static byte[] a(byte[]) throws java.io.IOException
+    {
+        java.lang.Throwable $r4;
+        byte[] $r1;
+        java.io.ByteArrayOutputStream $r3;
+        java.util.zip.GZIPOutputStream $r0, $r2;
+
+        $r1 := @parameter0: byte[];
+
+        $r2 = null;
+
+     label1:
+        $r3 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r3.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label2:
+        $r0 = new java.util.zip.GZIPOutputStream;
+
+        specialinvoke $r0.<java.util.zip.GZIPOutputStream: void <init>(java.io.OutputStream)>($r3);
+
+     label3:
+        virtualinvoke $r0.<java.util.zip.GZIPOutputStream: void write(byte[])>($r1);
+
+        virtualinvoke $r0.<java.util.zip.GZIPOutputStream: void finish()>();
+
+        $r1 = virtualinvoke $r3.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label4:
+        staticinvoke <com.yandex.metrica.impl.ob.cg: void a(java.io.Closeable)>($r0);
+
+        staticinvoke <com.yandex.metrica.impl.ob.cg: void a(java.io.Closeable)>($r3);
+
+        return $r1;
+
+     label5:
+        $r4 := @caughtexception;
+
+        $r2 = $r0;
+
+        goto label8;
+
+     label6:
+        $r4 := @caughtexception;
+
+        goto label8;
+
+     label7:
+        $r4 := @caughtexception;
+
+        $r3 = null;
+
+     label8:
+        staticinvoke <com.yandex.metrica.impl.ob.cg: void a(java.io.Closeable)>($r2);
+
+        staticinvoke <com.yandex.metrica.impl.ob.cg: void a(java.io.Closeable)>($r3);
+
+        throw $r4;
+
+        catch java.lang.Throwable from label1 to label2 with label7;
+        catch java.lang.Throwable from label2 to label3 with label6;
+        catch java.lang.Throwable from label3 to label4 with label5;
+    }

@@ -1,0 +1,348 @@
+    private java.lang.String streamToString(java.io.InputStream, int, java.lang.String)
+    {
+        java.lang.Throwable $r5, $r8, $r9;
+        byte[] $r6;
+        java.io.BufferedInputStream $r3, $r12;
+        java.io.ByteArrayOutputStream $r13;
+        int $i0, $i1, $i2;
+        acr.browser.lightning.reading.Converter r0;
+        java.lang.String $r2;
+        boolean $z0;
+        java.io.IOException $r16;
+        java.lang.Exception $r7, $r10, $r11;
+        java.lang.StringBuilder $r15;
+        java.io.UnsupportedEncodingException $r4, $r14;
+        java.io.InputStream $r1;
+
+        r0 := @this: acr.browser.lightning.reading.Converter;
+
+        $r1 := @parameter0: java.io.InputStream;
+
+        $i0 := @parameter1: int;
+
+        $r2 := @parameter2: java.lang.String;
+
+        r0.<acr.browser.lightning.reading.Converter: java.lang.String encoding> = $r2;
+
+        if $r2 == null goto label01;
+
+        $z0 = virtualinvoke $r2.<java.lang.String: boolean isEmpty()>();
+
+        if $z0 == 0 goto label02;
+
+     label01:
+        r0.<acr.browser.lightning.reading.Converter: java.lang.String encoding> = "UTF-8";
+
+     label02:
+        $r3 = null;
+
+     label03:
+        $r12 = new java.io.BufferedInputStream;
+
+     label04:
+        specialinvoke $r12.<java.io.BufferedInputStream: void <init>(java.io.InputStream,int)>($r1, 2048);
+
+     label05:
+        $r13 = new java.io.ByteArrayOutputStream;
+
+     label06:
+        specialinvoke $r13.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label07:
+        virtualinvoke $r12.<java.io.BufferedInputStream: void mark(int)>(4096);
+
+     label08:
+        $r2 = r0.<acr.browser.lightning.reading.Converter: java.lang.String encoding>;
+
+     label09:
+        $r2 = staticinvoke <acr.browser.lightning.reading.Converter: java.lang.String detectCharset(java.lang.String,java.io.ByteArrayOutputStream,java.io.BufferedInputStream,java.lang.String)>("charset=", $r13, $r12, $r2);
+
+     label10:
+        if $r2 == null goto label13;
+
+     label11:
+        r0.<acr.browser.lightning.reading.Converter: java.lang.String encoding> = $r2;
+
+     label12:
+        goto label20;
+
+     label13:
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("Converter", "no charset found in first stage");
+
+     label14:
+        $r2 = r0.<acr.browser.lightning.reading.Converter: java.lang.String encoding>;
+
+     label15:
+        $r2 = staticinvoke <acr.browser.lightning.reading.Converter: java.lang.String detectCharset(java.lang.String,java.io.ByteArrayOutputStream,java.io.BufferedInputStream,java.lang.String)>("encoding=", $r13, $r12, $r2);
+
+     label16:
+        if $r2 == null goto label19;
+
+     label17:
+        r0.<acr.browser.lightning.reading.Converter: java.lang.String encoding> = $r2;
+
+     label18:
+        goto label20;
+
+     label19:
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("Converter", "no charset found in second stage");
+
+     label20:
+        $r2 = r0.<acr.browser.lightning.reading.Converter: java.lang.String encoding>;
+
+     label21:
+        $z0 = staticinvoke <java.nio.charset.Charset: boolean isSupported(java.lang.String)>($r2);
+
+     label22:
+        if $z0 != 0 goto label37;
+
+     label23:
+        $r14 = new java.io.UnsupportedEncodingException;
+
+     label24:
+        $r2 = r0.<acr.browser.lightning.reading.Converter: java.lang.String encoding>;
+
+     label25:
+        specialinvoke $r14.<java.io.UnsupportedEncodingException: void <init>(java.lang.String)>($r2);
+
+     label26:
+        throw $r14;
+
+     label27:
+        $r5 := @caughtexception;
+
+     label28:
+        $r15 = new java.lang.StringBuilder;
+
+     label29:
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Using default encoding:UTF-8 problem:");
+
+     label30:
+        $r4 = (java.io.UnsupportedEncodingException) $r5;
+
+     label31:
+        $r2 = virtualinvoke $r4.<java.io.UnsupportedEncodingException: java.lang.String getMessage()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" encoding:");
+
+     label32:
+        $r2 = r0.<acr.browser.lightning.reading.Converter: java.lang.String encoding>;
+
+     label33:
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(32);
+
+     label34:
+        $r2 = r0.<acr.browser.lightning.reading.Converter: java.lang.String url>;
+
+     label35:
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("Converter", $r2);
+
+     label36:
+        r0.<acr.browser.lightning.reading.Converter: java.lang.String encoding> = "UTF-8";
+
+     label37:
+        $i1 = virtualinvoke $r13.<java.io.ByteArrayOutputStream: int size()>();
+
+     label38:
+        $r6 = newarray (byte)[2048];
+
+     label39:
+        if $i1 < $i0 goto label45;
+
+     label40:
+        $r15 = new java.lang.StringBuilder;
+
+     label41:
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Maxbyte of ");
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" exceeded! Maybe html is now broken but try it nevertheless. Url: ");
+
+     label42:
+        $r2 = r0.<acr.browser.lightning.reading.Converter: java.lang.String url>;
+
+     label43:
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("Converter", $r2);
+
+     label44:
+        goto label47;
+
+     label45:
+        $i2 = virtualinvoke $r12.<java.io.BufferedInputStream: int read(byte[])>($r6);
+
+     label46:
+        if $i2 >= 0 goto label52;
+
+     label47:
+        $r2 = r0.<acr.browser.lightning.reading.Converter: java.lang.String encoding>;
+
+     label48:
+        $r2 = virtualinvoke $r13.<java.io.ByteArrayOutputStream: java.lang.String toString(java.lang.String)>($r2);
+
+     label49:
+        virtualinvoke $r12.<java.io.BufferedInputStream: void close()>();
+
+     label50:
+        return $r2;
+
+     label51:
+        $r7 := @caughtexception;
+
+        virtualinvoke $r7.<java.lang.Exception: void printStackTrace()>();
+
+        return $r2;
+
+     label52:
+        $i1 = $i1 + $i2;
+
+     label53:
+        virtualinvoke $r13.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r6, 0, $i2);
+
+     label54:
+        goto label39;
+
+     label55:
+        $r8 := @caughtexception;
+
+        $r3 = $r12;
+
+        goto label66;
+
+     label56:
+        $r9 := @caughtexception;
+
+        $r3 = $r12;
+
+        goto label59;
+
+     label57:
+        $r8 := @caughtexception;
+
+        goto label66;
+
+     label58:
+        $r9 := @caughtexception;
+
+     label59:
+        $r15 = new java.lang.StringBuilder;
+
+     label60:
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        $r16 = (java.io.IOException) $r9;
+
+        $r2 = virtualinvoke $r16.<java.io.IOException: java.lang.String toString()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" url:");
+
+        $r2 = r0.<acr.browser.lightning.reading.Converter: java.lang.String url>;
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("Converter", $r2);
+
+     label61:
+        if $r3 == null goto label65;
+
+     label62:
+        virtualinvoke $r3.<java.io.BufferedInputStream: void close()>();
+
+     label63:
+        goto label65;
+
+     label64:
+        $r10 := @caughtexception;
+
+        virtualinvoke $r10.<java.lang.Exception: void printStackTrace()>();
+
+     label65:
+        return "";
+
+     label66:
+        if $r3 == null goto label70;
+
+     label67:
+        virtualinvoke $r3.<java.io.BufferedInputStream: void close()>();
+
+     label68:
+        goto label70;
+
+     label69:
+        $r11 := @caughtexception;
+
+        virtualinvoke $r11.<java.lang.Exception: void printStackTrace()>();
+
+     label70:
+        throw $r8;
+
+        catch java.io.IOException from label04 to label05 with label58;
+        catch java.lang.Throwable from label03 to label04 with label57;
+        catch java.lang.Throwable from label04 to label05 with label57;
+        catch java.io.IOException from label06 to label07 with label56;
+        catch java.lang.Throwable from label05 to label06 with label55;
+        catch java.lang.Throwable from label06 to label07 with label55;
+        catch java.io.UnsupportedEncodingException from label07 to label08 with label27;
+        catch java.io.UnsupportedEncodingException from label09 to label10 with label27;
+        catch java.io.UnsupportedEncodingException from label13 to label14 with label27;
+        catch java.io.UnsupportedEncodingException from label15 to label16 with label27;
+        catch java.io.UnsupportedEncodingException from label19 to label20 with label27;
+        catch java.io.UnsupportedEncodingException from label21 to label22 with label27;
+        catch java.io.UnsupportedEncodingException from label25 to label27 with label27;
+        catch java.io.IOException from label07 to label08 with label56;
+        catch java.io.IOException from label09 to label10 with label56;
+        catch java.io.IOException from label13 to label14 with label56;
+        catch java.io.IOException from label15 to label16 with label56;
+        catch java.io.IOException from label19 to label20 with label56;
+        catch java.io.IOException from label21 to label22 with label56;
+        catch java.io.IOException from label25 to label26 with label56;
+        catch java.lang.Throwable from label07 to label10 with label55;
+        catch java.lang.Throwable from label11 to label12 with label55;
+        catch java.lang.Throwable from label13 to label16 with label55;
+        catch java.lang.Throwable from label17 to label18 with label55;
+        catch java.lang.Throwable from label19 to label22 with label55;
+        catch java.lang.Throwable from label23 to label24 with label55;
+        catch java.lang.Throwable from label24 to label27 with label55;
+        catch java.io.IOException from label29 to label30 with label56;
+        catch java.io.IOException from label31 to label32 with label56;
+        catch java.io.IOException from label33 to label34 with label56;
+        catch java.io.IOException from label35 to label36 with label56;
+        catch java.io.IOException from label37 to label38 with label56;
+        catch java.io.IOException from label41 to label42 with label56;
+        catch java.io.IOException from label43 to label44 with label56;
+        catch java.io.IOException from label45 to label46 with label56;
+        catch java.io.IOException from label48 to label49 with label56;
+        catch java.lang.Throwable from label28 to label29 with label55;
+        catch java.lang.Throwable from label29 to label38 with label55;
+        catch java.lang.Throwable from label40 to label41 with label55;
+        catch java.lang.Throwable from label41 to label44 with label55;
+        catch java.lang.Throwable from label45 to label46 with label55;
+        catch java.lang.Throwable from label47 to label49 with label55;
+        catch java.lang.Exception from label49 to label50 with label51;
+        catch java.io.IOException from label53 to label54 with label56;
+        catch java.lang.Throwable from label53 to label54 with label55;
+        catch java.lang.Throwable from label59 to label60 with label57;
+        catch java.lang.Throwable from label60 to label61 with label57;
+        catch java.lang.Exception from label62 to label63 with label64;
+        catch java.lang.Exception from label67 to label68 with label69;
+    }

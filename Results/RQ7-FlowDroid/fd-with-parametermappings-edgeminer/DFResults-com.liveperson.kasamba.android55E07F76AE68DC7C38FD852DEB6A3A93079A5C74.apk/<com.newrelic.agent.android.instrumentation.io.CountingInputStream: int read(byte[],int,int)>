@@ -1,0 +1,158 @@
+    public int read(byte[], int, int) throws java.io.IOException
+    {
+        java.lang.Throwable $r4, $r6;
+        byte[] $r1;
+        com.newrelic.agent.android.instrumentation.io.CountingInputStream r0;
+        long $l0, $l4;
+        java.nio.ByteBuffer $r2, $r3;
+        int $i1, $i2, $i3, $i5;
+        boolean $z0;
+        java.io.IOException $r7;
+        java.lang.Exception $r8;
+        java.io.InputStream $r5;
+
+        r0 := @this: com.newrelic.agent.android.instrumentation.io.CountingInputStream;
+
+        $r1 := @parameter0: byte[];
+
+        $i1 := @parameter1: int;
+
+        $i2 := @parameter2: int;
+
+        $z0 = r0.<com.newrelic.agent.android.instrumentation.io.CountingInputStream: boolean enableBuffering>;
+
+        $i3 = 0;
+
+        if $z0 == 0 goto label10;
+
+        $r2 = r0.<com.newrelic.agent.android.instrumentation.io.CountingInputStream: java.nio.ByteBuffer buffer>;
+
+        entermonitor $r2;
+
+        $l0 = (long) $i2;
+
+     label01:
+        $z0 = specialinvoke r0.<com.newrelic.agent.android.instrumentation.io.CountingInputStream: boolean bufferHasBytes(long)>($l0);
+
+        if $z0 == 0 goto label04;
+
+        $i1 = specialinvoke r0.<com.newrelic.agent.android.instrumentation.io.CountingInputStream: int readBufferBytes(byte[],int,int)>($r1, $i1, $i2);
+
+        if $i1 < 0 goto label03;
+
+        $l0 = r0.<com.newrelic.agent.android.instrumentation.io.CountingInputStream: long count>;
+
+        $l4 = (long) $i1;
+
+        $l0 = $l0 + $l4;
+
+        r0.<com.newrelic.agent.android.instrumentation.io.CountingInputStream: long count> = $l0;
+
+        exitmonitor $r2;
+
+     label02:
+        return $i1;
+
+     label03:
+        $r7 = new java.io.IOException;
+
+        specialinvoke $r7.<java.io.IOException: void <init>(java.lang.String)>("readBufferBytes failed");
+
+        throw $r7;
+
+     label04:
+        $r3 = r0.<com.newrelic.agent.android.instrumentation.io.CountingInputStream: java.nio.ByteBuffer buffer>;
+
+        $i5 = virtualinvoke $r3.<java.nio.ByteBuffer: int remaining()>();
+
+        if $i5 <= 0 goto label06;
+
+        $i5 = specialinvoke r0.<com.newrelic.agent.android.instrumentation.io.CountingInputStream: int readBufferBytes(byte[],int,int)>($r1, $i1, $i5);
+
+        $i3 = $i5;
+
+        if $i5 < 0 goto label05;
+
+        $i2 = $i2 - $i5;
+
+        $l4 = r0.<com.newrelic.agent.android.instrumentation.io.CountingInputStream: long count>;
+
+        $l0 = (long) $i5;
+
+        $l0 = $l4 + $l0;
+
+        r0.<com.newrelic.agent.android.instrumentation.io.CountingInputStream: long count> = $l0;
+
+        goto label06;
+
+     label05:
+        $r7 = new java.io.IOException;
+
+        specialinvoke $r7.<java.io.IOException: void <init>(java.lang.String)>("partial read from buffer failed");
+
+        throw $r7;
+
+     label06:
+        exitmonitor $r2;
+
+     label07:
+        goto label10;
+
+     label08:
+        $r4 := @caughtexception;
+
+        exitmonitor $r2;
+
+     label09:
+        throw $r4;
+
+     label10:
+        $r5 = r0.<com.newrelic.agent.android.instrumentation.io.CountingInputStream: java.io.InputStream impl>;
+
+        $i1 = $i1 + $i3;
+
+     label11:
+        $i1 = virtualinvoke $r5.<java.io.InputStream: int read(byte[],int,int)>($r1, $i1, $i2);
+
+     label12:
+        if $i1 < 0 goto label13;
+
+        $l0 = r0.<com.newrelic.agent.android.instrumentation.io.CountingInputStream: long count>;
+
+        $l4 = (long) $i1;
+
+        $l0 = $l0 + $l4;
+
+        r0.<com.newrelic.agent.android.instrumentation.io.CountingInputStream: long count> = $l0;
+
+        $i1 = $i1 + $i3;
+
+        return $i1;
+
+     label13:
+        if $i3 > 0 goto label16;
+
+     label14:
+        specialinvoke r0.<com.newrelic.agent.android.instrumentation.io.CountingInputStream: void notifyStreamComplete()>();
+
+     label15:
+        return $i1;
+
+     label16:
+        return $i3;
+
+     label17:
+        $r6 := @caughtexception;
+
+        $r8 = (java.lang.Exception) $r6;
+
+        specialinvoke r0.<com.newrelic.agent.android.instrumentation.io.CountingInputStream: void notifyStreamError(java.lang.Exception)>($r8);
+
+        throw $r6;
+
+        catch java.lang.Throwable from label01 to label02 with label08;
+        catch java.lang.Throwable from label03 to label07 with label08;
+        catch java.lang.Throwable from label08 to label09 with label08;
+        catch java.io.IOException from label11 to label12 with label17;
+        catch java.io.IOException from label14 to label15 with label17;
+    }

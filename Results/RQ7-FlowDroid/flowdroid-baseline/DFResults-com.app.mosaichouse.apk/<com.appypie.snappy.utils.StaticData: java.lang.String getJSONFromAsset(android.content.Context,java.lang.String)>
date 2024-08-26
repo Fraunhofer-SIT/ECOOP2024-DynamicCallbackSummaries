@@ -1,0 +1,52 @@
+    public static java.lang.String getJSONFromAsset(android.content.Context, java.lang.String)
+    {
+        java.lang.Throwable $r5;
+        android.content.Context $r0;
+        byte[] $r4;
+        java.io.IOException $r7;
+        android.content.res.AssetManager $r2;
+        int $i0;
+        java.lang.String $r1, $r6;
+        java.io.InputStream $r3;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 := @parameter1: java.lang.String;
+
+     label1:
+        $r2 = virtualinvoke $r0.<android.content.Context: android.content.res.AssetManager getAssets()>();
+
+        $r3 = virtualinvoke $r2.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>("www/manifest.json");
+
+        $i0 = virtualinvoke $r3.<java.io.InputStream: int available()>();
+
+     label2:
+        $r4 = newarray (byte)[$i0];
+
+     label3:
+        virtualinvoke $r3.<java.io.InputStream: int read(byte[])>($r4);
+
+        virtualinvoke $r3.<java.io.InputStream: void close()>();
+
+     label4:
+        $r6 = new java.lang.String;
+
+     label5:
+        specialinvoke $r6.<java.lang.String: void <init>(byte[],java.lang.String)>($r4, "UTF-8");
+
+     label6:
+        return $r6;
+
+     label7:
+        $r5 := @caughtexception;
+
+        $r7 = (java.io.IOException) $r5;
+
+        virtualinvoke $r7.<java.io.IOException: void printStackTrace()>();
+
+        return null;
+
+        catch java.io.IOException from label1 to label2 with label7;
+        catch java.io.IOException from label3 to label4 with label7;
+        catch java.io.IOException from label5 to label6 with label7;
+    }

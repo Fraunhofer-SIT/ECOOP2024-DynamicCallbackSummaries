@@ -1,0 +1,60 @@
+#We'd recommend to use absolute paths here.
+
+#Sadly, we cannot redistribute the Android SDK due to their TOS (point 3.4)
+
+Android.SDKDirectory=PATH-TO-ANDROID-SDK # <---------- adapt!
+#PATH-TO-ANDROID-SDK should have a platforms directory. The platforms directory should have directories starting with "android-"
+#it's important that at least one android.jar is in one of these folders, as it contains necessary stubs for hierarchy analysis.
+#There should also be a platform-tools/adb executable.
+
+#VUSC can also install one version. After installation, you can inspect /etc/ci/server.conf to find out more.
+#It is VERY important that the adb version installed in the Android SDK Directory is the same one that you use when you try to get the serial number using adb-serialno. Otherwise the adb server gets killed and everything breaks for some reason. So if you let VUSC install one version and have another one on the system, this is a problem.
+
+LibraryMapping.Path=PATH-TO-VUSC/Databases/mapping.db # <---------- adapt! We took the mapping from the VUSC installation since CodeInspect Development did not seem to have it
+License.LicenseKey= # <---------- adapt
+
+
+
+Analyzer.SearchURLsInStringConstants=false
+Analyzer.SearchURLsInBinaries=false
+JavaAnalyzer.ValueFinder.Dynamic.EnableConversion=false
+JavaAnalyzer.ValueFinder.Static.Disabled=true
+DynamicAnalysis.Android.MaxConcurrentRuns=1
+DynamicAnalysis.EventTracer.Disable=true
+CallbackGeneration.WrappingMode=all
+JavaAnalyzer.SkipWriteCode=true
+FlowDroid.DataFlowTimeout=5
+
+Projects.ReanalyzeSameFile=true
+Workers.MaxParallelJobs=1
+Scheduler.MaxParallelJobs=1
+
+
+Analyses.CallGraph.SPARK.ExtendWithCHA=false
+Analyses.IncludeAnalyses=PostDynamicAndroidAnalysis,EvaluateDynamicCallbackAnalysis
+Analyses.AnalysisSelection=Whitelist
+
+# The number of elements that shall be queued on the analysis server after they
+# have been received from the device. These chunks are then ordered before they
+# are processed by the dynamic analyses. Higher values may lead to higher
+# latencies, but help avoid out-of-order events.
+DynamicAnalysis.Communication.QueueChunkSize=0
+
+# The number of milliseconds after which the event queue shall be flushed if
+# no new events have been receibed until then. This flushing ensures that the
+# event queue does not get stuck, even if the chunk queue size is not reached
+# in time.
+DynamicAnalysis.Communication.FlushMillis=0
+
+# The maximum number of connection attempts to a device before the connection
+# is considered as failed. VUSC automatically attempts this many reconnections,
+# because devices may be slow to respond or otherwise temporarily unavailable.
+DynamicAnalysis.Communication.MaxConnectRetries=30
+
+# Specifies whether dynamic analyses shall be performed after the static part
+# of the analysis has been completed. This requires a target device to be
+# configured. For Android, this can be a local device or a connection to DFarm.
+DynamicAnalysis.Enabled=always
+# We use the first available configured device. Let's hope there is only one.
+DynamicAnalysis.DefaultDeviceID=1
+DynamicAnalysis.DFarm.Enabled=true

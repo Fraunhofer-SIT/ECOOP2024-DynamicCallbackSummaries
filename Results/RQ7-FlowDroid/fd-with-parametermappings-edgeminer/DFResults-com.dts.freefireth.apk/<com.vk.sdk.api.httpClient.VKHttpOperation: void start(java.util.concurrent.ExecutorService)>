@@ -1,0 +1,56 @@
+    public void start(java.util.concurrent.ExecutorService)
+    {
+        java.lang.Throwable r2;
+        com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest $r5;
+        com.vk.sdk.api.httpClient.VKHttpOperation r0;
+        com.vk.sdk.api.httpClient.VKHttpClient$VKHttpResponse $r3;
+        com.vk.sdk.api.httpClient.VKAbstractOperation$VKOperationState $r4;
+        java.lang.Exception $r6;
+        java.util.concurrent.ExecutorService $r1;
+        boolean $z0;
+
+        r0 := @this: com.vk.sdk.api.httpClient.VKHttpOperation;
+
+        $r1 := @parameter0: java.util.concurrent.ExecutorService;
+
+        specialinvoke r0.<com.vk.sdk.api.httpClient.VKAbstractOperation: void start(java.util.concurrent.ExecutorService)>($r1);
+
+        $r4 = <com.vk.sdk.api.httpClient.VKAbstractOperation$VKOperationState: com.vk.sdk.api.httpClient.VKAbstractOperation$VKOperationState Executing>;
+
+        virtualinvoke r0.<com.vk.sdk.api.httpClient.VKHttpOperation: void setState(com.vk.sdk.api.httpClient.VKAbstractOperation$VKOperationState)>($r4);
+
+        $r5 = r0.<com.vk.sdk.api.httpClient.VKHttpOperation: com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest mUriRequest>;
+
+        $z0 = $r5.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: boolean isAborted>;
+
+        if $z0 == 0 goto label1;
+
+        return;
+
+     label1:
+        $r5 = r0.<com.vk.sdk.api.httpClient.VKHttpOperation: com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest mUriRequest>;
+
+     label2:
+        $r3 = staticinvoke <com.vk.sdk.api.httpClient.VKHttpClient: com.vk.sdk.api.httpClient.VKHttpClient$VKHttpResponse execute(com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest)>($r5);
+
+     label3:
+        r0.<com.vk.sdk.api.httpClient.VKHttpOperation: com.vk.sdk.api.httpClient.VKHttpClient$VKHttpResponse response> = $r3;
+
+     label4:
+        $r4 = <com.vk.sdk.api.httpClient.VKAbstractOperation$VKOperationState: com.vk.sdk.api.httpClient.VKAbstractOperation$VKOperationState Finished>;
+
+        virtualinvoke r0.<com.vk.sdk.api.httpClient.VKHttpOperation: void setState(com.vk.sdk.api.httpClient.VKAbstractOperation$VKOperationState)>($r4);
+
+        return;
+
+     label5:
+        r2 := @caughtexception;
+
+        $r6 = (java.lang.Exception) r2;
+
+        r0.<com.vk.sdk.api.httpClient.VKHttpOperation: java.lang.Exception mLastException> = $r6;
+
+        goto label4;
+
+        catch java.io.IOException from label2 to label3 with label5;
+    }

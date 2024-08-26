@@ -1,0 +1,60 @@
+    public static java.lang.String c(android.app.Activity)
+    {
+        android.telephony.TelephonyManager $r2;
+        int $i0;
+        java.lang.Object $r1;
+        java.lang.StringBuilder $r5;
+        java.lang.String $r3;
+        android.app.Activity $r0;
+        java.lang.Exception $r4;
+
+        $r0 := @parameter0: android.app.Activity;
+
+     label1:
+        $r1 = virtualinvoke $r0.<android.app.Activity: java.lang.Object getSystemService(java.lang.String)>("phone");
+
+        $r2 = (android.telephony.TelephonyManager) $r1;
+
+        $r3 = virtualinvoke $r2.<android.telephony.TelephonyManager: java.lang.String getNetworkOperator()>();
+
+     label2:
+        if $r3 == null goto label7;
+
+     label3:
+        $i0 = virtualinvoke $r3.<java.lang.String: int length()>();
+
+     label4:
+        if $i0 < 3 goto label7;
+
+     label5:
+        $r3 = virtualinvoke $r3.<java.lang.String: java.lang.String substring(int,int)>(0, 3);
+
+     label6:
+        return $r3;
+
+     label7:
+        return null;
+
+     label8:
+        $r4 := @caughtexception;
+
+        staticinvoke <com.pollfish.f.b.a: void a(java.lang.Throwable)>($r4);
+
+        $r5 = new java.lang.StringBuilder;
+
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>()>();
+
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("getMCC:");
+
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r4);
+
+        $r3 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.pollfish.f.b: void b(java.lang.String,java.lang.String)>("PollfishUtilities", $r3);
+
+        return null;
+
+        catch java.lang.Exception from label1 to label2 with label8;
+        catch java.lang.Exception from label3 to label4 with label8;
+        catch java.lang.Exception from label5 to label6 with label8;
+    }

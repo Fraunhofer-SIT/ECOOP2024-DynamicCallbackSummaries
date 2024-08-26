@@ -1,0 +1,803 @@
+    private java.lang.String getBody(java.lang.String, java.lang.String, java.lang.String, java.lang.String, boolean)
+    {
+        byte[] $r20;
+        java.lang.Object[] $r15;
+        java.lang.String[] $r17;
+        me.edu.HolyBibleNBG51_Horlanda.Bible $r12;
+        java.io.BufferedOutputStream r4;
+        java.util.ArrayList $r16;
+        byte $b1;
+        java.util.Locale $r9, $r10;
+        int $i0;
+        me.edu.HolyBibleNBG51_Horlanda.Chapter r0;
+        java.lang.String $r1, $r2, $r6, $r7, r8, $r11, $r13;
+        boolean $z0, $z1;
+        java.io.FileOutputStream $r19;
+        java.lang.Exception r3;
+        java.io.File r5, $r18;
+        float $f0, $f1;
+        java.lang.StringBuilder $r14;
+
+        r0 := @this: me.edu.HolyBibleNBG51_Horlanda.Chapter;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r6 := @parameter2: java.lang.String;
+
+        $r7 := @parameter3: java.lang.String;
+
+        $z0 := @parameter4: boolean;
+
+        r8 = $r2;
+
+        $r9 = staticinvoke <java.util.Locale: java.util.Locale getDefault()>();
+
+        $r10 = <java.util.Locale: java.util.Locale SIMPLIFIED_CHINESE>;
+
+        $z1 = virtualinvoke $r9.<java.util.Locale: boolean equals(java.lang.Object)>($r10);
+
+        if $z1 != 0 goto label01;
+
+        $r11 = "CCB";
+
+        $r12 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: me.edu.HolyBibleNBG51_Horlanda.Bible bible>;
+
+        $r13 = virtualinvoke $r12.<me.edu.HolyBibleNBG51_Horlanda.Bible: java.lang.String getVersion()>();
+
+        $z1 = virtualinvoke $r11.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>($r13);
+
+        if $z1 != 0 goto label01;
+
+        $r12 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: me.edu.HolyBibleNBG51_Horlanda.Bible bible>;
+
+        $r11 = virtualinvoke $r12.<me.edu.HolyBibleNBG51_Horlanda.Bible: java.lang.String getVersion()>();
+
+        $z1 = virtualinvoke $r11.<java.lang.String: boolean endsWith(java.lang.String)>("ss");
+
+        if $z1 == 0 goto label02;
+
+     label01:
+        r8 = virtualinvoke $r2.<java.lang.String: java.lang.String replaceAll(java.lang.String,java.lang.String)>("\u300c", "\u201c");
+
+        r8 = virtualinvoke r8.<java.lang.String: java.lang.String replaceAll(java.lang.String,java.lang.String)>("\ufffd?", "\ufffd?");
+
+        r8 = virtualinvoke r8.<java.lang.String: java.lang.String replaceAll(java.lang.String,java.lang.String)>("\u300e", "\u2018");
+
+        r8 = virtualinvoke r8.<java.lang.String: java.lang.String replaceAll(java.lang.String,java.lang.String)>("\ufffd?", "\u2019");
+
+     label02:
+        $r14 = new java.lang.StringBuilder;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>("will update fontsize ");
+
+        $i0 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: int fontsize>;
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", scale: ");
+
+        $f0 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: float scale>;
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(float)>($f0);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", defaultScale: ");
+
+        $f0 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: float defaultScale>;
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(float)>($f0);
+
+        $r11 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <me.edu.HolyBibleNBG51_Horlanda.Log: int d(java.lang.String,java.lang.String)>("me.edu.HolyBibleNBG51_Horlanda$Chapter", $r11);
+
+        $z1 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: boolean pinch>;
+
+        if $z1 == 0 goto label03;
+
+        $f0 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: float defaultScale>;
+
+        $b1 = $f0 cmpl 0.0F;
+
+        if $b1 == 0 goto label03;
+
+        $i0 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: int fontsize>;
+
+        $f0 = (float) $i0;
+
+        $f1 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: float scale>;
+
+        $f0 = $f0 * $f1;
+
+        $f1 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: float defaultScale>;
+
+        $f0 = $f0 / $f1;
+
+        $i0 = (int) $f0;
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: int fontsize> = $i0;
+
+     label03:
+        $i0 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: int fontsize>;
+
+        if $i0 >= 1 goto label04;
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: int fontsize> = 1;
+
+     label04:
+        $i0 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: int fontsize>;
+
+        if $i0 <= 72 goto label05;
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: int fontsize> = 72;
+
+     label05:
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n";
+
+        $r11 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r11 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r11);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r11);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n");
+
+        $r11 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = $r11;
+
+        $r11 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r11 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r11);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r11);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n");
+
+        $r11 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = $r11;
+
+        $r11 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r11 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r11);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r11);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=5.0\" />\n");
+
+        $r11 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = $r11;
+
+        $r11 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r11 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r11);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r11);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<style type=\"text/css\">\n");
+
+        $r11 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = $r11;
+
+        r5 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.io.File font>;
+
+        $z1 = virtualinvoke r5.<java.io.File: boolean exists()>();
+
+        if $z1 == 0 goto label24;
+
+        $r11 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r11 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r11);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r11);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("@font-face { font-family: \'custom\'; src: url(\'");
+
+        r5 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.io.File font>;
+
+        $r11 = virtualinvoke r5.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r11);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\'); }\n");
+
+        $r11 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = $r11;
+
+        $r11 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r11 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r11);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r11);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("body {font-family: \'custom\', serif; line-height: 1.4em; font-weight: 100; font-size: ");
+
+        $i0 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: int fontsize>;
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("pt;}\n");
+
+        $r11 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = $r11;
+
+     label06:
+        $z1 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: boolean justify>;
+
+        if $z1 == 0 goto label07;
+
+        $r11 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r11 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r11);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r11);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("body { text-align: justify; }\n");
+
+        $r11 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = $r11;
+
+        $r11 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r11 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r11);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r11);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("body { text-justify: distribute }\n");
+
+        $r11 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = $r11;
+
+     label07:
+        $z1 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: boolean red>;
+
+        if $z1 == 0 goto label08;
+
+        $r11 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r11 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r11);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r11);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".wordsofchrist, .woj, .wj {color: red;}\n");
+
+        $r11 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = $r11;
+
+     label08:
+        $z1 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: boolean flink>;
+
+        if $z1 != 0 goto label09;
+
+        $r11 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r11 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r11);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r11);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("a.f-link, sup.footnote {display: none}\n");
+
+        $r11 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = $r11;
+
+     label09:
+        $z1 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: boolean xlink>;
+
+        if $z1 != 0 goto label10;
+
+        $r11 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r11 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r11);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r11);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("a.x-link, sup.crossreference {display: none}\n");
+
+        $r11 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = $r11;
+
+     label10:
+        $z1 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: boolean shangti>;
+
+        if $z1 == 0 goto label25;
+
+        $r2 = virtualinvoke $r2.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("\u3000\u795e", "\u4e0a\ufffd?");
+
+     label11:
+        r8 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        r8 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>(r8);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>(r8);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("h1 {font-size: 2em;}\n");
+
+        r8 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = r8;
+
+        r8 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        r8 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>(r8);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>(r8);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("h2 {font-size: 1.5em;}\n");
+
+        r8 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = r8;
+
+        r8 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        r8 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>(r8);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>(r8);
+
+        $r12 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: me.edu.HolyBibleNBG51_Horlanda.Bible bible>;
+
+        r8 = virtualinvoke $r12.<me.edu.HolyBibleNBG51_Horlanda.Bible: java.lang.String getCSS()>();
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r8);
+
+        r8 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = r8;
+
+        r8 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        r8 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>(r8);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>(r8);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("</style>\n");
+
+        r8 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = r8;
+
+        if $r1 == null goto label12;
+
+        r8 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        r8 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>(r8);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>(r8);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<title>");
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("</title>\n");
+
+        r8 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = r8;
+
+     label12:
+        r8 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        r8 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>(r8);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>(r8);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<link rel=\"stylesheet\" type=\"text/css\" href=\"reader.css\"/>\n");
+
+        r8 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = r8;
+
+        r8 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        r8 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>(r8);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>(r8);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<script type=\"text/javascript\">\n");
+
+        r8 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = r8;
+
+        if $r6 == null goto label13;
+
+        r8 = virtualinvoke $r6.<java.lang.String: java.lang.String trim()>();
+
+        $i0 = virtualinvoke r8.<java.lang.String: int length()>();
+
+        if $i0 != 0 goto label14;
+
+     label13:
+        $r6 = "-1";
+
+     label14:
+        if $r7 == null goto label15;
+
+        r8 = virtualinvoke $r7.<java.lang.String: java.lang.String trim()>();
+
+        $i0 = virtualinvoke r8.<java.lang.String: int length()>();
+
+        if $i0 != 0 goto label16;
+
+     label15:
+        $r7 = "-1";
+
+     label16:
+        $r12 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: me.edu.HolyBibleNBG51_Horlanda.Bible bible>;
+
+        r8 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String osis>;
+
+        r8 = virtualinvoke $r12.<me.edu.HolyBibleNBG51_Horlanda.Bible: java.lang.String getHighlight(java.lang.String)>(r8);
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String highlighted> = r8;
+
+        r8 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        r8 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>(r8);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>(r8);
+
+        $r15 = newarray (java.lang.Object)[6];
+
+        $r15[0] = $r6;
+
+        $r15[1] = $r7;
+
+        $r16 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.util.ArrayList items>;
+
+        if $r16 == null goto label26;
+
+        $r6 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String search>;
+
+     label17:
+        $r15[2] = $r6;
+
+        $r6 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String selectverse>;
+
+        $r15[3] = $r6;
+
+        $r6 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String highlighted>;
+
+        $r15[4] = $r6;
+
+        $r12 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: me.edu.HolyBibleNBG51_Horlanda.Bible bible>;
+
+        $r6 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String osis>;
+
+        $r17 = virtualinvoke $r12.<me.edu.HolyBibleNBG51_Horlanda.Bible: java.lang.String[] getNoteVerses(java.lang.String)>($r6);
+
+        $r6 = staticinvoke <java.util.Arrays: java.lang.String toString(java.lang.Object[])>($r17);
+
+        $r15[5] = $r6;
+
+        $r6 = staticinvoke <java.lang.String: java.lang.String format(java.lang.String,java.lang.Object[])>("var verse_start=%s, verse_end=%s, search=\"%s\", selected=\"%s\", highlighted=\"%s\", notes=%s;", $r15);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r6 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = $r6;
+
+        $r6 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r6 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r6);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r6);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n</script>\n");
+
+        $r6 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = $r6;
+
+        $r6 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r6 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r6);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r6);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<script type=\"text/javascript\" src=\"reader.js\"></script>\n");
+
+        $r6 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = $r6;
+
+        $r6 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r6 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r6);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r6);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("</head>\n");
+
+        $r6 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = $r6;
+
+        $z1 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: boolean nightmode>;
+
+        if $z1 == 0 goto label27;
+
+        $r6 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r6 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r6);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r6);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<body class=\"nightmode\">\n");
+
+        $r6 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = $r6;
+
+     label18:
+        $r6 = "";
+
+        $z1 = virtualinvoke $r6.<java.lang.String: boolean equals(java.lang.Object)>($r1);
+
+        if $z1 != 0 goto label19;
+
+        $r12 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: me.edu.HolyBibleNBG51_Horlanda.Bible bible>;
+
+        $r1 = virtualinvoke $r12.<me.edu.HolyBibleNBG51_Horlanda.Bible: java.lang.String getVersion()>();
+
+        $z1 = virtualinvoke $r1.<java.lang.String: boolean endsWith(java.lang.String)>("demo");
+
+        if $z1 == 0 goto label19;
+
+        $r1 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r1 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r1);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r1);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<div id=\"pb-demo\">");
+
+        $r1 = virtualinvoke r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String getString(int)>(2131230754);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("</div>\n");
+
+        $r1 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = $r1;
+
+     label19:
+        $r1 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r1 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r1);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r1);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<div id=\"content\">\n");
+
+        $r1 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = $r1;
+
+        $r1 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r1 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r1);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r1);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r1 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = $r1;
+
+        $r1 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r1 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r1);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r1);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("</div>\n</body>\n</html>\n");
+
+        $r1 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = $r1;
+
+        $z1 = <me.edu.HolyBibleNBG51_Horlanda.Log: boolean on>;
+
+        if $z1 == 0 goto label23;
+
+        $r14 = new java.lang.StringBuilder;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>("pb-");
+
+        $r1 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String version>;
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("-");
+
+        $r1 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String book>;
+
+        $r9 = <java.util.Locale: java.util.Locale US>;
+
+        $r1 = virtualinvoke $r1.<java.lang.String: java.lang.String toLowerCase(java.util.Locale)>($r9);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("-");
+
+        $r1 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String chapter>;
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r5 = new java.io.File;
+
+        $r18 = staticinvoke <android.os.Environment: java.io.File getExternalStorageDirectory()>();
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r1 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r1);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r1);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".html");
+
+        $r1 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke r5.<java.io.File: void <init>(java.io.File,java.lang.String)>($r18, $r1);
+
+     label20:
+        $r1 = virtualinvoke r5.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        staticinvoke <me.edu.HolyBibleNBG51_Horlanda.Log: int d(java.lang.String,java.lang.String)>("write", $r1);
+
+     label21:
+        r4 = new java.io.BufferedOutputStream;
+
+        $r19 = new java.io.FileOutputStream;
+
+     label22:
+        specialinvoke $r19.<java.io.FileOutputStream: void <init>(java.io.File)>(r5);
+
+        specialinvoke r4.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r19);
+
+        $r1 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r20 = virtualinvoke $r1.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke r4.<java.io.OutputStream: void write(byte[])>($r20);
+
+        virtualinvoke r4.<java.io.OutputStream: void close()>();
+
+     label23:
+        $r1 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        return $r1;
+
+     label24:
+        $r11 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r11 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r11);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r11);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("body {font-family: serif; line-height: 1.4em; font-weight: 100; font-size: ");
+
+        $i0 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: int fontsize>;
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("pt;}\n");
+
+        $r11 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = $r11;
+
+        goto label06;
+
+     label25:
+        $r2 = virtualinvoke r8.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("\u4e0a\ufffd?", "\u3000\u795e");
+
+        goto label11;
+
+     label26:
+        $r6 = "";
+
+        goto label17;
+
+     label27:
+        $r6 = r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r6 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r6);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r6);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<body>\n");
+
+        $r6 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Chapter: java.lang.String body> = $r6;
+
+        goto label18;
+
+     label28:
+        r3 := @caughtexception;
+
+        $r1 = virtualinvoke r5.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        staticinvoke <me.edu.HolyBibleNBG51_Horlanda.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("write", $r1, r3);
+
+        goto label23;
+
+        catch java.lang.Exception from label20 to label21 with label28;
+        catch java.lang.Exception from label22 to label23 with label28;
+    }

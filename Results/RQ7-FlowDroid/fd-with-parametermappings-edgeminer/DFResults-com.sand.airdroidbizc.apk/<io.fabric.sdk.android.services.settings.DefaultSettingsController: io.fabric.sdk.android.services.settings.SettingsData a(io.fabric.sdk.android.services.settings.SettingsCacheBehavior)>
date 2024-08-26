@@ -1,0 +1,146 @@
+    public final io.fabric.sdk.android.services.settings.SettingsData a(io.fabric.sdk.android.services.settings.SettingsCacheBehavior)
+    {
+        android.content.SharedPreferences$Editor $r17;
+        io.fabric.sdk.android.services.settings.CachedSettingsIo $r16;
+        long $l0;
+        io.fabric.sdk.android.services.settings.DefaultSettingsController r0;
+        org.json.JSONObject $r13;
+        java.lang.String $r8, $r9;
+        boolean $z0;
+        io.fabric.sdk.android.services.persistence.PreferenceStore $r6;
+        io.fabric.sdk.android.services.settings.SettingsData $r5, $r10;
+        java.lang.Exception $r1, $r2, $r3;
+        android.content.SharedPreferences $r7;
+        io.fabric.sdk.android.services.settings.SettingsSpiCall $r11;
+        io.fabric.sdk.android.services.settings.SettingsJsonTransform $r14;
+        io.fabric.sdk.android.services.settings.SettingsRequest $r12;
+        io.fabric.sdk.android.services.settings.SettingsCacheBehavior $r4;
+        io.fabric.sdk.android.services.common.CurrentTimeProvider $r15;
+
+        r0 := @this: io.fabric.sdk.android.services.settings.DefaultSettingsController;
+
+        $r4 := @parameter0: io.fabric.sdk.android.services.settings.SettingsCacheBehavior;
+
+        $r5 = null;
+
+     label01:
+        $z0 = staticinvoke <io.fabric.sdk.android.Fabric: boolean e()>();
+
+     label02:
+        if $z0 != 0 goto label07;
+
+     label03:
+        $r6 = r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: io.fabric.sdk.android.services.persistence.PreferenceStore i>;
+
+        $r7 = interfaceinvoke $r6.<io.fabric.sdk.android.services.persistence.PreferenceStore: android.content.SharedPreferences a()>();
+
+        $r8 = interfaceinvoke $r7.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("existing_instance_identifier", "");
+
+        $r9 = specialinvoke r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: java.lang.String b()>();
+
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean equals(java.lang.Object)>($r9);
+
+     label04:
+        $z0 = $z0 ^ 1;
+
+        if $z0 != 0 goto label07;
+
+     label05:
+        $r10 = specialinvoke r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: io.fabric.sdk.android.services.settings.SettingsData b(io.fabric.sdk.android.services.settings.SettingsCacheBehavior)>($r4);
+
+     label06:
+        $r5 = $r10;
+
+     label07:
+        if $r5 != null goto label17;
+
+     label08:
+        $r11 = r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: io.fabric.sdk.android.services.settings.SettingsSpiCall g>;
+
+        $r12 = r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: io.fabric.sdk.android.services.settings.SettingsRequest c>;
+
+        $r13 = interfaceinvoke $r11.<io.fabric.sdk.android.services.settings.SettingsSpiCall: org.json.JSONObject a(io.fabric.sdk.android.services.settings.SettingsRequest)>($r12);
+
+     label09:
+        if $r13 == null goto label14;
+
+     label10:
+        $r14 = r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: io.fabric.sdk.android.services.settings.SettingsJsonTransform d>;
+
+        $r15 = r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: io.fabric.sdk.android.services.common.CurrentTimeProvider e>;
+
+        $r10 = interfaceinvoke $r14.<io.fabric.sdk.android.services.settings.SettingsJsonTransform: io.fabric.sdk.android.services.settings.SettingsData a(io.fabric.sdk.android.services.common.CurrentTimeProvider,org.json.JSONObject)>($r15, $r13);
+
+     label11:
+        $r16 = r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: io.fabric.sdk.android.services.settings.CachedSettingsIo f>;
+
+        $l0 = $r10.<io.fabric.sdk.android.services.settings.SettingsData: long g>;
+
+        interfaceinvoke $r16.<io.fabric.sdk.android.services.settings.CachedSettingsIo: void a(long,org.json.JSONObject)>($l0, $r13);
+
+        staticinvoke <io.fabric.sdk.android.services.settings.DefaultSettingsController: void a(org.json.JSONObject,java.lang.String)>($r13, "Loaded settings: ");
+
+        $r8 = specialinvoke r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: java.lang.String b()>();
+
+        $r6 = r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: io.fabric.sdk.android.services.persistence.PreferenceStore i>;
+
+        $r17 = interfaceinvoke $r6.<io.fabric.sdk.android.services.persistence.PreferenceStore: android.content.SharedPreferences$Editor b()>();
+
+        interfaceinvoke $r17.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putString(java.lang.String,java.lang.String)>("existing_instance_identifier", $r8);
+
+        $r6 = r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: io.fabric.sdk.android.services.persistence.PreferenceStore i>;
+
+        interfaceinvoke $r6.<io.fabric.sdk.android.services.persistence.PreferenceStore: boolean a(android.content.SharedPreferences$Editor)>($r17);
+
+     label12:
+        $r5 = $r10;
+
+        goto label14;
+
+     label13:
+        $r5 = $r10;
+
+        goto label18;
+
+     label14:
+        if $r5 != null goto label17;
+
+        $r4 = <io.fabric.sdk.android.services.settings.SettingsCacheBehavior: io.fabric.sdk.android.services.settings.SettingsCacheBehavior c>;
+
+     label15:
+        $r10 = specialinvoke r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: io.fabric.sdk.android.services.settings.SettingsData b(io.fabric.sdk.android.services.settings.SettingsCacheBehavior)>($r4);
+
+     label16:
+        return $r10;
+
+     label17:
+        return $r5;
+
+     label18:
+        staticinvoke <io.fabric.sdk.android.Fabric: io.fabric.sdk.android.Logger d()>();
+
+        return $r5;
+
+     label19:
+        $r1 := @caughtexception;
+
+        goto label18;
+
+     label20:
+        $r2 := @caughtexception;
+
+        goto label13;
+
+     label21:
+        $r3 := @caughtexception;
+
+        goto label18;
+
+        catch java.lang.Exception from label01 to label02 with label19;
+        catch java.lang.Exception from label03 to label04 with label19;
+        catch java.lang.Exception from label05 to label06 with label19;
+        catch java.lang.Exception from label08 to label09 with label19;
+        catch java.lang.Exception from label10 to label11 with label19;
+        catch java.lang.Exception from label11 to label12 with label20;
+        catch java.lang.Exception from label15 to label16 with label21;
+    }

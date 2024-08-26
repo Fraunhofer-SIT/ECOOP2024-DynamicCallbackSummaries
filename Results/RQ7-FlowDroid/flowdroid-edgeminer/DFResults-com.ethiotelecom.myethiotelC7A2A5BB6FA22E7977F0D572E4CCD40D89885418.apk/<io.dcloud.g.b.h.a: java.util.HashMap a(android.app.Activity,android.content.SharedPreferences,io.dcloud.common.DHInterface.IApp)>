@@ -1,0 +1,135 @@
+    public static java.util.HashMap a(android.app.Activity, android.content.SharedPreferences, io.dcloud.common.DHInterface.IApp)
+    {
+        io.dcloud.common.DHInterface.IApp $r3;
+        java.util.HashMap $r0, $r7;
+        android.content.Intent $r5;
+        long $l0;
+        java.lang.Integer $r9;
+        java.lang.Exception $r10;
+        android.content.SharedPreferences $r2;
+        java.lang.Long $r8;
+        int $i3;
+        java.lang.String $r4, $r6;
+        android.app.Activity $r1;
+        boolean $z0;
+
+        $r1 := @parameter0: android.app.Activity;
+
+        $r2 := @parameter1: android.content.SharedPreferences;
+
+        $r3 := @parameter2: io.dcloud.common.DHInterface.IApp;
+
+        $r7 = new java.util.HashMap;
+
+        $r0 = $r7;
+
+        specialinvoke $r7.<java.util.HashMap: void <init>()>();
+
+        goto label01;
+
+     label01:
+        $r4 = <io.dcloud.common.util.BaseInfo: java.lang.String sDefaultBootApp>;
+
+     label02:
+        $z0 = staticinvoke <io.dcloud.common.util.PdrUtil: boolean isEmpty(java.lang.Object)>($r4);
+
+     label03:
+        if $z0 == 0 goto label05;
+
+     label04:
+        staticinvoke <io.dcloud.common.util.BaseInfo: void parseControl()>();
+
+     label05:
+        $r4 = <io.dcloud.common.util.BaseInfo: java.lang.String sDefaultBootApp>;
+
+     label06:
+        $r5 = virtualinvoke $r1.<android.app.Activity: android.content.Intent getIntent()>();
+
+        $r6 = staticinvoke <io.dcloud.common.util.BaseInfo: java.lang.String getLaunchType(android.content.Intent)>($r5);
+
+        $r7 = staticinvoke <io.dcloud.common.constant.DataInterface: java.util.HashMap getStartupUrlBaseData(android.content.Context,java.lang.String,java.lang.String,java.lang.String,boolean)>($r1, $r4, $r6, null, 0);
+
+        virtualinvoke $r0.<java.util.HashMap: void putAll(java.util.Map)>($r7);
+
+     label07:
+        $l0 = <io.dcloud.common.util.BaseInfo: long run5appEndTime>;
+
+     label08:
+        $r8 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>($l0);
+
+        virtualinvoke $r0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>("st", $r8);
+
+        $r4 = virtualinvoke $r1.<android.app.Activity: java.lang.String getPackageName()>();
+
+        virtualinvoke $r0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>("pn", $r4);
+
+     label09:
+        goto label12;
+
+     label10:
+        virtualinvoke $r0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>("uat", $r9);
+
+     label11:
+        goto label17;
+
+     label12:
+        $r4 = <io.dcloud.common.util.BaseInfo: java.lang.String sDefaultBootApp>;
+
+     label13:
+        $z0 = staticinvoke <io.dcloud.g.b.h.a: boolean a(java.lang.String)>($r4);
+
+     label14:
+        $i3 = (int) $z0;
+
+     label15:
+        $r9 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i3);
+
+     label16:
+        goto label10;
+
+     label17:
+        $r4 = <io.dcloud.common.adapter.util.AndroidResources: java.lang.String versionName>;
+
+     label18:
+        virtualinvoke $r0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>("pv", $r4);
+
+        $z0 = staticinvoke <io.dcloud.common.util.PdrUtil: boolean isSupportOaid()>();
+
+     label19:
+        if $z0 == 0 goto label21;
+
+        $r4 = <io.dcloud.common.adapter.util.DeviceInfo: java.lang.String oaids>;
+
+        if $r4 != null goto label20;
+
+        $r4 = "||";
+
+     label20:
+        virtualinvoke $r0.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>("oaid", $r4);
+
+     label21:
+        interfaceinvoke $r2.<android.content.SharedPreferences: long getLong(java.lang.String,long)>("commit_app_list_time", 0L);
+
+     label22:
+        goto label24;
+
+     label23:
+        $r10 := @caughtexception;
+
+        $r4 = virtualinvoke $r10.<java.lang.Exception: java.lang.String getMessage()>();
+
+        staticinvoke <io.dcloud.common.adapter.util.Logger: void p(java.lang.String,java.lang.String)>("CommitDataUtil", $r4);
+
+     label24:
+        return $r0;
+
+        catch java.lang.Exception from label02 to label03 with label23;
+        catch java.lang.Exception from label04 to label05 with label23;
+        catch java.lang.Exception from label06 to label07 with label23;
+        catch java.lang.Exception from label08 to label09 with label23;
+        catch java.lang.Exception from label10 to label11 with label23;
+        catch java.lang.Exception from label13 to label14 with label23;
+        catch java.lang.Exception from label15 to label16 with label23;
+        catch java.lang.Exception from label18 to label19 with label23;
+        catch java.lang.Exception from label20 to label22 with label23;
+    }

@@ -1,0 +1,258 @@
+    public void <init>(android.content.Context, com.bugsnag.android.Configuration)
+    {
+        com.bugsnag.android.DeviceDataCollector $r29;
+        com.bugsnag.android.ConnectivityCompat $r9;
+        com.bugsnag.android.TaskType $r23;
+        com.bugsnag.android.SessionTracker $r25;
+        com.bugsnag.android.BackgroundTaskService $r5;
+        com.bugsnag.android.BreadcrumbType $r43;
+        com.bugsnag.android.FeatureFlagState $r21;
+        com.bugsnag.android.EventStorageModule $r34;
+        java.util.Map $r42;
+        com.bugsnag.android.DataCollectionModule $r26;
+        com.bugsnag.android.Client$1 $r10;
+        boolean $z0;
+        com.bugsnag.android.LaunchCrashTracker $r24;
+        com.bugsnag.android.internal.dag.ContextModule $r6;
+        com.bugsnag.android.EventStore $r35;
+        com.bugsnag.android.TrackerModule $r2;
+        com.bugsnag.android.Logger $r13;
+        com.bugsnag.android.UserStore $r30;
+        com.bugsnag.android.SharedPrefMigrator $r33;
+        com.bugsnag.android.Notifier $r8;
+        android.content.Context $r3, $r7;
+        com.bugsnag.android.MetadataState $r20;
+        com.bugsnag.android.AppDataCollector $r28;
+        com.bugsnag.android.SystemBroadcastReceiver $r41;
+        com.bugsnag.android.ClientObservable $r16;
+        com.bugsnag.android.ErrorTypes $r38;
+        com.bugsnag.android.ExceptionHandler $r37;
+        com.bugsnag.android.internal.ImmutableConfig $r12;
+        com.bugsnag.android.internal.dag.ConfigModule $r11;
+        java.lang.String $r27;
+        com.bugsnag.android.DeliveryDelegate $r36;
+        com.bugsnag.android.UserState $r32;
+        com.bugsnag.android.StorageModule $r14;
+        com.bugsnag.android.BreadcrumbState $r18;
+        com.bugsnag.android.User $r31;
+        com.bugsnag.android.LastRunInfoStore $r39;
+        com.bugsnag.android.BugsnagStateModule $r15;
+        com.bugsnag.android.ContextState $r19;
+        com.bugsnag.android.internal.dag.SystemServiceModule $r22;
+        com.bugsnag.android.Client r0;
+        com.bugsnag.android.MemoryTrimState $r4;
+        com.bugsnag.android.LastRunInfo $r40;
+        com.bugsnag.android.CallbackState $r17;
+        com.bugsnag.android.Configuration $r1;
+
+        r0 := @this: com.bugsnag.android.Client;
+
+        $r3 := @parameter0: android.content.Context;
+
+        $r1 := @parameter1: com.bugsnag.android.Configuration;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        $r4 = new com.bugsnag.android.MemoryTrimState;
+
+        specialinvoke $r4.<com.bugsnag.android.MemoryTrimState: void <init>()>();
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.MemoryTrimState memoryTrimState> = $r4;
+
+        $r5 = new com.bugsnag.android.BackgroundTaskService;
+
+        specialinvoke $r5.<com.bugsnag.android.BackgroundTaskService: void <init>()>();
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.BackgroundTaskService bgTaskService> = $r5;
+
+        $r6 = new com.bugsnag.android.internal.dag.ContextModule;
+
+        specialinvoke $r6.<com.bugsnag.android.internal.dag.ContextModule: void <init>(android.content.Context)>($r3);
+
+        $r7 = virtualinvoke $r6.<com.bugsnag.android.internal.dag.ContextModule: android.content.Context getCtx()>();
+
+        r0.<com.bugsnag.android.Client: android.content.Context appContext> = $r7;
+
+        $r8 = virtualinvoke $r1.<com.bugsnag.android.Configuration: com.bugsnag.android.Notifier getNotifier()>();
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.Notifier notifier> = $r8;
+
+        $r9 = new com.bugsnag.android.ConnectivityCompat;
+
+        $r10 = new com.bugsnag.android.Client$1;
+
+        specialinvoke $r10.<com.bugsnag.android.Client$1: void <init>(com.bugsnag.android.Client)>(r0);
+
+        specialinvoke $r9.<com.bugsnag.android.ConnectivityCompat: void <init>(android.content.Context,kotlin.jvm.functions.Function2)>($r7, $r10);
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.Connectivity connectivity> = $r9;
+
+        $r11 = new com.bugsnag.android.internal.dag.ConfigModule;
+
+        specialinvoke $r11.<com.bugsnag.android.internal.dag.ConfigModule: void <init>(com.bugsnag.android.internal.dag.ContextModule,com.bugsnag.android.Configuration,com.bugsnag.android.Connectivity)>($r6, $r1, $r9);
+
+        $r12 = virtualinvoke $r11.<com.bugsnag.android.internal.dag.ConfigModule: com.bugsnag.android.internal.ImmutableConfig getConfig()>();
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.internal.ImmutableConfig immutableConfig> = $r12;
+
+        $r13 = virtualinvoke $r12.<com.bugsnag.android.internal.ImmutableConfig: com.bugsnag.android.Logger getLogger()>();
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.Logger logger> = $r13;
+
+        specialinvoke r0.<com.bugsnag.android.Client: void warnIfNotAppContext(android.content.Context)>($r3);
+
+        $r14 = new com.bugsnag.android.StorageModule;
+
+        specialinvoke $r14.<com.bugsnag.android.StorageModule: void <init>(android.content.Context,com.bugsnag.android.internal.ImmutableConfig,com.bugsnag.android.Logger)>($r7, $r12, $r13);
+
+        $r15 = new com.bugsnag.android.BugsnagStateModule;
+
+        specialinvoke $r15.<com.bugsnag.android.BugsnagStateModule: void <init>(com.bugsnag.android.internal.dag.ConfigModule,com.bugsnag.android.Configuration)>($r11, $r1);
+
+        $r16 = virtualinvoke $r15.<com.bugsnag.android.BugsnagStateModule: com.bugsnag.android.ClientObservable getClientObservable()>();
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.ClientObservable clientObservable> = $r16;
+
+        $r17 = virtualinvoke $r15.<com.bugsnag.android.BugsnagStateModule: com.bugsnag.android.CallbackState getCallbackState()>();
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.CallbackState callbackState> = $r17;
+
+        $r18 = virtualinvoke $r15.<com.bugsnag.android.BugsnagStateModule: com.bugsnag.android.BreadcrumbState getBreadcrumbState()>();
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.BreadcrumbState breadcrumbState> = $r18;
+
+        $r19 = virtualinvoke $r15.<com.bugsnag.android.BugsnagStateModule: com.bugsnag.android.ContextState getContextState()>();
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.ContextState contextState> = $r19;
+
+        $r20 = virtualinvoke $r15.<com.bugsnag.android.BugsnagStateModule: com.bugsnag.android.MetadataState getMetadataState()>();
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.MetadataState metadataState> = $r20;
+
+        $r21 = virtualinvoke $r15.<com.bugsnag.android.BugsnagStateModule: com.bugsnag.android.FeatureFlagState getFeatureFlagState()>();
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.FeatureFlagState featureFlagState> = $r21;
+
+        $r22 = new com.bugsnag.android.internal.dag.SystemServiceModule;
+
+        specialinvoke $r22.<com.bugsnag.android.internal.dag.SystemServiceModule: void <init>(com.bugsnag.android.internal.dag.ContextModule)>($r6);
+
+        $r23 = <com.bugsnag.android.TaskType: com.bugsnag.android.TaskType IO>;
+
+        virtualinvoke $r14.<com.bugsnag.android.StorageModule: void resolveDependencies(com.bugsnag.android.BackgroundTaskService,com.bugsnag.android.TaskType)>($r5, $r23);
+
+        $r2 = new com.bugsnag.android.TrackerModule;
+
+        specialinvoke $r2.<com.bugsnag.android.TrackerModule: void <init>(com.bugsnag.android.internal.dag.ConfigModule,com.bugsnag.android.StorageModule,com.bugsnag.android.Client,com.bugsnag.android.BackgroundTaskService,com.bugsnag.android.CallbackState)>($r11, $r14, r0, $r5, $r17);
+
+        $r24 = virtualinvoke $r2.<com.bugsnag.android.TrackerModule: com.bugsnag.android.LaunchCrashTracker getLaunchCrashTracker()>();
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.LaunchCrashTracker launchCrashTracker> = $r24;
+
+        $r25 = virtualinvoke $r2.<com.bugsnag.android.TrackerModule: com.bugsnag.android.SessionTracker getSessionTracker()>();
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.SessionTracker sessionTracker> = $r25;
+
+        $r26 = new com.bugsnag.android.DataCollectionModule;
+
+        $r27 = virtualinvoke $r14.<com.bugsnag.android.StorageModule: java.lang.String getDeviceId()>();
+
+        specialinvoke $r26.<com.bugsnag.android.DataCollectionModule: void <init>(com.bugsnag.android.internal.dag.ContextModule,com.bugsnag.android.internal.dag.ConfigModule,com.bugsnag.android.internal.dag.SystemServiceModule,com.bugsnag.android.TrackerModule,com.bugsnag.android.BackgroundTaskService,com.bugsnag.android.Connectivity,java.lang.String,com.bugsnag.android.MemoryTrimState)>($r6, $r11, $r22, $r2, $r5, $r9, $r27, $r4);
+
+        $r23 = <com.bugsnag.android.TaskType: com.bugsnag.android.TaskType IO>;
+
+        virtualinvoke $r26.<com.bugsnag.android.DataCollectionModule: void resolveDependencies(com.bugsnag.android.BackgroundTaskService,com.bugsnag.android.TaskType)>($r5, $r23);
+
+        $r28 = virtualinvoke $r26.<com.bugsnag.android.DataCollectionModule: com.bugsnag.android.AppDataCollector getAppDataCollector()>();
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.AppDataCollector appDataCollector> = $r28;
+
+        $r29 = virtualinvoke $r26.<com.bugsnag.android.DataCollectionModule: com.bugsnag.android.DeviceDataCollector getDeviceDataCollector()>();
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.DeviceDataCollector deviceDataCollector> = $r29;
+
+        $r30 = virtualinvoke $r14.<com.bugsnag.android.StorageModule: com.bugsnag.android.UserStore getUserStore()>();
+
+        $r31 = virtualinvoke $r1.<com.bugsnag.android.Configuration: com.bugsnag.android.User getUser()>();
+
+        $r32 = virtualinvoke $r30.<com.bugsnag.android.UserStore: com.bugsnag.android.UserState load(com.bugsnag.android.User)>($r31);
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.UserState userState> = $r32;
+
+        $r33 = virtualinvoke $r14.<com.bugsnag.android.StorageModule: com.bugsnag.android.SharedPrefMigrator getSharedPrefMigrator()>();
+
+        virtualinvoke $r33.<com.bugsnag.android.SharedPrefMigrator: void deleteLegacyPrefs()>();
+
+        virtualinvoke r0.<com.bugsnag.android.Client: void registerLifecycleCallbacks()>();
+
+        $r34 = new com.bugsnag.android.EventStorageModule;
+
+        specialinvoke $r34.<com.bugsnag.android.EventStorageModule: void <init>(com.bugsnag.android.internal.dag.ContextModule,com.bugsnag.android.internal.dag.ConfigModule,com.bugsnag.android.DataCollectionModule,com.bugsnag.android.BackgroundTaskService,com.bugsnag.android.TrackerModule,com.bugsnag.android.internal.dag.SystemServiceModule,com.bugsnag.android.Notifier,com.bugsnag.android.CallbackState)>($r6, $r11, $r26, $r5, $r2, $r22, $r8, $r17);
+
+        $r23 = <com.bugsnag.android.TaskType: com.bugsnag.android.TaskType IO>;
+
+        virtualinvoke $r34.<com.bugsnag.android.EventStorageModule: void resolveDependencies(com.bugsnag.android.BackgroundTaskService,com.bugsnag.android.TaskType)>($r5, $r23);
+
+        $r35 = virtualinvoke $r34.<com.bugsnag.android.EventStorageModule: com.bugsnag.android.EventStore getEventStore()>();
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.EventStore eventStore> = $r35;
+
+        $r36 = new com.bugsnag.android.DeliveryDelegate;
+
+        specialinvoke $r36.<com.bugsnag.android.DeliveryDelegate: void <init>(com.bugsnag.android.Logger,com.bugsnag.android.EventStore,com.bugsnag.android.internal.ImmutableConfig,com.bugsnag.android.CallbackState,com.bugsnag.android.Notifier,com.bugsnag.android.BackgroundTaskService)>($r13, $r35, $r12, $r17, $r8, $r5);
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.DeliveryDelegate deliveryDelegate> = $r36;
+
+        $r37 = new com.bugsnag.android.ExceptionHandler;
+
+        specialinvoke $r37.<com.bugsnag.android.ExceptionHandler: void <init>(com.bugsnag.android.Client,com.bugsnag.android.Logger)>(r0, $r13);
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.ExceptionHandler exceptionHandler> = $r37;
+
+        $r38 = virtualinvoke $r12.<com.bugsnag.android.internal.ImmutableConfig: com.bugsnag.android.ErrorTypes getEnabledErrorTypes()>();
+
+        $z0 = virtualinvoke $r38.<com.bugsnag.android.ErrorTypes: boolean getUnhandledExceptions()>();
+
+        if $z0 == 0 goto label1;
+
+        virtualinvoke $r37.<com.bugsnag.android.ExceptionHandler: void install()>();
+
+     label1:
+        $r39 = virtualinvoke $r14.<com.bugsnag.android.StorageModule: com.bugsnag.android.LastRunInfoStore getLastRunInfoStore()>();
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.LastRunInfoStore lastRunInfoStore> = $r39;
+
+        $r40 = virtualinvoke $r14.<com.bugsnag.android.StorageModule: com.bugsnag.android.LastRunInfo getLastRunInfo()>();
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.LastRunInfo lastRunInfo> = $r40;
+
+        specialinvoke r0.<com.bugsnag.android.Client: void loadPlugins(com.bugsnag.android.Configuration)>($r1);
+
+        virtualinvoke $r35.<com.bugsnag.android.EventStore: void flushOnLaunch()>();
+
+        virtualinvoke $r35.<com.bugsnag.android.EventStore: void flushAsync()>();
+
+        virtualinvoke $r25.<com.bugsnag.android.SessionTracker: void flushAsync()>();
+
+        $r41 = new com.bugsnag.android.SystemBroadcastReceiver;
+
+        specialinvoke $r41.<com.bugsnag.android.SystemBroadcastReceiver: void <init>(com.bugsnag.android.Client,com.bugsnag.android.Logger)>(r0, $r13);
+
+        r0.<com.bugsnag.android.Client: com.bugsnag.android.SystemBroadcastReceiver systemBroadcastReceiver> = $r41;
+
+        specialinvoke r0.<com.bugsnag.android.Client: void registerComponentCallbacks()>();
+
+        virtualinvoke r0.<com.bugsnag.android.Client: void registerListenersInBackground()>();
+
+        $r42 = staticinvoke <java.util.Collections: java.util.Map emptyMap()>();
+
+        $r43 = <com.bugsnag.android.BreadcrumbType: com.bugsnag.android.BreadcrumbType STATE>;
+
+        $r27 = staticinvoke <runtime.Strings.StringIndexer: java.lang.String b08c60020(java.lang.String)>("10256");
+
+        virtualinvoke r0.<com.bugsnag.android.Client: void leaveAutoBreadcrumb(java.lang.String,com.bugsnag.android.BreadcrumbType,java.util.Map)>($r27, $r43, $r42);
+
+        interfaceinvoke $r13.<com.bugsnag.android.Logger: void d(java.lang.String)>($r27);
+
+        return;
+    }

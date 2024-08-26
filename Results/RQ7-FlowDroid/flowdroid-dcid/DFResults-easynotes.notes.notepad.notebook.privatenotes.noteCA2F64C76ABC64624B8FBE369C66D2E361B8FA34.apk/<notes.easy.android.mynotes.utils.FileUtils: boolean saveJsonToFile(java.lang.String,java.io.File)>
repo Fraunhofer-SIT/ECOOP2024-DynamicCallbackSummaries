@@ -1,0 +1,84 @@
+    public static boolean saveJsonToFile(java.lang.String, java.io.File)
+    {
+        java.lang.Throwable $r4;
+        java.io.FileWriter $r2, $r3;
+        java.lang.String $r1;
+        java.io.File $r0;
+        java.lang.Exception $r5;
+        boolean $z0;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r0 := @parameter1: java.io.File;
+
+        $r2 = null;
+
+     label01:
+        $z0 = virtualinvoke $r0.<java.io.File: boolean exists()>();
+
+     label02:
+        if $z0 != 0 goto label04;
+
+     label03:
+        virtualinvoke $r0.<java.io.File: boolean createNewFile()>();
+
+     label04:
+        $r3 = new java.io.FileWriter;
+
+     label05:
+        specialinvoke $r3.<java.io.FileWriter: void <init>(java.io.File)>($r0);
+
+     label06:
+        virtualinvoke $r3.<java.io.FileWriter: void write(java.lang.String)>($r1);
+
+        virtualinvoke $r3.<java.io.FileWriter: void flush()>();
+
+     label07:
+        staticinvoke <notes.easy.android.mynotes.utils.FileUtils: void closeStream(java.io.Closeable)>($r3);
+
+        return 1;
+
+     label08:
+        $r4 := @caughtexception;
+
+        $r2 = $r3;
+
+        goto label14;
+
+     label09:
+        $r5 := @caughtexception;
+
+        $r2 = $r3;
+
+        goto label12;
+
+     label10:
+        $r4 := @caughtexception;
+
+        goto label14;
+
+     label11:
+        $r5 := @caughtexception;
+
+     label12:
+        virtualinvoke $r5.<java.lang.Exception: void printStackTrace()>();
+
+     label13:
+        staticinvoke <notes.easy.android.mynotes.utils.FileUtils: void closeStream(java.io.Closeable)>($r2);
+
+        return 0;
+
+     label14:
+        staticinvoke <notes.easy.android.mynotes.utils.FileUtils: void closeStream(java.io.Closeable)>($r2);
+
+        throw $r4;
+
+        catch java.lang.Exception from label01 to label02 with label11;
+        catch java.lang.Exception from label03 to label04 with label11;
+        catch java.lang.Exception from label05 to label06 with label11;
+        catch java.lang.Throwable from label01 to label02 with label10;
+        catch java.lang.Throwable from label03 to label06 with label10;
+        catch java.lang.Exception from label06 to label07 with label09;
+        catch java.lang.Throwable from label06 to label07 with label08;
+        catch java.lang.Throwable from label12 to label13 with label10;
+    }

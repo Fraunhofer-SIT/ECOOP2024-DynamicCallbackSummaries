@@ -1,0 +1,233 @@
+    public final void serializeToUrlConnection$facebook_core_release(com.facebook.GraphRequestBatch, java.net.HttpURLConnection) throws java.io.IOException, org.json.JSONException
+    {
+        java.net.HttpURLConnection $r2;
+        java.lang.Throwable $r11;
+        com.facebook.internal.Logger $r14;
+        java.net.URL $r8;
+        com.facebook.HttpMethod $r6, $r9;
+        long $l2;
+        java.io.BufferedOutputStream $r15;
+        com.facebook.LoggingBehavior $r3;
+        android.os.Handler $r12;
+        java.util.Map $r13;
+        int $i0, $i1;
+        com.facebook.GraphRequest$Companion r0;
+        java.lang.String $r7;
+        boolean $z0, $z1;
+        java.io.OutputStream $r10;
+        com.facebook.GraphRequestBatch $r1;
+        com.facebook.ProgressNoopOutputStream $r17;
+        com.facebook.ProgressOutputStream $r18;
+        java.lang.Object $r4;
+        java.util.zip.GZIPOutputStream $r16;
+        com.facebook.GraphRequest $r5;
+
+        r0 := @this: com.facebook.GraphRequest$Companion;
+
+        $r1 := @parameter0: com.facebook.GraphRequestBatch;
+
+        $r2 := @parameter1: java.net.HttpURLConnection;
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkNotNullParameter(java.lang.Object,java.lang.String)>($r1, "requests");
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkNotNullParameter(java.lang.Object,java.lang.String)>($r2, "connection");
+
+        $r14 = new com.facebook.internal.Logger;
+
+        $r3 = <com.facebook.LoggingBehavior: com.facebook.LoggingBehavior REQUESTS>;
+
+        specialinvoke $r14.<com.facebook.internal.Logger: void <init>(com.facebook.LoggingBehavior,java.lang.String)>($r3, "Request");
+
+        $i0 = virtualinvoke $r1.<com.facebook.GraphRequestBatch: int size()>();
+
+        $z0 = specialinvoke r0.<com.facebook.GraphRequest$Companion: boolean isGzipCompressible(com.facebook.GraphRequestBatch)>($r1);
+
+        $z1 = 0;
+
+        $r4 = null;
+
+        if $i0 != 1 goto label01;
+
+        $r5 = virtualinvoke $r1.<com.facebook.GraphRequestBatch: com.facebook.GraphRequest get(int)>(0);
+
+        $r6 = virtualinvoke $r5.<com.facebook.GraphRequest: com.facebook.HttpMethod getHttpMethod()>();
+
+        goto label02;
+
+     label01:
+        $r6 = null;
+
+     label02:
+        if $r6 != null goto label03;
+
+        $r6 = <com.facebook.HttpMethod: com.facebook.HttpMethod POST>;
+
+     label03:
+        $r7 = virtualinvoke $r6.<java.lang.Enum: java.lang.String name()>();
+
+        virtualinvoke $r2.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>($r7);
+
+        specialinvoke r0.<com.facebook.GraphRequest$Companion: void setConnectionContentType(java.net.HttpURLConnection,boolean)>($r2, $z0);
+
+        $r8 = virtualinvoke $r2.<java.net.URLConnection: java.net.URL getURL()>();
+
+        virtualinvoke $r14.<com.facebook.internal.Logger: void append(java.lang.String)>("Request:\n");
+
+        $r7 = virtualinvoke $r1.<com.facebook.GraphRequestBatch: java.lang.String getId()>();
+
+        virtualinvoke $r14.<com.facebook.internal.Logger: void appendKeyValue(java.lang.String,java.lang.Object)>("Id", $r7);
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkNotNullExpressionValue(java.lang.Object,java.lang.String)>($r8, "url");
+
+        virtualinvoke $r14.<com.facebook.internal.Logger: void appendKeyValue(java.lang.String,java.lang.Object)>("URL", $r8);
+
+        $r7 = virtualinvoke $r2.<java.net.HttpURLConnection: java.lang.String getRequestMethod()>();
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkNotNullExpressionValue(java.lang.Object,java.lang.String)>($r7, "connection.requestMethod");
+
+        virtualinvoke $r14.<com.facebook.internal.Logger: void appendKeyValue(java.lang.String,java.lang.Object)>("Method", $r7);
+
+        $r7 = virtualinvoke $r2.<java.net.URLConnection: java.lang.String getRequestProperty(java.lang.String)>("User-Agent");
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkNotNullExpressionValue(java.lang.Object,java.lang.String)>($r7, "connection.getRequestProperty(\"User-Agent\")");
+
+        virtualinvoke $r14.<com.facebook.internal.Logger: void appendKeyValue(java.lang.String,java.lang.Object)>("User-Agent", $r7);
+
+        $r7 = virtualinvoke $r2.<java.net.URLConnection: java.lang.String getRequestProperty(java.lang.String)>("Content-Type");
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkNotNullExpressionValue(java.lang.Object,java.lang.String)>($r7, "connection.getRequestProperty(\"Content-Type\")");
+
+        virtualinvoke $r14.<com.facebook.internal.Logger: void appendKeyValue(java.lang.String,java.lang.Object)>("Content-Type", $r7);
+
+        $i1 = virtualinvoke $r1.<com.facebook.GraphRequestBatch: int getTimeout()>();
+
+        virtualinvoke $r2.<java.net.URLConnection: void setConnectTimeout(int)>($i1);
+
+        $i1 = virtualinvoke $r1.<com.facebook.GraphRequestBatch: int getTimeout()>();
+
+        virtualinvoke $r2.<java.net.URLConnection: void setReadTimeout(int)>($i1);
+
+        $r9 = <com.facebook.HttpMethod: com.facebook.HttpMethod POST>;
+
+        if $r6 != $r9 goto label04;
+
+        $z1 = 1;
+
+     label04:
+        if $z1 != 0 goto label05;
+
+        virtualinvoke $r14.<com.facebook.internal.Logger: void log()>();
+
+        return;
+
+     label05:
+        virtualinvoke $r2.<java.net.URLConnection: void setDoOutput(boolean)>(1);
+
+     label06:
+        $r15 = new java.io.BufferedOutputStream;
+
+     label07:
+        $r10 = virtualinvoke $r2.<java.net.URLConnection: java.io.OutputStream getOutputStream()>();
+
+        specialinvoke $r15.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r10);
+
+     label08:
+        if $z0 == 0 goto label14;
+
+     label09:
+        $r16 = new java.util.zip.GZIPOutputStream;
+
+     label10:
+        $r4 = $r16;
+
+     label11:
+        specialinvoke $r16.<java.util.zip.GZIPOutputStream: void <init>(java.io.OutputStream)>($r15);
+
+     label12:
+        goto label15;
+
+     label13:
+        $r11 := @caughtexception;
+
+        $r4 = $r15;
+
+        goto label26;
+
+     label14:
+        $r4 = $r15;
+
+     label15:
+        $z1 = specialinvoke r0.<com.facebook.GraphRequest$Companion: boolean hasOnProgressCallbacks(com.facebook.GraphRequestBatch)>($r1);
+
+     label16:
+        if $z1 == 0 goto label22;
+
+     label17:
+        $r17 = new com.facebook.ProgressNoopOutputStream;
+
+     label18:
+        $r12 = virtualinvoke $r1.<com.facebook.GraphRequestBatch: android.os.Handler getCallbackHandler()>();
+
+        specialinvoke $r17.<com.facebook.ProgressNoopOutputStream: void <init>(android.os.Handler)>($r12);
+
+        specialinvoke r0.<com.facebook.GraphRequest$Companion: void processRequest(com.facebook.GraphRequestBatch,com.facebook.internal.Logger,int,java.net.URL,java.io.OutputStream,boolean)>($r1, null, $i0, $r8, $r17, $z0);
+
+        $i1 = virtualinvoke $r17.<com.facebook.ProgressNoopOutputStream: int getMaxProgress()>();
+
+        $r13 = virtualinvoke $r17.<com.facebook.ProgressNoopOutputStream: java.util.Map getProgressMap()>();
+
+        $r18 = new com.facebook.ProgressOutputStream;
+
+     label19:
+        $l2 = (long) $i1;
+
+     label20:
+        $r10 = (java.io.OutputStream) $r4;
+
+        specialinvoke $r18.<com.facebook.ProgressOutputStream: void <init>(java.io.OutputStream,com.facebook.GraphRequestBatch,java.util.Map,long)>($r10, $r1, $r13, $l2);
+
+     label21:
+        $r4 = $r18;
+
+     label22:
+        $r10 = (java.io.OutputStream) $r4;
+
+        specialinvoke r0.<com.facebook.GraphRequest$Companion: void processRequest(com.facebook.GraphRequestBatch,com.facebook.internal.Logger,int,java.net.URL,java.io.OutputStream,boolean)>($r1, $r14, $i0, $r8, $r10, $z0);
+
+     label23:
+        $r10 = (java.io.OutputStream) $r4;
+
+        virtualinvoke $r10.<java.io.OutputStream: void close()>();
+
+        virtualinvoke $r14.<com.facebook.internal.Logger: void log()>();
+
+        return;
+
+     label24:
+        $r11 := @caughtexception;
+
+        goto label26;
+
+     label25:
+        $r11 := @caughtexception;
+
+     label26:
+        if $r4 == null goto label27;
+
+        $r10 = (java.io.OutputStream) $r4;
+
+        virtualinvoke $r10.<java.io.OutputStream: void close()>();
+
+     label27:
+        throw $r11;
+
+        catch java.lang.Throwable from label06 to label07 with label25;
+        catch java.lang.Throwable from label07 to label08 with label25;
+        catch java.lang.Throwable from label09 to label10 with label13;
+        catch java.lang.Throwable from label11 to label12 with label13;
+        catch java.lang.Throwable from label15 to label16 with label24;
+        catch java.lang.Throwable from label17 to label18 with label24;
+        catch java.lang.Throwable from label18 to label19 with label24;
+        catch java.lang.Throwable from label20 to label21 with label24;
+        catch java.lang.Throwable from label22 to label23 with label24;
+    }

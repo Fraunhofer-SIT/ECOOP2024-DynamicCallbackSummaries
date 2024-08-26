@@ -1,0 +1,135 @@
+    private void writeSessionDevice(java.lang.String) throws java.lang.Exception
+    {
+        java.lang.Throwable $r17;
+        android.content.Context $r10;
+        io.fabric.sdk.android.services.common.IdManager $r11;
+        com.crashlytics.android.core.CrashlyticsCore $r9;
+        com.crashlytics.android.core.CrashlyticsController r0;
+        long l0, $l3, $l5;
+        com.crashlytics.android.core.ClsFileOutputStream r2, r4;
+        java.util.Map $r13;
+        int $i1, $i2, $i4;
+        java.lang.String $r1, $r14, $r15, $r16;
+        boolean $z0;
+        java.lang.Runtime $r12;
+        java.io.File $r6;
+        android.os.StatFs r3;
+        com.crashlytics.android.core.CodedOutputStream r5, $r8;
+        java.lang.StringBuilder $r7;
+
+        r0 := @this: com.crashlytics.android.core.CrashlyticsController;
+
+        $r1 := @parameter0: java.lang.String;
+
+        r4 = null;
+
+        r5 = null;
+
+     label01:
+        r2 = new com.crashlytics.android.core.ClsFileOutputStream;
+
+        $r6 = virtualinvoke r0.<com.crashlytics.android.core.CrashlyticsController: java.io.File getFilesDir()>();
+
+        $r7 = new java.lang.StringBuilder;
+
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>()>();
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("SessionDevice");
+
+        $r1 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke r2.<com.crashlytics.android.core.ClsFileOutputStream: void <init>(java.io.File,java.lang.String)>($r6, $r1);
+
+     label02:
+        $r8 = staticinvoke <com.crashlytics.android.core.CodedOutputStream: com.crashlytics.android.core.CodedOutputStream newInstance(java.io.OutputStream)>(r2);
+
+     label03:
+        r5 = $r8;
+
+     label04:
+        $r9 = r0.<com.crashlytics.android.core.CrashlyticsController: com.crashlytics.android.core.CrashlyticsCore crashlyticsCore>;
+
+        $r10 = virtualinvoke $r9.<com.crashlytics.android.core.CrashlyticsCore: android.content.Context getContext()>();
+
+        r3 = new android.os.StatFs;
+
+        $r6 = staticinvoke <android.os.Environment: java.io.File getDataDirectory()>();
+
+        $r1 = virtualinvoke $r6.<java.io.File: java.lang.String getPath()>();
+
+        specialinvoke r3.<android.os.StatFs: void <init>(java.lang.String)>($r1);
+
+        $r11 = r0.<com.crashlytics.android.core.CrashlyticsController: io.fabric.sdk.android.services.common.IdManager idManager>;
+
+        $r1 = virtualinvoke $r11.<io.fabric.sdk.android.services.common.IdManager: java.lang.String getDeviceUUID()>();
+
+        $i1 = staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: int getCpuArchitectureInt()>();
+
+        $r12 = staticinvoke <java.lang.Runtime: java.lang.Runtime getRuntime()>();
+
+        $i2 = virtualinvoke $r12.<java.lang.Runtime: int availableProcessors()>();
+
+        $l3 = staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: long getTotalRamInBytes()>();
+
+        $i4 = virtualinvoke r3.<android.os.StatFs: int getBlockCount()>();
+
+     label05:
+        l0 = (long) $i4;
+
+     label06:
+        $i4 = virtualinvoke r3.<android.os.StatFs: int getBlockSize()>();
+
+     label07:
+        $l5 = (long) $i4;
+
+        l0 = l0 * $l5;
+
+     label08:
+        $z0 = staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: boolean isEmulator(android.content.Context)>($r10);
+
+        $r11 = r0.<com.crashlytics.android.core.CrashlyticsController: io.fabric.sdk.android.services.common.IdManager idManager>;
+
+        $r13 = virtualinvoke $r11.<io.fabric.sdk.android.services.common.IdManager: java.util.Map getDeviceIdentifiers()>();
+
+        $i4 = staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: int getDeviceState(android.content.Context)>($r10);
+
+        $r14 = <android.os.Build: java.lang.String MODEL>;
+
+        $r15 = <android.os.Build: java.lang.String MANUFACTURER>;
+
+        $r16 = <android.os.Build: java.lang.String PRODUCT>;
+
+        staticinvoke <com.crashlytics.android.core.SessionProtobufHelper: void writeSessionDevice(com.crashlytics.android.core.CodedOutputStream,java.lang.String,int,java.lang.String,int,long,long,boolean,java.util.Map,int,java.lang.String,java.lang.String)>($r8, $r1, $i1, $r14, $i2, $l3, l0, $z0, $r13, $i4, $r15, $r16);
+
+     label09:
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void flushOrLog(java.io.Flushable,java.lang.String)>($r8, "Failed to flush session device info.");
+
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void closeOrLog(java.io.Closeable,java.lang.String)>(r2, "Failed to close session device file.");
+
+        return;
+
+     label10:
+        $r17 := @caughtexception;
+
+     label11:
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void flushOrLog(java.io.Flushable,java.lang.String)>(r5, "Failed to flush session device info.");
+
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void closeOrLog(java.io.Closeable,java.lang.String)>(r4, "Failed to close session device file.");
+
+        throw $r17;
+
+     label12:
+        $r17 := @caughtexception;
+
+        r4 = r2;
+
+        goto label11;
+
+        catch java.lang.Throwable from label01 to label02 with label10;
+        catch java.lang.Throwable from label02 to label03 with label12;
+        catch java.lang.Throwable from label04 to label05 with label12;
+        catch java.lang.Throwable from label06 to label07 with label12;
+        catch java.lang.Throwable from label08 to label09 with label12;
+    }

@@ -1,0 +1,554 @@
+    public static int copyFile(java.lang.String, java.lang.String, boolean, boolean)
+    {
+        byte[] $r22;
+        boolean $z0, $z1, $z2;
+        java.lang.Exception $r0, $r1, $r2, $r3, $r4, $r5, $r6, $r7, $r24, $r26;
+        java.lang.StringBuilder $r15, $r28;
+        java.lang.Throwable $r23, $r25;
+        android.content.Context $r12;
+        java.lang.String[] $r13;
+        int $i0, $i1, $i2, $i3;
+        java.lang.String $r8, $r9, $r16, $r17;
+        java.io.OutputStream $r21;
+        io.dcloud.application.DCLoudApplicationImpl $r11;
+        java.io.FileInputStream $r29;
+        java.io.File $r14, $r27;
+        java.lang.Object $r10, $r18, $r20;
+        java.io.InputStream $r19;
+
+        $r8 := @parameter0: java.lang.String;
+
+        $r9 := @parameter1: java.lang.String;
+
+        $z0 := @parameter2: boolean;
+
+        $z1 := @parameter3: boolean;
+
+        $r8 = staticinvoke <io.dcloud.common.adapter.io.DHFile: java.lang.String getRealPath(java.lang.String)>($r8);
+
+        $r9 = staticinvoke <io.dcloud.common.adapter.io.DHFile: java.lang.String getRealPath(java.lang.String)>($r9);
+
+        $r10 = null;
+
+        $i0 = -1;
+
+     label001:
+        $r11 = staticinvoke <io.dcloud.application.DCLoudApplicationImpl: io.dcloud.application.DCLoudApplicationImpl self()>();
+
+        $r12 = virtualinvoke $r11.<io.dcloud.application.DCLoudApplicationImpl: android.content.Context getContext()>();
+
+     label002:
+        $r13 = newarray (java.lang.String)[1];
+
+     label003:
+        $i1 = 0;
+
+     label004:
+        $r13[0] = $r9;
+
+     label005:
+        $z2 = staticinvoke <io.dcloud.common.util.FileUtil: boolean checkPathAccord(android.content.Context,java.lang.String[])>($r12, $r13);
+
+     label006:
+        if $z2 != 0 goto label011;
+
+     label007:
+        $i2 = <io.dcloud.common.adapter.util.AndroidResources: int sAppTargetSdkVersion>;
+
+     label008:
+        if $i2 <= 28 goto label011;
+
+     label009:
+        staticinvoke <java.lang.Thread: void sleep(long)>(10L);
+
+     label010:
+        staticinvoke <io.dcloud.common.util.IOUtil: void close(java.io.InputStream)>(null);
+
+        staticinvoke <io.dcloud.common.util.IOUtil: void close(java.io.OutputStream)>(null);
+
+        return -3;
+
+     label011:
+        $z2 = staticinvoke <io.dcloud.common.adapter.io.DHFile: boolean isExist(java.lang.String)>($r9);
+
+     label012:
+        if $z2 == 0 goto label020;
+
+        if $z1 == 0 goto label015;
+
+     label013:
+        staticinvoke <java.lang.Thread: void sleep(long)>(10L);
+
+     label014:
+        staticinvoke <io.dcloud.common.util.IOUtil: void close(java.io.InputStream)>(null);
+
+        staticinvoke <io.dcloud.common.util.IOUtil: void close(java.io.OutputStream)>(null);
+
+        return -2;
+
+     label015:
+        if $z0 == 0 goto label020;
+
+     label016:
+        $r27 = new java.io.File;
+
+     label017:
+        specialinvoke $r27.<java.io.File: void <init>(java.lang.String)>($r9);
+
+        $z2 = staticinvoke <io.dcloud.common.adapter.io.DHFile: boolean isDirectory(java.lang.Object)>($r27);
+
+     label018:
+        if $z2 != 0 goto label020;
+
+     label019:
+        staticinvoke <io.dcloud.common.adapter.io.DHFile: int deleteFile(java.lang.String)>($r9);
+
+     label020:
+        $r27 = new java.io.File;
+
+     label021:
+        $r14 = $r27;
+
+     label022:
+        specialinvoke $r27.<java.io.File: void <init>(java.lang.String)>($r8);
+
+        $z2 = virtualinvoke $r27.<java.io.File: boolean exists()>();
+
+     label023:
+        if $z2 != 0 goto label026;
+
+     label024:
+        staticinvoke <java.lang.Thread: void sleep(long)>(10L);
+
+     label025:
+        staticinvoke <io.dcloud.common.util.IOUtil: void close(java.io.InputStream)>(null);
+
+        staticinvoke <io.dcloud.common.util.IOUtil: void close(java.io.OutputStream)>(null);
+
+        return -1;
+
+     label026:
+        $z2 = virtualinvoke $r27.<java.io.File: boolean isDirectory()>();
+
+     label027:
+        if $z2 == 0 goto label058;
+
+     label028:
+        $r13 = staticinvoke <io.dcloud.common.adapter.io.DHFile: java.lang.String[] list(java.lang.Object)>($r27);
+
+     label029:
+        $r28 = new java.lang.StringBuilder;
+
+     label030:
+        $r15 = $r28;
+
+     label031:
+        specialinvoke $r28.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r28.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+     label032:
+        $r16 = <java.io.File: java.lang.String separator>;
+
+     label033:
+        $z2 = virtualinvoke $r8.<java.lang.String: boolean endsWith(java.lang.String)>($r16);
+
+     label034:
+        if $z2 == 0 goto label035;
+
+        $r8 = "";
+
+        goto label036;
+
+     label035:
+        $r8 = $r16;
+
+     label036:
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r8 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label037:
+        $r28 = new java.lang.StringBuilder;
+
+     label038:
+        $r15 = $r28;
+
+     label039:
+        specialinvoke $r28.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r28.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        $z2 = virtualinvoke $r9.<java.lang.String: boolean endsWith(java.lang.String)>($r16);
+
+     label040:
+        if $z2 == 0 goto label041;
+
+        $r16 = "";
+
+     label041:
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r16);
+
+        $r9 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label042:
+        $i2 = -1;
+
+     label043:
+        $i3 = lengthof $r13;
+
+     label044:
+        if $i1 >= $i3 goto label057;
+
+     label045:
+        $r28 = new java.lang.StringBuilder;
+
+     label046:
+        specialinvoke $r28.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r28.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+     label047:
+        $r16 = $r13[$i1];
+
+     label048:
+        virtualinvoke $r28.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r16);
+
+        $r16 = virtualinvoke $r28.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label049:
+        $r28 = new java.lang.StringBuilder;
+
+     label050:
+        specialinvoke $r28.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r28.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+     label051:
+        $r17 = $r13[$i1];
+
+     label052:
+        virtualinvoke $r28.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r17);
+
+        $r17 = virtualinvoke $r28.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $i3 = staticinvoke <io.dcloud.common.adapter.io.DHFile: int copyFile(java.lang.String,java.lang.String,boolean,boolean)>($r16, $r17, $z0, $z1);
+
+     label053:
+        $i2 = $i3;
+
+        if $i3 == 1 goto label056;
+
+     label054:
+        staticinvoke <java.lang.Thread: void sleep(long)>(10L);
+
+     label055:
+        staticinvoke <io.dcloud.common.util.IOUtil: void close(java.io.InputStream)>(null);
+
+        staticinvoke <io.dcloud.common.util.IOUtil: void close(java.io.OutputStream)>(null);
+
+        return $i3;
+
+     label056:
+        $i1 = $i1 + 1;
+
+        goto label043;
+
+     label057:
+        $r18 = null;
+
+        $i0 = $i2;
+
+        goto label084;
+
+     label058:
+        $r13 = newarray (java.lang.String)[1];
+
+     label059:
+        $r13[0] = $r8;
+
+     label060:
+        $z0 = staticinvoke <io.dcloud.common.util.FileUtil: boolean checkPathAccord(android.content.Context,java.lang.String[])>($r12, $r13);
+
+     label061:
+        if $z0 != 0 goto label070;
+
+     label062:
+        $i1 = <io.dcloud.common.adapter.util.AndroidResources: int sAppTargetSdkVersion>;
+
+     label063:
+        if $i1 <= 28 goto label070;
+
+     label064:
+        $z0 = staticinvoke <io.dcloud.common.util.FileUtil: boolean isFilePathForPublic(android.content.Context,java.lang.String)>($r12, $r8);
+
+     label065:
+        if $z0 == 0 goto label068;
+
+     label066:
+        $r19 = staticinvoke <io.dcloud.common.util.FileUtil: java.io.InputStream getFileInputStream(android.content.Context,java.io.File)>($r12, $r27);
+
+     label067:
+        $r18 = $r19;
+
+        goto label073;
+
+     label068:
+        staticinvoke <java.lang.Thread: void sleep(long)>(10L);
+
+     label069:
+        staticinvoke <io.dcloud.common.util.IOUtil: void close(java.io.InputStream)>(null);
+
+        staticinvoke <io.dcloud.common.util.IOUtil: void close(java.io.OutputStream)>(null);
+
+        return -3;
+
+     label070:
+        $r29 = new java.io.FileInputStream;
+
+     label071:
+        $r18 = $r29;
+
+     label072:
+        specialinvoke $r29.<java.io.FileInputStream: void <init>(java.io.File)>($r14);
+
+     label073:
+        $r20 = staticinvoke <io.dcloud.common.adapter.io.DHFile: java.lang.Object createFileHandler(java.lang.String)>($r9);
+
+        $z0 = staticinvoke <io.dcloud.common.adapter.io.DHFile: boolean isExist(java.lang.Object)>($r20);
+
+     label074:
+        if $z0 != 0 goto label076;
+
+     label075:
+        staticinvoke <io.dcloud.common.adapter.io.DHFile: byte createNewFile(java.lang.Object)>($r20);
+
+     label076:
+        $r21 = staticinvoke <io.dcloud.common.adapter.io.DHFile: java.io.OutputStream getOutputStream(java.lang.Object)>($r20);
+
+     label077:
+        $r10 = $r21;
+
+        $r22 = newarray (byte)[204800];
+
+        if $r18 == null goto label083;
+
+     label078:
+        $r19 = (java.io.InputStream) $r18;
+
+        $i1 = virtualinvoke $r19.<java.io.InputStream: int read(byte[])>($r22);
+
+     label079:
+        if $i1 <= 0 goto label082;
+
+     label080:
+        virtualinvoke $r21.<java.io.OutputStream: void write(byte[],int,int)>($r22, 0, $i1);
+
+        virtualinvoke $r21.<java.io.OutputStream: void flush()>();
+
+     label081:
+        goto label078;
+
+     label082:
+        $i0 = 1;
+
+     label083:
+        $r10 = $r18;
+
+        $r18 = $r21;
+
+     label084:
+        staticinvoke <java.lang.Thread: void sleep(long)>(10L);
+
+     label085:
+        goto label093;
+
+     label086:
+        $r23 := @caughtexception;
+
+        goto label095;
+
+     label087:
+        $r24 := @caughtexception;
+
+        $r20 = $r10;
+
+        $r10 = $r18;
+
+        $r18 = $r20;
+
+        goto label090;
+
+     label088:
+        $r25 := @caughtexception;
+
+        $r18 = null;
+
+        goto label096;
+
+     label089:
+        $r26 := @caughtexception;
+
+        $r24 = $r26;
+
+        $r18 = null;
+
+     label090:
+        $r28 = new java.lang.StringBuilder;
+
+     label091:
+        specialinvoke $r28.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r28.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("copyFile:");
+
+        virtualinvoke $r28.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r24);
+
+        $r8 = virtualinvoke $r28.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <io.dcloud.common.adapter.util.Logger: void i(java.lang.String)>($r8);
+
+     label092:
+        staticinvoke <java.lang.Thread: void sleep(long)>(10L);
+
+     label093:
+        $r19 = (java.io.InputStream) $r10;
+
+        staticinvoke <io.dcloud.common.util.IOUtil: void close(java.io.InputStream)>($r19);
+
+        $r21 = (java.io.OutputStream) $r18;
+
+        staticinvoke <io.dcloud.common.util.IOUtil: void close(java.io.OutputStream)>($r21);
+
+        return $i0;
+
+     label094:
+        $r23 := @caughtexception;
+
+        $r20 = $r10;
+
+        $r10 = $r18;
+
+        $r18 = $r20;
+
+     label095:
+        $r25 = $r23;
+
+     label096:
+        staticinvoke <java.lang.Thread: void sleep(long)>(10L);
+
+     label097:
+        $r19 = (java.io.InputStream) $r18;
+
+        staticinvoke <io.dcloud.common.util.IOUtil: void close(java.io.InputStream)>($r19);
+
+        $r21 = (java.io.OutputStream) $r10;
+
+        staticinvoke <io.dcloud.common.util.IOUtil: void close(java.io.OutputStream)>($r21);
+
+        throw $r25;
+
+     label098:
+        $r0 := @caughtexception;
+
+        goto label010;
+
+     label099:
+        $r1 := @caughtexception;
+
+        goto label014;
+
+     label100:
+        $r2 := @caughtexception;
+
+        goto label025;
+
+     label101:
+        $r3 := @caughtexception;
+
+        goto label055;
+
+     label102:
+        $r4 := @caughtexception;
+
+        goto label069;
+
+     label103:
+        $r5 := @caughtexception;
+
+        goto label093;
+
+     label104:
+        $r6 := @caughtexception;
+
+        goto label093;
+
+     label105:
+        $r7 := @caughtexception;
+
+        goto label097;
+
+        catch java.lang.Exception from label001 to label002 with label089;
+        catch java.lang.Exception from label004 to label006 with label089;
+        catch java.lang.Throwable from label001 to label003 with label088;
+        catch java.lang.Throwable from label005 to label006 with label088;
+        catch java.lang.Throwable from label007 to label008 with label088;
+        catch java.lang.Exception from label009 to label010 with label098;
+        catch java.lang.Exception from label011 to label012 with label089;
+        catch java.lang.Throwable from label011 to label012 with label088;
+        catch java.lang.Exception from label013 to label014 with label099;
+        catch java.lang.Exception from label017 to label018 with label089;
+        catch java.lang.Exception from label019 to label020 with label089;
+        catch java.lang.Exception from label022 to label023 with label089;
+        catch java.lang.Throwable from label016 to label017 with label088;
+        catch java.lang.Throwable from label017 to label018 with label088;
+        catch java.lang.Throwable from label019 to label021 with label088;
+        catch java.lang.Throwable from label022 to label023 with label088;
+        catch java.lang.Exception from label024 to label025 with label100;
+        catch java.lang.Exception from label026 to label027 with label089;
+        catch java.lang.Exception from label028 to label029 with label089;
+        catch java.lang.Exception from label031 to label032 with label089;
+        catch java.lang.Exception from label033 to label034 with label089;
+        catch java.lang.Throwable from label026 to label027 with label088;
+        catch java.lang.Throwable from label028 to label030 with label088;
+        catch java.lang.Throwable from label031 to label034 with label088;
+        catch java.lang.Exception from label036 to label037 with label089;
+        catch java.lang.Exception from label039 to label040 with label089;
+        catch java.lang.Exception from label041 to label042 with label089;
+        catch java.lang.Exception from label043 to label044 with label089;
+        catch java.lang.Exception from label046 to label049 with label089;
+        catch java.lang.Exception from label050 to label053 with label089;
+        catch java.lang.Throwable from label036 to label038 with label088;
+        catch java.lang.Throwable from label039 to label040 with label088;
+        catch java.lang.Throwable from label041 to label042 with label088;
+        catch java.lang.Throwable from label045 to label046 with label088;
+        catch java.lang.Throwable from label046 to label047 with label088;
+        catch java.lang.Throwable from label048 to label050 with label088;
+        catch java.lang.Throwable from label050 to label051 with label088;
+        catch java.lang.Throwable from label052 to label053 with label088;
+        catch java.lang.Exception from label054 to label055 with label101;
+        catch java.lang.Exception from label059 to label061 with label089;
+        catch java.lang.Exception from label064 to label065 with label089;
+        catch java.lang.Exception from label066 to label067 with label089;
+        catch java.lang.Throwable from label058 to label059 with label088;
+        catch java.lang.Throwable from label060 to label061 with label088;
+        catch java.lang.Throwable from label062 to label063 with label088;
+        catch java.lang.Throwable from label064 to label065 with label088;
+        catch java.lang.Throwable from label066 to label067 with label088;
+        catch java.lang.Exception from label068 to label069 with label102;
+        catch java.lang.Exception from label072 to label073 with label089;
+        catch java.lang.Throwable from label070 to label071 with label088;
+        catch java.lang.Throwable from label072 to label073 with label088;
+        catch java.lang.Exception from label073 to label074 with label087;
+        catch java.lang.Exception from label075 to label077 with label087;
+        catch java.lang.Exception from label078 to label079 with label087;
+        catch java.lang.Exception from label080 to label081 with label087;
+        catch java.lang.Throwable from label073 to label074 with label086;
+        catch java.lang.Throwable from label075 to label077 with label086;
+        catch java.lang.Throwable from label078 to label079 with label086;
+        catch java.lang.Throwable from label080 to label081 with label086;
+        catch java.lang.Exception from label084 to label085 with label103;
+        catch java.lang.Throwable from label090 to label091 with label094;
+        catch java.lang.Throwable from label091 to label092 with label094;
+        catch java.lang.Exception from label092 to label093 with label104;
+        catch java.lang.Exception from label096 to label097 with label105;
+    }

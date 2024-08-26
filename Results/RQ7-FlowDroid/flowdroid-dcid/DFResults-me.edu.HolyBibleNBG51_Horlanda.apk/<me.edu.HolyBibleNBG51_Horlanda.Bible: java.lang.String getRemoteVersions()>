@@ -1,0 +1,154 @@
+    java.lang.String getRemoteVersions() throws org.apache.http.client.ClientProtocolException, java.io.IOException
+    {
+        org.apache.http.impl.client.DefaultHttpClient r1;
+        android.content.SharedPreferences$Editor $r15;
+        java.lang.Throwable $r21;
+        android.content.Context $r6;
+        byte[] $r19;
+        me.edu.HolyBibleNBG51_Horlanda.Bible r0;
+        org.apache.http.StatusLine $r10;
+        org.apache.http.Header $r14;
+        java.io.BufferedOutputStream r4;
+        org.json.JSONException r2;
+        org.json.JSONObject $r13;
+        int $i0;
+        java.lang.String $r8, $r16;
+        org.apache.http.HttpEntity $r11;
+        java.io.FileOutputStream $r18;
+        java.io.File r5, $r17, $r20;
+        android.content.SharedPreferences $r7;
+        org.apache.http.client.methods.HttpGet r3;
+        org.apache.http.HttpResponse $r9;
+        java.lang.StringBuilder $r22;
+        java.io.InputStream $r12;
+
+        r0 := @this: me.edu.HolyBibleNBG51_Horlanda.Bible;
+
+        r1 = new org.apache.http.impl.client.DefaultHttpClient;
+
+        specialinvoke r1.<org.apache.http.impl.client.DefaultHttpClient: void <init>()>();
+
+        $r6 = <me.edu.HolyBibleNBG51_Horlanda.Bible: android.content.Context mContext>;
+
+        $r7 = virtualinvoke $r6.<android.content.Context: android.content.SharedPreferences getSharedPreferences(java.lang.String,int)>("json", 4);
+
+        $r8 = interfaceinvoke $r7.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("versions.json_etag", null);
+
+        r3 = new org.apache.http.client.methods.HttpGet;
+
+        specialinvoke r3.<org.apache.http.client.methods.HttpGet: void <init>(java.lang.String)>("https://github.com/TecnoEducativa/bible-data/raw/master/versions.json");
+
+        if $r8 == null goto label01;
+
+        virtualinvoke r3.<org.apache.http.client.methods.HttpGet: void addHeader(java.lang.String,java.lang.String)>("If-None-Match", $r8);
+
+     label01:
+        $r9 = interfaceinvoke r1.<org.apache.http.client.HttpClient: org.apache.http.HttpResponse execute(org.apache.http.client.methods.HttpUriRequest)>(r3);
+
+        $r10 = interfaceinvoke $r9.<org.apache.http.HttpResponse: org.apache.http.StatusLine getStatusLine()>();
+
+        $i0 = interfaceinvoke $r10.<org.apache.http.StatusLine: int getStatusCode()>();
+
+        if $i0 != 304 goto label02;
+
+        staticinvoke <me.edu.HolyBibleNBG51_Horlanda.Log: int d(java.lang.String,java.lang.String)>("me.edu.HolyBibleNBG51_Horlanda$Bible", "versions.json not modified");
+
+        return null;
+
+     label02:
+        $r11 = interfaceinvoke $r9.<org.apache.http.HttpResponse: org.apache.http.HttpEntity getEntity()>();
+
+        $r12 = interfaceinvoke $r11.<org.apache.http.HttpEntity: java.io.InputStream getContent()>();
+
+        $r8 = virtualinvoke r0.<me.edu.HolyBibleNBG51_Horlanda.Bible: java.lang.String getStringFromInputStream(java.io.InputStream)>($r12);
+
+        virtualinvoke $r12.<java.io.InputStream: void close()>();
+
+        $r13 = new org.json.JSONObject;
+
+     label03:
+        specialinvoke $r13.<org.json.JSONObject: void <init>(java.lang.String)>($r8);
+
+     label04:
+        $r14 = interfaceinvoke $r9.<org.apache.http.HttpResponse: org.apache.http.Header getFirstHeader(java.lang.String)>("ETag");
+
+     label05:
+        if $r14 == null goto label07;
+
+     label06:
+        $r15 = interfaceinvoke $r7.<android.content.SharedPreferences: android.content.SharedPreferences$Editor edit()>();
+
+        $r16 = interfaceinvoke $r14.<org.apache.http.Header: java.lang.String getValue()>();
+
+        $r15 = interfaceinvoke $r15.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putString(java.lang.String,java.lang.String)>("versions.json_etag", $r16);
+
+        interfaceinvoke $r15.<android.content.SharedPreferences$Editor: boolean commit()>();
+
+     label07:
+        r5 = new java.io.File;
+
+        $r6 = <me.edu.HolyBibleNBG51_Horlanda.Bible: android.content.Context mContext>;
+
+     label08:
+        $r17 = virtualinvoke $r6.<android.content.Context: java.io.File getFilesDir()>();
+
+        specialinvoke r5.<java.io.File: void <init>(java.io.File,java.lang.String)>($r17, "versions.json.tmp");
+
+     label09:
+        r4 = new java.io.BufferedOutputStream;
+
+        $r18 = new java.io.FileOutputStream;
+
+     label10:
+        specialinvoke $r18.<java.io.FileOutputStream: void <init>(java.io.File)>(r5);
+
+        specialinvoke r4.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r18);
+
+        $r19 = virtualinvoke $r8.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8");
+
+        virtualinvoke r4.<java.io.OutputStream: void write(byte[])>($r19);
+
+        virtualinvoke r4.<java.io.OutputStream: void close()>();
+
+     label11:
+        $r17 = new java.io.File;
+
+        $r6 = <me.edu.HolyBibleNBG51_Horlanda.Bible: android.content.Context mContext>;
+
+     label12:
+        $r20 = virtualinvoke $r6.<android.content.Context: java.io.File getFilesDir()>();
+
+        specialinvoke $r17.<java.io.File: void <init>(java.io.File,java.lang.String)>($r20, "versions.json");
+
+        virtualinvoke r5.<java.io.File: boolean renameTo(java.io.File)>($r17);
+
+     label13:
+        return $r8;
+
+     label14:
+        $r21 := @caughtexception;
+
+        return $r8;
+
+     label15:
+        r2 := @caughtexception;
+
+        $r22 = new java.lang.StringBuilder;
+
+        specialinvoke $r22.<java.lang.StringBuilder: void <init>(java.lang.String)>("json: ");
+
+        $r22 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r8 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <me.edu.HolyBibleNBG51_Horlanda.Log: int d(java.lang.String,java.lang.String)>("me.edu.HolyBibleNBG51_Horlanda$Bible", $r8);
+
+        return null;
+
+        catch org.json.JSONException from label03 to label04 with label15;
+        catch java.io.IOException from label04 to label05 with label14;
+        catch java.io.IOException from label06 to label07 with label14;
+        catch java.io.IOException from label08 to label09 with label14;
+        catch java.io.IOException from label10 to label11 with label14;
+        catch java.io.IOException from label12 to label13 with label14;
+    }

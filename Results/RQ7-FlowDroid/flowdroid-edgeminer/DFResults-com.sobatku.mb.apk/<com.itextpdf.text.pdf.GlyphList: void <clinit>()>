@@ -1,0 +1,257 @@
+    static void <clinit>()
+    {
+        java.lang.Throwable $r16, $r17;
+        byte[] $r8;
+        java.io.ByteArrayOutputStream $r9;
+        java.util.HashMap $r2;
+        java.lang.Integer $r14;
+        com.itextpdf.text.pdf.fonts.FontsResourceAnchor $r4;
+        int[] $r15;
+        java.util.StringTokenizer $r11, $r12;
+        int $i0;
+        java.lang.String $r10, $r13;
+        boolean $z0;
+        java.io.PrintStream $r20;
+        java.lang.Exception $r0, $r1, $r18, $r19;
+        java.lang.Class $r5;
+        java.lang.StringBuilder $r21;
+        java.lang.ClassLoader $r6;
+        java.io.InputStream $r3, $r7;
+
+        $r2 = new java.util.HashMap;
+
+        specialinvoke $r2.<java.util.HashMap: void <init>()>();
+
+        <com.itextpdf.text.pdf.GlyphList: java.util.HashMap unicode2names> = $r2;
+
+        $r2 = new java.util.HashMap;
+
+        specialinvoke $r2.<java.util.HashMap: void <init>()>();
+
+        <com.itextpdf.text.pdf.GlyphList: java.util.HashMap names2unicode> = $r2;
+
+        $r3 = null;
+
+     label01:
+        $r4 = new com.itextpdf.text.pdf.fonts.FontsResourceAnchor;
+
+     label02:
+        specialinvoke $r4.<com.itextpdf.text.pdf.fonts.FontsResourceAnchor: void <init>()>();
+
+        $r5 = virtualinvoke $r4.<java.lang.Object: java.lang.Class getClass()>();
+
+        $r6 = virtualinvoke $r5.<java.lang.Class: java.lang.ClassLoader getClassLoader()>();
+
+        $r7 = staticinvoke <com.itextpdf.text.io.StreamUtil: java.io.InputStream getResourceStream(java.lang.String,java.lang.ClassLoader)>("com/itextpdf/text/pdf/fonts/glyphlist.txt", $r6);
+
+     label03:
+        if $r7 == null goto label35;
+
+        $r8 = newarray (byte)[1024];
+
+     label04:
+        $r9 = new java.io.ByteArrayOutputStream;
+
+     label05:
+        specialinvoke $r9.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label06:
+        $i0 = virtualinvoke $r7.<java.io.InputStream: int read(byte[])>($r8);
+
+     label07:
+        if $i0 < 0 goto label10;
+
+     label08:
+        virtualinvoke $r9.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r8, 0, $i0);
+
+     label09:
+        goto label06;
+
+     label10:
+        virtualinvoke $r7.<java.io.InputStream: void close()>();
+
+     label11:
+        $r8 = virtualinvoke $r9.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $r10 = staticinvoke <com.itextpdf.text.pdf.PdfEncodings: java.lang.String convertToString(byte[],java.lang.String)>($r8, null);
+
+     label12:
+        $r11 = new java.util.StringTokenizer;
+
+     label13:
+        specialinvoke $r11.<java.util.StringTokenizer: void <init>(java.lang.String,java.lang.String)>($r10, "\r\n");
+
+     label14:
+        $z0 = virtualinvoke $r11.<java.util.StringTokenizer: boolean hasMoreTokens()>();
+
+     label15:
+        if $z0 == 0 goto label32;
+
+     label16:
+        $r10 = virtualinvoke $r11.<java.util.StringTokenizer: java.lang.String nextToken()>();
+
+        $z0 = virtualinvoke $r10.<java.lang.String: boolean startsWith(java.lang.String)>("#");
+
+     label17:
+        if $z0 != 0 goto label14;
+
+     label18:
+        $r12 = new java.util.StringTokenizer;
+
+     label19:
+        specialinvoke $r12.<java.util.StringTokenizer: void <init>(java.lang.String,java.lang.String)>($r10, " ;\r\n\t\f");
+
+        $z0 = virtualinvoke $r12.<java.util.StringTokenizer: boolean hasMoreTokens()>();
+
+     label20:
+        if $z0 == 0 goto label14;
+
+     label21:
+        $r10 = virtualinvoke $r12.<java.util.StringTokenizer: java.lang.String nextToken()>();
+
+        $z0 = virtualinvoke $r12.<java.util.StringTokenizer: boolean hasMoreTokens()>();
+
+     label22:
+        if $z0 == 0 goto label14;
+
+     label23:
+        $r13 = virtualinvoke $r12.<java.util.StringTokenizer: java.lang.String nextToken()>();
+
+        $r14 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(java.lang.String,int)>($r13, 16);
+
+     label24:
+        $r2 = <com.itextpdf.text.pdf.GlyphList: java.util.HashMap unicode2names>;
+
+     label25:
+        virtualinvoke $r2.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>($r14, $r10);
+
+     label26:
+        $r2 = <com.itextpdf.text.pdf.GlyphList: java.util.HashMap names2unicode>;
+
+     label27:
+        $r15 = newarray (int)[1];
+
+     label28:
+        $i0 = virtualinvoke $r14.<java.lang.Integer: int intValue()>();
+
+     label29:
+        $r15[0] = $i0;
+
+     label30:
+        virtualinvoke $r2.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>($r10, $r15);
+
+     label31:
+        goto label14;
+
+     label32:
+        return;
+
+     label33:
+        $r16 := @caughtexception;
+
+        $r17 = $r16;
+
+        $r3 = $r7;
+
+        goto label43;
+
+     label34:
+        $r18 := @caughtexception;
+
+        $r19 = $r18;
+
+        $r3 = $r7;
+
+        goto label39;
+
+     label35:
+        $r18 = new java.lang.Exception;
+
+     label36:
+        specialinvoke $r18.<java.lang.Exception: void <init>(java.lang.String)>("glyphlist.txt not found as resource. (It must exist as resource in the package com.itextpdf.text.pdf.fonts)");
+
+        throw $r18;
+
+     label37:
+        $r17 := @caughtexception;
+
+        goto label43;
+
+     label38:
+        $r19 := @caughtexception;
+
+     label39:
+        $r20 = <java.lang.System: java.io.PrintStream err>;
+
+        $r21 = new java.lang.StringBuilder;
+
+        specialinvoke $r21.<java.lang.StringBuilder: void <init>(java.lang.String)>("glyphlist.txt loading error: ");
+
+        $r10 = virtualinvoke $r19.<java.lang.Exception: java.lang.String getMessage()>();
+
+        virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r10 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r20.<java.io.PrintStream: void println(java.lang.String)>($r10);
+
+     label40:
+        if $r3 == null goto label48;
+
+     label41:
+        virtualinvoke $r3.<java.io.InputStream: void close()>();
+
+     label42:
+        return;
+
+     label43:
+        if $r3 == null goto label45;
+
+     label44:
+        virtualinvoke $r3.<java.io.InputStream: void close()>();
+
+     label45:
+        throw $r17;
+
+     label46:
+        $r0 := @caughtexception;
+
+        return;
+
+     label47:
+        $r1 := @caughtexception;
+
+        goto label45;
+
+     label48:
+        return;
+
+        catch java.lang.Exception from label02 to label03 with label38;
+        catch java.lang.Throwable from label01 to label03 with label37;
+        catch java.lang.Exception from label05 to label07 with label34;
+        catch java.lang.Exception from label08 to label09 with label34;
+        catch java.lang.Exception from label10 to label11 with label34;
+        catch java.lang.Throwable from label04 to label07 with label33;
+        catch java.lang.Throwable from label08 to label09 with label33;
+        catch java.lang.Throwable from label10 to label11 with label33;
+        catch java.lang.Exception from label11 to label12 with label38;
+        catch java.lang.Exception from label13 to label15 with label38;
+        catch java.lang.Exception from label16 to label17 with label38;
+        catch java.lang.Exception from label19 to label20 with label38;
+        catch java.lang.Exception from label21 to label22 with label38;
+        catch java.lang.Exception from label23 to label24 with label38;
+        catch java.lang.Exception from label25 to label26 with label38;
+        catch java.lang.Exception from label28 to label31 with label38;
+        catch java.lang.Throwable from label11 to label15 with label37;
+        catch java.lang.Throwable from label16 to label17 with label37;
+        catch java.lang.Throwable from label18 to label20 with label37;
+        catch java.lang.Throwable from label21 to label22 with label37;
+        catch java.lang.Throwable from label23 to label27 with label37;
+        catch java.lang.Throwable from label28 to label29 with label37;
+        catch java.lang.Throwable from label30 to label31 with label37;
+        catch java.lang.Exception from label36 to label37 with label34;
+        catch java.lang.Throwable from label35 to label37 with label33;
+        catch java.lang.Throwable from label39 to label40 with label37;
+        catch java.lang.Exception from label41 to label42 with label46;
+        catch java.lang.Exception from label44 to label45 with label47;
+    }

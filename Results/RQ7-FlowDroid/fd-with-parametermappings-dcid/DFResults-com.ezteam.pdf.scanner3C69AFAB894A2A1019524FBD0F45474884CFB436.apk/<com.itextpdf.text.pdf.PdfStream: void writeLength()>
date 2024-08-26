@@ -1,0 +1,57 @@
+    public void writeLength() throws java.io.IOException
+    {
+        java.lang.UnsupportedOperationException $r8;
+        java.lang.Object[] $r4;
+        java.io.IOException $r7;
+        com.itextpdf.text.pdf.PdfIndirectReference $r3;
+        com.itextpdf.text.pdf.PdfNumber $r6;
+        com.itextpdf.text.pdf.PdfStream r0;
+        com.itextpdf.text.pdf.PdfWriter $r2;
+        int $i0;
+        java.lang.String $r5;
+        java.io.InputStream $r1;
+
+        r0 := @this: com.itextpdf.text.pdf.PdfStream;
+
+        $r1 = r0.<com.itextpdf.text.pdf.PdfStream: java.io.InputStream inputStream>;
+
+        if $r1 == null goto label2;
+
+        $i0 = r0.<com.itextpdf.text.pdf.PdfStream: int inputStreamLength>;
+
+        if $i0 == -1 goto label1;
+
+        $r2 = r0.<com.itextpdf.text.pdf.PdfStream: com.itextpdf.text.pdf.PdfWriter writer>;
+
+        $r6 = new com.itextpdf.text.pdf.PdfNumber;
+
+        specialinvoke $r6.<com.itextpdf.text.pdf.PdfNumber: void <init>(int)>($i0);
+
+        $r3 = r0.<com.itextpdf.text.pdf.PdfStream: com.itextpdf.text.pdf.PdfIndirectReference ref>;
+
+        virtualinvoke $r2.<com.itextpdf.text.pdf.PdfWriter: com.itextpdf.text.pdf.PdfIndirectObject addToBody(com.itextpdf.text.pdf.PdfObject,com.itextpdf.text.pdf.PdfIndirectReference,boolean)>($r6, $r3, 0);
+
+        return;
+
+     label1:
+        $r7 = new java.io.IOException;
+
+        $r4 = newarray (java.lang.Object)[0];
+
+        $r5 = staticinvoke <com.itextpdf.text.error_messages.MessageLocalization: java.lang.String getComposedMessage(java.lang.String,java.lang.Object[])>("writelength.can.only.be.called.after.output.of.the.stream.body", $r4);
+
+        specialinvoke $r7.<java.io.IOException: void <init>(java.lang.String)>($r5);
+
+        throw $r7;
+
+     label2:
+        $r8 = new java.lang.UnsupportedOperationException;
+
+        $r4 = newarray (java.lang.Object)[0];
+
+        $r5 = staticinvoke <com.itextpdf.text.error_messages.MessageLocalization: java.lang.String getComposedMessage(java.lang.String,java.lang.Object[])>("writelength.can.only.be.called.in.a.contructed.pdfstream.inputstream.pdfwriter", $r4);
+
+        specialinvoke $r8.<java.lang.UnsupportedOperationException: void <init>(java.lang.String)>($r5);
+
+        throw $r8;
+    }

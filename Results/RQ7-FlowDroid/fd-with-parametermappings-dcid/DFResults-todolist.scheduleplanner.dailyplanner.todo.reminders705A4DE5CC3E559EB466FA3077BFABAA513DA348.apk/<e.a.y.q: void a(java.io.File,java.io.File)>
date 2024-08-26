@@ -1,0 +1,268 @@
+    public static void a(java.io.File, java.io.File) throws java.lang.Exception
+    {
+        java.lang.Throwable $r11;
+        byte[] $r10;
+        java.util.zip.ZipInputStream $r4, $r13;
+        int $i0;
+        java.lang.SecurityException $r15;
+        java.lang.String $r2, $r6, $r7, $r8;
+        java.util.zip.ZipEntry $r5;
+        boolean $z0;
+        java.io.FileOutputStream $r3, $r16;
+        java.io.FileInputStream $r12;
+        java.io.File $r0, $r1, $r9;
+        java.lang.StringBuilder $r14;
+
+        $r1 := @parameter0: java.io.File;
+
+        $r0 := @parameter1: java.io.File;
+
+        $r2 = virtualinvoke $r0.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $r3 = null;
+
+     label01:
+        $r13 = new java.util.zip.ZipInputStream;
+
+     label02:
+        $r4 = $r13;
+
+     label03:
+        $r12 = new java.io.FileInputStream;
+
+     label04:
+        specialinvoke $r12.<java.io.FileInputStream: void <init>(java.io.File)>($r1);
+
+        specialinvoke $r13.<java.util.zip.ZipInputStream: void <init>(java.io.InputStream)>($r12);
+
+     label05:
+        $r5 = virtualinvoke $r13.<java.util.zip.ZipInputStream: java.util.zip.ZipEntry getNextEntry()>();
+
+     label06:
+        if $r5 == null goto label40;
+
+     label07:
+        $r6 = virtualinvoke $r5.<java.util.zip.ZipEntry: java.lang.String getName()>();
+
+        $z0 = virtualinvoke $r5.<java.util.zip.ZipEntry: boolean isDirectory()>();
+
+     label08:
+        if $z0 == 0 goto label19;
+
+     label09:
+        $i0 = virtualinvoke $r6.<java.lang.String: int length()>();
+
+     label10:
+        $i0 = $i0 + -1;
+
+     label11:
+        $r6 = virtualinvoke $r6.<java.lang.String: java.lang.String substring(int,int)>(0, $i0);
+
+        $r9 = new java.io.File;
+
+     label12:
+        $r14 = new java.lang.StringBuilder;
+
+     label13:
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r6 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r9.<java.io.File: void <init>(java.lang.String)>($r6);
+
+        $r6 = virtualinvoke $r9.<java.io.File: java.lang.String getCanonicalPath()>();
+
+        $r7 = virtualinvoke $r0.<java.io.File: java.lang.String getCanonicalPath()>();
+
+        $z0 = virtualinvoke $r6.<java.lang.String: boolean startsWith(java.lang.String)>($r7);
+
+     label14:
+        if $z0 == 0 goto label17;
+
+     label15:
+        virtualinvoke $r9.<java.io.File: boolean mkdirs()>();
+
+     label16:
+        goto label05;
+
+     label17:
+        $r15 = new java.lang.SecurityException;
+
+     label18:
+        specialinvoke $r15.<java.lang.SecurityException: void <init>(java.lang.String)>("file path fatal");
+
+        throw $r15;
+
+     label19:
+        $r14 = new java.lang.StringBuilder;
+
+     label20:
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r7 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("ZIP", $r7);
+
+        $r9 = new java.io.File;
+
+     label21:
+        $r1 = $r9;
+
+     label22:
+        $r14 = new java.lang.StringBuilder;
+
+     label23:
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r7 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r9.<java.io.File: void <init>(java.lang.String)>($r7);
+
+        $r7 = virtualinvoke $r9.<java.io.File: java.lang.String getCanonicalPath()>();
+
+        $r8 = virtualinvoke $r0.<java.io.File: java.lang.String getCanonicalPath()>();
+
+        $z0 = virtualinvoke $r7.<java.lang.String: boolean startsWith(java.lang.String)>($r8);
+
+     label24:
+        if $z0 == 0 goto label38;
+
+     label25:
+        $z0 = virtualinvoke $r9.<java.io.File: boolean exists()>();
+
+     label26:
+        if $z0 != 0 goto label29;
+
+     label27:
+        $r14 = new java.lang.StringBuilder;
+
+     label28:
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Create the file:");
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r6 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("ZIP", $r6);
+
+        $r9 = virtualinvoke $r9.<java.io.File: java.io.File getParentFile()>();
+
+        virtualinvoke $r9.<java.io.File: boolean mkdirs()>();
+
+        virtualinvoke $r1.<java.io.File: boolean createNewFile()>();
+
+     label29:
+        $r16 = new java.io.FileOutputStream;
+
+     label30:
+        specialinvoke $r16.<java.io.FileOutputStream: void <init>(java.io.File)>($r1);
+
+     label31:
+        $r10 = newarray (byte)[1024];
+
+     label32:
+        $i0 = virtualinvoke $r13.<java.util.zip.ZipInputStream: int read(byte[])>($r10);
+
+     label33:
+        if $i0 == -1 goto label36;
+
+     label34:
+        virtualinvoke $r16.<java.io.FileOutputStream: void write(byte[],int,int)>($r10, 0, $i0);
+
+        virtualinvoke $r16.<java.io.FileOutputStream: void flush()>();
+
+     label35:
+        goto label32;
+
+     label36:
+        $r3 = $r16;
+
+        goto label05;
+
+     label37:
+        $r11 := @caughtexception;
+
+        $r3 = $r16;
+
+        goto label43;
+
+     label38:
+        $r15 = new java.lang.SecurityException;
+
+     label39:
+        specialinvoke $r15.<java.lang.SecurityException: void <init>(java.lang.String)>("file path fatal");
+
+        throw $r15;
+
+     label40:
+        staticinvoke <e.a.y.g: void a(java.io.Closeable)>($r3);
+
+        staticinvoke <e.a.y.g: void a(java.io.Closeable)>($r13);
+
+        return;
+
+     label41:
+        $r11 := @caughtexception;
+
+        goto label43;
+
+     label42:
+        $r11 := @caughtexception;
+
+        $r4 = null;
+
+     label43:
+        staticinvoke <e.a.y.g: void a(java.io.Closeable)>($r3);
+
+        staticinvoke <e.a.y.g: void a(java.io.Closeable)>($r4);
+
+        throw $r11;
+
+        catch java.lang.Throwable from label01 to label02 with label42;
+        catch java.lang.Throwable from label03 to label04 with label42;
+        catch java.lang.Throwable from label04 to label05 with label42;
+        catch java.lang.Throwable from label05 to label06 with label41;
+        catch java.lang.Throwable from label07 to label08 with label41;
+        catch java.lang.Throwable from label09 to label10 with label41;
+        catch java.lang.Throwable from label11 to label12 with label41;
+        catch java.lang.Throwable from label12 to label13 with label41;
+        catch java.lang.Throwable from label13 to label14 with label41;
+        catch java.lang.Throwable from label15 to label16 with label41;
+        catch java.lang.Throwable from label17 to label18 with label41;
+        catch java.lang.Throwable from label18 to label20 with label41;
+        catch java.lang.Throwable from label20 to label21 with label41;
+        catch java.lang.Throwable from label22 to label23 with label41;
+        catch java.lang.Throwable from label23 to label24 with label41;
+        catch java.lang.Throwable from label25 to label26 with label41;
+        catch java.lang.Throwable from label27 to label28 with label41;
+        catch java.lang.Throwable from label28 to label30 with label41;
+        catch java.lang.Throwable from label30 to label31 with label41;
+        catch java.lang.Throwable from label32 to label33 with label37;
+        catch java.lang.Throwable from label34 to label35 with label37;
+        catch java.lang.Throwable from label38 to label39 with label41;
+        catch java.lang.Throwable from label39 to label40 with label41;
+    }

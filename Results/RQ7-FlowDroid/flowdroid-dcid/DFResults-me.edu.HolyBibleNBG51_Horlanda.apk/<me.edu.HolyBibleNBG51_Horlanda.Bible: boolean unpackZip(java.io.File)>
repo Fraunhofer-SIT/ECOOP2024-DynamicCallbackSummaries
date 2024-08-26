@@ -1,0 +1,326 @@
+    private boolean unpackZip(java.io.File) throws java.io.IOException
+    {
+        java.lang.Throwable $r14;
+        byte[] r2;
+        java.io.BufferedInputStream $r17;
+        java.util.zip.ZipInputStream $r18;
+        long $l2, $l3, $l5;
+        java.util.HashMap $r11;
+        me.edu.HolyBibleNBG51_Horlanda.Bible r0;
+        java.io.BufferedOutputStream $r21;
+        byte $b4;
+        java.util.Locale $r10;
+        int $i0, $i1;
+        java.lang.String $r5, r6, $r9;
+        java.util.zip.ZipEntry $r8;
+        boolean $z0;
+        java.io.FileOutputStream $r20;
+        java.io.FileInputStream $r16;
+        java.io.File $r1, r3, $r4, r12, $r19;
+        java.lang.StringBuilder $r7, $r15;
+        java.lang.Object $r13;
+
+        r0 := @this: me.edu.HolyBibleNBG51_Horlanda.Bible;
+
+        $r1 := @parameter0: java.io.File;
+
+        if $r1 == null goto label01;
+
+        $z0 = virtualinvoke $r1.<java.io.File: boolean isFile()>();
+
+        if $z0 != 0 goto label02;
+
+     label01:
+        return 0;
+
+     label02:
+        $r4 = specialinvoke r0.<me.edu.HolyBibleNBG51_Horlanda.Bible: java.io.File getExternalFilesDirWrapper()>();
+
+        $r5 = virtualinvoke $r1.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        r6 = $r5;
+
+        $i0 = virtualinvoke $r5.<java.lang.String: int lastIndexOf(java.lang.String)>("-");
+
+        if $i0 == -1 goto label03;
+
+        $i0 = $i0 + 1;
+
+        $i1 = virtualinvoke $r5.<java.lang.String: int length()>();
+
+        $i1 = $i1 + -4;
+
+        r6 = virtualinvoke $r5.<java.lang.String: java.lang.String substring(int,int)>($i0, $i1);
+
+     label03:
+        $r15 = new java.lang.StringBuilder;
+
+        $r5 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>(r6);
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>(java.lang.String)>($r5);
+
+        $r7 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".sqlite3");
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r16 = new java.io.FileInputStream;
+
+        specialinvoke $r16.<java.io.FileInputStream: void <init>(java.io.File)>($r1);
+
+        $l2 = virtualinvoke $r1.<java.io.File: long length()>();
+
+        $r18 = new java.util.zip.ZipInputStream;
+
+        $r17 = new java.io.BufferedInputStream;
+
+        specialinvoke $r17.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r16);
+
+        specialinvoke $r18.<java.util.zip.ZipInputStream: void <init>(java.io.InputStream)>($r17);
+
+     label04:
+        $r8 = virtualinvoke $r18.<java.util.zip.ZipInputStream: java.util.zip.ZipEntry getNextEntry()>();
+
+     label05:
+        if $r8 != null goto label07;
+
+     label06:
+        virtualinvoke $r16.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r18.<java.util.zip.ZipInputStream: void close()>();
+
+        return 0;
+
+     label07:
+        $l3 = virtualinvoke $r8.<java.util.zip.ZipEntry: long getCompressedSize()>();
+
+     label08:
+        $b4 = $l2 cmp $l3;
+
+        $i0 = (int) $b4;
+
+        if $i0 < 0 goto label06;
+
+     label09:
+        r6 = virtualinvoke $r8.<java.util.zip.ZipEntry: java.lang.String getName()>();
+
+     label10:
+        $r5 = r6;
+
+        if r6 == null goto label04;
+
+     label11:
+        $z0 = virtualinvoke r6.<java.lang.String: boolean endsWith(java.lang.String)>(".sqlite3");
+
+     label12:
+        if $z0 == 0 goto label04;
+
+     label13:
+        $r9 = <java.io.File: java.lang.String separator>;
+
+        $i0 = virtualinvoke r6.<java.lang.String: int lastIndexOf(java.lang.String)>($r9);
+
+     label14:
+        if $i0 == -1 goto label16;
+
+        $i0 = $i0 + 1;
+
+     label15:
+        $r5 = virtualinvoke r6.<java.lang.String: java.lang.String substring(int)>($i0);
+
+     label16:
+        $r10 = <java.util.Locale: java.util.Locale US>;
+
+        r6 = virtualinvoke $r5.<java.lang.String: java.lang.String toLowerCase(java.util.Locale)>($r10);
+
+        r6 = virtualinvoke r6.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(".sqlite3", "");
+
+        $r11 = r0.<me.edu.HolyBibleNBG51_Horlanda.Bible: java.util.HashMap versionpaths>;
+
+        $z0 = virtualinvoke $r11.<java.util.HashMap: boolean containsKey(java.lang.Object)>(r6);
+
+     label17:
+        if $z0 == 0 goto label38;
+
+     label18:
+        r3 = new java.io.File;
+
+     label19:
+        r12 = r3;
+
+     label20:
+        $r11 = r0.<me.edu.HolyBibleNBG51_Horlanda.Bible: java.util.HashMap versionpaths>;
+
+        $r13 = virtualinvoke $r11.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(r6);
+
+        r6 = (java.lang.String) $r13;
+
+        specialinvoke r3.<java.io.File: void <init>(java.lang.String)>(r6);
+
+     label21:
+        $z0 = virtualinvoke r12.<java.io.File: boolean exists()>();
+
+     label22:
+        if $z0 == 0 goto label27;
+
+     label23:
+        $l3 = virtualinvoke r12.<java.io.File: long lastModified()>();
+
+        $l5 = virtualinvoke $r8.<java.util.zip.ZipEntry: long getTime()>();
+
+     label24:
+        $b4 = $l3 cmp $l5;
+
+        $i0 = (int) $b4;
+
+        if $i0 <= 0 goto label27;
+
+     label25:
+        $l3 = virtualinvoke r12.<java.io.File: long lastModified()>();
+
+        $l5 = virtualinvoke $r1.<java.io.File: long lastModified()>();
+
+     label26:
+        $b4 = $l3 cmp $l5;
+
+        $i0 = (int) $b4;
+
+        if $i0 > 0 goto label04;
+
+     label27:
+        $r15 = new java.lang.StringBuilder;
+
+     label28:
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>(java.lang.String)>("unpacking ");
+
+        r3 = virtualinvoke r12.<java.io.File: java.io.File getAbsoluteFile()>();
+
+        $r7 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>(r3);
+
+        r6 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <me.edu.HolyBibleNBG51_Horlanda.Log: int d(java.lang.String,java.lang.String)>("me.edu.HolyBibleNBG51_Horlanda$Bible", r6);
+
+        $r19 = new java.io.File;
+
+     label29:
+        $r15 = new java.lang.StringBuilder;
+
+     label30:
+        $r5 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r5);
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>(java.lang.String)>($r5);
+
+        $r7 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".tmp");
+
+        $r5 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r19.<java.io.File: void <init>(java.io.File,java.lang.String)>($r4, $r5);
+
+        $r21 = new java.io.BufferedOutputStream;
+
+     label31:
+        $r20 = new java.io.FileOutputStream;
+
+     label32:
+        specialinvoke $r20.<java.io.FileOutputStream: void <init>(java.io.File)>($r19);
+
+        specialinvoke $r21.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r20);
+
+     label33:
+        r2 = newarray (byte)[8192];
+
+        $i0 = 0;
+
+     label34:
+        $i1 = virtualinvoke $r18.<java.util.zip.ZipInputStream: int read(byte[])>(r2);
+
+     label35:
+        if $i1 != -1 goto label42;
+
+     label36:
+        virtualinvoke $r21.<java.io.OutputStream: void close()>();
+
+     label37:
+        if $i0 <= 3 goto label47;
+
+        virtualinvoke $r16.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r18.<java.util.zip.ZipInputStream: void close()>();
+
+        return 0;
+
+     label38:
+        r3 = new java.io.File;
+
+     label39:
+        r12 = r3;
+
+     label40:
+        specialinvoke r3.<java.io.File: void <init>(java.io.File,java.lang.String)>($r4, $r5);
+
+     label41:
+        goto label21;
+
+     label42:
+        if $i1 != 0 goto label46;
+
+        $i0 = $i0 + 1;
+
+        if $i0 > 3 goto label36;
+
+     label43:
+        virtualinvoke $r21.<java.io.OutputStream: void write(byte[],int,int)>(r2, 0, $i1);
+
+     label44:
+        goto label34;
+
+     label45:
+        $r14 := @caughtexception;
+
+        virtualinvoke $r16.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r18.<java.util.zip.ZipInputStream: void close()>();
+
+        throw $r14;
+
+     label46:
+        $i0 = 0;
+
+        goto label43;
+
+     label47:
+        virtualinvoke $r19.<java.io.File: boolean renameTo(java.io.File)>(r12);
+
+        virtualinvoke $r1.<java.io.File: boolean delete()>();
+
+     label48:
+        virtualinvoke $r16.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r18.<java.util.zip.ZipInputStream: void close()>();
+
+        return 1;
+
+        catch java.lang.Throwable from label04 to label05 with label45;
+        catch java.lang.Throwable from label07 to label08 with label45;
+        catch java.lang.Throwable from label09 to label10 with label45;
+        catch java.lang.Throwable from label11 to label12 with label45;
+        catch java.lang.Throwable from label13 to label14 with label45;
+        catch java.lang.Throwable from label15 to label16 with label45;
+        catch java.lang.Throwable from label16 to label17 with label45;
+        catch java.lang.Throwable from label18 to label19 with label45;
+        catch java.lang.Throwable from label20 to label22 with label45;
+        catch java.lang.Throwable from label23 to label24 with label45;
+        catch java.lang.Throwable from label25 to label26 with label45;
+        catch java.lang.Throwable from label27 to label28 with label45;
+        catch java.lang.Throwable from label28 to label29 with label45;
+        catch java.lang.Throwable from label29 to label30 with label45;
+        catch java.lang.Throwable from label30 to label31 with label45;
+        catch java.lang.Throwable from label31 to label32 with label45;
+        catch java.lang.Throwable from label32 to label33 with label45;
+        catch java.lang.Throwable from label34 to label35 with label45;
+        catch java.lang.Throwable from label36 to label37 with label45;
+        catch java.lang.Throwable from label38 to label39 with label45;
+        catch java.lang.Throwable from label40 to label41 with label45;
+        catch java.lang.Throwable from label43 to label44 with label45;
+        catch java.lang.Throwable from label47 to label48 with label45;
+    }

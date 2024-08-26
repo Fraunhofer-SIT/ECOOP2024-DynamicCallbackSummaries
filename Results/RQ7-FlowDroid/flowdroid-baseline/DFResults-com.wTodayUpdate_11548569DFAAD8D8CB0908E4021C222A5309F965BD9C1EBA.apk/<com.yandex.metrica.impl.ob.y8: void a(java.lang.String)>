@@ -1,0 +1,117 @@
+    public void a(java.lang.String)
+    {
+        java.lang.Throwable $r2, $r7;
+        android.content.Context $r5;
+        kotlin.reflect.KClass $r12;
+        kotlin.Pair $r10;
+        com.yandex.metrica.impl.ob.L0 $r4;
+        com.yandex.metrica.impl.ob.y8 r0;
+        java.util.Map $r13;
+        java.lang.String $r1, $r3;
+        kotlin.Pair[] $r9;
+        java.io.File $r6;
+        java.lang.Class $r11;
+        java.lang.StringBuilder $r15;
+        com.yandex.metrica.impl.ob.W0 $r8;
+        com.yandex.metrica.impl.ob.Qh $r14;
+
+        r0 := @this: com.yandex.metrica.impl.ob.y8;
+
+        $r3 := @parameter0: java.lang.String;
+
+     label1:
+        $r4 = r0.<com.yandex.metrica.impl.ob.y8: com.yandex.metrica.impl.ob.L0 c>;
+
+        $r5 = r0.<com.yandex.metrica.impl.ob.y8: android.content.Context a>;
+
+        $r1 = r0.<com.yandex.metrica.impl.ob.y8: java.lang.String b>;
+
+     label2:
+        $r6 = virtualinvoke $r4.<com.yandex.metrica.impl.ob.L0: java.io.File a(android.content.Context,java.lang.String)>($r5, $r1);
+
+     label3:
+        if $r6 == null goto label9;
+
+     label4:
+        staticinvoke <kotlin.io.FilesKt: void writeText$default(java.io.File,java.lang.String,java.nio.charset.Charset,int,java.lang.Object)>($r6, $r3, null, 2, null);
+
+     label5:
+        return;
+
+     label6:
+        $r7 := @caughtexception;
+
+        $r8 = staticinvoke <com.yandex.metrica.impl.ob.Rh: com.yandex.metrica.impl.ob.W0 a()>();
+
+        $r9 = newarray (kotlin.Pair)[2];
+
+        $r3 = r0.<com.yandex.metrica.impl.ob.y8: java.lang.String b>;
+
+        $r10 = staticinvoke <kotlin.TuplesKt: kotlin.Pair 'to'(java.lang.Object,java.lang.Object)>("fileName", $r3);
+
+        $r9[0] = $r10;
+
+        $r11 = virtualinvoke $r7.<java.lang.Object: java.lang.Class getClass()>();
+
+        $r12 = staticinvoke <kotlin.jvm.internal.Reflection: kotlin.reflect.KClass getOrCreateKotlinClass(java.lang.Class)>($r11);
+
+        $r3 = interfaceinvoke $r12.<kotlin.reflect.KClass: java.lang.String getSimpleName()>();
+
+        $r10 = staticinvoke <kotlin.TuplesKt: kotlin.Pair 'to'(java.lang.Object,java.lang.Object)>("exception", $r3);
+
+        $r9[1] = $r10;
+
+        $r13 = staticinvoke <kotlin.collections.MapsKt: java.util.Map mapOf(kotlin.Pair[])>($r9);
+
+        $r14 = (com.yandex.metrica.impl.ob.Qh) $r8;
+
+        virtualinvoke $r14.<com.yandex.metrica.impl.ob.Qh: void reportEvent(java.lang.String,java.util.Map)>("vital_data_provider_write_exception", $r13);
+
+        $r8 = staticinvoke <com.yandex.metrica.impl.ob.Rh: com.yandex.metrica.impl.ob.W0 a()>();
+
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Error during writing file with name ");
+
+        $r3 = r0.<com.yandex.metrica.impl.ob.y8: java.lang.String b>;
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r14 = (com.yandex.metrica.impl.ob.Qh) $r8;
+
+        virtualinvoke $r14.<com.yandex.metrica.impl.ob.Qh: void reportError(java.lang.String,java.lang.Throwable)>($r3, $r7);
+
+        return;
+
+     label7:
+        $r8 = staticinvoke <com.yandex.metrica.impl.ob.Rh: com.yandex.metrica.impl.ob.W0 a()>();
+
+        $r3 = r0.<com.yandex.metrica.impl.ob.y8: java.lang.String b>;
+
+        $r10 = staticinvoke <kotlin.TuplesKt: kotlin.Pair 'to'(java.lang.Object,java.lang.Object)>("fileName", $r3);
+
+        $r13 = staticinvoke <kotlin.collections.MapsKt: java.util.Map mapOf(kotlin.Pair)>($r10);
+
+        $r14 = (com.yandex.metrica.impl.ob.Qh) $r8;
+
+        virtualinvoke $r14.<com.yandex.metrica.impl.ob.Qh: void reportEvent(java.lang.String,java.util.Map)>("vital_data_provider_write_file_not_found", $r13);
+
+        return;
+
+     label8:
+        $r2 := @caughtexception;
+
+        goto label7;
+
+     label9:
+        return;
+
+        catch java.io.FileNotFoundException from label2 to label3 with label8;
+        catch java.io.FileNotFoundException from label4 to label5 with label8;
+        catch java.lang.Throwable from label1 to label3 with label6;
+        catch java.lang.Throwable from label4 to label5 with label6;
+    }

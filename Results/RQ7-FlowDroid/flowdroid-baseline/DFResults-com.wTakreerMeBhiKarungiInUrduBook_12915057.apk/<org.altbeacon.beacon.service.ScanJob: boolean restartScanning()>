@@ -1,0 +1,143 @@
+    private boolean restartScanning()
+    {
+        java.lang.Object[] $r7;
+        long $l1, $l2;
+        byte $b3;
+        java.lang.Long $r4;
+        java.util.Map $r8;
+        int $i0;
+        java.lang.Boolean $r3;
+        org.altbeacon.beacon.service.ScanHelper $r1;
+        java.lang.String $r6;
+        org.altbeacon.beacon.service.ScanState $r2;
+        boolean $z0;
+        org.altbeacon.beacon.service.scanner.CycledLeScanner $r5;
+        java.util.Set $r10;
+        org.altbeacon.beacon.service.ScanJob r0;
+        org.altbeacon.beacon.service.MonitoringStatus $r9;
+
+        r0 := @this: org.altbeacon.beacon.service.ScanJob;
+
+        $i0 = <android.os.Build$VERSION: int SDK_INT>;
+
+        if $i0 < 26 goto label1;
+
+        $r1 = r0.<org.altbeacon.beacon.service.ScanJob: org.altbeacon.beacon.service.ScanHelper mScanHelper>;
+
+        virtualinvoke $r1.<org.altbeacon.beacon.service.ScanHelper: void stopAndroidOBackgroundScan()>();
+
+     label1:
+        $r2 = r0.<org.altbeacon.beacon.service.ScanJob: org.altbeacon.beacon.service.ScanState mScanState>;
+
+        $r3 = virtualinvoke $r2.<org.altbeacon.beacon.service.ScanState: java.lang.Boolean getBackgroundMode()>();
+
+        $z0 = virtualinvoke $r3.<java.lang.Boolean: boolean booleanValue()>();
+
+        if $z0 == 0 goto label2;
+
+        $r2 = r0.<org.altbeacon.beacon.service.ScanJob: org.altbeacon.beacon.service.ScanState mScanState>;
+
+        $r4 = virtualinvoke $r2.<org.altbeacon.beacon.service.ScanState: java.lang.Long getBackgroundScanPeriod()>();
+
+        goto label3;
+
+     label2:
+        $r2 = r0.<org.altbeacon.beacon.service.ScanJob: org.altbeacon.beacon.service.ScanState mScanState>;
+
+        $r4 = virtualinvoke $r2.<org.altbeacon.beacon.service.ScanState: java.lang.Long getForegroundScanPeriod()>();
+
+     label3:
+        $l1 = virtualinvoke $r4.<java.lang.Long: long longValue()>();
+
+        $r2 = r0.<org.altbeacon.beacon.service.ScanJob: org.altbeacon.beacon.service.ScanState mScanState>;
+
+        $r3 = virtualinvoke $r2.<org.altbeacon.beacon.service.ScanState: java.lang.Boolean getBackgroundMode()>();
+
+        $z0 = virtualinvoke $r3.<java.lang.Boolean: boolean booleanValue()>();
+
+        if $z0 == 0 goto label4;
+
+        $r2 = r0.<org.altbeacon.beacon.service.ScanJob: org.altbeacon.beacon.service.ScanState mScanState>;
+
+        $r4 = virtualinvoke $r2.<org.altbeacon.beacon.service.ScanState: java.lang.Long getBackgroundBetweenScanPeriod()>();
+
+        goto label5;
+
+     label4:
+        $r2 = r0.<org.altbeacon.beacon.service.ScanJob: org.altbeacon.beacon.service.ScanState mScanState>;
+
+        $r4 = virtualinvoke $r2.<org.altbeacon.beacon.service.ScanState: java.lang.Long getForegroundBetweenScanPeriod()>();
+
+     label5:
+        $l2 = virtualinvoke $r4.<java.lang.Long: long longValue()>();
+
+        $r1 = r0.<org.altbeacon.beacon.service.ScanJob: org.altbeacon.beacon.service.ScanHelper mScanHelper>;
+
+        $r5 = virtualinvoke $r1.<org.altbeacon.beacon.service.ScanHelper: org.altbeacon.beacon.service.scanner.CycledLeScanner getCycledScanner()>();
+
+        $r2 = r0.<org.altbeacon.beacon.service.ScanJob: org.altbeacon.beacon.service.ScanState mScanState>;
+
+        $r3 = virtualinvoke $r2.<org.altbeacon.beacon.service.ScanState: java.lang.Boolean getBackgroundMode()>();
+
+        $z0 = virtualinvoke $r3.<java.lang.Boolean: boolean booleanValue()>();
+
+        virtualinvoke $r5.<org.altbeacon.beacon.service.scanner.CycledLeScanner: void setScanPeriods(long,long,boolean)>($l1, $l2, $z0);
+
+        r0.<org.altbeacon.beacon.service.ScanJob: boolean mInitialized> = 1;
+
+        $b3 = $l1 cmp 0L;
+
+        $i0 = (int) $b3;
+
+        if $i0 > 0 goto label6;
+
+        $r6 = <org.altbeacon.beacon.service.ScanJob: java.lang.String TAG>;
+
+        $r7 = newarray (java.lang.Object)[0];
+
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void w(java.lang.String,java.lang.String,java.lang.Object[])>($r6, "Starting scan with scan period of zero.  Exiting ScanJob.", $r7);
+
+        $r1 = r0.<org.altbeacon.beacon.service.ScanJob: org.altbeacon.beacon.service.ScanHelper mScanHelper>;
+
+        $r5 = virtualinvoke $r1.<org.altbeacon.beacon.service.ScanHelper: org.altbeacon.beacon.service.scanner.CycledLeScanner getCycledScanner()>();
+
+        virtualinvoke $r5.<org.altbeacon.beacon.service.scanner.CycledLeScanner: void stop()>();
+
+        return 0;
+
+     label6:
+        $r1 = r0.<org.altbeacon.beacon.service.ScanJob: org.altbeacon.beacon.service.ScanHelper mScanHelper>;
+
+        $r8 = virtualinvoke $r1.<org.altbeacon.beacon.service.ScanHelper: java.util.Map getRangedRegionState()>();
+
+        $i0 = interfaceinvoke $r8.<java.util.Map: int size()>();
+
+        if $i0 > 0 goto label7;
+
+        $r1 = r0.<org.altbeacon.beacon.service.ScanJob: org.altbeacon.beacon.service.ScanHelper mScanHelper>;
+
+        $r9 = virtualinvoke $r1.<org.altbeacon.beacon.service.ScanHelper: org.altbeacon.beacon.service.MonitoringStatus getMonitoringStatus()>();
+
+        $r10 = virtualinvoke $r9.<org.altbeacon.beacon.service.MonitoringStatus: java.util.Set regions()>();
+
+        $i0 = interfaceinvoke $r10.<java.util.Set: int size()>();
+
+        if $i0 > 0 goto label7;
+
+        $r1 = r0.<org.altbeacon.beacon.service.ScanJob: org.altbeacon.beacon.service.ScanHelper mScanHelper>;
+
+        $r5 = virtualinvoke $r1.<org.altbeacon.beacon.service.ScanHelper: org.altbeacon.beacon.service.scanner.CycledLeScanner getCycledScanner()>();
+
+        virtualinvoke $r5.<org.altbeacon.beacon.service.scanner.CycledLeScanner: void stop()>();
+
+        return 0;
+
+     label7:
+        $r1 = r0.<org.altbeacon.beacon.service.ScanJob: org.altbeacon.beacon.service.ScanHelper mScanHelper>;
+
+        $r5 = virtualinvoke $r1.<org.altbeacon.beacon.service.ScanHelper: org.altbeacon.beacon.service.scanner.CycledLeScanner getCycledScanner()>();
+
+        virtualinvoke $r5.<org.altbeacon.beacon.service.scanner.CycledLeScanner: void start()>();
+
+        return 1;
+    }

@@ -1,0 +1,82 @@
+    public static void sendUpdate(android.content.Context, java.lang.String) throws java.io.IOException
+    {
+        java.io.OutputStream $r3;
+        java.io.PrintStream $r5;
+        android.content.Context $r0;
+        byte[] $r4;
+        java.net.Socket $r6;
+        long $l1, $l3;
+        java.io.FileInputStream $r8;
+        java.net.InetSocketAddress $r7;
+        byte $b0;
+        int $i2;
+        java.lang.String $r1;
+        android.content.pm.ApplicationInfo $r2;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r6 = new java.net.Socket;
+
+        specialinvoke $r6.<java.net.Socket: void <init>()>();
+
+        virtualinvoke $r6.<java.net.Socket: void bind(java.net.SocketAddress)>(null);
+
+        $r7 = new java.net.InetSocketAddress;
+
+        specialinvoke $r7.<java.net.InetSocketAddress: void <init>(java.lang.String,int)>($r1, 58765);
+
+        virtualinvoke $r6.<java.net.Socket: void connect(java.net.SocketAddress)>($r7);
+
+        $r8 = new java.io.FileInputStream;
+
+        $r2 = virtualinvoke $r0.<android.content.Context: android.content.pm.ApplicationInfo getApplicationInfo()>();
+
+        $r1 = $r2.<android.content.pm.ApplicationInfo: java.lang.String sourceDir>;
+
+        specialinvoke $r8.<java.io.FileInputStream: void <init>(java.lang.String)>($r1);
+
+        $r3 = virtualinvoke $r6.<java.net.Socket: java.io.OutputStream getOutputStream()>();
+
+        $r4 = newarray (byte)[8096];
+
+        $l1 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+     label1:
+        $i2 = virtualinvoke $r8.<java.io.FileInputStream: int read(byte[])>($r4);
+
+        if $i2 == -1 goto label3;
+
+        if $i2 <= 0 goto label2;
+
+        virtualinvoke $r3.<java.io.OutputStream: void write(byte[],int,int)>($r4, 0, $i2);
+
+        virtualinvoke $r3.<java.io.OutputStream: void flush()>();
+
+        $l1 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+     label2:
+        $l3 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $l3 = $l3 - $l1;
+
+        $b0 = $l3 cmp 5000L;
+
+        $i2 = (int) $b0;
+
+        if $i2 <= 0 goto label1;
+
+        $r5 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $r5.<java.io.PrintStream: void println(java.lang.String)>("CoolTransfer: Timed out... Exiting.");
+
+     label3:
+        virtualinvoke $r3.<java.io.OutputStream: void close()>();
+
+        virtualinvoke $r8.<java.io.FileInputStream: void close()>();
+
+        virtualinvoke $r6.<java.net.Socket: void close()>();
+
+        return;
+    }

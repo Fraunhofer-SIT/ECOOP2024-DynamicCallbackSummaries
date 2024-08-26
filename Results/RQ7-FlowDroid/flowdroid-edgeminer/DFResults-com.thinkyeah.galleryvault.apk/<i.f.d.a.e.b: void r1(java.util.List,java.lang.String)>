@@ -1,0 +1,129 @@
+    public static void r1(java.util.List, java.lang.String) throws java.io.IOException
+    {
+        java.lang.Throwable $r7, $r8;
+        java.util.zip.ZipOutputStream $r11;
+        byte[] $r2;
+        java.io.BufferedInputStream $r13;
+        java.io.BufferedOutputStream $r10;
+        int $i0;
+        java.lang.String $r1, $r6;
+        java.util.zip.ZipEntry $r14;
+        boolean $z0;
+        java.util.Iterator $r3;
+        java.io.FileOutputStream $r9;
+        java.io.FileInputStream $r12;
+        java.io.File $r5;
+        java.util.List $r0;
+        java.lang.Object $r4;
+
+        $r0 := @parameter0: java.util.List;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r11 = new java.util.zip.ZipOutputStream;
+
+        $r10 = new java.io.BufferedOutputStream;
+
+        $r9 = new java.io.FileOutputStream;
+
+        specialinvoke $r9.<java.io.FileOutputStream: void <init>(java.lang.String)>($r1);
+
+        specialinvoke $r10.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r9);
+
+        specialinvoke $r11.<java.util.zip.ZipOutputStream: void <init>(java.io.OutputStream)>($r10);
+
+        $r2 = newarray (byte)[1024];
+
+     label01:
+        $r3 = interfaceinvoke $r0.<java.util.List: java.util.Iterator iterator()>();
+
+     label02:
+        $z0 = interfaceinvoke $r3.<java.util.Iterator: boolean hasNext()>();
+
+     label03:
+        if $z0 == 0 goto label19;
+
+     label04:
+        $r4 = interfaceinvoke $r3.<java.util.Iterator: java.lang.Object next()>();
+
+        $r5 = (java.io.File) $r4;
+
+        $r12 = new java.io.FileInputStream;
+
+     label05:
+        specialinvoke $r12.<java.io.FileInputStream: void <init>(java.io.File)>($r5);
+
+        $r13 = new java.io.BufferedInputStream;
+
+     label06:
+        specialinvoke $r13.<java.io.BufferedInputStream: void <init>(java.io.InputStream,int)>($r12, 1024);
+
+     label07:
+        $r14 = new java.util.zip.ZipEntry;
+
+     label08:
+        $r1 = virtualinvoke $r5.<java.io.File: java.lang.String toString()>();
+
+        $r6 = virtualinvoke $r5.<java.io.File: java.lang.String toString()>();
+
+        $i0 = virtualinvoke $r6.<java.lang.String: int lastIndexOf(java.lang.String)>("/");
+
+     label09:
+        $i0 = $i0 + 1;
+
+     label10:
+        $r1 = virtualinvoke $r1.<java.lang.String: java.lang.String substring(int)>($i0);
+
+        specialinvoke $r14.<java.util.zip.ZipEntry: void <init>(java.lang.String)>($r1);
+
+        virtualinvoke $r11.<java.util.zip.ZipOutputStream: void putNextEntry(java.util.zip.ZipEntry)>($r14);
+
+     label11:
+        $i0 = virtualinvoke $r13.<java.io.BufferedInputStream: int read(byte[],int,int)>($r2, 0, 1024);
+
+     label12:
+        if $i0 == -1 goto label15;
+
+     label13:
+        virtualinvoke $r11.<java.util.zip.ZipOutputStream: void write(byte[],int,int)>($r2, 0, $i0);
+
+     label14:
+        goto label11;
+
+     label15:
+        virtualinvoke $r13.<java.io.BufferedInputStream: void close()>();
+
+     label16:
+        goto label02;
+
+     label17:
+        $r7 := @caughtexception;
+
+     label18:
+        virtualinvoke $r13.<java.io.BufferedInputStream: void close()>();
+
+        throw $r7;
+
+     label19:
+        virtualinvoke $r11.<java.util.zip.ZipOutputStream: void close()>();
+
+        return;
+
+     label20:
+        $r8 := @caughtexception;
+
+        virtualinvoke $r11.<java.util.zip.ZipOutputStream: void close()>();
+
+        throw $r8;
+
+        catch java.lang.Throwable from label01 to label03 with label20;
+        catch java.lang.Throwable from label04 to label05 with label20;
+        catch java.lang.Throwable from label05 to label06 with label20;
+        catch java.lang.Throwable from label06 to label07 with label20;
+        catch java.lang.Throwable from label07 to label08 with label17;
+        catch java.lang.Throwable from label08 to label09 with label17;
+        catch java.lang.Throwable from label10 to label12 with label17;
+        catch java.lang.Throwable from label13 to label14 with label17;
+        catch java.lang.Throwable from label15 to label16 with label20;
+        catch java.lang.Throwable from label18 to label19 with label20;
+    }

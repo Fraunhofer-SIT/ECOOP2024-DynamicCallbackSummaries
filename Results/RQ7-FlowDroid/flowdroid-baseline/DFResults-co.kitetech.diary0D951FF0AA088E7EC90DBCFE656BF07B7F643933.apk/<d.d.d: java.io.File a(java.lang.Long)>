@@ -1,0 +1,449 @@
+    public java.io.File a(java.lang.Long)
+    {
+        byte[] $r15;
+        java.io.BufferedInputStream $r14, $r24;
+        com.almworks.sqlite4java.l $r11, $r12;
+        java.lang.Long $r1;
+        com.almworks.sqlite4java.g $r7, $r23;
+        java.util.Locale $r8;
+        boolean $z0;
+        java.lang.Exception $r16;
+        java.lang.StringBuilder $r19;
+        java.lang.Throwable $r17, $r18;
+        android.content.Context $r2;
+        java.lang.Object[] $r9;
+        d.d.d r0;
+        long $l0;
+        java.io.BufferedOutputStream $r22;
+        int $i1, $i2;
+        java.lang.String $r4;
+        java.io.OutputStream $r26;
+        java.io.FileOutputStream $r21;
+        java.io.IOException $r27;
+        java.lang.RuntimeException $r25;
+        java.io.File $r3, $r20;
+        a.b.a.g $r10;
+        java.lang.Object $r5, $r6;
+        java.io.InputStream $r13;
+
+        r0 := @this: d.d.d;
+
+        $r1 := @parameter0: java.lang.Long;
+
+        $r2 = <d.d.d: android.content.Context c>;
+
+        $r3 = virtualinvoke $r2.<android.content.Context: java.io.File getCacheDir()>();
+
+        $r20 = new java.io.File;
+
+        $r19 = new java.lang.StringBuilder;
+
+        specialinvoke $r19.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r3.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r19.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        virtualinvoke $r19.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/tmp_");
+
+        $l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        virtualinvoke $r19.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+
+        virtualinvoke $r19.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".m4a");
+
+        $r4 = virtualinvoke $r19.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r20.<java.io.File: void <init>(java.lang.String)>($r4);
+
+        $r5 = null;
+
+     label01:
+        $r22 = new java.io.BufferedOutputStream;
+
+     label02:
+        $r6 = $r22;
+
+     label03:
+        $r21 = new java.io.FileOutputStream;
+
+     label04:
+        specialinvoke $r21.<java.io.FileOutputStream: void <init>(java.io.File)>($r20);
+
+        specialinvoke $r22.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream,int)>($r21, 16384);
+
+     label05:
+        $r2 = staticinvoke <d.b.b: android.content.Context b()>();
+
+        $r3 = virtualinvoke $r2.<android.content.Context: java.io.File getDatabasePath(java.lang.String)>("diary.sqlite");
+
+     label06:
+        $r23 = new com.almworks.sqlite4java.g;
+
+     label07:
+        $r7 = $r23;
+
+     label08:
+        specialinvoke $r23.<com.almworks.sqlite4java.g: void <init>(java.io.File)>($r3);
+
+     label09:
+        virtualinvoke $r23.<com.almworks.sqlite4java.g: com.almworks.sqlite4java.g b()>();
+
+     label10:
+        $r8 = <java.util.Locale: java.util.Locale ENGLISH>;
+
+        $r9 = newarray (java.lang.Object)[3];
+
+        $r10 = <d.h.j$a: a.b.a.g k>;
+
+     label11:
+        $r4 = $r10.<a.b.a.g: java.lang.String e>;
+
+     label12:
+        $r9[0] = $r4;
+
+        $r9[1] = "diary";
+
+     label13:
+        $r10 = <d.h.j$a: a.b.a.g a>;
+
+     label14:
+        $r4 = $r10.<a.b.a.g: java.lang.String e>;
+
+     label15:
+        $r9[2] = $r4;
+
+     label16:
+        $r4 = staticinvoke <java.lang.String: java.lang.String format(java.util.Locale,java.lang.String,java.lang.Object[])>($r8, "SELECT %s FROM %s WHERE %s=?", $r9);
+
+        $r11 = virtualinvoke $r23.<com.almworks.sqlite4java.g: com.almworks.sqlite4java.l a(java.lang.String)>($r4);
+
+     label17:
+        $r12 = $r11;
+
+     label18:
+        $l0 = virtualinvoke $r1.<java.lang.Long: long longValue()>();
+
+        virtualinvoke $r11.<com.almworks.sqlite4java.l: com.almworks.sqlite4java.l a(int,long)>(1, $l0);
+
+        virtualinvoke $r11.<com.almworks.sqlite4java.l: boolean c()>();
+
+        $r13 = virtualinvoke $r11.<com.almworks.sqlite4java.l: java.io.InputStream b(int)>(0);
+
+     label19:
+        $r24 = new java.io.BufferedInputStream;
+
+     label20:
+        $r14 = $r24;
+
+     label21:
+        specialinvoke $r24.<java.io.BufferedInputStream: void <init>(java.io.InputStream,int)>($r13, 16384);
+
+     label22:
+        $r15 = newarray (byte)[16384];
+
+        $i1 = 0;
+
+     label23:
+        $i2 = virtualinvoke $r24.<java.io.BufferedInputStream: int read(byte[])>($r15);
+
+     label24:
+        if $i2 == -1 goto label28;
+
+     label25:
+        $r22 = (java.io.BufferedOutputStream) $r6;
+
+     label26:
+        virtualinvoke $r22.<java.io.BufferedOutputStream: void write(byte[],int,int)>($r15, 0, $i2);
+
+     label27:
+        $i1 = $i1 + $i2;
+
+        goto label23;
+
+     label28:
+        $r22 = (java.io.BufferedOutputStream) $r6;
+
+     label29:
+        virtualinvoke $r22.<java.io.BufferedOutputStream: void flush()>();
+
+     label30:
+        if $i1 <= 1 goto label32;
+
+        $r26 = (java.io.OutputStream) $r6;
+
+        staticinvoke <d.j.q: void a(java.io.OutputStream)>($r26);
+
+        staticinvoke <d.j.q: void a(java.io.InputStream)>($r24);
+
+        if $r11 == null goto label31;
+
+        virtualinvoke $r11.<com.almworks.sqlite4java.l: void b()>();
+
+     label31:
+        virtualinvoke $r23.<com.almworks.sqlite4java.g: void c()>();
+
+        return $r20;
+
+     label32:
+        $r26 = (java.io.OutputStream) $r6;
+
+        staticinvoke <d.j.q: void a(java.io.OutputStream)>($r26);
+
+        staticinvoke <d.j.q: void a(java.io.InputStream)>($r24);
+
+        if $r11 == null goto label33;
+
+        virtualinvoke $r11.<com.almworks.sqlite4java.l: void b()>();
+
+     label33:
+        virtualinvoke $r23.<com.almworks.sqlite4java.g: void c()>();
+
+        return null;
+
+     label34:
+        $r16 := @caughtexception;
+
+        goto label44;
+
+     label35:
+        $r17 := @caughtexception;
+
+        goto label54;
+
+     label36:
+        $r18 := @caughtexception;
+
+        goto label63;
+
+     label37:
+        $r16 := @caughtexception;
+
+        $r14 = null;
+
+        goto label44;
+
+     label38:
+        $r17 := @caughtexception;
+
+        $r14 = null;
+
+        goto label54;
+
+     label39:
+        $r18 := @caughtexception;
+
+        $r12 = null;
+
+        goto label63;
+
+     label40:
+        $r16 := @caughtexception;
+
+        $r12 = null;
+
+        $r14 = null;
+
+        goto label44;
+
+     label41:
+        $r17 := @caughtexception;
+
+        $r12 = null;
+
+        $r14 = null;
+
+        goto label54;
+
+     label42:
+        $r18 := @caughtexception;
+
+        $r12 = null;
+
+        goto label47;
+
+     label43:
+        $r16 := @caughtexception;
+
+        $r12 = null;
+
+        $r7 = null;
+
+        $r14 = null;
+
+     label44:
+        $r5 = $r6;
+
+        goto label49;
+
+     label45:
+        $r17 := @caughtexception;
+
+        $r12 = null;
+
+        goto label53;
+
+     label46:
+        $r18 := @caughtexception;
+
+        $r6 = null;
+
+        $r12 = null;
+
+     label47:
+        $r7 = null;
+
+        goto label63;
+
+     label48:
+        $r16 := @caughtexception;
+
+        $r12 = null;
+
+        $r7 = null;
+
+        $r14 = null;
+
+     label49:
+        $r25 = new java.lang.RuntimeException;
+
+     label50:
+        specialinvoke $r25.<java.lang.RuntimeException: void <init>(java.lang.Throwable)>($r16);
+
+        throw $r25;
+
+     label51:
+        $r18 := @caughtexception;
+
+        $r6 = $r5;
+
+        goto label62;
+
+     label52:
+        $r17 := @caughtexception;
+
+        $r6 = null;
+
+        $r12 = null;
+
+     label53:
+        $r7 = null;
+
+        $r14 = null;
+
+     label54:
+        $r27 = (java.io.IOException) $r17;
+
+        $r4 = virtualinvoke $r27.<java.io.IOException: java.lang.String getMessage()>();
+
+     label55:
+        if $r4 == null goto label59;
+
+     label56:
+        $r27 = (java.io.IOException) $r17;
+
+        $r4 = virtualinvoke $r27.<java.io.IOException: java.lang.String getMessage()>();
+
+        $r4 = virtualinvoke $r4.<java.lang.String: java.lang.String toLowerCase()>();
+
+        $z0 = virtualinvoke $r4.<java.lang.String: boolean contains(java.lang.CharSequence)>("closed");
+
+     label57:
+        if $z0 == 0 goto label59;
+
+        $r26 = (java.io.OutputStream) $r6;
+
+        staticinvoke <d.j.q: void a(java.io.OutputStream)>($r26);
+
+        staticinvoke <d.j.q: void a(java.io.InputStream)>($r14);
+
+        if $r12 == null goto label58;
+
+        virtualinvoke $r12.<com.almworks.sqlite4java.l: void b()>();
+
+     label58:
+        if $r7 == null goto label66;
+
+        virtualinvoke $r7.<com.almworks.sqlite4java.g: void c()>();
+
+        return null;
+
+     label59:
+        $r25 = new java.lang.RuntimeException;
+
+     label60:
+        specialinvoke $r25.<java.lang.RuntimeException: void <init>(java.lang.Throwable)>($r17);
+
+        throw $r25;
+
+     label61:
+        $r18 := @caughtexception;
+
+     label62:
+        $r5 = $r14;
+
+     label63:
+        $r26 = (java.io.OutputStream) $r6;
+
+        staticinvoke <d.j.q: void a(java.io.OutputStream)>($r26);
+
+        $r13 = (java.io.InputStream) $r5;
+
+        staticinvoke <d.j.q: void a(java.io.InputStream)>($r13);
+
+        if $r12 == null goto label64;
+
+        virtualinvoke $r12.<com.almworks.sqlite4java.l: void b()>();
+
+     label64:
+        if $r7 == null goto label65;
+
+        virtualinvoke $r7.<com.almworks.sqlite4java.g: void c()>();
+
+     label65:
+        throw $r18;
+
+     label66:
+        return null;
+
+        catch java.io.IOException from label04 to label05 with label52;
+        catch java.lang.Exception from label04 to label05 with label48;
+        catch java.lang.Throwable from label01 to label02 with label46;
+        catch java.lang.Throwable from label03 to label04 with label46;
+        catch java.lang.Throwable from label04 to label05 with label46;
+        catch java.io.IOException from label05 to label06 with label45;
+        catch java.io.IOException from label08 to label09 with label45;
+        catch java.lang.Exception from label05 to label06 with label43;
+        catch java.lang.Exception from label08 to label09 with label43;
+        catch java.lang.Throwable from label05 to label07 with label42;
+        catch java.lang.Throwable from label08 to label09 with label42;
+        catch java.io.IOException from label09 to label10 with label41;
+        catch java.io.IOException from label16 to label17 with label41;
+        catch java.lang.Exception from label09 to label10 with label40;
+        catch java.lang.Exception from label11 to label13 with label40;
+        catch java.lang.Exception from label14 to label17 with label40;
+        catch java.lang.Throwable from label09 to label12 with label39;
+        catch java.lang.Throwable from label13 to label15 with label39;
+        catch java.lang.Throwable from label16 to label17 with label39;
+        catch java.io.IOException from label18 to label19 with label38;
+        catch java.io.IOException from label21 to label22 with label38;
+        catch java.lang.Exception from label18 to label19 with label37;
+        catch java.lang.Exception from label21 to label22 with label37;
+        catch java.lang.Throwable from label18 to label20 with label36;
+        catch java.lang.Throwable from label21 to label22 with label36;
+        catch java.io.IOException from label23 to label24 with label35;
+        catch java.io.IOException from label26 to label27 with label35;
+        catch java.io.IOException from label29 to label30 with label35;
+        catch java.lang.Exception from label23 to label24 with label34;
+        catch java.lang.Exception from label25 to label27 with label34;
+        catch java.lang.Exception from label28 to label30 with label34;
+        catch java.lang.Throwable from label23 to label24 with label61;
+        catch java.lang.Throwable from label25 to label27 with label61;
+        catch java.lang.Throwable from label28 to label30 with label61;
+        catch java.lang.Throwable from label49 to label50 with label51;
+        catch java.lang.Throwable from label50 to label51 with label51;
+        catch java.lang.Throwable from label54 to label55 with label61;
+        catch java.lang.Throwable from label56 to label57 with label61;
+        catch java.lang.Throwable from label59 to label60 with label61;
+        catch java.lang.Throwable from label60 to label61 with label61;
+    }

@@ -1,0 +1,48 @@
+    private com.itextpdf.text.io.RandomAccessSource createByReadingToMemory(java.io.InputStream)
+    {
+        java.lang.Throwable $r3, $r4, $r6;
+        byte[] $r2;
+        com.itextpdf.text.io.RandomAccessSourceFactory r0;
+        com.itextpdf.text.io.ArrayRandomAccessSource $r5;
+        java.io.InputStream $r1;
+
+        r0 := @this: com.itextpdf.text.io.RandomAccessSourceFactory;
+
+        $r1 := @parameter0: java.io.InputStream;
+
+     label1:
+        $r5 = new com.itextpdf.text.io.ArrayRandomAccessSource;
+
+        $r2 = staticinvoke <com.itextpdf.text.io.StreamUtil: byte[] inputStreamToArray(java.io.InputStream)>($r1);
+
+        specialinvoke $r5.<com.itextpdf.text.io.ArrayRandomAccessSource: void <init>(byte[])>($r2);
+
+     label2:
+        virtualinvoke $r1.<java.io.InputStream: void close()>();
+
+     label3:
+        return $r5;
+
+     label4:
+        $r6 := @caughtexception;
+
+     label5:
+        virtualinvoke $r1.<java.io.InputStream: void close()>();
+
+     label6:
+        throw $r6;
+
+     label7:
+        $r3 := @caughtexception;
+
+        return $r5;
+
+     label8:
+        $r4 := @caughtexception;
+
+        goto label6;
+
+        catch java.lang.Throwable from label1 to label2 with label4;
+        catch java.io.IOException from label2 to label3 with label7;
+        catch java.io.IOException from label5 to label6 with label8;
+    }

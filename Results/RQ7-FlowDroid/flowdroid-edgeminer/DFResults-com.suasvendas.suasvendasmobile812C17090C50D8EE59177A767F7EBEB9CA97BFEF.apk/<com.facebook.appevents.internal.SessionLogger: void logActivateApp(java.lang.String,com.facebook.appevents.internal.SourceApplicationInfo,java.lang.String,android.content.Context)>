@@ -1,0 +1,73 @@
+    static void logActivateApp(java.lang.String, com.facebook.appevents.internal.SourceApplicationInfo, java.lang.String, android.content.Context)
+    {
+        com.facebook.appevents.InternalAppEventsLogger $r6;
+        java.lang.Throwable $r9;
+        com.facebook.appevents.internal.SourceApplicationInfo $r1;
+        android.content.Context $r3;
+        android.os.Bundle $r5;
+        com.facebook.appevents.AppEventsLogger$FlushBehavior $r7, $r8;
+        java.lang.String $r0, $r2, $r4;
+        boolean $z0;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r1 := @parameter1: com.facebook.appevents.internal.SourceApplicationInfo;
+
+        $r2 := @parameter2: java.lang.String;
+
+        $r3 := @parameter3: android.content.Context;
+
+        $z0 = staticinvoke <com.facebook.internal.instrument.crashshield.CrashShieldHandler: boolean isObjectCrashing(java.lang.Object)>(class "Lcom/facebook/appevents/internal/SessionLogger;");
+
+        if $z0 == 0 goto label1;
+
+        return;
+
+     label1:
+        $r4 = "Unclassified";
+
+     label2:
+        $r5 = new android.os.Bundle;
+
+        specialinvoke $r5.<android.os.Bundle: void <init>()>();
+
+        virtualinvoke $r5.<android.os.Bundle: void putString(java.lang.String,java.lang.String)>("fb_mobile_launch_source", $r4);
+
+        $r4 = staticinvoke <com.facebook.appevents.internal.SessionLogger: java.lang.String computePackageChecksum(android.content.Context)>($r3);
+
+        virtualinvoke $r5.<android.os.Bundle: void putString(java.lang.String,java.lang.String)>("fb_mobile_pckg_fp", $r4);
+
+        $r4 = staticinvoke <com.facebook.internal.security.CertificateUtil: java.lang.String getCertificateHash(android.content.Context)>($r3);
+
+        virtualinvoke $r5.<android.os.Bundle: void putString(java.lang.String,java.lang.String)>("fb_mobile_app_cert_hash", $r4);
+
+        $r6 = new com.facebook.appevents.InternalAppEventsLogger;
+
+        specialinvoke $r6.<com.facebook.appevents.InternalAppEventsLogger: void <init>(java.lang.String,java.lang.String,com.facebook.AccessToken)>($r0, $r2, null);
+
+        virtualinvoke $r6.<com.facebook.appevents.InternalAppEventsLogger: void logEvent(java.lang.String,android.os.Bundle)>("fb_mobile_activate_app", $r5);
+
+        $r7 = staticinvoke <com.facebook.appevents.InternalAppEventsLogger: com.facebook.appevents.AppEventsLogger$FlushBehavior getFlushBehavior()>();
+
+        $r8 = <com.facebook.appevents.AppEventsLogger$FlushBehavior: com.facebook.appevents.AppEventsLogger$FlushBehavior EXPLICIT_ONLY>;
+
+     label3:
+        if $r7 == $r8 goto label7;
+
+     label4:
+        virtualinvoke $r6.<com.facebook.appevents.InternalAppEventsLogger: void flush()>();
+
+     label5:
+        return;
+
+     label6:
+        $r9 := @caughtexception;
+
+        staticinvoke <com.facebook.internal.instrument.crashshield.CrashShieldHandler: void handleThrowable(java.lang.Throwable,java.lang.Object)>($r9, class "Lcom/facebook/appevents/internal/SessionLogger;");
+
+     label7:
+        return;
+
+        catch java.lang.Throwable from label2 to label3 with label6;
+        catch java.lang.Throwable from label4 to label5 with label6;
+    }

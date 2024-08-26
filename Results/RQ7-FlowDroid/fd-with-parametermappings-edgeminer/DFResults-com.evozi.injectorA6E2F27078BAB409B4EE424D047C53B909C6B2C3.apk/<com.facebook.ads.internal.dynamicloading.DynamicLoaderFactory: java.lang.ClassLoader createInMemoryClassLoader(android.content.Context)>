@@ -1,0 +1,57 @@
+    private static java.lang.ClassLoader createInMemoryClassLoader(android.content.Context)
+    {
+        android.content.Context $r0;
+        byte[] $r3;
+        java.io.ByteArrayOutputStream $r7;
+        java.nio.ByteBuffer $r4;
+        android.content.res.AssetManager $r1;
+        dalvik.system.InMemoryDexClassLoader $r8;
+        int $i0;
+        java.lang.Class $r5;
+        java.lang.ClassLoader $r6;
+        java.io.InputStream $r2;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 = virtualinvoke $r0.<android.content.Context: android.content.res.AssetManager getAssets()>();
+
+        $r2 = virtualinvoke $r1.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>("audience_network.dex");
+
+        $r7 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r7.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r3 = newarray (byte)[1024];
+
+     label1:
+        $i0 = virtualinvoke $r2.<java.io.InputStream: int read(byte[])>($r3);
+
+        if $i0 <= 0 goto label2;
+
+        virtualinvoke $r7.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r3, 0, $i0);
+
+        goto label1;
+
+     label2:
+        virtualinvoke $r2.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r7.<java.io.ByteArrayOutputStream: void flush()>();
+
+        virtualinvoke $r7.<java.io.ByteArrayOutputStream: void close()>();
+
+        $r3 = virtualinvoke $r7.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $r4 = staticinvoke <java.nio.ByteBuffer: java.nio.ByteBuffer wrap(byte[])>($r3);
+
+        $r8 = new dalvik.system.InMemoryDexClassLoader;
+
+        $r5 = class "Lcom/facebook/ads/internal/dynamicloading/DynamicLoaderFactory;";
+
+        $r6 = virtualinvoke $r5.<java.lang.Class: java.lang.ClassLoader getClassLoader()>();
+
+        specialinvoke $r8.<dalvik.system.InMemoryDexClassLoader: void <init>(java.nio.ByteBuffer,java.lang.ClassLoader)>($r4, $r6);
+
+        $r6 = (java.lang.ClassLoader) $r8;
+
+        return $r6;
+    }

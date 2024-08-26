@@ -1,0 +1,266 @@
+    public int read() throws java.io.IOException
+    {
+        gnu.text.LineBufferedReader r0;
+        int $i0, $i1, $i2;
+        char[] $r1;
+        char $c3;
+        boolean $z0;
+
+        r0 := @this: gnu.text.LineBufferedReader;
+
+        $i0 = r0.<gnu.text.LineBufferedReader: int pos>;
+
+        $z0 = 0;
+
+        if $i0 <= 0 goto label01;
+
+        $r1 = r0.<gnu.text.LineBufferedReader: char[] buffer>;
+
+        $i0 = $i0 - 1;
+
+        $i0 = $r1[$i0];
+
+        goto label04;
+
+     label01:
+        $i0 = r0.<gnu.text.LineBufferedReader: int flags>;
+
+        $i0 = $i0 & 4;
+
+        if $i0 == 0 goto label02;
+
+        $i0 = 13;
+
+        goto label04;
+
+     label02:
+        $i0 = r0.<gnu.text.LineBufferedReader: int lineStartPos>;
+
+        if $i0 < 0 goto label03;
+
+        $i0 = 10;
+
+        goto label04;
+
+     label03:
+        $i0 = 0;
+
+     label04:
+        if $i0 == 13 goto label05;
+
+        if $i0 != 10 goto label12;
+
+     label05:
+        $i1 = r0.<gnu.text.LineBufferedReader: int lineStartPos>;
+
+        $i2 = r0.<gnu.text.LineBufferedReader: int pos>;
+
+        if $i1 >= $i2 goto label07;
+
+        $i1 = r0.<gnu.text.LineBufferedReader: int readAheadLimit>;
+
+        if $i1 == 0 goto label06;
+
+        $i1 = r0.<gnu.text.LineBufferedReader: int markPos>;
+
+        if $i2 > $i1 goto label07;
+
+     label06:
+        $i2 = r0.<gnu.text.LineBufferedReader: int pos>;
+
+        r0.<gnu.text.LineBufferedReader: int lineStartPos> = $i2;
+
+        $i2 = r0.<gnu.text.LineBufferedReader: int lineNumber>;
+
+        $i2 = $i2 + 1;
+
+        r0.<gnu.text.LineBufferedReader: int lineNumber> = $i2;
+
+     label07:
+        $i2 = r0.<gnu.text.LineBufferedReader: int pos>;
+
+        $i1 = r0.<gnu.text.LineBufferedReader: int highestPos>;
+
+        if $i2 >= $i1 goto label08;
+
+        $z0 = 1;
+
+     label08:
+        if $i0 != 10 goto label10;
+
+        $i2 = r0.<gnu.text.LineBufferedReader: int pos>;
+
+        if $i2 > 1 goto label09;
+
+        $i2 = r0.<gnu.text.LineBufferedReader: int flags>;
+
+        $i2 = $i2 & 4;
+
+        if $i2 != 0 goto label11;
+
+        goto label10;
+
+     label09:
+        $r1 = r0.<gnu.text.LineBufferedReader: char[] buffer>;
+
+        $i2 = $i2 + -2;
+
+        $c3 = $r1[$i2];
+
+        $i2 = (int) $c3;
+
+        if $i2 == 13 goto label11;
+
+     label10:
+        virtualinvoke r0.<gnu.text.LineBufferedReader: void lineStart(boolean)>($z0);
+
+     label11:
+        if $z0 != 0 goto label12;
+
+        $i2 = r0.<gnu.text.LineBufferedReader: int pos>;
+
+        $i2 = $i2 + 1;
+
+        r0.<gnu.text.LineBufferedReader: int highestPos> = $i2;
+
+     label12:
+        $i1 = r0.<gnu.text.LineBufferedReader: int pos>;
+
+        $i2 = r0.<gnu.text.LineBufferedReader: int limit>;
+
+        if $i1 < $i2 goto label18;
+
+        $r1 = r0.<gnu.text.LineBufferedReader: char[] buffer>;
+
+        if $r1 != null goto label13;
+
+        $r1 = newarray (char)[8192];
+
+        r0.<gnu.text.LineBufferedReader: char[] buffer> = $r1;
+
+        goto label14;
+
+     label13:
+        $i1 = lengthof $r1;
+
+        if $i2 != $i1 goto label14;
+
+        specialinvoke r0.<gnu.text.LineBufferedReader: void reserve(char[],int)>($r1, 1);
+
+     label14:
+        $i2 = r0.<gnu.text.LineBufferedReader: int pos>;
+
+        if $i2 != 0 goto label16;
+
+        if $i0 != 13 goto label15;
+
+        $i2 = r0.<gnu.text.LineBufferedReader: int flags>;
+
+        $i2 = $i2 | 4;
+
+        r0.<gnu.text.LineBufferedReader: int flags> = $i2;
+
+        goto label16;
+
+     label15:
+        $i2 = r0.<gnu.text.LineBufferedReader: int flags>;
+
+        $i2 = $i2 & -5;
+
+        r0.<gnu.text.LineBufferedReader: int flags> = $i2;
+
+     label16:
+        $r1 = r0.<gnu.text.LineBufferedReader: char[] buffer>;
+
+        $i2 = lengthof $r1;
+
+        $i1 = r0.<gnu.text.LineBufferedReader: int pos>;
+
+        $i2 = $i2 - $i1;
+
+        $i2 = virtualinvoke r0.<gnu.text.LineBufferedReader: int fill(int)>($i2);
+
+        if $i2 > 0 goto label17;
+
+        return -1;
+
+     label17:
+        $i1 = r0.<gnu.text.LineBufferedReader: int limit>;
+
+        $i2 = $i1 + $i2;
+
+        r0.<gnu.text.LineBufferedReader: int limit> = $i2;
+
+     label18:
+        $r1 = r0.<gnu.text.LineBufferedReader: char[] buffer>;
+
+        $i1 = r0.<gnu.text.LineBufferedReader: int pos>;
+
+        $i2 = $i1 + 1;
+
+        r0.<gnu.text.LineBufferedReader: int pos> = $i2;
+
+        $c3 = $r1[$i1];
+
+        $i1 = (int) $c3;
+
+        if $i1 != 10 goto label20;
+
+        if $i0 != 13 goto label21;
+
+        $i0 = r0.<gnu.text.LineBufferedReader: int lineStartPos>;
+
+        $i2 = $i2 - 1;
+
+        if $i0 != $i2 goto label19;
+
+        $i2 = r0.<gnu.text.LineBufferedReader: int lineNumber>;
+
+        $i2 = $i2 - 1;
+
+        r0.<gnu.text.LineBufferedReader: int lineNumber> = $i2;
+
+        $i0 = $i0 - 1;
+
+        r0.<gnu.text.LineBufferedReader: int lineStartPos> = $i0;
+
+     label19:
+        $z0 = virtualinvoke r0.<gnu.text.LineBufferedReader: boolean getConvertCR()>();
+
+        if $z0 == 0 goto label22;
+
+        $i0 = virtualinvoke r0.<gnu.text.LineBufferedReader: int read()>();
+
+        return $i0;
+
+     label20:
+        $i0 = (int) $c3;
+
+        if $i0 != 13 goto label23;
+
+        $z0 = virtualinvoke r0.<gnu.text.LineBufferedReader: boolean getConvertCR()>();
+
+        if $z0 == 0 goto label24;
+
+        return 10;
+
+     label21:
+        $i0 = (int) $c3;
+
+        return $i0;
+
+     label22:
+        $i0 = (int) $c3;
+
+        return $i0;
+
+     label23:
+        $i0 = (int) $c3;
+
+        return $i0;
+
+     label24:
+        $i0 = (int) $c3;
+
+        return $i0;
+    }

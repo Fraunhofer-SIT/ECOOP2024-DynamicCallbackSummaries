@@ -1,0 +1,66 @@
+    static org.json.JSONObject a(java.lang.String)
+    {
+        java.net.HttpURLConnection $r5;
+        byte[] $r0;
+        java.io.ByteArrayOutputStream $r1;
+        java.net.URL $r3;
+        org.json.JSONObject $r7;
+        java.net.URLConnection $r4;
+        int $i0;
+        java.lang.String $r2;
+        java.io.InputStream $r6;
+        boolean $z0;
+
+        $r2 := @parameter0: java.lang.String;
+
+        $r3 = new java.net.URL;
+
+        specialinvoke $r3.<java.net.URL: void <init>(java.lang.String)>($r2);
+
+        $r4 = virtualinvoke $r3.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r5 = (java.net.HttpURLConnection) $r4;
+
+        virtualinvoke $r5.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("GET");
+
+        $r6 = virtualinvoke $r5.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+        $r0 = newarray (byte)[1024];
+
+        $r1 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r1.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label1:
+        $i0 = virtualinvoke $r6.<java.io.InputStream: int read(byte[],int,int)>($r0, 0, 1024);
+
+        if $i0 <= 0 goto label2;
+
+        virtualinvoke $r1.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r0, 0, $i0);
+
+        goto label1;
+
+     label2:
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r5.<java.net.HttpURLConnection: void disconnect()>();
+
+        $r2 = new java.lang.String;
+
+        $r0 = virtualinvoke $r1.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        specialinvoke $r2.<java.lang.String: void <init>(byte[],java.lang.String)>($r0, "utf-8");
+
+        $z0 = virtualinvoke $r2.<java.lang.String: boolean isEmpty()>();
+
+        if $z0 == 0 goto label3;
+
+        $r2 = "{}";
+
+     label3:
+        $r7 = new org.json.JSONObject;
+
+        specialinvoke $r7.<org.json.JSONObject: void <init>(java.lang.String)>($r2);
+
+        return $r7;
+    }

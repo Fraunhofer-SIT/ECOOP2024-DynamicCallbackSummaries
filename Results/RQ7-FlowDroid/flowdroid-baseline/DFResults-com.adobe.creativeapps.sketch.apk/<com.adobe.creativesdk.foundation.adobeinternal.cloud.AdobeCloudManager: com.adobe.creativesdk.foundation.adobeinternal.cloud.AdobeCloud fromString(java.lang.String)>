@@ -1,0 +1,52 @@
+    private static com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud fromString(java.lang.String) throws java.io.IOException, java.lang.ClassNotFoundException
+    {
+        byte[] $r3;
+        com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud r6;
+        com.adobe.creativesdk.foundation.adobeinternal.cloud.DecompressibleInputStream r1;
+        java.nio.charset.Charset $r2;
+        java.io.ByteArrayInputStream $r4;
+        com.adobe.creativesdk.foundation.internal.utils.logging.Level $r7;
+        java.lang.Object $r5;
+        java.lang.StringBuilder $r8;
+        java.lang.String $r0;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r2 = <org.apache.commons.io.Charsets: java.nio.charset.Charset UTF_8>;
+
+        $r3 = virtualinvoke $r0.<java.lang.String: byte[] getBytes(java.nio.charset.Charset)>($r2);
+
+        $r3 = staticinvoke <android.util.Base64: byte[] decode(byte[],int)>($r3, 0);
+
+        r1 = new com.adobe.creativesdk.foundation.adobeinternal.cloud.DecompressibleInputStream;
+
+        $r4 = new java.io.ByteArrayInputStream;
+
+        specialinvoke $r4.<java.io.ByteArrayInputStream: void <init>(byte[])>($r3);
+
+        specialinvoke r1.<com.adobe.creativesdk.foundation.adobeinternal.cloud.DecompressibleInputStream: void <init>(java.io.InputStream)>($r4);
+
+        $r5 = virtualinvoke r1.<com.adobe.creativesdk.foundation.adobeinternal.cloud.DecompressibleInputStream: java.lang.Object readObject()>();
+
+        r6 = (com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud) $r5;
+
+        $r7 = <com.adobe.creativesdk.foundation.internal.utils.logging.Level: com.adobe.creativesdk.foundation.internal.utils.logging.Level DEBUG>;
+
+        $r8 = new java.lang.StringBuilder;
+
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Adobe Cloud being retrieved from cache =");
+
+        $r0 = virtualinvoke r6.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: java.lang.String toString()>();
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r0 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.adobe.creativesdk.foundation.internal.utils.logging.AdobeLogger: void log(com.adobe.creativesdk.foundation.internal.utils.logging.Level,java.lang.String,java.lang.String)>($r7, "AdobeCloudManager", $r0);
+
+        virtualinvoke r1.<com.adobe.creativesdk.foundation.adobeinternal.cloud.DecompressibleInputStream: void close()>();
+
+        return r6;
+    }

@@ -1,0 +1,257 @@
+    private void a(android.content.Context, com.appnext.core.Ad, com.appnext.core.AppnextAd) throws java.lang.Exception
+    {
+        android.content.Context $r2;
+        byte[] $r14;
+        com.appnext.ads.fullscreen.b r0;
+        java.io.BufferedInputStream $r18;
+        java.net.URL $r17;
+        long $l0;
+        java.util.HashMap $r10;
+        java.net.URLConnection $r12;
+        int $i1;
+        com.appnext.core.AppnextAd $r3;
+        java.lang.String $r4, $r6, $r8, $r9;
+        boolean $z0;
+        com.appnext.core.Ad $r1;
+        java.io.FileOutputStream $r19;
+        java.io.File $r7, $r11, $r15, $r20;
+        com.appnext.ads.fullscreen.Video $r5;
+        java.lang.StringBuilder $r16;
+        java.io.InputStream $r13;
+
+        r0 := @this: com.appnext.ads.fullscreen.b;
+
+        $r2 := @parameter0: android.content.Context;
+
+        $r1 := @parameter1: com.appnext.core.Ad;
+
+        $r3 := @parameter2: com.appnext.core.AppnextAd;
+
+        $r4 = virtualinvoke $r3.<com.appnext.core.AppnextAd: java.lang.String getImageURL()>();
+
+        $z0 = virtualinvoke $r4.<java.lang.String: boolean equals(java.lang.Object)>("");
+
+        if $z0 != 0 goto label1;
+
+        $r4 = virtualinvoke $r3.<com.appnext.core.AppnextAd: java.lang.String getImageURL()>();
+
+        staticinvoke <com.appnext.core.f: android.graphics.Bitmap Y(java.lang.String)>($r4);
+
+     label1:
+        $r4 = virtualinvoke $r3.<com.appnext.core.AppnextAd: java.lang.String getWideImageURL()>();
+
+        $z0 = virtualinvoke $r4.<java.lang.String: boolean equals(java.lang.Object)>("");
+
+        if $z0 != 0 goto label2;
+
+        $r4 = virtualinvoke $r3.<com.appnext.core.AppnextAd: java.lang.String getWideImageURL()>();
+
+        staticinvoke <com.appnext.core.f: android.graphics.Bitmap Y(java.lang.String)>($r4);
+
+     label2:
+        $r5 = (com.appnext.ads.fullscreen.Video) $r1;
+
+        $r4 = virtualinvoke $r5.<com.appnext.ads.fullscreen.Video: java.lang.String getVideoLength()>();
+
+        $r6 = staticinvoke <com.appnext.ads.fullscreen.b: java.lang.String getVideoUrl(com.appnext.core.AppnextAd,java.lang.String)>($r3, $r4);
+
+        $r4 = staticinvoke <com.appnext.ads.fullscreen.b: java.lang.String c(java.lang.String)>($r6);
+
+        $z0 = staticinvoke <com.appnext.ads.fullscreen.Video: boolean getCacheVideo()>();
+
+        if $z0 == 0 goto label3;
+
+        $r16 = new java.lang.StringBuilder;
+
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+        $r7 = virtualinvoke $r2.<android.content.Context: java.io.File getFilesDir()>();
+
+        $r8 = virtualinvoke $r7.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/data/appnext/videos/");
+
+        $r8 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        goto label4;
+
+     label3:
+        $r16 = new java.lang.StringBuilder;
+
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+        $r7 = virtualinvoke $r2.<android.content.Context: java.io.File getFilesDir()>();
+
+        $r8 = virtualinvoke $r7.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/data/appnext/videos/");
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("tmp/vid");
+
+        $l0 = $r5.<com.appnext.ads.fullscreen.Video: long rnd>;
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        $r8 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label4:
+        $r11 = new java.io.File;
+
+        $r7 = $r11;
+
+        $r16 = new java.lang.StringBuilder;
+
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        $r9 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r11.<java.io.File: void <init>(java.lang.String)>($r9);
+
+        $z0 = virtualinvoke $r11.<java.io.File: boolean exists()>();
+
+        if $z0 == 0 goto label5;
+
+        $l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        virtualinvoke $r11.<java.io.File: boolean setLastModified(long)>($l0);
+
+        $r16 = new java.lang.StringBuilder;
+
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r11.<java.io.File: java.lang.String getPath()>();
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" exists");
+
+        $r10 = r0.<com.appnext.ads.fullscreen.b: java.util.HashMap aN>;
+
+        $r4 = virtualinvoke $r11.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r10.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>($r1, $r4);
+
+        return;
+
+     label5:
+        $z0 = staticinvoke <com.appnext.ads.fullscreen.Video: boolean isStreamingModeEnabled()>();
+
+        if $z0 == 0 goto label6;
+
+        return;
+
+     label6:
+        $r15 = new java.io.File;
+
+        specialinvoke $r15.<java.io.File: void <init>(java.lang.String)>($r8);
+
+        virtualinvoke $r15.<java.io.File: boolean mkdirs()>();
+
+        $r17 = new java.net.URL;
+
+        specialinvoke $r17.<java.net.URL: void <init>(java.lang.String)>($r6);
+
+        $r12 = virtualinvoke $r17.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        virtualinvoke $r12.<java.net.URLConnection: void connect()>();
+
+        $r18 = new java.io.BufferedInputStream;
+
+        $r13 = virtualinvoke $r17.<java.net.URL: java.io.InputStream openStream()>();
+
+        specialinvoke $r18.<java.io.BufferedInputStream: void <init>(java.io.InputStream,int)>($r13, 1024);
+
+        $r19 = new java.io.FileOutputStream;
+
+        $r16 = new java.lang.StringBuilder;
+
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".tmp");
+
+        $r6 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r19.<java.io.FileOutputStream: void <init>(java.lang.String)>($r6);
+
+        $r14 = newarray (byte)[1024];
+
+     label7:
+        $i1 = virtualinvoke $r18.<java.io.InputStream: int read(byte[])>($r14);
+
+        if $i1 == -1 goto label8;
+
+        virtualinvoke $r19.<java.io.OutputStream: void write(byte[],int,int)>($r14, 0, $i1);
+
+        goto label7;
+
+     label8:
+        $r16 = new java.lang.StringBuilder;
+
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>(java.lang.String)>("downloaded ");
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        virtualinvoke $r19.<java.io.OutputStream: void flush()>();
+
+        virtualinvoke $r19.<java.io.OutputStream: void close()>();
+
+        virtualinvoke $r18.<java.io.InputStream: void close()>();
+
+        $r15 = new java.io.File;
+
+        $r16 = new java.lang.StringBuilder;
+
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".tmp");
+
+        $r6 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r15.<java.io.File: void <init>(java.lang.String)>($r6);
+
+        $r20 = new java.io.File;
+
+        $r16 = new java.lang.StringBuilder;
+
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        $r4 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r20.<java.io.File: void <init>(java.lang.String)>($r4);
+
+        virtualinvoke $r15.<java.io.File: boolean renameTo(java.io.File)>($r20);
+
+        virtualinvoke $r15.<java.io.File: boolean delete()>();
+
+        $r10 = r0.<com.appnext.ads.fullscreen.b: java.util.HashMap aN>;
+
+        $r4 = virtualinvoke $r7.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r10.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>($r1, $r4);
+
+        return;
+    }

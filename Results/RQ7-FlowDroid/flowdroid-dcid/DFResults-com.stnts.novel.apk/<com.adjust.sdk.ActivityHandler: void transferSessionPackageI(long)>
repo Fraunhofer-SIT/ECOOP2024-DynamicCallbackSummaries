@@ -1,0 +1,46 @@
+    private void transferSessionPackageI(long)
+    {
+        com.adjust.sdk.SessionParameters $r5;
+        com.adjust.sdk.ActivityHandler$InternalState $r7;
+        com.adjust.sdk.ActivityState $r4;
+        long $l0;
+        com.adjust.sdk.AdjustConfig $r2;
+        com.adjust.sdk.ActivityPackage $r8;
+        com.adjust.sdk.PackageBuilder $r6;
+        com.adjust.sdk.DeviceInfo $r3;
+        com.adjust.sdk.ActivityHandler r0;
+        com.adjust.sdk.IPackageHandler $r1;
+        boolean $z0;
+
+        r0 := @this: com.adjust.sdk.ActivityHandler;
+
+        $l0 := @parameter0: long;
+
+        $r6 = new com.adjust.sdk.PackageBuilder;
+
+        $r2 = r0.<com.adjust.sdk.ActivityHandler: com.adjust.sdk.AdjustConfig adjustConfig>;
+
+        $r3 = r0.<com.adjust.sdk.ActivityHandler: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r4 = r0.<com.adjust.sdk.ActivityHandler: com.adjust.sdk.ActivityState activityState>;
+
+        $r5 = r0.<com.adjust.sdk.ActivityHandler: com.adjust.sdk.SessionParameters sessionParameters>;
+
+        specialinvoke $r6.<com.adjust.sdk.PackageBuilder: void <init>(com.adjust.sdk.AdjustConfig,com.adjust.sdk.DeviceInfo,com.adjust.sdk.ActivityState,com.adjust.sdk.SessionParameters,long)>($r2, $r3, $r4, $r5, $l0);
+
+        $r7 = r0.<com.adjust.sdk.ActivityHandler: com.adjust.sdk.ActivityHandler$InternalState internalState>;
+
+        $z0 = virtualinvoke $r7.<com.adjust.sdk.ActivityHandler$InternalState: boolean isInDelayedStart()>();
+
+        $r8 = virtualinvoke $r6.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.ActivityPackage buildSessionPackage(boolean)>($z0);
+
+        $r1 = r0.<com.adjust.sdk.ActivityHandler: com.adjust.sdk.IPackageHandler packageHandler>;
+
+        interfaceinvoke $r1.<com.adjust.sdk.IPackageHandler: void addPackage(com.adjust.sdk.ActivityPackage)>($r8);
+
+        $r1 = r0.<com.adjust.sdk.ActivityHandler: com.adjust.sdk.IPackageHandler packageHandler>;
+
+        interfaceinvoke $r1.<com.adjust.sdk.IPackageHandler: void sendFirstPackage()>();
+
+        return;
+    }

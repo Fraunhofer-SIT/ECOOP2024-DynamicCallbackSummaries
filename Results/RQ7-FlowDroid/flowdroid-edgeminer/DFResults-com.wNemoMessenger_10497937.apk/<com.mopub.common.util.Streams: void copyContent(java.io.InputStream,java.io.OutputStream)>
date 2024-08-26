@@ -1,0 +1,37 @@
+    public static void copyContent(java.io.InputStream, java.io.OutputStream) throws java.io.IOException
+    {
+        java.io.OutputStream $r1;
+        byte[] $r2;
+        int $i0;
+        java.io.IOException $r3;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $r1 := @parameter1: java.io.OutputStream;
+
+        if $r0 == null goto label3;
+
+        if $r1 == null goto label3;
+
+        $r2 = newarray (byte)[16384];
+
+     label1:
+        $i0 = virtualinvoke $r0.<java.io.InputStream: int read(byte[])>($r2);
+
+        if $i0 == -1 goto label2;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[],int,int)>($r2, 0, $i0);
+
+        goto label1;
+
+     label2:
+        return;
+
+     label3:
+        $r3 = new java.io.IOException;
+
+        specialinvoke $r3.<java.io.IOException: void <init>(java.lang.String)>("Unable to copy from or to a null stream.");
+
+        throw $r3;
+    }

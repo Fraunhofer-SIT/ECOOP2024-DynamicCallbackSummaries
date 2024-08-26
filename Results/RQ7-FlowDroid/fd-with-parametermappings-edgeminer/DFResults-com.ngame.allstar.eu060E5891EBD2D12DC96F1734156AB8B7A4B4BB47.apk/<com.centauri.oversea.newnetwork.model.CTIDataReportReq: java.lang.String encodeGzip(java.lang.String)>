@@ -1,0 +1,245 @@
+    public java.lang.String encodeGzip(java.lang.String)
+    {
+        java.lang.Throwable $r5, $r6, $r7, $r8, $r9, $r10, $r11, $r12;
+        byte[] $r4;
+        java.io.ByteArrayOutputStream $r2, $r13;
+        java.io.ByteArrayInputStream $r3, $r15;
+        int $i0;
+        java.lang.String $r1, $r16;
+        com.centauri.oversea.newnetwork.model.CTIDataReportReq r0;
+        java.io.IOException $r17;
+        java.util.zip.GZIPOutputStream $r14;
+
+        r0 := @this: com.centauri.oversea.newnetwork.model.CTIDataReportReq;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 = null;
+
+     label01:
+        $r13 = new java.io.ByteArrayOutputStream;
+
+     label02:
+        specialinvoke $r13.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label03:
+        $r14 = new java.util.zip.GZIPOutputStream;
+
+     label04:
+        specialinvoke $r14.<java.util.zip.GZIPOutputStream: void <init>(java.io.OutputStream)>($r13);
+
+     label05:
+        $r15 = new java.io.ByteArrayInputStream;
+
+     label06:
+        $r3 = $r15;
+
+     label07:
+        $r4 = virtualinvoke $r1.<java.lang.String: byte[] getBytes()>();
+
+        specialinvoke $r15.<java.io.ByteArrayInputStream: void <init>(byte[])>($r4);
+
+     label08:
+        $r4 = newarray (byte)[1024];
+
+     label09:
+        $i0 = virtualinvoke $r15.<java.io.ByteArrayInputStream: int read(byte[])>($r4);
+
+     label10:
+        if $i0 == -1 goto label13;
+
+     label11:
+        virtualinvoke $r14.<java.util.zip.GZIPOutputStream: void write(byte[],int,int)>($r4, 0, $i0);
+
+     label12:
+        goto label09;
+
+     label13:
+        virtualinvoke $r14.<java.util.zip.GZIPOutputStream: void flush()>();
+
+        virtualinvoke $r14.<java.util.zip.GZIPOutputStream: void close()>();
+
+        $r4 = virtualinvoke $r13.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $r4 = staticinvoke <android.util.Base64: byte[] encode(byte[],int)>($r4, 2);
+
+     label14:
+        $r16 = new java.lang.String;
+
+     label15:
+        specialinvoke $r16.<java.lang.String: void <init>(byte[])>($r4);
+
+        $r1 = staticinvoke <java.net.URLEncoder: java.lang.String encode(java.lang.String,java.lang.String)>($r16, "UTF-8");
+
+     label16:
+        virtualinvoke $r13.<java.io.ByteArrayOutputStream: void close()>();
+
+     label17:
+        goto label19;
+
+     label18:
+        $r5 := @caughtexception;
+
+        $r17 = (java.io.IOException) $r5;
+
+        virtualinvoke $r17.<java.io.IOException: void printStackTrace()>();
+
+     label19:
+        virtualinvoke $r15.<java.io.ByteArrayInputStream: void close()>();
+
+     label20:
+        return $r1;
+
+     label21:
+        $r6 := @caughtexception;
+
+        $r17 = (java.io.IOException) $r6;
+
+        virtualinvoke $r17.<java.io.IOException: void printStackTrace()>();
+
+        return $r1;
+
+     label22:
+        $r7 := @caughtexception;
+
+        goto label25;
+
+     label23:
+        $r8 := @caughtexception;
+
+        goto label27;
+
+     label24:
+        $r7 := @caughtexception;
+
+        $r3 = null;
+
+     label25:
+        $r2 = $r13;
+
+        goto label41;
+
+     label26:
+        $r8 := @caughtexception;
+
+        $r3 = null;
+
+     label27:
+        $r2 = $r13;
+
+        goto label30;
+
+     label28:
+        $r7 := @caughtexception;
+
+        $r3 = null;
+
+        goto label41;
+
+     label29:
+        $r8 := @caughtexception;
+
+        $r3 = null;
+
+     label30:
+        $r17 = (java.io.IOException) $r8;
+
+        virtualinvoke $r17.<java.io.IOException: void printStackTrace()>();
+
+     label31:
+        if $r2 == null goto label35;
+
+     label32:
+        virtualinvoke $r2.<java.io.ByteArrayOutputStream: void close()>();
+
+     label33:
+        goto label35;
+
+     label34:
+        $r9 := @caughtexception;
+
+        $r17 = (java.io.IOException) $r9;
+
+        virtualinvoke $r17.<java.io.IOException: void printStackTrace()>();
+
+     label35:
+        if $r3 == null goto label39;
+
+     label36:
+        virtualinvoke $r3.<java.io.ByteArrayInputStream: void close()>();
+
+     label37:
+        goto label39;
+
+     label38:
+        $r10 := @caughtexception;
+
+        $r17 = (java.io.IOException) $r10;
+
+        virtualinvoke $r17.<java.io.IOException: void printStackTrace()>();
+
+     label39:
+        return "";
+
+     label40:
+        $r7 := @caughtexception;
+
+     label41:
+        if $r2 == null goto label45;
+
+     label42:
+        virtualinvoke $r2.<java.io.ByteArrayOutputStream: void close()>();
+
+     label43:
+        goto label45;
+
+     label44:
+        $r11 := @caughtexception;
+
+        $r17 = (java.io.IOException) $r11;
+
+        virtualinvoke $r17.<java.io.IOException: void printStackTrace()>();
+
+     label45:
+        if $r3 == null goto label49;
+
+     label46:
+        virtualinvoke $r3.<java.io.ByteArrayInputStream: void close()>();
+
+     label47:
+        goto label49;
+
+     label48:
+        $r12 := @caughtexception;
+
+        $r17 = (java.io.IOException) $r12;
+
+        virtualinvoke $r17.<java.io.IOException: void printStackTrace()>();
+
+     label49:
+        throw $r7;
+
+        catch java.io.IOException from label02 to label03 with label29;
+        catch java.lang.Throwable from label01 to label02 with label28;
+        catch java.lang.Throwable from label02 to label03 with label28;
+        catch java.io.IOException from label04 to label05 with label26;
+        catch java.io.IOException from label07 to label08 with label26;
+        catch java.lang.Throwable from label03 to label04 with label24;
+        catch java.lang.Throwable from label04 to label06 with label24;
+        catch java.lang.Throwable from label07 to label08 with label24;
+        catch java.io.IOException from label09 to label10 with label23;
+        catch java.io.IOException from label11 to label12 with label23;
+        catch java.io.IOException from label13 to label14 with label23;
+        catch java.io.IOException from label15 to label16 with label23;
+        catch java.lang.Throwable from label09 to label10 with label22;
+        catch java.lang.Throwable from label11 to label12 with label22;
+        catch java.lang.Throwable from label13 to label15 with label22;
+        catch java.lang.Throwable from label15 to label16 with label22;
+        catch java.io.IOException from label16 to label17 with label18;
+        catch java.io.IOException from label19 to label20 with label21;
+        catch java.lang.Throwable from label30 to label31 with label40;
+        catch java.io.IOException from label32 to label33 with label34;
+        catch java.io.IOException from label36 to label37 with label38;
+        catch java.io.IOException from label42 to label43 with label44;
+        catch java.io.IOException from label46 to label47 with label48;
+    }

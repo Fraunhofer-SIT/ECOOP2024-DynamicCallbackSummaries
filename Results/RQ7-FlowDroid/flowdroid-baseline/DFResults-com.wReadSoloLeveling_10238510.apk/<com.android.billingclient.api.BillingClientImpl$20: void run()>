@@ -1,0 +1,36 @@
+    public void run()
+    {
+        java.util.concurrent.Future $r1;
+        com.android.billingclient.api.BillingClientImpl$20 r0;
+        java.lang.Runnable $r2;
+        boolean $z0;
+
+        r0 := @this: com.android.billingclient.api.BillingClientImpl$20;
+
+        $r1 = r0.<com.android.billingclient.api.BillingClientImpl$20: java.util.concurrent.Future val$task>;
+
+        $z0 = interfaceinvoke $r1.<java.util.concurrent.Future: boolean isDone()>();
+
+        if $z0 != 0 goto label1;
+
+        $r1 = r0.<com.android.billingclient.api.BillingClientImpl$20: java.util.concurrent.Future val$task>;
+
+        $z0 = interfaceinvoke $r1.<java.util.concurrent.Future: boolean isCancelled()>();
+
+        if $z0 != 0 goto label1;
+
+        $r1 = r0.<com.android.billingclient.api.BillingClientImpl$20: java.util.concurrent.Future val$task>;
+
+        interfaceinvoke $r1.<java.util.concurrent.Future: boolean cancel(boolean)>(1);
+
+        staticinvoke <com.android.billingclient.util.BillingHelper: void logWarn(java.lang.String,java.lang.String)>("BillingClient", "Async task is taking too long, cancel it!");
+
+        $r2 = r0.<com.android.billingclient.api.BillingClientImpl$20: java.lang.Runnable val$onTimeout>;
+
+        if $r2 == null goto label1;
+
+        interfaceinvoke $r2.<java.lang.Runnable: void run()>();
+
+     label1:
+        return;
+    }

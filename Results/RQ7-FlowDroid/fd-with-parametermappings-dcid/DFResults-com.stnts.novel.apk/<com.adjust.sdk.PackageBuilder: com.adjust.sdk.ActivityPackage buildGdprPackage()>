@@ -1,0 +1,39 @@
+    public com.adjust.sdk.ActivityPackage buildGdprPackage()
+    {
+        android.content.Context $r1;
+        com.adjust.sdk.ActivityKind $r3;
+        com.adjust.sdk.ActivityPackage $r4;
+        com.adjust.sdk.AdjustConfig $r7;
+        com.adjust.sdk.PackageBuilder r0;
+        java.util.Map $r2;
+        com.adjust.sdk.ILogger $r8;
+        java.lang.String $r5, $r6;
+
+        r0 := @this: com.adjust.sdk.PackageBuilder;
+
+        $r2 = specialinvoke r0.<com.adjust.sdk.PackageBuilder: java.util.Map getGdprParameters()>();
+
+        $r3 = <com.adjust.sdk.ActivityKind: com.adjust.sdk.ActivityKind GDPR>;
+
+        $r4 = specialinvoke r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.ActivityPackage getDefaultActivityPackage(com.adjust.sdk.ActivityKind)>($r3);
+
+        virtualinvoke $r4.<com.adjust.sdk.ActivityPackage: void setPath(java.lang.String)>("/gdpr_forget_device");
+
+        virtualinvoke $r4.<com.adjust.sdk.ActivityPackage: void setSuffix(java.lang.String)>("");
+
+        $r5 = virtualinvoke $r3.<com.adjust.sdk.ActivityKind: java.lang.String toString()>();
+
+        $r6 = virtualinvoke $r4.<com.adjust.sdk.ActivityPackage: java.lang.String getClientSdk()>();
+
+        $r7 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.AdjustConfig adjustConfig>;
+
+        $r1 = $r7.<com.adjust.sdk.AdjustConfig: android.content.Context context>;
+
+        $r8 = $r7.<com.adjust.sdk.AdjustConfig: com.adjust.sdk.ILogger logger>;
+
+        staticinvoke <com.adjust.sdk.AdjustSigner: void sign(java.util.Map,java.lang.String,java.lang.String,android.content.Context,com.adjust.sdk.ILogger)>($r2, $r5, $r6, $r1, $r8);
+
+        virtualinvoke $r4.<com.adjust.sdk.ActivityPackage: void setParameters(java.util.Map)>($r2);
+
+        return $r4;
+    }

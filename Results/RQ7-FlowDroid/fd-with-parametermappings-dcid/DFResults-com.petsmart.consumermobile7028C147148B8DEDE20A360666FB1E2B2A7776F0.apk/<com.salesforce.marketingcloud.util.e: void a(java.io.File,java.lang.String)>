@@ -1,0 +1,92 @@
+    private static void a(java.io.File, java.lang.String)
+    {
+        java.lang.Throwable $r8;
+        byte[] $r7;
+        java.lang.Object[] $r9;
+        java.io.FileOutputStream $r4, $r5;
+        java.lang.Exception $r0, $r1;
+        java.io.File $r2;
+        java.nio.charset.Charset $r6;
+        java.lang.String $r3, $r10;
+
+        $r2 := @parameter0: java.io.File;
+
+        $r3 := @parameter1: java.lang.String;
+
+        $r4 = null;
+
+     label01:
+        $r5 = new java.io.FileOutputStream;
+
+     label02:
+        specialinvoke $r5.<java.io.FileOutputStream: void <init>(java.io.File)>($r2);
+
+     label03:
+        $r6 = <com.salesforce.marketingcloud.util.l: java.nio.charset.Charset b>;
+
+     label04:
+        $r7 = virtualinvoke $r3.<java.lang.String: byte[] getBytes(java.nio.charset.Charset)>($r6);
+
+        virtualinvoke $r5.<java.io.FileOutputStream: void write(byte[])>($r7);
+
+     label05:
+        goto label11;
+
+     label06:
+        $r8 := @caughtexception;
+
+        goto label13;
+
+     label07:
+        $r4 = $r5;
+
+        goto label09;
+
+     label08:
+        $r8 := @caughtexception;
+
+        goto label12;
+
+     label09:
+        $r3 = <com.salesforce.marketingcloud.util.e: java.lang.String a>;
+
+        $r9 = newarray (java.lang.Object)[1];
+
+        $r10 = virtualinvoke $r2.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $r9[0] = $r10;
+
+        staticinvoke <com.salesforce.marketingcloud.g: void b(java.lang.String,java.lang.String,java.lang.Object[])>($r3, "Failed to write device id to file: ", $r9);
+
+     label10:
+        $r5 = $r4;
+
+     label11:
+        staticinvoke <com.salesforce.marketingcloud.util.g: void a(java.io.Closeable)>($r5);
+
+        return;
+
+     label12:
+        $r5 = $r4;
+
+     label13:
+        staticinvoke <com.salesforce.marketingcloud.util.g: void a(java.io.Closeable)>($r5);
+
+        throw $r8;
+
+     label14:
+        $r0 := @caughtexception;
+
+        goto label09;
+
+     label15:
+        $r1 := @caughtexception;
+
+        goto label07;
+
+        catch java.lang.Exception from label02 to label03 with label14;
+        catch java.lang.Throwable from label01 to label03 with label08;
+        catch java.lang.Exception from label04 to label05 with label15;
+        catch java.lang.Throwable from label03 to label05 with label06;
+        catch java.lang.Throwable from label09 to label10 with label08;
+    }

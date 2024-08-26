@@ -1,0 +1,244 @@
+    java.net.HttpURLConnection createConnection() throws java.io.IOException
+    {
+        java.net.HttpURLConnection $r3;
+        com.vk.sdk.api.httpClient.VKMultipartEntity $r20;
+        android.content.Context $r4;
+        java.lang.Float $r13;
+        com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest r0;
+        java.lang.Object[] $r9;
+        android.content.pm.PackageManager $r5;
+        java.net.URL r1;
+        android.util.Pair $r22;
+        long $l1;
+        android.content.pm.PackageInfo $r7;
+        java.lang.Integer $r10;
+        java.net.URLConnection $r2;
+        java.util.Locale $r8;
+        java.util.Map $r14;
+        int $i0;
+        java.lang.String $r6, $r19;
+        boolean $z0;
+        java.io.OutputStream $r23;
+        java.util.Map$Entry r18;
+        java.util.Iterator $r16;
+        java.util.Set $r15;
+        android.util.DisplayMetrics $r12;
+        java.lang.Exception $r24;
+        float $f0;
+        java.lang.Object $r17;
+        java.lang.StringBuilder $r21;
+        android.content.res.Resources $r11;
+
+        r0 := @this: com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest;
+
+        r1 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: java.net.URL methodUrl>;
+
+        $r2 = virtualinvoke r1.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r3 = (java.net.HttpURLConnection) $r2;
+
+        r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: java.net.HttpURLConnection connection> = $r3;
+
+        $r3 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: java.net.HttpURLConnection connection>;
+
+        $i0 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: int timeout>;
+
+        virtualinvoke $r3.<java.net.HttpURLConnection: void setReadTimeout(int)>($i0);
+
+        $r3 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: java.net.HttpURLConnection connection>;
+
+        $i0 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: int timeout>;
+
+        $i0 = $i0 + 5000;
+
+        virtualinvoke $r3.<java.net.HttpURLConnection: void setConnectTimeout(int)>($i0);
+
+        $r3 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: java.net.HttpURLConnection connection>;
+
+        virtualinvoke $r3.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+        $r3 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: java.net.HttpURLConnection connection>;
+
+        virtualinvoke $r3.<java.net.HttpURLConnection: void setUseCaches(boolean)>(0);
+
+        $r3 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: java.net.HttpURLConnection connection>;
+
+        virtualinvoke $r3.<java.net.HttpURLConnection: void setDoInput(boolean)>(1);
+
+        $r3 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: java.net.HttpURLConnection connection>;
+
+        virtualinvoke $r3.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+     label01:
+        $r4 = staticinvoke <com.vk.sdk.VKUIHelper: android.content.Context getApplicationContext()>();
+
+     label02:
+        if $r4 == null goto label12;
+
+     label03:
+        $r5 = virtualinvoke $r4.<android.content.Context: android.content.pm.PackageManager getPackageManager()>();
+
+     label04:
+        if $r5 == null goto label12;
+
+     label05:
+        $r6 = virtualinvoke $r4.<android.content.Context: java.lang.String getPackageName()>();
+
+        $r7 = virtualinvoke $r5.<android.content.pm.PackageManager: android.content.pm.PackageInfo getPackageInfo(java.lang.String,int)>($r6, 0);
+
+        $r3 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: java.net.HttpURLConnection connection>;
+
+     label06:
+        $r8 = <java.util.Locale: java.util.Locale US>;
+
+        $r9 = newarray (java.lang.Object)[7];
+
+     label07:
+        $r6 = staticinvoke <com.vk.sdk.util.VKUtil: java.lang.String getApplicationName(android.content.Context)>($r4);
+
+        $r9[0] = $r6;
+
+        $r6 = $r7.<android.content.pm.PackageInfo: java.lang.String versionName>;
+
+        $r9[1] = $r6;
+
+     label08:
+        $r6 = <android.os.Build: java.lang.String MODEL>;
+
+     label09:
+        $r9[2] = $r6;
+
+     label10:
+        $i0 = <android.os.Build$VERSION: int SDK_INT>;
+
+     label11:
+        $r10 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+        $r9[3] = $r10;
+
+        $r11 = virtualinvoke $r4.<android.content.Context: android.content.res.Resources getResources()>();
+
+        $r12 = virtualinvoke $r11.<android.content.res.Resources: android.util.DisplayMetrics getDisplayMetrics()>();
+
+        $f0 = $r12.<android.util.DisplayMetrics: float density>;
+
+        $r13 = staticinvoke <java.lang.Float: java.lang.Float valueOf(float)>($f0);
+
+        $r9[4] = $r13;
+
+        $r9[5] = "1.6.9";
+
+        $r6 = $r7.<android.content.pm.PackageInfo: java.lang.String packageName>;
+
+        $r9[6] = $r6;
+
+        $r6 = staticinvoke <java.lang.String: java.lang.String format(java.util.Locale,java.lang.String,java.lang.Object[])>($r8, "%s/%s (%s; Android %d; Scale/%.2f; VK SDK %s; %s)", $r9);
+
+        virtualinvoke $r3.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("User-Agent", $r6);
+
+     label12:
+        $r3 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: java.net.HttpURLConnection connection>;
+
+        virtualinvoke $r3.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Connection", "Keep-Alive");
+
+        $r14 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: java.util.Map headers>;
+
+        if $r14 == null goto label14;
+
+        $r14 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: java.util.Map headers>;
+
+        $r15 = interfaceinvoke $r14.<java.util.Map: java.util.Set entrySet()>();
+
+        $r16 = interfaceinvoke $r15.<java.util.Set: java.util.Iterator iterator()>();
+
+     label13:
+        $z0 = interfaceinvoke $r16.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label14;
+
+        $r17 = interfaceinvoke $r16.<java.util.Iterator: java.lang.Object next()>();
+
+        r18 = (java.util.Map$Entry) $r17;
+
+        $r3 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: java.net.HttpURLConnection connection>;
+
+        $r17 = interfaceinvoke r18.<java.util.Map$Entry: java.lang.Object getKey()>();
+
+        $r6 = (java.lang.String) $r17;
+
+        $r17 = interfaceinvoke r18.<java.util.Map$Entry: java.lang.Object getValue()>();
+
+        $r19 = (java.lang.String) $r17;
+
+        virtualinvoke $r3.<java.net.HttpURLConnection: void addRequestProperty(java.lang.String,java.lang.String)>($r6, $r19);
+
+        goto label13;
+
+     label14:
+        $r20 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: com.vk.sdk.api.httpClient.VKMultipartEntity entity>;
+
+        if $r20 == null goto label15;
+
+        $r3 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: java.net.HttpURLConnection connection>;
+
+        $r21 = new java.lang.StringBuilder;
+
+        specialinvoke $r21.<java.lang.StringBuilder: void <init>()>();
+
+        $r20 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: com.vk.sdk.api.httpClient.VKMultipartEntity entity>;
+
+        $l1 = virtualinvoke $r20.<com.vk.sdk.api.httpClient.VKMultipartEntity: long getContentLength()>();
+
+        $r21 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l1);
+
+        $r21 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("");
+
+        $r6 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r3.<java.net.HttpURLConnection: void addRequestProperty(java.lang.String,java.lang.String)>("Content-length", $r6);
+
+        $r20 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: com.vk.sdk.api.httpClient.VKMultipartEntity entity>;
+
+        $r22 = virtualinvoke $r20.<com.vk.sdk.api.httpClient.VKMultipartEntity: android.util.Pair getContentType()>();
+
+        $r3 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: java.net.HttpURLConnection connection>;
+
+        $r17 = $r22.<android.util.Pair: java.lang.Object first>;
+
+        $r6 = (java.lang.String) $r17;
+
+        $r17 = $r22.<android.util.Pair: java.lang.Object second>;
+
+        $r19 = (java.lang.String) $r17;
+
+        virtualinvoke $r3.<java.net.HttpURLConnection: void addRequestProperty(java.lang.String,java.lang.String)>($r6, $r19);
+
+     label15:
+        $r3 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: java.net.HttpURLConnection connection>;
+
+        $r23 = virtualinvoke $r3.<java.net.HttpURLConnection: java.io.OutputStream getOutputStream()>();
+
+        virtualinvoke r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: void writeParams(java.io.OutputStream)>($r23);
+
+        virtualinvoke $r23.<java.io.OutputStream: void close()>();
+
+        $r3 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: java.net.HttpURLConnection connection>;
+
+        virtualinvoke $r3.<java.net.HttpURLConnection: void connect()>();
+
+        $r3 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: java.net.HttpURLConnection connection>;
+
+        return $r3;
+
+     label16:
+        $r24 := @caughtexception;
+
+        goto label12;
+
+        catch java.lang.Exception from label01 to label02 with label16;
+        catch java.lang.Exception from label03 to label04 with label16;
+        catch java.lang.Exception from label05 to label06 with label16;
+        catch java.lang.Exception from label07 to label08 with label16;
+        catch java.lang.Exception from label09 to label10 with label16;
+        catch java.lang.Exception from label11 to label12 with label16;
+    }

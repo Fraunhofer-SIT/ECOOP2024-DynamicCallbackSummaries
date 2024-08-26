@@ -1,0 +1,53 @@
+    public gnu.text.Char get(int)
+    {
+        gnu.text.CharMap r0;
+        gnu.kawa.util.AbstractWeakHashTable$WEntry[] $r2;
+        gnu.text.Char r5;
+        gnu.kawa.util.AbstractWeakHashTable$WEntry r3;
+        int $i0, $i1;
+        java.lang.Object $r4;
+        java.util.Map$Entry[] $r1;
+
+        r0 := @this: gnu.text.CharMap;
+
+        $i0 := @parameter0: int;
+
+        virtualinvoke r0.<gnu.text.CharMap: void cleanup()>();
+
+        $i1 = virtualinvoke r0.<gnu.text.CharMap: int hashToIndex(int)>($i0);
+
+        $r1 = r0.<gnu.text.CharMap: java.util.Map$Entry[] table>;
+
+        $r2 = (gnu.kawa.util.AbstractWeakHashTable$WEntry[]) $r1;
+
+        r3 = $r2[$i1];
+
+     label1:
+        if r3 == null goto label3;
+
+        $r4 = virtualinvoke r3.<gnu.kawa.util.AbstractWeakHashTable$WEntry: java.lang.Object getValue()>();
+
+        r5 = (gnu.text.Char) $r4;
+
+        if r5 == null goto label2;
+
+        $i1 = virtualinvoke r5.<gnu.text.Char: int intValue()>();
+
+        if $i1 != $i0 goto label2;
+
+        return r5;
+
+     label2:
+        r3 = r3.<gnu.kawa.util.AbstractWeakHashTable$WEntry: gnu.kawa.util.AbstractWeakHashTable$WEntry next>;
+
+        goto label1;
+
+     label3:
+        r5 = new gnu.text.Char;
+
+        specialinvoke r5.<gnu.text.Char: void <init>(int)>($i0);
+
+        specialinvoke r0.<gnu.kawa.util.AbstractWeakHashTable: java.lang.Object put(java.lang.Object,java.lang.Object)>(r5, r5);
+
+        return r5;
+    }

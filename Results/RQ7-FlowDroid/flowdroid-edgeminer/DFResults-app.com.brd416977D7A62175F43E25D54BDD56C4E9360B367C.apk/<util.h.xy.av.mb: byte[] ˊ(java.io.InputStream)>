@@ -1,0 +1,121 @@
+    private byte[] \u02ca(java.io.InputStream) throws java.io.IOException
+    {
+        java.lang.Throwable $r3;
+        byte[] $r2;
+        java.io.ByteArrayOutputStream $r6;
+        util.h.xy.av.mb r0;
+        long $l3;
+        java.io.IOException $r7;
+        byte $b4;
+        int $i0, $i1, $i2;
+        java.lang.String $r5;
+        java.lang.OutOfMemoryError $r4;
+        java.io.InputStream $r1;
+
+        r0 := @this: util.h.xy.av.mb;
+
+        $r1 := @parameter0: java.io.InputStream;
+
+        $r2 = newarray (byte)[1024];
+
+        $r6 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r6.<java.io.ByteArrayOutputStream: void <init>(int)>(1024);
+
+        $i0 = virtualinvoke $r1.<java.io.InputStream: int read(byte[])>($r2);
+
+        $i1 = <util.h.xy.av.mb: int \u02cc>;
+
+        $i1 = $i1 + 41;
+
+        $i1 = $i1 % 128;
+
+        <util.h.xy.av.mb: int \u02bb> = $i1;
+
+     label01:
+        if $i0 == -1 goto label04;
+
+        $i1 = <util.h.xy.av.mb: int \u02bb>;
+
+        $i1 = $i1 + 109;
+
+        $i2 = $i1 % 128;
+
+        <util.h.xy.av.mb: int \u02cc> = $i2;
+
+     label02:
+        virtualinvoke $r6.<java.io.OutputStream: void write(byte[],int,int)>($r2, 0, $i0);
+
+        $i0 = virtualinvoke $r1.<java.io.InputStream: int read(byte[])>($r2);
+
+     label03:
+        goto label01;
+
+     label04:
+        $r2 = virtualinvoke $r6.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label05:
+        specialinvoke r0.<util.h.xy.av.mb: void \u02ca(java.io.ByteArrayOutputStream)>($r6);
+
+        staticinvoke <util.h.xy.av.c: void \u02ce(java.io.Closeable)>($r6);
+
+        staticinvoke <util.h.xy.av.c: void \u02ce(java.io.Closeable)>($r1);
+
+        return $r2;
+
+     label06:
+        $r3 := @caughtexception;
+
+        goto label14;
+
+     label07:
+        $r4 := @caughtexception;
+
+     label08:
+        $r7 = new java.io.IOException;
+
+     label09:
+        $l3 = staticinvoke <android.widget.ExpandableListView: long getPackedPositionForChild(int,int)>(0, 0);
+
+     label10:
+        $b4 = $l3 cmp 0L;
+
+        $i0 = (int) $b4;
+
+        $i0 = 63 - $i0;
+
+        $b4 = (byte) $i0;
+
+     label11:
+        $i0 = staticinvoke <android.view.MotionEvent: int axisFromString(java.lang.String)>("");
+
+     label12:
+        $i0 = 24 - $i0;
+
+     label13:
+        $r5 = staticinvoke <util.h.xy.av.mb: java.lang.String \u02cf(byte,java.lang.String,int)>($b4, "\u0008\u0001\u0002\u0010\u0012\u0003\u0002\u0004\n\u000b\f\u0017\u0013\r\u0001\u0006\u0013\u0018\u3635\u3635\f\u0004\u0004\u0005\u363f", $i0);
+
+        $r5 = virtualinvoke $r5.<java.lang.String: java.lang.String intern()>();
+
+        specialinvoke $r7.<java.io.IOException: void <init>(java.lang.String,java.lang.Throwable)>($r5, $r4);
+
+        throw $r7;
+
+     label14:
+        specialinvoke r0.<util.h.xy.av.mb: void \u02ca(java.io.ByteArrayOutputStream)>($r6);
+
+        staticinvoke <util.h.xy.av.c: void \u02ce(java.io.Closeable)>($r6);
+
+        staticinvoke <util.h.xy.av.c: void \u02ce(java.io.Closeable)>($r1);
+
+        throw $r3;
+
+        catch java.lang.OutOfMemoryError from label02 to label03 with label07;
+        catch java.lang.OutOfMemoryError from label04 to label05 with label07;
+        catch java.lang.Throwable from label02 to label03 with label06;
+        catch java.lang.Throwable from label04 to label05 with label06;
+        catch java.lang.Throwable from label08 to label09 with label06;
+        catch java.lang.Throwable from label09 to label10 with label06;
+        catch java.lang.Throwable from label11 to label12 with label06;
+        catch java.lang.Throwable from label13 to label14 with label06;
+    }

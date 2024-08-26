@@ -1,0 +1,112 @@
+    public static void b(java.io.File, java.io.File)
+    {
+        byte[] $r5, $r6;
+        java.io.File $r0, $r1;
+        int $i0;
+        java.lang.StringBuilder $r2;
+        java.lang.String $r3;
+        boolean $z0;
+        com.handcent.sms.h1.a $r4;
+
+        $r0 := @parameter0: java.io.File;
+
+        $r1 := @parameter1: java.io.File;
+
+        if $r0 != null goto label1;
+
+        staticinvoke <com.handcent.sms.ve.j: void c(java.lang.String,java.lang.String)>("AesGcmUtl", "src is null");
+
+        return;
+
+     label1:
+        $z0 = virtualinvoke $r0.<java.io.File: boolean exists()>();
+
+        if $z0 != 0 goto label2;
+
+        $r2 = new java.lang.StringBuilder;
+
+        specialinvoke $r2.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("src=");
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r0);
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" not exist");
+
+        $r3 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.handcent.sms.ve.j: void c(java.lang.String,java.lang.String)>("AesGcmUtl", $r3);
+
+        return;
+
+     label2:
+        if $r1 != null goto label3;
+
+        staticinvoke <com.handcent.sms.ve.j: void c(java.lang.String,java.lang.String)>("AesGcmUtl", "dest is null");
+
+        return;
+
+     label3:
+        $r4 = new com.handcent.sms.h1.a;
+
+        $r3 = <com.handcent.sms.ve.b: java.lang.String b>;
+
+        $r5 = virtualinvoke $r3.<java.lang.String: byte[] getBytes()>();
+
+        $r3 = <com.handcent.sms.ve.b: java.lang.String c>;
+
+        $r6 = virtualinvoke $r3.<java.lang.String: byte[] getBytes()>();
+
+        specialinvoke $r4.<com.handcent.sms.h1.a: void <init>(java.lang.String,java.lang.String,byte[],byte[])>("GCM", "NoPadding", $r5, $r6);
+
+        $r5 = staticinvoke <com.handcent.sms.d0.f: byte[] G1(java.io.File)>($r0);
+
+        $r5 = virtualinvoke $r4.<com.handcent.sms.h1.g: byte[] c(byte[])>($r5);
+
+        if $r5 == null goto label4;
+
+        $i0 = lengthof $r5;
+
+        if $i0 <= 0 goto label4;
+
+        staticinvoke <com.handcent.sms.d0.f: java.io.File B2(byte[],java.io.File)>($r5, $r1);
+
+        $r2 = new java.lang.StringBuilder;
+
+        specialinvoke $r2.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("gcm decrypt ok,from src=");
+
+        $r3 = virtualinvoke $r0.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(",to dest=");
+
+        $r3 = virtualinvoke $r1.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.handcent.sms.ve.j: void c(java.lang.String,java.lang.String)>("AesGcmUtl", $r3);
+
+        return;
+
+     label4:
+        $r2 = new java.lang.StringBuilder;
+
+        specialinvoke $r2.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("gcm decrypt result is null by src=");
+
+        $r3 = virtualinvoke $r0.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.handcent.sms.ve.j: void c(java.lang.String,java.lang.String)>("AesGcmUtl", $r3);
+
+        return;
+    }

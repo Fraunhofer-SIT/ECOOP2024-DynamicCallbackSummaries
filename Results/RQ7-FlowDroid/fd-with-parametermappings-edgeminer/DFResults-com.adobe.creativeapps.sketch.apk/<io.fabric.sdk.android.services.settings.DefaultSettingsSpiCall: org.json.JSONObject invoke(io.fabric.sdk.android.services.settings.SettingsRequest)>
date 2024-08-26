@@ -1,0 +1,117 @@
+    public org.json.JSONObject invoke(io.fabric.sdk.android.services.settings.SettingsRequest)
+    {
+        java.lang.Throwable $r9;
+        io.fabric.sdk.android.services.network.HttpRequest r2, $r4;
+        io.fabric.sdk.android.Logger $r5;
+        org.json.JSONObject $r8;
+        io.fabric.sdk.android.services.settings.DefaultSettingsSpiCall r0;
+        io.fabric.sdk.android.services.settings.SettingsRequest $r1;
+        java.util.Map $r3;
+        java.lang.StringBuilder $r6;
+        java.lang.String $r7;
+
+        r0 := @this: io.fabric.sdk.android.services.settings.DefaultSettingsSpiCall;
+
+        $r1 := @parameter0: io.fabric.sdk.android.services.settings.SettingsRequest;
+
+        r2 = null;
+
+     label1:
+        $r3 = specialinvoke r0.<io.fabric.sdk.android.services.settings.DefaultSettingsSpiCall: java.util.Map getQueryParamsFor(io.fabric.sdk.android.services.settings.SettingsRequest)>($r1);
+
+        $r4 = virtualinvoke r0.<io.fabric.sdk.android.services.settings.DefaultSettingsSpiCall: io.fabric.sdk.android.services.network.HttpRequest getHttpRequest(java.util.Map)>($r3);
+
+     label2:
+        r2 = $r4;
+
+     label3:
+        $r4 = specialinvoke r0.<io.fabric.sdk.android.services.settings.DefaultSettingsSpiCall: io.fabric.sdk.android.services.network.HttpRequest applyHeadersTo(io.fabric.sdk.android.services.network.HttpRequest,io.fabric.sdk.android.services.settings.SettingsRequest)>($r4, $r1);
+
+     label4:
+        r2 = $r4;
+
+     label5:
+        $r5 = staticinvoke <io.fabric.sdk.android.Fabric: io.fabric.sdk.android.Logger getLogger()>();
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Requesting settings from ");
+
+        $r7 = virtualinvoke r0.<io.fabric.sdk.android.services.settings.DefaultSettingsSpiCall: java.lang.String getUrl()>();
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        interfaceinvoke $r5.<io.fabric.sdk.android.Logger: void d(java.lang.String,java.lang.String)>("Fabric", $r7);
+
+        $r5 = staticinvoke <io.fabric.sdk.android.Fabric: io.fabric.sdk.android.Logger getLogger()>();
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Settings query params were: ");
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r3);
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        interfaceinvoke $r5.<io.fabric.sdk.android.Logger: void d(java.lang.String,java.lang.String)>("Fabric", $r7);
+
+        $r8 = virtualinvoke r0.<io.fabric.sdk.android.services.settings.DefaultSettingsSpiCall: org.json.JSONObject handleResponse(io.fabric.sdk.android.services.network.HttpRequest)>($r4);
+
+     label6:
+        if $r4 == null goto label9;
+
+        $r5 = staticinvoke <io.fabric.sdk.android.Fabric: io.fabric.sdk.android.Logger getLogger()>();
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Settings request ID: ");
+
+        $r7 = virtualinvoke $r4.<io.fabric.sdk.android.services.network.HttpRequest: java.lang.String header(java.lang.String)>("X-REQUEST-ID");
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        interfaceinvoke $r5.<io.fabric.sdk.android.Logger: void d(java.lang.String,java.lang.String)>("Fabric", $r7);
+
+        return $r8;
+
+     label7:
+        $r9 := @caughtexception;
+
+        if r2 == null goto label8;
+
+        $r5 = staticinvoke <io.fabric.sdk.android.Fabric: io.fabric.sdk.android.Logger getLogger()>();
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Settings request ID: ");
+
+        $r7 = virtualinvoke r2.<io.fabric.sdk.android.services.network.HttpRequest: java.lang.String header(java.lang.String)>("X-REQUEST-ID");
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        interfaceinvoke $r5.<io.fabric.sdk.android.Logger: void d(java.lang.String,java.lang.String)>("Fabric", $r7);
+
+     label8:
+        throw $r9;
+
+     label9:
+        return $r8;
+
+        catch java.lang.Throwable from label1 to label2 with label7;
+        catch java.lang.Throwable from label3 to label4 with label7;
+        catch java.lang.Throwable from label5 to label6 with label7;
+    }

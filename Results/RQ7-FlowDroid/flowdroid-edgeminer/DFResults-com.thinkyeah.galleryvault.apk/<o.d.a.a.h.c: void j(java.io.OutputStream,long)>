@@ -1,0 +1,95 @@
+    public final void j(java.io.OutputStream, long) throws java.io.IOException
+    {
+        java.io.OutputStream $r1;
+        byte[] $r3;
+        long $l0, $l3;
+        java.lang.Exception $r2;
+        o.d.a.a.h.c r0;
+        byte $b2;
+        int $i1;
+        boolean $z0;
+        java.io.InputStream $r4;
+
+        r0 := @this: o.d.a.a.h.c;
+
+        $r1 := @parameter0: java.io.OutputStream;
+
+        $l0 := @parameter1: long;
+
+        $i1 = (int) 16384L;
+
+        $r3 = newarray (byte)[$i1];
+
+        $b2 = $l0 cmp -1L;
+
+        if $b2 != 0 goto label01;
+
+        $z0 = 1;
+
+        goto label02;
+
+     label01:
+        $z0 = 0;
+
+     label02:
+        $b2 = $l0 cmp 0L;
+
+        $i1 = (int) $b2;
+
+        if $i1 > 0 goto label03;
+
+        if $z0 == 0 goto label11;
+
+     label03:
+        if $z0 == 0 goto label04;
+
+        $l3 = 16384L;
+
+        goto label05;
+
+     label04:
+        $l3 = staticinvoke <java.lang.Math: long min(long,long)>($l0, 16384L);
+
+     label05:
+        $r4 = r0.<o.d.a.a.h.c: java.io.InputStream c>;
+
+        $i1 = (int) $l3;
+
+        $i1 = virtualinvoke $r4.<java.io.InputStream: int read(byte[],int,int)>($r3, 0, $i1);
+
+        if $i1 > 0 goto label06;
+
+        return;
+
+     label06:
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[],int,int)>($r3, 0, $i1);
+
+     label07:
+        goto label09;
+
+     label08:
+        $r4 = r0.<o.d.a.a.h.c: java.io.InputStream c>;
+
+        if $r4 == null goto label09;
+
+        virtualinvoke $r4.<java.io.InputStream: void close()>();
+
+     label09:
+        if $z0 != 0 goto label02;
+
+        $l3 = (long) $i1;
+
+        $l0 = $l0 - $l3;
+
+        goto label02;
+
+     label10:
+        $r2 := @caughtexception;
+
+        goto label08;
+
+     label11:
+        return;
+
+        catch java.lang.Exception from label06 to label07 with label10;
+    }

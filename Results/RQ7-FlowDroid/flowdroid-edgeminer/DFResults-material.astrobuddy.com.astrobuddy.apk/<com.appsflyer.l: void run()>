@@ -1,0 +1,187 @@
+    public final void run()
+    {
+        java.lang.Throwable $r15, $r18;
+        android.content.Context $r5;
+        com.appsflyer.h $r11;
+        com.appsflyer.a.b $r8;
+        com.appsflyer.l r0;
+        long $l0, $l1;
+        java.util.concurrent.ScheduledExecutorService $r17;
+        java.lang.String $r3, $r10, $r12, $r13;
+        java.lang.ref.WeakReference $r1, $r2;
+        boolean $z0;
+        java.util.Iterator $r7;
+        java.lang.Exception $r14, $r16;
+        java.util.List $r6;
+        java.lang.Object $r4;
+        java.lang.StringBuilder $r9;
+
+        r0 := @this: com.appsflyer.l;
+
+        $z0 = staticinvoke <com.appsflyer.h: boolean c()>();
+
+        if $z0 == 0 goto label01;
+
+        return;
+
+     label01:
+        $l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        staticinvoke <com.appsflyer.h: long b(long)>($l0);
+
+        $r2 = r0.<com.appsflyer.l: java.lang.ref.WeakReference b>;
+
+        if $r2 == null goto label22;
+
+        staticinvoke <com.appsflyer.h: boolean a(boolean)>(1);
+
+     label02:
+        $r3 = staticinvoke <com.appsflyer.h: java.lang.String b(java.lang.String)>("AppsFlyerKey");
+
+        $r2 = r0.<com.appsflyer.l: java.lang.ref.WeakReference b>;
+
+        entermonitor $r2;
+
+     label03:
+        staticinvoke <com.appsflyer.a.a: com.appsflyer.a.a a()>();
+
+        $r1 = r0.<com.appsflyer.l: java.lang.ref.WeakReference b>;
+
+        $r4 = virtualinvoke $r1.<java.lang.ref.WeakReference: java.lang.Object get()>();
+
+        $r5 = (android.content.Context) $r4;
+
+        $r6 = staticinvoke <com.appsflyer.a.a: java.util.List b(android.content.Context)>($r5);
+
+        $r7 = interfaceinvoke $r6.<java.util.List: java.util.Iterator iterator()>();
+
+     label04:
+        $z0 = interfaceinvoke $r7.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label19;
+
+        $r4 = interfaceinvoke $r7.<java.util.Iterator: java.lang.Object next()>();
+
+        $r8 = (com.appsflyer.a.b) $r4;
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>(java.lang.String)>("resending request: ");
+
+        $r10 = virtualinvoke $r8.<com.appsflyer.a.b: java.lang.String c()>();
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.appsflyer.a: void a(java.lang.String)>($r10);
+
+     label05:
+        $l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $r10 = virtualinvoke $r8.<com.appsflyer.a.b: java.lang.String d()>();
+
+        $l1 = staticinvoke <java.lang.Long: long parseLong(java.lang.String,int)>($r10, 10);
+
+        $r11 = r0.<com.appsflyer.l: com.appsflyer.h a>;
+
+     label06:
+        $r9 = new java.lang.StringBuilder;
+
+     label07:
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        $r10 = virtualinvoke $r8.<com.appsflyer.a.b: java.lang.String c()>();
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("&isCachedRequest=true&timeincache=");
+
+     label08:
+        $l0 = $l0 - $l1;
+
+        $l0 = $l0 / 1000L;
+
+     label09:
+        $r10 = staticinvoke <java.lang.Long: java.lang.String toString(long)>($l0);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r12 = virtualinvoke $r8.<com.appsflyer.a.b: java.lang.String b()>();
+
+        $r1 = r0.<com.appsflyer.l: java.lang.ref.WeakReference b>;
+
+        $r13 = virtualinvoke $r8.<com.appsflyer.a.b: java.lang.String d()>();
+
+        staticinvoke <com.appsflyer.h: void a(com.appsflyer.h,java.lang.String,java.lang.String,java.lang.String,java.lang.ref.WeakReference,java.lang.String,boolean)>($r11, $r10, $r12, $r3, $r1, $r13, 0);
+
+     label10:
+        goto label04;
+
+     label11:
+        $r14 := @caughtexception;
+
+     label12:
+        staticinvoke <com.appsflyer.a: void a(java.lang.String)>("Failed to resend cached request");
+
+        goto label04;
+
+     label13:
+        $r15 := @caughtexception;
+
+        exitmonitor $r2;
+
+     label14:
+        throw $r15;
+
+     label15:
+        $r16 := @caughtexception;
+
+     label16:
+        staticinvoke <com.appsflyer.a: void a(java.lang.String)>("failed to check cache.");
+
+     label17:
+        staticinvoke <com.appsflyer.h: boolean a(boolean)>(0);
+
+     label18:
+        $r17 = staticinvoke <com.appsflyer.h: java.util.concurrent.ScheduledExecutorService d()>();
+
+        interfaceinvoke $r17.<java.util.concurrent.ScheduledExecutorService: void shutdown()>();
+
+        staticinvoke <com.appsflyer.h: java.util.concurrent.ScheduledExecutorService e()>();
+
+        return;
+
+     label19:
+        exitmonitor $r2;
+
+     label20:
+        staticinvoke <com.appsflyer.h: boolean a(boolean)>(0);
+
+        goto label18;
+
+     label21:
+        $r18 := @caughtexception;
+
+        staticinvoke <com.appsflyer.h: boolean a(boolean)>(0);
+
+        throw $r18;
+
+     label22:
+        return;
+
+        catch java.lang.Exception from label02 to label03 with label15;
+        catch java.lang.Throwable from label02 to label03 with label21;
+        catch java.lang.Throwable from label03 to label05 with label13;
+        catch java.lang.Exception from label05 to label06 with label11;
+        catch java.lang.Exception from label07 to label08 with label11;
+        catch java.lang.Exception from label09 to label10 with label11;
+        catch java.lang.Throwable from label05 to label10 with label13;
+        catch java.lang.Throwable from label12 to label14 with label13;
+        catch java.lang.Exception from label14 to label15 with label15;
+        catch java.lang.Throwable from label14 to label15 with label21;
+        catch java.lang.Throwable from label16 to label17 with label21;
+        catch java.lang.Throwable from label19 to label20 with label13;
+    }

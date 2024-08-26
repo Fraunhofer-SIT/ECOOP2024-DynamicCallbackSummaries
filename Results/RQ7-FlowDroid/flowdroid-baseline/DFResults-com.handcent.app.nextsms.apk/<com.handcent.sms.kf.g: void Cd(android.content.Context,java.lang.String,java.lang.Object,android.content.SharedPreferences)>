@@ -1,0 +1,65 @@
+    public static void Cd(android.content.Context, java.lang.String, java.lang.Object, android.content.SharedPreferences)
+    {
+        android.content.SharedPreferences$Editor $r5;
+        java.lang.Throwable $r6;
+        android.content.Context $r1;
+        byte[] $r4;
+        java.io.ByteArrayOutputStream $r7;
+        java.io.IOException $r10;
+        android.content.SharedPreferences $r0;
+        java.lang.Object $r3;
+        java.io.ObjectOutputStream $r8;
+        java.lang.String $r2, $r9;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r3 := @parameter2: java.lang.Object;
+
+        $r0 := @parameter3: android.content.SharedPreferences;
+
+        $r7 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r7.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r8 = new java.io.ObjectOutputStream;
+
+     label1:
+        specialinvoke $r8.<java.io.ObjectOutputStream: void <init>(java.io.OutputStream)>($r7);
+
+        virtualinvoke $r8.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>($r3);
+
+     label2:
+        $r9 = new java.lang.String;
+
+     label3:
+        $r4 = virtualinvoke $r7.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $r4 = staticinvoke <com.handcent.sms.yc.i: byte[] z(byte[])>($r4);
+
+        specialinvoke $r9.<java.lang.String: void <init>(byte[])>($r4);
+
+        $r5 = interfaceinvoke $r0.<android.content.SharedPreferences: android.content.SharedPreferences$Editor edit()>();
+
+        interfaceinvoke $r5.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putString(java.lang.String,java.lang.String)>("KEY_MY_INFO", $r9);
+
+        interfaceinvoke $r5.<android.content.SharedPreferences$Editor: boolean commit()>();
+
+        staticinvoke <com.handcent.sms.yc.r1: void i(java.lang.String,java.lang.String)>("saveObjectToSp", "save successfully");
+
+     label4:
+        return;
+
+     label5:
+        $r6 := @caughtexception;
+
+        $r10 = (java.io.IOException) $r6;
+
+        virtualinvoke $r10.<java.io.IOException: void printStackTrace()>();
+
+        return;
+
+        catch java.io.IOException from label1 to label2 with label5;
+        catch java.io.IOException from label3 to label4 with label5;
+    }

@@ -1,0 +1,252 @@
+    private void saveToFile(java.io.InputStream, java.io.File)
+    {
+        java.lang.Throwable r6, $r10, r11, r12, r13, r14, r15;
+        byte[] r3;
+        long $l0;
+        java.io.BufferedOutputStream r5, $r17;
+        byte $b1;
+        com.amazonaws.logging.Log $r9;
+        java.net.SocketTimeoutException $r20;
+        int $i2;
+        java.lang.String $r8;
+        boolean $z0;
+        java.io.FileOutputStream $r16;
+        java.io.IOException $r21;
+        java.io.File $r2, $r4;
+        com.amazonaws.mobileconnectors.s3.transferutility.DownloadTask r0;
+        java.lang.StringBuilder $r7, $r18;
+        com.amazonaws.AmazonClientException $r19;
+        java.io.InputStream $r1;
+
+        r0 := @this: com.amazonaws.mobileconnectors.s3.transferutility.DownloadTask;
+
+        $r1 := @parameter0: java.io.InputStream;
+
+        $r2 := @parameter1: java.io.File;
+
+        $r4 = virtualinvoke $r2.<java.io.File: java.io.File getParentFile()>();
+
+        if $r4 == null goto label01;
+
+        $z0 = virtualinvoke $r4.<java.io.File: boolean exists()>();
+
+        if $z0 != 0 goto label01;
+
+        virtualinvoke $r4.<java.io.File: boolean mkdirs()>();
+
+     label01:
+        $l0 = virtualinvoke $r2.<java.io.File: long length()>();
+
+        $b1 = $l0 cmp 0L;
+
+        $i2 = (int) $b1;
+
+        if $i2 <= 0 goto label21;
+
+        $z0 = 1;
+
+     label02:
+        r5 = null;
+
+     label03:
+        $r17 = new java.io.BufferedOutputStream;
+
+     label04:
+        $r16 = new java.io.FileOutputStream;
+
+     label05:
+        specialinvoke $r16.<java.io.FileOutputStream: void <init>(java.io.File,boolean)>($r2, $z0);
+
+        specialinvoke $r17.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r16);
+
+     label06:
+        r3 = newarray (byte)[16384];
+
+     label07:
+        $i2 = virtualinvoke $r1.<java.io.InputStream: int read(byte[])>(r3);
+
+     label08:
+        if $i2 == -1 goto label22;
+
+     label09:
+        virtualinvoke $r17.<java.io.OutputStream: void write(byte[],int,int)>(r3, 0, $i2);
+
+     label10:
+        goto label07;
+
+     label11:
+        r6 := @caughtexception;
+
+        r5 = $r17;
+
+     label12:
+        $r18 = new java.lang.StringBuilder;
+
+     label13:
+        specialinvoke $r18.<java.lang.StringBuilder: void <init>()>();
+
+        $r7 = virtualinvoke $r18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("SocketTimeoutException: Unable to retrieve contents over network: ");
+
+        $r20 = (java.net.SocketTimeoutException) r6;
+
+        $r8 = virtualinvoke $r20.<java.net.SocketTimeoutException: java.lang.String getMessage()>();
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r9 = <com.amazonaws.mobileconnectors.s3.transferutility.DownloadTask: com.amazonaws.logging.Log LOGGER>;
+
+        interfaceinvoke $r9.<com.amazonaws.logging.Log: void error(java.lang.Object)>($r8);
+
+        $r19 = new com.amazonaws.AmazonClientException;
+
+     label14:
+        specialinvoke $r19.<com.amazonaws.AmazonClientException: void <init>(java.lang.String,java.lang.Throwable)>($r8, r6);
+
+        throw $r19;
+
+     label15:
+        $r10 := @caughtexception;
+
+     label16:
+        if r5 == null goto label18;
+
+     label17:
+        virtualinvoke r5.<java.io.OutputStream: void close()>();
+
+     label18:
+        if $r1 == null goto label20;
+
+     label19:
+        virtualinvoke $r1.<java.io.InputStream: void close()>();
+
+     label20:
+        throw $r10;
+
+     label21:
+        $z0 = 0;
+
+        goto label02;
+
+     label22:
+        if $r17 == null goto label24;
+
+     label23:
+        virtualinvoke $r17.<java.io.OutputStream: void close()>();
+
+     label24:
+        if $r1 == null goto label38;
+
+     label25:
+        virtualinvoke $r1.<java.io.InputStream: void close()>();
+
+     label26:
+        return;
+
+     label27:
+        r11 := @caughtexception;
+
+        $r9 = <com.amazonaws.mobileconnectors.s3.transferutility.DownloadTask: com.amazonaws.logging.Log LOGGER>;
+
+        interfaceinvoke $r9.<com.amazonaws.logging.Log: void warn(java.lang.Object,java.lang.Throwable)>("got exception", r11);
+
+        goto label24;
+
+     label28:
+        r12 := @caughtexception;
+
+        $r9 = <com.amazonaws.mobileconnectors.s3.transferutility.DownloadTask: com.amazonaws.logging.Log LOGGER>;
+
+        interfaceinvoke $r9.<com.amazonaws.logging.Log: void warn(java.lang.Object,java.lang.Throwable)>("got exception", r12);
+
+        return;
+
+     label29:
+        r13 := @caughtexception;
+
+     label30:
+        $r19 = new com.amazonaws.AmazonClientException;
+
+     label31:
+        $r18 = new java.lang.StringBuilder;
+
+     label32:
+        specialinvoke $r18.<java.lang.StringBuilder: void <init>()>();
+
+        $r7 = virtualinvoke $r18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Unable to store object contents to disk: ");
+
+        $r21 = (java.io.IOException) r13;
+
+        $r8 = virtualinvoke $r21.<java.io.IOException: java.lang.String getMessage()>();
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r19.<com.amazonaws.AmazonClientException: void <init>(java.lang.String,java.lang.Throwable)>($r8, r13);
+
+        throw $r19;
+
+     label33:
+        r14 := @caughtexception;
+
+        $r9 = <com.amazonaws.mobileconnectors.s3.transferutility.DownloadTask: com.amazonaws.logging.Log LOGGER>;
+
+        interfaceinvoke $r9.<com.amazonaws.logging.Log: void warn(java.lang.Object,java.lang.Throwable)>("got exception", r14);
+
+        goto label18;
+
+     label34:
+        r15 := @caughtexception;
+
+        $r9 = <com.amazonaws.mobileconnectors.s3.transferutility.DownloadTask: com.amazonaws.logging.Log LOGGER>;
+
+        interfaceinvoke $r9.<com.amazonaws.logging.Log: void warn(java.lang.Object,java.lang.Throwable)>("got exception", r15);
+
+        goto label20;
+
+     label35:
+        $r10 := @caughtexception;
+
+        r5 = $r17;
+
+        goto label16;
+
+     label36:
+        r13 := @caughtexception;
+
+        r5 = $r17;
+
+        goto label30;
+
+     label37:
+        r6 := @caughtexception;
+
+        goto label12;
+
+     label38:
+        return;
+
+        catch java.net.SocketTimeoutException from label05 to label06 with label37;
+        catch java.io.IOException from label05 to label06 with label29;
+        catch java.lang.Throwable from label03 to label04 with label15;
+        catch java.lang.Throwable from label04 to label05 with label15;
+        catch java.lang.Throwable from label05 to label06 with label15;
+        catch java.net.SocketTimeoutException from label07 to label08 with label11;
+        catch java.net.SocketTimeoutException from label09 to label10 with label11;
+        catch java.io.IOException from label07 to label08 with label36;
+        catch java.io.IOException from label09 to label10 with label36;
+        catch java.lang.Throwable from label07 to label08 with label35;
+        catch java.lang.Throwable from label09 to label10 with label35;
+        catch java.lang.Throwable from label12 to label13 with label15;
+        catch java.lang.Throwable from label13 to label14 with label15;
+        catch java.lang.Throwable from label14 to label15 with label15;
+        catch java.io.IOException from label17 to label18 with label33;
+        catch java.io.IOException from label19 to label20 with label34;
+        catch java.io.IOException from label23 to label24 with label27;
+        catch java.io.IOException from label25 to label26 with label28;
+        catch java.lang.Throwable from label30 to label31 with label15;
+        catch java.lang.Throwable from label31 to label32 with label15;
+        catch java.lang.Throwable from label32 to label33 with label15;
+    }

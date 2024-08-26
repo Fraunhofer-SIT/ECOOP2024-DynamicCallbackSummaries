@@ -1,0 +1,361 @@
+    protected void restoreMonitoringStatus()
+    {
+        java.lang.Throwable $r1, $r2, $r3, $r4, $r5, $r21, $r22, $r23, $r24, $r25;
+        android.content.Context $r6;
+        java.lang.Object[] $r14;
+        org.altbeacon.beacon.Region $r17;
+        java.io.ObjectInputStream $r9, $r26;
+        java.util.Map $r11, $r20;
+        int $i0;
+        java.lang.String $r12, $r13;
+        boolean $z0;
+        java.util.Iterator $r16;
+        java.util.Collection $r18;
+        java.util.Set $r15;
+        java.io.FileInputStream $r7, $r8;
+        org.altbeacon.beacon.service.RegionMonitoringState $r19;
+        java.lang.Exception $r28;
+        java.lang.Object $r10;
+        java.lang.StringBuilder $r27;
+        org.altbeacon.beacon.service.MonitoringStatus r0;
+
+        r0 := @this: org.altbeacon.beacon.service.MonitoringStatus;
+
+     label01:
+        $r6 = r0.<org.altbeacon.beacon.service.MonitoringStatus: android.content.Context mContext>;
+
+     label02:
+        $r7 = virtualinvoke $r6.<android.content.Context: java.io.FileInputStream openFileInput(java.lang.String)>("org.altbeacon.beacon.service.monitoring_status_state");
+
+     label03:
+        $r8 = $r7;
+
+     label04:
+        $r26 = new java.io.ObjectInputStream;
+
+     label05:
+        $r9 = $r26;
+
+     label06:
+        specialinvoke $r26.<java.io.ObjectInputStream: void <init>(java.io.InputStream)>($r7);
+
+     label07:
+        $r10 = virtualinvoke $r26.<java.io.ObjectInputStream: java.lang.Object readObject()>();
+
+     label08:
+        $r11 = (java.util.Map) $r10;
+
+     label09:
+        $r12 = <org.altbeacon.beacon.service.MonitoringStatus: java.lang.String TAG>;
+
+        $r27 = new java.lang.StringBuilder;
+
+     label10:
+        specialinvoke $r27.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r27.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Restored region monitoring state for ");
+
+        $i0 = interfaceinvoke $r11.<java.util.Map: int size()>();
+
+        virtualinvoke $r27.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        virtualinvoke $r27.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" regions.");
+
+        $r13 = virtualinvoke $r27.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label11:
+        $r14 = newarray (java.lang.Object)[0];
+
+     label12:
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>($r12, $r13, $r14);
+
+        $r15 = interfaceinvoke $r11.<java.util.Map: java.util.Set keySet()>();
+
+        $r16 = interfaceinvoke $r15.<java.util.Set: java.util.Iterator iterator()>();
+
+     label13:
+        $z0 = interfaceinvoke $r16.<java.util.Iterator: boolean hasNext()>();
+
+     label14:
+        if $z0 == 0 goto label22;
+
+     label15:
+        $r10 = interfaceinvoke $r16.<java.util.Iterator: java.lang.Object next()>();
+
+     label16:
+        $r17 = (org.altbeacon.beacon.Region) $r10;
+
+     label17:
+        $r12 = <org.altbeacon.beacon.service.MonitoringStatus: java.lang.String TAG>;
+
+        $r27 = new java.lang.StringBuilder;
+
+     label18:
+        specialinvoke $r27.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r27.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Region  ");
+
+        virtualinvoke $r27.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r17);
+
+        virtualinvoke $r27.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" uniqueId: ");
+
+        $r13 = virtualinvoke $r17.<org.altbeacon.beacon.Region: java.lang.String getUniqueId()>();
+
+        virtualinvoke $r27.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        virtualinvoke $r27.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" state: ");
+
+        $r10 = interfaceinvoke $r11.<java.util.Map: java.lang.Object get(java.lang.Object)>($r17);
+
+        virtualinvoke $r27.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r10);
+
+        $r13 = virtualinvoke $r27.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label19:
+        $r14 = newarray (java.lang.Object)[0];
+
+     label20:
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>($r12, $r13, $r14);
+
+     label21:
+        goto label13;
+
+     label22:
+        $r18 = interfaceinvoke $r11.<java.util.Map: java.util.Collection values()>();
+
+        $r16 = interfaceinvoke $r18.<java.util.Collection: java.util.Iterator iterator()>();
+
+     label23:
+        $z0 = interfaceinvoke $r16.<java.util.Iterator: boolean hasNext()>();
+
+     label24:
+        if $z0 == 0 goto label31;
+
+     label25:
+        $r10 = interfaceinvoke $r16.<java.util.Iterator: java.lang.Object next()>();
+
+     label26:
+        $r19 = (org.altbeacon.beacon.service.RegionMonitoringState) $r10;
+
+     label27:
+        $z0 = virtualinvoke $r19.<org.altbeacon.beacon.service.RegionMonitoringState: boolean getInside()>();
+
+     label28:
+        if $z0 == 0 goto label23;
+
+     label29:
+        virtualinvoke $r19.<org.altbeacon.beacon.service.RegionMonitoringState: boolean markInside()>();
+
+     label30:
+        goto label23;
+
+     label31:
+        $r20 = r0.<org.altbeacon.beacon.service.MonitoringStatus: java.util.Map mRegionsStatesMap>;
+
+     label32:
+        interfaceinvoke $r20.<java.util.Map: void putAll(java.util.Map)>($r11);
+
+     label33:
+        if $r7 == null goto label35;
+
+     label34:
+        virtualinvoke $r7.<java.io.FileInputStream: void close()>();
+
+     label35:
+        if $r26 == null goto label52;
+
+     label36:
+        virtualinvoke $r9.<java.io.ObjectInputStream: void close()>();
+
+     label37:
+        return;
+
+     label38:
+        $r21 := @caughtexception;
+
+        goto label44;
+
+     label39:
+        $r22 := @caughtexception;
+
+        $r9 = null;
+
+        goto label42;
+
+     label40:
+        $r23 := @caughtexception;
+
+        $r9 = null;
+
+        $r21 = $r23;
+
+        goto label44;
+
+     label41:
+        $r22 := @caughtexception;
+
+        $r8 = null;
+
+        $r9 = null;
+
+     label42:
+        $r24 = $r22;
+
+        goto label54;
+
+     label43:
+        $r25 := @caughtexception;
+
+        $r9 = null;
+
+        $r21 = $r25;
+
+        $r8 = null;
+
+     label44:
+        $z0 = $r21 instanceof java.io.InvalidClassException;
+
+     label45:
+        if $z0 == 0 goto label48;
+
+     label46:
+        $r12 = <org.altbeacon.beacon.service.MonitoringStatus: java.lang.String TAG>;
+
+        $r14 = newarray (java.lang.Object)[0];
+
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>($r12, "Serialized Monitoring State has wrong class. Just ignoring saved state...", $r14);
+
+     label47:
+        goto label49;
+
+     label48:
+        $r12 = <org.altbeacon.beacon.service.MonitoringStatus: java.lang.String TAG>;
+
+        $r14 = newarray (java.lang.Object)[1];
+
+        $r28 = (java.lang.Exception) $r21;
+
+        $r13 = virtualinvoke $r28.<java.lang.Exception: java.lang.String getMessage()>();
+
+        $r14[0] = $r13;
+
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void e(java.lang.String,java.lang.String,java.lang.Object[])>($r12, "Deserialization exception, message: %s", $r14);
+
+     label49:
+        if $r8 == null goto label51;
+
+     label50:
+        virtualinvoke $r8.<java.io.FileInputStream: void close()>();
+
+     label51:
+        if $r9 == null goto label64;
+
+        goto label36;
+
+     label52:
+        return;
+
+     label53:
+        $r24 := @caughtexception;
+
+     label54:
+        if $r8 == null goto label56;
+
+     label55:
+        virtualinvoke $r8.<java.io.FileInputStream: void close()>();
+
+     label56:
+        if $r9 == null goto label58;
+
+     label57:
+        virtualinvoke $r9.<java.io.ObjectInputStream: void close()>();
+
+     label58:
+        throw $r24;
+
+     label59:
+        $r1 := @caughtexception;
+
+        goto label35;
+
+     label60:
+        $r2 := @caughtexception;
+
+        return;
+
+     label61:
+        $r3 := @caughtexception;
+
+        goto label51;
+
+     label62:
+        $r4 := @caughtexception;
+
+        goto label56;
+
+     label63:
+        $r5 := @caughtexception;
+
+        goto label58;
+
+     label64:
+        return;
+
+        catch java.io.IOException from label02 to label03 with label43;
+        catch java.lang.ClassNotFoundException from label02 to label03 with label43;
+        catch java.lang.ClassCastException from label02 to label03 with label43;
+        catch java.lang.Throwable from label01 to label03 with label41;
+        catch java.io.IOException from label06 to label07 with label40;
+        catch java.lang.ClassNotFoundException from label06 to label07 with label40;
+        catch java.lang.ClassCastException from label06 to label07 with label40;
+        catch java.lang.Throwable from label04 to label05 with label39;
+        catch java.lang.Throwable from label06 to label07 with label39;
+        catch java.io.IOException from label07 to label08 with label38;
+        catch java.io.IOException from label10 to label11 with label38;
+        catch java.io.IOException from label12 to label14 with label38;
+        catch java.io.IOException from label15 to label16 with label38;
+        catch java.io.IOException from label18 to label19 with label38;
+        catch java.io.IOException from label20 to label21 with label38;
+        catch java.io.IOException from label22 to label24 with label38;
+        catch java.io.IOException from label25 to label26 with label38;
+        catch java.io.IOException from label27 to label28 with label38;
+        catch java.io.IOException from label29 to label30 with label38;
+        catch java.io.IOException from label32 to label33 with label38;
+        catch java.lang.ClassNotFoundException from label07 to label08 with label38;
+        catch java.lang.ClassNotFoundException from label10 to label11 with label38;
+        catch java.lang.ClassNotFoundException from label12 to label14 with label38;
+        catch java.lang.ClassNotFoundException from label15 to label16 with label38;
+        catch java.lang.ClassNotFoundException from label18 to label19 with label38;
+        catch java.lang.ClassNotFoundException from label20 to label21 with label38;
+        catch java.lang.ClassNotFoundException from label22 to label24 with label38;
+        catch java.lang.ClassNotFoundException from label25 to label26 with label38;
+        catch java.lang.ClassNotFoundException from label27 to label28 with label38;
+        catch java.lang.ClassNotFoundException from label29 to label30 with label38;
+        catch java.lang.ClassNotFoundException from label32 to label33 with label38;
+        catch java.lang.ClassCastException from label07 to label09 with label38;
+        catch java.lang.ClassCastException from label10 to label11 with label38;
+        catch java.lang.ClassCastException from label12 to label14 with label38;
+        catch java.lang.ClassCastException from label15 to label17 with label38;
+        catch java.lang.ClassCastException from label18 to label19 with label38;
+        catch java.lang.ClassCastException from label20 to label21 with label38;
+        catch java.lang.ClassCastException from label22 to label24 with label38;
+        catch java.lang.ClassCastException from label25 to label28 with label38;
+        catch java.lang.ClassCastException from label29 to label30 with label38;
+        catch java.lang.ClassCastException from label32 to label33 with label38;
+        catch java.lang.Throwable from label07 to label10 with label53;
+        catch java.lang.Throwable from label10 to label14 with label53;
+        catch java.lang.Throwable from label15 to label18 with label53;
+        catch java.lang.Throwable from label18 to label21 with label53;
+        catch java.lang.Throwable from label22 to label24 with label53;
+        catch java.lang.Throwable from label25 to label28 with label53;
+        catch java.lang.Throwable from label29 to label30 with label53;
+        catch java.lang.Throwable from label31 to label33 with label53;
+        catch java.io.IOException from label34 to label35 with label59;
+        catch java.io.IOException from label36 to label37 with label60;
+        catch java.lang.Throwable from label44 to label45 with label53;
+        catch java.lang.Throwable from label46 to label47 with label53;
+        catch java.lang.Throwable from label48 to label49 with label53;
+        catch java.io.IOException from label50 to label51 with label61;
+        catch java.io.IOException from label55 to label56 with label62;
+        catch java.io.IOException from label57 to label58 with label63;
+    }

@@ -1,0 +1,35 @@
+    private com.facebook.AccessToken d()
+    {
+        org.json.JSONException $r5;
+        org.json.JSONObject $r3;
+        com.facebook.AccessToken $r4;
+        android.content.SharedPreferences $r1;
+        java.lang.String $r2;
+        com.facebook.c r0;
+
+        r0 := @this: com.facebook.c;
+
+        $r1 = r0.<com.facebook.c: android.content.SharedPreferences a>;
+
+        $r2 = interfaceinvoke $r1.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("com.facebook.AccessTokenManager.CachedAccessToken", null);
+
+        if $r2 == null goto label4;
+
+        $r3 = new org.json.JSONObject;
+
+     label1:
+        specialinvoke $r3.<org.json.JSONObject: void <init>(java.lang.String)>($r2);
+
+        $r4 = staticinvoke <com.facebook.AccessToken: com.facebook.AccessToken a(org.json.JSONObject)>($r3);
+
+     label2:
+        return $r4;
+
+     label3:
+        $r5 := @caughtexception;
+
+     label4:
+        return null;
+
+        catch org.json.JSONException from label1 to label2 with label3;
+    }

@@ -1,0 +1,205 @@
+    private static void saveFileFromUri(android.content.Context, android.net.Uri, java.lang.String)
+    {
+        java.lang.Throwable $r9, $r10, $r11, $r12;
+        android.content.Context $r0;
+        byte[] $r8;
+        android.net.Uri $r1;
+        java.io.BufferedOutputStream $r7, $r14;
+        android.content.ContentResolver $r4;
+        int $i0;
+        java.lang.String $r2;
+        java.io.FileOutputStream $r13;
+        java.io.IOException $r15;
+        java.lang.Object $r3, $r6;
+        java.io.InputStream $r5;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 := @parameter1: android.net.Uri;
+
+        $r2 := @parameter2: java.lang.String;
+
+        $r3 = null;
+
+     label01:
+        $r4 = virtualinvoke $r0.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+        $r5 = virtualinvoke $r4.<android.content.ContentResolver: java.io.InputStream openInputStream(android.net.Uri)>($r1);
+
+     label02:
+        $r6 = $r5;
+
+     label03:
+        $r14 = new java.io.BufferedOutputStream;
+
+     label04:
+        $r7 = $r14;
+
+     label05:
+        $r13 = new java.io.FileOutputStream;
+
+     label06:
+        specialinvoke $r13.<java.io.FileOutputStream: void <init>(java.lang.String,boolean)>($r2, 0);
+
+        specialinvoke $r14.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r13);
+
+     label07:
+        $r8 = newarray (byte)[1024];
+
+     label08:
+        virtualinvoke $r5.<java.io.InputStream: int read(byte[])>($r8);
+
+     label09:
+        virtualinvoke $r14.<java.io.BufferedOutputStream: void write(byte[])>($r8);
+
+        $i0 = virtualinvoke $r5.<java.io.InputStream: int read(byte[])>($r8);
+
+     label10:
+        if $i0 != -1 goto label09;
+
+        if $r5 == null goto label12;
+
+     label11:
+        virtualinvoke $r5.<java.io.InputStream: void close()>();
+
+     label12:
+        virtualinvoke $r14.<java.io.BufferedOutputStream: void close()>();
+
+     label13:
+        return;
+
+     label14:
+        $r9 := @caughtexception;
+
+        goto label31;
+
+     label15:
+        $r10 := @caughtexception;
+
+        goto label18;
+
+     label16:
+        $r9 := @caughtexception;
+
+        goto label32;
+
+     label17:
+        $r10 := @caughtexception;
+
+        $r7 = null;
+
+     label18:
+        $r3 = $r5;
+
+        goto label21;
+
+     label19:
+        $r9 := @caughtexception;
+
+        $r6 = null;
+
+        goto label32;
+
+     label20:
+        $r10 := @caughtexception;
+
+        $r7 = null;
+
+     label21:
+        $r15 = (java.io.IOException) $r10;
+
+        virtualinvoke $r15.<java.io.IOException: void printStackTrace()>();
+
+     label22:
+        if $r3 == null goto label26;
+
+        $r5 = (java.io.InputStream) $r3;
+
+     label23:
+        virtualinvoke $r5.<java.io.InputStream: void close()>();
+
+     label24:
+        goto label26;
+
+     label25:
+        $r11 := @caughtexception;
+
+        goto label29;
+
+     label26:
+        if $r7 == null goto label41;
+
+     label27:
+        virtualinvoke $r7.<java.io.BufferedOutputStream: void close()>();
+
+     label28:
+        return;
+
+     label29:
+        $r15 = (java.io.IOException) $r11;
+
+        virtualinvoke $r15.<java.io.IOException: void printStackTrace()>();
+
+        return;
+
+     label30:
+        $r9 := @caughtexception;
+
+        $r6 = $r3;
+
+     label31:
+        $r3 = $r7;
+
+     label32:
+        if $r6 == null goto label36;
+
+        $r5 = (java.io.InputStream) $r6;
+
+     label33:
+        virtualinvoke $r5.<java.io.InputStream: void close()>();
+
+     label34:
+        goto label36;
+
+     label35:
+        $r12 := @caughtexception;
+
+        goto label39;
+
+     label36:
+        if $r3 == null goto label40;
+
+        $r7 = (java.io.BufferedOutputStream) $r3;
+
+     label37:
+        virtualinvoke $r7.<java.io.BufferedOutputStream: void close()>();
+
+     label38:
+        goto label40;
+
+     label39:
+        $r15 = (java.io.IOException) $r12;
+
+        virtualinvoke $r15.<java.io.IOException: void printStackTrace()>();
+
+     label40:
+        throw $r9;
+
+     label41:
+        return;
+
+        catch java.io.IOException from label01 to label02 with label20;
+        catch java.lang.Throwable from label01 to label02 with label19;
+        catch java.io.IOException from label06 to label07 with label17;
+        catch java.lang.Throwable from label03 to label04 with label16;
+        catch java.lang.Throwable from label05 to label06 with label16;
+        catch java.lang.Throwable from label06 to label07 with label16;
+        catch java.io.IOException from label08 to label10 with label15;
+        catch java.lang.Throwable from label08 to label10 with label14;
+        catch java.io.IOException from label11 to label13 with label25;
+        catch java.lang.Throwable from label21 to label22 with label30;
+        catch java.io.IOException from label23 to label24 with label25;
+        catch java.io.IOException from label27 to label28 with label25;
+        catch java.io.IOException from label33 to label34 with label35;
+        catch java.io.IOException from label37 to label38 with label35;
+    }

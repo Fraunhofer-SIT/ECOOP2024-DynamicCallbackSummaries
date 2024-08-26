@@ -1,0 +1,355 @@
+    public final void run()
+    {
+        java.lang.Throwable $r13, $r14;
+        android.content.Context $r4;
+        com.appsflyer.h $r10;
+        com.appsflyer.f $r12;
+        com.appsflyer.a.b $r17;
+        long $l2;
+        org.json.JSONObject $r16;
+        java.util.Map $r7;
+        int $i0, $i1;
+        java.lang.String $r1, $r6, $r9, $r11;
+        java.lang.ref.WeakReference $r2;
+        boolean $z0, $z1, $z2;
+        java.io.IOException $r18;
+        com.appsflyer.x $r15;
+        android.content.SharedPreferences $r8;
+        com.appsflyer.o r0;
+        com.appsflyer.p $r5;
+        java.lang.Object $r3;
+
+        r0 := @this: com.appsflyer.o;
+
+        $r1 = null;
+
+        $z0 = 1;
+
+     label01:
+        $r2 = r0.<com.appsflyer.o: java.lang.ref.WeakReference e>;
+
+     label02:
+        $r3 = virtualinvoke $r2.<java.lang.ref.WeakReference: java.lang.Object get()>();
+
+     label03:
+        $r4 = (android.content.Context) $r3;
+
+     label04:
+        if $r4 == null goto label65;
+
+     label05:
+        $r5 = staticinvoke <com.appsflyer.p: com.appsflyer.p a()>();
+
+        $r6 = virtualinvoke $r5.<com.appsflyer.p: java.lang.String a(android.content.Context)>($r4);
+
+     label06:
+        if $r6 == null goto label14;
+
+     label07:
+        $i0 = virtualinvoke $r6.<java.lang.String: int length()>();
+
+     label08:
+        if $i0 <= 0 goto label14;
+
+     label09:
+        $r7 = r0.<com.appsflyer.o: java.util.Map a>;
+
+     label10:
+        $r3 = interfaceinvoke $r7.<java.util.Map: java.lang.Object get(java.lang.Object)>("referrer");
+
+     label11:
+        if $r3 != null goto label14;
+
+     label12:
+        $r7 = r0.<com.appsflyer.o: java.util.Map a>;
+
+     label13:
+        interfaceinvoke $r7.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("referrer", $r6);
+
+     label14:
+        $r8 = virtualinvoke $r4.<android.content.Context: android.content.SharedPreferences getSharedPreferences(java.lang.String,int)>("appsflyer-data", 0);
+
+     label15:
+        $r6 = "true";
+
+     label16:
+        $r9 = interfaceinvoke $r8.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("sentSuccessfully", "");
+
+        $z1 = virtualinvoke $r6.<java.lang.String: boolean equals(java.lang.Object)>($r9);
+
+     label17:
+        $r7 = r0.<com.appsflyer.o: java.util.Map a>;
+
+     label18:
+        $r3 = interfaceinvoke $r7.<java.util.Map: java.lang.Object get(java.lang.Object)>("eventName");
+
+     label19:
+        $r6 = (java.lang.String) $r3;
+
+     label20:
+        if $r6 != null goto label43;
+
+        $z2 = 1;
+
+     label21:
+        $i0 = staticinvoke <com.appsflyer.h: int a(android.content.Context,java.lang.String,boolean)>($r4, "appsFlyerCount", $z2);
+
+     label22:
+        $r7 = r0.<com.appsflyer.o: java.util.Map a>;
+
+     label23:
+        $r9 = staticinvoke <java.lang.Integer: java.lang.String toString(int)>($i0);
+
+        interfaceinvoke $r7.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("counter", $r9);
+
+     label24:
+        $r7 = r0.<com.appsflyer.o: java.util.Map a>;
+
+     label25:
+        if $r6 == null goto label44;
+
+        $z2 = 1;
+
+     label26:
+        $i1 = staticinvoke <com.appsflyer.h: int a(android.content.Context,java.lang.String,boolean)>($r4, "appsFlyerInAppEventCount", $z2);
+
+        $r6 = staticinvoke <java.lang.Integer: java.lang.String toString(int)>($i1);
+
+        interfaceinvoke $r7.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("iaecounter", $r6);
+
+     label27:
+        $r7 = r0.<com.appsflyer.o: java.util.Map a>;
+
+     label28:
+        $l2 = staticinvoke <com.appsflyer.h: long e(android.content.Context)>($r4);
+
+        $r6 = staticinvoke <java.lang.Long: java.lang.String toString(long)>($l2);
+
+        interfaceinvoke $r7.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("timepassedsincelastlaunch", $r6);
+
+     label29:
+        $z2 = r0.<com.appsflyer.o: boolean b>;
+
+     label30:
+        if $z2 == 0 goto label32;
+
+        if $i0 != 1 goto label32;
+
+     label31:
+        $r5 = staticinvoke <com.appsflyer.p: com.appsflyer.p a()>();
+
+        virtualinvoke $r5.<com.appsflyer.p: void e()>();
+
+     label32:
+        $r7 = r0.<com.appsflyer.o: java.util.Map a>;
+
+     label33:
+        if $z1 != 0 goto label45;
+
+        $z1 = 1;
+
+     label34:
+        $r6 = staticinvoke <java.lang.Boolean: java.lang.String toString(boolean)>($z1);
+
+        interfaceinvoke $r7.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("isFirstCall", $r6);
+
+     label35:
+        $r7 = r0.<com.appsflyer.o: java.util.Map a>;
+
+     label36:
+        $r3 = interfaceinvoke $r7.<java.util.Map: java.lang.Object get(java.lang.Object)>("appsflyerKey");
+
+     label37:
+        $r6 = (java.lang.String) $r3;
+
+     label38:
+        if $r6 == null goto label41;
+
+     label39:
+        $i0 = virtualinvoke $r6.<java.lang.String: int length()>();
+
+     label40:
+        if $i0 != 0 goto label46;
+
+     label41:
+        staticinvoke <com.appsflyer.a: void b(java.lang.String)>("Not sending data yet, waiting for dev key");
+
+     label42:
+        return;
+
+     label43:
+        $z2 = 0;
+
+        goto label21;
+
+     label44:
+        $z2 = 0;
+
+        goto label26;
+
+     label45:
+        $z1 = 0;
+
+        goto label34;
+
+     label46:
+        $r15 = new com.appsflyer.x;
+
+     label47:
+        specialinvoke $r15.<com.appsflyer.x: void <init>()>();
+
+     label48:
+        $r7 = r0.<com.appsflyer.o: java.util.Map a>;
+
+     label49:
+        $r9 = staticinvoke <com.appsflyer.x: java.lang.String a(java.util.Map)>($r7);
+
+     label50:
+        $r7 = r0.<com.appsflyer.o: java.util.Map a>;
+
+     label51:
+        interfaceinvoke $r7.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("af_v", $r9);
+
+     label52:
+        $r16 = new org.json.JSONObject;
+
+     label53:
+        $r7 = r0.<com.appsflyer.o: java.util.Map a>;
+
+     label54:
+        specialinvoke $r16.<org.json.JSONObject: void <init>(java.util.Map)>($r7);
+
+        $r9 = virtualinvoke $r16.<org.json.JSONObject: java.lang.String toString()>();
+
+     label55:
+        $r1 = $r9;
+
+     label56:
+        $r10 = r0.<com.appsflyer.o: com.appsflyer.h c>;
+
+        $r11 = r0.<com.appsflyer.o: java.lang.String d>;
+
+        $r2 = r0.<com.appsflyer.o: java.lang.ref.WeakReference e>;
+
+        $z1 = r0.<com.appsflyer.o: boolean b>;
+
+     label57:
+        if $z1 == 0 goto label63;
+
+     label58:
+        $r12 = staticinvoke <com.appsflyer.h: com.appsflyer.f b()>();
+
+     label59:
+        if $r12 == null goto label63;
+
+     label60:
+        staticinvoke <com.appsflyer.h: void a(com.appsflyer.h,java.lang.String,java.lang.String,java.lang.String,java.lang.ref.WeakReference,java.lang.String,boolean)>($r10, $r11, $r9, $r6, $r2, null, $z0);
+
+     label61:
+        return;
+
+     label62:
+        $r13 := @caughtexception;
+
+        if $r1 == null goto label66;
+
+        $r2 = r0.<com.appsflyer.o: java.lang.ref.WeakReference e>;
+
+        if $r2 == null goto label66;
+
+        $r6 = r0.<com.appsflyer.o: java.lang.String d>;
+
+        $z0 = virtualinvoke $r6.<java.lang.String: boolean contains(java.lang.CharSequence)>("&isCachedRequest=true&timeincache=");
+
+        if $z0 != 0 goto label66;
+
+        $r18 = (java.io.IOException) $r13;
+
+        $r6 = virtualinvoke $r18.<java.io.IOException: java.lang.String getMessage()>();
+
+        staticinvoke <com.appsflyer.a: void a(java.lang.String,java.lang.Throwable)>($r6, $r13);
+
+        staticinvoke <com.appsflyer.a.a: com.appsflyer.a.a a()>();
+
+        $r17 = new com.appsflyer.a.b;
+
+        $r6 = r0.<com.appsflyer.o: java.lang.String d>;
+
+        $r9 = <com.appsflyer.h: java.lang.String b>;
+
+        specialinvoke $r17.<com.appsflyer.a.b: void <init>(java.lang.String,java.lang.String,java.lang.String)>($r6, $r1, $r9);
+
+        $r2 = r0.<com.appsflyer.o: java.lang.ref.WeakReference e>;
+
+        $r3 = virtualinvoke $r2.<java.lang.ref.WeakReference: java.lang.Object get()>();
+
+        $r4 = (android.content.Context) $r3;
+
+        staticinvoke <com.appsflyer.a.a: void a(com.appsflyer.a.b,android.content.Context)>($r17, $r4);
+
+        return;
+
+     label63:
+        $z0 = 0;
+
+        goto label60;
+
+     label64:
+        $r14 := @caughtexception;
+
+        $r1 = virtualinvoke $r14.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        staticinvoke <com.appsflyer.a: void a(java.lang.String,java.lang.Throwable)>($r1, $r14);
+
+        return;
+
+     label65:
+        $z1 = 0;
+
+        goto label32;
+
+     label66:
+        return;
+
+        catch java.io.IOException from label02 to label03 with label62;
+        catch java.io.IOException from label05 to label06 with label62;
+        catch java.io.IOException from label07 to label08 with label62;
+        catch java.io.IOException from label10 to label11 with label62;
+        catch java.io.IOException from label13 to label15 with label62;
+        catch java.io.IOException from label16 to label17 with label62;
+        catch java.io.IOException from label18 to label19 with label62;
+        catch java.io.IOException from label21 to label22 with label62;
+        catch java.io.IOException from label23 to label24 with label62;
+        catch java.io.IOException from label26 to label27 with label62;
+        catch java.io.IOException from label28 to label29 with label62;
+        catch java.io.IOException from label31 to label32 with label62;
+        catch java.io.IOException from label34 to label35 with label62;
+        catch java.io.IOException from label36 to label37 with label62;
+        catch java.io.IOException from label39 to label40 with label62;
+        catch java.io.IOException from label41 to label42 with label62;
+        catch java.io.IOException from label47 to label48 with label62;
+        catch java.io.IOException from label49 to label50 with label62;
+        catch java.io.IOException from label51 to label52 with label62;
+        catch java.io.IOException from label54 to label55 with label62;
+        catch java.io.IOException from label58 to label59 with label62;
+        catch java.io.IOException from label60 to label61 with label62;
+        catch java.lang.Throwable from label01 to label04 with label64;
+        catch java.lang.Throwable from label05 to label06 with label64;
+        catch java.lang.Throwable from label07 to label08 with label64;
+        catch java.lang.Throwable from label09 to label11 with label64;
+        catch java.lang.Throwable from label12 to label15 with label64;
+        catch java.lang.Throwable from label16 to label20 with label64;
+        catch java.lang.Throwable from label21 to label25 with label64;
+        catch java.lang.Throwable from label26 to label30 with label64;
+        catch java.lang.Throwable from label31 to label32 with label64;
+        catch java.lang.Throwable from label32 to label33 with label64;
+        catch java.lang.Throwable from label34 to label38 with label64;
+        catch java.lang.Throwable from label39 to label40 with label64;
+        catch java.lang.Throwable from label41 to label42 with label64;
+        catch java.lang.Throwable from label46 to label47 with label64;
+        catch java.lang.Throwable from label47 to label53 with label64;
+        catch java.lang.Throwable from label53 to label55 with label64;
+        catch java.lang.Throwable from label56 to label57 with label64;
+        catch java.lang.Throwable from label58 to label59 with label64;
+        catch java.lang.Throwable from label60 to label61 with label64;
+    }

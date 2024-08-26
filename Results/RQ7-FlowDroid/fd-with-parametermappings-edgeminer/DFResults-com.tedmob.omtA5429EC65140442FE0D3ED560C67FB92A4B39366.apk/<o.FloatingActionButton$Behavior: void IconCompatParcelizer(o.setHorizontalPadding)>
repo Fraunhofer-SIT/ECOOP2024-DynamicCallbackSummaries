@@ -1,0 +1,95 @@
+    private static void IconCompatParcelizer(o.setHorizontalPadding)
+    {
+        o.setHorizontalPadding $r4;
+        java.lang.Throwable $r9;
+        android.content.Context $r5;
+        java.io.FileOutputStream $r8;
+        java.lang.Exception $r1, $r2, $r3;
+        java.io.File $r10;
+        java.io.BufferedOutputStream $r0;
+        java.io.ObjectOutputStream $r6, $r7;
+
+        $r4 := @parameter0: o.setHorizontalPadding;
+
+        $r5 = staticinvoke <o.setShrinkMotionSpec: android.content.Context read()>();
+
+        $r6 = null;
+
+     label01:
+        $r7 = new java.io.ObjectOutputStream;
+
+        $r0 = new java.io.BufferedOutputStream;
+
+     label02:
+        $r8 = virtualinvoke $r5.<android.content.Context: java.io.FileOutputStream openFileOutput(java.lang.String,int)>("AppEventsLogger.persistedevents", 0);
+
+        specialinvoke $r0.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r8);
+
+        specialinvoke $r7.<java.io.ObjectOutputStream: void <init>(java.io.OutputStream)>($r0);
+
+     label03:
+        virtualinvoke $r7.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>($r4);
+
+     label04:
+        staticinvoke <o.setBoxCornerRadii: void write(java.io.Closeable)>($r7);
+
+        return;
+
+     label05:
+        $r9 := @caughtexception;
+
+        goto label11;
+
+     label06:
+        $r6 = $r7;
+
+        goto label08;
+
+     label07:
+        $r9 := @caughtexception;
+
+        goto label10;
+
+     label08:
+        $r10 = virtualinvoke $r5.<android.content.Context: java.io.File getFileStreamPath(java.lang.String)>("AppEventsLogger.persistedevents");
+
+        virtualinvoke $r10.<java.io.File: boolean delete()>();
+
+     label09:
+        goto label12;
+
+     label10:
+        $r7 = $r6;
+
+     label11:
+        staticinvoke <o.setBoxCornerRadii: void write(java.io.Closeable)>($r7);
+
+        throw $r9;
+
+     label12:
+        staticinvoke <o.setBoxCornerRadii: void write(java.io.Closeable)>($r6);
+
+        return;
+
+     label13:
+        $r1 := @caughtexception;
+
+        goto label08;
+
+     label14:
+        $r2 := @caughtexception;
+
+        goto label06;
+
+     label15:
+        $r3 := @caughtexception;
+
+        goto label12;
+
+        catch java.lang.Exception from label02 to label03 with label13;
+        catch java.lang.Throwable from label01 to label03 with label07;
+        catch java.lang.Exception from label03 to label04 with label14;
+        catch java.lang.Throwable from label03 to label04 with label05;
+        catch java.lang.Exception from label08 to label09 with label15;
+        catch java.lang.Throwable from label08 to label09 with label07;
+    }

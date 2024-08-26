@@ -1,0 +1,253 @@
+    private byte[] a(byte[], java.lang.String)
+    {
+        java.net.HttpURLConnection $r10;
+        java.lang.Throwable $r14, $r15, $r16;
+        byte[] $r1;
+        java.net.URL $r8;
+        long $l1;
+        com.umeng.analytics.pro.av r0;
+        com.umeng.analytics.pro.au $r3;
+        java.net.Proxy$Type $r5;
+        java.net.Proxy $r4;
+        java.net.URLConnection $r9;
+        int $i0;
+        java.lang.String $r2, $r7;
+        boolean $z0;
+        java.io.OutputStream $r11;
+        java.net.InetSocketAddress $r6;
+        java.lang.StringBuilder $r12;
+        java.io.InputStream $r13;
+
+        r0 := @this: com.umeng.analytics.pro.av;
+
+        $r1 := @parameter0: byte[];
+
+        $r2 := @parameter1: java.lang.String;
+
+     label01:
+        $r3 = r0.<com.umeng.analytics.pro.av: com.umeng.analytics.pro.au e>;
+
+     label02:
+        if $r3 == null goto label04;
+
+     label03:
+        $r3 = r0.<com.umeng.analytics.pro.av: com.umeng.analytics.pro.au e>;
+
+        interfaceinvoke $r3.<com.umeng.analytics.pro.au: void a()>();
+
+     label04:
+        $z0 = specialinvoke r0.<com.umeng.analytics.pro.av: boolean b()>();
+
+     label05:
+        if $z0 == 0 goto label22;
+
+     label06:
+        $r4 = new java.net.Proxy;
+
+        $r5 = <java.net.Proxy$Type: java.net.Proxy$Type HTTP>;
+
+        $r6 = new java.net.InetSocketAddress;
+
+        $r7 = r0.<com.umeng.analytics.pro.av: java.lang.String b>;
+
+        $i0 = r0.<com.umeng.analytics.pro.av: int c>;
+
+        specialinvoke $r6.<java.net.InetSocketAddress: void <init>(java.lang.String,int)>($r7, $i0);
+
+        specialinvoke $r4.<java.net.Proxy: void <init>(java.net.Proxy$Type,java.net.SocketAddress)>($r5, $r6);
+
+        $r8 = new java.net.URL;
+
+        specialinvoke $r8.<java.net.URL: void <init>(java.lang.String)>($r2);
+
+        $r9 = virtualinvoke $r8.<java.net.URL: java.net.URLConnection openConnection(java.net.Proxy)>($r4);
+
+        $r10 = (java.net.HttpURLConnection) $r9;
+
+     label07:
+        $l1 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $r7 = staticinvoke <java.lang.String: java.lang.String valueOf(long)>($l1);
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("X-Umeng-UTC", $r7);
+
+        $r7 = r0.<com.umeng.analytics.pro.av: java.lang.String a>;
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("X-Umeng-Sdk", $r7);
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Msg-Type", "envelope/json");
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Type", "envelope/json");
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void setConnectTimeout(int)>(10000);
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void setReadTimeout(int)>(30000);
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void setDoInput(boolean)>(1);
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void setUseCaches(boolean)>(0);
+
+        $i0 = <android.os.Build$VERSION: int SDK_INT>;
+
+     label08:
+        if $i0 >= 8 goto label10;
+
+     label09:
+        staticinvoke <java.lang.System: java.lang.String setProperty(java.lang.String,java.lang.String)>("http.keepAlive", "false");
+
+     label10:
+        $r11 = virtualinvoke $r10.<java.net.HttpURLConnection: java.io.OutputStream getOutputStream()>();
+
+        virtualinvoke $r11.<java.io.OutputStream: void write(byte[])>($r1);
+
+        virtualinvoke $r11.<java.io.OutputStream: void flush()>();
+
+        virtualinvoke $r11.<java.io.OutputStream: void close()>();
+
+        $r3 = r0.<com.umeng.analytics.pro.av: com.umeng.analytics.pro.au e>;
+
+     label11:
+        if $r3 == null goto label13;
+
+     label12:
+        $r3 = r0.<com.umeng.analytics.pro.av: com.umeng.analytics.pro.au e>;
+
+        interfaceinvoke $r3.<com.umeng.analytics.pro.au: void b()>();
+
+     label13:
+        $i0 = virtualinvoke $r10.<java.net.HttpURLConnection: int getResponseCode()>();
+
+        $r7 = virtualinvoke $r10.<java.net.HttpURLConnection: java.lang.String getHeaderField(java.lang.String)>("Content-Type");
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r7);
+
+     label14:
+        if $z0 != 0 goto label36;
+
+     label15:
+        $z0 = virtualinvoke $r7.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>("application/thrift");
+
+     label16:
+        if $z0 == 0 goto label36;
+
+        $z0 = 1;
+
+     label17:
+        if $i0 != 200 goto label30;
+
+        if $z0 == 0 goto label30;
+
+     label18:
+        $r12 = new java.lang.StringBuilder;
+
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>(java.lang.String)>("Send message to ");
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.umeng.analytics.pro.bw: void c(java.lang.String)>($r2);
+
+        $r13 = virtualinvoke $r10.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+     label19:
+        $r1 = staticinvoke <com.umeng.analytics.pro.bu: byte[] b(java.io.InputStream)>($r13);
+
+     label20:
+        staticinvoke <com.umeng.analytics.pro.bu: void c(java.io.InputStream)>($r13);
+
+     label21:
+        if $r10 == null goto label37;
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void disconnect()>();
+
+        return $r1;
+
+     label22:
+        $r8 = new java.net.URL;
+
+        specialinvoke $r8.<java.net.URL: void <init>(java.lang.String)>($r2);
+
+        $r9 = virtualinvoke $r8.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r10 = (java.net.HttpURLConnection) $r9;
+
+     label23:
+        goto label07;
+
+     label24:
+        $r14 := @caughtexception;
+
+     label25:
+        staticinvoke <com.umeng.analytics.pro.bu: void c(java.io.InputStream)>($r13);
+
+        throw $r14;
+
+     label26:
+        $r15 := @caughtexception;
+
+     label27:
+        staticinvoke <com.umeng.analytics.pro.bw: void e(java.lang.String,java.lang.Throwable)>("IOException,Failed to send message.", $r15);
+
+     label28:
+        if $r10 == null goto label29;
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void disconnect()>();
+
+     label29:
+        return null;
+
+     label30:
+        if $r10 == null goto label31;
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void disconnect()>();
+
+     label31:
+        return null;
+
+     label32:
+        if $r10 == null goto label33;
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void disconnect()>();
+
+     label33:
+        throw $r16;
+
+     label34:
+        $r16 := @caughtexception;
+
+        goto label32;
+
+     label35:
+        $r15 := @caughtexception;
+
+        $r10 = null;
+
+        goto label27;
+
+     label36:
+        $z0 = 0;
+
+        goto label17;
+
+     label37:
+        return $r1;
+
+        catch java.lang.Throwable from label01 to label02 with label35;
+        catch java.lang.Throwable from label03 to label05 with label35;
+        catch java.lang.Throwable from label06 to label07 with label35;
+        catch java.lang.Throwable from label07 to label08 with label26;
+        catch java.lang.Throwable from label09 to label11 with label26;
+        catch java.lang.Throwable from label12 to label14 with label26;
+        catch java.lang.Throwable from label15 to label16 with label26;
+        catch java.lang.Throwable from label18 to label19 with label26;
+        catch java.lang.Throwable from label19 to label20 with label24;
+        catch java.lang.Throwable from label20 to label21 with label26;
+        catch java.lang.Throwable from label22 to label23 with label35;
+        catch java.lang.Throwable from label25 to label26 with label26;
+        catch java.lang.Throwable from label27 to label28 with label34;
+    }

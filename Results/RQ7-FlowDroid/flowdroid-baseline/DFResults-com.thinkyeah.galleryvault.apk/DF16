@@ -1,0 +1,24 @@
+Source: $i0 = virtualinvoke $r1.<java.io.InputStream: int read(byte[])>($r2)
+$i0 = virtualinvoke $r1.<java.io.InputStream: int read(byte[])>($r2) in <i.o.f.b.k: int copy(java.io.InputStream,java.io.OutputStream)>
+Sink: virtualinvoke $r0.<java.io.OutputStream: void write(byte[])>($r4) in <i.o.f.b.k: void writeByteArrayToFile(java.io.File,byte[])>
+
+<i.o.f.b.k: int copy(java.io.InputStream,java.io.OutputStream)>: $i0 = virtualinvoke $r1.<java.io.InputStream: int read(byte[])>($r2)
+<i.o.f.b.k: int copy(java.io.InputStream,java.io.OutputStream)>: virtualinvoke $r0.<java.io.OutputStream: void write(byte[],int,int)>($r2, 0, $i0)
+<i.o.f.b.k: int copy(java.io.InputStream,java.io.OutputStream)>: return -1
+<i.o.f.b.k: byte[] toByteArray(java.io.InputStream)>: $r1 = virtualinvoke $r0.<java.io.ByteArrayOutputStream: byte[] toByteArray()>()
+<i.o.f.b.k: byte[] toByteArray(java.io.InputStream)>: return $r1
+<i.o.f.b.k: java.lang.String readFileToString(java.io.File,java.lang.String)>: specialinvoke $r0.<java.lang.String: void <init>(byte[],java.nio.charset.Charset)>($r7, $r4)
+<i.o.f.b.k: java.lang.String readFileToString(java.io.File,java.lang.String)>: return $r0
+<i.o.f.b.k: org.json.JSONObject readFileToJSONObject(java.io.File)>: specialinvoke $r2.<org.json.JSONObject: void <init>(java.lang.String)>($r0)
+<i.o.f.b.k: org.json.JSONObject readFileToJSONObject(java.io.File)>: return $r2
+<com.parse.LocalIdManager: com.parse.LocalIdManager$MapEntry getMapEntry(java.lang.String)>: $r3 = virtualinvoke $r6.<org.json.JSONObject: java.lang.String optString(java.lang.String,java.lang.String)>("objectId", null)
+<com.parse.LocalIdManager: com.parse.LocalIdManager$MapEntry getMapEntry(java.lang.String)>: $r7.<com.parse.LocalIdManager$MapEntry: java.lang.String objectId> = $r3
+<com.parse.LocalIdManager: com.parse.LocalIdManager$MapEntry getMapEntry(java.lang.String)>: return $r7
+<com.parse.LocalIdManager: void releaseLocalIdOnDisk(java.lang.String)>: virtualinvoke r0.<com.parse.LocalIdManager: void putMapEntry(java.lang.String,com.parse.LocalIdManager$MapEntry)>($r2, $r1)
+<com.parse.LocalIdManager: void putMapEntry(java.lang.String,com.parse.LocalIdManager$MapEntry)>: $r5 = $r3.<com.parse.LocalIdManager$MapEntry: java.lang.String objectId>
+<com.parse.LocalIdManager: void putMapEntry(java.lang.String,com.parse.LocalIdManager$MapEntry)>: virtualinvoke $r4.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("objectId", $r5)
+<com.parse.LocalIdManager: void putMapEntry(java.lang.String,com.parse.LocalIdManager$MapEntry)>: staticinvoke <i.o.f.b.k: void writeJSONObjectToFile(java.io.File,org.json.JSONObject)>($r6, $r4)
+<i.o.f.b.k: void writeJSONObjectToFile(java.io.File,org.json.JSONObject)>: $r2 = virtualinvoke $r1.<org.json.JSONObject: java.lang.String toString()>()
+<i.o.f.b.k: void writeJSONObjectToFile(java.io.File,org.json.JSONObject)>: $r4 = virtualinvoke $r2.<java.lang.String: byte[] getBytes(java.nio.charset.Charset)>($r3)
+<i.o.f.b.k: void writeJSONObjectToFile(java.io.File,org.json.JSONObject)>: staticinvoke <i.o.f.b.k: void writeByteArrayToFile(java.io.File,byte[])>($r0, $r4)
+<i.o.f.b.k: void writeByteArrayToFile(java.io.File,byte[])>: virtualinvoke $r0.<java.io.OutputStream: void write(byte[])>($r4)

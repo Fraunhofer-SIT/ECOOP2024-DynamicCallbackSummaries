@@ -1,0 +1,26 @@
+    static void onContextStop()
+    {
+        java.lang.Throwable $r0;
+        boolean $z0;
+
+        $z0 = staticinvoke <com.facebook.internal.instrument.crashshield.CrashShieldHandler: boolean isObjectCrashing(java.lang.Object)>(class "Lcom/facebook/appevents/AppEventsLoggerImpl;");
+
+        if $z0 == 0 goto label1;
+
+        return;
+
+     label1:
+        staticinvoke <com.facebook.appevents.AppEventQueue: void persistToDisk()>();
+
+     label2:
+        return;
+
+     label3:
+        $r0 := @caughtexception;
+
+        staticinvoke <com.facebook.internal.instrument.crashshield.CrashShieldHandler: void handleThrowable(java.lang.Throwable,java.lang.Object)>($r0, class "Lcom/facebook/appevents/AppEventsLoggerImpl;");
+
+        return;
+
+        catch java.lang.Throwable from label1 to label2 with label3;
+    }

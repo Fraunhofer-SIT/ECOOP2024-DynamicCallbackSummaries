@@ -1,0 +1,29 @@
+    public boolean rollFileOver()
+    {
+        java.lang.Throwable $r3;
+        android.content.Context $r1;
+        com.crashlytics.android.answers.SessionAnalyticsFilesManager $r2;
+        com.crashlytics.android.answers.EnabledSessionAnalyticsManagerStrategy r0;
+        boolean $z0;
+
+        r0 := @this: com.crashlytics.android.answers.EnabledSessionAnalyticsManagerStrategy;
+
+        $r2 = r0.<com.crashlytics.android.answers.EnabledSessionAnalyticsManagerStrategy: com.crashlytics.android.answers.SessionAnalyticsFilesManager filesManager>;
+
+     label1:
+        $z0 = virtualinvoke $r2.<io.fabric.sdk.android.services.events.EventsFilesManager: boolean rollFileOver()>();
+
+     label2:
+        return $z0;
+
+     label3:
+        $r3 := @caughtexception;
+
+        $r1 = r0.<com.crashlytics.android.answers.EnabledSessionAnalyticsManagerStrategy: android.content.Context context>;
+
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void logControlledError(android.content.Context,java.lang.String,java.lang.Throwable)>($r1, "Failed to roll file over.", $r3);
+
+        return 0;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }

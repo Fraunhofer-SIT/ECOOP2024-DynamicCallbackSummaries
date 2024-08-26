@@ -1,0 +1,16 @@
+Source: $l0 = interfaceinvoke $r1.<android.content.SharedPreferences: long getLong(java.lang.String,long)>("GT_UNSENT_ACTIVE_TIME", 0L)
+$l0 = interfaceinvoke $r1.<android.content.SharedPreferences: long getLong(java.lang.String,long)>("GT_UNSENT_ACTIVE_TIME", 0L) in <com.onesignal.OneSignal: long GetUnsentActiveTime()>
+Sink: virtualinvoke $r13.<java.io.OutputStream: void write(byte[])>($r12) in <com.onesignal.OneSignalRestClient: void makeRequest(java.lang.String,java.lang.String,org.json.JSONObject,com.onesignal.OneSignalRestClient$ResponseHandler)>
+
+<com.onesignal.OneSignal: long GetUnsentActiveTime()>: $l0 = interfaceinvoke $r1.<android.content.SharedPreferences: long getLong(java.lang.String,long)>("GT_UNSENT_ACTIVE_TIME", 0L)
+<com.onesignal.OneSignal: long GetUnsentActiveTime()>: <com.onesignal.OneSignal: long unSentActiveTime> = $l0
+<com.onesignal.OneSignal: long GetUnsentActiveTime()>: $l0 = <com.onesignal.OneSignal: long unSentActiveTime>
+<com.onesignal.OneSignal: long GetUnsentActiveTime()>: return $l0
+<com.onesignal.OneSignal: void onAppLostFocus(boolean)>: l0 = $l2 + l0
+<com.onesignal.OneSignal: void onAppLostFocus(boolean)>: staticinvoke <com.onesignal.OneSignal: void sendOnFocus(long,boolean)>(l0, 1)
+<com.onesignal.OneSignal: void sendOnFocus(long,boolean)>: virtualinvoke r0.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,long)>("active_time", $l0)
+<com.onesignal.OneSignal: void sendOnFocus(long,boolean)>: staticinvoke <com.onesignal.OneSignalRestClient: void postSync(java.lang.String,org.json.JSONObject,com.onesignal.OneSignalRestClient$ResponseHandler)>($r3, r0, r1)
+<com.onesignal.OneSignalRestClient: void postSync(java.lang.String,org.json.JSONObject,com.onesignal.OneSignalRestClient$ResponseHandler)>: staticinvoke <com.onesignal.OneSignalRestClient: void makeRequest(java.lang.String,java.lang.String,org.json.JSONObject,com.onesignal.OneSignalRestClient$ResponseHandler)>($r0, "POST", $r1, $r2)
+<com.onesignal.OneSignalRestClient: void makeRequest(java.lang.String,java.lang.String,org.json.JSONObject,com.onesignal.OneSignalRestClient$ResponseHandler)>: $r0 = virtualinvoke $r2.<org.json.JSONObject: java.lang.String toString()>()
+<com.onesignal.OneSignalRestClient: void makeRequest(java.lang.String,java.lang.String,org.json.JSONObject,com.onesignal.OneSignalRestClient$ResponseHandler)>: $r12 = virtualinvoke $r0.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8")
+<com.onesignal.OneSignalRestClient: void makeRequest(java.lang.String,java.lang.String,org.json.JSONObject,com.onesignal.OneSignalRestClient$ResponseHandler)>: virtualinvoke $r13.<java.io.OutputStream: void write(byte[])>($r12)

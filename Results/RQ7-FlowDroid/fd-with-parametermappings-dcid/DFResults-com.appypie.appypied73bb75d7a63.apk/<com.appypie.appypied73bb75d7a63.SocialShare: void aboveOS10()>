@@ -1,0 +1,113 @@
+    public void aboveOS10()
+    {
+        com.appypie.appypied73bb75d7a63.SocialShare$LoginDialogListenerForAbow10 $r4;
+        com.appypie.appypied73bb75d7a63.SocialShare r0;
+        java.lang.String[] $r3;
+        com.facebook.android.Facebook $r1;
+        java.lang.Exception r9;
+        com.facebook.android.FacebookError r10;
+        org.json.JSONObject $r6;
+        android.widget.Toast $r2;
+        java.lang.StringBuilder $r8;
+        java.lang.String $r5, $r7;
+        boolean $z0;
+
+        r0 := @this: com.appypie.appypied73bb75d7a63.SocialShare;
+
+        $r1 = r0.<com.appypie.appypied73bb75d7a63.SocialShare: com.facebook.android.Facebook facebook>;
+
+        $z0 = virtualinvoke $r1.<com.facebook.android.Facebook: boolean isSessionValid()>();
+
+        if $z0 != 0 goto label1;
+
+        $r2 = staticinvoke <android.widget.Toast: android.widget.Toast makeText(android.content.Context,java.lang.CharSequence,int)>(r0, "Authorizing", 0);
+
+        virtualinvoke $r2.<android.widget.Toast: void show()>();
+
+        $r1 = r0.<com.appypie.appypied73bb75d7a63.SocialShare: com.facebook.android.Facebook facebook>;
+
+        $r3 = newarray (java.lang.String)[1];
+
+        $r3[0] = "";
+
+        $r4 = new com.appypie.appypied73bb75d7a63.SocialShare$LoginDialogListenerForAbow10;
+
+        specialinvoke $r4.<com.appypie.appypied73bb75d7a63.SocialShare$LoginDialogListenerForAbow10: void <init>(com.appypie.appypied73bb75d7a63.SocialShare)>(r0);
+
+        virtualinvoke $r1.<com.facebook.android.Facebook: void authorize(android.app.Activity,java.lang.String[],com.facebook.android.Facebook$DialogListener)>(r0, $r3, $r4);
+
+        return;
+
+     label1:
+        $r2 = staticinvoke <android.widget.Toast: android.widget.Toast makeText(android.content.Context,java.lang.CharSequence,int)>(r0, "Has valid session", 0);
+
+        virtualinvoke $r2.<android.widget.Toast: void show()>();
+
+     label2:
+        $r1 = r0.<com.appypie.appypied73bb75d7a63.SocialShare: com.facebook.android.Facebook facebook>;
+
+     label3:
+        $r5 = virtualinvoke $r1.<com.facebook.android.Facebook: java.lang.String request(java.lang.String)>("me");
+
+        $r6 = staticinvoke <com.appypie.appypied73bb75d7a63.Util: org.json.JSONObject parseJson(java.lang.String)>($r5);
+
+        virtualinvoke $r6.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("id");
+
+        $r5 = virtualinvoke $r6.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("first_name");
+
+        $r7 = virtualinvoke $r6.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("last_name");
+
+     label4:
+        $r8 = new java.lang.StringBuilder;
+
+     label5:
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("You already have a valid session, ");
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(". No need to re-authorize.");
+
+        $r5 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r2 = staticinvoke <android.widget.Toast: android.widget.Toast makeText(android.content.Context,java.lang.CharSequence,int)>(r0, $r5, 0);
+
+        virtualinvoke $r2.<android.widget.Toast: void show()>();
+
+        virtualinvoke r0.<com.appypie.appypied73bb75d7a63.SocialShare: void postToWall1(java.lang.String)>("again posted");
+
+     label6:
+        return;
+
+     label7:
+        r9 := @caughtexception;
+
+        $r5 = virtualinvoke r9.<java.lang.Exception: java.lang.String toString()>();
+
+        $r2 = staticinvoke <android.widget.Toast: android.widget.Toast makeText(android.content.Context,java.lang.CharSequence,int)>(r0, $r5, 0);
+
+        virtualinvoke $r2.<android.widget.Toast: void show()>();
+
+        return;
+
+     label8:
+        r10 := @caughtexception;
+
+        $r5 = virtualinvoke r10.<com.facebook.android.FacebookError: java.lang.String toString()>();
+
+        $r2 = staticinvoke <android.widget.Toast: android.widget.Toast makeText(android.content.Context,java.lang.CharSequence,int)>(r0, $r5, 0);
+
+        virtualinvoke $r2.<android.widget.Toast: void show()>();
+
+        return;
+
+        catch java.lang.Exception from label2 to label4 with label7;
+        catch java.lang.Exception from label5 to label6 with label7;
+        catch com.facebook.android.FacebookError from label3 to label4 with label8;
+        catch com.facebook.android.FacebookError from label5 to label6 with label8;
+    }

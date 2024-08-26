@@ -1,0 +1,65 @@
+    private static byte[] \u0399(java.net.HttpURLConnection)
+    {
+        java.net.HttpURLConnection $r1;
+        java.lang.Throwable $r5;
+        byte[] $r4;
+        java.io.ByteArrayOutputStream $r0;
+        int $i0;
+        java.io.InputStream $r2, $r3;
+
+        $r1 := @parameter0: java.net.HttpURLConnection;
+
+        $r2 = null;
+
+     label01:
+        $r0 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r0.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r3 = staticinvoke <com.dynatrace.android.callback.Callback: java.io.InputStream getInputStream(java.net.HttpURLConnection)>($r1);
+
+     label02:
+        $r2 = $r3;
+
+        $r4 = newarray (byte)[1024];
+
+     label03:
+        $i0 = virtualinvoke $r3.<java.io.InputStream: int read(byte[])>($r4);
+
+     label04:
+        if $i0 <= 0 goto label07;
+
+     label05:
+        virtualinvoke $r0.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r4, 0, $i0);
+
+     label06:
+        goto label03;
+
+     label07:
+        $r4 = virtualinvoke $r0.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label08:
+        if $r3 == null goto label11;
+
+        virtualinvoke $r3.<java.io.InputStream: void close()>();
+
+        return $r4;
+
+     label09:
+        $r5 := @caughtexception;
+
+        if $r2 == null goto label10;
+
+        virtualinvoke $r2.<java.io.InputStream: void close()>();
+
+     label10:
+        throw $r5;
+
+     label11:
+        return $r4;
+
+        catch java.lang.Throwable from label01 to label02 with label09;
+        catch java.lang.Throwable from label03 to label04 with label09;
+        catch java.lang.Throwable from label05 to label06 with label09;
+        catch java.lang.Throwable from label07 to label08 with label09;
+    }

@@ -1,0 +1,112 @@
+    public static java.lang.ClassLoader makeAdsSdkClassLoader(android.content.Context) throws java.lang.Exception
+    {
+        android.content.Context $r0;
+        byte[] $r10;
+        java.io.FileOutputStream $r9;
+        java.io.File $r4, $r11;
+        android.content.res.AssetManager $r7;
+        int $i0;
+        java.lang.StringBuilder $r6;
+        java.lang.ClassLoader $r1;
+        java.lang.String $r5, $r12;
+        android.content.pm.ApplicationInfo $r3;
+        dalvik.system.DexClassLoader $r2;
+        boolean $z0;
+        java.io.InputStream $r8;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $i0 = <android.os.Build$VERSION: int SDK_INT>;
+
+        if $i0 < 30 goto label1;
+
+        $r1 = staticinvoke <com.facebook.ads.internal.dynamicloading.DynamicLoaderFactory: java.lang.ClassLoader createInMemoryClassLoader(android.content.Context)>($r0);
+
+        return $r1;
+
+     label1:
+        $z0 = <com.facebook.ads.internal.dynamicloading.DynamicLoaderFactory: boolean sUseLegacyClassLoader>;
+
+        if $z0 == 0 goto label2;
+
+        $r2 = staticinvoke <com.facebook.ads.internal.dynamicloading.DynamicLoaderFactory: dalvik.system.DexClassLoader makeLegacyAdsSdkClassLoader(android.content.Context)>($r0);
+
+        return $r2;
+
+     label2:
+        $r3 = virtualinvoke $r0.<android.content.Context: android.content.pm.ApplicationInfo getApplicationInfo()>();
+
+        $r4 = new java.io.File;
+
+        $r5 = $r3.<android.content.pm.ApplicationInfo: java.lang.String dataDir>;
+
+        specialinvoke $r4.<java.io.File: void <init>(java.lang.String)>($r5);
+
+        $r4 = staticinvoke <com.facebook.ads.internal.dynamicloading.DynamicLoaderFactory: java.io.File getCodeCacheDir(android.content.Context,java.io.File)>($r0, $r4);
+
+        $r4 = staticinvoke <com.facebook.ads.internal.dynamicloading.DynamicLoaderFactory: java.io.File getSecondaryDir(java.io.File)>($r4);
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        $r5 = virtualinvoke $r4.<java.io.File: java.lang.String getPath()>();
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = <java.io.File: java.lang.String separator>;
+
+        $r5 = staticinvoke <i.d.c.a.a: java.lang.String e0(java.lang.StringBuilder,java.lang.String,java.lang.String)>($r6, $r5, "audience_network.dex");
+
+        $r7 = virtualinvoke $r0.<android.content.Context: android.content.res.AssetManager getAssets()>();
+
+        $r8 = virtualinvoke $r7.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>("audience_network.dex");
+
+        $r9 = staticinvoke <com.safedk.android.internal.partials.FacebookAudienceNetworkFilesBridge: java.io.FileOutputStream fileOutputStreamCtor(java.lang.String)>($r5);
+
+        $r10 = newarray (byte)[1024];
+
+     label3:
+        $i0 = virtualinvoke $r8.<java.io.InputStream: int read(byte[])>($r10);
+
+        if $i0 <= 0 goto label4;
+
+        virtualinvoke $r9.<java.io.OutputStream: void write(byte[],int,int)>($r10, 0, $i0);
+
+        goto label3;
+
+     label4:
+        virtualinvoke $r8.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r9.<java.io.OutputStream: void flush()>();
+
+        virtualinvoke $r9.<java.io.OutputStream: void close()>();
+
+        $r11 = new java.io.File;
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        $r12 = virtualinvoke $r4.<java.io.File: java.lang.String getPath()>();
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r12);
+
+        $r12 = <java.io.File: java.lang.String separator>;
+
+        $r12 = staticinvoke <i.d.c.a.a: java.lang.String e0(java.lang.StringBuilder,java.lang.String,java.lang.String)>($r6, $r12, "optimized");
+
+        specialinvoke $r11.<java.io.File: void <init>(java.lang.String)>($r12);
+
+        staticinvoke <com.facebook.ads.internal.dynamicloading.DynamicLoaderFactory: void mkdirChecked(java.io.File)>($r11);
+
+        $r2 = new dalvik.system.DexClassLoader;
+
+        $r12 = virtualinvoke $r11.<java.io.File: java.lang.String getPath()>();
+
+        $r1 = virtualinvoke $r0.<android.content.Context: java.lang.ClassLoader getClassLoader()>();
+
+        specialinvoke $r2.<dalvik.system.DexClassLoader: void <init>(java.lang.String,java.lang.String,java.lang.String,java.lang.ClassLoader)>($r5, $r12, null, $r1);
+
+        return $r2;
+    }

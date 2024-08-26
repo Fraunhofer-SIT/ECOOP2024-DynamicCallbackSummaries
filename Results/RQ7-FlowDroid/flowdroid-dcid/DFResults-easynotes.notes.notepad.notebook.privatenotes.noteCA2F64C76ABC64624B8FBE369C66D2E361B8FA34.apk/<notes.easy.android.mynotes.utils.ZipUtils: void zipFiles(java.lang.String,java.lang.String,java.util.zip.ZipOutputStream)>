@@ -1,0 +1,125 @@
+    private static void zipFiles(java.lang.String, java.lang.String, java.util.zip.ZipOutputStream) throws java.lang.Exception
+    {
+        java.util.zip.ZipOutputStream $r0;
+        byte[] $r4;
+        java.lang.String[] $r5;
+        java.io.FileInputStream $r9;
+        java.io.File $r7;
+        int $i0, $i1;
+        java.lang.StringBuilder $r6;
+        java.lang.String $r1, $r2, $r3;
+        java.util.zip.ZipEntry $r8;
+        boolean $z0;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r0 := @parameter2: java.util.zip.ZipOutputStream;
+
+        if $r0 != null goto label1;
+
+        return;
+
+     label1:
+        $r7 = new java.io.File;
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r3 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r7.<java.io.File: void <init>(java.lang.String)>($r3);
+
+        $z0 = virtualinvoke $r7.<java.io.File: boolean isFile()>();
+
+        $i0 = 0;
+
+        if $z0 == 0 goto label4;
+
+        $r8 = new java.util.zip.ZipEntry;
+
+        specialinvoke $r8.<java.util.zip.ZipEntry: void <init>(java.lang.String)>($r2);
+
+        $r9 = new java.io.FileInputStream;
+
+        specialinvoke $r9.<java.io.FileInputStream: void <init>(java.io.File)>($r7);
+
+        virtualinvoke $r0.<java.util.zip.ZipOutputStream: void putNextEntry(java.util.zip.ZipEntry)>($r8);
+
+        $r4 = newarray (byte)[4096];
+
+     label2:
+        $i0 = virtualinvoke $r9.<java.io.FileInputStream: int read(byte[])>($r4);
+
+        if $i0 == -1 goto label3;
+
+        virtualinvoke $r0.<java.util.zip.ZipOutputStream: void write(byte[],int,int)>($r4, 0, $i0);
+
+        goto label2;
+
+     label3:
+        virtualinvoke $r0.<java.util.zip.ZipOutputStream: void closeEntry()>();
+
+        virtualinvoke $r9.<java.io.FileInputStream: void close()>();
+
+        return;
+
+     label4:
+        $r5 = virtualinvoke $r7.<java.io.File: java.lang.String[] list()>();
+
+        $i1 = lengthof $r5;
+
+        if $i1 > 0 goto label5;
+
+        $r8 = new java.util.zip.ZipEntry;
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        $r3 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r8.<java.util.zip.ZipEntry: void <init>(java.lang.String)>($r3);
+
+        virtualinvoke $r0.<java.util.zip.ZipOutputStream: void putNextEntry(java.util.zip.ZipEntry)>($r8);
+
+        virtualinvoke $r0.<java.util.zip.ZipOutputStream: void closeEntry()>();
+
+     label5:
+        $i1 = lengthof $r5;
+
+        if $i0 >= $i1 goto label6;
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        $r3 = $r5[$i0];
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <notes.easy.android.mynotes.utils.ZipUtils: void zipFiles(java.lang.String,java.lang.String,java.util.zip.ZipOutputStream)>($r1, $r3, $r0);
+
+        $i0 = $i0 + 1;
+
+        goto label5;
+
+     label6:
+        return;
+    }

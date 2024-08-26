@@ -1,0 +1,39 @@
+    public static java.lang.String a(java.io.InputStream)
+    {
+        java.io.StringWriter $r3;
+        int $i0;
+        char[] $r1;
+        java.lang.String $r2;
+        java.io.InputStreamReader $r4;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $r3 = new java.io.StringWriter;
+
+        specialinvoke $r3.<java.io.StringWriter: void <init>()>();
+
+        $r4 = new java.io.InputStreamReader;
+
+        specialinvoke $r4.<java.io.InputStreamReader: void <init>(java.io.InputStream)>($r0);
+
+        $r1 = newarray (char)[4096];
+
+     label1:
+        $i0 = virtualinvoke $r4.<java.io.InputStreamReader: int read(char[])>($r1);
+
+        if $i0 == -1 goto label2;
+
+        virtualinvoke $r3.<java.io.StringWriter: void write(char[],int,int)>($r1, 0, $i0);
+
+        goto label1;
+
+     label2:
+        $r2 = virtualinvoke $r3.<java.io.StringWriter: java.lang.String toString()>();
+
+        virtualinvoke $r3.<java.io.StringWriter: void close()>();
+
+        virtualinvoke $r4.<java.io.InputStreamReader: void close()>();
+
+        return $r2;
+    }

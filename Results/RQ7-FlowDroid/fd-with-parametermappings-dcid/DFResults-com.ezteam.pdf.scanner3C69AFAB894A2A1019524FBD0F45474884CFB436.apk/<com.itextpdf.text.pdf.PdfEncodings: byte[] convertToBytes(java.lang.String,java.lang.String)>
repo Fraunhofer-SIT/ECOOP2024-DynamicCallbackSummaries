@@ -1,0 +1,262 @@
+    public static final byte[] convertToBytes(java.lang.String, java.lang.String)
+    {
+        java.lang.Throwable r15;
+        byte[] r2, r9;
+        com.itextpdf.text.ExceptionConverter $r16;
+        com.itextpdf.text.pdf.ExtraEncoding r6;
+        java.util.HashMap r3;
+        com.itextpdf.text.pdf.IntHashtable r7;
+        java.nio.ByteBuffer $r14;
+        byte $b0;
+        java.nio.charset.Charset $r10;
+        java.nio.charset.CodingErrorAction r12;
+        int $i1, i2, i3, $i5, i6;
+        java.lang.String $r0, $r1, $r4;
+        boolean $z0;
+        java.nio.CharBuffer $r13;
+        char c4;
+        java.lang.Exception $r17;
+        java.nio.charset.CharsetEncoder $r11;
+        char[] $r8;
+        java.lang.Object $r5;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r1 := @parameter1: java.lang.String;
+
+        if $r0 != null goto label01;
+
+        r2 = newarray (byte)[0];
+
+        return r2;
+
+     label01:
+        if $r1 == null goto label22;
+
+        $i1 = virtualinvoke $r1.<java.lang.String: int length()>();
+
+        if $i1 == 0 goto label22;
+
+        r3 = <com.itextpdf.text.pdf.PdfEncodings: java.util.HashMap extraEncodings>;
+
+        $r4 = virtualinvoke $r1.<java.lang.String: java.lang.String toLowerCase()>();
+
+        $r5 = virtualinvoke r3.<java.util.HashMap: java.lang.Object get(java.lang.Object)>($r4);
+
+        r6 = (com.itextpdf.text.pdf.ExtraEncoding) $r5;
+
+        if r6 == null goto label02;
+
+        r2 = interfaceinvoke r6.<com.itextpdf.text.pdf.ExtraEncoding: byte[] charToByte(java.lang.String,java.lang.String)>($r0, $r1);
+
+        if r2 == null goto label02;
+
+        return r2;
+
+     label02:
+        r7 = null;
+
+        $z0 = virtualinvoke $r1.<java.lang.String: boolean equals(java.lang.Object)>("Cp1252");
+
+        if $z0 == 0 goto label03;
+
+        r7 = <com.itextpdf.text.pdf.PdfEncodings: com.itextpdf.text.pdf.IntHashtable winansi>;
+
+        goto label04;
+
+     label03:
+        $z0 = virtualinvoke $r1.<java.lang.String: boolean equals(java.lang.Object)>("PDF");
+
+        if $z0 == 0 goto label04;
+
+        r7 = <com.itextpdf.text.pdf.PdfEncodings: com.itextpdf.text.pdf.IntHashtable pdfEncoding>;
+
+     label04:
+        if r7 == null goto label12;
+
+        $r8 = virtualinvoke $r0.<java.lang.String: char[] toCharArray()>();
+
+        $i1 = lengthof $r8;
+
+        i2 = 0;
+
+        r2 = newarray (byte)[$i1];
+
+        i3 = 0;
+
+     label05:
+        if i3 >= $i1 goto label10;
+
+        c4 = $r8[i3];
+
+        $i5 = (int) c4;
+
+        if $i5 < 128 goto label07;
+
+        $i5 = (int) c4;
+
+        if $i5 <= 160 goto label06;
+
+        $i5 = (int) c4;
+
+        if $i5 <= 255 goto label07;
+
+     label06:
+        $i5 = (int) c4;
+
+        $i5 = virtualinvoke r7.<com.itextpdf.text.pdf.IntHashtable: int get(int)>($i5);
+
+        goto label08;
+
+     label07:
+        $i5 = (int) c4;
+
+     label08:
+        if $i5 == 0 goto label09;
+
+        $b0 = (byte) $i5;
+
+        r2[i2] = $b0;
+
+        i2 = i2 + 1;
+
+     label09:
+        i3 = i3 + 1;
+
+        goto label05;
+
+     label10:
+        if i2 != $i1 goto label11;
+
+        return r2;
+
+     label11:
+        r9 = newarray (byte)[i2];
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>(r2, 0, r9, 0, i2);
+
+        return r9;
+
+     label12:
+        $z0 = virtualinvoke $r1.<java.lang.String: boolean equals(java.lang.Object)>("UnicodeBig");
+
+        if $z0 == 0 goto label15;
+
+        $r8 = virtualinvoke $r0.<java.lang.String: char[] toCharArray()>();
+
+        $i1 = lengthof $r8;
+
+        i2 = lengthof $r8;
+
+        i2 = i2 * 2;
+
+        i2 = i2 + 2;
+
+        r2 = newarray (byte)[i2];
+
+        r2[0] = -2;
+
+        r2[1] = -1;
+
+        i2 = 2;
+
+        i3 = 0;
+
+     label13:
+        if i3 >= $i1 goto label14;
+
+        c4 = $r8[i3];
+
+        $i5 = i2 + 1;
+
+        i6 = (int) c4;
+
+        i6 = i6 >> 8;
+
+        $b0 = (byte) i6;
+
+        r2[i2] = $b0;
+
+        i2 = $i5 + 1;
+
+        c4 = c4 & 255;
+
+        $b0 = (byte) c4;
+
+        r2[$i5] = $b0;
+
+        i3 = i3 + 1;
+
+        goto label13;
+
+     label14:
+        return r2;
+
+     label15:
+        $r10 = staticinvoke <java.nio.charset.Charset: java.nio.charset.Charset forName(java.lang.String)>($r1);
+
+        $r11 = virtualinvoke $r10.<java.nio.charset.Charset: java.nio.charset.CharsetEncoder newEncoder()>();
+
+     label16:
+        r12 = <java.nio.charset.CodingErrorAction: java.nio.charset.CodingErrorAction IGNORE>;
+
+     label17:
+        virtualinvoke $r11.<java.nio.charset.CharsetEncoder: java.nio.charset.CharsetEncoder onUnmappableCharacter(java.nio.charset.CodingErrorAction)>(r12);
+
+        $r8 = virtualinvoke $r0.<java.lang.String: char[] toCharArray()>();
+
+        $r13 = staticinvoke <java.nio.CharBuffer: java.nio.CharBuffer wrap(char[])>($r8);
+
+        $r14 = virtualinvoke $r11.<java.nio.charset.CharsetEncoder: java.nio.ByteBuffer encode(java.nio.CharBuffer)>($r13);
+
+        virtualinvoke $r14.<java.nio.ByteBuffer: java.nio.Buffer rewind()>();
+
+        $i1 = virtualinvoke $r14.<java.nio.ByteBuffer: int limit()>();
+
+     label18:
+        r2 = newarray (byte)[$i1];
+
+     label19:
+        virtualinvoke $r14.<java.nio.ByteBuffer: java.nio.ByteBuffer get(byte[])>(r2);
+
+     label20:
+        return r2;
+
+     label21:
+        r15 := @caughtexception;
+
+        $r16 = new com.itextpdf.text.ExceptionConverter;
+
+        $r17 = (java.lang.Exception) r15;
+
+        specialinvoke $r16.<com.itextpdf.text.ExceptionConverter: void <init>(java.lang.Exception)>($r17);
+
+        throw $r16;
+
+     label22:
+        $i1 = virtualinvoke $r0.<java.lang.String: int length()>();
+
+        r2 = newarray (byte)[$i1];
+
+        i2 = 0;
+
+     label23:
+        if i2 >= $i1 goto label24;
+
+        c4 = virtualinvoke $r0.<java.lang.String: char charAt(int)>(i2);
+
+        $b0 = (byte) c4;
+
+        r2[i2] = $b0;
+
+        i2 = i2 + 1;
+
+        goto label23;
+
+     label24:
+        return r2;
+
+        catch java.io.IOException from label15 to label16 with label21;
+        catch java.io.IOException from label17 to label18 with label21;
+        catch java.io.IOException from label19 to label20 with label21;
+    }

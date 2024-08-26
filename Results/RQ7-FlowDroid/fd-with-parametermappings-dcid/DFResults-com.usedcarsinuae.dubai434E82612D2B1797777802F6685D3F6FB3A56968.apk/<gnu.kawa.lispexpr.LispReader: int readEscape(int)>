@@ -1,0 +1,295 @@
+    public final int readEscape(int) throws java.io.IOException, gnu.text.SyntaxException
+    {
+        int $i0, $i2, $i3, $i4;
+        gnu.kawa.lispexpr.LispReader r0;
+        char $c1;
+
+        r0 := @this: gnu.kawa.lispexpr.LispReader;
+
+        $i0 := @parameter0: int;
+
+        $c1 = (char) $i0;
+
+        $i2 = (int) $c1;
+
+        if $i2 == 9 goto label30;
+
+        $i2 = (int) $c1;
+
+        if $i2 == 10 goto label30;
+
+        $i2 = (int) $c1;
+
+        if $i2 == 97 goto label29;
+
+        $i2 = (int) $c1;
+
+        if $i2 == 98 goto label28;
+
+        $i2 = (int) $c1;
+
+        if $i2 == 101 goto label27;
+
+        $i2 = (int) $c1;
+
+        if $i2 == 102 goto label26;
+
+        $i2 = (int) $c1;
+
+        lookupswitch($i2)
+        {
+            case 13: goto label30;
+            case 32: goto label30;
+            case 34: goto label25;
+            case 67: goto label21;
+            case 77: goto label18;
+            case 88: goto label17;
+            case 92: goto label16;
+            case 94: goto label22;
+            case 110: goto label15;
+            case 114: goto label14;
+            case 120: goto label17;
+            default: goto label01;
+        };
+
+     label01:
+        $i2 = 0;
+
+        $i3 = (int) $c1;
+
+        lookupswitch($i3)
+        {
+            case 48: goto label11;
+            case 49: goto label11;
+            case 50: goto label11;
+            case 51: goto label11;
+            case 52: goto label11;
+            case 53: goto label11;
+            case 54: goto label11;
+            case 55: goto label11;
+            default: goto label02;
+        };
+
+     label02:
+        $i3 = (int) $c1;
+
+        lookupswitch($i3)
+        {
+            case 116: goto label10;
+            case 117: goto label05;
+            case 118: goto label04;
+            default: goto label03;
+        };
+
+     label03:
+        return $i0;
+
+     label04:
+        return 11;
+
+     label05:
+        $i0 = 4;
+
+     label06:
+        $i0 = $i0 + -1;
+
+        if $i0 < 0 goto label09;
+
+        $i3 = virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: int read()>();
+
+        if $i3 >= 0 goto label07;
+
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void eofError(java.lang.String)>("premature EOF in \\u escape");
+
+     label07:
+        $c1 = (char) $i3;
+
+        $i3 = staticinvoke <java.lang.Character: int digit(char,int)>($c1, 16);
+
+        if $i3 >= 0 goto label08;
+
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void error(java.lang.String)>("non-hex character following \\u");
+
+     label08:
+        $i2 = $i2 * 16;
+
+        $i2 = $i2 + $i3;
+
+        goto label06;
+
+     label09:
+        return $i2;
+
+     label10:
+        return 9;
+
+     label11:
+        $i3 = $i0 + -48;
+
+     label12:
+        $i2 = $i2 + 1;
+
+        if $i2 >= 3 goto label38;
+
+        $i4 = virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: int read()>();
+
+        $c1 = (char) $i4;
+
+        $i0 = staticinvoke <java.lang.Character: int digit(char,int)>($c1, 8);
+
+        if $i0 < 0 goto label13;
+
+        $i3 = $i3 << 3;
+
+        $i3 = $i3 + $i0;
+
+        goto label12;
+
+     label13:
+        if $i4 < 0 goto label38;
+
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void unread(int)>($i4);
+
+        return $i3;
+
+     label14:
+        return 13;
+
+     label15:
+        return 10;
+
+     label16:
+        return 92;
+
+     label17:
+        $i0 = virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: int readHexEscape()>();
+
+        return $i0;
+
+     label18:
+        $i0 = virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: int read()>();
+
+        if $i0 == 45 goto label19;
+
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void error(java.lang.String)>("Invalid escape character syntax");
+
+        return 63;
+
+     label19:
+        $i0 = virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: int read()>();
+
+        $i2 = $i0;
+
+        if $i0 != 92 goto label20;
+
+        $i2 = virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: int readEscape()>();
+
+     label20:
+        $i0 = $i2 | 128;
+
+        return $i0;
+
+     label21:
+        $i0 = virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: int read()>();
+
+        if $i0 == 45 goto label22;
+
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void error(java.lang.String)>("Invalid escape character syntax");
+
+        return 63;
+
+     label22:
+        $i0 = virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: int read()>();
+
+        $i2 = $i0;
+
+        if $i0 != 92 goto label23;
+
+        $i2 = virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: int readEscape()>();
+
+     label23:
+        if $i2 != 63 goto label24;
+
+        return 127;
+
+     label24:
+        $i0 = $i2 & 159;
+
+        return $i0;
+
+     label25:
+        return 34;
+
+     label26:
+        return 12;
+
+     label27:
+        return 27;
+
+     label28:
+        return 8;
+
+     label29:
+        return 7;
+
+     label30:
+        if $i0 >= 0 goto label31;
+
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void eofError(java.lang.String)>("unexpected EOF in literal");
+
+        return -1;
+
+     label31:
+        if $i0 == 10 goto label35;
+
+        if $i0 != 13 goto label33;
+
+        $i0 = virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: int peek()>();
+
+        if $i0 != 10 goto label32;
+
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void skip()>();
+
+     label32:
+        $i0 = 10;
+
+        goto label34;
+
+     label33:
+        if $i0 == 32 goto label37;
+
+        if $i0 == 9 goto label37;
+
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void unread(int)>($i0);
+
+     label34:
+        if $i0 == 10 goto label35;
+
+        return $i0;
+
+     label35:
+        $i0 = virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: int read()>();
+
+        if $i0 >= 0 goto label36;
+
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void eofError(java.lang.String)>("unexpected EOF in literal");
+
+        return -1;
+
+     label36:
+        if $i0 == 32 goto label35;
+
+        if $i0 == 9 goto label35;
+
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void unread(int)>($i0);
+
+        return -2;
+
+     label37:
+        $i0 = virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: int read()>();
+
+        goto label30;
+
+     label38:
+        return $i3;
+    }

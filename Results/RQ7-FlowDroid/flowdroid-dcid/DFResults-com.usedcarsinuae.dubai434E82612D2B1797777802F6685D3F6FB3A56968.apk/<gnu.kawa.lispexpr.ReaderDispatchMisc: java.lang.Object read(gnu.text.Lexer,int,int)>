@@ -1,0 +1,484 @@
+    public java.lang.Object read(gnu.text.Lexer, int, int) throws java.io.IOException, gnu.text.SyntaxException
+    {
+        gnu.kawa.lispexpr.ReadTable $r12;
+        gnu.kawa.reflect.Invoke $r19;
+        gnu.mapping.Values r22;
+        java.lang.Integer $r10;
+        gnu.lists.SimpleVector $r7;
+        boolean $z0;
+        gnu.mapping.Procedure $r20;
+        gnu.kawa.lispexpr.ReaderDispatchMisc r0;
+        gnu.expr.Keyword $r14;
+        java.lang.StringBuilder $r24;
+        java.util.regex.Pattern $r15;
+        gnu.text.Lexer $r1;
+        java.lang.Throwable $r5, $r11, $r21;
+        java.lang.Object[] $r17;
+        int $i0, $i1, $i2;
+        gnu.text.LineBufferedReader $r3;
+        java.lang.Boolean r23;
+        gnu.kawa.util.GeneralHashTable $r9, $r25;
+        java.lang.String $r8, $r26;
+        gnu.mapping.InPort $r4;
+        gnu.kawa.lispexpr.LispReader $r2;
+        char $c3;
+        gnu.lists.Pair $r16;
+        char[] $r13;
+        java.lang.Object $r6, $r18;
+
+        r0 := @this: gnu.kawa.lispexpr.ReaderDispatchMisc;
+
+        $r1 := @parameter0: gnu.text.Lexer;
+
+        $i1 := @parameter1: int;
+
+        $i2 := @parameter2: int;
+
+        $r2 = (gnu.kawa.lispexpr.LispReader) $r1;
+
+        $i0 = r0.<gnu.kawa.lispexpr.ReaderDispatchMisc: int code>;
+
+        if $i0 < 0 goto label01;
+
+        $i1 = $i0;
+
+     label01:
+        $c3 = 0;
+
+        lookupswitch($i1)
+        {
+            case 33: goto label45;
+            case 35: goto label43;
+            case 44: goto label31;
+            case 47: goto label30;
+            case 58: goto label29;
+            case 59: goto label23;
+            case 61: goto label21;
+            case 66: goto label20;
+            case 68: goto label19;
+            case 69: goto label18;
+            case 70: goto label16;
+            case 73: goto label18;
+            case 79: goto label15;
+            case 82: goto label13;
+            case 83: goto label12;
+            case 84: goto label11;
+            case 85: goto label12;
+            case 88: goto label10;
+            case 92: goto label09;
+            case 124: goto label03;
+            default: goto label02;
+        };
+
+     label02:
+        virtualinvoke $r1.<gnu.text.Lexer: void error(java.lang.String)>("An invalid #-construct was read.");
+
+        r22 = <gnu.mapping.Values: gnu.mapping.Values empty>;
+
+        return r22;
+
+     label03:
+        $r3 = virtualinvoke $r2.<gnu.kawa.lispexpr.LispReader: gnu.text.LineBufferedReader getPort()>();
+
+        $z0 = $r3 instanceof gnu.mapping.InPort;
+
+        if $z0 == 0 goto label04;
+
+        $r4 = (gnu.mapping.InPort) $r3;
+
+        $c3 = $r4.<gnu.mapping.InPort: char readState>;
+
+        $r4.<gnu.mapping.InPort: char readState> = 124;
+
+     label04:
+        virtualinvoke $r2.<gnu.kawa.lispexpr.LispReader: void readNestedComment(char,char)>(35, 124);
+
+     label05:
+        if $z0 == 0 goto label06;
+
+        $r4 = (gnu.mapping.InPort) $r3;
+
+        $r4.<gnu.mapping.InPort: char readState> = $c3;
+
+     label06:
+        r22 = <gnu.mapping.Values: gnu.mapping.Values empty>;
+
+        return r22;
+
+     label07:
+        $r5 := @caughtexception;
+
+        if $z0 == 0 goto label08;
+
+        $r4 = (gnu.mapping.InPort) $r3;
+
+        $r4.<gnu.mapping.InPort: char readState> = $c3;
+
+     label08:
+        throw $r5;
+
+     label09:
+        $r6 = staticinvoke <gnu.kawa.lispexpr.LispReader: java.lang.Object readCharacter(gnu.kawa.lispexpr.LispReader)>($r2);
+
+        return $r6;
+
+     label10:
+        $r6 = staticinvoke <gnu.kawa.lispexpr.LispReader: java.lang.Object readNumberWithRadix(int,gnu.kawa.lispexpr.LispReader,int)>(0, $r2, 16);
+
+        return $r6;
+
+     label11:
+        r23 = <java.lang.Boolean: java.lang.Boolean TRUE>;
+
+        return r23;
+
+     label12:
+        $c3 = (char) $i1;
+
+        $r7 = staticinvoke <gnu.kawa.lispexpr.LispReader: gnu.lists.SimpleVector readSimpleVector(gnu.kawa.lispexpr.LispReader,char)>($r2, $c3);
+
+        return $r7;
+
+     label13:
+        if $i2 <= 36 goto label14;
+
+        $r24 = new java.lang.StringBuilder;
+
+        specialinvoke $r24.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("the radix ");
+
+        virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i2);
+
+        virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" is too big (max is 36)");
+
+        $r8 = virtualinvoke $r24.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r1.<gnu.text.Lexer: void error(java.lang.String)>($r8);
+
+        $i2 = 36;
+
+     label14:
+        $r6 = staticinvoke <gnu.kawa.lispexpr.LispReader: java.lang.Object readNumberWithRadix(int,gnu.kawa.lispexpr.LispReader,int)>(0, $r2, $i2);
+
+        return $r6;
+
+     label15:
+        $r6 = staticinvoke <gnu.kawa.lispexpr.LispReader: java.lang.Object readNumberWithRadix(int,gnu.kawa.lispexpr.LispReader,int)>(0, $r2, 8);
+
+        return $r6;
+
+     label16:
+        $i1 = virtualinvoke $r1.<gnu.text.Lexer: int peek()>();
+
+        $c3 = (char) $i1;
+
+        $z0 = staticinvoke <java.lang.Character: boolean isDigit(char)>($c3);
+
+        if $z0 == 0 goto label17;
+
+        $r7 = staticinvoke <gnu.kawa.lispexpr.LispReader: gnu.lists.SimpleVector readSimpleVector(gnu.kawa.lispexpr.LispReader,char)>($r2, 70);
+
+        return $r7;
+
+     label17:
+        r23 = <java.lang.Boolean: java.lang.Boolean FALSE>;
+
+        return r23;
+
+     label18:
+        virtualinvoke $r2.<gnu.kawa.lispexpr.LispReader: void tokenBufferAppend(int)>(35);
+
+        virtualinvoke $r2.<gnu.kawa.lispexpr.LispReader: void tokenBufferAppend(int)>($i1);
+
+        $r6 = staticinvoke <gnu.kawa.lispexpr.LispReader: java.lang.Object readNumberWithRadix(int,gnu.kawa.lispexpr.LispReader,int)>(2, $r2, 0);
+
+        return $r6;
+
+     label19:
+        $r6 = staticinvoke <gnu.kawa.lispexpr.LispReader: java.lang.Object readNumberWithRadix(int,gnu.kawa.lispexpr.LispReader,int)>(0, $r2, 10);
+
+        return $r6;
+
+     label20:
+        $r6 = staticinvoke <gnu.kawa.lispexpr.LispReader: java.lang.Object readNumberWithRadix(int,gnu.kawa.lispexpr.LispReader,int)>(0, $r2, 2);
+
+        return $r6;
+
+     label21:
+        $r6 = virtualinvoke $r2.<gnu.kawa.lispexpr.LispReader: java.lang.Object readObject()>();
+
+        $z0 = $r1 instanceof gnu.kawa.lispexpr.LispReader;
+
+        if $z0 == 0 goto label46;
+
+        $r9 = $r2.<gnu.kawa.lispexpr.LispReader: gnu.kawa.util.GeneralHashTable sharedStructureTable>;
+
+        if $r9 != null goto label22;
+
+        $r25 = new gnu.kawa.util.GeneralHashTable;
+
+        $r9 = $r25;
+
+        specialinvoke $r25.<gnu.kawa.util.GeneralHashTable: void <init>()>();
+
+        $r2.<gnu.kawa.lispexpr.LispReader: gnu.kawa.util.GeneralHashTable sharedStructureTable> = $r25;
+
+     label22:
+        $r10 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i2);
+
+        virtualinvoke $r9.<gnu.kawa.util.GeneralHashTable: java.lang.Object put(java.lang.Object,java.lang.Object)>($r10, $r6);
+
+        return $r6;
+
+     label23:
+        $r3 = virtualinvoke $r2.<gnu.kawa.lispexpr.LispReader: gnu.text.LineBufferedReader getPort()>();
+
+        $z0 = $r3 instanceof gnu.mapping.InPort;
+
+        if $z0 == 0 goto label24;
+
+        $r4 = (gnu.mapping.InPort) $r3;
+
+        $c3 = $r4.<gnu.mapping.InPort: char readState>;
+
+        $r4.<gnu.mapping.InPort: char readState> = 59;
+
+     label24:
+        virtualinvoke $r2.<gnu.kawa.lispexpr.LispReader: java.lang.Object readObject()>();
+
+     label25:
+        if $z0 == 0 goto label26;
+
+        $r4 = (gnu.mapping.InPort) $r3;
+
+        $r4.<gnu.mapping.InPort: char readState> = $c3;
+
+     label26:
+        r22 = <gnu.mapping.Values: gnu.mapping.Values empty>;
+
+        return r22;
+
+     label27:
+        $r11 := @caughtexception;
+
+        if $z0 == 0 goto label28;
+
+        $r4 = (gnu.mapping.InPort) $r3;
+
+        $r4.<gnu.mapping.InPort: char readState> = $c3;
+
+     label28:
+        throw $r11;
+
+     label29:
+        $i1 = $r2.<gnu.kawa.lispexpr.LispReader: int tokenBufferLength>;
+
+        $i2 = virtualinvoke $r2.<gnu.kawa.lispexpr.LispReader: int read()>();
+
+        $r12 = staticinvoke <gnu.kawa.lispexpr.ReadTable: gnu.kawa.lispexpr.ReadTable getCurrent()>();
+
+        virtualinvoke $r2.<gnu.kawa.lispexpr.LispReader: void readToken(int,char,gnu.kawa.lispexpr.ReadTable)>($i2, 80, $r12);
+
+        $i2 = $r2.<gnu.kawa.lispexpr.LispReader: int tokenBufferLength>;
+
+        $i2 = $i2 - $i1;
+
+        $r26 = new java.lang.String;
+
+        $r13 = $r2.<gnu.kawa.lispexpr.LispReader: char[] tokenBuffer>;
+
+        specialinvoke $r26.<java.lang.String: void <init>(char[],int,int)>($r13, $i1, $i2);
+
+        $r2.<gnu.kawa.lispexpr.LispReader: int tokenBufferLength> = $i1;
+
+        $r8 = virtualinvoke $r26.<java.lang.String: java.lang.String intern()>();
+
+        $r14 = staticinvoke <gnu.expr.Keyword: gnu.expr.Keyword make(java.lang.String)>($r8);
+
+        return $r14;
+
+     label30:
+        $r15 = staticinvoke <gnu.kawa.lispexpr.ReaderDispatchMisc: java.util.regex.Pattern readRegex(gnu.text.Lexer,int,int)>($r1, $i1, $i2);
+
+        return $r15;
+
+     label31:
+        $r3 = virtualinvoke $r2.<gnu.kawa.lispexpr.LispReader: gnu.text.LineBufferedReader getPort()>();
+
+        $i1 = virtualinvoke $r3.<gnu.text.LineBufferedReader: int peek()>();
+
+        if $i1 != 40 goto label41;
+
+        $r6 = virtualinvoke $r2.<gnu.kawa.lispexpr.LispReader: java.lang.Object readObject()>();
+
+        $i1 = staticinvoke <gnu.lists.LList: int listLength(java.lang.Object,boolean)>($r6, 0);
+
+        if $i1 <= 0 goto label41;
+
+        $r16 = (gnu.lists.Pair) $r6;
+
+        $r6 = virtualinvoke $r16.<gnu.lists.Pair: java.lang.Object getCar()>();
+
+        $z0 = $r6 instanceof gnu.mapping.Symbol;
+
+        if $z0 == 0 goto label41;
+
+        $r6 = virtualinvoke $r16.<gnu.lists.Pair: java.lang.Object getCar()>();
+
+        $r8 = virtualinvoke $r6.<java.lang.Object: java.lang.String toString()>();
+
+        $r12 = staticinvoke <gnu.kawa.lispexpr.ReadTable: gnu.kawa.lispexpr.ReadTable getCurrent()>();
+
+        $r6 = virtualinvoke $r12.<gnu.kawa.lispexpr.ReadTable: java.lang.Object getReaderCtor(java.lang.String)>($r8);
+
+        if $r6 != null goto label32;
+
+        $r24 = new java.lang.StringBuilder;
+
+        specialinvoke $r24.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("unknown reader constructor ");
+
+        virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r8 = virtualinvoke $r24.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r1.<gnu.text.Lexer: void error(java.lang.String)>($r8);
+
+        goto label42;
+
+     label32:
+        $z0 = $r6 instanceof gnu.mapping.Procedure;
+
+        if $z0 != 0 goto label33;
+
+        $z0 = $r6 instanceof gnu.bytecode.Type;
+
+        if $z0 != 0 goto label33;
+
+        virtualinvoke $r1.<gnu.text.Lexer: void error(java.lang.String)>("reader constructor must be procedure or type name");
+
+        goto label42;
+
+     label33:
+        $i1 = $i1 + -1;
+
+        $z0 = $r6 instanceof gnu.bytecode.Type;
+
+        $i2 = (int) $z0;
+
+        $i2 = $i2 + $i1;
+
+        $r17 = newarray (java.lang.Object)[$i2];
+
+        $r18 = virtualinvoke $r16.<gnu.lists.Pair: java.lang.Object getCdr()>();
+
+        $i2 = 0;
+
+     label34:
+        if $i2 >= $i1 goto label35;
+
+        $r16 = (gnu.lists.Pair) $r18;
+
+        $i0 = (int) $z0;
+
+        $i0 = $i0 + $i2;
+
+        $r18 = virtualinvoke $r16.<gnu.lists.Pair: java.lang.Object getCar()>();
+
+        $r17[$i0] = $r18;
+
+        $r18 = virtualinvoke $r16.<gnu.lists.Pair: java.lang.Object getCdr()>();
+
+        $i2 = $i2 + 1;
+
+        goto label34;
+
+     label35:
+        $i1 = (int) $z0;
+
+        if $i1 <= 0 goto label38;
+
+     label36:
+        $r17[0] = $r6;
+
+        $r19 = <gnu.kawa.reflect.Invoke: gnu.kawa.reflect.Invoke make>;
+
+        $r6 = virtualinvoke $r19.<gnu.kawa.reflect.Invoke: java.lang.Object applyN(java.lang.Object[])>($r17);
+
+     label37:
+        return $r6;
+
+     label38:
+        $r20 = (gnu.mapping.Procedure) $r6;
+
+        $r6 = virtualinvoke $r20.<gnu.mapping.Procedure: java.lang.Object applyN(java.lang.Object[])>($r17);
+
+     label39:
+        return $r6;
+
+     label40:
+        $r21 := @caughtexception;
+
+        $r24 = new java.lang.StringBuilder;
+
+        specialinvoke $r24.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("caught ");
+
+        virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r21);
+
+        virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" applying reader constructor ");
+
+        virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r8 = virtualinvoke $r24.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r1.<gnu.text.Lexer: void error(java.lang.String)>($r8);
+
+        goto label42;
+
+     label41:
+        virtualinvoke $r1.<gnu.text.Lexer: void error(java.lang.String)>("a non-empty list starting with a symbol must follow #,");
+
+     label42:
+        r23 = <java.lang.Boolean: java.lang.Boolean FALSE>;
+
+        return r23;
+
+     label43:
+        $z0 = $r1 instanceof gnu.kawa.lispexpr.LispReader;
+
+        if $z0 == 0 goto label44;
+
+        $r9 = $r2.<gnu.kawa.lispexpr.LispReader: gnu.kawa.util.GeneralHashTable sharedStructureTable>;
+
+        if $r9 == null goto label44;
+
+        $r10 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i2);
+
+        $r6 = virtualinvoke $r9.<gnu.kawa.util.GeneralHashTable: java.lang.Object get(java.lang.Object,java.lang.Object)>($r10, $r1);
+
+        if $r6 == $r1 goto label44;
+
+        return $r6;
+
+     label44:
+        virtualinvoke $r1.<gnu.text.Lexer: void error(java.lang.String)>("an unrecognized #n# back-reference was read");
+
+        r22 = <gnu.mapping.Values: gnu.mapping.Values empty>;
+
+        return r22;
+
+     label45:
+        $r6 = staticinvoke <gnu.kawa.lispexpr.LispReader: java.lang.Object readSpecial(gnu.kawa.lispexpr.LispReader)>($r2);
+
+     label46:
+        return $r6;
+
+        catch java.lang.Throwable from label04 to label05 with label07;
+        catch java.lang.Throwable from label24 to label25 with label27;
+        catch java.lang.Throwable from label36 to label37 with label40;
+        catch java.lang.Throwable from label38 to label39 with label40;
+    }

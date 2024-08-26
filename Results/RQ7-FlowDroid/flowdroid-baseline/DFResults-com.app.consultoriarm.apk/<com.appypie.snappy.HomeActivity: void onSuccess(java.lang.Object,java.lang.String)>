@@ -1,0 +1,448 @@
+    public void onSuccess(java.lang.Object, java.lang.String)
+    {
+        com.appypie.snappy.utils.AppHeaderBG $r14;
+        org.apache.cordova.engine.SystemWebView $r16;
+        com.appypie.snappy.HomeActivity r0;
+        long $l2;
+        org.json.JSONException $r15;
+        org.json.JSONObject $r6, $r8;
+        int $i0, $i1;
+        java.lang.String $r5, $r12;
+        com.appypie.snappy.hyperstore.utils.CoreMetaData $r13;
+        boolean $z0;
+        java.io.PrintStream $r10;
+        java.lang.Exception $r1, $r2, $r3, $r7;
+        com.facebook.login.LoginManager $r17;
+        java.lang.Object $r4;
+        java.lang.StringBuilder $r11;
+        org.json.JSONArray $r9;
+
+        r0 := @this: com.appypie.snappy.HomeActivity;
+
+        $r4 := @parameter0: java.lang.Object;
+
+        $r5 := @parameter1: java.lang.String;
+
+        $z0 = virtualinvoke $r5.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>("Manifast.php");
+
+        if $z0 == 0 goto label06;
+
+        $r5 = virtualinvoke $r4.<java.lang.Object: java.lang.String toString()>();
+
+        $z0 = virtualinvoke $r5.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>("null\n");
+
+        if $z0 != 0 goto label05;
+
+     label01:
+        $r6 = (org.json.JSONObject) $r4;
+
+        $r5 = virtualinvoke $r6.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("firebase_sender_id");
+
+        r0.<com.appypie.snappy.HomeActivity: java.lang.String serverFirebaseSenderId> = $r5;
+
+     label02:
+        goto label04;
+
+     label03:
+        $r7 := @caughtexception;
+
+        virtualinvoke $r7.<java.lang.Exception: void printStackTrace()>();
+
+     label04:
+        specialinvoke r0.<com.appypie.snappy.HomeActivity: void GetRegGCM()>();
+
+        $r5 = virtualinvoke $r4.<java.lang.Object: java.lang.String toString()>();
+
+        specialinvoke r0.<com.appypie.snappy.HomeActivity: void writeManifestJSON(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r4.<java.lang.Object: java.lang.String toString()>();
+
+        specialinvoke r0.<com.appypie.snappy.HomeActivity: void checkForForceUpdate(java.lang.String)>($r5);
+
+        return;
+
+     label05:
+        $r5 = staticinvoke <com.appypie.snappy.utils.StaticData: java.lang.String getJSONFromAsset(android.content.Context,java.lang.String)>(r0, "www/manifest.json");
+
+        specialinvoke r0.<com.appypie.snappy.HomeActivity: void writeManifestJSON(java.lang.String)>($r5);
+
+        specialinvoke r0.<com.appypie.snappy.HomeActivity: void checkForForceUpdate(java.lang.String)>($r5);
+
+        return;
+
+     label06:
+        $z0 = virtualinvoke $r5.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>("API_MANIFAST_TEST_FLIGHT");
+
+        if $z0 == 0 goto label63;
+
+        $r5 = virtualinvoke $r4.<java.lang.Object: java.lang.String toString()>();
+
+        $z0 = virtualinvoke $r5.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>("null\n");
+
+        if $z0 != 0 goto label79;
+
+        $r6 = new org.json.JSONObject;
+
+     label07:
+        $r5 = virtualinvoke $r4.<java.lang.Object: java.lang.String toString()>();
+
+        specialinvoke $r6.<org.json.JSONObject: void <init>(java.lang.String)>($r5);
+
+     label08:
+        <com.appypie.snappy.utils.StaticData: org.json.JSONObject jsonObject> = $r6;
+
+        $r6 = <com.appypie.snappy.utils.StaticData: org.json.JSONObject jsonObject>;
+
+     label09:
+        $r6 = virtualinvoke $r6.<org.json.JSONObject: org.json.JSONObject getJSONObject(java.lang.String)>("appData");
+
+     label10:
+        $r8 = <com.appypie.snappy.utils.StaticData: org.json.JSONObject jsonObject>;
+
+     label11:
+        $r9 = virtualinvoke $r8.<org.json.JSONObject: org.json.JSONArray getJSONArray(java.lang.String)>("home");
+
+     label12:
+        $i0 = 0;
+
+     label13:
+        $i1 = virtualinvoke $r9.<org.json.JSONArray: int length()>();
+
+     label14:
+        if $i0 >= $i1 goto label22;
+
+     label15:
+        $r8 = virtualinvoke $r9.<org.json.JSONArray: org.json.JSONObject getJSONObject(int)>($i0);
+
+        $r5 = virtualinvoke $r8.<org.json.JSONObject: java.lang.String optString(java.lang.String)>("pageid");
+
+        $z0 = virtualinvoke $r5.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>("foodcourt");
+
+     label16:
+        if $z0 == 0 goto label21;
+
+     label17:
+        $r5 = virtualinvoke $r8.<org.json.JSONObject: java.lang.String optString(java.lang.String)>("pageIdentifierBecon");
+
+     label18:
+        $r10 = <java.lang.System: java.io.PrintStream out>;
+
+        $r11 = new java.lang.StringBuilder;
+
+     label19:
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("======  : ");
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r12 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r10.<java.io.PrintStream: void println(java.lang.String)>($r12);
+
+     label20:
+        <com.appypie.snappy.HomeActivity: java.lang.String pageIdentifire> = $r5;
+
+     label21:
+        $i0 = $i0 + 1;
+
+        goto label13;
+
+     label22:
+        $r5 = virtualinvoke $r6.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("plan");
+
+     label23:
+        r0.<com.appypie.snappy.HomeActivity: java.lang.String plan> = $r5;
+
+     label24:
+        $r5 = virtualinvoke $r6.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("appId");
+
+     label25:
+        r0.<com.appypie.snappy.HomeActivity: java.lang.String globalAppId> = $r5;
+
+        if $r6 == null goto label32;
+
+     label26:
+        $z0 = virtualinvoke $r6.<org.json.JSONObject: boolean has(java.lang.String)>("reseller");
+
+     label27:
+        if $z0 == 0 goto label32;
+
+     label28:
+        $r5 = virtualinvoke $r6.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("reseller");
+
+     label29:
+        if $r5 == null goto label32;
+
+     label30:
+        $r5 = virtualinvoke $r6.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("reseller");
+
+        $r5 = virtualinvoke $r5.<java.lang.String: java.lang.String trim()>();
+
+     label31:
+        goto label33;
+
+     label32:
+        $r5 = "";
+
+     label33:
+        <com.appypie.snappy.HomeActivity: java.lang.String baseUrl> = $r5;
+
+        $r5 = <com.appypie.snappy.HomeActivity: java.lang.String baseUrl>;
+
+     label34:
+        $r5 = virtualinvoke $r5.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("\\", "");
+
+        $r5 = virtualinvoke $r5.<java.lang.String: java.lang.String trim()>();
+
+     label35:
+        <com.appypie.snappy.HomeActivity: java.lang.String baseUrl> = $r5;
+
+        if $r6 == null goto label42;
+
+     label36:
+        $z0 = virtualinvoke $r6.<org.json.JSONObject: boolean has(java.lang.String)>("webserviceUrl");
+
+     label37:
+        if $z0 == 0 goto label42;
+
+     label38:
+        $r5 = virtualinvoke $r6.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("webserviceUrl");
+
+     label39:
+        if $r5 == null goto label42;
+
+     label40:
+        $r5 = virtualinvoke $r6.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("webserviceUrl");
+
+        $r5 = virtualinvoke $r5.<java.lang.String: java.lang.String trim()>();
+
+     label41:
+        goto label43;
+
+     label42:
+        $r5 = "";
+
+     label43:
+        <com.appypie.snappy.HomeActivity: java.lang.String webserviceUrl> = $r5;
+
+        if $r6 == null goto label50;
+
+     label44:
+        $z0 = virtualinvoke $r6.<org.json.JSONObject: boolean has(java.lang.String)>("reseller");
+
+     label45:
+        if $z0 == 0 goto label50;
+
+     label46:
+        $r5 = virtualinvoke $r6.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("reseller");
+
+     label47:
+        if $r5 == null goto label50;
+
+     label48:
+        $r5 = virtualinvoke $r6.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("reseller");
+
+        $r5 = virtualinvoke $r5.<java.lang.String: java.lang.String trim()>();
+
+     label49:
+        goto label51;
+
+     label50:
+        $r5 = "";
+
+     label51:
+        <com.appypie.snappy.HomeActivity: java.lang.String reseller> = $r5;
+
+        $r5 = <com.appypie.snappy.HomeActivity: java.lang.String webserviceUrl>;
+
+     label52:
+        $r5 = virtualinvoke $r5.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("\\", "");
+
+        $r5 = virtualinvoke $r5.<java.lang.String: java.lang.String trim()>();
+
+     label53:
+        <com.appypie.snappy.HomeActivity: java.lang.String webserviceUrl> = $r5;
+
+     label54:
+        $r5 = virtualinvoke $r6.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("appName");
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("appname", $r5);
+
+     label55:
+        $r13 = <com.appypie.snappy.hyperstore.utils.CoreMetaData: com.appypie.snappy.hyperstore.utils.CoreMetaData INSTANCE>;
+
+        $r12 = r0.<com.appypie.snappy.HomeActivity: java.lang.String globalAppId>;
+
+     label56:
+        virtualinvoke $r13.<com.appypie.snappy.hyperstore.utils.CoreMetaData: void setAppId(java.lang.String)>($r12);
+
+     label57:
+        $r13 = <com.appypie.snappy.hyperstore.utils.CoreMetaData: com.appypie.snappy.hyperstore.utils.CoreMetaData INSTANCE>;
+
+     label58:
+        virtualinvoke $r13.<com.appypie.snappy.hyperstore.utils.CoreMetaData: void setAppName(java.lang.String)>($r5);
+
+     label59:
+        $r14 = new com.appypie.snappy.utils.AppHeaderBG;
+
+     label60:
+        specialinvoke $r14.<com.appypie.snappy.utils.AppHeaderBG: void <init>(android.content.Context)>(r0);
+
+        virtualinvoke $r14.<com.appypie.snappy.utils.AppHeaderBG: void getScreenResolution(android.content.Context)>(r0);
+
+     label61:
+        return;
+
+     label62:
+        $r15 := @caughtexception;
+
+        virtualinvoke $r15.<org.json.JSONException: void printStackTrace()>();
+
+        return;
+
+     label63:
+        $z0 = virtualinvoke $r5.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>("http://snappy.appypie.com/webservices/Appypie.php");
+
+        if $z0 == 0 goto label79;
+
+        $z0 = $r4 instanceof java.lang.String;
+
+        if $z0 == 0 goto label79;
+
+        $r6 = new org.json.JSONObject;
+
+     label64:
+        $r5 = (java.lang.String) $r4;
+
+        specialinvoke $r6.<org.json.JSONObject: void <init>(java.lang.String)>($r5);
+
+        $r5 = (java.lang.String) $r4;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r5);
+
+     label65:
+        if $z0 != 0 goto label74;
+
+     label66:
+        $r5 = virtualinvoke $r6.<org.json.JSONObject: java.lang.String optString(java.lang.String)>("status");
+
+        $z0 = virtualinvoke $r5.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>("failure");
+
+     label67:
+        if $z0 != 0 goto label74;
+
+     label68:
+        $r5 = virtualinvoke $r6.<org.json.JSONObject: java.lang.String optString(java.lang.String)>("status");
+
+        $z0 = virtualinvoke $r5.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>("success");
+
+     label69:
+        if $z0 == 0 goto label75;
+
+        $r16 = <com.appypie.snappy.HomeActivity: org.apache.cordova.engine.SystemWebView cordovaWebView>;
+
+        $r11 = new java.lang.StringBuilder;
+
+     label70:
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("javascript:Appyscript.signupFacebook(\'");
+
+        $l2 = r0.<com.appypie.snappy.HomeActivity: long fb_id>;
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l2);
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\',\'");
+
+        $r5 = r0.<com.appypie.snappy.HomeActivity: java.lang.String name>;
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\',\'");
+
+        $r5 = virtualinvoke $r6.<org.json.JSONObject: java.lang.String optString(java.lang.String)>("email");
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\',\'\',\'\')");
+
+        $r5 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r16.<org.apache.cordova.engine.SystemWebView: void loadUrl(java.lang.String)>($r5);
+
+     label71:
+        goto label75;
+
+     label72:
+        $r5 = (java.lang.String) $r4;
+
+        staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>("FacebookGraphAPI ", $r5);
+
+     label73:
+        goto label75;
+
+     label74:
+        $l2 = r0.<com.appypie.snappy.HomeActivity: long fb_id>;
+
+        $r5 = r0.<com.appypie.snappy.HomeActivity: java.lang.String name>;
+
+        specialinvoke r0.<com.appypie.snappy.HomeActivity: void alertDialog(java.lang.String,java.lang.String,long,java.lang.String)>("Enter email id", "Email id", $l2, $r5);
+
+     label75:
+        $r17 = staticinvoke <com.facebook.login.LoginManager: com.facebook.login.LoginManager getInstance()>();
+
+        virtualinvoke $r17.<com.facebook.login.LoginManager: void logOut()>();
+
+        return;
+
+     label76:
+        $r1 := @caughtexception;
+
+        goto label75;
+
+     label77:
+        $r2 := @caughtexception;
+
+        goto label72;
+
+     label78:
+        $r3 := @caughtexception;
+
+        goto label75;
+
+     label79:
+        return;
+
+        catch java.lang.Exception from label01 to label02 with label03;
+        catch org.json.JSONException from label07 to label08 with label62;
+        catch org.json.JSONException from label09 to label10 with label62;
+        catch org.json.JSONException from label11 to label12 with label62;
+        catch org.json.JSONException from label13 to label14 with label62;
+        catch org.json.JSONException from label15 to label16 with label62;
+        catch org.json.JSONException from label17 to label18 with label62;
+        catch org.json.JSONException from label19 to label20 with label62;
+        catch org.json.JSONException from label22 to label23 with label62;
+        catch org.json.JSONException from label24 to label25 with label62;
+        catch org.json.JSONException from label26 to label27 with label62;
+        catch org.json.JSONException from label28 to label29 with label62;
+        catch org.json.JSONException from label30 to label31 with label62;
+        catch org.json.JSONException from label34 to label35 with label62;
+        catch org.json.JSONException from label36 to label37 with label62;
+        catch org.json.JSONException from label38 to label39 with label62;
+        catch org.json.JSONException from label40 to label41 with label62;
+        catch org.json.JSONException from label44 to label45 with label62;
+        catch org.json.JSONException from label46 to label47 with label62;
+        catch org.json.JSONException from label48 to label49 with label62;
+        catch org.json.JSONException from label52 to label53 with label62;
+        catch org.json.JSONException from label54 to label55 with label62;
+        catch org.json.JSONException from label56 to label57 with label62;
+        catch org.json.JSONException from label58 to label59 with label62;
+        catch org.json.JSONException from label60 to label61 with label62;
+        catch java.lang.Exception from label64 to label65 with label76;
+        catch java.lang.Exception from label66 to label67 with label76;
+        catch java.lang.Exception from label68 to label69 with label77;
+        catch java.lang.Exception from label70 to label71 with label77;
+        catch java.lang.Exception from label72 to label73 with label78;
+        catch java.lang.Exception from label74 to label75 with label78;
+    }

@@ -1,0 +1,180 @@
+    private void finalizeMostRecentNativeCrash(android.content.Context, java.io.File, java.lang.String) throws java.io.IOException
+    {
+        io.fabric.sdk.android.services.persistence.FileStore $r20;
+        android.content.Context $r1;
+        byte[] $r5, $r6, $r7, $r10, $r11, $r12, $r13, $r15, $r18, $r19;
+        com.crashlytics.android.core.MetaDataStore $r14;
+        com.crashlytics.android.core.CrashlyticsCore $r16;
+        com.crashlytics.android.core.CrashlyticsController r0;
+        int $i0;
+        java.lang.String $r3;
+        boolean $z0;
+        java.io.File $r2, $r21;
+        io.fabric.sdk.android.Logger $r8;
+        com.crashlytics.android.core.LogFileManager r4;
+        com.crashlytics.android.core.CrashlyticsController$LogFileDirectoryProvider $r17;
+        java.lang.StringBuilder $r9;
+
+        r0 := @this: com.crashlytics.android.core.CrashlyticsController;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $r2 := @parameter1: java.io.File;
+
+        $r3 := @parameter2: java.lang.String;
+
+        $r5 = staticinvoke <com.crashlytics.android.core.NativeFileUtils: byte[] minidumpFromDirectory(java.io.File)>($r2);
+
+        $r6 = staticinvoke <com.crashlytics.android.core.NativeFileUtils: byte[] metadataJsonFromDirectory(java.io.File)>($r2);
+
+        $r7 = staticinvoke <com.crashlytics.android.core.NativeFileUtils: byte[] binaryImagesJsonFromDirectory(java.io.File,android.content.Context)>($r2, $r1);
+
+        if $r5 == null goto label1;
+
+        $i0 = lengthof $r5;
+
+        if $i0 != 0 goto label2;
+
+     label1:
+        $r8 = staticinvoke <io.fabric.sdk.android.Fabric: io.fabric.sdk.android.Logger getLogger()>();
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("No minidump data found in directory ");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r2);
+
+        $r3 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        interfaceinvoke $r8.<io.fabric.sdk.android.Logger: void w(java.lang.String,java.lang.String)>("CrashlyticsCore", $r3);
+
+        return;
+
+     label2:
+        staticinvoke <com.crashlytics.android.core.CrashlyticsController: void recordFatalExceptionAnswersEvent(java.lang.String,java.lang.String)>($r3, "<native-crash: minidump>");
+
+        $r10 = specialinvoke r0.<com.crashlytics.android.core.CrashlyticsController: byte[] readFile(java.lang.String,java.lang.String)>($r3, "BeginSession.json");
+
+        $r11 = specialinvoke r0.<com.crashlytics.android.core.CrashlyticsController: byte[] readFile(java.lang.String,java.lang.String)>($r3, "SessionApp.json");
+
+        $r12 = specialinvoke r0.<com.crashlytics.android.core.CrashlyticsController: byte[] readFile(java.lang.String,java.lang.String)>($r3, "SessionDevice.json");
+
+        $r13 = specialinvoke r0.<com.crashlytics.android.core.CrashlyticsController: byte[] readFile(java.lang.String,java.lang.String)>($r3, "SessionOS.json");
+
+        $r14 = new com.crashlytics.android.core.MetaDataStore;
+
+        $r2 = virtualinvoke r0.<com.crashlytics.android.core.CrashlyticsController: java.io.File getFilesDir()>();
+
+        specialinvoke $r14.<com.crashlytics.android.core.MetaDataStore: void <init>(java.io.File)>($r2);
+
+        $r2 = virtualinvoke $r14.<com.crashlytics.android.core.MetaDataStore: java.io.File getUserDataFileForSession(java.lang.String)>($r3);
+
+        $r15 = staticinvoke <com.crashlytics.android.core.NativeFileUtils: byte[] readFile(java.io.File)>($r2);
+
+        r4 = new com.crashlytics.android.core.LogFileManager;
+
+        $r16 = r0.<com.crashlytics.android.core.CrashlyticsController: com.crashlytics.android.core.CrashlyticsCore crashlyticsCore>;
+
+        $r1 = virtualinvoke $r16.<com.crashlytics.android.core.CrashlyticsCore: android.content.Context getContext()>();
+
+        $r17 = r0.<com.crashlytics.android.core.CrashlyticsController: com.crashlytics.android.core.CrashlyticsController$LogFileDirectoryProvider logFileDirectoryProvider>;
+
+        specialinvoke r4.<com.crashlytics.android.core.LogFileManager: void <init>(android.content.Context,com.crashlytics.android.core.LogFileManager$DirectoryProvider,java.lang.String)>($r1, $r17, $r3);
+
+        $r18 = virtualinvoke r4.<com.crashlytics.android.core.LogFileManager: byte[] getBytesForLog()>();
+
+        virtualinvoke r4.<com.crashlytics.android.core.LogFileManager: void clearLog()>();
+
+        $r14 = new com.crashlytics.android.core.MetaDataStore;
+
+        $r2 = virtualinvoke r0.<com.crashlytics.android.core.CrashlyticsController: java.io.File getFilesDir()>();
+
+        specialinvoke $r14.<com.crashlytics.android.core.MetaDataStore: void <init>(java.io.File)>($r2);
+
+        $r2 = virtualinvoke $r14.<com.crashlytics.android.core.MetaDataStore: java.io.File getKeysFileForSession(java.lang.String)>($r3);
+
+        $r19 = staticinvoke <com.crashlytics.android.core.NativeFileUtils: byte[] readFile(java.io.File)>($r2);
+
+        $r2 = new java.io.File;
+
+        $r20 = r0.<com.crashlytics.android.core.CrashlyticsController: io.fabric.sdk.android.services.persistence.FileStore fileStore>;
+
+        $r21 = interfaceinvoke $r20.<io.fabric.sdk.android.services.persistence.FileStore: java.io.File getFilesDir()>();
+
+        specialinvoke $r2.<java.io.File: void <init>(java.io.File,java.lang.String)>($r21, $r3);
+
+        $z0 = virtualinvoke $r2.<java.io.File: boolean mkdir()>();
+
+        if $z0 != 0 goto label3;
+
+        $r8 = staticinvoke <io.fabric.sdk.android.Fabric: io.fabric.sdk.android.Logger getLogger()>();
+
+        interfaceinvoke $r8.<io.fabric.sdk.android.Logger: void d(java.lang.String,java.lang.String)>("CrashlyticsCore", "Couldn\'t create native sessions directory");
+
+        return;
+
+     label3:
+        $r21 = new java.io.File;
+
+        specialinvoke $r21.<java.io.File: void <init>(java.io.File,java.lang.String)>($r2, "minidump");
+
+        specialinvoke r0.<com.crashlytics.android.core.CrashlyticsController: void gzipIfNotEmpty(byte[],java.io.File)>($r5, $r21);
+
+        $r21 = new java.io.File;
+
+        specialinvoke $r21.<java.io.File: void <init>(java.io.File,java.lang.String)>($r2, "metadata");
+
+        specialinvoke r0.<com.crashlytics.android.core.CrashlyticsController: void gzipIfNotEmpty(byte[],java.io.File)>($r6, $r21);
+
+        $r21 = new java.io.File;
+
+        specialinvoke $r21.<java.io.File: void <init>(java.io.File,java.lang.String)>($r2, "binaryImages");
+
+        specialinvoke r0.<com.crashlytics.android.core.CrashlyticsController: void gzipIfNotEmpty(byte[],java.io.File)>($r7, $r21);
+
+        $r21 = new java.io.File;
+
+        specialinvoke $r21.<java.io.File: void <init>(java.io.File,java.lang.String)>($r2, "session");
+
+        specialinvoke r0.<com.crashlytics.android.core.CrashlyticsController: void gzipIfNotEmpty(byte[],java.io.File)>($r10, $r21);
+
+        $r21 = new java.io.File;
+
+        specialinvoke $r21.<java.io.File: void <init>(java.io.File,java.lang.String)>($r2, "app");
+
+        specialinvoke r0.<com.crashlytics.android.core.CrashlyticsController: void gzipIfNotEmpty(byte[],java.io.File)>($r11, $r21);
+
+        $r21 = new java.io.File;
+
+        specialinvoke $r21.<java.io.File: void <init>(java.io.File,java.lang.String)>($r2, "device");
+
+        specialinvoke r0.<com.crashlytics.android.core.CrashlyticsController: void gzipIfNotEmpty(byte[],java.io.File)>($r12, $r21);
+
+        $r21 = new java.io.File;
+
+        specialinvoke $r21.<java.io.File: void <init>(java.io.File,java.lang.String)>($r2, "os");
+
+        specialinvoke r0.<com.crashlytics.android.core.CrashlyticsController: void gzipIfNotEmpty(byte[],java.io.File)>($r13, $r21);
+
+        $r21 = new java.io.File;
+
+        specialinvoke $r21.<java.io.File: void <init>(java.io.File,java.lang.String)>($r2, "user");
+
+        specialinvoke r0.<com.crashlytics.android.core.CrashlyticsController: void gzipIfNotEmpty(byte[],java.io.File)>($r15, $r21);
+
+        $r21 = new java.io.File;
+
+        specialinvoke $r21.<java.io.File: void <init>(java.io.File,java.lang.String)>($r2, "logs");
+
+        specialinvoke r0.<com.crashlytics.android.core.CrashlyticsController: void gzipIfNotEmpty(byte[],java.io.File)>($r18, $r21);
+
+        $r21 = new java.io.File;
+
+        specialinvoke $r21.<java.io.File: void <init>(java.io.File,java.lang.String)>($r2, "keys");
+
+        specialinvoke r0.<com.crashlytics.android.core.CrashlyticsController: void gzipIfNotEmpty(byte[],java.io.File)>($r19, $r21);
+
+        return;
+    }

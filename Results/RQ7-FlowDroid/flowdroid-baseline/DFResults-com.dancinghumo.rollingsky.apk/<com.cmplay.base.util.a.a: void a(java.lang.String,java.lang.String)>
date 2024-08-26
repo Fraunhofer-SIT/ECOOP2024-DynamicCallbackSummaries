@@ -1,0 +1,127 @@
+    public void a(java.lang.String, java.lang.String)
+    {
+        android.content.Context $r6;
+        com.cmplay.base.util.a.a r0;
+        android.net.Uri $r4;
+        long $l2;
+        java.util.ArrayList $r9;
+        android.widget.Toast $r12;
+        int $i0, $i1;
+        java.lang.String $r1, $r2, $r3, $r7;
+        boolean $z0;
+        android.app.DownloadManager $r8;
+        com.cmplay.base.util.a.a$a $r10;
+        java.lang.StringBuilder $r11;
+        android.app.DownloadManager$Request $r5;
+
+        r0 := @this: com.cmplay.base.util.a.a;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r1);
+
+        if $z0 == 0 goto label1;
+
+        return;
+
+     label1:
+        $i0 = virtualinvoke $r1.<java.lang.String: int hashCode()>();
+
+        $z0 = specialinvoke r0.<com.cmplay.base.util.a.a: boolean a(int)>($i0);
+
+        if $z0 == 0 goto label2;
+
+        return;
+
+     label2:
+        r0.<com.cmplay.base.util.a.a: java.lang.String f> = $r2;
+
+        $r3 = "";
+
+        $i0 = virtualinvoke $r1.<java.lang.String: int lastIndexOf(java.lang.String)>("/");
+
+        if $i0 < 0 goto label3;
+
+        $i0 = $i0 + 1;
+
+        $i1 = virtualinvoke $r1.<java.lang.String: int length()>();
+
+        $r3 = virtualinvoke $r1.<java.lang.String: java.lang.String substring(int,int)>($i0, $i1);
+
+     label3:
+        $r4 = staticinvoke <android.net.Uri: android.net.Uri parse(java.lang.String)>($r1);
+
+        $r5 = new android.app.DownloadManager$Request;
+
+        specialinvoke $r5.<android.app.DownloadManager$Request: void <init>(android.net.Uri)>($r4);
+
+        virtualinvoke $r5.<android.app.DownloadManager$Request: android.app.DownloadManager$Request setAllowedNetworkTypes(int)>(3);
+
+        virtualinvoke $r5.<android.app.DownloadManager$Request: android.app.DownloadManager$Request setNotificationVisibility(int)>(1);
+
+        virtualinvoke $r5.<android.app.DownloadManager$Request: android.app.DownloadManager$Request setVisibleInDownloadsUi(boolean)>(1);
+
+        $r6 = r0.<com.cmplay.base.util.a.a: android.content.Context b>;
+
+        $r7 = <android.os.Environment: java.lang.String DIRECTORY_DOWNLOADS>;
+
+        virtualinvoke $r5.<android.app.DownloadManager$Request: android.app.DownloadManager$Request setDestinationInExternalFilesDir(android.content.Context,java.lang.String,java.lang.String)>($r6, $r7, $r3);
+
+        virtualinvoke $r5.<android.app.DownloadManager$Request: android.app.DownloadManager$Request setMimeType(java.lang.String)>("application/vnd.android.package-archive");
+
+        virtualinvoke $r5.<android.app.DownloadManager$Request: android.app.DownloadManager$Request setTitle(java.lang.CharSequence)>($r3);
+
+        $r8 = r0.<com.cmplay.base.util.a.a: android.app.DownloadManager d>;
+
+        $l2 = virtualinvoke $r8.<android.app.DownloadManager: long enqueue(android.app.DownloadManager$Request)>($r5);
+
+        $r9 = r0.<com.cmplay.base.util.a.a: java.util.ArrayList e>;
+
+        $r10 = new com.cmplay.base.util.a.a$a;
+
+        $i0 = virtualinvoke $r1.<java.lang.String: int hashCode()>();
+
+        specialinvoke $r10.<com.cmplay.base.util.a.a$a: void <init>(com.cmplay.base.util.a.a,int,long)>(r0, $i0, $l2);
+
+        virtualinvoke $r9.<java.util.ArrayList: boolean add(java.lang.Object)>($r10);
+
+        $r9 = r0.<com.cmplay.base.util.a.a: java.util.ArrayList e>;
+
+        virtualinvoke r0.<com.cmplay.base.util.a.a: void a(java.util.ArrayList)>($r9);
+
+        $r6 = r0.<com.cmplay.base.util.a.a: android.content.Context b>;
+
+        $r11 = new java.lang.StringBuilder;
+
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\u5f00\u59cb\u4e0b\u8f7d");
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r12 = staticinvoke <android.widget.Toast: android.widget.Toast makeText(android.content.Context,java.lang.CharSequence,int)>($r6, $r2, 1);
+
+        virtualinvoke $r12.<android.widget.Toast: void show()>();
+
+        $r11 = new java.lang.StringBuilder;
+
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("download start   downloadId:");
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l2);
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  apkUrl:");
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.cmplay.base.util.h: void a(java.lang.String,java.lang.String)>("APK_DOWNLOAD", $r1);
+
+        return;
+    }

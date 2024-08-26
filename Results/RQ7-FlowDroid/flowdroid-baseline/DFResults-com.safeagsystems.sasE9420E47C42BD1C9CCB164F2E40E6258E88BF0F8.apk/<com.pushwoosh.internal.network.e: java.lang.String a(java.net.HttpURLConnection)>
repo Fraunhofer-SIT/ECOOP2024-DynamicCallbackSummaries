@@ -1,0 +1,115 @@
+    private java.lang.String a(java.net.HttpURLConnection) throws java.io.IOException
+    {
+        java.net.HttpURLConnection $r1;
+        java.lang.Throwable $r7, $r8, $r9, $r10;
+        byte[] $r5;
+        com.pushwoosh.internal.network.e r0;
+        java.io.BufferedInputStream $r2;
+        java.io.ByteArrayOutputStream $r4;
+        int $i0;
+        java.lang.String $r6;
+        boolean $z0;
+        java.io.InputStream $r3;
+
+        r0 := @this: com.pushwoosh.internal.network.e;
+
+        $r1 := @parameter0: java.net.HttpURLConnection;
+
+        $i0 = virtualinvoke $r1.<java.net.HttpURLConnection: int getResponseCode()>();
+
+        $z0 = specialinvoke r0.<com.pushwoosh.internal.network.e: boolean a(int)>($i0);
+
+        if $z0 == 0 goto label01;
+
+        $r2 = new java.io.BufferedInputStream;
+
+        $r3 = virtualinvoke $r1.<java.net.HttpURLConnection: java.io.InputStream getErrorStream()>();
+
+        specialinvoke $r2.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r3);
+
+        goto label02;
+
+     label01:
+        $r2 = new java.io.BufferedInputStream;
+
+        $r3 = virtualinvoke $r1.<java.net.URLConnection: java.io.InputStream getInputStream()>();
+
+        specialinvoke $r2.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r3);
+
+     label02:
+        $r4 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r4.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label03:
+        $r5 = newarray (byte)[1024];
+
+     label04:
+        $i0 = virtualinvoke $r2.<java.io.InputStream: int read(byte[])>($r5);
+
+     label05:
+        if $i0 < 0 goto label08;
+
+     label06:
+        virtualinvoke $r4.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r5, 0, $i0);
+
+     label07:
+        goto label04;
+
+     label08:
+        $r6 = new java.lang.String;
+
+        $r5 = virtualinvoke $r4.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        specialinvoke $r6.<java.lang.String: void <init>(byte[])>($r5);
+
+        $r6 = virtualinvoke $r6.<java.lang.String: java.lang.String trim()>();
+
+     label09:
+        virtualinvoke $r4.<java.io.ByteArrayOutputStream: void close()>();
+
+     label10:
+        virtualinvoke $r2.<java.io.InputStream: void close()>();
+
+        return $r6;
+
+     label11:
+        $r7 := @caughtexception;
+
+     label12:
+        throw $r7;
+
+     label13:
+        $r8 := @caughtexception;
+
+     label14:
+        virtualinvoke $r4.<java.io.ByteArrayOutputStream: void close()>();
+
+     label15:
+        goto label18;
+
+     label16:
+        $r9 := @caughtexception;
+
+     label17:
+        virtualinvoke $r7.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r9);
+
+     label18:
+        throw $r8;
+
+     label19:
+        $r10 := @caughtexception;
+
+        virtualinvoke $r2.<java.io.InputStream: void close()>();
+
+        throw $r10;
+
+        catch java.lang.Throwable from label02 to label03 with label19;
+        catch java.lang.Throwable from label04 to label05 with label11;
+        catch java.lang.Throwable from label06 to label07 with label11;
+        catch java.lang.Throwable from label08 to label09 with label11;
+        catch java.lang.Throwable from label09 to label10 with label19;
+        catch java.lang.Throwable from label12 to label13 with label13;
+        catch java.lang.Throwable from label14 to label15 with label16;
+        catch java.lang.Throwable from label17 to label19 with label19;
+    }

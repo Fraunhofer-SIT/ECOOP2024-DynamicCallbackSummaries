@@ -1,0 +1,270 @@
+    private final void W7(android.net.Uri)
+    {
+        java.lang.Throwable $r11, $r13;
+        byte[] $r8;
+        java.lang.Object[] $r12;
+        android.net.Uri $r1;
+        ba.f0 $r15, $r18;
+        long $l0, $l2;
+        android.content.ContentResolver $r2;
+        android.widget.Toast $r16;
+        int $i1;
+        com.kabbage.mobile.account.docuploader.DocUploaderActivity$i $r24;
+        com.kabbage.mobile.account.docuploader.DocUploaderActivity$h $r25;
+        java.lang.String $r3, $r4, $r6, $r14;
+        boolean $z0;
+        com.kabbage.mobile.account.docuploader.DocUploaderActivity r0;
+        androidx.appcompat.app.d $r17;
+        java.io.FileOutputStream $r22;
+        java.io.IOException $r26;
+        java.util.UUID $r19;
+        java.io.File $r5, $r9, $r10, $r21;
+        androidx.appcompat.app.d$a $r23;
+        java.lang.StringBuilder $r20;
+        java.io.InputStream $r7;
+
+        r0 := @this: com.kabbage.mobile.account.docuploader.DocUploaderActivity;
+
+        $r1 := @parameter0: android.net.Uri;
+
+        $r2 = virtualinvoke r0.<android.app.Activity: android.content.ContentResolver getContentResolver()>();
+
+        $r3 = virtualinvoke $r2.<android.content.ContentResolver: java.lang.String getType(android.net.Uri)>($r1);
+
+        $r4 = $r3;
+
+        $r9 = new java.io.File;
+
+        $r5 = $r9;
+
+        $r6 = virtualinvoke $r1.<android.net.Uri: java.lang.String getPath()>();
+
+        specialinvoke $r9.<java.io.File: void <init>(java.lang.String)>($r6);
+
+        $r2 = virtualinvoke r0.<android.app.Activity: android.content.ContentResolver getContentResolver()>();
+
+        $r7 = virtualinvoke $r2.<android.content.ContentResolver: java.io.InputStream openInputStream(android.net.Uri)>($r1);
+
+        virtualinvoke $r9.<java.io.File: boolean setWritable(boolean)>(1);
+
+        staticinvoke <fs.m: void d(java.lang.Object)>($r7);
+
+        $i1 = virtualinvoke $r7.<java.io.InputStream: int available()>();
+
+        $r8 = newarray (byte)[$i1];
+
+        virtualinvoke $r7.<java.io.InputStream: int read(byte[])>($r8);
+
+        $r21 = new java.io.File;
+
+        $r9 = $r21;
+
+        $r20 = new java.lang.StringBuilder;
+
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r10 = virtualinvoke r0.<android.app.Activity: java.io.File getFilesDir()>();
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r10);
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/docUploadTemp/");
+
+        $r6 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r21.<java.io.File: void <init>(java.lang.String)>($r6);
+
+        $z0 = virtualinvoke $r21.<java.io.File: boolean exists()>();
+
+        if $z0 != 0 goto label01;
+
+        virtualinvoke $r21.<java.io.File: boolean mkdir()>();
+
+     label01:
+        $r21 = new java.io.File;
+
+        $r10 = $r21;
+
+        $r20 = new java.lang.StringBuilder;
+
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r6 = virtualinvoke $r9.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(47);
+
+        $r6 = virtualinvoke $r5.<java.io.File: java.lang.String getName()>();
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r6);
+
+        $r6 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r21.<java.io.File: void <init>(java.lang.String)>($r6);
+
+        $z0 = virtualinvoke $r21.<java.io.File: boolean exists()>();
+
+        if $z0 != 0 goto label05;
+
+     label02:
+        virtualinvoke $r21.<java.io.File: boolean createNewFile()>();
+
+     label03:
+        goto label05;
+
+     label04:
+        $r11 := @caughtexception;
+
+        $r26 = (java.io.IOException) $r11;
+
+        $r6 = virtualinvoke $r26.<java.io.IOException: java.lang.String getMessage()>();
+
+        $r12 = newarray (java.lang.Object)[0];
+
+        staticinvoke <fv.a: void f(int,java.lang.String,java.lang.Object[])>(1, $r6, $r12);
+
+     label05:
+        $r22 = new java.io.FileOutputStream;
+
+     label06:
+        specialinvoke $r22.<java.io.FileOutputStream: void <init>(java.io.File)>($r10);
+
+        virtualinvoke $r22.<java.io.FileOutputStream: void write(byte[])>($r8);
+
+        virtualinvoke $r22.<java.io.FileOutputStream: void flush()>();
+
+        virtualinvoke $r22.<java.io.FileOutputStream: void close()>();
+
+     label07:
+        goto label09;
+
+     label08:
+        $r13 := @caughtexception;
+
+        $r26 = (java.io.IOException) $r13;
+
+        $r6 = virtualinvoke $r26.<java.io.IOException: java.lang.String getMessage()>();
+
+        $r12 = newarray (java.lang.Object)[0];
+
+        staticinvoke <fv.a: void f(int,java.lang.String,java.lang.Object[])>(1, $r6, $r12);
+
+     label09:
+        $r14 = specialinvoke r0.<com.kabbage.mobile.account.docuploader.DocUploaderActivity: java.lang.String U7(android.net.Uri)>($r1);
+
+        $r6 = $r14;
+
+        $r15 = null;
+
+        if $r14 != null goto label10;
+
+        $r6 = null;
+
+     label10:
+        if $r6 != null goto label11;
+
+        $r6 = virtualinvoke $r5.<java.io.File: java.lang.String getName()>();
+
+     label11:
+        $l2 = virtualinvoke $r10.<java.io.File: long length()>();
+
+        $l0 = (long) 1024;
+
+        $l0 = $l2 / $l0;
+
+        $r14 = staticinvoke <java.lang.String: java.lang.String valueOf(long)>($l0);
+
+        $i1 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>($r14);
+
+        if $i1 <= 10240 goto label12;
+
+        $i1 = <com.kabbage.mobile.R$string: int max_file_size_error>;
+
+        $r16 = staticinvoke <av.b: android.widget.Toast a(android.content.Context,int,int)>(r0, $i1, 0);
+
+        virtualinvoke $r16.<android.widget.Toast: void show()>();
+
+        return;
+
+     label12:
+        if $i1 <= 5120 goto label13;
+
+        $i1 = <com.kabbage.mobile.R$string: int max_file_size_before_warning>;
+
+        $r4 = virtualinvoke r0.<android.app.Activity: java.lang.String getString(int)>($i1);
+
+        $i1 = <com.kabbage.mobile.R$string: int alert>;
+
+        $r14 = virtualinvoke r0.<android.app.Activity: java.lang.String getString(int)>($i1);
+
+        $r23 = new androidx.appcompat.app.d$a;
+
+        specialinvoke $r23.<androidx.appcompat.app.d$a: void <init>(android.content.Context)>(r0);
+
+        staticinvoke <tu.a: void c(androidx.appcompat.app.d$a,java.lang.CharSequence)>($r23, $r14);
+
+        staticinvoke <tu.a: void a(androidx.appcompat.app.d$a,java.lang.CharSequence)>($r23, $r4);
+
+        virtualinvoke $r23.<androidx.appcompat.app.d$a: androidx.appcompat.app.d$a g(android.graphics.drawable.Drawable)>(null);
+
+        virtualinvoke $r23.<androidx.appcompat.app.d$a: androidx.appcompat.app.d$a d(boolean)>(1);
+
+        virtualinvoke $r23.<androidx.appcompat.app.d$a: androidx.appcompat.app.d$a f(int)>(0);
+
+        $i1 = <com.kabbage.mobile.R$string: int ok>;
+
+        $r24 = new com.kabbage.mobile.account.docuploader.DocUploaderActivity$i;
+
+        specialinvoke $r24.<com.kabbage.mobile.account.docuploader.DocUploaderActivity$i: void <init>(com.kabbage.mobile.account.docuploader.DocUploaderActivity,java.lang.String,java.io.File,java.lang.String)>(r0, $r6, $r10, $r3);
+
+        virtualinvoke $r23.<androidx.appcompat.app.d$a: androidx.appcompat.app.d$a o(int,android.content.DialogInterface$OnClickListener)>($i1, $r24);
+
+        $i1 = <com.kabbage.mobile.R$string: int cancel>;
+
+        $r25 = new com.kabbage.mobile.account.docuploader.DocUploaderActivity$h;
+
+        specialinvoke $r25.<com.kabbage.mobile.account.docuploader.DocUploaderActivity$h: void <init>()>();
+
+        virtualinvoke $r23.<androidx.appcompat.app.d$a: androidx.appcompat.app.d$a k(int,android.content.DialogInterface$OnClickListener)>($i1, $r25);
+
+        $r17 = virtualinvoke $r23.<androidx.appcompat.app.d$a: androidx.appcompat.app.d a()>();
+
+        staticinvoke <fs.m: void e(java.lang.Object,java.lang.String)>($r17, "Builder(this).apply {\n        this.title = title\n        this.message = message\n        setIcon(icon)\n        setCancelable(isCancellable)\n        dialogConfig()\n    }.create()");
+
+        virtualinvoke $r17.<android.app.Dialog: void show()>();
+
+        return;
+
+     label13:
+        $r18 = r0.<com.kabbage.mobile.account.docuploader.DocUploaderActivity: ba.f0 y>;
+
+        if $r18 != null goto label14;
+
+        staticinvoke <fs.m: void u(java.lang.String)>("presenter");
+
+        goto label15;
+
+     label14:
+        $r15 = $r18;
+
+     label15:
+        $r19 = staticinvoke <java.util.UUID: java.util.UUID randomUUID()>();
+
+        $r14 = virtualinvoke $r19.<java.util.UUID: java.lang.String toString()>();
+
+        staticinvoke <fs.m: void e(java.lang.Object,java.lang.String)>($r14, "randomUUID().toString()");
+
+        staticinvoke <fs.m: void e(java.lang.Object,java.lang.String)>($r6, "displayName");
+
+        if $r3 != null goto label16;
+
+        $r4 = "image/jpeg";
+
+     label16:
+        virtualinvoke $r15.<ba.f0: void q0(java.lang.String,java.lang.String,java.io.File,java.lang.String)>($r14, $r6, $r10, $r4);
+
+        return;
+
+        catch java.io.IOException from label02 to label03 with label04;
+        catch java.io.IOException from label06 to label07 with label08;
+    }

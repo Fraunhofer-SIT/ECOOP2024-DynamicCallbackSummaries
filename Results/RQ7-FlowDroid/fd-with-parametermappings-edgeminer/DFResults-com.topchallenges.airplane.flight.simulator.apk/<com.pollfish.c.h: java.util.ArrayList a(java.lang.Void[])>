@@ -1,0 +1,309 @@
+    protected transient java.util.ArrayList a(java.lang.Void[])
+    {
+        java.lang.Throwable $r11, $r20;
+        java.io.ByteArrayOutputStream $r21;
+        java.util.ArrayList $r2, $r24;
+        org.json.JSONObject $r15;
+        android.content.res.AssetManager $r9;
+        int $i0, $i1;
+        java.lang.String $r13, $r14, $r16, $r17;
+        java.lang.Void[] $r1;
+        boolean $z0;
+        com.pollfish.c.h r0;
+        java.lang.Exception $r10, $r18, $r19;
+        com.pollfish.a.c $r26;
+        java.lang.Class $r3;
+        java.lang.StringBuilder $r12, $r22;
+        java.lang.ClassLoader $r4;
+        android.app.Activity $r7;
+        com.pollfish.b.a $r23;
+        org.json.JSONArray $r25;
+        java.io.InputStream $r5, $r6;
+        android.content.res.Resources $r8;
+
+        r0 := @this: com.pollfish.c.h;
+
+        $r1 := @parameter0: java.lang.Void[];
+
+        $r2 = null;
+
+        staticinvoke <com.pollfish.f.b: void a(java.lang.String,java.lang.String)>("ReadAssetsJsonAndWriteCacheTask", "trying to read poll_resources.json file...");
+
+        $r3 = class "Lcom/pollfish/main/PollFish;";
+
+     label01:
+        $r4 = virtualinvoke $r3.<java.lang.Class: java.lang.ClassLoader getClassLoader()>();
+
+        $r5 = virtualinvoke $r4.<java.lang.ClassLoader: java.io.InputStream getResourceAsStream(java.lang.String)>("html/poll_resources");
+
+     label02:
+        $r6 = $r5;
+
+        if $r5 != null goto label14;
+
+     label03:
+        staticinvoke <com.pollfish.f.b: void a(java.lang.String,java.lang.String)>("ReadAssetsJsonAndWriteCacheTask", "poll_res inputStream == null");
+
+     label04:
+        $r7 = r0.<com.pollfish.c.h: android.app.Activity a>;
+
+        $r8 = virtualinvoke $r7.<android.app.Activity: android.content.res.Resources getResources()>();
+
+     label05:
+        $i0 = <com.pollfish.a$b: int f>;
+
+     label06:
+        $r5 = virtualinvoke $r8.<android.content.res.Resources: java.io.InputStream openRawResource(int)>($i0);
+
+     label07:
+        $r6 = $r5;
+
+     label08:
+        if $r6 != null goto label14;
+
+     label09:
+        staticinvoke <com.pollfish.f.b: void a(java.lang.String,java.lang.String)>("ReadAssetsJsonAndWriteCacheTask", "poll_res inputStream == null after get from raw");
+
+     label10:
+        $r7 = r0.<com.pollfish.c.h: android.app.Activity a>;
+
+     label11:
+        $r8 = virtualinvoke $r7.<android.app.Activity: android.content.res.Resources getResources()>();
+
+        $r9 = virtualinvoke $r8.<android.content.res.Resources: android.content.res.AssetManager getAssets()>();
+
+        $r5 = virtualinvoke $r9.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>("html/poll_resources");
+
+     label12:
+        $r6 = $r5;
+
+        if $r5 != null goto label14;
+
+     label13:
+        staticinvoke <com.pollfish.f.b: void a(java.lang.String,java.lang.String)>("ReadAssetsJsonAndWriteCacheTask", "inputStream == null after getAssets");
+
+     label14:
+        $r5 = $r6;
+
+        $r21 = new java.io.ByteArrayOutputStream;
+
+     label15:
+        specialinvoke $r21.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $i0 = virtualinvoke $r6.<java.io.InputStream: int read()>();
+
+     label16:
+        if $i0 == -1 goto label25;
+
+     label17:
+        virtualinvoke $r21.<java.io.ByteArrayOutputStream: void write(int)>($i0);
+
+        $i0 = virtualinvoke $r5.<java.io.InputStream: int read()>();
+
+     label18:
+        goto label16;
+
+     label19:
+        $r10 := @caughtexception;
+
+     label20:
+        staticinvoke <com.pollfish.f.b: void b(java.lang.String,java.lang.String)>("ReadAssetsJsonAndWriteCacheTask", "activity.getResources().openRawResource(R.raw.poll_resources");
+
+     label21:
+        goto label08;
+
+     label22:
+        $r11 := @caughtexception;
+
+     label23:
+        staticinvoke <com.pollfish.f.b.a: void a(java.lang.Throwable)>($r11);
+
+        $r22 = new java.lang.StringBuilder;
+
+        specialinvoke $r22.<java.lang.StringBuilder: void <init>()>();
+
+        $r12 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Error while reading resources_html file - io...: ");
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r11);
+
+        $r13 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.pollfish.f.b: void b(java.lang.String,java.lang.String)>("ReadAssetsJsonAndWriteCacheTask", $r13);
+
+     label24:
+        staticinvoke <com.pollfish.f.b: void a(java.lang.String,java.lang.String)>("ReadAssetsJsonAndWriteCacheTask", "finished reading resources_html file...");
+
+        return $r2;
+
+     label25:
+        virtualinvoke $r5.<java.io.InputStream: void close()>();
+
+        $r13 = virtualinvoke $r21.<java.io.ByteArrayOutputStream: java.lang.String toString()>();
+
+     label26:
+        if $r13 == null goto label50;
+
+        $r23 = new com.pollfish.b.a;
+
+     label27:
+        specialinvoke $r23.<com.pollfish.b.a: void <init>()>();
+
+        $r13 = virtualinvoke $r23.<com.pollfish.b.a: java.lang.String b(java.lang.String)>($r13);
+
+     label28:
+        $r22 = new java.lang.StringBuilder;
+
+     label29:
+        specialinvoke $r22.<java.lang.StringBuilder: void <init>()>();
+
+        $r12 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("decrypted: ");
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r14 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.pollfish.f.b: void a(java.lang.String,java.lang.String)>("ReadAssetsJsonAndWriteCacheTask", $r14);
+
+     label30:
+        $r24 = new java.util.ArrayList;
+
+     label31:
+        specialinvoke $r24.<java.util.ArrayList: void <init>()>();
+
+     label32:
+        $r25 = new org.json.JSONArray;
+
+     label33:
+        specialinvoke $r25.<org.json.JSONArray: void <init>(java.lang.String)>($r13);
+
+     label34:
+        $i0 = 0;
+
+     label35:
+        $i1 = virtualinvoke $r25.<org.json.JSONArray: int length()>();
+
+     label36:
+        if $i0 >= $i1 goto label45;
+
+     label37:
+        $r15 = virtualinvoke $r25.<org.json.JSONArray: org.json.JSONObject getJSONObject(int)>($i0);
+
+        $r13 = virtualinvoke $r15.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("cache_path");
+
+        $r14 = virtualinvoke $r15.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("project_path");
+
+        $r16 = virtualinvoke $r15.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("raw_path");
+
+        $r17 = virtualinvoke $r15.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("url_path");
+
+        $i1 = virtualinvoke $r15.<org.json.JSONObject: int getInt(java.lang.String)>("file_type");
+
+        $z0 = virtualinvoke $r13.<java.lang.String: boolean startsWith(java.lang.String)>("./");
+
+     label38:
+        if $z0 == 0 goto label40;
+
+     label39:
+        virtualinvoke $r13.<java.lang.String: java.lang.String replaceFirst(java.lang.String,java.lang.String)>("./", "/");
+
+     label40:
+        $r26 = new com.pollfish.a.c;
+
+     label41:
+        specialinvoke $r26.<com.pollfish.a.c: void <init>(java.lang.String,java.lang.String,java.lang.String,java.lang.String,int)>($r13, $r14, $r16, $r17, $i1);
+
+     label42:
+        if $r26 == null goto label44;
+
+     label43:
+        virtualinvoke $r24.<java.util.ArrayList: boolean add(java.lang.Object)>($r26);
+
+     label44:
+        $i0 = $i0 + 1;
+
+        goto label35;
+
+     label45:
+        $r2 = $r24;
+
+        goto label24;
+
+     label46:
+        $r18 := @caughtexception;
+
+     label47:
+        staticinvoke <com.pollfish.f.b.a: void a(java.lang.Throwable)>($r18);
+
+        $r22 = new java.lang.StringBuilder;
+
+        specialinvoke $r22.<java.lang.StringBuilder: void <init>()>();
+
+        $r12 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Error while reading resources_html file...: ");
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r18);
+
+        $r13 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.pollfish.f.b: void b(java.lang.String,java.lang.String)>("ReadAssetsJsonAndWriteCacheTask", $r13);
+
+        goto label24;
+
+     label48:
+        $r19 := @caughtexception;
+
+        $r18 = $r19;
+
+        $r2 = $r24;
+
+        goto label47;
+
+     label49:
+        $r20 := @caughtexception;
+
+        $r11 = $r20;
+
+        $r2 = $r24;
+
+        goto label23;
+
+     label50:
+        return null;
+
+        catch java.io.IOException from label01 to label02 with label22;
+        catch java.io.IOException from label03 to label04 with label22;
+        catch java.lang.Exception from label01 to label02 with label46;
+        catch java.lang.Exception from label03 to label04 with label46;
+        catch java.lang.Exception from label04 to label05 with label19;
+        catch java.lang.Exception from label06 to label07 with label19;
+        catch java.io.IOException from label09 to label10 with label22;
+        catch java.io.IOException from label11 to label12 with label22;
+        catch java.io.IOException from label13 to label14 with label22;
+        catch java.io.IOException from label15 to label16 with label22;
+        catch java.io.IOException from label17 to label18 with label22;
+        catch java.io.IOException from label20 to label21 with label22;
+        catch java.lang.Exception from label09 to label12 with label46;
+        catch java.lang.Exception from label13 to label14 with label46;
+        catch java.lang.Exception from label15 to label16 with label46;
+        catch java.lang.Exception from label17 to label18 with label46;
+        catch java.lang.Exception from label20 to label21 with label46;
+        catch java.io.IOException from label25 to label26 with label22;
+        catch java.io.IOException from label27 to label28 with label22;
+        catch java.io.IOException from label29 to label30 with label22;
+        catch java.io.IOException from label31 to label32 with label22;
+        catch java.lang.Exception from label25 to label26 with label46;
+        catch java.lang.Exception from label27 to label28 with label46;
+        catch java.lang.Exception from label29 to label30 with label46;
+        catch java.lang.Exception from label31 to label32 with label46;
+        catch java.io.IOException from label33 to label34 with label49;
+        catch java.io.IOException from label35 to label36 with label49;
+        catch java.io.IOException from label37 to label38 with label49;
+        catch java.io.IOException from label39 to label40 with label49;
+        catch java.io.IOException from label41 to label42 with label49;
+        catch java.io.IOException from label43 to label44 with label49;
+        catch java.lang.Exception from label33 to label34 with label48;
+        catch java.lang.Exception from label35 to label36 with label48;
+        catch java.lang.Exception from label37 to label38 with label48;
+        catch java.lang.Exception from label39 to label40 with label48;
+        catch java.lang.Exception from label41 to label42 with label48;
+        catch java.lang.Exception from label43 to label44 with label48;
+    }

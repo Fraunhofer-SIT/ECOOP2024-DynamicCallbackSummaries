@@ -1,0 +1,36 @@
+    public static void CopyStream(java.io.InputStream, java.io.OutputStream)
+    {
+        java.io.OutputStream $r1;
+        byte[] r2;
+        int $i0;
+        java.lang.Exception $r3;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $r1 := @parameter1: java.io.OutputStream;
+
+        r2 = newarray (byte)[1024];
+
+     label1:
+        $i0 = virtualinvoke $r0.<java.io.InputStream: int read(byte[],int,int)>(r2, 0, 1024);
+
+     label2:
+        if $i0 != -1 goto label3;
+
+        return;
+
+     label3:
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[],int,int)>(r2, 0, $i0);
+
+     label4:
+        goto label1;
+
+     label5:
+        $r3 := @caughtexception;
+
+        return;
+
+        catch java.lang.Exception from label1 to label2 with label5;
+        catch java.lang.Exception from label3 to label4 with label5;
+    }

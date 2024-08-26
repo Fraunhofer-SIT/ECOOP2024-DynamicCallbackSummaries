@@ -1,0 +1,40 @@
+    public int read() throws java.io.IOException
+    {
+        org.spongycastle.asn1.IndefiniteLengthInputStream r0;
+        int $i0, $i1, i2;
+        java.io.EOFException $r2;
+        boolean $z0;
+        java.io.InputStream $r1;
+
+        r0 := @this: org.spongycastle.asn1.IndefiniteLengthInputStream;
+
+        $z0 = specialinvoke r0.<org.spongycastle.asn1.IndefiniteLengthInputStream: boolean checkForEof()>();
+
+        if $z0 == 0 goto label1;
+
+        return -1;
+
+     label1:
+        $r1 = r0.<org.spongycastle.asn1.LimitedInputStream: java.io.InputStream _in>;
+
+        $i1 = virtualinvoke $r1.<java.io.InputStream: int read()>();
+
+        if $i1 < 0 goto label2;
+
+        i2 = r0.<org.spongycastle.asn1.IndefiniteLengthInputStream: int _b1>;
+
+        $i0 = r0.<org.spongycastle.asn1.IndefiniteLengthInputStream: int _b2>;
+
+        r0.<org.spongycastle.asn1.IndefiniteLengthInputStream: int _b1> = $i0;
+
+        r0.<org.spongycastle.asn1.IndefiniteLengthInputStream: int _b2> = $i1;
+
+        return i2;
+
+     label2:
+        $r2 = new java.io.EOFException;
+
+        specialinvoke $r2.<java.io.EOFException: void <init>()>();
+
+        throw $r2;
+    }

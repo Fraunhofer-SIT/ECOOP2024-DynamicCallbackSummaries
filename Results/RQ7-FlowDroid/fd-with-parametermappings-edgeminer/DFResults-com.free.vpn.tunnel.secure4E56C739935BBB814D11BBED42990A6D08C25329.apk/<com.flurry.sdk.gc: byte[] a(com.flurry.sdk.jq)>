@@ -1,0 +1,191 @@
+    public final byte[] a(com.flurry.sdk.jq)
+    {
+        java.lang.Throwable $r7, $r8, $r9;
+        byte[] $r2, $r6;
+        java.io.ByteArrayOutputStream $r11;
+        long $l3;
+        com.flurry.sdk.j $r10;
+        java.io.DataOutputStream $r3, $r13;
+        byte $b0;
+        int $i1, $i2;
+        java.lang.String $r5;
+        com.flurry.sdk.jo $r4;
+        com.flurry.sdk.jq $r1;
+        boolean $z0;
+        com.flurry.sdk.gc r0;
+        java.security.DigestOutputStream $r12;
+        java.lang.StringBuilder $r14;
+
+        r0 := @this: com.flurry.sdk.gc;
+
+        $r1 := @parameter0: com.flurry.sdk.jq;
+
+        entermonitor r0;
+
+        $r2 = null;
+
+     label01:
+        $r10 = new com.flurry.sdk.j;
+
+        specialinvoke $r10.<com.flurry.sdk.j: void <init>()>();
+
+        $r11 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r11.<java.io.ByteArrayOutputStream: void <init>(int)>(640);
+
+        $r12 = new java.security.DigestOutputStream;
+
+        specialinvoke $r12.<java.security.DigestOutputStream: void <init>(java.io.OutputStream,java.security.MessageDigest)>($r11, $r10);
+
+        $r13 = new java.io.DataOutputStream;
+
+        $r3 = $r13;
+
+        specialinvoke $r13.<java.io.DataOutputStream: void <init>(java.io.OutputStream)>($r12);
+
+     label02:
+        $r14 = new java.lang.StringBuilder;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>("Adding frame ");
+
+        $r4 = interfaceinvoke $r1.<com.flurry.sdk.jq: com.flurry.sdk.jo a()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r4);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" payload ");
+
+        $r5 = interfaceinvoke $r1.<com.flurry.sdk.jq: java.lang.String e()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.flurry.sdk.cy: void a(int,java.lang.String,java.lang.String)>(3, "FrameSerializer", $r5);
+
+        $b0 = interfaceinvoke $r1.<com.flurry.sdk.jq: byte g()>();
+
+        $i1 = (int) $b0;
+
+        virtualinvoke $r13.<java.io.DataOutputStream: void writeByte(int)>($i1);
+
+        $r4 = interfaceinvoke $r1.<com.flurry.sdk.jq: com.flurry.sdk.jo a()>();
+
+        $i1 = $r4.<com.flurry.sdk.jo: int N>;
+
+        $r6 = newarray (byte)[4];
+
+        $i2 = $i1 >> 16;
+
+        $b0 = (byte) $i2;
+
+        $r6[0] = $b0;
+
+        $i2 = $i1 >> 8;
+
+        $b0 = (byte) $i2;
+
+        $r6[1] = $b0;
+
+        $i1 = $i1 >> 0;
+
+        $b0 = (byte) $i1;
+
+        $r6[2] = $b0;
+
+        $i1 = 0;
+
+     label03:
+        if $i1 >= 3 goto label04;
+
+        $b0 = $r6[$i1];
+
+        $i2 = (int) $b0;
+
+        virtualinvoke $r13.<java.io.DataOutputStream: void write(int)>($i2);
+
+        $i1 = $i1 + 1;
+
+        goto label03;
+
+     label04:
+        $l3 = interfaceinvoke $r1.<com.flurry.sdk.jq: long c()>();
+
+        virtualinvoke $r13.<java.io.DataOutputStream: void writeLong(long)>($l3);
+
+        $l3 = interfaceinvoke $r1.<com.flurry.sdk.jq: long d()>();
+
+        virtualinvoke $r13.<java.io.DataOutputStream: void writeLong(long)>($l3);
+
+        $r5 = interfaceinvoke $r1.<com.flurry.sdk.jq: java.lang.String e()>();
+
+        $r6 = virtualinvoke $r5.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8");
+
+        $i1 = lengthof $r6;
+
+        virtualinvoke $r13.<java.io.DataOutputStream: void writeInt(int)>($i1);
+
+        virtualinvoke $r13.<java.io.DataOutputStream: void write(byte[])>($r6);
+
+        $z0 = interfaceinvoke $r1.<com.flurry.sdk.jq: boolean h()>();
+
+        if $z0 == 0 goto label05;
+
+        virtualinvoke $r12.<java.security.DigestOutputStream: void on(boolean)>(0);
+
+        $i1 = virtualinvoke $r10.<com.flurry.sdk.j: int a()>();
+
+        virtualinvoke $r13.<java.io.DataOutputStream: void writeInt(int)>($i1);
+
+     label05:
+        virtualinvoke $r13.<java.io.DataOutputStream: void close()>();
+
+        $r2 = virtualinvoke $r11.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label06:
+        staticinvoke <com.flurry.sdk.dz: void a(java.io.Closeable)>($r3);
+
+     label07:
+        goto label12;
+
+     label08:
+        $r7 := @caughtexception;
+
+        goto label10;
+
+     label09:
+        $r7 := @caughtexception;
+
+        $r3 = null;
+
+     label10:
+        staticinvoke <com.flurry.sdk.cy: void a(int,java.lang.String,java.lang.String,java.lang.Throwable)>(3, "FrameSerializer", "Error when generating report", $r7);
+
+     label11:
+        goto label06;
+
+     label12:
+        exitmonitor r0;
+
+        return $r2;
+
+     label13:
+        $r8 := @caughtexception;
+
+     label14:
+        staticinvoke <com.flurry.sdk.dz: void a(java.io.Closeable)>($r3);
+
+        throw $r8;
+
+     label15:
+        $r9 := @caughtexception;
+
+        exitmonitor r0;
+
+        throw $r9;
+
+        catch java.lang.Throwable from label01 to label02 with label09;
+        catch java.lang.Throwable from label02 to label06 with label08;
+        catch java.lang.Throwable from label06 to label07 with label15;
+        catch java.lang.Throwable from label10 to label11 with label13;
+        catch java.lang.Throwable from label14 to label15 with label15;
+    }

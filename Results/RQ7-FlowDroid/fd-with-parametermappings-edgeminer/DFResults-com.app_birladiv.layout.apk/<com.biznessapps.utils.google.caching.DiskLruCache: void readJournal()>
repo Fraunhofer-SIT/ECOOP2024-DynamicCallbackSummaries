@@ -1,0 +1,144 @@
+    private void readJournal() throws java.io.IOException
+    {
+        java.lang.Throwable r1, $r13;
+        java.io.BufferedInputStream r2;
+        int $i0;
+        java.lang.String $r5, $r6, $r7, $r8, $r9, $r10;
+        com.biznessapps.utils.google.caching.DiskLruCache r0;
+        boolean $z0;
+        java.io.IOException $r11;
+        java.io.FileInputStream $r3;
+        java.io.File $r4;
+        java.lang.StringBuilder $r12;
+
+        r0 := @this: com.biznessapps.utils.google.caching.DiskLruCache;
+
+        r2 = new java.io.BufferedInputStream;
+
+        $r3 = new java.io.FileInputStream;
+
+        $r4 = r0.<com.biznessapps.utils.google.caching.DiskLruCache: java.io.File journalFile>;
+
+        specialinvoke $r3.<java.io.FileInputStream: void <init>(java.io.File)>($r4);
+
+        specialinvoke r2.<java.io.BufferedInputStream: void <init>(java.io.InputStream,int)>($r3, 8192);
+
+     label01:
+        $r5 = staticinvoke <com.biznessapps.utils.google.caching.DiskLruCache: java.lang.String readAsciiLine(java.io.InputStream)>(r2);
+
+        $r6 = staticinvoke <com.biznessapps.utils.google.caching.DiskLruCache: java.lang.String readAsciiLine(java.io.InputStream)>(r2);
+
+        $r7 = staticinvoke <com.biznessapps.utils.google.caching.DiskLruCache: java.lang.String readAsciiLine(java.io.InputStream)>(r2);
+
+        $r8 = staticinvoke <com.biznessapps.utils.google.caching.DiskLruCache: java.lang.String readAsciiLine(java.io.InputStream)>(r2);
+
+        $r9 = staticinvoke <com.biznessapps.utils.google.caching.DiskLruCache: java.lang.String readAsciiLine(java.io.InputStream)>(r2);
+
+     label02:
+        $r10 = "libcore.io.DiskLruCache";
+
+     label03:
+        $z0 = virtualinvoke $r10.<java.lang.String: boolean equals(java.lang.Object)>($r5);
+
+     label04:
+        if $z0 == 0 goto label13;
+
+        $r10 = "1";
+
+     label05:
+        $z0 = virtualinvoke $r10.<java.lang.String: boolean equals(java.lang.Object)>($r6);
+
+     label06:
+        if $z0 == 0 goto label13;
+
+     label07:
+        $i0 = r0.<com.biznessapps.utils.google.caching.DiskLruCache: int appVersion>;
+
+        $r10 = staticinvoke <java.lang.Integer: java.lang.String toString(int)>($i0);
+
+        $z0 = virtualinvoke $r10.<java.lang.String: boolean equals(java.lang.Object)>($r7);
+
+     label08:
+        if $z0 == 0 goto label13;
+
+     label09:
+        $i0 = r0.<com.biznessapps.utils.google.caching.DiskLruCache: int valueCount>;
+
+        $r7 = staticinvoke <java.lang.Integer: java.lang.String toString(int)>($i0);
+
+        $z0 = virtualinvoke $r7.<java.lang.String: boolean equals(java.lang.Object)>($r8);
+
+     label10:
+        if $z0 == 0 goto label13;
+
+        $r7 = "";
+
+     label11:
+        $z0 = virtualinvoke $r7.<java.lang.String: boolean equals(java.lang.Object)>($r9);
+
+     label12:
+        if $z0 != 0 goto label15;
+
+     label13:
+        $r11 = new java.io.IOException;
+
+        $r12 = new java.lang.StringBuilder;
+
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>()>();
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("unexpected journal header: [");
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", ");
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", ");
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", ");
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("]");
+
+        $r5 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r11.<java.io.IOException: void <init>(java.lang.String)>($r5);
+
+        throw $r11;
+
+     label14:
+        $r13 := @caughtexception;
+
+        staticinvoke <com.biznessapps.utils.google.caching.DiskLruCache: void closeQuietly(java.io.Closeable)>(r2);
+
+        throw $r13;
+
+     label15:
+        $r5 = staticinvoke <com.biznessapps.utils.google.caching.DiskLruCache: java.lang.String readAsciiLine(java.io.InputStream)>(r2);
+
+        specialinvoke r0.<com.biznessapps.utils.google.caching.DiskLruCache: void readJournalLine(java.lang.String)>($r5);
+
+     label16:
+        goto label15;
+
+     label17:
+        r1 := @caughtexception;
+
+        staticinvoke <com.biznessapps.utils.google.caching.DiskLruCache: void closeQuietly(java.io.Closeable)>(r2);
+
+        return;
+
+        catch java.lang.Throwable from label01 to label02 with label14;
+        catch java.lang.Throwable from label03 to label04 with label14;
+        catch java.lang.Throwable from label05 to label06 with label14;
+        catch java.lang.Throwable from label07 to label08 with label14;
+        catch java.lang.Throwable from label09 to label10 with label14;
+        catch java.lang.Throwable from label11 to label12 with label14;
+        catch java.lang.Throwable from label13 to label14 with label14;
+        catch java.io.EOFException from label15 to label16 with label17;
+        catch java.lang.Throwable from label15 to label16 with label14;
+    }

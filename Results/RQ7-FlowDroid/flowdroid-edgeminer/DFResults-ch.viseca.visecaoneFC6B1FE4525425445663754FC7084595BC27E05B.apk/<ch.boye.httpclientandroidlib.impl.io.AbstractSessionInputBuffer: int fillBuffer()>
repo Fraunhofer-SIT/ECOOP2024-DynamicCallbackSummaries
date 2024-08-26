@@ -1,0 +1,60 @@
+    protected int fillBuffer() throws java.io.IOException
+    {
+        byte[] $r1;
+        ch.boye.httpclientandroidlib.impl.io.HttpTransportMetricsImpl $r3;
+        ch.boye.httpclientandroidlib.impl.io.AbstractSessionInputBuffer r0;
+        int $i0, $i1;
+        long $l2;
+        java.io.InputStream $r2;
+
+        r0 := @this: ch.boye.httpclientandroidlib.impl.io.AbstractSessionInputBuffer;
+
+        $i1 = r0.<ch.boye.httpclientandroidlib.impl.io.AbstractSessionInputBuffer: int bufferpos>;
+
+        if $i1 <= 0 goto label2;
+
+        $i0 = r0.<ch.boye.httpclientandroidlib.impl.io.AbstractSessionInputBuffer: int bufferlen>;
+
+        $i0 = $i0 - $i1;
+
+        if $i0 <= 0 goto label1;
+
+        $r1 = r0.<ch.boye.httpclientandroidlib.impl.io.AbstractSessionInputBuffer: byte[] buffer>;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($r1, $i1, $r1, 0, $i0);
+
+     label1:
+        r0.<ch.boye.httpclientandroidlib.impl.io.AbstractSessionInputBuffer: int bufferpos> = 0;
+
+        r0.<ch.boye.httpclientandroidlib.impl.io.AbstractSessionInputBuffer: int bufferlen> = $i0;
+
+     label2:
+        $i1 = r0.<ch.boye.httpclientandroidlib.impl.io.AbstractSessionInputBuffer: int bufferlen>;
+
+        $r1 = r0.<ch.boye.httpclientandroidlib.impl.io.AbstractSessionInputBuffer: byte[] buffer>;
+
+        $i0 = lengthof $r1;
+
+        $r2 = r0.<ch.boye.httpclientandroidlib.impl.io.AbstractSessionInputBuffer: java.io.InputStream instream>;
+
+        $i0 = $i0 - $i1;
+
+        $i0 = virtualinvoke $r2.<java.io.InputStream: int read(byte[],int,int)>($r1, $i1, $i0);
+
+        if $i0 != -1 goto label3;
+
+        return -1;
+
+     label3:
+        $i1 = $i1 + $i0;
+
+        r0.<ch.boye.httpclientandroidlib.impl.io.AbstractSessionInputBuffer: int bufferlen> = $i1;
+
+        $r3 = r0.<ch.boye.httpclientandroidlib.impl.io.AbstractSessionInputBuffer: ch.boye.httpclientandroidlib.impl.io.HttpTransportMetricsImpl metrics>;
+
+        $l2 = (long) $i0;
+
+        virtualinvoke $r3.<ch.boye.httpclientandroidlib.impl.io.HttpTransportMetricsImpl: void incrementBytesTransferred(long)>($l2);
+
+        return $i0;
+    }

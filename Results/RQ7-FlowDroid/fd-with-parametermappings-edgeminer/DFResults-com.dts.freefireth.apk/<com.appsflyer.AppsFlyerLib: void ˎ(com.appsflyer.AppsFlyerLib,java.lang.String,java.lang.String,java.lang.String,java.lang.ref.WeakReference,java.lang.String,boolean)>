@@ -1,0 +1,109 @@
+    static void \u02ce(com.appsflyer.AppsFlyerLib, java.lang.String, java.lang.String, java.lang.String, java.lang.ref.WeakReference, java.lang.String, boolean) throws java.io.IOException
+    {
+        java.lang.Throwable $r12;
+        android.content.Context $r11;
+        java.net.URL $r6;
+        com.appsflyer.AppsFlyerProperties $r13;
+        com.appsflyer.AppsFlyerLib $r0;
+        java.lang.String $r1, $r2, $r3, $r5, $r8, $r9;
+        java.lang.ref.WeakReference $r4;
+        boolean $z0, $z1;
+        java.lang.StringBuilder $r7;
+        java.lang.Object $r10;
+
+        $r0 := @parameter0: com.appsflyer.AppsFlyerLib;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r2 := @parameter2: java.lang.String;
+
+        $r3 := @parameter3: java.lang.String;
+
+        $r4 := @parameter4: java.lang.ref.WeakReference;
+
+        $r5 := @parameter5: java.lang.String;
+
+        $z0 := @parameter6: boolean;
+
+        $r6 = new java.net.URL;
+
+        specialinvoke $r6.<java.net.URL: void <init>(java.lang.String)>($r1);
+
+        $r7 = new java.lang.StringBuilder;
+
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>(java.lang.String)>("url: ");
+
+        $r8 = virtualinvoke $r6.<java.lang.Object: java.lang.String toString()>();
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r8 = virtualinvoke $r7.<java.lang.Object: java.lang.String toString()>();
+
+        staticinvoke <com.appsflyer.AFLogger: void afInfoLog(java.lang.String)>($r8);
+
+        $r8 = "data: ";
+
+        $r9 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r2);
+
+        $r8 = virtualinvoke $r8.<java.lang.String: java.lang.String concat(java.lang.String)>($r9);
+
+        staticinvoke <com.appsflyer.f$5: void \u0971(java.lang.String)>($r8);
+
+        $r10 = virtualinvoke $r4.<java.lang.ref.Reference: java.lang.Object get()>();
+
+        $r11 = (android.content.Context) $r10;
+
+        staticinvoke <com.appsflyer.AppsFlyerLib: void \u02cb(android.content.Context,java.lang.String,java.lang.String,java.lang.String)>($r11, "AppsFlyer_4.8.11", "EVENT_DATA", $r2);
+
+     label1:
+        specialinvoke $r0.<com.appsflyer.AppsFlyerLib: void \u02ca(java.net.URL,java.lang.String,java.lang.String,java.lang.ref.WeakReference,java.lang.String,boolean)>($r6, $r2, $r3, $r4, $r5, $z0);
+
+     label2:
+        return;
+
+     label3:
+        $r12 := @caughtexception;
+
+        staticinvoke <com.appsflyer.AFLogger: void afErrorLog(java.lang.String,java.lang.Throwable)>("Exception in sendRequestToServer. ", $r12);
+
+        $r13 = staticinvoke <com.appsflyer.AppsFlyerProperties: com.appsflyer.AppsFlyerProperties getInstance()>();
+
+        $z1 = virtualinvoke $r13.<com.appsflyer.AppsFlyerProperties: boolean getBoolean(java.lang.String,boolean)>("useHttpFallback", 0);
+
+        if $z1 == 0 goto label4;
+
+        $r6 = new java.net.URL;
+
+        $r1 = virtualinvoke $r1.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("https:", "http:");
+
+        specialinvoke $r6.<java.net.URL: void <init>(java.lang.String)>($r1);
+
+        specialinvoke $r0.<com.appsflyer.AppsFlyerLib: void \u02ca(java.net.URL,java.lang.String,java.lang.String,java.lang.ref.WeakReference,java.lang.String,boolean)>($r6, $r2, $r3, $r4, $r5, $z0);
+
+        return;
+
+     label4:
+        $r7 = new java.lang.StringBuilder;
+
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>(java.lang.String)>("failed to send requeset to server. ");
+
+        $r1 = virtualinvoke $r12.<java.lang.Throwable: java.lang.String getLocalizedMessage()>();
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r7.<java.lang.Object: java.lang.String toString()>();
+
+        staticinvoke <com.appsflyer.AFLogger: void afInfoLog(java.lang.String)>($r1);
+
+        $r10 = virtualinvoke $r4.<java.lang.ref.Reference: java.lang.Object get()>();
+
+        $r11 = (android.content.Context) $r10;
+
+        $r1 = virtualinvoke $r12.<java.lang.Throwable: java.lang.String getLocalizedMessage()>();
+
+        staticinvoke <com.appsflyer.AppsFlyerLib: void \u02cb(android.content.Context,java.lang.String,java.lang.String,java.lang.String)>($r11, "AppsFlyer_4.8.11", "ERROR", $r1);
+
+        throw $r12;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }

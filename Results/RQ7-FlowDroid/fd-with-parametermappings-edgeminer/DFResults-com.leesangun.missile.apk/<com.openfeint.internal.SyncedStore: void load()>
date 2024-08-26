@@ -1,0 +1,254 @@
+    public void load()
+    {
+        java.lang.Throwable r1, $r17;
+        android.content.Context $r3;
+        android.content.pm.PackageManager $r7;
+        long l0, $l2, $l3;
+        java.util.HashMap $r13, $r18;
+        java.util.concurrent.locks.ReentrantReadWriteLock $r5;
+        java.util.concurrent.locks.ReentrantReadWriteLock$WriteLock $r6;
+        byte $b4;
+        java.lang.Long $r20;
+        int $i1;
+        java.lang.String $r11, $r12;
+        boolean z0, $z1;
+        com.openfeint.internal.SyncedStore r0;
+        java.util.Iterator $r10;
+        java.io.File r2, r4, $r21;
+        java.util.List $r8;
+        java.lang.StringBuilder $r14, $r19;
+        java.lang.Object $r15;
+        android.content.pm.ApplicationInfo r9, r16;
+
+        r0 := @this: com.openfeint.internal.SyncedStore;
+
+        r0.<com.openfeint.internal.SyncedStore: java.util.HashMap mMap> = null;
+
+        z0 = 0;
+
+        l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $r3 = r0.<com.openfeint.internal.SyncedStore: android.content.Context mContext>;
+
+        r2 = virtualinvoke $r3.<android.content.Context: java.io.File getFileStreamPath(java.lang.String)>("of_prefs");
+
+        r4 = r2;
+
+        $r5 = r0.<com.openfeint.internal.SyncedStore: java.util.concurrent.locks.ReentrantReadWriteLock mLock>;
+
+        $r6 = virtualinvoke $r5.<java.util.concurrent.locks.ReentrantReadWriteLock: java.util.concurrent.locks.ReentrantReadWriteLock$WriteLock writeLock()>();
+
+        virtualinvoke $r6.<java.util.concurrent.locks.ReentrantReadWriteLock$WriteLock: void lock()>();
+
+     label01:
+        $r3 = r0.<com.openfeint.internal.SyncedStore: android.content.Context mContext>;
+
+     label02:
+        $r7 = virtualinvoke $r3.<android.content.Context: android.content.pm.PackageManager getPackageManager()>();
+
+        $r8 = virtualinvoke $r7.<android.content.pm.PackageManager: java.util.List getInstalledApplications(int)>(0);
+
+     label03:
+        r9 = null;
+
+     label04:
+        $r10 = interfaceinvoke $r8.<java.util.List: java.util.Iterator iterator()>();
+
+     label05:
+        $z1 = interfaceinvoke $r10.<java.util.Iterator: boolean hasNext()>();
+
+     label06:
+        if $z1 != 0 goto label26;
+
+     label07:
+        $r11 = virtualinvoke r2.<java.io.File: java.lang.String getCanonicalPath()>();
+
+     label08:
+        if r9 == null goto label18;
+
+     label09:
+        $r12 = r9.<android.content.pm.ApplicationInfo: java.lang.String dataDir>;
+
+     label10:
+        $z1 = virtualinvoke $r11.<java.lang.String: boolean startsWith(java.lang.String)>($r12);
+
+     label11:
+        if $z1 == 0 goto label18;
+
+     label12:
+        $r12 = r9.<android.content.pm.ApplicationInfo: java.lang.String dataDir>;
+
+     label13:
+        $i1 = virtualinvoke $r12.<java.lang.String: int length()>();
+
+        $r11 = virtualinvoke $r11.<java.lang.String: java.lang.String substring(int)>($i1);
+
+        $r10 = interfaceinvoke $r8.<java.util.List: java.util.Iterator iterator()>();
+
+     label14:
+        $z1 = interfaceinvoke $r10.<java.util.Iterator: boolean hasNext()>();
+
+     label15:
+        if $z1 != 0 goto label30;
+
+     label16:
+        $r13 = specialinvoke r0.<com.openfeint.internal.SyncedStore: java.util.HashMap mapFromStore(java.io.File)>(r4);
+
+     label17:
+        r0.<com.openfeint.internal.SyncedStore: java.util.HashMap mMap> = $r13;
+
+     label18:
+        $r13 = r0.<com.openfeint.internal.SyncedStore: java.util.HashMap mMap>;
+
+     label19:
+        if $r13 != null goto label23;
+
+     label20:
+        $r18 = new java.util.HashMap;
+
+     label21:
+        specialinvoke $r18.<java.util.HashMap: void <init>()>();
+
+     label22:
+        r0.<com.openfeint.internal.SyncedStore: java.util.HashMap mMap> = $r18;
+
+     label23:
+        $r5 = r0.<com.openfeint.internal.SyncedStore: java.util.concurrent.locks.ReentrantReadWriteLock mLock>;
+
+        $r6 = virtualinvoke $r5.<java.util.concurrent.locks.ReentrantReadWriteLock: java.util.concurrent.locks.ReentrantReadWriteLock$WriteLock writeLock()>();
+
+        virtualinvoke $r6.<java.util.concurrent.locks.ReentrantReadWriteLock$WriteLock: void unlock()>();
+
+     label24:
+        if z0 == 0 goto label25;
+
+        virtualinvoke r0.<com.openfeint.internal.SyncedStore: void save()>();
+
+     label25:
+        $l2 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        l0 = $l2 - l0;
+
+        $r19 = new java.lang.StringBuilder;
+
+        specialinvoke $r19.<java.lang.StringBuilder: void <init>(java.lang.String)>("Loading prefs took ");
+
+        $r20 = new java.lang.Long;
+
+        specialinvoke $r20.<java.lang.Long: void <init>(long)>(l0);
+
+        $r11 = virtualinvoke $r20.<java.lang.Long: java.lang.String toString()>();
+
+        $r14 = virtualinvoke $r19.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r11);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" millis");
+
+        $r11 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.openfeint.internal.logcat.OFLog: void d(java.lang.String,java.lang.String)>("DistributedPrefs", $r11);
+
+        return;
+
+     label26:
+        $r15 = interfaceinvoke $r10.<java.util.Iterator: java.lang.Object next()>();
+
+     label27:
+        r16 = (android.content.pm.ApplicationInfo) $r15;
+
+        $r11 = r16.<android.content.pm.ApplicationInfo: java.lang.String packageName>;
+
+        $r3 = r0.<com.openfeint.internal.SyncedStore: android.content.Context mContext>;
+
+     label28:
+        $r12 = virtualinvoke $r3.<android.content.Context: java.lang.String getPackageName()>();
+
+        $z1 = virtualinvoke $r11.<java.lang.String: boolean equals(java.lang.Object)>($r12);
+
+     label29:
+        if $z1 == 0 goto label05;
+
+        r9 = r16;
+
+        goto label07;
+
+     label30:
+        $r15 = interfaceinvoke $r10.<java.util.Iterator: java.lang.Object next()>();
+
+     label31:
+        r9 = (android.content.pm.ApplicationInfo) $r15;
+
+        $r21 = new java.io.File;
+
+     label32:
+        $r12 = r9.<android.content.pm.ApplicationInfo: java.lang.String dataDir>;
+
+     label33:
+        specialinvoke $r21.<java.io.File: void <init>(java.lang.String,java.lang.String)>($r12, $r11);
+
+        $l2 = virtualinvoke r4.<java.io.File: long lastModified()>();
+
+        $l3 = virtualinvoke $r21.<java.io.File: long lastModified()>();
+
+     label34:
+        $b4 = $l2 cmp $l3;
+
+        $i1 = (int) $b4;
+
+        if $i1 >= 0 goto label14;
+
+        z0 = 1;
+
+        r4 = $r21;
+
+        goto label14;
+
+     label35:
+        r1 := @caughtexception;
+
+     label36:
+        staticinvoke <com.openfeint.internal.logcat.OFLog: void e(java.lang.String,java.lang.String)>("DistributedPrefs", "broken");
+
+     label37:
+        $r5 = r0.<com.openfeint.internal.SyncedStore: java.util.concurrent.locks.ReentrantReadWriteLock mLock>;
+
+        $r6 = virtualinvoke $r5.<java.util.concurrent.locks.ReentrantReadWriteLock: java.util.concurrent.locks.ReentrantReadWriteLock$WriteLock writeLock()>();
+
+        virtualinvoke $r6.<java.util.concurrent.locks.ReentrantReadWriteLock$WriteLock: void unlock()>();
+
+        goto label24;
+
+     label38:
+        $r17 := @caughtexception;
+
+        $r5 = r0.<com.openfeint.internal.SyncedStore: java.util.concurrent.locks.ReentrantReadWriteLock mLock>;
+
+        $r6 = virtualinvoke $r5.<java.util.concurrent.locks.ReentrantReadWriteLock: java.util.concurrent.locks.ReentrantReadWriteLock$WriteLock writeLock()>();
+
+        virtualinvoke $r6.<java.util.concurrent.locks.ReentrantReadWriteLock$WriteLock: void unlock()>();
+
+        throw $r17;
+
+        catch java.io.IOException from label02 to label03 with label35;
+        catch java.io.IOException from label04 to label06 with label35;
+        catch java.io.IOException from label07 to label08 with label35;
+        catch java.io.IOException from label10 to label11 with label35;
+        catch java.io.IOException from label13 to label15 with label35;
+        catch java.io.IOException from label16 to label17 with label35;
+        catch java.io.IOException from label21 to label22 with label35;
+        catch java.lang.Throwable from label01 to label03 with label38;
+        catch java.lang.Throwable from label04 to label06 with label38;
+        catch java.lang.Throwable from label07 to label08 with label38;
+        catch java.lang.Throwable from label09 to label11 with label38;
+        catch java.lang.Throwable from label12 to label15 with label38;
+        catch java.lang.Throwable from label16 to label19 with label38;
+        catch java.lang.Throwable from label20 to label21 with label38;
+        catch java.lang.Throwable from label21 to label23 with label38;
+        catch java.io.IOException from label26 to label27 with label35;
+        catch java.io.IOException from label28 to label29 with label35;
+        catch java.io.IOException from label30 to label31 with label35;
+        catch java.io.IOException from label33 to label34 with label35;
+        catch java.lang.Throwable from label26 to label29 with label38;
+        catch java.lang.Throwable from label30 to label32 with label38;
+        catch java.lang.Throwable from label32 to label34 with label38;
+        catch java.lang.Throwable from label36 to label37 with label38;
+    }

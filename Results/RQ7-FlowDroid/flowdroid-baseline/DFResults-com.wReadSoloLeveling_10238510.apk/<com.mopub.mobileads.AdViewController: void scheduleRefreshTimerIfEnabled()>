@@ -1,0 +1,54 @@
+    void scheduleRefreshTimerIfEnabled()
+    {
+        com.mopub.mobileads.AdViewController r0;
+        long $l1, $l2;
+        java.lang.Runnable $r1;
+        java.lang.Integer $r2;
+        android.os.Handler $r3;
+        int $i0;
+        boolean $z0;
+        double $d0;
+
+        r0 := @this: com.mopub.mobileads.AdViewController;
+
+        specialinvoke r0.<com.mopub.mobileads.AdViewController: void cancelRefreshTimer()>();
+
+        $z0 = r0.<com.mopub.mobileads.AdViewController: boolean mCurrentAutoRefreshStatus>;
+
+        if $z0 == 0 goto label1;
+
+        $r2 = r0.<com.mopub.mobileads.AdViewController: java.lang.Integer mRefreshTimeMillis>;
+
+        if $r2 == null goto label1;
+
+        $i0 = virtualinvoke $r2.<java.lang.Integer: int intValue()>();
+
+        if $i0 <= 0 goto label1;
+
+        $r3 = r0.<com.mopub.mobileads.AdViewController: android.os.Handler mHandler>;
+
+        $r1 = r0.<com.mopub.mobileads.AdViewController: java.lang.Runnable mRefreshRunnable>;
+
+        $r2 = r0.<com.mopub.mobileads.AdViewController: java.lang.Integer mRefreshTimeMillis>;
+
+        $i0 = virtualinvoke $r2.<java.lang.Integer: int intValue()>();
+
+        $l1 = (long) $i0;
+
+        $i0 = r0.<com.mopub.mobileads.AdViewController: int mBackoffPower>;
+
+        $d0 = (double) $i0;
+
+        $d0 = staticinvoke <java.lang.Math: double pow(double,double)>(1.5, $d0);
+
+        $l2 = (long) $d0;
+
+        $l1 = $l1 * $l2;
+
+        $l1 = staticinvoke <java.lang.Math: long min(long,long)>(600000L, $l1);
+
+        virtualinvoke $r3.<android.os.Handler: boolean postDelayed(java.lang.Runnable,long)>($r1, $l1);
+
+     label1:
+        return;
+    }

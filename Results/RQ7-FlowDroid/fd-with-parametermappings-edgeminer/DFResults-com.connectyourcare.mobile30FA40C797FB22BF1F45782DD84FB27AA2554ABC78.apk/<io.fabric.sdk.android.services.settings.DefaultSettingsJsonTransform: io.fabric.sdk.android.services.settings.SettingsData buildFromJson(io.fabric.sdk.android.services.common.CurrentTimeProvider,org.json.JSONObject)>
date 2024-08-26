@@ -1,0 +1,59 @@
+    public io.fabric.sdk.android.services.settings.SettingsData buildFromJson(io.fabric.sdk.android.services.common.CurrentTimeProvider, org.json.JSONObject) throws org.json.JSONException
+    {
+        io.fabric.sdk.android.services.settings.SessionSettingsData $r5;
+        io.fabric.sdk.android.services.settings.AnalyticsSettingsData $r8;
+        io.fabric.sdk.android.services.settings.DefaultSettingsJsonTransform r0;
+        long $l2;
+        io.fabric.sdk.android.services.settings.SettingsData $r10;
+        org.json.JSONObject $r1, $r3;
+        io.fabric.sdk.android.services.settings.PromptSettingsData $r6;
+        io.fabric.sdk.android.services.settings.FeaturesSettingsData $r7;
+        io.fabric.sdk.android.services.settings.BetaSettingsData $r9;
+        int $i0, $i1;
+        io.fabric.sdk.android.services.common.CurrentTimeProvider $r2;
+        io.fabric.sdk.android.services.settings.AppSettingsData $r4;
+
+        r0 := @this: io.fabric.sdk.android.services.settings.DefaultSettingsJsonTransform;
+
+        $r2 := @parameter0: io.fabric.sdk.android.services.common.CurrentTimeProvider;
+
+        $r1 := @parameter1: org.json.JSONObject;
+
+        $i0 = virtualinvoke $r1.<org.json.JSONObject: int optInt(java.lang.String,int)>("settings_version", 0);
+
+        $i1 = virtualinvoke $r1.<org.json.JSONObject: int optInt(java.lang.String,int)>("cache_duration", 3600);
+
+        $r3 = virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject getJSONObject(java.lang.String)>("app");
+
+        $r4 = specialinvoke r0.<io.fabric.sdk.android.services.settings.DefaultSettingsJsonTransform: io.fabric.sdk.android.services.settings.AppSettingsData buildAppDataFrom(org.json.JSONObject)>($r3);
+
+        $r3 = virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject getJSONObject(java.lang.String)>("session");
+
+        $r5 = specialinvoke r0.<io.fabric.sdk.android.services.settings.DefaultSettingsJsonTransform: io.fabric.sdk.android.services.settings.SessionSettingsData buildSessionDataFrom(org.json.JSONObject)>($r3);
+
+        $r3 = virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject getJSONObject(java.lang.String)>("prompt");
+
+        $r6 = specialinvoke r0.<io.fabric.sdk.android.services.settings.DefaultSettingsJsonTransform: io.fabric.sdk.android.services.settings.PromptSettingsData buildPromptDataFrom(org.json.JSONObject)>($r3);
+
+        $r3 = virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject getJSONObject(java.lang.String)>("features");
+
+        $r7 = specialinvoke r0.<io.fabric.sdk.android.services.settings.DefaultSettingsJsonTransform: io.fabric.sdk.android.services.settings.FeaturesSettingsData buildFeaturesSessionDataFrom(org.json.JSONObject)>($r3);
+
+        $r3 = virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject getJSONObject(java.lang.String)>("analytics");
+
+        $r8 = specialinvoke r0.<io.fabric.sdk.android.services.settings.DefaultSettingsJsonTransform: io.fabric.sdk.android.services.settings.AnalyticsSettingsData buildAnalyticsSessionDataFrom(org.json.JSONObject)>($r3);
+
+        $r3 = virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject getJSONObject(java.lang.String)>("beta");
+
+        $r9 = specialinvoke r0.<io.fabric.sdk.android.services.settings.DefaultSettingsJsonTransform: io.fabric.sdk.android.services.settings.BetaSettingsData buildBetaSettingsDataFrom(org.json.JSONObject)>($r3);
+
+        $l2 = (long) $i1;
+
+        $l2 = specialinvoke r0.<io.fabric.sdk.android.services.settings.DefaultSettingsJsonTransform: long getExpiresAtFrom(io.fabric.sdk.android.services.common.CurrentTimeProvider,long,org.json.JSONObject)>($r2, $l2, $r1);
+
+        $r10 = new io.fabric.sdk.android.services.settings.SettingsData;
+
+        specialinvoke $r10.<io.fabric.sdk.android.services.settings.SettingsData: void <init>(long,io.fabric.sdk.android.services.settings.AppSettingsData,io.fabric.sdk.android.services.settings.SessionSettingsData,io.fabric.sdk.android.services.settings.PromptSettingsData,io.fabric.sdk.android.services.settings.FeaturesSettingsData,io.fabric.sdk.android.services.settings.AnalyticsSettingsData,io.fabric.sdk.android.services.settings.BetaSettingsData,int,int)>($l2, $r4, $r5, $r6, $r7, $r8, $r9, $i0, $i1);
+
+        return $r10;
+    }

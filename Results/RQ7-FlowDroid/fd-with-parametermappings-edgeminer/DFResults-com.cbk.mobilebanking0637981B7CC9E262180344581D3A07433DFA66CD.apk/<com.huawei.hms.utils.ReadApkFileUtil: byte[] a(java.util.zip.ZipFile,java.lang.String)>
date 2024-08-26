@@ -1,0 +1,235 @@
+    public static byte[] a(java.util.zip.ZipFile, java.lang.String)
+    {
+        java.lang.Throwable $r11, $r12, $r14, $r17;
+        byte[] $r7;
+        java.io.BufferedInputStream $r3, $r6;
+        java.io.ByteArrayOutputStream $r8;
+        java.io.BufferedOutputStream $r9;
+        int $i0;
+        java.util.zip.ZipFile $r0;
+        java.lang.String $r1, $r16;
+        java.util.zip.ZipEntry $r2;
+        java.lang.Exception $r10, $r13;
+        java.lang.StringBuilder $r15;
+        java.io.InputStream $r4, $r5;
+
+        $r0 := @parameter0: java.util.zip.ZipFile;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r2 = virtualinvoke $r0.<java.util.zip.ZipFile: java.util.zip.ZipEntry getEntry(java.lang.String)>($r1);
+
+        $r3 = null;
+
+        if $r2 != null goto label01;
+
+        return null;
+
+     label01:
+        $r4 = virtualinvoke $r0.<java.util.zip.ZipFile: java.io.InputStream getInputStream(java.util.zip.ZipEntry)>($r2);
+
+     label02:
+        $r5 = $r4;
+
+        if $r4 != null goto label03;
+
+        staticinvoke <com.huawei.hms.utils.IOUtils: void closeQuietly(java.io.InputStream)>($r4);
+
+        staticinvoke <com.huawei.hms.utils.IOUtils: void closeQuietly(java.io.InputStream)>(null);
+
+        staticinvoke <com.huawei.hms.utils.IOUtils: void closeQuietly(java.io.OutputStream)>(null);
+
+        staticinvoke <com.huawei.hms.utils.IOUtils: void closeQuietly(java.io.OutputStream)>(null);
+
+        return null;
+
+     label03:
+        $r6 = new java.io.BufferedInputStream;
+
+     label04:
+        specialinvoke $r6.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r4);
+
+     label05:
+        $r7 = newarray (byte)[4096];
+
+     label06:
+        $r8 = new java.io.ByteArrayOutputStream;
+
+     label07:
+        specialinvoke $r8.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label08:
+        $r9 = new java.io.BufferedOutputStream;
+
+     label09:
+        specialinvoke $r9.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r8);
+
+     label10:
+        $i0 = virtualinvoke $r6.<java.io.InputStream: int read(byte[],int,int)>($r7, 0, 4096);
+
+     label11:
+        if $i0 <= 0 goto label14;
+
+     label12:
+        virtualinvoke $r9.<java.io.OutputStream: void write(byte[],int,int)>($r7, 0, $i0);
+
+        $i0 = virtualinvoke $r6.<java.io.InputStream: int read(byte[],int,int)>($r7, 0, 4096);
+
+     label13:
+        goto label11;
+
+     label14:
+        virtualinvoke $r9.<java.io.OutputStream: void flush()>();
+
+        $r7 = virtualinvoke $r8.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label15:
+        staticinvoke <com.huawei.hms.utils.IOUtils: void closeQuietly(java.io.InputStream)>($r4);
+
+        staticinvoke <com.huawei.hms.utils.IOUtils: void closeQuietly(java.io.InputStream)>($r6);
+
+        staticinvoke <com.huawei.hms.utils.IOUtils: void closeQuietly(java.io.OutputStream)>($r8);
+
+        staticinvoke <com.huawei.hms.utils.IOUtils: void closeQuietly(java.io.OutputStream)>($r9);
+
+        return $r7;
+
+     label16:
+        $r10 := @caughtexception;
+
+        goto label29;
+
+     label17:
+        $r11 := @caughtexception;
+
+        $r9 = null;
+
+        goto label20;
+
+     label18:
+        $r10 := @caughtexception;
+
+        $r9 = null;
+
+        goto label29;
+
+     label19:
+        $r11 := @caughtexception;
+
+        $r8 = null;
+
+        $r9 = null;
+
+     label20:
+        $r3 = $r6;
+
+        goto label32;
+
+     label21:
+        $r10 := @caughtexception;
+
+        goto label28;
+
+     label22:
+        $r12 := @caughtexception;
+
+        $r11 = $r12;
+
+        goto label25;
+
+     label23:
+        $r13 := @caughtexception;
+
+        goto label27;
+
+     label24:
+        $r14 := @caughtexception;
+
+        $r11 = $r14;
+
+        $r5 = null;
+
+     label25:
+        $r8 = null;
+
+        $r9 = null;
+
+        goto label32;
+
+     label26:
+        $r13 := @caughtexception;
+
+        $r5 = null;
+
+     label27:
+        $r10 = $r13;
+
+        $r6 = null;
+
+     label28:
+        $r8 = null;
+
+        $r9 = null;
+
+     label29:
+        $r1 = <com.huawei.hms.utils.ReadApkFileUtil: java.lang.String a>;
+
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("getManifestBytes Exception!");
+
+        $r16 = virtualinvoke $r10.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r16);
+
+        $r16 = virtualinvoke $r15.<java.lang.Object: java.lang.String toString()>();
+
+        staticinvoke <com.huawei.hms.support.log.HMSLog: void i(java.lang.String,java.lang.String)>($r1, $r16);
+
+     label30:
+        staticinvoke <com.huawei.hms.utils.IOUtils: void closeQuietly(java.io.InputStream)>($r5);
+
+        staticinvoke <com.huawei.hms.utils.IOUtils: void closeQuietly(java.io.InputStream)>($r6);
+
+        staticinvoke <com.huawei.hms.utils.IOUtils: void closeQuietly(java.io.OutputStream)>($r8);
+
+        staticinvoke <com.huawei.hms.utils.IOUtils: void closeQuietly(java.io.OutputStream)>($r9);
+
+        return null;
+
+     label31:
+        $r17 := @caughtexception;
+
+        $r11 = $r17;
+
+        goto label20;
+
+     label32:
+        staticinvoke <com.huawei.hms.utils.IOUtils: void closeQuietly(java.io.InputStream)>($r5);
+
+        staticinvoke <com.huawei.hms.utils.IOUtils: void closeQuietly(java.io.InputStream)>($r3);
+
+        staticinvoke <com.huawei.hms.utils.IOUtils: void closeQuietly(java.io.OutputStream)>($r8);
+
+        staticinvoke <com.huawei.hms.utils.IOUtils: void closeQuietly(java.io.OutputStream)>($r9);
+
+        throw $r11;
+
+        catch java.lang.Exception from label01 to label02 with label26;
+        catch java.lang.Throwable from label01 to label02 with label24;
+        catch java.lang.Exception from label04 to label05 with label23;
+        catch java.lang.Throwable from label03 to label05 with label22;
+        catch java.lang.Exception from label07 to label08 with label21;
+        catch java.lang.Throwable from label06 to label08 with label19;
+        catch java.lang.Exception from label09 to label10 with label18;
+        catch java.lang.Throwable from label08 to label10 with label17;
+        catch java.lang.Exception from label10 to label11 with label16;
+        catch java.lang.Exception from label12 to label13 with label16;
+        catch java.lang.Exception from label14 to label15 with label16;
+        catch java.lang.Throwable from label10 to label11 with label31;
+        catch java.lang.Throwable from label12 to label13 with label31;
+        catch java.lang.Throwable from label14 to label15 with label31;
+        catch java.lang.Throwable from label29 to label30 with label31;
+    }

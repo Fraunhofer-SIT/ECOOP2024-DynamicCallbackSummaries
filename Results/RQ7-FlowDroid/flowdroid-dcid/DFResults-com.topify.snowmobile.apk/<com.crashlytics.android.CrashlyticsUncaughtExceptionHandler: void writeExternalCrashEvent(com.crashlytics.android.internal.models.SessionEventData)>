@@ -1,0 +1,132 @@
+    private void writeExternalCrashEvent(com.crashlytics.android.internal.models.SessionEventData) throws java.io.IOException
+    {
+        java.lang.Throwable $r11;
+        com.crashlytics.android.CodedOutputStream r4, $r8;
+        com.crashlytics.android.CrashlyticsUncaughtExceptionHandler r0;
+        java.io.File $r6;
+        java.lang.Exception r10;
+        io.fabric.sdk.android.Logger $r9;
+        com.crashlytics.android.internal.models.SessionEventData $r1;
+        java.lang.StringBuilder $r7;
+        java.lang.String $r5;
+        com.crashlytics.android.ClsFileOutputStream r2, r3;
+
+        r0 := @this: com.crashlytics.android.CrashlyticsUncaughtExceptionHandler;
+
+        $r1 := @parameter0: com.crashlytics.android.internal.models.SessionEventData;
+
+        r3 = null;
+
+        r4 = null;
+
+     label01:
+        $r5 = specialinvoke r0.<com.crashlytics.android.CrashlyticsUncaughtExceptionHandler: java.lang.String getCurrentSessionId()>();
+
+     label02:
+        if $r5 == null goto label13;
+
+     label03:
+        staticinvoke <com.crashlytics.android.Crashlytics: void recordFatalExceptionEvent(java.lang.String)>($r5);
+
+     label04:
+        r2 = new com.crashlytics.android.ClsFileOutputStream;
+
+     label05:
+        $r6 = r0.<com.crashlytics.android.CrashlyticsUncaughtExceptionHandler: java.io.File filesDir>;
+
+     label06:
+        $r7 = new java.lang.StringBuilder;
+
+     label07:
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>()>();
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("SessionCrash");
+
+        $r5 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke r2.<com.crashlytics.android.ClsFileOutputStream: void <init>(java.io.File,java.lang.String)>($r6, $r5);
+
+     label08:
+        $r8 = staticinvoke <com.crashlytics.android.CodedOutputStream: com.crashlytics.android.CodedOutputStream newInstance(java.io.OutputStream)>(r2);
+
+     label09:
+        r4 = $r8;
+
+     label10:
+        staticinvoke <com.crashlytics.android.NativeCrashWriter: void writeNativeCrash(com.crashlytics.android.internal.models.SessionEventData,com.crashlytics.android.CodedOutputStream)>($r1, $r8);
+
+     label11:
+        r3 = r2;
+
+     label12:
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void flushOrLog(java.io.Flushable,java.lang.String)>(r4, "Failed to flush to session begin file.");
+
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void closeOrLog(java.io.Closeable,java.lang.String)>(r3, "Failed to close fatal exception file output stream.");
+
+        return;
+
+     label13:
+        $r9 = staticinvoke <io.fabric.sdk.android.Fabric: io.fabric.sdk.android.Logger getLogger()>();
+
+        interfaceinvoke $r9.<io.fabric.sdk.android.Logger: void e(java.lang.String,java.lang.String,java.lang.Throwable)>("Fabric", "Tried to write a native crash while no session was open.", null);
+
+     label14:
+        goto label12;
+
+     label15:
+        r10 := @caughtexception;
+
+     label16:
+        $r9 = staticinvoke <io.fabric.sdk.android.Fabric: io.fabric.sdk.android.Logger getLogger()>();
+
+        interfaceinvoke $r9.<io.fabric.sdk.android.Logger: void e(java.lang.String,java.lang.String,java.lang.Throwable)>("Fabric", "An error occurred in the native crash logger", r10);
+
+        staticinvoke <com.crashlytics.android.ExceptionUtils: void writeStackTraceIfNotNull(java.lang.Throwable,java.io.OutputStream)>(r10, r3);
+
+     label17:
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void flushOrLog(java.io.Flushable,java.lang.String)>(r4, "Failed to flush to session begin file.");
+
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void closeOrLog(java.io.Closeable,java.lang.String)>(r3, "Failed to close fatal exception file output stream.");
+
+        return;
+
+     label18:
+        $r11 := @caughtexception;
+
+     label19:
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void flushOrLog(java.io.Flushable,java.lang.String)>(r4, "Failed to flush to session begin file.");
+
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void closeOrLog(java.io.Closeable,java.lang.String)>(r3, "Failed to close fatal exception file output stream.");
+
+        throw $r11;
+
+     label20:
+        $r11 := @caughtexception;
+
+        r3 = r2;
+
+        goto label19;
+
+     label21:
+        r10 := @caughtexception;
+
+        r3 = r2;
+
+        goto label16;
+
+        catch java.lang.Exception from label01 to label02 with label15;
+        catch java.lang.Exception from label03 to label04 with label15;
+        catch java.lang.Exception from label05 to label06 with label15;
+        catch java.lang.Exception from label07 to label08 with label15;
+        catch java.lang.Throwable from label01 to label02 with label18;
+        catch java.lang.Throwable from label03 to label08 with label18;
+        catch java.lang.Exception from label08 to label09 with label21;
+        catch java.lang.Exception from label10 to label11 with label21;
+        catch java.lang.Throwable from label08 to label09 with label20;
+        catch java.lang.Throwable from label10 to label11 with label20;
+        catch java.lang.Exception from label13 to label14 with label15;
+        catch java.lang.Throwable from label13 to label14 with label18;
+        catch java.lang.Throwable from label16 to label17 with label18;
+    }

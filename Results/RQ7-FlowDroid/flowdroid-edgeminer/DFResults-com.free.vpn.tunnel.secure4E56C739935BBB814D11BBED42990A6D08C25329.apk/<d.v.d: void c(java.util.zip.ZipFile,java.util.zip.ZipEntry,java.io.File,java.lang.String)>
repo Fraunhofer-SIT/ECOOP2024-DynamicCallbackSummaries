@@ -1,0 +1,219 @@
+    public static void c(java.util.zip.ZipFile, java.util.zip.ZipEntry, java.io.File, java.lang.String)
+    {
+        java.lang.Throwable $r8, $r9;
+        java.util.zip.ZipOutputStream $r12;
+        byte[] $r7;
+        long $l0;
+        java.io.BufferedOutputStream $r11;
+        int $i1;
+        java.util.zip.ZipFile $r0;
+        java.lang.String $r3;
+        java.util.zip.ZipEntry $r1, $r13;
+        boolean $z0;
+        java.io.FileOutputStream $r10;
+        java.io.IOException $r15;
+        java.io.File $r2, $r5;
+        java.lang.StringBuilder $r6, $r14;
+        java.io.InputStream $r4;
+
+        $r0 := @parameter0: java.util.zip.ZipFile;
+
+        $r1 := @parameter1: java.util.zip.ZipEntry;
+
+        $r2 := @parameter2: java.io.File;
+
+        $r3 := @parameter3: java.lang.String;
+
+        $r4 = virtualinvoke $r0.<java.util.zip.ZipFile: java.io.InputStream getInputStream(java.util.zip.ZipEntry)>($r1);
+
+        $r3 = staticinvoke <f.a.b.a.a: java.lang.String i(java.lang.String,java.lang.String)>("tmp-", $r3);
+
+        $r5 = virtualinvoke $r2.<java.io.File: java.io.File getParentFile()>();
+
+        $r5 = staticinvoke <java.io.File: java.io.File createTempFile(java.lang.String,java.lang.String,java.io.File)>($r3, ".zip", $r5);
+
+        $r6 = staticinvoke <f.a.b.a.a: java.lang.StringBuilder t(java.lang.String)>("Extracting ");
+
+        $r3 = virtualinvoke $r5.<java.io.File: java.lang.String getPath()>();
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>("MultiDex", $r3);
+
+     label01:
+        $r12 = new java.util.zip.ZipOutputStream;
+
+     label02:
+        $r11 = new java.io.BufferedOutputStream;
+
+     label03:
+        $r10 = new java.io.FileOutputStream;
+
+     label04:
+        specialinvoke $r10.<java.io.FileOutputStream: void <init>(java.io.File)>($r5);
+
+        specialinvoke $r11.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r10);
+
+        specialinvoke $r12.<java.util.zip.ZipOutputStream: void <init>(java.io.OutputStream)>($r11);
+
+     label05:
+        $r13 = new java.util.zip.ZipEntry;
+
+     label06:
+        specialinvoke $r13.<java.util.zip.ZipEntry: void <init>(java.lang.String)>("classes.dex");
+
+        $l0 = virtualinvoke $r1.<java.util.zip.ZipEntry: long getTime()>();
+
+        virtualinvoke $r13.<java.util.zip.ZipEntry: void setTime(long)>($l0);
+
+        virtualinvoke $r12.<java.util.zip.ZipOutputStream: void putNextEntry(java.util.zip.ZipEntry)>($r13);
+
+     label07:
+        $r7 = newarray (byte)[16384];
+
+     label08:
+        $i1 = virtualinvoke $r4.<java.io.InputStream: int read(byte[])>($r7);
+
+     label09:
+        if $i1 == -1 goto label12;
+
+     label10:
+        virtualinvoke $r12.<java.util.zip.ZipOutputStream: void write(byte[],int,int)>($r7, 0, $i1);
+
+     label11:
+        goto label08;
+
+     label12:
+        virtualinvoke $r12.<java.util.zip.ZipOutputStream: void closeEntry()>();
+
+     label13:
+        virtualinvoke $r12.<java.util.zip.ZipOutputStream: void close()>();
+
+        $z0 = virtualinvoke $r5.<java.io.File: boolean setReadOnly()>();
+
+     label14:
+        if $z0 == 0 goto label21;
+
+     label15:
+        $r14 = new java.lang.StringBuilder;
+
+     label16:
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Renaming to ");
+
+        $r3 = virtualinvoke $r2.<java.io.File: java.lang.String getPath()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>("MultiDex", $r3);
+
+        $z0 = virtualinvoke $r5.<java.io.File: boolean renameTo(java.io.File)>($r2);
+
+     label17:
+        if $z0 == 0 goto label18;
+
+        staticinvoke <d.v.d: void a(java.io.Closeable)>($r4);
+
+        virtualinvoke $r5.<java.io.File: boolean delete()>();
+
+        return;
+
+     label18:
+        $r15 = new java.io.IOException;
+
+     label19:
+        $r14 = new java.lang.StringBuilder;
+
+     label20:
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Failed to rename \"");
+
+        $r3 = virtualinvoke $r5.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\" to \"");
+
+        $r3 = virtualinvoke $r2.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\"");
+
+        $r3 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r15.<java.io.IOException: void <init>(java.lang.String)>($r3);
+
+        throw $r15;
+
+     label21:
+        $r15 = new java.io.IOException;
+
+     label22:
+        $r14 = new java.lang.StringBuilder;
+
+     label23:
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Failed to mark readonly \"");
+
+        $r3 = virtualinvoke $r5.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\" (tmp of \"");
+
+        $r3 = virtualinvoke $r2.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\")");
+
+        $r3 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r15.<java.io.IOException: void <init>(java.lang.String)>($r3);
+
+        throw $r15;
+
+     label24:
+        $r8 := @caughtexception;
+
+     label25:
+        virtualinvoke $r12.<java.util.zip.ZipOutputStream: void close()>();
+
+        throw $r8;
+
+     label26:
+        $r9 := @caughtexception;
+
+        staticinvoke <d.v.d: void a(java.io.Closeable)>($r4);
+
+        virtualinvoke $r5.<java.io.File: boolean delete()>();
+
+        throw $r9;
+
+        catch java.lang.Throwable from label01 to label02 with label26;
+        catch java.lang.Throwable from label02 to label03 with label26;
+        catch java.lang.Throwable from label03 to label04 with label26;
+        catch java.lang.Throwable from label04 to label05 with label26;
+        catch java.lang.Throwable from label05 to label06 with label24;
+        catch java.lang.Throwable from label06 to label07 with label24;
+        catch java.lang.Throwable from label08 to label09 with label24;
+        catch java.lang.Throwable from label10 to label11 with label24;
+        catch java.lang.Throwable from label12 to label13 with label24;
+        catch java.lang.Throwable from label13 to label14 with label26;
+        catch java.lang.Throwable from label15 to label16 with label26;
+        catch java.lang.Throwable from label16 to label17 with label26;
+        catch java.lang.Throwable from label18 to label19 with label26;
+        catch java.lang.Throwable from label19 to label20 with label26;
+        catch java.lang.Throwable from label20 to label22 with label26;
+        catch java.lang.Throwable from label22 to label23 with label26;
+        catch java.lang.Throwable from label23 to label24 with label26;
+        catch java.lang.Throwable from label25 to label26 with label26;
+    }

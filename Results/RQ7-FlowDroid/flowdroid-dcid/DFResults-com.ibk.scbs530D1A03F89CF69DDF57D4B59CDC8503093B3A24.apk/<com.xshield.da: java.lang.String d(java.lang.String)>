@@ -1,0 +1,178 @@
+    private java.lang.String d(java.lang.String)
+    {
+        java.lang.Throwable $r7, $r9;
+        byte[] $r8;
+        java.util.zip.ZipInputStream $r12;
+        long $l0;
+        int $i1;
+        java.lang.String $r1, $r3, $r5;
+        java.util.zip.ZipEntry $r4;
+        boolean $z0;
+        java.io.FileOutputStream $r14;
+        com.xshield.da r0;
+        java.io.IOException $r15;
+        java.io.FileInputStream $r11;
+        java.io.File $r2, $r10;
+        java.lang.StringBuilder $r6, $r13;
+
+        r0 := @this: com.xshield.da;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r10 = new java.io.File;
+
+        specialinvoke $r10.<java.io.File: void <init>(java.lang.String)>($r1);
+
+        $z0 = virtualinvoke $r10.<java.io.File: boolean exists()>();
+
+        $r3 = null;
+
+        if $z0 == 0 goto label29;
+
+        $r12 = new java.util.zip.ZipInputStream;
+
+        $r11 = new java.io.FileInputStream;
+
+     label01:
+        specialinvoke $r11.<java.io.FileInputStream: void <init>(java.lang.String)>($r1);
+
+        specialinvoke $r12.<java.util.zip.ZipInputStream: void <init>(java.io.InputStream)>($r11);
+
+        $r4 = virtualinvoke $r12.<java.util.zip.ZipInputStream: java.util.zip.ZipEntry getNextEntry()>();
+
+     label02:
+        $r1 = null;
+
+     label03:
+        if $r4 == null goto label24;
+
+     label04:
+        $r3 = virtualinvoke $r4.<java.util.zip.ZipEntry: java.lang.String getName()>();
+
+        $r5 = staticinvoke <com.xshield.t: java.lang.String d(java.lang.String)>("i,/\"\"8$!5%h3)");
+
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean contains(java.lang.CharSequence)>($r5);
+
+     label05:
+        if $z0 == 0 goto label21;
+
+     label06:
+        $l0 = virtualinvoke $r4.<java.util.zip.ZipEntry: long getSize()>();
+
+     label07:
+        $i1 = (int) $l0;
+
+        $r13 = new java.lang.StringBuilder;
+
+     label08:
+        specialinvoke $r13.<java.lang.StringBuilder: void <init>()>();
+
+     label09:
+        $r3 = <com.xshield.da: java.lang.String IiIIiIiIii>;
+
+     label10:
+        $r6 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder insert(int,java.lang.String)>(0, $r3);
+
+        $r3 = staticinvoke <com.xshield.t: java.lang.String d(java.lang.String)>("i#\'#.%in*)$$>\"\'3#n\"%>");
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label11:
+        $r1 = $r3;
+
+        $r10 = new java.io.File;
+
+        $r2 = $r10;
+
+     label12:
+        specialinvoke $r10.<java.io.File: void <init>(java.lang.String)>($r3);
+
+     label13:
+        virtualinvoke $r10.<java.io.File: boolean delete()>();
+
+        virtualinvoke $r10.<java.io.File: boolean createNewFile()>();
+
+        virtualinvoke $r10.<java.io.File: boolean canWrite()>();
+
+     label14:
+        goto label16;
+
+     label15:
+        $r7 := @caughtexception;
+
+        $r1 = null;
+
+     label16:
+        if $r1 == null goto label21;
+
+        $r14 = new java.io.FileOutputStream;
+
+     label17:
+        specialinvoke $r14.<java.io.FileOutputStream: void <init>(java.io.File)>($r2);
+
+     label18:
+        $r8 = newarray (byte)[$i1];
+
+     label19:
+        $i1 = virtualinvoke $r12.<java.util.zip.ZipInputStream: int read(byte[])>($r8);
+
+        virtualinvoke $r14.<java.io.OutputStream: void write(byte[],int,int)>($r8, 0, $i1);
+
+        virtualinvoke $r14.<java.io.OutputStream: void flush()>();
+
+        virtualinvoke $r14.<java.io.OutputStream: void close()>();
+
+     label20:
+        $r3 = $r1;
+
+        goto label25;
+
+     label21:
+        $r4 = virtualinvoke $r12.<java.util.zip.ZipInputStream: java.util.zip.ZipEntry getNextEntry()>();
+
+     label22:
+        goto label03;
+
+     label23:
+        $r9 := @caughtexception;
+
+        $r3 = $r1;
+
+        goto label28;
+
+     label24:
+        $r3 = $r1;
+
+     label25:
+        virtualinvoke $r12.<java.util.zip.ZipInputStream: void close()>();
+
+     label26:
+        return $r3;
+
+     label27:
+        $r9 := @caughtexception;
+
+     label28:
+        $r15 = (java.io.IOException) $r9;
+
+        virtualinvoke $r15.<java.io.IOException: void printStackTrace()>();
+
+        return $r3;
+
+     label29:
+        return null;
+
+        catch java.io.IOException from label01 to label02 with label27;
+        catch java.io.IOException from label04 to label05 with label23;
+        catch java.io.IOException from label06 to label07 with label23;
+        catch java.io.IOException from label08 to label09 with label23;
+        catch java.io.IOException from label10 to label11 with label23;
+        catch java.io.IOException from label12 to label13 with label23;
+        catch java.io.IOException from label13 to label14 with label15;
+        catch java.io.IOException from label17 to label18 with label23;
+        catch java.io.IOException from label19 to label20 with label23;
+        catch java.io.IOException from label21 to label22 with label23;
+        catch java.io.IOException from label25 to label26 with label27;
+    }

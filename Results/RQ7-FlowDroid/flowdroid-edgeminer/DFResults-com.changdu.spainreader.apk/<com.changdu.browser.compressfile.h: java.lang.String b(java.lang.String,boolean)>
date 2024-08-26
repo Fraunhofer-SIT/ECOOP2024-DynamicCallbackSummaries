@@ -1,0 +1,134 @@
+    public java.lang.String b(java.lang.String, boolean)
+    {
+        byte[] $r8;
+        java.util.Enumeration $r3;
+        long $l2;
+        int $i0, $i1;
+        java.lang.String $r1, $r9;
+        boolean $z0, $z1;
+        org.apache.a.a.p $r5;
+        org.apache.a.a.r $r2;
+        java.io.FileOutputStream $r12;
+        com.changdu.browser.compressfile.h r0;
+        java.io.File $r7, $r11;
+        java.lang.Exception $r10;
+        java.lang.Object $r4;
+        java.io.InputStream $r6;
+
+        r0 := @this: com.changdu.browser.compressfile.h;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $z0 := @parameter1: boolean;
+
+     label01:
+        $r2 = r0.<com.changdu.browser.compressfile.h: org.apache.a.a.r e>;
+
+        $r3 = virtualinvoke $r2.<org.apache.a.a.r: java.util.Enumeration d()>();
+
+        $r4 = interfaceinvoke $r3.<java.util.Enumeration: java.lang.Object nextElement()>();
+
+        $r5 = (org.apache.a.a.p) $r4;
+
+        $r2 = r0.<com.changdu.browser.compressfile.h: org.apache.a.a.r e>;
+
+        $r6 = virtualinvoke $r2.<org.apache.a.a.r: java.io.InputStream a(org.apache.a.a.p)>($r5);
+
+     label02:
+        $r11 = new java.io.File;
+
+     label03:
+        specialinvoke $r11.<java.io.File: void <init>(java.lang.String)>($r1);
+
+        $z1 = virtualinvoke $r11.<java.io.File: boolean exists()>();
+
+     label04:
+        if $z1 != 0 goto label06;
+
+     label05:
+        $r7 = virtualinvoke $r11.<java.io.File: java.io.File getParentFile()>();
+
+        virtualinvoke $r7.<java.io.File: boolean mkdirs()>();
+
+     label06:
+        staticinvoke <com.changdu.changdulib.e.b.c: void a(java.lang.String)>($r1);
+
+     label07:
+        $r12 = new java.io.FileOutputStream;
+
+     label08:
+        specialinvoke $r12.<java.io.FileOutputStream: void <init>(java.lang.String)>($r1);
+
+     label09:
+        $r8 = newarray (byte)[1024];
+
+        $i0 = 0;
+
+     label10:
+        $i1 = virtualinvoke $r6.<java.io.InputStream: int read(byte[])>($r8);
+
+     label11:
+        if $i1 == -1 goto label16;
+
+     label12:
+        $l2 = virtualinvoke $r5.<org.apache.a.a.p: long getSize()>();
+
+        staticinvoke <com.changdu.changdulib.e.b.c: void a(long,byte[],int,int,int)>($l2, $r8, 0, $i1, $i0);
+
+     label13:
+        $i0 = $i0 + $i1;
+
+     label14:
+        virtualinvoke $r12.<java.io.FileOutputStream: void write(byte[],int,int)>($r8, 0, $i1);
+
+     label15:
+        goto label10;
+
+     label16:
+        virtualinvoke $r12.<java.io.FileOutputStream: void flush()>();
+
+        virtualinvoke $r12.<java.io.FileOutputStream: void close()>();
+
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+     label17:
+        $r11 = new java.io.File;
+
+     label18:
+        $r9 = r0.<com.changdu.browser.compressfile.h: java.lang.String d>;
+
+        specialinvoke $r11.<java.io.File: void <init>(java.lang.String)>($r9);
+
+        $z0 = virtualinvoke $r11.<java.io.File: boolean exists()>();
+
+     label19:
+        if $z0 == 0 goto label23;
+
+     label20:
+        virtualinvoke $r11.<java.io.File: boolean delete()>();
+
+     label21:
+        return $r1;
+
+     label22:
+        $r10 := @caughtexception;
+
+        staticinvoke <com.changdu.changdulib.e.i: void e(java.lang.Object)>($r10);
+
+        return null;
+
+     label23:
+        return $r1;
+
+        catch java.lang.Exception from label01 to label02 with label22;
+        catch java.lang.Exception from label03 to label04 with label22;
+        catch java.lang.Exception from label05 to label06 with label22;
+        catch java.lang.Exception from label06 to label07 with label22;
+        catch java.lang.Exception from label08 to label09 with label22;
+        catch java.lang.Exception from label10 to label11 with label22;
+        catch java.lang.Exception from label12 to label13 with label22;
+        catch java.lang.Exception from label14 to label15 with label22;
+        catch java.lang.Exception from label16 to label17 with label22;
+        catch java.lang.Exception from label18 to label19 with label22;
+        catch java.lang.Exception from label20 to label21 with label22;
+    }

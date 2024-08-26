@@ -1,0 +1,39 @@
+Source: $i1 = virtualinvoke $r0.<java.io.InputStream: int read(byte[])>($r2)
+$i1 = virtualinvoke $r0.<java.io.InputStream: int read(byte[])>($r2) in <com.parse.ParseIOUtils: long copyLarge(java.io.InputStream,java.io.OutputStream,byte[])>
+Sink: virtualinvoke $r3.<java.io.OutputStream: void write(byte[])>($r1) in <com.parse.ParseFileUtils: void writeByteArrayToFile(java.io.File,byte[])>
+
+<com.parse.ParseIOUtils: long copyLarge(java.io.InputStream,java.io.OutputStream,byte[])>: $i1 = virtualinvoke $r0.<java.io.InputStream: int read(byte[])>($r2)
+<com.parse.ParseIOUtils: long copyLarge(java.io.InputStream,java.io.OutputStream,byte[])>: virtualinvoke $r1.<java.io.OutputStream: void write(byte[],int,int)>($r2, 0, $i1)
+<com.parse.ParseIOUtils: long copyLarge(java.io.InputStream,java.io.OutputStream,byte[])>: return l2
+<com.parse.ParseIOUtils: long copyLarge(java.io.InputStream,java.io.OutputStream)>: return $l0
+<com.parse.ParseIOUtils: int copy(java.io.InputStream,java.io.OutputStream)>: return -1
+<com.parse.ParseIOUtils: byte[] toByteArray(java.io.InputStream)>: $r2 = virtualinvoke r1.<java.io.ByteArrayOutputStream: byte[] toByteArray()>()
+<com.parse.ParseIOUtils: byte[] toByteArray(java.io.InputStream)>: return $r2
+<com.parse.ParseFileUtils: byte[] readFileToByteArray(java.io.File)>: return $r3
+<com.parse.ParseFileUtils: java.lang.String readFileToString(java.io.File,java.nio.charset.Charset)>: specialinvoke $r2.<java.lang.String: void <init>(byte[],java.nio.charset.Charset)>($r3, $r1)
+<com.parse.ParseFileUtils: java.lang.String readFileToString(java.io.File,java.nio.charset.Charset)>: return $r2
+<com.parse.ParseFileUtils: java.lang.String readFileToString(java.io.File,java.lang.String)>: return $r1
+<com.parse.ParseFileUtils: org.json.JSONObject readFileToJSONObject(java.io.File)>: specialinvoke $r2.<org.json.JSONObject: void <init>(java.lang.String)>($r1)
+<com.parse.ParseFileUtils: org.json.JSONObject readFileToJSONObject(java.io.File)>: return $r2
+<com.parse.PushRouter: org.json.JSONObject readJSONFileQuietly(java.io.File)>: return $r1
+<com.parse.PushRouter: com.parse.PushRouter pushRouterFromState(java.io.File,java.io.File,int)>: $r5 = virtualinvoke $r4.<org.json.JSONObject: java.lang.String optString(java.lang.String,java.lang.String)>("lastTime", null)
+<com.parse.PushRouter: com.parse.PushRouter pushRouterFromState(java.io.File,java.io.File,int)>: virtualinvoke r2.<com.parse.PushHistory: void setLastReceivedTimestamp(java.lang.String)>($r5)
+<com.parse.PushHistory: void setLastReceivedTimestamp(java.lang.String)>: r0.<com.parse.PushHistory: java.lang.String lastTime> = $r1
+<com.parse.PushHistory: void setLastReceivedTimestamp(java.lang.String)>: return
+<com.parse.PushRouter: com.parse.PushRouter pushRouterFromState(java.io.File,java.io.File,int)>: specialinvoke r3.<com.parse.PushRouter: void <init>(java.io.File,com.parse.PushHistory)>($r0, r2)
+<com.parse.PushRouter: void <init>(java.io.File,com.parse.PushHistory)>: r0.<com.parse.PushRouter: com.parse.PushHistory history> = $r2
+<com.parse.PushRouter: void <init>(java.io.File,com.parse.PushHistory)>: return
+<com.parse.PushRouter: com.parse.PushRouter pushRouterFromState(java.io.File,java.io.File,int)>: specialinvoke r3.<com.parse.PushRouter: void saveStateToDisk()>()
+<com.parse.PushRouter: void saveStateToDisk()>: $r2 = virtualinvoke r0.<com.parse.PushRouter: org.json.JSONObject toJSON()>()
+<com.parse.PushRouter: org.json.JSONObject toJSON()>: $r3 = r0.<com.parse.PushRouter: com.parse.PushHistory history>
+<com.parse.PushRouter: org.json.JSONObject toJSON()>: $r2 = virtualinvoke $r3.<com.parse.PushHistory: org.json.JSONObject toJSON()>()
+<com.parse.PushHistory: org.json.JSONObject toJSON()>: $r7 = r0.<com.parse.PushHistory: java.lang.String lastTime>
+<com.parse.PushHistory: org.json.JSONObject toJSON()>: virtualinvoke r2.<org.json.JSONObject: org.json.JSONObject putOpt(java.lang.String,java.lang.Object)>("lastTime", $r7)
+<com.parse.PushHistory: org.json.JSONObject toJSON()>: return r2
+<com.parse.PushRouter: org.json.JSONObject toJSON()>: virtualinvoke r1.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("history", $r2)
+<com.parse.PushRouter: org.json.JSONObject toJSON()>: return r1
+<com.parse.PushRouter: void saveStateToDisk()>: staticinvoke <com.parse.ParseFileUtils: void writeJSONObjectToFile(java.io.File,org.json.JSONObject)>($r1, $r2)
+<com.parse.ParseFileUtils: void writeJSONObjectToFile(java.io.File,org.json.JSONObject)>: $r2 = virtualinvoke $r1.<org.json.JSONObject: java.lang.String toString()>()
+<com.parse.ParseFileUtils: void writeJSONObjectToFile(java.io.File,org.json.JSONObject)>: $r4 = virtualinvoke $r2.<java.lang.String: byte[] getBytes(java.nio.charset.Charset)>($r3)
+<com.parse.ParseFileUtils: void writeJSONObjectToFile(java.io.File,org.json.JSONObject)>: staticinvoke <com.parse.ParseFileUtils: void writeByteArrayToFile(java.io.File,byte[])>($r0, $r4)
+<com.parse.ParseFileUtils: void writeByteArrayToFile(java.io.File,byte[])>: virtualinvoke $r3.<java.io.OutputStream: void write(byte[])>($r1)

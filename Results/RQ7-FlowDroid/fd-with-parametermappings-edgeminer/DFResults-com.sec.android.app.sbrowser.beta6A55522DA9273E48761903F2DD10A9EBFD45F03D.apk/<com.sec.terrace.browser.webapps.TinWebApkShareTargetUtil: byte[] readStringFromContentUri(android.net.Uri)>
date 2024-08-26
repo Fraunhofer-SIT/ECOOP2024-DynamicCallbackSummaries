@@ -1,0 +1,130 @@
+    private static byte[] readStringFromContentUri(android.net.Uri)
+    {
+        java.lang.Throwable $r0, $r1, $r2, $r8, $r9, $r10;
+        android.content.Context $r4;
+        byte[] $r7;
+        java.io.ByteArrayOutputStream $r11;
+        android.net.Uri $r3;
+        android.content.ContentResolver $r5;
+        int $i0;
+        java.io.InputStream $r6;
+
+        $r3 := @parameter0: android.net.Uri;
+
+     label01:
+        $r4 = staticinvoke <org.chromium.base.ContextUtils: android.content.Context getApplicationContext()>();
+
+        $r5 = virtualinvoke $r4.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+        $r6 = virtualinvoke $r5.<android.content.ContentResolver: java.io.InputStream openInputStream(android.net.Uri)>($r3);
+
+     label02:
+        if $r6 != null goto label05;
+
+        if $r6 == null goto label29;
+
+     label03:
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+     label04:
+        return null;
+
+     label05:
+        $r11 = new java.io.ByteArrayOutputStream;
+
+     label06:
+        specialinvoke $r11.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label07:
+        $r7 = newarray (byte)[1024];
+
+     label08:
+        $i0 = virtualinvoke $r6.<java.io.InputStream: int read(byte[])>($r7);
+
+     label09:
+        if $i0 == -1 goto label12;
+
+     label10:
+        virtualinvoke $r11.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r7, 0, $i0);
+
+     label11:
+        goto label08;
+
+     label12:
+        $r7 = virtualinvoke $r11.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label13:
+        if $r6 == null goto label30;
+
+     label14:
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+     label15:
+        return $r7;
+
+     label16:
+        $r8 := @caughtexception;
+
+     label17:
+        throw $r8;
+
+     label18:
+        $r9 := @caughtexception;
+
+        if $r6 == null goto label25;
+
+        if $r8 == null goto label24;
+
+     label19:
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+     label20:
+        goto label25;
+
+     label21:
+        $r10 := @caughtexception;
+
+     label22:
+        virtualinvoke $r8.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r10);
+
+     label23:
+        goto label25;
+
+     label24:
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+     label25:
+        throw $r9;
+
+     label26:
+        $r0 := @caughtexception;
+
+        return null;
+
+     label27:
+        $r1 := @caughtexception;
+
+        return null;
+
+     label28:
+        $r2 := @caughtexception;
+
+     label29:
+        return null;
+
+     label30:
+        return $r7;
+
+        catch java.io.IOException from label01 to label02 with label26;
+        catch java.io.IOException from label03 to label04 with label26;
+        catch java.lang.Throwable from label05 to label06 with label16;
+        catch java.lang.Throwable from label06 to label07 with label16;
+        catch java.lang.Throwable from label08 to label09 with label16;
+        catch java.lang.Throwable from label10 to label11 with label16;
+        catch java.lang.Throwable from label12 to label13 with label16;
+        catch java.io.IOException from label14 to label15 with label27;
+        catch java.lang.Throwable from label17 to label18 with label18;
+        catch java.lang.Throwable from label19 to label20 with label21;
+        catch java.io.IOException from label22 to label23 with label28;
+        catch java.io.IOException from label24 to label26 with label28;
+    }

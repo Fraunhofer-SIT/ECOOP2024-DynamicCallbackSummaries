@@ -1,0 +1,396 @@
+    private com.appbrain.c.x$a b(java.lang.String, byte[], boolean)
+    {
+        java.net.HttpURLConnection $r6;
+        byte[] $r1, $r13;
+        java.lang.IllegalStateException $r29;
+        java.util.zip.GZIPInputStream $r23;
+        java.io.BufferedInputStream $r26;
+        java.net.URL $r20;
+        com.appbrain.c.x r0;
+        javax.net.ssl.HostnameVerifier $r10;
+        boolean $z0, $z1;
+        javax.net.ssl.SSLSocketFactory $r9;
+        com.appbrain.c.al$d $r11;
+        java.lang.StringBuilder $r18, $r27;
+        java.util.zip.GZIPOutputStream $r22;
+        java.lang.Throwable $r16, $r17, $r19;
+        java.io.ByteArrayOutputStream $r21;
+        com.appbrain.c.x$b $r7;
+        com.appbrain.c.x$a $r24;
+        java.net.URLConnection $r5;
+        int $i0, $i1;
+        java.lang.String $r2, $r4;
+        java.io.OutputStream $r14;
+        javax.net.ssl.HttpsURLConnection $r8;
+        java.io.IOException $r25;
+        java.io.Closeable $r28;
+        java.lang.Object $r3, $r12;
+        java.io.InputStream $r15;
+
+        r0 := @this: com.appbrain.c.x;
+
+        $r2 := @parameter0: java.lang.String;
+
+        $r1 := @parameter1: byte[];
+
+        $z0 := @parameter2: boolean;
+
+        $i0 = 0;
+
+        $r3 = null;
+
+        if $r2 == null goto label01;
+
+        $z1 = virtualinvoke $r2.<java.lang.String: boolean startsWith(java.lang.String)>("//");
+
+        if $z1 == 0 goto label01;
+
+        $r4 = "https:";
+
+        $r2 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r2);
+
+        $r2 = virtualinvoke $r4.<java.lang.String: java.lang.String concat(java.lang.String)>($r2);
+
+     label01:
+        $i1 = 0;
+
+     label02:
+        if $i1 >= 5 goto label60;
+
+        $r20 = new java.net.URL;
+
+        specialinvoke $r20.<java.net.URL: void <init>(java.lang.String)>($r2);
+
+        $r5 = virtualinvoke $r20.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r6 = (java.net.HttpURLConnection) $r5;
+
+     label03:
+        $r7 = r0.<com.appbrain.c.x: com.appbrain.c.x$b b>;
+
+     label04:
+        if $r7 == null goto label11;
+
+     label05:
+        $z1 = $r6 instanceof javax.net.ssl.HttpsURLConnection;
+
+     label06:
+        if $z1 == 0 goto label11;
+
+     label07:
+        $r8 = (javax.net.ssl.HttpsURLConnection) $r6;
+
+        $r7 = r0.<com.appbrain.c.x: com.appbrain.c.x$b b>;
+
+     label08:
+        $r9 = interfaceinvoke $r7.<com.appbrain.c.x$b: javax.net.ssl.SSLSocketFactory a()>();
+
+        virtualinvoke $r8.<javax.net.ssl.HttpsURLConnection: void setSSLSocketFactory(javax.net.ssl.SSLSocketFactory)>($r9);
+
+     label09:
+        $r7 = r0.<com.appbrain.c.x: com.appbrain.c.x$b b>;
+
+     label10:
+        $r10 = interfaceinvoke $r7.<com.appbrain.c.x$b: javax.net.ssl.HostnameVerifier b()>();
+
+        virtualinvoke $r8.<javax.net.ssl.HttpsURLConnection: void setHostnameVerifier(javax.net.ssl.HostnameVerifier)>($r10);
+
+     label11:
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setConnectTimeout(int)>(30000);
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setReadTimeout(int)>(30000);
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setInstanceFollowRedirects(boolean)>(1);
+
+        $r11 = staticinvoke <com.appbrain.c.u: com.appbrain.c.al$d a()>();
+
+        $r12 = interfaceinvoke $r11.<com.appbrain.c.al$d: java.lang.Object c()>();
+
+     label12:
+        $r4 = (java.lang.String) $r12;
+
+     label13:
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("User-Agent", $r4);
+
+     label14:
+        if $r1 == null goto label36;
+
+        if $z0 == 0 goto label59;
+
+     label15:
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Accept-Encoding", "identity");
+
+     label16:
+        $r21 = new java.io.ByteArrayOutputStream;
+
+     label17:
+        specialinvoke $r21.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label18:
+        $r22 = new java.util.zip.GZIPOutputStream;
+
+     label19:
+        specialinvoke $r22.<java.util.zip.GZIPOutputStream: void <init>(java.io.OutputStream,int)>($r21, 8192);
+
+        virtualinvoke $r22.<java.util.zip.GZIPOutputStream: void write(byte[])>($r1);
+
+        virtualinvoke $r22.<java.util.zip.GZIPOutputStream: void close()>();
+
+        $r13 = virtualinvoke $r21.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label20:
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setUseCaches(boolean)>(0);
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+     label21:
+        $i0 = lengthof $r13;
+
+     label22:
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setFixedLengthStreamingMode(int)>($i0);
+
+     label23:
+        $i0 = lengthof $r13;
+
+     label24:
+        $r4 = staticinvoke <java.lang.Integer: java.lang.String toString(int)>($i0);
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Length", $r4);
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Type", "application/octet-stream");
+
+        $r14 = virtualinvoke $r6.<java.net.HttpURLConnection: java.io.OutputStream getOutputStream()>();
+
+        virtualinvoke $r14.<java.io.OutputStream: void write(byte[])>($r13);
+
+        virtualinvoke $r14.<java.io.OutputStream: void close()>();
+
+     label25:
+        $i0 = virtualinvoke $r6.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label26:
+        if $i0 != 200 goto label49;
+
+     label27:
+        $r15 = virtualinvoke $r6.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+     label28:
+        $r3 = $r15;
+
+        if $z0 == 0 goto label46;
+
+     label29:
+        $r23 = new java.util.zip.GZIPInputStream;
+
+     label30:
+        specialinvoke $r23.<java.util.zip.GZIPInputStream: void <init>(java.io.InputStream,int)>($r15, 8192);
+
+     label31:
+        $r3 = $r23;
+
+     label32:
+        $r15 = (java.io.InputStream) $r3;
+
+     label33:
+        $r1 = staticinvoke <com.appbrain.c.y: byte[] a(java.io.InputStream)>($r15);
+
+     label34:
+        $r28 = (java.io.Closeable) $r3;
+
+        staticinvoke <com.appbrain.c.y: void a(java.io.Closeable)>($r28);
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void disconnect()>();
+
+        $i1 = $i0;
+
+     label35:
+        $r24 = new com.appbrain.c.x$a;
+
+        specialinvoke $r24.<com.appbrain.c.x$a: void <init>(int,byte[])>($i1, $r1);
+
+        return $r24;
+
+     label36:
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("GET");
+
+     label37:
+        goto label25;
+
+     label38:
+        $r16 := @caughtexception;
+
+     label39:
+        $r29 = (java.lang.IllegalStateException) $r16;
+
+        $r2 = virtualinvoke $r29.<java.lang.IllegalStateException: java.lang.String getMessage()>();
+
+     label40:
+        if $r2 == null goto label55;
+
+     label41:
+        $r29 = (java.lang.IllegalStateException) $r16;
+
+        $r2 = virtualinvoke $r29.<java.lang.IllegalStateException: java.lang.String getMessage()>();
+
+        $z0 = virtualinvoke $r2.<java.lang.String: boolean contains(java.lang.CharSequence)>("cache is closed");
+
+     label42:
+        if $z0 == 0 goto label55;
+
+     label43:
+        $r25 = new java.io.IOException;
+
+     label44:
+        specialinvoke $r25.<java.io.IOException: void <init>(java.lang.String)>("Temporary Android \'cache is closed\' problem");
+
+        throw $r25;
+
+     label45:
+        $r17 := @caughtexception;
+
+        $r28 = (java.io.Closeable) $r3;
+
+        staticinvoke <com.appbrain.c.y: void a(java.io.Closeable)>($r28);
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void disconnect()>();
+
+        throw $r17;
+
+     label46:
+        $r26 = new java.io.BufferedInputStream;
+
+     label47:
+        specialinvoke $r26.<java.io.BufferedInputStream: void <init>(java.io.InputStream,int)>($r15, 8192);
+
+     label48:
+        $r3 = $r26;
+
+        goto label32;
+
+     label49:
+        if $i0 == 302 goto label50;
+
+        if $i0 != 301 goto label52;
+
+     label50:
+        $r2 = virtualinvoke $r6.<java.net.HttpURLConnection: java.lang.String getHeaderField(java.lang.String)>("Location");
+
+     label51:
+        staticinvoke <com.appbrain.c.y: void a(java.io.Closeable)>(null);
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void disconnect()>();
+
+        $i1 = $i1 + 1;
+
+        goto label02;
+
+     label52:
+        $r27 = new java.lang.StringBuilder;
+
+     label53:
+        specialinvoke $r27.<java.lang.StringBuilder: void <init>()>();
+
+        $r2 = staticinvoke <com.appbrain.c.x: java.lang.String c(java.lang.String,byte[],boolean)>($r2, $r1, $z0);
+
+        $r18 = virtualinvoke $r27.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r18 = virtualinvoke $r18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", status code: ");
+
+        virtualinvoke $r18.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+     label54:
+        staticinvoke <com.appbrain.c.y: void a(java.io.Closeable)>(null);
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void disconnect()>();
+
+        $r1 = null;
+
+        $i1 = $i0;
+
+        goto label35;
+
+     label55:
+        throw $r16;
+
+     label56:
+        $r19 := @caughtexception;
+
+     label57:
+        $r25 = new java.io.IOException;
+
+     label58:
+        specialinvoke $r25.<java.io.IOException: void <init>(java.lang.Throwable)>($r19);
+
+        throw $r25;
+
+     label59:
+        $r13 = $r1;
+
+        goto label20;
+
+     label60:
+        $i1 = $i0;
+
+        $r1 = null;
+
+        goto label35;
+
+        catch java.lang.IllegalStateException from label08 to label09 with label38;
+        catch java.lang.IllegalStateException from label10 to label12 with label38;
+        catch java.lang.IllegalStateException from label13 to label14 with label38;
+        catch java.lang.IllegalStateException from label15 to label16 with label38;
+        catch java.lang.IllegalStateException from label17 to label18 with label38;
+        catch java.lang.IllegalStateException from label19 to label20 with label38;
+        catch java.lang.IllegalStateException from label20 to label21 with label38;
+        catch java.lang.IllegalStateException from label22 to label23 with label38;
+        catch java.lang.IllegalStateException from label24 to label26 with label38;
+        catch java.lang.IllegalStateException from label27 to label28 with label38;
+        catch java.lang.IllegalStateException from label30 to label31 with label38;
+        catch java.lang.IllegalStateException from label33 to label34 with label38;
+        catch java.lang.SecurityException from label08 to label09 with label56;
+        catch java.lang.SecurityException from label10 to label12 with label56;
+        catch java.lang.SecurityException from label13 to label14 with label56;
+        catch java.lang.SecurityException from label15 to label16 with label56;
+        catch java.lang.SecurityException from label17 to label18 with label56;
+        catch java.lang.SecurityException from label19 to label20 with label56;
+        catch java.lang.SecurityException from label20 to label21 with label56;
+        catch java.lang.SecurityException from label22 to label23 with label56;
+        catch java.lang.SecurityException from label24 to label26 with label56;
+        catch java.lang.SecurityException from label27 to label28 with label56;
+        catch java.lang.SecurityException from label30 to label31 with label56;
+        catch java.lang.SecurityException from label33 to label34 with label56;
+        catch java.lang.Throwable from label03 to label04 with label45;
+        catch java.lang.Throwable from label05 to label06 with label45;
+        catch java.lang.Throwable from label07 to label14 with label45;
+        catch java.lang.Throwable from label15 to label17 with label45;
+        catch java.lang.Throwable from label17 to label19 with label45;
+        catch java.lang.Throwable from label19 to label20 with label45;
+        catch java.lang.Throwable from label20 to label26 with label45;
+        catch java.lang.Throwable from label27 to label28 with label45;
+        catch java.lang.Throwable from label29 to label30 with label45;
+        catch java.lang.Throwable from label30 to label31 with label45;
+        catch java.lang.Throwable from label32 to label34 with label45;
+        catch java.lang.IllegalStateException from label36 to label37 with label38;
+        catch java.lang.SecurityException from label36 to label37 with label56;
+        catch java.lang.Throwable from label36 to label37 with label45;
+        catch java.lang.Throwable from label39 to label40 with label45;
+        catch java.lang.Throwable from label41 to label42 with label45;
+        catch java.lang.Throwable from label43 to label44 with label45;
+        catch java.lang.Throwable from label44 to label45 with label45;
+        catch java.lang.IllegalStateException from label47 to label48 with label38;
+        catch java.lang.IllegalStateException from label50 to label51 with label38;
+        catch java.lang.SecurityException from label47 to label48 with label56;
+        catch java.lang.SecurityException from label50 to label51 with label56;
+        catch java.lang.Throwable from label46 to label47 with label45;
+        catch java.lang.Throwable from label47 to label48 with label45;
+        catch java.lang.Throwable from label50 to label51 with label45;
+        catch java.lang.IllegalStateException from label53 to label54 with label38;
+        catch java.lang.SecurityException from label53 to label54 with label56;
+        catch java.lang.Throwable from label52 to label53 with label45;
+        catch java.lang.Throwable from label53 to label54 with label45;
+        catch java.lang.Throwable from label55 to label56 with label45;
+        catch java.lang.Throwable from label57 to label58 with label45;
+        catch java.lang.Throwable from label58 to label59 with label45;
+    }

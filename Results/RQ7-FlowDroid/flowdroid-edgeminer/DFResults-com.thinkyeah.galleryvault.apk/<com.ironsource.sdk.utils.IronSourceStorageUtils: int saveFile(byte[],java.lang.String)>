@@ -1,0 +1,61 @@
+    public static int saveFile(byte[], java.lang.String)
+    {
+        java.lang.Throwable $r3;
+        byte[] $r0;
+        java.io.FileOutputStream $r2;
+        java.io.File $r4;
+        java.io.ByteArrayInputStream $r5;
+        int $i0, $i1;
+        java.lang.String $r1;
+
+        $r0 := @parameter0: byte[];
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r4 = new java.io.File;
+
+        specialinvoke $r4.<java.io.File: void <init>(java.lang.String)>($r1);
+
+        $r2 = staticinvoke <com.safedk.android.internal.partials.IronSourceFilesBridge: java.io.FileOutputStream fileOutputStreamCtor(java.io.File)>($r4);
+
+        $r5 = new java.io.ByteArrayInputStream;
+
+        specialinvoke $r5.<java.io.ByteArrayInputStream: void <init>(byte[])>($r0);
+
+        $r0 = newarray (byte)[102400];
+
+        $i0 = 0;
+
+     label1:
+        $i1 = virtualinvoke $r5.<java.io.ByteArrayInputStream: int read(byte[])>($r0);
+
+     label2:
+        if $i1 == -1 goto label5;
+
+     label3:
+        virtualinvoke $r2.<java.io.FileOutputStream: void write(byte[],int,int)>($r0, 0, $i1);
+
+     label4:
+        $i0 = $i0 + $i1;
+
+        goto label1;
+
+     label5:
+        virtualinvoke $r2.<java.io.FileOutputStream: void close()>();
+
+        virtualinvoke $r5.<java.io.ByteArrayInputStream: void close()>();
+
+        return $i0;
+
+     label6:
+        $r3 := @caughtexception;
+
+        virtualinvoke $r2.<java.io.FileOutputStream: void close()>();
+
+        virtualinvoke $r5.<java.io.ByteArrayInputStream: void close()>();
+
+        throw $r3;
+
+        catch java.lang.Throwable from label1 to label2 with label6;
+        catch java.lang.Throwable from label3 to label4 with label6;
+    }

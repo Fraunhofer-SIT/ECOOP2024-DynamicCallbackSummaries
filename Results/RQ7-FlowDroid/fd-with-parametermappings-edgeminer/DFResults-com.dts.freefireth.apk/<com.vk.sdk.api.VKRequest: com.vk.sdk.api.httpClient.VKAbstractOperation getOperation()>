@@ -1,0 +1,83 @@
+    com.vk.sdk.api.httpClient.VKAbstractOperation getOperation()
+    {
+        com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest $r3;
+        com.vk.sdk.api.VKRequest r0;
+        com.vk.sdk.api.httpClient.VKHttpOperation $r6;
+        com.vk.sdk.api.httpClient.VKJsonOperation$VKJSONOperationCompleteListener $r7;
+        com.vk.sdk.api.httpClient.VKModelOperation $r2;
+        com.vk.sdk.api.httpClient.VKAbstractOperation $r4;
+        com.vk.sdk.api.httpClient.VKJsonOperation $r5;
+        java.lang.Class $r1;
+        com.vk.sdk.api.VKParser $r8;
+        boolean $z0;
+
+        r0 := @this: com.vk.sdk.api.VKRequest;
+
+        $z0 = r0.<com.vk.sdk.api.VKRequest: boolean parseModel>;
+
+        if $z0 == 0 goto label1;
+
+        $r1 = r0.<com.vk.sdk.api.VKRequest: java.lang.Class mModelClass>;
+
+        if $r1 == null goto label4;
+
+        $r2 = new com.vk.sdk.api.httpClient.VKModelOperation;
+
+        $r3 = virtualinvoke r0.<com.vk.sdk.api.VKRequest: com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest getPreparedRequest()>();
+
+        $r1 = r0.<com.vk.sdk.api.VKRequest: java.lang.Class mModelClass>;
+
+        specialinvoke $r2.<com.vk.sdk.api.httpClient.VKModelOperation: void <init>(com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest,java.lang.Class)>($r3, $r1);
+
+        r0.<com.vk.sdk.api.VKRequest: com.vk.sdk.api.httpClient.VKAbstractOperation mLoadingOperation> = $r2;
+
+     label1:
+        $r4 = r0.<com.vk.sdk.api.VKRequest: com.vk.sdk.api.httpClient.VKAbstractOperation mLoadingOperation>;
+
+        if $r4 != null goto label2;
+
+        $r5 = new com.vk.sdk.api.httpClient.VKJsonOperation;
+
+        $r3 = virtualinvoke r0.<com.vk.sdk.api.VKRequest: com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest getPreparedRequest()>();
+
+        specialinvoke $r5.<com.vk.sdk.api.httpClient.VKJsonOperation: void <init>(com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest)>($r3);
+
+        r0.<com.vk.sdk.api.VKRequest: com.vk.sdk.api.httpClient.VKAbstractOperation mLoadingOperation> = $r5;
+
+     label2:
+        $r4 = r0.<com.vk.sdk.api.VKRequest: com.vk.sdk.api.httpClient.VKAbstractOperation mLoadingOperation>;
+
+        $z0 = $r4 instanceof com.vk.sdk.api.httpClient.VKHttpOperation;
+
+        if $z0 == 0 goto label3;
+
+        $r4 = r0.<com.vk.sdk.api.VKRequest: com.vk.sdk.api.httpClient.VKAbstractOperation mLoadingOperation>;
+
+        $r6 = (com.vk.sdk.api.httpClient.VKHttpOperation) $r4;
+
+        $r7 = specialinvoke r0.<com.vk.sdk.api.VKRequest: com.vk.sdk.api.httpClient.VKJsonOperation$VKJSONOperationCompleteListener getHttpListener()>();
+
+        virtualinvoke $r6.<com.vk.sdk.api.httpClient.VKHttpOperation: void setHttpOperationListener(com.vk.sdk.api.httpClient.VKAbstractOperation$VKAbstractCompleteListener)>($r7);
+
+     label3:
+        $r4 = r0.<com.vk.sdk.api.VKRequest: com.vk.sdk.api.httpClient.VKAbstractOperation mLoadingOperation>;
+
+        return $r4;
+
+     label4:
+        $r8 = r0.<com.vk.sdk.api.VKRequest: com.vk.sdk.api.VKParser mModelParser>;
+
+        if $r8 == null goto label1;
+
+        $r2 = new com.vk.sdk.api.httpClient.VKModelOperation;
+
+        $r3 = virtualinvoke r0.<com.vk.sdk.api.VKRequest: com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest getPreparedRequest()>();
+
+        $r8 = r0.<com.vk.sdk.api.VKRequest: com.vk.sdk.api.VKParser mModelParser>;
+
+        specialinvoke $r2.<com.vk.sdk.api.httpClient.VKModelOperation: void <init>(com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest,com.vk.sdk.api.VKParser)>($r3, $r8);
+
+        r0.<com.vk.sdk.api.VKRequest: com.vk.sdk.api.httpClient.VKAbstractOperation mLoadingOperation> = $r2;
+
+        goto label1;
+    }

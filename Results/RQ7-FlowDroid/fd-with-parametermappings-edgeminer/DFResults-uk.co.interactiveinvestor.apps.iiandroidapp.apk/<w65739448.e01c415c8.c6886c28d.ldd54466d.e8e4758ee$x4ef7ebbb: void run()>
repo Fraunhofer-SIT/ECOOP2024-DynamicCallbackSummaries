@@ -1,0 +1,120 @@
+    public void run()
+    {
+        java.lang.Throwable $r8;
+        int $i0, $i1;
+        java.lang.String $r12;
+        w65739448.e01c415c8.c6886c28d.ldd54466d.e8e4758ee$x4ef7ebbb r0;
+        boolean $z0;
+        org.slf4j.Logger $r11;
+        java.util.Iterator $r14;
+        w65739448.e01c415c8.c6886c28d.ldd54466d.j3183cec1.c9b02163a $r15;
+        w65739448.e01c415c8.c6886c28d.ldd54466d.u31358b02 $r7;
+        java.lang.Exception $r2, $r9, $r10;
+        java.util.List $r13;
+        w65739448.e01c415c8.c6886c28d.ldd54466d.ud7a2ca06.fb79203d8 $r1;
+        w65739448.e01c415c8.qe0f864df.b9d9dc066.kb34ca915 $r3, $r6;
+        java.lang.Object $r5;
+        java.util.Queue $r4;
+
+        r0 := @this: w65739448.e01c415c8.c6886c28d.ldd54466d.e8e4758ee$x4ef7ebbb;
+
+        $r3 = null;
+
+        $i0 = 0;
+
+     label01:
+        $i1 = r0.<w65739448.e01c415c8.c6886c28d.ldd54466d.e8e4758ee$x4ef7ebbb: int batchSize>;
+
+     label02:
+        if $i0 >= $i1 goto label14;
+
+     label03:
+        $r4 = r0.<w65739448.e01c415c8.c6886c28d.ldd54466d.e8e4758ee$x4ef7ebbb: java.util.Queue queue>;
+
+        $r5 = interfaceinvoke $r4.<java.util.Queue: java.lang.Object poll()>();
+
+        $r6 = (w65739448.e01c415c8.qe0f864df.b9d9dc066.kb34ca915) $r5;
+
+     label04:
+        if $r6 == null goto label16;
+
+     label05:
+        $r7 = r0.<w65739448.e01c415c8.c6886c28d.ldd54466d.e8e4758ee$x4ef7ebbb: w65739448.e01c415c8.c6886c28d.ldd54466d.u31358b02 sender>;
+
+        interfaceinvoke $r7.<w65739448.e01c415c8.c6886c28d.ldd54466d.u31358b02: void send(w65739448.e01c415c8.qe0f864df.b9d9dc066.kb34ca915)>($r6);
+
+     label06:
+        goto label10;
+
+     label07:
+        $r8 := @caughtexception;
+
+     label08:
+        throw $r8;
+
+     label09:
+        $r9 := @caughtexception;
+
+        goto label12;
+
+     label10:
+        $i0 = $i0 + 1;
+
+        $r3 = $r6;
+
+        goto label01;
+
+     label11:
+        $r10 := @caughtexception;
+
+        $r6 = $r3;
+
+        $r9 = $r10;
+
+     label12:
+        $r11 = <w65739448.e01c415c8.c6886c28d.ldd54466d.e8e4758ee$x4ef7ebbb: org.slf4j.Logger LOGGER>;
+
+        $r12 = staticinvoke <f77f12527.w168f8e89.w1f51bfb0: java.lang.String sff83dc25(java.lang.String)>("29800");
+
+        interfaceinvoke $r11.<org.slf4j.Logger: void error(java.lang.String,java.lang.Throwable)>($r12, $r9);
+
+        $r7 = r0.<w65739448.e01c415c8.c6886c28d.ldd54466d.e8e4758ee$x4ef7ebbb: w65739448.e01c415c8.c6886c28d.ldd54466d.u31358b02 sender>;
+
+        $r13 = interfaceinvoke $r7.<w65739448.e01c415c8.c6886c28d.ldd54466d.u31358b02: java.util.List getListeners()>();
+
+        $r14 = interfaceinvoke $r13.<java.util.List: java.util.Iterator iterator()>();
+
+     label13:
+        $z0 = interfaceinvoke $r14.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label16;
+
+        $r5 = interfaceinvoke $r14.<java.util.Iterator: java.lang.Object next()>();
+
+        $r15 = (w65739448.e01c415c8.c6886c28d.ldd54466d.j3183cec1.c9b02163a) $r5;
+
+        $r1 = new w65739448.e01c415c8.c6886c28d.ldd54466d.ud7a2ca06.fb79203d8;
+
+        specialinvoke $r1.<w65739448.e01c415c8.c6886c28d.ldd54466d.ud7a2ca06.fb79203d8: void <init>(java.lang.Exception)>($r9);
+
+        interfaceinvoke $r15.<w65739448.e01c415c8.c6886c28d.ldd54466d.j3183cec1.c9b02163a: void onError(w65739448.e01c415c8.qe0f864df.b9d9dc066.kb34ca915,java.lang.Exception)>($r6, $r1);
+
+        goto label13;
+
+     label14:
+        return;
+
+     label15:
+        $r2 := @caughtexception;
+
+        goto label10;
+
+     label16:
+        return;
+
+        catch java.lang.Exception from label01 to label02 with label11;
+        catch java.lang.Exception from label03 to label04 with label11;
+        catch java.lang.Exception from label05 to label06 with label15;
+        catch java.lang.Throwable from label05 to label06 with label07;
+        catch java.lang.Exception from label08 to label09 with label09;
+    }

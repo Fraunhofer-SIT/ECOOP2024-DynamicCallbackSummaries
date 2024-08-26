@@ -1,0 +1,120 @@
+    public void writeObject(java.lang.Object)
+    {
+        java.util.Iterator $r6;
+        gnu.mapping.Symbol $r8;
+        gnu.lists.SeqPosition $r2;
+        gnu.lists.AbstractSequence $r3;
+        java.util.List $r5;
+        gnu.xml.XMLFilter r0;
+        gnu.lists.TreeList $r4;
+        int $i0;
+        gnu.expr.Keyword $r7;
+        java.lang.Object $r1;
+        boolean $z0;
+        gnu.lists.Consumer $r9;
+
+        r0 := @this: gnu.xml.XMLFilter;
+
+        $r1 := @parameter0: java.lang.Object;
+
+        $i0 = r0.<gnu.xml.XMLFilter: int ignoringLevel>;
+
+        if $i0 <= 0 goto label1;
+
+        return;
+
+     label1:
+        $z0 = $r1 instanceof gnu.lists.SeqPosition;
+
+        if $z0 == 0 goto label2;
+
+        $r2 = (gnu.lists.SeqPosition) $r1;
+
+        $r3 = $r2.<gnu.lists.SeqPosition: gnu.lists.AbstractSequence sequence>;
+
+        $i0 = virtualinvoke $r2.<gnu.lists.SeqPosition: int getPos()>();
+
+        virtualinvoke r0.<gnu.xml.XMLFilter: void writePosition(gnu.lists.AbstractSequence,int)>($r3, $i0);
+
+        return;
+
+     label2:
+        $z0 = $r1 instanceof gnu.lists.TreeList;
+
+        if $z0 == 0 goto label3;
+
+        $r4 = (gnu.lists.TreeList) $r1;
+
+        virtualinvoke $r4.<gnu.lists.TreeList: void consume(gnu.lists.Consumer)>(r0);
+
+        return;
+
+     label3:
+        $z0 = $r1 instanceof java.util.List;
+
+        if $z0 == 0 goto label5;
+
+        $z0 = $r1 instanceof gnu.lists.CharSeq;
+
+        if $z0 != 0 goto label5;
+
+        $r5 = (java.util.List) $r1;
+
+        $r6 = interfaceinvoke $r5.<java.util.List: java.util.Iterator iterator()>();
+
+     label4:
+        $z0 = interfaceinvoke $r6.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label9;
+
+        $r1 = interfaceinvoke $r6.<java.util.Iterator: java.lang.Object next()>();
+
+        virtualinvoke r0.<gnu.xml.XMLFilter: void writeObject(java.lang.Object)>($r1);
+
+        goto label4;
+
+     label5:
+        $z0 = $r1 instanceof gnu.expr.Keyword;
+
+        if $z0 == 0 goto label6;
+
+        $r7 = (gnu.expr.Keyword) $r1;
+
+        $r8 = virtualinvoke $r7.<gnu.expr.Keyword: gnu.mapping.Symbol asSymbol()>();
+
+        virtualinvoke r0.<gnu.xml.XMLFilter: void startAttribute(java.lang.Object)>($r8);
+
+        r0.<gnu.xml.XMLFilter: int previous> = 1;
+
+        return;
+
+     label6:
+        virtualinvoke r0.<gnu.xml.XMLFilter: void closeStartTag()>();
+
+        $z0 = $r1 instanceof gnu.lists.UnescapedData;
+
+        if $z0 == 0 goto label7;
+
+        $r9 = r0.<gnu.xml.XMLFilter: gnu.lists.Consumer base>;
+
+        interfaceinvoke $r9.<gnu.lists.Consumer: void writeObject(java.lang.Object)>($r1);
+
+        r0.<gnu.xml.XMLFilter: int previous> = 0;
+
+        return;
+
+     label7:
+        $i0 = r0.<gnu.xml.XMLFilter: int previous>;
+
+        if $i0 != 2 goto label8;
+
+        virtualinvoke r0.<gnu.xml.XMLFilter: void write(int)>(32);
+
+     label8:
+        staticinvoke <gnu.xml.TextUtils: void textValue(java.lang.Object,gnu.lists.Consumer)>($r1, r0);
+
+        r0.<gnu.xml.XMLFilter: int previous> = 2;
+
+     label9:
+        return;
+    }

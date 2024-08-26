@@ -1,0 +1,611 @@
+    public i.b.b.f.a b(android.content.Context, java.lang.String, java.lang.String, boolean) throws java.lang.Throwable
+    {
+        byte[] $r24, $r25, $r26, $r32;
+        java.lang.NullPointerException r50;
+        org.json.JSONException $r15, $r16;
+        org.json.JSONObject $r19;
+        java.io.ByteArrayInputStream $r40;
+        i.b.b.e.a$b $r37;
+        java.util.Map $r21, $r35;
+        i.b.b.e.a$a $r36;
+        i.b.b.f.a $r42;
+        i.b.b.f.c r0;
+        i.b.b.h.b $r43;
+        boolean $z0, $z1, $z2;
+        java.security.spec.X509EncodedKeySpec $r27;
+        java.lang.Exception $r4, $r5, $r6, $r9, $r10, $r11, $r12, $r13, $r14;
+        java.security.KeyFactory $r28;
+        byte[][] $r34;
+        java.util.List $r38;
+        java.lang.Throwable $r7, $r8, $r33, $r41, $r48;
+        android.content.SharedPreferences$Editor $r47;
+        android.content.Context $r1, $r45;
+        java.io.ByteArrayOutputStream $r31;
+        javax.crypto.Cipher $r30;
+        int $i0, $i1, $i2;
+        java.lang.Boolean $r39;
+        java.lang.String $r2, $r3, $r17, $r18, $r20, $r23;
+        i.b.b.c.c $r44;
+        java.security.PublicKey $r29;
+        java.lang.RuntimeException $r49;
+        android.content.SharedPreferences $r46;
+        java.lang.Object $r22;
+
+        r0 := @this: i.b.b.f.c;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r3 := @parameter2: java.lang.String;
+
+        $z0 := @parameter3: boolean;
+
+        $z1 = r0.<i.b.b.f.c: boolean b>;
+
+        $r17 = staticinvoke <i.b.b.j.i: java.lang.String b(int)>(24);
+
+        $r18 = virtualinvoke r0.<i.b.b.f.c: java.lang.String i()>();
+
+        $r19 = virtualinvoke r0.<i.b.b.f.c: org.json.JSONObject f()>();
+
+        $r20 = virtualinvoke r0.<i.b.b.f.c: java.lang.String c(java.lang.String,org.json.JSONObject)>($r2, $r19);
+
+        $i0 = 0;
+
+        $r21 = virtualinvoke r0.<i.b.b.f.c: java.util.Map e(boolean,java.lang.String)>(0, $r2);
+
+        $z2 = r0.<i.b.b.f.c: boolean a>;
+
+        $r22 = interfaceinvoke $r21.<java.util.Map: java.lang.Object get(java.lang.Object)>("iSr");
+
+        $r23 = (java.lang.String) $r22;
+
+        $r24 = virtualinvoke $r18.<java.lang.String: byte[] getBytes()>();
+
+        $r25 = virtualinvoke $r20.<java.lang.String: byte[] getBytes()>();
+
+        $r26 = $r25;
+
+        if $z2 == 0 goto label004;
+
+     label001:
+        $r25 = staticinvoke <i.a.a.c0.d: byte[] F(byte[])>($r25);
+
+     label002:
+        $r26 = $r25;
+
+        goto label004;
+
+     label003:
+        $z2 = 0;
+
+     label004:
+        if $z1 == 0 goto label030;
+
+        $r18 = <i.b.b.b.a: java.lang.String a>;
+
+     label005:
+        $r25 = staticinvoke <i.b.b.d.a: byte[] b(java.lang.String)>($r18);
+
+     label006:
+        $r27 = new java.security.spec.X509EncodedKeySpec;
+
+     label007:
+        specialinvoke $r27.<java.security.spec.X509EncodedKeySpec: void <init>(byte[])>($r25);
+
+        $r28 = staticinvoke <java.security.KeyFactory: java.security.KeyFactory getInstance(java.lang.String)>("RSA");
+
+        $r29 = virtualinvoke $r28.<java.security.KeyFactory: java.security.PublicKey generatePublic(java.security.spec.KeySpec)>($r27);
+
+        $r30 = staticinvoke <javax.crypto.Cipher: javax.crypto.Cipher getInstance(java.lang.String)>("RSA/ECB/PKCS1Padding");
+
+        virtualinvoke $r30.<javax.crypto.Cipher: void init(int,java.security.Key)>(1, $r29);
+
+        $r25 = virtualinvoke $r17.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8");
+
+        $i1 = virtualinvoke $r30.<javax.crypto.Cipher: int getBlockSize()>();
+
+     label008:
+        $r31 = new java.io.ByteArrayOutputStream;
+
+     label009:
+        specialinvoke $r31.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label010:
+        $i2 = lengthof $r25;
+
+     label011:
+        if $i0 >= $i2 goto label019;
+
+     label012:
+        $i2 = lengthof $r25;
+
+     label013:
+        $i2 = $i2 - $i0;
+
+        if $i2 >= $i1 goto label016;
+
+     label014:
+        $i2 = lengthof $r25;
+
+     label015:
+        $i2 = $i2 - $i0;
+
+        goto label017;
+
+     label016:
+        $i2 = $i1;
+
+     label017:
+        $r32 = virtualinvoke $r30.<javax.crypto.Cipher: byte[] doFinal(byte[],int,int)>($r25, $i0, $i2);
+
+        virtualinvoke $r31.<java.io.ByteArrayOutputStream: void write(byte[])>($r32);
+
+     label018:
+        $i0 = $i0 + $i1;
+
+        goto label010;
+
+     label019:
+        $r25 = virtualinvoke $r31.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label020:
+        goto label028;
+
+     label021:
+        $r33 := @caughtexception;
+
+        goto label023;
+
+     label022:
+        $r33 := @caughtexception;
+
+        $r31 = null;
+
+     label023:
+        if $r31 == null goto label025;
+
+     label024:
+        virtualinvoke $r31.<java.io.ByteArrayOutputStream: void close()>();
+
+     label025:
+        throw $r33;
+
+     label026:
+        $r31 = null;
+
+     label027:
+        $r25 = null;
+
+        if $r31 == null goto label029;
+
+     label028:
+        virtualinvoke $r31.<java.io.ByteArrayOutputStream: void close()>();
+
+     label029:
+        $r26 = staticinvoke <i.b.b.d.b: byte[] a(java.lang.String,byte[],java.lang.String)>($r17, $r26, $r23);
+
+        $r34 = newarray (byte[])[3];
+
+        $r34[0] = $r24;
+
+        $r34[1] = $r25;
+
+        $r34[2] = $r26;
+
+        $r24 = staticinvoke <i.b.b.f.b: byte[] a(byte[][])>($r34);
+
+        goto label031;
+
+     label030:
+        $r34 = newarray (byte[])[2];
+
+        $r34[0] = $r24;
+
+        $r34[1] = $r26;
+
+        $r24 = staticinvoke <i.b.b.f.b: byte[] a(byte[][])>($r34);
+
+     label031:
+        $r35 = virtualinvoke r0.<i.b.b.f.c: java.util.Map e(boolean,java.lang.String)>($z2, $r2);
+
+        $r36 = new i.b.b.e.a$a;
+
+        specialinvoke $r36.<i.b.b.e.a$a: void <init>(java.lang.String,java.util.Map,byte[])>($r3, $r35, $r24);
+
+        $r37 = staticinvoke <i.b.b.e.a: i.b.b.e.a$b a(android.content.Context,i.b.b.e.a$a)>($r1, $r36);
+
+        if $r37 == null goto label096;
+
+        $r35 = $r37.<i.b.b.e.a$b: java.util.Map a>;
+
+        if $r35 == null goto label032;
+
+        $r22 = interfaceinvoke $r35.<java.util.Map: java.lang.Object get(java.lang.Object)>("msp-gzip");
+
+        $r38 = (java.util.List) $r22;
+
+        if $r38 != null goto label033;
+
+     label032:
+        $r23 = null;
+
+        goto label034;
+
+     label033:
+        $r23 = staticinvoke <android.text.TextUtils: java.lang.String join(java.lang.CharSequence,java.lang.Iterable)>(",", $r38);
+
+     label034:
+        $r39 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(java.lang.String)>($r23);
+
+        $z2 = virtualinvoke $r39.<java.lang.Boolean: boolean booleanValue()>();
+
+        $r24 = $r37.<i.b.b.e.a$b: byte[] b>;
+
+        $r22 = interfaceinvoke $r21.<java.util.Map: java.lang.Object get(java.lang.Object)>("iSr");
+
+        $r23 = (java.lang.String) $r22;
+
+     label035:
+        $r40 = new java.io.ByteArrayInputStream;
+
+     label036:
+        specialinvoke $r40.<java.io.ByteArrayInputStream: void <init>(byte[])>($r24);
+
+     label037:
+        $r24 = newarray (byte)[5];
+
+     label038:
+        virtualinvoke $r40.<java.io.ByteArrayInputStream: int read(byte[])>($r24);
+
+     label039:
+        $r18 = new java.lang.String;
+
+     label040:
+        specialinvoke $r18.<java.lang.String: void <init>(byte[])>($r24);
+
+        $i0 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>($r18);
+
+     label041:
+        $r24 = newarray (byte)[$i0];
+
+     label042:
+        virtualinvoke $r40.<java.io.ByteArrayInputStream: int read(byte[])>($r24);
+
+     label043:
+        $r18 = new java.lang.String;
+
+     label044:
+        specialinvoke $r18.<java.lang.String: void <init>(byte[])>($r24);
+
+     label045:
+        $r24 = newarray (byte)[5];
+
+     label046:
+        virtualinvoke $r40.<java.io.ByteArrayInputStream: int read(byte[])>($r24);
+
+     label047:
+        $r20 = new java.lang.String;
+
+     label048:
+        specialinvoke $r20.<java.lang.String: void <init>(byte[])>($r24);
+
+        $i0 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>($r20);
+
+     label049:
+        if $i0 <= 0 goto label059;
+
+     label050:
+        $r24 = newarray (byte)[$i0];
+
+     label051:
+        virtualinvoke $r40.<java.io.ByteArrayInputStream: int read(byte[])>($r24);
+
+     label052:
+        if $z1 == 0 goto label054;
+
+     label053:
+        $r24 = staticinvoke <i.b.b.d.b: byte[] b(java.lang.String,byte[],java.lang.String)>($r17, $r24, $r23);
+
+     label054:
+        if $z2 == 0 goto label056;
+
+     label055:
+        $r24 = staticinvoke <i.a.a.c0.d: byte[] X(byte[])>($r24);
+
+     label056:
+        $r17 = new java.lang.String;
+
+     label057:
+        specialinvoke $r17.<java.lang.String: void <init>(byte[])>($r24);
+
+     label058:
+        goto label060;
+
+     label059:
+        $r17 = null;
+
+     label060:
+        virtualinvoke $r40.<java.io.ByteArrayInputStream: void close()>();
+
+     label061:
+        goto label072;
+
+     label062:
+        $r41 := @caughtexception;
+
+        goto label064;
+
+     label063:
+        $r41 := @caughtexception;
+
+        $r40 = null;
+
+     label064:
+        if $r40 == null goto label066;
+
+     label065:
+        virtualinvoke $r40.<java.io.ByteArrayInputStream: void close()>();
+
+     label066:
+        throw $r41;
+
+     label067:
+        $r40 = null;
+
+     label068:
+        $r18 = null;
+
+     label069:
+        if $r40 == null goto label071;
+
+     label070:
+        virtualinvoke $r40.<java.io.ByteArrayInputStream: void close()>();
+
+     label071:
+        $r17 = null;
+
+     label072:
+        if $r18 != null goto label073;
+
+        if $r17 != null goto label073;
+
+        $r42 = null;
+
+        goto label074;
+
+     label073:
+        $r42 = new i.b.b.f.a;
+
+        specialinvoke $r42.<i.b.b.f.a: void <init>(java.lang.String,java.lang.String)>($r18, $r17);
+
+     label074:
+        if $r42 == null goto label110;
+
+        $r17 = $r42.<i.b.b.f.a: java.lang.String a>;
+
+        $z2 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r17);
+
+        if $z2 != 0 goto label077;
+
+        $r19 = new org.json.JSONObject;
+
+     label075:
+        specialinvoke $r19.<org.json.JSONObject: void <init>(java.lang.String)>($r17);
+
+        $r19 = virtualinvoke $r19.<org.json.JSONObject: org.json.JSONObject getJSONObject(java.lang.String)>("data");
+
+        $z2 = virtualinvoke $r19.<org.json.JSONObject: boolean has(java.lang.String)>("params");
+
+     label076:
+        if $z2 != 0 goto label078;
+
+     label077:
+        $z2 = 0;
+
+        goto label095;
+
+     label078:
+        $r19 = virtualinvoke $r19.<org.json.JSONObject: org.json.JSONObject getJSONObject(java.lang.String)>("params");
+
+        $r17 = virtualinvoke $r19.<org.json.JSONObject: java.lang.String optString(java.lang.String,java.lang.String)>("public_key", null);
+
+        $z2 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r17);
+
+     label079:
+        if $z2 != 0 goto label094;
+
+     label080:
+        $r43 = staticinvoke <i.b.b.h.b: i.b.b.h.b a()>();
+
+     label081:
+        if $r43 == null goto label091;
+
+     label082:
+        $r44 = staticinvoke <i.b.b.c.c: i.b.b.c.c c()>();
+
+     label083:
+        entermonitor $r44;
+
+     label084:
+        $z2 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r17);
+
+     label085:
+        if $z2 == 0 goto label086;
+
+        exitmonitor $r44;
+
+        goto label088;
+
+     label086:
+        $r43 = staticinvoke <i.b.b.h.b: i.b.b.h.b a()>();
+
+        $r45 = $r43.<i.b.b.h.b: android.content.Context a>;
+
+        $r46 = staticinvoke <android.preference.PreferenceManager: android.content.SharedPreferences getDefaultSharedPreferences(android.content.Context)>($r45);
+
+        $r47 = interfaceinvoke $r46.<android.content.SharedPreferences: android.content.SharedPreferences$Editor edit()>();
+
+        $r47 = interfaceinvoke $r47.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putString(java.lang.String,java.lang.String)>("trideskey", $r17);
+
+        interfaceinvoke $r47.<android.content.SharedPreferences$Editor: boolean commit()>();
+
+        <i.b.b.b.a: java.lang.String a> = $r17;
+
+     label087:
+        exitmonitor $r44;
+
+     label088:
+        $z2 = 1;
+
+        goto label095;
+
+     label089:
+        $r48 := @caughtexception;
+
+        exitmonitor $r44;
+
+     label090:
+        throw $r48;
+
+     label091:
+        r50 = new java.lang.NullPointerException;
+
+     label092:
+        specialinvoke r50.<java.lang.NullPointerException: void <init>(java.lang.String)>("Null throw statement replaced by Soot");
+
+     label093:
+        throw r50;
+
+     label094:
+        $z2 = 0;
+
+     label095:
+        if $z2 == 0 goto label110;
+
+        if $z0 == 0 goto label110;
+
+        $r42 = virtualinvoke r0.<i.b.b.f.c: i.b.b.f.a b(android.content.Context,java.lang.String,java.lang.String,boolean)>($r1, $r2, $r3, 0);
+
+        return $r42;
+
+     label096:
+        $r49 = new java.lang.RuntimeException;
+
+        specialinvoke $r49.<java.lang.RuntimeException: void <init>(java.lang.String)>("Response is null.");
+
+        throw $r49;
+
+     label097:
+        $r4 := @caughtexception;
+
+        goto label003;
+
+     label098:
+        $r5 := @caughtexception;
+
+        goto label026;
+
+     label099:
+        $r6 := @caughtexception;
+
+        goto label027;
+
+     label100:
+        $r7 := @caughtexception;
+
+        goto label025;
+
+     label101:
+        $r8 := @caughtexception;
+
+        goto label029;
+
+     label102:
+        $r9 := @caughtexception;
+
+        goto label067;
+
+     label103:
+        $r10 := @caughtexception;
+
+        goto label068;
+
+     label104:
+        $r11 := @caughtexception;
+
+        goto label069;
+
+     label105:
+        $r12 := @caughtexception;
+
+        goto label072;
+
+     label106:
+        $r13 := @caughtexception;
+
+        goto label066;
+
+     label107:
+        $r14 := @caughtexception;
+
+        goto label071;
+
+     label108:
+        $r15 := @caughtexception;
+
+        goto label094;
+
+     label109:
+        $r16 := @caughtexception;
+
+        goto label094;
+
+     label110:
+        return $r42;
+
+        catch java.lang.Exception from label001 to label002 with label097;
+        catch java.lang.Exception from label005 to label006 with label098;
+        catch java.lang.Exception from label007 to label008 with label098;
+        catch java.lang.Exception from label009 to label010 with label098;
+        catch java.lang.Throwable from label005 to label010 with label022;
+        catch java.lang.Exception from label010 to label011 with label099;
+        catch java.lang.Exception from label012 to label013 with label099;
+        catch java.lang.Exception from label014 to label015 with label099;
+        catch java.lang.Exception from label017 to label018 with label099;
+        catch java.lang.Exception from label019 to label020 with label099;
+        catch java.lang.Throwable from label017 to label018 with label021;
+        catch java.lang.Throwable from label019 to label020 with label021;
+        catch java.io.IOException from label024 to label025 with label100;
+        catch java.io.IOException from label028 to label029 with label101;
+        catch java.lang.Exception from label036 to label037 with label102;
+        catch java.lang.Throwable from label035 to label037 with label063;
+        catch java.lang.Exception from label038 to label039 with label103;
+        catch java.lang.Exception from label040 to label043 with label103;
+        catch java.lang.Exception from label044 to label045 with label103;
+        catch java.lang.Throwable from label038 to label041 with label062;
+        catch java.lang.Throwable from label042 to label045 with label062;
+        catch java.lang.Exception from label046 to label047 with label104;
+        catch java.lang.Exception from label048 to label049 with label104;
+        catch java.lang.Exception from label050 to label052 with label104;
+        catch java.lang.Exception from label053 to label054 with label104;
+        catch java.lang.Exception from label055 to label056 with label104;
+        catch java.lang.Exception from label057 to label058 with label104;
+        catch java.lang.Throwable from label046 to label049 with label062;
+        catch java.lang.Throwable from label051 to label052 with label062;
+        catch java.lang.Throwable from label053 to label054 with label062;
+        catch java.lang.Throwable from label055 to label056 with label062;
+        catch java.lang.Throwable from label056 to label058 with label062;
+        catch java.lang.Exception from label060 to label061 with label105;
+        catch java.lang.Exception from label065 to label066 with label106;
+        catch java.lang.Exception from label070 to label071 with label107;
+        catch org.json.JSONException from label075 to label076 with label108;
+        catch org.json.JSONException from label078 to label079 with label108;
+        catch org.json.JSONException from label080 to label081 with label108;
+        catch org.json.JSONException from label082 to label083 with label108;
+        catch java.lang.Throwable from label084 to label085 with label089;
+        catch java.lang.Throwable from label086 to label087 with label089;
+        catch org.json.JSONException from label090 to label091 with label109;
+        catch org.json.JSONException from label092 to label093 with label109;
+    }

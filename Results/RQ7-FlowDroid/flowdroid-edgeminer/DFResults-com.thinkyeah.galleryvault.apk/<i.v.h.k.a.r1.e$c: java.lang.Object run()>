@@ -1,0 +1,191 @@
+    public java.lang.Object run() throws java.io.IOException
+    {
+        java.lang.Throwable $r1, $r2, $r17, $r19;
+        byte[] $r15;
+        long $l0;
+        java.lang.NullPointerException $r22;
+        org.json.JSONException $r18;
+        org.json.JSONObject $r20;
+        int $i1;
+        java.lang.String $r6, $r7, $r8, $r9, $r12;
+        boolean $z0;
+        java.io.OutputStream $r10, $r14;
+        i.v.c.k $r11;
+        i.v.h.k.a.r1.e$c r0;
+        i.v.c.d0.f.k $r16;
+        java.io.IOException $r21;
+        i.v.c.d0.f.c $r13;
+        i.v.h.k.a.r1.e $r3;
+        i.v.h.k.a.r1.e$k $r4;
+        java.io.InputStream $r5;
+
+        r0 := @this: i.v.h.k.a.r1.e$c;
+
+        $r3 = r0.<i.v.h.k.a.r1.e$c: i.v.h.k.a.r1.e h>;
+
+        $r4 = $r3.<i.v.h.k.a.r1.e: i.v.h.k.a.r1.e$k b>;
+
+        $r5 = r0.<i.v.h.k.a.r1.e$c: java.io.InputStream a>;
+
+        $r6 = r0.<i.v.h.k.a.r1.e$c: java.lang.String b>;
+
+        $r7 = r0.<i.v.h.k.a.r1.e$c: java.lang.String c>;
+
+        $r8 = r0.<i.v.h.k.a.r1.e$c: java.lang.String d>;
+
+        $r9 = r0.<i.v.h.k.a.r1.e$c: java.lang.String e>;
+
+        $l0 = r0.<i.v.h.k.a.r1.e$c: long f>;
+
+        $z0 = r0.<i.v.h.k.a.r1.e$c: boolean g>;
+
+        $r10 = null;
+
+        if $r4 == null goto label27;
+
+        if $r5 == null goto label26;
+
+        if $r6 == null goto label25;
+
+        $r11 = <i.v.h.k.a.r1.e: i.v.c.k c>;
+
+        staticinvoke <i.d.c.a.a: void U0(java.lang.String,java.lang.String,i.v.c.k)>("Encrypt inputStream, target path: ", $r6, $r11);
+
+     label01:
+        $r12 = virtualinvoke $r4.<i.v.h.k.a.r1.e$k: java.lang.String e()>();
+
+     label02:
+        $r20 = new org.json.JSONObject;
+
+     label03:
+        specialinvoke $r20.<org.json.JSONObject: void <init>()>();
+
+        virtualinvoke $r20.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("email", $r12);
+
+        virtualinvoke $r20.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("name", $r8);
+
+        virtualinvoke $r20.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("uuid", $r9);
+
+        virtualinvoke $r20.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,long)>("create_time_utc", $l0);
+
+     label04:
+        if $z0 != 0 goto label07;
+
+     label05:
+        $z0 = virtualinvoke $r4.<i.v.h.k.a.r1.e$k: boolean m(java.lang.String)>($r7);
+
+     label06:
+        if $z0 != 0 goto label07;
+
+        $z0 = 0;
+
+        goto label08;
+
+     label07:
+        $z0 = 1;
+
+     label08:
+        $r13 = $r4.<i.v.h.k.a.r1.e$k: i.v.c.d0.f.c a>;
+
+        $r14 = virtualinvoke $r13.<i.v.c.d0.f.c: java.io.OutputStream g(java.lang.String,org.json.JSONObject,boolean,boolean)>($r6, $r20, $z0, 0);
+
+     label09:
+        $r15 = newarray (byte)[4096];
+
+     label10:
+        $i1 = virtualinvoke $r5.<java.io.InputStream: int read(byte[])>($r15);
+
+     label11:
+        if $i1 == -1 goto label14;
+
+     label12:
+        virtualinvoke $r14.<java.io.OutputStream: void write(byte[],int,int)>($r15, 0, $i1);
+
+     label13:
+        goto label10;
+
+     label14:
+        $r16 = (i.v.c.d0.f.k) $r14;
+
+     label15:
+        virtualinvoke $r16.<i.v.c.d0.f.k: void close()>();
+
+     label16:
+        return null;
+
+     label17:
+        $r17 := @caughtexception;
+
+        $r10 = $r14;
+
+        goto label22;
+
+     label18:
+        $r18 := @caughtexception;
+
+     label19:
+        $r21 = new java.io.IOException;
+
+     label20:
+        specialinvoke $r21.<java.io.IOException: void <init>(java.lang.String,java.lang.Throwable)>("Create JSON failed", $r18);
+
+        throw $r21;
+
+     label21:
+        $r19 := @caughtexception;
+
+        $r17 = $r19;
+
+     label22:
+        if $r10 == null goto label24;
+
+     label23:
+        interfaceinvoke $r10.<java.io.Closeable: void close()>();
+
+     label24:
+        throw $r17;
+
+     label25:
+        $r22 = new java.lang.NullPointerException;
+
+        specialinvoke $r22.<java.lang.NullPointerException: void <init>(java.lang.String)>("targetPath should not be null");
+
+        throw $r22;
+
+     label26:
+        $r22 = new java.lang.NullPointerException;
+
+        specialinvoke $r22.<java.lang.NullPointerException: void <init>(java.lang.String)>("inputStream should not be null");
+
+        throw $r22;
+
+     label27:
+        $r22 = new java.lang.NullPointerException;
+
+        specialinvoke $r22.<java.lang.NullPointerException: void <init>(java.lang.String)>("Null throw statement replaced by Soot");
+
+        throw $r22;
+
+     label28:
+        $r1 := @caughtexception;
+
+        return null;
+
+     label29:
+        $r2 := @caughtexception;
+
+        goto label24;
+
+        catch java.lang.Throwable from label01 to label02 with label21;
+        catch org.json.JSONException from label03 to label04 with label18;
+        catch java.lang.Throwable from label02 to label03 with label21;
+        catch java.lang.Throwable from label03 to label04 with label21;
+        catch java.lang.Throwable from label05 to label06 with label21;
+        catch java.lang.Throwable from label08 to label09 with label21;
+        catch java.lang.Throwable from label10 to label11 with label17;
+        catch java.lang.Throwable from label12 to label13 with label17;
+        catch java.io.IOException from label15 to label16 with label28;
+        catch java.lang.Throwable from label19 to label20 with label21;
+        catch java.lang.Throwable from label20 to label21 with label21;
+        catch java.io.IOException from label23 to label24 with label29;
+    }

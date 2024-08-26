@@ -1,0 +1,266 @@
+    private void write(com.bumptech.glide.disklrucache.DiskLruCache$Editor, boolean) throws java.io.IOException
+    {
+        java.lang.Throwable $r13;
+        java.lang.IllegalStateException $r15;
+        java.util.concurrent.ThreadPoolExecutor $r11;
+        long $l3, $l4, $l5;
+        java.util.concurrent.Callable $r12;
+        java.util.LinkedHashMap $r10;
+        com.bumptech.glide.disklrucache.DiskLruCache r0;
+        long[] $r8;
+        byte $b6;
+        int $i0, $i1, $i2;
+        java.lang.String $r6;
+        boolean $z0, $z1;
+        boolean[] $r4;
+        java.io.File $r5, $r7;
+        com.bumptech.glide.disklrucache.DiskLruCache$Editor $r1, $r3;
+        com.bumptech.glide.disklrucache.DiskLruCache$read $r2;
+        java.io.Writer $r9;
+        java.lang.StringBuilder $r14;
+
+        r0 := @this: com.bumptech.glide.disklrucache.DiskLruCache;
+
+        $r1 := @parameter0: com.bumptech.glide.disklrucache.DiskLruCache$Editor;
+
+        $z0 := @parameter1: boolean;
+
+        entermonitor r0;
+
+     label01:
+        $r2 = staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$Editor: com.bumptech.glide.disklrucache.DiskLruCache$read write(com.bumptech.glide.disklrucache.DiskLruCache$Editor)>($r1);
+
+        $r3 = staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$read: com.bumptech.glide.disklrucache.DiskLruCache$Editor write(com.bumptech.glide.disklrucache.DiskLruCache$read)>($r2);
+
+        if $r3 != $r1 goto label14;
+
+        $i0 = 0;
+
+        if $z0 == 0 goto label06;
+
+        $z1 = staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$read: boolean MediaBrowserCompat$CustomActionResultReceiver(com.bumptech.glide.disklrucache.DiskLruCache$read)>($r2);
+
+        if $z1 != 0 goto label06;
+
+        $i1 = 0;
+
+     label02:
+        $i2 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: int valueCount>;
+
+        if $i1 >= $i2 goto label06;
+
+        $r4 = staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$Editor: boolean[] RemoteActionCompatParcelizer(com.bumptech.glide.disklrucache.DiskLruCache$Editor)>($r1);
+
+        $z1 = $r4[$i1];
+
+        if $z1 == 0 goto label05;
+
+        $r5 = virtualinvoke $r2.<com.bumptech.glide.disklrucache.DiskLruCache$read: java.io.File setFirstVerticalBias(int)>($i1);
+
+        $z1 = virtualinvoke $r5.<java.io.File: boolean exists()>();
+
+        if $z1 != 0 goto label04;
+
+        virtualinvoke $r1.<com.bumptech.glide.disklrucache.DiskLruCache$Editor: void abort()>();
+
+     label03:
+        exitmonitor r0;
+
+        return;
+
+     label04:
+        $i1 = $i1 + 1;
+
+        goto label02;
+
+     label05:
+        virtualinvoke $r1.<com.bumptech.glide.disklrucache.DiskLruCache$Editor: void abort()>();
+
+        $r15 = new java.lang.IllegalStateException;
+
+        $r14 = new java.lang.StringBuilder;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Newly created entry didn\'t create value for index ");
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r6 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r15.<java.lang.IllegalStateException: void <init>(java.lang.String)>($r6);
+
+        throw $r15;
+
+     label06:
+        $i1 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: int valueCount>;
+
+        if $i0 >= $i1 goto label09;
+
+        $r5 = virtualinvoke $r2.<com.bumptech.glide.disklrucache.DiskLruCache$read: java.io.File setFirstVerticalBias(int)>($i0);
+
+        if $z0 == 0 goto label07;
+
+        $z1 = virtualinvoke $r5.<java.io.File: boolean exists()>();
+
+        if $z1 == 0 goto label08;
+
+        $r7 = virtualinvoke $r2.<com.bumptech.glide.disklrucache.DiskLruCache$read: java.io.File setFirstHorizontalBias(int)>($i0);
+
+        virtualinvoke $r5.<java.io.File: boolean renameTo(java.io.File)>($r7);
+
+        $r8 = staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$read: long[] read(com.bumptech.glide.disklrucache.DiskLruCache$read)>($r2);
+
+        $l3 = $r8[$i0];
+
+        $l4 = virtualinvoke $r7.<java.io.File: long length()>();
+
+        $r8 = staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$read: long[] read(com.bumptech.glide.disklrucache.DiskLruCache$read)>($r2);
+
+        $r8[$i0] = $l4;
+
+        $l5 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: long size>;
+
+        $l3 = $l5 - $l3;
+
+        $l4 = $l3 + $l4;
+
+        r0.<com.bumptech.glide.disklrucache.DiskLruCache: long size> = $l4;
+
+        goto label08;
+
+     label07:
+        staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache: void MediaBrowserCompat$ItemReceiver(java.io.File)>($r5);
+
+     label08:
+        $i0 = $i0 + 1;
+
+        goto label06;
+
+     label09:
+        $i0 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: int redundantOpCount>;
+
+        $i0 = $i0 + 1;
+
+        r0.<com.bumptech.glide.disklrucache.DiskLruCache: int redundantOpCount> = $i0;
+
+        staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$read: com.bumptech.glide.disklrucache.DiskLruCache$Editor read(com.bumptech.glide.disklrucache.DiskLruCache$read,com.bumptech.glide.disklrucache.DiskLruCache$Editor)>($r2, null);
+
+        $z1 = staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$read: boolean MediaBrowserCompat$CustomActionResultReceiver(com.bumptech.glide.disklrucache.DiskLruCache$read)>($r2);
+
+        $z1 = $z1 | $z0;
+
+        if $z1 == 0 goto label10;
+
+        staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$read: boolean IconCompatParcelizer(com.bumptech.glide.disklrucache.DiskLruCache$read,boolean)>($r2, 1);
+
+        $r9 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.Writer e9>;
+
+        virtualinvoke $r9.<java.io.Writer: java.io.Writer append(java.lang.CharSequence)>("CLEAN");
+
+        $r9 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.Writer e9>;
+
+        virtualinvoke $r9.<java.io.Writer: java.io.Writer append(char)>(32);
+
+        $r9 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.Writer e9>;
+
+        $r6 = staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$read: java.lang.String IconCompatParcelizer(com.bumptech.glide.disklrucache.DiskLruCache$read)>($r2);
+
+        virtualinvoke $r9.<java.io.Writer: java.io.Writer append(java.lang.CharSequence)>($r6);
+
+        $r9 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.Writer e9>;
+
+        $r6 = virtualinvoke $r2.<com.bumptech.glide.disklrucache.DiskLruCache$read: java.lang.String ContentLengthInputStream()>();
+
+        virtualinvoke $r9.<java.io.Writer: java.io.Writer append(java.lang.CharSequence)>($r6);
+
+        $r9 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.Writer e9>;
+
+        virtualinvoke $r9.<java.io.Writer: java.io.Writer append(char)>(10);
+
+        if $z0 == 0 goto label11;
+
+        $l4 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: long nextSequenceNumber>;
+
+        $l3 = 1L + $l4;
+
+        r0.<com.bumptech.glide.disklrucache.DiskLruCache: long nextSequenceNumber> = $l3;
+
+        staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$read: long RemoteActionCompatParcelizer(com.bumptech.glide.disklrucache.DiskLruCache$read,long)>($r2, $l4);
+
+        goto label11;
+
+     label10:
+        $r10 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.util.LinkedHashMap lruEntries>;
+
+        $r6 = staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$read: java.lang.String IconCompatParcelizer(com.bumptech.glide.disklrucache.DiskLruCache$read)>($r2);
+
+        virtualinvoke $r10.<java.util.LinkedHashMap: java.lang.Object remove(java.lang.Object)>($r6);
+
+        $r9 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.Writer e9>;
+
+        virtualinvoke $r9.<java.io.Writer: java.io.Writer append(java.lang.CharSequence)>("REMOVE");
+
+        $r9 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.Writer e9>;
+
+        virtualinvoke $r9.<java.io.Writer: java.io.Writer append(char)>(32);
+
+        $r9 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.Writer e9>;
+
+        $r6 = staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$read: java.lang.String IconCompatParcelizer(com.bumptech.glide.disklrucache.DiskLruCache$read)>($r2);
+
+        virtualinvoke $r9.<java.io.Writer: java.io.Writer append(java.lang.CharSequence)>($r6);
+
+        $r9 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.Writer e9>;
+
+        virtualinvoke $r9.<java.io.Writer: java.io.Writer append(char)>(10);
+
+     label11:
+        $r9 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.Writer e9>;
+
+        virtualinvoke $r9.<java.io.Writer: void flush()>();
+
+        $l4 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: long size>;
+
+        $l3 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: long maxSize>;
+
+        $b6 = $l4 cmp $l3;
+
+        $i0 = (int) $b6;
+
+        if $i0 > 0 goto label12;
+
+        $z0 = specialinvoke r0.<com.bumptech.glide.disklrucache.DiskLruCache: boolean journalRebuildRequired()>();
+
+        if $z0 == 0 goto label13;
+
+     label12:
+        $r11 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.util.concurrent.ThreadPoolExecutor e8>;
+
+        $r12 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.util.concurrent.Callable ea>;
+
+        virtualinvoke $r11.<java.util.concurrent.ThreadPoolExecutor: java.util.concurrent.Future submit(java.util.concurrent.Callable)>($r12);
+
+     label13:
+        exitmonitor r0;
+
+        return;
+
+     label14:
+        $r15 = new java.lang.IllegalStateException;
+
+        specialinvoke $r15.<java.lang.IllegalStateException: void <init>()>();
+
+        throw $r15;
+
+     label15:
+        $r13 := @caughtexception;
+
+        exitmonitor r0;
+
+        throw $r13;
+
+        catch java.lang.Throwable from label01 to label03 with label15;
+        catch java.lang.Throwable from label05 to label13 with label15;
+        catch java.lang.Throwable from label14 to label15 with label15;
+    }

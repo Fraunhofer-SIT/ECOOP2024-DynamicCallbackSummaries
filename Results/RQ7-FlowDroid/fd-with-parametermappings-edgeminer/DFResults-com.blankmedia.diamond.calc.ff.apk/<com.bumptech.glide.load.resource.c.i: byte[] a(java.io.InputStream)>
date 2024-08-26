@@ -1,0 +1,48 @@
+    private static byte[] a(java.io.InputStream)
+    {
+        java.lang.Throwable $r2;
+        byte[] $r1;
+        java.io.ByteArrayOutputStream $r3;
+        int $i0;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $r3 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r3.<java.io.ByteArrayOutputStream: void <init>(int)>(16384);
+
+        $r1 = newarray (byte)[16384];
+
+     label1:
+        $i0 = virtualinvoke $r0.<java.io.InputStream: int read(byte[])>($r1);
+
+     label2:
+        if $i0 == -1 goto label5;
+
+     label3:
+        virtualinvoke $r3.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r1, 0, $i0);
+
+     label4:
+        goto label1;
+
+     label5:
+        virtualinvoke $r3.<java.io.ByteArrayOutputStream: void flush()>();
+
+     label6:
+        goto label8;
+
+     label7:
+        $r2 := @caughtexception;
+
+        staticinvoke <android.util.Log: int w(java.lang.String,java.lang.String,java.lang.Throwable)>("GifResourceDecoder", "Error reading data from stream", $r2);
+
+     label8:
+        $r1 = virtualinvoke $r3.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        return $r1;
+
+        catch java.io.IOException from label1 to label2 with label7;
+        catch java.io.IOException from label3 to label4 with label7;
+        catch java.io.IOException from label5 to label6 with label7;
+    }

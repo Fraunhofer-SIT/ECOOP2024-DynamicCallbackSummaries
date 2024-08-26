@@ -1,0 +1,287 @@
+    protected void onActivityResult(int, int, android.content.Intent)
+    {
+        byte[] r2;
+        android.net.Uri $r8;
+        android.content.Intent $r1;
+        java.lang.String[] r9;
+        android.content.ContentResolver $r10;
+        int $i0, $i1, $i2;
+        java.lang.String $r12, $r15;
+        boolean $z0;
+        android.database.Cursor $r11;
+        android.os.Parcelable $r6;
+        java.io.FileOutputStream $r20;
+        com.goodbarber.v2.activities.AbstractSubmitDetailActivity r0;
+        java.lang.Exception r3, r16, r17;
+        java.io.File r4, r5, $r19;
+        com.facebook.Session $r18;
+        android.graphics.Bitmap $r7;
+        java.lang.StringBuilder $r14, $r21;
+        java.io.InputStream $r13;
+
+        r0 := @this: com.goodbarber.v2.activities.AbstractSubmitDetailActivity;
+
+        $i0 := @parameter0: int;
+
+        $i1 := @parameter1: int;
+
+        $r1 := @parameter2: android.content.Intent;
+
+        $r1 = virtualinvoke r0.<com.goodbarber.v2.activities.SubmitDetailClassicActivity: android.content.Intent getIntent()>();
+
+        if $i0 != 200 goto label26;
+
+        if $i1 != 0 goto label01;
+
+        virtualinvoke r0.<com.goodbarber.v2.activities.AbstractSubmitDetailActivity: void finish()>();
+
+        return;
+
+     label01:
+        if $r1 == null goto label02;
+
+        $z0 = virtualinvoke $r1.<android.content.Intent: boolean hasExtra(java.lang.String)>("data");
+
+        if $z0 == 0 goto label04;
+
+        $r6 = virtualinvoke $r1.<android.content.Intent: android.os.Parcelable getParcelableExtra(java.lang.String)>("data");
+
+        $r7 = (android.graphics.Bitmap) $r6;
+
+        <com.goodbarber.v2.activities.AbstractSubmitDetailActivity: android.graphics.Bitmap mSelectedImage> = $r7;
+
+     label02:
+        virtualinvoke r0.<com.goodbarber.v2.activities.AbstractSubmitDetailActivity: void takeBitmapAndSetItInImageView()>();
+
+        specialinvoke r0.<com.goodbarber.v2.activities.AbstractSubmitDetailActivity: void checkAuthAndManageViews()>();
+
+     label03:
+        specialinvoke r0.<android.app.Activity: void onActivityResult(int,int,android.content.Intent)>($i0, $i1, $r1);
+
+        return;
+
+     label04:
+        $r8 = virtualinvoke $r1.<android.content.Intent: android.net.Uri getData()>();
+
+        if $r8 == null goto label25;
+
+        $r19 = new java.io.File;
+
+        r5 = $r19;
+
+        r4 = staticinvoke <android.os.Environment: java.io.File getExternalStorageDirectory()>();
+
+        specialinvoke $r19.<java.io.File: void <init>(java.io.File,java.lang.String)>(r4, ".OCFL311");
+
+        $r8 = virtualinvoke $r1.<android.content.Intent: android.net.Uri getData()>();
+
+        <com.goodbarber.v2.activities.AbstractSubmitDetailActivity: android.net.Uri mOutputFileUri> = $r8;
+
+        r9 = newarray (java.lang.String)[2];
+
+        r9[0] = "_data";
+
+        r9[1] = "_display_name";
+
+        $r10 = virtualinvoke r0.<com.goodbarber.v2.activities.AbstractSubmitDetailActivity: android.content.ContentResolver getContentResolver()>();
+
+        $r8 = <com.goodbarber.v2.activities.AbstractSubmitDetailActivity: android.net.Uri mOutputFileUri>;
+
+        $r11 = virtualinvoke $r10.<android.content.ContentResolver: android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String)>($r8, r9, null, null, null);
+
+        interfaceinvoke $r11.<android.database.Cursor: boolean moveToFirst()>();
+
+        $i2 = interfaceinvoke $r11.<android.database.Cursor: int getColumnIndex(java.lang.String)>("_data");
+
+        $r12 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>($i2);
+
+        <com.goodbarber.v2.activities.AbstractSubmitDetailActivity: java.lang.String mFilePath> = $r12;
+
+        $r12 = <com.goodbarber.v2.activities.AbstractSubmitDetailActivity: java.lang.String mFilePath>;
+
+        if $r12 != null goto label17;
+
+        $i2 = interfaceinvoke $r11.<android.database.Cursor: int getColumnIndex(java.lang.String)>("_display_name");
+
+        if $i2 == -1 goto label17;
+
+        $z0 = virtualinvoke $r19.<java.io.File: boolean exists()>();
+
+        if $z0 != 0 goto label05;
+
+        virtualinvoke $r19.<java.io.File: boolean mkdirs()>();
+
+     label05:
+        $r19 = new java.io.File;
+
+        r4 = $r19;
+
+        specialinvoke $r19.<java.io.File: void <init>(java.io.File,java.lang.String)>(r5, "AppSubmit.jpg");
+
+     label06:
+        $r10 = virtualinvoke r0.<com.goodbarber.v2.activities.AbstractSubmitDetailActivity: android.content.ContentResolver getContentResolver()>();
+
+     label07:
+        $r8 = <com.goodbarber.v2.activities.AbstractSubmitDetailActivity: android.net.Uri mOutputFileUri>;
+
+     label08:
+        $r13 = virtualinvoke $r10.<android.content.ContentResolver: java.io.InputStream openInputStream(android.net.Uri)>($r8);
+
+     label09:
+        $r20 = new java.io.FileOutputStream;
+
+     label10:
+        specialinvoke $r20.<java.io.FileOutputStream: void <init>(java.io.File)>($r19);
+
+     label11:
+        r2 = newarray (byte)[1024];
+
+     label12:
+        $i2 = virtualinvoke $r13.<java.io.InputStream: int read(byte[])>(r2);
+
+     label13:
+        if $i2 == -1 goto label21;
+
+     label14:
+        virtualinvoke $r20.<java.io.OutputStream: void write(byte[],int,int)>(r2, 0, $i2);
+
+     label15:
+        goto label12;
+
+     label16:
+        r3 := @caughtexception;
+
+        $r12 = <com.goodbarber.v2.activities.AbstractSubmitDetailActivity: java.lang.String TAG>;
+
+        $r21 = new java.lang.StringBuilder;
+
+        specialinvoke $r21.<java.lang.StringBuilder: void <init>()>();
+
+        $r14 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Exception: ");
+
+        $r15 = virtualinvoke r3.<java.lang.Exception: java.lang.String getMessage()>();
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r15);
+
+        $r15 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.goodbarber.v2.utils.GBLog: void d(java.lang.String,java.lang.String)>($r12, $r15);
+
+        virtualinvoke r3.<java.lang.Exception: void printStackTrace()>();
+
+     label17:
+        interfaceinvoke $r11.<android.database.Cursor: void close()>();
+
+        $r8 = <com.goodbarber.v2.activities.AbstractSubmitDetailActivity: android.net.Uri mOutputFileUri>;
+
+     label18:
+        $r7 = specialinvoke r0.<com.goodbarber.v2.activities.AbstractSubmitDetailActivity: android.graphics.Bitmap decodeUri(android.net.Uri)>($r8);
+
+     label19:
+        <com.goodbarber.v2.activities.AbstractSubmitDetailActivity: android.graphics.Bitmap mSelectedImage> = $r7;
+
+        goto label02;
+
+     label20:
+        r16 := @caughtexception;
+
+        virtualinvoke r16.<java.lang.Exception: void printStackTrace()>();
+
+        goto label02;
+
+     label21:
+        virtualinvoke $r20.<java.io.OutputStream: void close()>();
+
+        $r12 = virtualinvoke r4.<java.io.File: java.lang.String getAbsolutePath()>();
+
+     label22:
+        <com.goodbarber.v2.activities.AbstractSubmitDetailActivity: java.lang.String mFilePath> = $r12;
+
+     label23:
+        virtualinvoke $r13.<java.io.InputStream: void reset()>();
+
+     label24:
+        goto label17;
+
+     label25:
+        virtualinvoke r0.<com.goodbarber.v2.activities.AbstractSubmitDetailActivity: void finish()>();
+
+        goto label02;
+
+     label26:
+        if $i0 != 201 goto label32;
+
+        if $i1 != 0 goto label27;
+
+        virtualinvoke r0.<com.goodbarber.v2.activities.AbstractSubmitDetailActivity: void finish()>();
+
+        return;
+
+     label27:
+        if $r1 == null goto label03;
+
+        $r8 = virtualinvoke $r1.<android.content.Intent: android.net.Uri getData()>();
+
+        <com.goodbarber.v2.activities.AbstractSubmitDetailActivity: android.net.Uri mOutputFileUri> = $r8;
+
+        r9 = newarray (java.lang.String)[1];
+
+        r9[0] = "_data";
+
+        $r10 = virtualinvoke r0.<com.goodbarber.v2.activities.AbstractSubmitDetailActivity: android.content.ContentResolver getContentResolver()>();
+
+        $r8 = <com.goodbarber.v2.activities.AbstractSubmitDetailActivity: android.net.Uri mOutputFileUri>;
+
+        $r11 = virtualinvoke $r10.<android.content.ContentResolver: android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String)>($r8, r9, null, null, null);
+
+        interfaceinvoke $r11.<android.database.Cursor: boolean moveToFirst()>();
+
+        $r12 = r9[0];
+
+        $i2 = interfaceinvoke $r11.<android.database.Cursor: int getColumnIndex(java.lang.String)>($r12);
+
+        $r12 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>($i2);
+
+        <com.goodbarber.v2.activities.AbstractSubmitDetailActivity: java.lang.String mFilePath> = $r12;
+
+        interfaceinvoke $r11.<android.database.Cursor: void close()>();
+
+        $r12 = <com.goodbarber.v2.activities.AbstractSubmitDetailActivity: java.lang.String mFilePath>;
+
+     label28:
+        $r7 = staticinvoke <android.media.ThumbnailUtils: android.graphics.Bitmap createVideoThumbnail(java.lang.String,int)>($r12, 1);
+
+     label29:
+        <com.goodbarber.v2.activities.AbstractSubmitDetailActivity: android.graphics.Bitmap mSelectedImage> = $r7;
+
+     label30:
+        virtualinvoke r0.<com.goodbarber.v2.activities.AbstractSubmitDetailActivity: void takeBitmapAndSetItInImageView()>();
+
+        specialinvoke r0.<com.goodbarber.v2.activities.AbstractSubmitDetailActivity: void checkAuthAndManageViews()>();
+
+        goto label03;
+
+     label31:
+        r17 := @caughtexception;
+
+        virtualinvoke r17.<java.lang.Exception: void printStackTrace()>();
+
+        goto label30;
+
+     label32:
+        $r18 = staticinvoke <com.facebook.Session: com.facebook.Session getActiveSession()>();
+
+        virtualinvoke $r18.<com.facebook.Session: boolean onActivityResult(android.app.Activity,int,int,android.content.Intent)>(r0, $i0, $i1, $r1);
+
+        goto label03;
+
+        catch java.lang.Exception from label06 to label07 with label16;
+        catch java.lang.Exception from label08 to label09 with label16;
+        catch java.lang.Exception from label10 to label11 with label16;
+        catch java.lang.Exception from label12 to label13 with label16;
+        catch java.lang.Exception from label14 to label15 with label16;
+        catch java.lang.Exception from label18 to label19 with label20;
+        catch java.lang.Exception from label21 to label22 with label16;
+        catch java.lang.Exception from label23 to label24 with label16;
+        catch java.lang.Exception from label28 to label29 with label31;
+    }

@@ -1,0 +1,206 @@
+    private void CachedHashCodeArrayMap() throws java.io.IOException
+    {
+        java.lang.Throwable $r16, $r17;
+        java.util.LinkedHashMap $r8;
+        com.bumptech.glide.disklrucache.DiskLruCache r0;
+        java.nio.charset.Charset $r6;
+        int $i0;
+        java.io.OutputStreamWriter $r3;
+        java.lang.String $r7;
+        boolean $z0;
+        java.util.Iterator $r10;
+        java.io.BufferedWriter $r2;
+        java.util.Collection $r9;
+        java.io.FileOutputStream $r4;
+        java.io.File $r5, $r15;
+        com.bumptech.glide.disklrucache.DiskLruCache$Editor $r13;
+        java.io.Writer $r1;
+        com.bumptech.glide.disklrucache.DiskLruCache$read $r12;
+        java.lang.Object $r11;
+        java.lang.StringBuilder $r14;
+
+        r0 := @this: com.bumptech.glide.disklrucache.DiskLruCache;
+
+        entermonitor r0;
+
+     label01:
+        $r1 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.Writer e9>;
+
+        if $r1 == null goto label02;
+
+        virtualinvoke $r1.<java.io.Writer: void close()>();
+
+     label02:
+        $r2 = new java.io.BufferedWriter;
+
+        $r3 = new java.io.OutputStreamWriter;
+
+        $r4 = new java.io.FileOutputStream;
+
+        $r5 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.File journalFileTmp>;
+
+        specialinvoke $r4.<java.io.FileOutputStream: void <init>(java.io.File)>($r5);
+
+        $r6 = <performOptionsItemSelected: java.nio.charset.Charset lambda$JtkBJJpBX-Oq-diia6f5jBTsGYs>;
+
+        specialinvoke $r3.<java.io.OutputStreamWriter: void <init>(java.io.OutputStream,java.nio.charset.Charset)>($r4, $r6);
+
+        specialinvoke $r2.<java.io.BufferedWriter: void <init>(java.io.Writer)>($r3);
+
+     label03:
+        virtualinvoke $r2.<java.io.Writer: void write(java.lang.String)>("libcore.io.DiskLruCache");
+
+        virtualinvoke $r2.<java.io.Writer: void write(java.lang.String)>("\n");
+
+        virtualinvoke $r2.<java.io.Writer: void write(java.lang.String)>("1");
+
+        virtualinvoke $r2.<java.io.Writer: void write(java.lang.String)>("\n");
+
+        $i0 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: int appVersion>;
+
+        $r7 = staticinvoke <java.lang.Integer: java.lang.String toString(int)>($i0);
+
+        virtualinvoke $r2.<java.io.Writer: void write(java.lang.String)>($r7);
+
+        virtualinvoke $r2.<java.io.Writer: void write(java.lang.String)>("\n");
+
+        $i0 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: int valueCount>;
+
+        $r7 = staticinvoke <java.lang.Integer: java.lang.String toString(int)>($i0);
+
+        virtualinvoke $r2.<java.io.Writer: void write(java.lang.String)>($r7);
+
+        virtualinvoke $r2.<java.io.Writer: void write(java.lang.String)>("\n");
+
+        virtualinvoke $r2.<java.io.Writer: void write(java.lang.String)>("\n");
+
+        $r8 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.util.LinkedHashMap lruEntries>;
+
+        $r9 = virtualinvoke $r8.<java.util.LinkedHashMap: java.util.Collection values()>();
+
+        $r10 = interfaceinvoke $r9.<java.util.Collection: java.util.Iterator iterator()>();
+
+     label04:
+        $z0 = interfaceinvoke $r10.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label07;
+
+        $r11 = interfaceinvoke $r10.<java.util.Iterator: java.lang.Object next()>();
+
+        $r12 = (com.bumptech.glide.disklrucache.DiskLruCache$read) $r11;
+
+        $r13 = staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$read: com.bumptech.glide.disklrucache.DiskLruCache$Editor write(com.bumptech.glide.disklrucache.DiskLruCache$read)>($r12);
+
+        if $r13 == null goto label05;
+
+        $r14 = new java.lang.StringBuilder;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("DIRTY ");
+
+        $r7 = staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$read: java.lang.String IconCompatParcelizer(com.bumptech.glide.disklrucache.DiskLruCache$read)>($r12);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(10);
+
+        $r7 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r2.<java.io.Writer: void write(java.lang.String)>($r7);
+
+        goto label04;
+
+     label05:
+        $r14 = new java.lang.StringBuilder;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("CLEAN ");
+
+        $r7 = staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$read: java.lang.String IconCompatParcelizer(com.bumptech.glide.disklrucache.DiskLruCache$read)>($r12);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r7 = virtualinvoke $r12.<com.bumptech.glide.disklrucache.DiskLruCache$read: java.lang.String ContentLengthInputStream()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(10);
+
+        $r7 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r2.<java.io.Writer: void write(java.lang.String)>($r7);
+
+     label06:
+        goto label04;
+
+     label07:
+        virtualinvoke $r2.<java.io.Writer: void close()>();
+
+        $r5 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.File journalFile>;
+
+        $z0 = virtualinvoke $r5.<java.io.File: boolean exists()>();
+
+        if $z0 == 0 goto label08;
+
+        $r5 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.File journalFile>;
+
+        $r15 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.File journalFileBackup>;
+
+        staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache: void IconCompatParcelizer(java.io.File,java.io.File,boolean)>($r5, $r15, 1);
+
+     label08:
+        $r5 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.File journalFileTmp>;
+
+        $r15 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.File journalFile>;
+
+        staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache: void IconCompatParcelizer(java.io.File,java.io.File,boolean)>($r5, $r15, 0);
+
+        $r5 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.File journalFileBackup>;
+
+        virtualinvoke $r5.<java.io.File: boolean delete()>();
+
+        $r2 = new java.io.BufferedWriter;
+
+        $r3 = new java.io.OutputStreamWriter;
+
+        $r4 = new java.io.FileOutputStream;
+
+        $r5 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.File journalFile>;
+
+        specialinvoke $r4.<java.io.FileOutputStream: void <init>(java.io.File,boolean)>($r5, 1);
+
+        $r6 = <performOptionsItemSelected: java.nio.charset.Charset lambda$JtkBJJpBX-Oq-diia6f5jBTsGYs>;
+
+        specialinvoke $r3.<java.io.OutputStreamWriter: void <init>(java.io.OutputStream,java.nio.charset.Charset)>($r4, $r6);
+
+        specialinvoke $r2.<java.io.BufferedWriter: void <init>(java.io.Writer)>($r3);
+
+        r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.Writer e9> = $r2;
+
+     label09:
+        exitmonitor r0;
+
+        return;
+
+     label10:
+        $r16 := @caughtexception;
+
+     label11:
+        virtualinvoke $r2.<java.io.Writer: void close()>();
+
+        throw $r16;
+
+     label12:
+        $r17 := @caughtexception;
+
+        exitmonitor r0;
+
+        throw $r17;
+
+        catch java.lang.Throwable from label01 to label03 with label12;
+        catch java.lang.Throwable from label03 to label06 with label10;
+        catch java.lang.Throwable from label07 to label09 with label12;
+        catch java.lang.Throwable from label11 to label12 with label12;
+    }

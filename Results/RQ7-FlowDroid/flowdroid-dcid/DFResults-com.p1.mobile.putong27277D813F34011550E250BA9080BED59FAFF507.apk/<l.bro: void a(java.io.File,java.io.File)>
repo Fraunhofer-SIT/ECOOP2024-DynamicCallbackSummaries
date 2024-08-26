@@ -1,0 +1,202 @@
+    public static void a(java.io.File, java.io.File)
+    {
+        java.lang.Throwable $r0, $r1, $r8, $r9;
+        byte[] $r7;
+        java.io.BufferedInputStream $r11;
+        java.io.BufferedOutputStream $r6, $r13;
+        int $i0;
+        boolean $z0;
+        java.io.OutputStream $r16;
+        java.io.FileOutputStream $r12;
+        java.io.IOException $r14;
+        java.io.FileInputStream $r10;
+        java.io.File $r2, $r3;
+        java.lang.Object $r4, $r5;
+        java.io.InputStream $r15;
+
+        $r2 := @parameter0: java.io.File;
+
+        $r3 := @parameter1: java.io.File;
+
+        $z0 = virtualinvoke $r2.<java.io.File: boolean exists()>();
+
+        if $z0 == 0 goto label36;
+
+        $z0 = virtualinvoke $r3.<java.io.File: boolean isDirectory()>();
+
+        if $z0 != 0 goto label36;
+
+        $r4 = null;
+
+     label01:
+        $r11 = new java.io.BufferedInputStream;
+
+     label02:
+        $r5 = $r11;
+
+     label03:
+        $r10 = new java.io.FileInputStream;
+
+     label04:
+        specialinvoke $r10.<java.io.FileInputStream: void <init>(java.io.File)>($r2);
+
+        specialinvoke $r11.<java.io.BufferedInputStream: void <init>(java.io.InputStream,int)>($r10, 4096);
+
+     label05:
+        $r13 = new java.io.BufferedOutputStream;
+
+     label06:
+        $r6 = $r13;
+
+     label07:
+        $r12 = new java.io.FileOutputStream;
+
+     label08:
+        specialinvoke $r12.<java.io.FileOutputStream: void <init>(java.io.File)>($r3);
+
+        specialinvoke $r13.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream,int)>($r12, 4096);
+
+     label09:
+        $r7 = newarray (byte)[4096];
+
+     label10:
+        $r15 = (java.io.InputStream) $r11;
+
+     label11:
+        $i0 = virtualinvoke $r15.<java.io.InputStream: int read(byte[])>($r7);
+
+     label12:
+        if $i0 == -1 goto label15;
+
+     label13:
+        virtualinvoke $r13.<java.io.OutputStream: void write(byte[],int,int)>($r7, 0, $i0);
+
+     label14:
+        goto label10;
+
+     label15:
+        virtualinvoke $r13.<java.io.OutputStream: void flush()>();
+
+     label16:
+        $r15 = (java.io.InputStream) $r11;
+
+        virtualinvoke $r15.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r13.<java.io.OutputStream: void close()>();
+
+     label17:
+        return;
+
+     label18:
+        $r8 := @caughtexception;
+
+        goto label30;
+
+     label19:
+        $r9 := @caughtexception;
+
+        goto label22;
+
+     label20:
+        $r8 := @caughtexception;
+
+        goto label31;
+
+     label21:
+        $r9 := @caughtexception;
+
+        $r6 = null;
+
+     label22:
+        $r4 = $r11;
+
+        goto label25;
+
+     label23:
+        $r8 := @caughtexception;
+
+        $r5 = null;
+
+        goto label31;
+
+     label24:
+        $r9 := @caughtexception;
+
+        $r6 = null;
+
+     label25:
+        $z0 = virtualinvoke $r3.<java.io.File: boolean exists()>();
+
+     label26:
+        if $z0 == 0 goto label28;
+
+     label27:
+        virtualinvoke $r3.<java.io.File: boolean delete()>();
+
+     label28:
+        throw $r9;
+
+     label29:
+        $r8 := @caughtexception;
+
+        $r5 = $r4;
+
+     label30:
+        $r4 = $r6;
+
+     label31:
+        if $r5 == null goto label33;
+
+     label32:
+        $r15 = (java.io.InputStream) $r5;
+
+        virtualinvoke $r15.<java.io.InputStream: void close()>();
+
+     label33:
+        if $r4 == null goto label35;
+
+     label34:
+        $r16 = (java.io.OutputStream) $r4;
+
+        virtualinvoke $r16.<java.io.OutputStream: void close()>();
+
+     label35:
+        throw $r8;
+
+     label36:
+        $r14 = new java.io.IOException;
+
+        specialinvoke $r14.<java.io.IOException: void <init>(java.lang.String)>("\u590d\u5236\u51fa\u9519\uff0c\u8bf7\u68c0\u67e5\u53c2\u6570\u5408\u6cd5\u6027");
+
+        throw $r14;
+
+     label37:
+        $r0 := @caughtexception;
+
+        return;
+
+     label38:
+        $r1 := @caughtexception;
+
+        goto label35;
+
+        catch java.io.IOException from label04 to label05 with label24;
+        catch java.lang.Throwable from label01 to label02 with label23;
+        catch java.lang.Throwable from label03 to label04 with label23;
+        catch java.lang.Throwable from label04 to label05 with label23;
+        catch java.io.IOException from label08 to label09 with label21;
+        catch java.lang.Throwable from label05 to label06 with label20;
+        catch java.lang.Throwable from label07 to label08 with label20;
+        catch java.lang.Throwable from label08 to label09 with label20;
+        catch java.io.IOException from label11 to label12 with label19;
+        catch java.io.IOException from label13 to label14 with label19;
+        catch java.io.IOException from label15 to label16 with label19;
+        catch java.lang.Throwable from label10 to label12 with label18;
+        catch java.lang.Throwable from label13 to label14 with label18;
+        catch java.lang.Throwable from label15 to label16 with label18;
+        catch java.lang.Throwable from label16 to label17 with label37;
+        catch java.lang.Throwable from label25 to label26 with label29;
+        catch java.lang.Throwable from label27 to label29 with label29;
+        catch java.lang.Throwable from label32 to label33 with label38;
+        catch java.lang.Throwable from label34 to label35 with label38;
+    }

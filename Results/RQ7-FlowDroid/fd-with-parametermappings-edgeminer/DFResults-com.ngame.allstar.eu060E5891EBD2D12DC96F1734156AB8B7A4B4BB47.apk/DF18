@@ -1,0 +1,27 @@
+Source: $r1 = staticinvoke <android.provider.Settings$Secure: java.lang.String getString(android.content.ContentResolver,java.lang.String)>($r2, "android_id")
+$r1 = staticinvoke <android.provider.Settings$Secure: java.lang.String getString(android.content.ContentResolver,java.lang.String)>($r2, "android_id") in <com.centauri.oversea.comm.GDPR: java.lang.String getAndroidId(android.content.Context)>
+Sink: virtualinvoke $r2.<com.centauri.comm.log.util.compressor.GzipCompressorOutputStream: void write(byte[],int,int)>($r1, 0, $i0) in <com.centauri.comm.log.processor.CTILogCompressor: byte[] compress(byte[])>
+
+<com.centauri.oversea.comm.GDPR: java.lang.String getAndroidId(android.content.Context)>: $r1 = staticinvoke <android.provider.Settings$Secure: java.lang.String getString(android.content.ContentResolver,java.lang.String)>($r2, "android_id")
+<com.centauri.oversea.comm.GDPR: java.lang.String getAndroidId(android.content.Context)>: return $r1
+<com.centauri.oversea.comm.GDPR: java.lang.String getDeviceInfo(android.content.Context)>: virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1)
+<com.centauri.oversea.comm.GDPR: java.lang.String getDeviceInfo(android.content.Context)>: $r1 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.String toString()>()
+<com.centauri.oversea.comm.GDPR: java.lang.String getDeviceInfo(android.content.Context)>: return $r1
+<com.centauri.oversea.business.CTIPayManager: void reportData(int,java.lang.String)>: virtualinvoke $r3.<com.centauri.oversea.comm.CTIDataReportManager: void insertData(java.lang.String,java.lang.String)>("sdk.oversea.deviceinfo", $r2)
+<com.centauri.oversea.comm.CTIDataReportManager: void insertData(java.lang.String,java.lang.String)>: virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1)
+<com.centauri.oversea.comm.CTIDataReportManager: void insertData(java.lang.String,java.lang.String)>: $r4 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>()
+<com.centauri.oversea.comm.CTIDataReportManager: void insertData(java.lang.String,java.lang.String)>: staticinvoke <com.centauri.comm.CTILog: void d(java.lang.String,java.lang.String)>("APDataReportManager", $r4)
+<com.centauri.comm.CTILog: void d(java.lang.String,java.lang.String)>: $r0 = staticinvoke <com.centauri.comm.CTILog: java.lang.String composeLogMsg(java.lang.String,java.lang.String)>($r0, $r1)
+<com.centauri.comm.CTILog: java.lang.String composeLogMsg(java.lang.String,java.lang.String)>: virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0)
+<com.centauri.comm.CTILog: java.lang.String composeLogMsg(java.lang.String,java.lang.String)>: $r2 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>()
+<com.centauri.comm.CTILog: java.lang.String composeLogMsg(java.lang.String,java.lang.String)>: return $r2
+<com.centauri.comm.CTILog: void d(java.lang.String,java.lang.String)>: staticinvoke <com.centauri.comm.CTILog: void writeLog(java.lang.String)>($r0)
+<com.centauri.comm.CTILog: void writeLog(java.lang.String)>: staticinvoke <com.centauri.comm.CTILog: void write(java.lang.String)>($r0)
+<com.centauri.comm.CTILog: void write(java.lang.String)>: virtualinvoke $r1.<com.centauri.comm.log.internal.CTILogger: void write(java.lang.String)>($r0)
+<com.centauri.comm.log.internal.CTILogger: void write(java.lang.String)>: virtualinvoke $r2.<com.centauri.comm.log.internal.CTILogAppender: void append(java.lang.String)>($r1)
+<com.centauri.comm.log.internal.CTILogAppender: void append(java.lang.String)>: $r2 = specialinvoke r0.<com.centauri.comm.log.internal.CTILogAppender: byte[] process(java.lang.String)>($r1)
+<com.centauri.comm.log.internal.CTILogAppender: byte[] process(java.lang.String)>: virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1)
+<com.centauri.comm.log.internal.CTILogAppender: byte[] process(java.lang.String)>: $r1 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.String toString()>()
+<com.centauri.comm.log.internal.CTILogAppender: byte[] process(java.lang.String)>: $r3 = virtualinvoke $r1.<java.lang.String: byte[] getBytes()>()
+<com.centauri.comm.log.internal.CTILogAppender: byte[] process(java.lang.String)>: $r4 = virtualinvoke $r5.<com.centauri.comm.log.processor.CTILogCompressor: byte[] compress(byte[])>($r3)
+<com.centauri.comm.log.processor.CTILogCompressor: byte[] compress(byte[])>: virtualinvoke $r2.<com.centauri.comm.log.util.compressor.GzipCompressorOutputStream: void write(byte[],int,int)>($r1, 0, $i0)

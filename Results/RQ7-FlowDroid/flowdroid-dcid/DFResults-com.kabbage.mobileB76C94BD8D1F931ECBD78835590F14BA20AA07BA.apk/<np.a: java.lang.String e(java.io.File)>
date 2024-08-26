@@ -1,0 +1,101 @@
+    public static java.lang.String e(java.io.File) throws java.io.FileNotFoundException
+    {
+        java.lang.Throwable $r2, $r3, $r4, $r6;
+        java.io.StringWriter $r9;
+        java.io.IOException $r10;
+        java.io.FileInputStream $r7;
+        java.io.InputStreamReader $r8;
+        java.io.File $r0;
+        int $i0;
+        char[] $r1;
+        java.lang.String $r5;
+
+        $r0 := @parameter0: java.io.File;
+
+        $r7 = new java.io.FileInputStream;
+
+        specialinvoke $r7.<java.io.FileInputStream: void <init>(java.io.File)>($r0);
+
+        $r8 = new java.io.InputStreamReader;
+
+        specialinvoke $r8.<java.io.InputStreamReader: void <init>(java.io.InputStream)>($r7);
+
+        $r9 = new java.io.StringWriter;
+
+        specialinvoke $r9.<java.io.StringWriter: void <init>()>();
+
+        $r1 = newarray (char)[4096];
+
+     label01:
+        $i0 = virtualinvoke $r8.<java.io.Reader: int read(char[])>($r1);
+
+     label02:
+        if $i0 == -1 goto label05;
+
+     label03:
+        virtualinvoke $r9.<java.io.StringWriter: void write(char[],int,int)>($r1, 0, $i0);
+
+     label04:
+        goto label01;
+
+     label05:
+        virtualinvoke $r8.<java.io.Reader: void close()>();
+
+     label06:
+        goto label12;
+
+     label07:
+        $r2 := @caughtexception;
+
+        $r10 = (java.io.IOException) $r2;
+
+        virtualinvoke $r10.<java.io.IOException: java.lang.String toString()>();
+
+        goto label12;
+
+     label08:
+        $r3 := @caughtexception;
+
+        goto label13;
+
+     label09:
+        $r4 := @caughtexception;
+
+     label10:
+        $r10 = (java.io.IOException) $r4;
+
+        virtualinvoke $r10.<java.io.IOException: java.lang.String toString()>();
+
+     label11:
+        virtualinvoke $r8.<java.io.Reader: void close()>();
+
+     label12:
+        $r5 = virtualinvoke $r9.<java.io.StringWriter: java.lang.String toString()>();
+
+        return $r5;
+
+     label13:
+        virtualinvoke $r8.<java.io.Reader: void close()>();
+
+     label14:
+        goto label16;
+
+     label15:
+        $r6 := @caughtexception;
+
+        $r10 = (java.io.IOException) $r6;
+
+        virtualinvoke $r10.<java.io.IOException: java.lang.String toString()>();
+
+     label16:
+        throw $r3;
+
+        catch java.io.IOException from label01 to label02 with label09;
+        catch java.io.IOException from label03 to label04 with label09;
+        catch java.lang.Throwable from label01 to label02 with label08;
+        catch java.lang.Throwable from label03 to label04 with label08;
+        catch java.io.IOException from label05 to label06 with label07;
+        catch java.lang.Throwable from label10 to label11 with label08;
+        catch java.io.IOException from label11 to label12 with label07;
+        catch java.io.IOException from label13 to label14 with label15;
+    }

@@ -1,0 +1,187 @@
+    private static java.util.Map$Entry a(java.lang.String, d.f.c, java.util.Set, byte[])
+    {
+        android.content.SharedPreferences$Editor $r9;
+        byte[] $r4, $r7;
+        java.lang.Object[] $r15;
+        d.f.c $r3;
+        java.util.HashMap $r16;
+        java.lang.Integer $r12;
+        java.security.SecureRandom $r8;
+        java.util.Locale $r14;
+        java.util.Map $r11;
+        int $i0, $i1, $i2;
+        java.lang.String $r2, $r6;
+        java.util.Set $r0;
+        java.lang.Exception $r1;
+        android.content.SharedPreferences $r5;
+        java.util.AbstractMap$SimpleEntry $r18;
+        java.lang.Object $r13;
+        java.lang.StringBuilder $r17;
+        javax.crypto.SecretKey $r10;
+
+        $r2 := @parameter0: java.lang.String;
+
+        $r3 := @parameter1: d.f.c;
+
+        $r0 := @parameter2: java.util.Set;
+
+        $r4 := @parameter3: byte[];
+
+        $r5 = staticinvoke <d.j.a: android.content.SharedPreferences h()>();
+
+        $i0 = virtualinvoke $r3.<d.f.c: int a()>();
+
+        if $r4 != null goto label12;
+
+        $r6 = interfaceinvoke $r5.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("st", null);
+
+        if $r6 == null goto label11;
+
+     label01:
+        $r7 = staticinvoke <d.j.q: byte[] e(java.lang.String)>($r6);
+
+     label02:
+        $r4 = $r7;
+
+     label03:
+        $i1 = lengthof $r7;
+
+        $i2 = virtualinvoke $r3.<d.f.c: int b()>();
+
+     label04:
+        if $i1 == $i2 goto label10;
+
+     label05:
+        $i1 = virtualinvoke $r3.<d.f.c: int b()>();
+
+        $r4 = newarray (byte)[$i1];
+
+     label06:
+        $r8 = <d.j.p: java.security.SecureRandom b>;
+
+     label07:
+        virtualinvoke $r8.<java.security.SecureRandom: void nextBytes(byte[])>($r4);
+
+     label08:
+        goto label10;
+
+     label09:
+        $i1 = virtualinvoke $r3.<d.f.c: int b()>();
+
+        $r4 = newarray (byte)[$i1];
+
+        $r8 = <d.j.p: java.security.SecureRandom b>;
+
+        virtualinvoke $r8.<java.security.SecureRandom: void nextBytes(byte[])>($r4);
+
+     label10:
+        $r9 = interfaceinvoke $r5.<android.content.SharedPreferences: android.content.SharedPreferences$Editor edit()>();
+
+        $r9 = interfaceinvoke $r9.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor remove(java.lang.String)>("st");
+
+        interfaceinvoke $r9.<android.content.SharedPreferences$Editor: boolean commit()>();
+
+        goto label12;
+
+     label11:
+        $i1 = virtualinvoke $r3.<d.f.c: int b()>();
+
+        $r4 = newarray (byte)[$i1];
+
+        $r8 = <d.j.p: java.security.SecureRandom b>;
+
+        virtualinvoke $r8.<java.security.SecureRandom: void nextBytes(byte[])>($r4);
+
+     label12:
+        $i1 = virtualinvoke $r3.<d.f.c: int c()>();
+
+        $i2 = virtualinvoke $r3.<d.f.c: int d()>();
+
+        $r10 = staticinvoke <d.j.p: javax.crypto.SecretKey a(java.lang.String,byte[],int,int)>($r2, $r4, $i1, $i2);
+
+        $r11 = <d.j.p: java.util.Map h>;
+
+        $r12 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+        $r13 = interfaceinvoke $r11.<java.util.Map: java.lang.Object get(java.lang.Object)>($r12);
+
+        if $r13 == null goto label13;
+
+        $r11 = <d.j.p: java.util.Map h>;
+
+        $r12 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+        $r13 = interfaceinvoke $r11.<java.util.Map: java.lang.Object get(java.lang.Object)>($r12);
+
+        $r13 = (java.util.Map) $r13;
+
+        goto label14;
+
+     label13:
+        $r16 = new java.util.HashMap;
+
+        $r13 = $r16;
+
+        specialinvoke $r16.<java.util.HashMap: void <init>()>();
+
+     label14:
+        $r2 = staticinvoke <d.j.q: java.lang.String a(byte[])>($r4);
+
+        $r11 = (java.util.Map) $r13;
+
+        interfaceinvoke $r11.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($r2, $r10);
+
+        $r11 = <d.j.p: java.util.Map h>;
+
+        $r12 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+        interfaceinvoke $r11.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($r12, $r13);
+
+        $r14 = <java.util.Locale: java.util.Locale ENGLISH>;
+
+        $r15 = newarray (java.lang.Object)[2];
+
+        $r15[0] = $r2;
+
+        $r7 = interfaceinvoke $r10.<javax.crypto.SecretKey: byte[] getEncoded()>();
+
+        $r2 = staticinvoke <d.j.q: java.lang.String a(byte[])>($r7);
+
+        $r15[1] = $r2;
+
+        $r2 = staticinvoke <java.lang.String: java.lang.String format(java.util.Locale,java.lang.String,java.lang.Object[])>($r14, "%s,%s", $r15);
+
+        interfaceinvoke $r0.<java.util.Set: boolean add(java.lang.Object)>($r2);
+
+        $r9 = interfaceinvoke $r5.<android.content.SharedPreferences: android.content.SharedPreferences$Editor edit()>();
+
+        $r17 = new java.lang.StringBuilder;
+
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("");
+
+        $r2 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r9 = interfaceinvoke $r9.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putStringSet(java.lang.String,java.util.Set)>($r2, $r0);
+
+        interfaceinvoke $r9.<android.content.SharedPreferences$Editor: boolean commit()>();
+
+        $r18 = new java.util.AbstractMap$SimpleEntry;
+
+        specialinvoke $r18.<java.util.AbstractMap$SimpleEntry: void <init>(java.lang.Object,java.lang.Object)>($r4, $r10);
+
+        return $r18;
+
+     label15:
+        $r1 := @caughtexception;
+
+        goto label09;
+
+        catch java.lang.Exception from label01 to label02 with label15;
+        catch java.lang.Exception from label03 to label04 with label15;
+        catch java.lang.Exception from label05 to label06 with label15;
+        catch java.lang.Exception from label07 to label08 with label15;
+    }

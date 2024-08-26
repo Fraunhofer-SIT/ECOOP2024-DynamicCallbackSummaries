@@ -1,0 +1,114 @@
+    private void internalSyncUserState(boolean)
+    {
+        java.lang.Throwable $r8;
+        com.onesignal.UserStateSynchronizer r0;
+        org.json.JSONObject $r5, $r6, $r7;
+        java.lang.Object $r3;
+        java.lang.String $r1;
+        com.onesignal.UserState $r2, $r4;
+        boolean $z0, $z1;
+
+        r0 := @this: com.onesignal.UserStateSynchronizer;
+
+        $z0 := @parameter0: boolean;
+
+        $r1 = virtualinvoke r0.<com.onesignal.UserStateSynchronizer: java.lang.String getId()>();
+
+        $z1 = specialinvoke r0.<com.onesignal.UserStateSynchronizer: boolean syncEmailLogout()>();
+
+        if $z1 == 0 goto label01;
+
+        if $r1 == null goto label01;
+
+        specialinvoke r0.<com.onesignal.UserStateSynchronizer: void doEmailLogout(java.lang.String)>($r1);
+
+        return;
+
+     label01:
+        $r2 = r0.<com.onesignal.UserStateSynchronizer: com.onesignal.UserState currentUserState>;
+
+        if $r2 != null goto label02;
+
+        virtualinvoke r0.<com.onesignal.UserStateSynchronizer: void initUserState()>();
+
+     label02:
+        $z0 = specialinvoke r0.<com.onesignal.UserStateSynchronizer: boolean isSessionCall()>();
+
+        if $z0 == 0 goto label03;
+
+        $z0 = 1;
+
+        goto label04;
+
+     label03:
+        $z0 = 0;
+
+     label04:
+        $r3 = r0.<com.onesignal.UserStateSynchronizer: java.lang.Object syncLock>;
+
+        entermonitor $r3;
+
+     label05:
+        $r2 = r0.<com.onesignal.UserStateSynchronizer: com.onesignal.UserState currentUserState>;
+
+        $r4 = virtualinvoke r0.<com.onesignal.UserStateSynchronizer: com.onesignal.UserState getToSyncUserState()>();
+
+        $r5 = virtualinvoke $r2.<com.onesignal.UserState: org.json.JSONObject generateJsonDiff(com.onesignal.UserState,boolean)>($r4, $z0);
+
+        $r2 = r0.<com.onesignal.UserStateSynchronizer: com.onesignal.UserState currentUserState>;
+
+        $r6 = $r2.<com.onesignal.UserState: org.json.JSONObject dependValues>;
+
+        $r2 = virtualinvoke r0.<com.onesignal.UserStateSynchronizer: com.onesignal.UserState getToSyncUserState()>();
+
+        $r7 = $r2.<com.onesignal.UserState: org.json.JSONObject dependValues>;
+
+        $r6 = virtualinvoke r0.<com.onesignal.UserStateSynchronizer: org.json.JSONObject generateJsonDiff(org.json.JSONObject,org.json.JSONObject,org.json.JSONObject,java.util.Set)>($r6, $r7, null, null);
+
+        if $r5 != null goto label07;
+
+        $r2 = r0.<com.onesignal.UserStateSynchronizer: com.onesignal.UserState currentUserState>;
+
+        virtualinvoke $r2.<com.onesignal.UserState: void persistStateAfterSync(org.json.JSONObject,org.json.JSONObject)>($r6, null);
+
+        specialinvoke r0.<com.onesignal.UserStateSynchronizer: void sendTagsHandlersPerformOnSuccess()>();
+
+        specialinvoke r0.<com.onesignal.UserStateSynchronizer: void externalUserIdUpdateHandlersPerformOnSuccess()>();
+
+        exitmonitor $r3;
+
+     label06:
+        return;
+
+     label07:
+        $r2 = virtualinvoke r0.<com.onesignal.UserStateSynchronizer: com.onesignal.UserState getToSyncUserState()>();
+
+        virtualinvoke $r2.<com.onesignal.UserState: void persistState()>();
+
+        exitmonitor $r3;
+
+     label08:
+        if $z0 != 0 goto label09;
+
+        specialinvoke r0.<com.onesignal.UserStateSynchronizer: void doPutSync(java.lang.String,org.json.JSONObject,org.json.JSONObject)>($r1, $r5, $r6);
+
+        return;
+
+     label09:
+        specialinvoke r0.<com.onesignal.UserStateSynchronizer: void doCreateOrNewSession(java.lang.String,org.json.JSONObject,org.json.JSONObject)>($r1, $r5, $r6);
+
+        return;
+
+     label10:
+        $r8 := @caughtexception;
+
+     label11:
+        exitmonitor $r3;
+
+     label12:
+        throw $r8;
+
+        catch java.lang.Throwable from label05 to label06 with label10;
+        catch java.lang.Throwable from label07 to label08 with label10;
+        catch java.lang.Throwable from label11 to label12 with label10;
+    }

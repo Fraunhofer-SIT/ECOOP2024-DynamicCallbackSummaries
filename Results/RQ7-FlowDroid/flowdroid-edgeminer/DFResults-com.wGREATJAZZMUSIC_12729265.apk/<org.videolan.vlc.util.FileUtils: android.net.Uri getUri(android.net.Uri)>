@@ -1,0 +1,429 @@
+    public final android.net.Uri getUri(android.net.Uri)
+    {
+        byte[] $r29;
+        android.os.ParcelFileDescriptor $r15;
+        android.net.Uri $r9;
+        java.lang.NullPointerException $r4;
+        org.videolan.tools.CloseableUtils $r23;
+        android.content.ContentResolver $r14;
+        org.videolan.resources.AndroidDevices $r26;
+        boolean $z0;
+        org.videolan.resources.AppContextProvider $r10;
+        java.lang.Exception $r6, $r7, $r8;
+        java.lang.StringBuilder $r16;
+        java.lang.Throwable $r1, $r2, $r3, $r5, $r30;
+        android.content.Context $r11;
+        java.lang.String[] $r20;
+        org.videolan.vlc.util.FileUtils r0;
+        org.videolan.vlc.media.MediaUtils $r13;
+        int $i0;
+        java.lang.String $r12, $r27;
+        android.database.Cursor $r19, $r21;
+        java.io.OutputStream $r18, $r28;
+        java.io.FileOutputStream $r25;
+        java.io.Closeable $r24;
+        java.io.InputStream $r17, $r22;
+
+        r0 := @this: org.videolan.vlc.util.FileUtils;
+
+        $r9 := @parameter0: android.net.Uri;
+
+        $r10 = <org.videolan.resources.AppContextProvider: org.videolan.resources.AppContextProvider INSTANCE>;
+
+        $r11 = virtualinvoke $r10.<org.videolan.resources.AppContextProvider: android.content.Context getAppContext()>();
+
+        if $r9 == null goto label51;
+
+        if $r11 == null goto label51;
+
+        $r12 = virtualinvoke $r9.<android.net.Uri: java.lang.String getScheme()>();
+
+        $z0 = staticinvoke <kotlin.jvm.internal.Intrinsics: boolean areEqual(java.lang.Object,java.lang.Object)>($r12, "content");
+
+        if $z0 == 0 goto label51;
+
+        $r12 = virtualinvoke $r9.<android.net.Uri: java.lang.String getHost()>();
+
+        $z0 = staticinvoke <kotlin.jvm.internal.Intrinsics: boolean areEqual(java.lang.Object,java.lang.Object)>("com.fsck.k9.attachmentprovider", $r12);
+
+        if $z0 != 0 goto label11;
+
+        $r12 = virtualinvoke $r9.<android.net.Uri: java.lang.String getHost()>();
+
+        $z0 = staticinvoke <kotlin.jvm.internal.Intrinsics: boolean areEqual(java.lang.Object,java.lang.Object)>("gmail-ls", $r12);
+
+        if $z0 != 0 goto label11;
+
+        $r12 = virtualinvoke $r9.<android.net.Uri: java.lang.String getAuthority()>();
+
+        $z0 = staticinvoke <kotlin.jvm.internal.Intrinsics: boolean areEqual(java.lang.Object,java.lang.Object)>($r12, "media");
+
+        if $z0 == 0 goto label01;
+
+        $r13 = <org.videolan.vlc.media.MediaUtils: org.videolan.vlc.media.MediaUtils INSTANCE>;
+
+        $r9 = virtualinvoke $r13.<org.videolan.vlc.media.MediaUtils: android.net.Uri getContentMediaUri(android.net.Uri)>($r9);
+
+        return $r9;
+
+     label01:
+        $r14 = virtualinvoke $r11.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+        $r15 = virtualinvoke $r14.<android.content.ContentResolver: android.os.ParcelFileDescriptor openFileDescriptor(android.net.Uri,java.lang.String)>($r9, "r");
+
+     label02:
+        if $r15 != null goto label03;
+
+        return $r9;
+
+     label03:
+        $r16 = new java.lang.StringBuilder;
+
+     label04:
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("fd://");
+
+        $i0 = virtualinvoke $r15.<android.os.ParcelFileDescriptor: int getFd()>();
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r12 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r9 = staticinvoke <org.videolan.libvlc.util.AndroidUtil: android.net.Uri LocationToUri(java.lang.String)>($r12);
+
+     label05:
+        return $r9;
+
+     label06:
+        $r12 = <org.videolan.vlc.util.FileUtils: java.lang.String TAG>;
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>($r12, "Permission is no longer valid");
+
+        return null;
+
+     label07:
+        $r12 = <org.videolan.vlc.util.FileUtils: java.lang.String TAG>;
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>($r12, "Couldn\'t understand the intent");
+
+        return null;
+
+     label08:
+        $r12 = <org.videolan.vlc.util.FileUtils: java.lang.String TAG>;
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>($r12, "Couldn\'t understand the intent");
+
+        return null;
+
+     label09:
+        $r12 = <org.videolan.vlc.util.FileUtils: java.lang.String TAG>;
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>($r12, "Couldn\'t understand the intent");
+
+        return null;
+
+     label10:
+        $r12 = <org.videolan.vlc.util.FileUtils: java.lang.String TAG>;
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>($r12, "Couldn\'t understand the intent");
+
+        return null;
+
+     label11:
+        $r17 = null;
+
+        $r18 = null;
+
+        $r19 = null;
+
+     label12:
+        $r14 = virtualinvoke $r11.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+     label13:
+        $r20 = newarray (java.lang.String)[1];
+
+     label14:
+        $r20[0] = "_display_name";
+
+     label15:
+        $r21 = virtualinvoke $r14.<android.content.ContentResolver: android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String)>($r9, $r20, null, null, null);
+
+     label16:
+        $r19 = $r21;
+
+        if $r21 == null goto label38;
+
+     label17:
+        $z0 = interfaceinvoke $r21.<android.database.Cursor: boolean moveToFirst()>();
+
+     label18:
+        if $z0 == 0 goto label38;
+
+     label19:
+        $i0 = interfaceinvoke $r21.<android.database.Cursor: int getColumnIndex(java.lang.String)>("_display_name");
+
+        $r12 = interfaceinvoke $r21.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkExpressionValueIsNotNull(java.lang.Object,java.lang.String)>($r12, "cursor.getString(cursor.\u2026diaColumns.DISPLAY_NAME))");
+
+        $r12 = staticinvoke <kotlin.text.StringsKt: java.lang.String replace$default(java.lang.String,java.lang.String,java.lang.String,boolean,int,java.lang.Object)>($r12, "/", "", 0, 4, null);
+
+        $r14 = virtualinvoke $r11.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+        $r22 = virtualinvoke $r14.<android.content.ContentResolver: java.io.InputStream openInputStream(android.net.Uri)>($r9);
+
+     label20:
+        $r17 = $r22;
+
+        if $r22 != null goto label21;
+
+        $r23 = <org.videolan.tools.CloseableUtils: org.videolan.tools.CloseableUtils INSTANCE>;
+
+        $r24 = (java.io.Closeable) $r22;
+
+        virtualinvoke $r23.<org.videolan.tools.CloseableUtils: boolean close(java.io.Closeable)>($r24);
+
+        $r23 = <org.videolan.tools.CloseableUtils: org.videolan.tools.CloseableUtils INSTANCE>;
+
+        $r24 = null;
+
+        virtualinvoke $r23.<org.videolan.tools.CloseableUtils: boolean close(java.io.Closeable)>($r24);
+
+        $r23 = <org.videolan.tools.CloseableUtils: org.videolan.tools.CloseableUtils INSTANCE>;
+
+        $r24 = (java.io.Closeable) $r21;
+
+        virtualinvoke $r23.<org.videolan.tools.CloseableUtils: boolean close(java.io.Closeable)>($r24);
+
+        return $r9;
+
+     label21:
+        $r25 = new java.io.FileOutputStream;
+
+        $r16 = new java.lang.StringBuilder;
+
+     label22:
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+     label23:
+        $r26 = <org.videolan.resources.AndroidDevices: org.videolan.resources.AndroidDevices INSTANCE>;
+
+     label24:
+        $r27 = virtualinvoke $r26.<org.videolan.resources.AndroidDevices: java.lang.String getEXTERNAL_PUBLIC_DIRECTORY()>();
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r27);
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/Download/");
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r12);
+
+        $r27 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r25.<java.io.FileOutputStream: void <init>(java.lang.String)>($r27);
+
+     label25:
+        $r28 = (java.io.OutputStream) $r25;
+
+     label26:
+        $r29 = newarray (byte)[1024];
+
+     label27:
+        $i0 = virtualinvoke $r22.<java.io.InputStream: int read(byte[])>($r29);
+
+     label28:
+        if $i0 < 0 goto label31;
+
+     label29:
+        virtualinvoke $r28.<java.io.OutputStream: void write(byte[],int,int)>($r29, 0, $i0);
+
+        $i0 = virtualinvoke $r22.<java.io.InputStream: int read(byte[])>($r29);
+
+     label30:
+        goto label28;
+
+     label31:
+        $r16 = new java.lang.StringBuilder;
+
+     label32:
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+     label33:
+        $r26 = <org.videolan.resources.AndroidDevices: org.videolan.resources.AndroidDevices INSTANCE>;
+
+     label34:
+        $r27 = virtualinvoke $r26.<org.videolan.resources.AndroidDevices: java.lang.String getEXTERNAL_PUBLIC_DIRECTORY()>();
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r27);
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/Download/");
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r12);
+
+        $r12 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r9 = staticinvoke <org.videolan.libvlc.util.AndroidUtil: android.net.Uri PathToUri(java.lang.String)>($r12);
+
+     label35:
+        $r18 = $r28;
+
+        goto label38;
+
+     label36:
+        $r30 := @caughtexception;
+
+        $r18 = $r28;
+
+        goto label42;
+
+     label37:
+        $r18 = $r28;
+
+        goto label40;
+
+     label38:
+        $r23 = <org.videolan.tools.CloseableUtils: org.videolan.tools.CloseableUtils INSTANCE>;
+
+        $r24 = (java.io.Closeable) $r17;
+
+        virtualinvoke $r23.<org.videolan.tools.CloseableUtils: boolean close(java.io.Closeable)>($r24);
+
+        $r23 = <org.videolan.tools.CloseableUtils: org.videolan.tools.CloseableUtils INSTANCE>;
+
+        $r24 = (java.io.Closeable) $r18;
+
+        virtualinvoke $r23.<org.videolan.tools.CloseableUtils: boolean close(java.io.Closeable)>($r24);
+
+        $r23 = <org.videolan.tools.CloseableUtils: org.videolan.tools.CloseableUtils INSTANCE>;
+
+        $r24 = (java.io.Closeable) $r21;
+
+        virtualinvoke $r23.<org.videolan.tools.CloseableUtils: boolean close(java.io.Closeable)>($r24);
+
+        return $r9;
+
+     label39:
+        $r30 := @caughtexception;
+
+        goto label42;
+
+     label40:
+        $r12 = <org.videolan.vlc.util.FileUtils: java.lang.String TAG>;
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>($r12, "Couldn\'t download file from mail URI");
+
+     label41:
+        $r23 = <org.videolan.tools.CloseableUtils: org.videolan.tools.CloseableUtils INSTANCE>;
+
+        $r24 = (java.io.Closeable) $r17;
+
+        virtualinvoke $r23.<org.videolan.tools.CloseableUtils: boolean close(java.io.Closeable)>($r24);
+
+        $r23 = <org.videolan.tools.CloseableUtils: org.videolan.tools.CloseableUtils INSTANCE>;
+
+        $r24 = (java.io.Closeable) $r18;
+
+        virtualinvoke $r23.<org.videolan.tools.CloseableUtils: boolean close(java.io.Closeable)>($r24);
+
+        $r23 = <org.videolan.tools.CloseableUtils: org.videolan.tools.CloseableUtils INSTANCE>;
+
+        $r24 = (java.io.Closeable) $r19;
+
+        virtualinvoke $r23.<org.videolan.tools.CloseableUtils: boolean close(java.io.Closeable)>($r24);
+
+        return null;
+
+     label42:
+        $r23 = <org.videolan.tools.CloseableUtils: org.videolan.tools.CloseableUtils INSTANCE>;
+
+        $r24 = (java.io.Closeable) $r17;
+
+        virtualinvoke $r23.<org.videolan.tools.CloseableUtils: boolean close(java.io.Closeable)>($r24);
+
+        $r23 = <org.videolan.tools.CloseableUtils: org.videolan.tools.CloseableUtils INSTANCE>;
+
+        $r24 = (java.io.Closeable) $r18;
+
+        virtualinvoke $r23.<org.videolan.tools.CloseableUtils: boolean close(java.io.Closeable)>($r24);
+
+        $r23 = <org.videolan.tools.CloseableUtils: org.videolan.tools.CloseableUtils INSTANCE>;
+
+        $r24 = (java.io.Closeable) $r19;
+
+        virtualinvoke $r23.<org.videolan.tools.CloseableUtils: boolean close(java.io.Closeable)>($r24);
+
+        throw $r30;
+
+     label43:
+        $r1 := @caughtexception;
+
+        goto label10;
+
+     label44:
+        $r2 := @caughtexception;
+
+        goto label09;
+
+     label45:
+        $r3 := @caughtexception;
+
+        goto label08;
+
+     label46:
+        $r4 := @caughtexception;
+
+        goto label07;
+
+     label47:
+        $r5 := @caughtexception;
+
+        goto label06;
+
+     label48:
+        $r6 := @caughtexception;
+
+        goto label40;
+
+     label49:
+        $r7 := @caughtexception;
+
+        goto label40;
+
+     label50:
+        $r8 := @caughtexception;
+
+        goto label37;
+
+     label51:
+        return $r9;
+
+        catch java.io.FileNotFoundException from label01 to label02 with label43;
+        catch java.io.FileNotFoundException from label04 to label05 with label43;
+        catch java.lang.IllegalArgumentException from label01 to label02 with label44;
+        catch java.lang.IllegalArgumentException from label04 to label05 with label44;
+        catch java.lang.IllegalStateException from label01 to label02 with label45;
+        catch java.lang.IllegalStateException from label04 to label05 with label45;
+        catch java.lang.NullPointerException from label01 to label02 with label46;
+        catch java.lang.NullPointerException from label04 to label05 with label46;
+        catch java.lang.SecurityException from label01 to label02 with label47;
+        catch java.lang.SecurityException from label04 to label05 with label47;
+        catch java.lang.Exception from label12 to label13 with label48;
+        catch java.lang.Exception from label14 to label16 with label48;
+        catch java.lang.Exception from label17 to label18 with label48;
+        catch java.lang.Exception from label19 to label20 with label48;
+        catch java.lang.Throwable from label12 to label14 with label39;
+        catch java.lang.Throwable from label15 to label16 with label39;
+        catch java.lang.Throwable from label17 to label18 with label39;
+        catch java.lang.Throwable from label19 to label20 with label39;
+        catch java.lang.Exception from label22 to label23 with label49;
+        catch java.lang.Exception from label24 to label25 with label49;
+        catch java.lang.Throwable from label21 to label26 with label39;
+        catch java.lang.Exception from label27 to label28 with label50;
+        catch java.lang.Exception from label29 to label30 with label50;
+        catch java.lang.Exception from label32 to label33 with label50;
+        catch java.lang.Exception from label34 to label35 with label50;
+        catch java.lang.Throwable from label27 to label28 with label36;
+        catch java.lang.Throwable from label29 to label30 with label36;
+        catch java.lang.Throwable from label31 to label35 with label36;
+        catch java.lang.Throwable from label40 to label41 with label39;
+    }

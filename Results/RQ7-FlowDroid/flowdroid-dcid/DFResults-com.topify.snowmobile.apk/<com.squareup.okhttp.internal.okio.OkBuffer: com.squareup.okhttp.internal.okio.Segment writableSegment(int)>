@@ -1,0 +1,66 @@
+    com.squareup.okhttp.internal.okio.Segment writableSegment(int)
+    {
+        com.squareup.okhttp.internal.okio.SegmentPool $r3;
+        java.lang.IllegalArgumentException $r1;
+        com.squareup.okhttp.internal.okio.OkBuffer r0;
+        int $i0, $i1;
+        com.squareup.okhttp.internal.okio.Segment $r2, $r4, r5;
+
+        r0 := @this: com.squareup.okhttp.internal.okio.OkBuffer;
+
+        $i0 := @parameter0: int;
+
+        if $i0 < 1 goto label1;
+
+        if $i0 <= 2048 goto label2;
+
+     label1:
+        $r1 = new java.lang.IllegalArgumentException;
+
+        specialinvoke $r1.<java.lang.IllegalArgumentException: void <init>()>();
+
+        throw $r1;
+
+     label2:
+        $r2 = r0.<com.squareup.okhttp.internal.okio.OkBuffer: com.squareup.okhttp.internal.okio.Segment head>;
+
+        if $r2 != null goto label3;
+
+        $r3 = <com.squareup.okhttp.internal.okio.SegmentPool: com.squareup.okhttp.internal.okio.SegmentPool INSTANCE>;
+
+        $r2 = virtualinvoke $r3.<com.squareup.okhttp.internal.okio.SegmentPool: com.squareup.okhttp.internal.okio.Segment take()>();
+
+        r0.<com.squareup.okhttp.internal.okio.OkBuffer: com.squareup.okhttp.internal.okio.Segment head> = $r2;
+
+        $r2 = r0.<com.squareup.okhttp.internal.okio.OkBuffer: com.squareup.okhttp.internal.okio.Segment head>;
+
+        $r4 = r0.<com.squareup.okhttp.internal.okio.OkBuffer: com.squareup.okhttp.internal.okio.Segment head>;
+
+        r5 = r0.<com.squareup.okhttp.internal.okio.OkBuffer: com.squareup.okhttp.internal.okio.Segment head>;
+
+        $r4.<com.squareup.okhttp.internal.okio.Segment: com.squareup.okhttp.internal.okio.Segment prev> = r5;
+
+        $r2.<com.squareup.okhttp.internal.okio.Segment: com.squareup.okhttp.internal.okio.Segment next> = r5;
+
+        return r5;
+
+     label3:
+        $r2 = r0.<com.squareup.okhttp.internal.okio.OkBuffer: com.squareup.okhttp.internal.okio.Segment head>;
+
+        $r2 = $r2.<com.squareup.okhttp.internal.okio.Segment: com.squareup.okhttp.internal.okio.Segment prev>;
+
+        $i1 = $r2.<com.squareup.okhttp.internal.okio.Segment: int limit>;
+
+        $i0 = $i1 + $i0;
+
+        if $i0 <= 2048 goto label4;
+
+        $r3 = <com.squareup.okhttp.internal.okio.SegmentPool: com.squareup.okhttp.internal.okio.SegmentPool INSTANCE>;
+
+        $r4 = virtualinvoke $r3.<com.squareup.okhttp.internal.okio.SegmentPool: com.squareup.okhttp.internal.okio.Segment take()>();
+
+        $r2 = virtualinvoke $r2.<com.squareup.okhttp.internal.okio.Segment: com.squareup.okhttp.internal.okio.Segment push(com.squareup.okhttp.internal.okio.Segment)>($r4);
+
+     label4:
+        return $r2;
+    }

@@ -1,0 +1,67 @@
+    static com.parse.PushRouter pushRouterFromState(java.io.File, java.io.File, int)
+    {
+        com.parse.PushHistory r2;
+        java.io.File $r0, $r1;
+        com.parse.PushRouter r3;
+        org.json.JSONObject $r4;
+        int $i0;
+        java.lang.String $r5;
+        boolean z0;
+
+        $r0 := @parameter0: java.io.File;
+
+        $r1 := @parameter1: java.io.File;
+
+        $i0 := @parameter2: int;
+
+        $r4 = staticinvoke <com.parse.PushRouter: org.json.JSONObject readJSONFileQuietly(java.io.File)>($r0);
+
+        if $r4 == null goto label4;
+
+        $r4 = virtualinvoke $r4.<org.json.JSONObject: org.json.JSONObject optJSONObject(java.lang.String)>("history");
+
+     label1:
+        r2 = new com.parse.PushHistory;
+
+        specialinvoke r2.<com.parse.PushHistory: void <init>(int,org.json.JSONObject)>($i0, $r4);
+
+        z0 = 0;
+
+        $r5 = virtualinvoke r2.<com.parse.PushHistory: java.lang.String getLastReceivedTimestamp()>();
+
+        if $r5 != null goto label3;
+
+        $r4 = staticinvoke <com.parse.PushRouter: org.json.JSONObject readJSONFileQuietly(java.io.File)>($r1);
+
+        if $r4 == null goto label3;
+
+        $r5 = virtualinvoke $r4.<org.json.JSONObject: java.lang.String optString(java.lang.String,java.lang.String)>("lastTime", null);
+
+        if $r5 == null goto label2;
+
+        virtualinvoke r2.<com.parse.PushHistory: void setLastReceivedTimestamp(java.lang.String)>($r5);
+
+     label2:
+        z0 = 1;
+
+     label3:
+        r3 = new com.parse.PushRouter;
+
+        specialinvoke r3.<com.parse.PushRouter: void <init>(java.io.File,com.parse.PushHistory)>($r0, r2);
+
+        if z0 == 0 goto label5;
+
+        specialinvoke r3.<com.parse.PushRouter: void saveStateToDisk()>();
+
+        staticinvoke <com.parse.ParseFileUtils: boolean deleteQuietly(java.io.File)>($r1);
+
+        return r3;
+
+     label4:
+        $r4 = null;
+
+        goto label1;
+
+     label5:
+        return r3;
+    }

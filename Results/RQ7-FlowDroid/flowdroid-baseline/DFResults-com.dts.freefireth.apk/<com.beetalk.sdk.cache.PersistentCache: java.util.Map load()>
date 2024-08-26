@@ -1,0 +1,24 @@
+    public java.util.Map load()
+    {
+        com.beetalk.sdk.cache.PersistentCache r0;
+        com.beetalk.sdk.cache.SharedPrefStorage $r1;
+        java.util.Map $r2, $r3;
+        boolean $z0;
+
+        r0 := @this: com.beetalk.sdk.cache.PersistentCache;
+
+        $r1 = r0.<com.beetalk.sdk.cache.PersistentCache: com.beetalk.sdk.cache.SharedPrefStorage mFallbackStorage>;
+
+        $r2 = virtualinvoke $r1.<com.beetalk.sdk.cache.SharedPrefStorage: java.util.Map load()>();
+
+        $z0 = specialinvoke r0.<com.beetalk.sdk.cache.PersistentCache: boolean isExternalAccessible()>();
+
+        if $z0 == 0 goto label1;
+
+        $r3 = specialinvoke r0.<com.beetalk.sdk.cache.PersistentCache: java.util.Map loadFromFile()>();
+
+        specialinvoke r0.<com.beetalk.sdk.cache.PersistentCache: void sync(java.util.Map,java.util.Map)>($r2, $r3);
+
+     label1:
+        return $r2;
+    }

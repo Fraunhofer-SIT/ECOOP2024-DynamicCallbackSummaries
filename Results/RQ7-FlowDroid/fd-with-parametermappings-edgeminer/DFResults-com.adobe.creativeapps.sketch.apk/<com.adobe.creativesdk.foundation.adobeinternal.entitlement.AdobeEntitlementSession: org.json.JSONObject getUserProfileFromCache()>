@@ -1,0 +1,163 @@
+    public org.json.JSONObject getUserProfileFromCache()
+    {
+        java.lang.Throwable r10, $r12;
+        com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementSession$1Output $r14;
+        java.util.Date $r5, $r15;
+        com.adobe.creativesdk.foundation.internal.auth.AdobeAuthKeychain $r2;
+        long l0, $l1;
+        com.adobe.creativesdk.foundation.internal.cache.AdobeCommonCache $r4;
+        org.json.JSONException r13;
+        org.json.JSONObject r1, $r16;
+        byte $b2;
+        com.adobe.creativesdk.foundation.internal.cache.AdobeCommonCacheOptions $r8;
+        com.adobe.creativesdk.foundation.internal.utils.logging.Level $r11;
+        int $i3;
+        java.lang.String $r3;
+        java.util.EnumSet $r9;
+        boolean $z0;
+        java.util.concurrent.locks.ReentrantLock $r17;
+        com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementSession$1 $r18;
+        java.util.concurrent.locks.Condition $r7;
+        android.content.SharedPreferences $r6;
+        java.lang.InterruptedException $r19;
+        com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementSession r0;
+
+        r0 := @this: com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementSession;
+
+        $r2 = staticinvoke <com.adobe.creativesdk.foundation.internal.auth.AdobeAuthKeychain: com.adobe.creativesdk.foundation.internal.auth.AdobeAuthKeychain getSharedKeychain()>();
+
+        $r3 = virtualinvoke $r2.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthKeychain: java.lang.String getAdobeID()>();
+
+        $r14 = new com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementSession$1Output;
+
+        specialinvoke $r14.<com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementSession$1Output: void <init>(com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementSession)>(r0);
+
+        if $r3 == null goto label04;
+
+        $r4 = staticinvoke <com.adobe.creativesdk.foundation.internal.cache.AdobeCommonCache: com.adobe.creativesdk.foundation.internal.cache.AdobeCommonCache getSharedInstance()>();
+
+        $r5 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.cache.AdobeCommonCache: java.util.Date getTimestampForGUID(java.lang.String,java.lang.String,java.lang.String)>($r3, "profile", "com.adobe.cc.entitlements");
+
+        if $r5 == null goto label01;
+
+        $r15 = new java.util.Date;
+
+        specialinvoke $r15.<java.util.Date: void <init>()>();
+
+        l0 = virtualinvoke $r15.<java.util.Date: long getTime()>();
+
+        $l1 = virtualinvoke $r5.<java.util.Date: long getTime()>();
+
+        l0 = l0 - $l1;
+
+        l0 = l0 / 1000L;
+
+        $b2 = l0 cmp 2592000L;
+
+        $i3 = (int) $b2;
+
+        if $i3 <= 0 goto label05;
+
+        $r4 = staticinvoke <com.adobe.creativesdk.foundation.internal.cache.AdobeCommonCache: com.adobe.creativesdk.foundation.internal.cache.AdobeCommonCache getSharedInstance()>();
+
+        virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.cache.AdobeCommonCache: boolean removeItemWithGUID(java.lang.String,java.lang.String,java.lang.String)>($r3, "profile", "com.adobe.cc.entitlements");
+
+     label01:
+        r1 = $r14.<com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementSession$1Output: org.json.JSONObject result>;
+
+        if r1 != null goto label04;
+
+        $r6 = r0.<com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementSession: android.content.SharedPreferences _sharedPrefs>;
+
+        $r3 = interfaceinvoke $r6.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("profile", null);
+
+        if $r3 == null goto label04;
+
+        $r16 = new org.json.JSONObject;
+
+     label02:
+        specialinvoke $r16.<org.json.JSONObject: void <init>(java.lang.String)>($r3);
+
+     label03:
+        $r14.<com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementSession$1Output: org.json.JSONObject result> = $r16;
+
+     label04:
+        r1 = $r14.<com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementSession$1Output: org.json.JSONObject result>;
+
+        return r1;
+
+     label05:
+        $r17 = new java.util.concurrent.locks.ReentrantLock;
+
+        specialinvoke $r17.<java.util.concurrent.locks.ReentrantLock: void <init>()>();
+
+        $r7 = virtualinvoke $r17.<java.util.concurrent.locks.ReentrantLock: java.util.concurrent.locks.Condition newCondition()>();
+
+        $r8 = <com.adobe.creativesdk.foundation.internal.cache.AdobeCommonCacheOptions: com.adobe.creativesdk.foundation.internal.cache.AdobeCommonCacheOptions AdobeCommonCacheKeepInMemoryCache>;
+
+        $r9 = staticinvoke <java.util.EnumSet: java.util.EnumSet of(java.lang.Enum)>($r8);
+
+        $r4 = staticinvoke <com.adobe.creativesdk.foundation.internal.cache.AdobeCommonCache: com.adobe.creativesdk.foundation.internal.cache.AdobeCommonCache getSharedInstance()>();
+
+        $r18 = new com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementSession$1;
+
+        specialinvoke $r18.<com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementSession$1: void <init>(com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementSession,java.util.concurrent.locks.ReentrantLock,com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementSession$1Output,java.util.concurrent.locks.Condition)>(r0, $r17, $r14, $r7);
+
+        virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.cache.AdobeCommonCache: boolean getObjectFromGUID(java.lang.String,java.lang.String,java.util.EnumSet,java.lang.String,com.adobe.creativesdk.foundation.internal.cache.AdobeCommonCacheHandler,android.os.Handler)>($r3, "profile", $r9, "com.adobe.cc.entitlements", $r18, null);
+
+        virtualinvoke $r17.<java.util.concurrent.locks.ReentrantLock: void lock()>();
+
+     label06:
+        $z0 = $r14.<com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementSession$1Output: boolean isDone>;
+
+     label07:
+        if $z0 != 0 goto label14;
+
+     label08:
+        interfaceinvoke $r7.<java.util.concurrent.locks.Condition: void await()>();
+
+     label09:
+        goto label06;
+
+     label10:
+        r10 := @caughtexception;
+
+     label11:
+        $r11 = <com.adobe.creativesdk.foundation.internal.utils.logging.Level: com.adobe.creativesdk.foundation.internal.utils.logging.Level DEBUG>;
+
+        $r19 = (java.lang.InterruptedException) r10;
+
+        $r3 = virtualinvoke $r19.<java.lang.InterruptedException: java.lang.String getMessage()>();
+
+        staticinvoke <com.adobe.creativesdk.foundation.internal.utils.logging.AdobeLogger: void log(com.adobe.creativesdk.foundation.internal.utils.logging.Level,java.lang.String,java.lang.String,java.lang.Throwable)>($r11, "AdobeEntitlementSession.getUserProfileFromCache", $r3, r10);
+
+     label12:
+        goto label06;
+
+     label13:
+        $r12 := @caughtexception;
+
+        virtualinvoke $r17.<java.util.concurrent.locks.ReentrantLock: void unlock()>();
+
+        throw $r12;
+
+     label14:
+        virtualinvoke $r17.<java.util.concurrent.locks.ReentrantLock: void unlock()>();
+
+        goto label01;
+
+     label15:
+        r13 := @caughtexception;
+
+        $r11 = <com.adobe.creativesdk.foundation.internal.utils.logging.Level: com.adobe.creativesdk.foundation.internal.utils.logging.Level ERROR>;
+
+        staticinvoke <com.adobe.creativesdk.foundation.internal.utils.logging.AdobeLogger: void log(com.adobe.creativesdk.foundation.internal.utils.logging.Level,java.lang.String,java.lang.String,java.lang.Throwable)>($r11, "AdobeEntitlement:Cache", "USER PROFILE CACHE READ FAILED FROM SHARED PREFS", r13);
+
+        goto label04;
+
+        catch org.json.JSONException from label02 to label03 with label15;
+        catch java.lang.Throwable from label06 to label07 with label13;
+        catch java.lang.InterruptedException from label08 to label09 with label10;
+        catch java.lang.Throwable from label08 to label09 with label13;
+        catch java.lang.Throwable from label11 to label12 with label13;
+    }

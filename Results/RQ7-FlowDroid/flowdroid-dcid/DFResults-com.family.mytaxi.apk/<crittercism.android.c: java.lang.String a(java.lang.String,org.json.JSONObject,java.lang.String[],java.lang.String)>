@@ -1,0 +1,311 @@
+    public final java.lang.String a(java.lang.String, org.json.JSONObject, java.lang.String[], java.lang.String)
+    {
+        byte[] $r6;
+        org.apache.http.client.methods.HttpPost $r9;
+        java.io.ByteArrayOutputStream $r10;
+        java.lang.String[] $r3;
+        java.util.Random $r7;
+        org.apache.http.entity.ByteArrayEntity $r15;
+        org.json.JSONObject $r2;
+        int $i0, $i1;
+        java.lang.String $r1, $r4, $r5;
+        java.io.FileInputStream $r13;
+        java.io.File $r12;
+        java.lang.Exception $r14;
+        java.lang.StringBuilder $r8, $r11;
+        crittercism.android.c r0;
+
+        r0 := @this: crittercism.android.c;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: org.json.JSONObject;
+
+        $r3 := @parameter2: java.lang.String[];
+
+        $r4 := @parameter3: java.lang.String;
+
+        $i0 = 0;
+
+        $r5 = new java.lang.String;
+
+        specialinvoke $r5.<java.lang.String: void <init>()>();
+
+        $r6 = newarray (byte)[30];
+
+        $r7 = new java.util.Random;
+
+        specialinvoke $r7.<java.util.Random: void <init>()>();
+
+        virtualinvoke $r7.<java.util.Random: void nextBytes(byte[])>($r6);
+
+        $r5 = staticinvoke <crittercism.android.g: java.lang.String a(byte[])>($r6);
+
+        $r8 = new java.lang.StringBuilder;
+
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>(java.lang.String)>("boundary = ");
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r9 = new org.apache.http.client.methods.HttpPost;
+
+        specialinvoke $r9.<org.apache.http.client.methods.HttpPost: void <init>(java.lang.String)>($r1);
+
+        $r1 = r0.<crittercism.android.c: java.lang.String b>;
+
+        virtualinvoke $r9.<org.apache.http.client.methods.HttpPost: void addHeader(java.lang.String,java.lang.String)>("User-Agent", $r1);
+
+        $r8 = new java.lang.StringBuilder;
+
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>(java.lang.String)>("multipart/form-data; boundary=");
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("; charset=\"utf-8\"");
+
+        $r1 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r9.<org.apache.http.client.methods.HttpPost: void addHeader(java.lang.String,java.lang.String)>("Content-Type", $r1);
+
+        virtualinvoke $r9.<org.apache.http.client.methods.HttpPost: void addHeader(java.lang.String,java.lang.String)>("Accept", "text/plain, application/json");
+
+        virtualinvoke $r9.<org.apache.http.client.methods.HttpPost: void addHeader(java.lang.String,java.lang.String)>("Content-Disposition", "form-data");
+
+        $r10 = new java.io.ByteArrayOutputStream;
+
+     label01:
+        specialinvoke $r10.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label02:
+        $r8 = new java.lang.StringBuilder;
+
+     label03:
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+     label04:
+        $r11 = new java.lang.StringBuilder;
+
+     label05:
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>(java.lang.String)>("--");
+
+        $r11 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r11 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r1 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+     label06:
+        $r11 = new java.lang.StringBuilder;
+
+     label07:
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>(java.lang.String)>("Content-Disposition: form-data; name=\"");
+
+        $r11 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        $r11 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("json\";\n");
+
+        $r1 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Content-type: application/json\n\n");
+
+     label08:
+        $r11 = new java.lang.StringBuilder;
+
+     label09:
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>()>();
+
+        $r1 = virtualinvoke $r2.<org.json.JSONObject: java.lang.String toString()>();
+
+        $r11 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r11 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r1 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r6 = virtualinvoke $r1.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8");
+
+        virtualinvoke $r10.<java.io.ByteArrayOutputStream: void write(byte[])>($r6);
+
+     label10:
+        $i1 = lengthof $r3;
+
+     label11:
+        if $i0 >= $i1 goto label31;
+
+        $r12 = new java.io.File;
+
+     label12:
+        $r1 = $r3[$i0];
+
+        specialinvoke $r12.<java.io.File: void <init>(java.lang.String)>($r1);
+
+     label13:
+        $r8 = new java.lang.StringBuilder;
+
+     label14:
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+     label15:
+        $r11 = new java.lang.StringBuilder;
+
+     label16:
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>(java.lang.String)>("--");
+
+        $r11 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r11 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r1 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+     label17:
+        $r11 = new java.lang.StringBuilder;
+
+     label18:
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>(java.lang.String)>("Content-Disposition: form-data; name=\"");
+
+        $r11 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        $r1 = staticinvoke <java.lang.Integer: java.lang.String toString(int)>($i0);
+
+        $r11 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r11 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\"; filename=\"");
+
+        $r1 = virtualinvoke $r12.<java.io.File: java.lang.String getName()>();
+
+        $r11 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r11 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\";\n");
+
+        $r1 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Content-type: application/octet-stream\n\n");
+
+        $r1 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r6 = virtualinvoke $r1.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8");
+
+        virtualinvoke $r10.<java.io.ByteArrayOutputStream: void write(byte[])>($r6);
+
+     label19:
+        $r13 = new java.io.FileInputStream;
+
+     label20:
+        specialinvoke $r13.<java.io.FileInputStream: void <init>(java.io.File)>($r12);
+
+     label21:
+        $r6 = newarray (byte)[8192];
+
+     label22:
+        $i1 = virtualinvoke $r13.<java.io.InputStream: int read(byte[])>($r6);
+
+     label23:
+        if $i1 < 0 goto label28;
+
+     label24:
+        virtualinvoke $r10.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r6, 0, $i1);
+
+     label25:
+        goto label22;
+
+     label26:
+        $r14 := @caughtexception;
+
+     label27:
+        $r1 = specialinvoke r0.<crittercism.android.c: java.lang.String a(org.apache.http.client.methods.HttpRequestBase)>($r9);
+
+        return $r1;
+
+     label28:
+        $r8 = new java.lang.StringBuilder;
+
+     label29:
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r1 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r6 = virtualinvoke $r1.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8");
+
+        virtualinvoke $r10.<java.io.ByteArrayOutputStream: void write(byte[])>($r6);
+
+        virtualinvoke $r13.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r10.<java.io.ByteArrayOutputStream: void close()>();
+
+     label30:
+        $i0 = $i0 + 1;
+
+        goto label10;
+
+     label31:
+        $r8 = new java.lang.StringBuilder;
+
+     label32:
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+     label33:
+        $r11 = new java.lang.StringBuilder;
+
+     label34:
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>(java.lang.String)>("--");
+
+        $r11 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r11 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("--");
+
+        $r1 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r6 = virtualinvoke $r1.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8");
+
+        virtualinvoke $r10.<java.io.ByteArrayOutputStream: void write(byte[])>($r6);
+
+     label35:
+        $r15 = new org.apache.http.entity.ByteArrayEntity;
+
+     label36:
+        $r6 = virtualinvoke $r10.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        specialinvoke $r15.<org.apache.http.entity.ByteArrayEntity: void <init>(byte[])>($r6);
+
+        virtualinvoke $r9.<org.apache.http.client.methods.HttpPost: void setEntity(org.apache.http.HttpEntity)>($r15);
+
+     label37:
+        goto label27;
+
+        catch java.lang.Exception from label01 to label02 with label26;
+        catch java.lang.Exception from label03 to label04 with label26;
+        catch java.lang.Exception from label05 to label06 with label26;
+        catch java.lang.Exception from label07 to label08 with label26;
+        catch java.lang.Exception from label09 to label11 with label26;
+        catch java.lang.Exception from label12 to label13 with label26;
+        catch java.lang.Exception from label14 to label15 with label26;
+        catch java.lang.Exception from label16 to label17 with label26;
+        catch java.lang.Exception from label18 to label19 with label26;
+        catch java.lang.Exception from label20 to label21 with label26;
+        catch java.lang.Exception from label22 to label23 with label26;
+        catch java.lang.Exception from label24 to label25 with label26;
+        catch java.lang.Exception from label29 to label30 with label26;
+        catch java.lang.Exception from label32 to label33 with label26;
+        catch java.lang.Exception from label34 to label35 with label26;
+        catch java.lang.Exception from label36 to label37 with label26;
+    }

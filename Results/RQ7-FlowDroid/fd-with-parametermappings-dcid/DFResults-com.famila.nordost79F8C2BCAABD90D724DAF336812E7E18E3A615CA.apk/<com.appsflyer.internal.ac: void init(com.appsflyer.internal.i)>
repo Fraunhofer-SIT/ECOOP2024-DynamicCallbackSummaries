@@ -1,0 +1,405 @@
+    private void init(com.appsflyer.internal.i) throws java.io.IOException
+    {
+        java.net.HttpURLConnection $r11;
+        byte[] $r4;
+        com.appsflyer.internal.ac r0;
+        java.net.URL $r24;
+        com.appsflyer.internal.ak $r15;
+        java.lang.Integer $r21;
+        java.lang.NullPointerException $r28;
+        com.appsflyer.internal.l $r19;
+        org.json.JSONObject $r20;
+        byte $b0;
+        java.io.DataOutputStream $r25;
+        com.appsflyer.attribution.AppsFlyerRequestListener $r6;
+        com.appsflyer.internal.i $r3;
+        boolean $z0, $z1;
+        com.appsflyer.internal.bg $r7;
+        android.app.Application $r2;
+        java.lang.StringBuilder $r26;
+        java.lang.Throwable $r22, $r23;
+        com.appsflyer.AppsFlyerProperties $r13;
+        com.appsflyer.internal.cd $r27;
+        long $l3;
+        com.appsflyer.internal.cl $r8;
+        java.net.URLConnection $r10;
+        int $i1, $i2;
+        java.lang.String $r1, $r5, $r12, $r16, $r17;
+        java.io.OutputStream $r14;
+        android.content.SharedPreferences $r18;
+        java.lang.Object $r9;
+
+        r0 := @this: com.appsflyer.internal.ac;
+
+        $r3 := @parameter0: com.appsflyer.internal.i;
+
+        $r24 = new java.net.URL;
+
+        $r1 = $r3.<com.appsflyer.internal.i: java.lang.String onDeepLinkingNative>;
+
+        specialinvoke $r24.<java.net.URL: void <init>(java.lang.String)>($r1);
+
+        $r4 = virtualinvoke $r3.<com.appsflyer.internal.i: byte[] AFInAppEventParameterName()>();
+
+        $r1 = $r3.<com.appsflyer.internal.i: java.lang.String AFVersionDeclaration>;
+
+        $r5 = $r3.<com.appsflyer.internal.i: java.lang.String init>;
+
+        $z0 = virtualinvoke $r3.<com.appsflyer.internal.i: boolean valueOf()>();
+
+        $r2 = $r3.<com.appsflyer.internal.i: android.app.Application AFKeystoreWrapper>;
+
+        $r6 = $r3.<com.appsflyer.internal.i: com.appsflyer.attribution.AppsFlyerRequestListener AFInAppEventParameterName>;
+
+        $r7 = virtualinvoke r0.<com.appsflyer.internal.ac: com.appsflyer.internal.bg values()>();
+
+        $r8 = interfaceinvoke $r7.<com.appsflyer.internal.bg: com.appsflyer.internal.cl getLevel()>();
+
+        if $z0 == 0 goto label01;
+
+        $b0 = 3;
+
+        goto label02;
+
+     label01:
+        $b0 = 66;
+
+     label02:
+        if $b0 == 66 goto label03;
+
+        $i1 = $r3.<com.appsflyer.internal.i: int onInstallConversionFailureNative>;
+
+        virtualinvoke $r8.<com.appsflyer.internal.cl: void valueOf(int)>($i1);
+
+     label03:
+        $r9 = null;
+
+     label04:
+        $r10 = virtualinvoke $r24.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r11 = (java.net.HttpURLConnection) $r10;
+
+     label05:
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+        $i1 = lengthof $r4;
+
+        $r12 = staticinvoke <java.lang.String: java.lang.String valueOf(int)>($i1);
+
+        virtualinvoke $r11.<java.net.URLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Length", $r12);
+
+        $z1 = virtualinvoke $r3.<com.appsflyer.internal.i: boolean AFInAppEventType()>();
+
+     label06:
+        if $z1 == 0 goto label07;
+
+        $z1 = 0;
+
+        goto label08;
+
+     label07:
+        $z1 = 1;
+
+     label08:
+        if $z1 == 0 goto label09;
+
+        $r12 = "application/json";
+
+        goto label10;
+
+     label09:
+        $r12 = "application/octet-stream";
+
+     label10:
+        virtualinvoke $r11.<java.net.URLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Type", $r12);
+
+        virtualinvoke $r11.<java.net.URLConnection: void setConnectTimeout(int)>(10000);
+
+        virtualinvoke $r11.<java.net.URLConnection: void setDoOutput(boolean)>(1);
+
+        $r13 = staticinvoke <com.appsflyer.AppsFlyerProperties: com.appsflyer.AppsFlyerProperties getInstance()>();
+
+        $z1 = virtualinvoke $r13.<com.appsflyer.AppsFlyerProperties: boolean getBoolean(java.lang.String,boolean)>("http_cache", 1);
+
+     label11:
+        if $z1 != 0 goto label13;
+
+     label12:
+        virtualinvoke $r11.<java.net.URLConnection: void setUseCaches(boolean)>(0);
+
+     label13:
+        $r25 = new java.io.DataOutputStream;
+
+     label14:
+        $r14 = virtualinvoke $r11.<java.net.URLConnection: java.io.OutputStream getOutputStream()>();
+
+        specialinvoke $r25.<java.io.DataOutputStream: void <init>(java.io.OutputStream)>($r14);
+
+     label15:
+        virtualinvoke $r25.<java.io.OutputStream: void write(byte[])>($r4);
+
+     label16:
+        virtualinvoke $r25.<java.io.OutputStream: void close()>();
+
+     label17:
+        $i1 = <com.appsflyer.internal.ac: int setCustomerIdAndLogSession>;
+
+        $i1 = $i1 + 97;
+
+        $i2 = $i1 % 128;
+
+        <com.appsflyer.internal.ac: int waitForCustomerUserId> = $i2;
+
+        $i1 = $i1 % 2;
+
+        if $i1 != 0 goto label46;
+
+     label18:
+        $i1 = virtualinvoke $r11.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label19:
+        if $z0 == 0 goto label21;
+
+     label20:
+        $i2 = $r3.<com.appsflyer.internal.i: int onInstallConversionFailureNative>;
+
+        virtualinvoke $r8.<com.appsflyer.internal.cl: void AFInAppEventType(int)>($i2);
+
+     label21:
+        $r12 = staticinvoke <com.appsflyer.internal.ac: java.lang.String AFInAppEventParameterName(java.net.HttpURLConnection)>($r11);
+
+        $r15 = staticinvoke <com.appsflyer.internal.ak: com.appsflyer.internal.ak AFInAppEventType()>();
+
+        $r16 = virtualinvoke $r24.<java.lang.Object: java.lang.String toString()>();
+
+        virtualinvoke $r15.<com.appsflyer.internal.ak: void values(java.lang.String,int,java.lang.String)>($r16, $i1, $r12);
+
+     label22:
+        $r16 = "response code: ";
+
+     label23:
+        $r17 = staticinvoke <java.lang.String: java.lang.String valueOf(int)>($i1);
+
+        $r16 = virtualinvoke $r16.<java.lang.String: java.lang.String concat(java.lang.String)>($r17);
+
+        staticinvoke <com.appsflyer.AFLogger: void values(java.lang.String)>($r16);
+
+        $r18 = staticinvoke <com.appsflyer.internal.ac: android.content.SharedPreferences AFInAppEventType(android.content.Context)>($r2);
+
+     label24:
+        if $i1 != 200 goto label25;
+
+        $z1 = 0;
+
+        goto label26;
+
+     label25:
+        $z1 = 1;
+
+     label26:
+        if $z1 == 0 goto label30;
+
+        if $r6 == null goto label44;
+
+     label27:
+        $i2 = <com.appsflyer.attribution.RequestError: int RESPONSE_CODE_FAILURE>;
+
+        $r26 = new java.lang.StringBuilder;
+
+     label28:
+        specialinvoke $r26.<java.lang.StringBuilder: void <init>()>();
+
+        $r5 = <com.appsflyer.internal.ba: java.lang.String AFInAppEventType>;
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r5 = virtualinvoke $r26.<java.lang.Object: java.lang.String toString()>();
+
+        interfaceinvoke $r6.<com.appsflyer.attribution.AppsFlyerRequestListener: void onError(int,java.lang.String)>($i2, $r5);
+
+     label29:
+        $i2 = <com.appsflyer.internal.ac: int waitForCustomerUserId>;
+
+        $i2 = $i2 + 53;
+
+        $i2 = $i2 % 128;
+
+        <com.appsflyer.internal.ac: int setCustomerIdAndLogSession> = $i2;
+
+        goto label44;
+
+     label30:
+        if $r2 == null goto label33;
+
+        if $z0 == 0 goto label33;
+
+     label31:
+        $l3 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        r0.<com.appsflyer.internal.ac: long onResponseNative> = $l3;
+
+        $r7 = virtualinvoke r0.<com.appsflyer.internal.ac: com.appsflyer.internal.bg values()>();
+
+        interfaceinvoke $r7.<com.appsflyer.internal.bg: com.appsflyer.internal.av AFKeystoreWrapper()>();
+
+     label32:
+        $i2 = <com.appsflyer.internal.ac: int setCustomerIdAndLogSession>;
+
+        $i2 = $i2 + 17;
+
+        $i2 = $i2 % 128;
+
+        <com.appsflyer.internal.ac: int waitForCustomerUserId> = $i2;
+
+     label33:
+        if $r6 == null goto label34;
+
+        $z0 = 1;
+
+        goto label35;
+
+     label34:
+        $z0 = 0;
+
+     label35:
+        if $z0 == 0 goto label38;
+
+        $i2 = <com.appsflyer.internal.ac: int waitForCustomerUserId>;
+
+        $i2 = $i2 + 1;
+
+        $i2 = $i2 % 128;
+
+        <com.appsflyer.internal.ac: int setCustomerIdAndLogSession> = $i2;
+
+     label36:
+        interfaceinvoke $r6.<com.appsflyer.attribution.AppsFlyerRequestListener: void onSuccess()>();
+
+     label37:
+        $i2 = <com.appsflyer.internal.ac: int setCustomerIdAndLogSession>;
+
+        $i2 = $i2 + 37;
+
+        $i2 = $i2 % 128;
+
+        <com.appsflyer.internal.ac: int waitForCustomerUserId> = $i2;
+
+     label38:
+        if $r5 == null goto label41;
+
+     label39:
+        $r7 = virtualinvoke r0.<com.appsflyer.internal.ac: com.appsflyer.internal.bg values()>();
+
+        $r19 = interfaceinvoke $r7.<com.appsflyer.internal.bg: com.appsflyer.internal.l AFVersionDeclaration()>();
+
+        virtualinvoke $r19.<com.appsflyer.internal.l: boolean valueOf(java.lang.String)>($r5);
+
+     label40:
+        goto label42;
+
+     label41:
+        staticinvoke <com.appsflyer.internal.ac: void valueOf(android.content.Context,java.lang.String,java.lang.String)>($r2, "sentSuccessfully", "true");
+
+        specialinvoke r0.<com.appsflyer.internal.ac: void onAppOpenAttributionNative(android.content.Context)>($r2);
+
+     label42:
+        $r27 = new com.appsflyer.internal.cd;
+
+     label43:
+        specialinvoke $r27.<com.appsflyer.internal.cd: void <init>(android.content.Context)>($r2);
+
+        virtualinvoke $r27.<com.appsflyer.internal.cd: void AFKeystoreWrapper()>();
+
+        $r20 = staticinvoke <com.appsflyer.internal.as: org.json.JSONObject AFInAppEventParameterName(java.lang.String)>($r12);
+
+        $z0 = virtualinvoke $r20.<org.json.JSONObject: boolean optBoolean(java.lang.String,boolean)>("send_background", 0);
+
+        r0.<com.appsflyer.internal.ac: boolean onValidateInApp> = $z0;
+
+     label44:
+        $r21 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i1);
+
+        staticinvoke <com.appsflyer.internal.cg: void AFInAppEventType(com.appsflyer.internal.ac,com.appsflyer.internal.i,java.lang.String,android.content.Context,android.content.SharedPreferences,java.lang.Integer,java.lang.Throwable)>(r0, $r3, $r1, $r2, $r18, $r21, null);
+
+     label45:
+        virtualinvoke $r11.<java.net.HttpURLConnection: void disconnect()>();
+
+        return;
+
+     label46:
+        virtualinvoke $r11.<java.net.HttpURLConnection: int getResponseCode()>();
+
+        $r28 = new java.lang.NullPointerException;
+
+     label47:
+        specialinvoke $r28.<java.lang.NullPointerException: void <init>(java.lang.String)>("Null throw statement replaced by Soot");
+
+        throw $r28;
+
+     label48:
+        $r22 := @caughtexception;
+
+        $r9 = $r25;
+
+        goto label50;
+
+     label49:
+        $r22 := @caughtexception;
+
+     label50:
+        if $r9 == null goto label52;
+
+     label51:
+        $r14 = (java.io.OutputStream) $r9;
+
+        virtualinvoke $r14.<java.io.OutputStream: void close()>();
+
+     label52:
+        throw $r22;
+
+     label53:
+        $r23 := @caughtexception;
+
+        $r9 = $r11;
+
+        goto label55;
+
+     label54:
+        $r23 := @caughtexception;
+
+     label55:
+        if $r9 == null goto label56;
+
+        $r11 = (java.net.HttpURLConnection) $r9;
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void disconnect()>();
+
+     label56:
+        throw $r23;
+
+        catch java.lang.Throwable from label04 to label05 with label54;
+        catch java.lang.Throwable from label05 to label06 with label53;
+        catch java.lang.Throwable from label10 to label11 with label53;
+        catch java.lang.Throwable from label12 to label13 with label53;
+        catch java.lang.Throwable from label13 to label14 with label49;
+        catch java.lang.Throwable from label14 to label15 with label49;
+        catch java.lang.Throwable from label15 to label16 with label48;
+        catch java.lang.Throwable from label16 to label17 with label53;
+        catch java.lang.Throwable from label18 to label19 with label53;
+        catch java.lang.Throwable from label20 to label22 with label53;
+        catch java.lang.Throwable from label23 to label24 with label53;
+        catch java.lang.Throwable from label27 to label28 with label53;
+        catch java.lang.Throwable from label28 to label29 with label53;
+        catch java.lang.Throwable from label31 to label32 with label53;
+        catch java.lang.Throwable from label36 to label37 with label53;
+        catch java.lang.Throwable from label39 to label40 with label53;
+        catch java.lang.Throwable from label41 to label43 with label53;
+        catch java.lang.Throwable from label43 to label45 with label53;
+        catch java.lang.Throwable from label46 to label47 with label53;
+        catch java.lang.Throwable from label47 to label48 with label53;
+        catch java.lang.Throwable from label51 to label53 with label53;
+    }

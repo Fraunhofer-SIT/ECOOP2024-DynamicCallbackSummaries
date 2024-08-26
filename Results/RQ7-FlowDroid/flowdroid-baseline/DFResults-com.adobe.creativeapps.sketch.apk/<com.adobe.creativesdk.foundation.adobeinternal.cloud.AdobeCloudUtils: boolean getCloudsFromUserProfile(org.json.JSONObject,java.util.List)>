@@ -1,0 +1,162 @@
+    public static boolean getCloudsFromUserProfile(org.json.JSONObject, java.util.List) throws com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException
+    {
+        com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud r8, r10;
+        java.util.ArrayList r2;
+        com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementException $r11;
+        org.json.JSONObject $r0;
+        com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementErrorCode $r12;
+        int i0, $i1;
+        boolean $z0, $z1, $z2;
+        java.util.Iterator $r9;
+        java.util.List r1;
+        com.adobe.creativesdk.foundation.adobeinternal.auth.AdobeUXAuthManagerRestricted $r3;
+        java.lang.Object $r4;
+        org.json.JSONArray $r5, r6, $r7;
+
+        $r0 := @parameter0: org.json.JSONObject;
+
+        r1 := @parameter1: java.util.List;
+
+        if $r0 == null goto label11;
+
+        $z0 = virtualinvoke $r0.<org.json.JSONObject: boolean optBoolean(java.lang.String,boolean)>("public_cloud", 1);
+
+        $r3 = staticinvoke <com.adobe.creativesdk.foundation.adobeinternal.auth.AdobeUXAuthManagerRestricted: com.adobe.creativesdk.foundation.adobeinternal.auth.AdobeUXAuthManagerRestricted getSharedAuthManagerRestricted()>();
+
+        $z1 = virtualinvoke $r3.<com.adobe.creativesdk.foundation.adobeinternal.auth.AdobeUXAuthManagerRestricted: boolean hasPrivateCloudScope()>();
+
+        if $z1 == 0 goto label10;
+
+        $r4 = virtualinvoke $r0.<org.json.JSONObject: java.lang.Object opt(java.lang.String)>("endpoints");
+
+        if $r4 == null goto label08;
+
+        $r5 = virtualinvoke $r0.<org.json.JSONObject: org.json.JSONArray optJSONArray(java.lang.String)>("endpoints");
+
+        r6 = $r5;
+
+        $r7 = virtualinvoke $r5.<org.json.JSONArray: org.json.JSONArray optJSONArray(int)>(0);
+
+        if $r7 == null goto label01;
+
+        r6 = virtualinvoke $r5.<org.json.JSONArray: org.json.JSONArray optJSONArray(int)>(0);
+
+     label01:
+        i0 = 0;
+
+     label02:
+        $i1 = virtualinvoke r6.<org.json.JSONArray: int length()>();
+
+        if i0 >= $i1 goto label11;
+
+        $r0 = virtualinvoke r6.<org.json.JSONArray: org.json.JSONObject optJSONObject(int)>(i0);
+
+        r8 = new com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud;
+
+        specialinvoke r8.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: void <init>()>();
+
+        if $r0 == null goto label04;
+
+        $z1 = virtualinvoke r8.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: boolean updateFromDictionary(org.json.JSONObject)>($r0);
+
+        if $z1 == 0 goto label04;
+
+        $z1 = 1;
+
+        $z2 = virtualinvoke r8.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: boolean isPrivateCloud()>();
+
+        if $z2 != 0 goto label03;
+
+        $z1 = $z0;
+
+     label03:
+        if $z1 == 0 goto label05;
+
+        $z1 = interfaceinvoke r1.<java.util.List: boolean contains(java.lang.Object)>(r8);
+
+        if $z1 != 0 goto label05;
+
+        interfaceinvoke r1.<java.util.List: boolean add(java.lang.Object)>(r8);
+
+     label04:
+        i0 = i0 + 1;
+
+        goto label02;
+
+     label05:
+        r2 = new java.util.ArrayList;
+
+        specialinvoke r2.<java.util.ArrayList: void <init>(java.util.Collection)>(r1);
+
+        $r9 = interfaceinvoke r1.<java.util.List: java.util.Iterator iterator()>();
+
+     label06:
+        $z1 = interfaceinvoke $r9.<java.util.Iterator: boolean hasNext()>();
+
+        if $z1 == 0 goto label07;
+
+        $r4 = interfaceinvoke $r9.<java.util.Iterator: java.lang.Object next()>();
+
+        r10 = (com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud) $r4;
+
+        $z1 = virtualinvoke r10.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: boolean isStrictlyEqual(com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud)>(r8);
+
+        if $z1 != 0 goto label06;
+
+        virtualinvoke r2.<java.util.ArrayList: boolean remove(java.lang.Object)>(r10);
+
+        virtualinvoke r2.<java.util.ArrayList: boolean add(java.lang.Object)>(r8);
+
+        goto label06;
+
+     label07:
+        interfaceinvoke r1.<java.util.List: void clear()>();
+
+        interfaceinvoke r1.<java.util.List: boolean addAll(java.util.Collection)>(r2);
+
+        goto label04;
+
+     label08:
+        $r4 = virtualinvoke $r0.<org.json.JSONObject: java.lang.Object opt(java.lang.String)>("endpoints");
+
+        if $r4 != null goto label09;
+
+        $r11 = new com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementException;
+
+        $r12 = <com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementErrorCode: com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementErrorCode AdobeEntitlementErrorNoCloudsAvailable>;
+
+        specialinvoke $r11.<com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementException: void <init>(com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementErrorCode,java.lang.String)>($r12, "No clouds are available for this user.");
+
+        throw $r11;
+
+     label09:
+        $r11 = new com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementException;
+
+        $r12 = <com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementErrorCode: com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementErrorCode AdobeEntitlementErrorUnexpectedResponse>;
+
+        specialinvoke $r11.<com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementException: void <init>(com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementErrorCode,java.lang.String)>($r12, "Query for clouds returned an unexpected response.");
+
+        throw $r11;
+
+     label10:
+        r8 = new com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud;
+
+        specialinvoke r8.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: void <init>()>();
+
+        virtualinvoke r8.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: void setGUID(java.lang.String)>("00000000-0000-0000-0000-000000000000");
+
+        virtualinvoke r8.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: void setName(java.lang.String)>("Adobe Creative Cloud");
+
+        virtualinvoke r8.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: void setAvailable(boolean)>(1);
+
+        virtualinvoke r8.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: void setPrivateCloud(boolean)>(0);
+
+        $z0 = interfaceinvoke r1.<java.util.List: boolean contains(java.lang.Object)>(r8);
+
+        if $z0 != 0 goto label11;
+
+        interfaceinvoke r1.<java.util.List: boolean add(java.lang.Object)>(r8);
+
+     label11:
+        return 1;
+    }

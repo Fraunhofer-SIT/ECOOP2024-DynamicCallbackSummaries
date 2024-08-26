@@ -1,0 +1,38 @@
+    public static byte[] onTransact(java.io.InputStream, int)
+    {
+        byte[] $r0;
+        int $i0, $i1, $i2;
+        java.io.EOFException $r2;
+        java.io.InputStream $r1;
+
+        $r1 := @parameter0: java.io.InputStream;
+
+        $i0 := @parameter1: int;
+
+        $r0 = newarray (byte)[$i0];
+
+        $i2 = 0;
+
+     label1:
+        if $i2 == $i0 goto label3;
+
+        $i1 = $i0 - $i2;
+
+        $i1 = virtualinvoke $r1.<java.io.InputStream: int read(byte[],int,int)>($r0, $i2, $i1);
+
+        if $i1 == -1 goto label2;
+
+        $i2 = $i2 + $i1;
+
+        goto label1;
+
+     label2:
+        $r2 = new java.io.EOFException;
+
+        specialinvoke $r2.<java.io.EOFException: void <init>()>();
+
+        throw $r2;
+
+     label3:
+        return $r0;
+    }

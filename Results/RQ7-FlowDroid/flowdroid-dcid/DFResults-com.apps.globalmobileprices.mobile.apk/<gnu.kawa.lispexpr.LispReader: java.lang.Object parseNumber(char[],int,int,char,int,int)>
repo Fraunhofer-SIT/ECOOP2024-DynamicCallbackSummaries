@@ -1,0 +1,1046 @@
+    public static java.lang.Object parseNumber(char[], int, int, char, int, int)
+    {
+        java.lang.Float $r13;
+        java.math.BigDecimal $r15;
+        byte b13;
+        gnu.math.IntNum r5, $r10;
+        boolean z0, $z1, z2, $z3;
+        gnu.math.DFloNum $r6, $r18;
+        float $f0;
+        java.lang.StringBuilder $r1, $r16;
+        gnu.math.Complex $r12;
+        gnu.math.DComplex $r3, $r17;
+        gnu.math.CComplex $r4;
+        java.lang.Double $r14;
+        long l11, $l12;
+        gnu.math.RealNum r7, $r11;
+        int $i0, $i1, $i3, $i4, i5, i6, i8, $i10, $i14;
+        java.lang.String $r2, r9;
+        double $d0;
+        char $c2, $c7, c9;
+        char[] $r0;
+        java.lang.Object $r8;
+
+        $r0 := @parameter0: char[];
+
+        $i0 := @parameter1: int;
+
+        $i1 := @parameter2: int;
+
+        $c2 := @parameter3: char;
+
+        $i3 := @parameter4: int;
+
+        $i4 := @parameter5: int;
+
+        i5 = $i3;
+
+        $i3 = $i0 + $i1;
+
+        if $i0 < $i3 goto label001;
+
+        return "no digits";
+
+     label001:
+        i6 = $i0 + 1;
+
+        $c7 = $r0[$i0];
+
+     label002:
+        i8 = (int) $c7;
+
+        if i8 != 35 goto label026;
+
+        if i6 < $i3 goto label003;
+
+        return "no digits";
+
+     label003:
+        i8 = i6 + 1;
+
+        $c7 = $r0[i6];
+
+        c9 = $c7;
+
+        i6 = (int) $c7;
+
+        lookupswitch(i6)
+        {
+            case 66: goto label007;
+            case 68: goto label012;
+            case 69: goto label016;
+            case 73: goto label016;
+            case 79: goto label010;
+            case 88: goto label014;
+            case 98: goto label007;
+            case 100: goto label012;
+            case 101: goto label016;
+            case 105: goto label016;
+            case 111: goto label010;
+            case 120: goto label014;
+            default: goto label004;
+        };
+
+     label004:
+        i6 = 0;
+
+     label005:
+        $i10 = staticinvoke <java.lang.Character: int digit(char,int)>(c9, 10);
+
+        if $i10 >= 0 goto label019;
+
+        $i10 = (int) c9;
+
+        if $i10 == 82 goto label006;
+
+        $i10 = (int) c9;
+
+        if $i10 != 114 goto label024;
+
+     label006:
+        if i5 == 0 goto label021;
+
+        return "duplicate radix specifier";
+
+     label007:
+        if i5 == 0 goto label008;
+
+        return "duplicate radix specifier";
+
+     label008:
+        i5 = 2;
+
+     label009:
+        if i8 < $i3 goto label025;
+
+        return "no digits";
+
+     label010:
+        if i5 == 0 goto label011;
+
+        return "duplicate radix specifier";
+
+     label011:
+        i5 = 8;
+
+        goto label009;
+
+     label012:
+        if i5 == 0 goto label013;
+
+        return "duplicate radix specifier";
+
+     label013:
+        i5 = 10;
+
+        goto label009;
+
+     label014:
+        if i5 == 0 goto label015;
+
+        return "duplicate radix specifier";
+
+     label015:
+        i5 = 16;
+
+        goto label009;
+
+     label016:
+        if $c2 == 0 goto label018;
+
+        if $c2 != 32 goto label017;
+
+        return "non-prefix exactness specifier";
+
+     label017:
+        return "duplicate exactness specifier";
+
+     label018:
+        $c2 = $c7;
+
+        goto label009;
+
+     label019:
+        i6 = 10 * i6;
+
+        i6 = i6 + $i10;
+
+        if i8 < $i3 goto label020;
+
+        return "missing letter after \'#\'";
+
+     label020:
+        $i10 = i8;
+
+        i8 = i8 + 1;
+
+        c9 = $r0[$i10];
+
+        goto label005;
+
+     label021:
+        if i6 < 2 goto label022;
+
+        if i6 <= 35 goto label023;
+
+     label022:
+        return "invalid radix specifier";
+
+     label023:
+        i5 = i6;
+
+        goto label009;
+
+     label024:
+        $r16 = new java.lang.StringBuilder;
+
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+        $r1 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("unknown modifier \'#");
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(c9);
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(39);
+
+        $r2 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        return $r2;
+
+     label025:
+        i6 = i8 + 1;
+
+        $c7 = $r0[i8];
+
+        goto label002;
+
+     label026:
+        if $c2 != 0 goto label027;
+
+        $c2 = 32;
+
+     label027:
+        if i5 != 0 goto label029;
+
+     label028:
+        $i1 = $i1 + -1;
+
+        if $i1 >= 0 goto label033;
+
+        i5 = 10;
+
+     label029:
+        $i1 = (int) $c7;
+
+        if $i1 != 45 goto label034;
+
+        $z1 = 1;
+
+     label030:
+        z2 = $z1;
+
+        $i1 = (int) $c7;
+
+        if $i1 == 45 goto label031;
+
+        $i1 = (int) $c7;
+
+        if $i1 != 43 goto label035;
+
+     label031:
+        $z3 = 1;
+
+     label032:
+        z0 = $z3;
+
+        if $z3 == 0 goto label037;
+
+        if i6 < $i3 goto label036;
+
+        return "no digits following sign";
+
+     label033:
+        i5 = $i0 + $i1;
+
+        c9 = $r0[i5];
+
+        i5 = (int) c9;
+
+        if i5 != 46 goto label028;
+
+        i5 = 10;
+
+        goto label029;
+
+     label034:
+        $z1 = 0;
+
+        goto label030;
+
+     label035:
+        $z3 = 0;
+
+        goto label032;
+
+     label036:
+        $i1 = i6;
+
+        i6 = i6 + 1;
+
+        $c7 = $r0[$i1];
+
+     label037:
+        $i1 = (int) $c7;
+
+        if $i1 == 105 goto label038;
+
+        $i1 = (int) $c7;
+
+        if $i1 != 73 goto label046;
+
+     label038:
+        if i6 != $i3 goto label046;
+
+        $i1 = i6 + -2;
+
+        if $i0 != $i1 goto label046;
+
+        $i1 = $i4 & 1;
+
+        if $i1 == 0 goto label046;
+
+        $c7 = $r0[$i0];
+
+        $i0 = (int) $c7;
+
+        if $i0 == 43 goto label039;
+
+        $i0 = (int) $c7;
+
+        if $i0 == 45 goto label039;
+
+        return "no digits";
+
+     label039:
+        if $c2 == 105 goto label040;
+
+        if $c2 != 73 goto label043;
+
+     label040:
+        $r17 = new gnu.math.DComplex;
+
+        if z2 == 0 goto label042;
+
+        $d0 = -1.0;
+
+     label041:
+        specialinvoke $r17.<gnu.math.DComplex: void <init>(double,double)>(0.0, $d0);
+
+        return $r17;
+
+     label042:
+        $d0 = 1.0;
+
+        goto label041;
+
+     label043:
+        if z2 == 0 goto label045;
+
+        $r4 = staticinvoke <gnu.math.Complex: gnu.math.CComplex imMinusOne()>();
+
+     label044:
+        return $r4;
+
+     label045:
+        $r4 = staticinvoke <gnu.math.Complex: gnu.math.CComplex imOne()>();
+
+        goto label044;
+
+     label046:
+        $i0 = -1;
+
+        $i1 = -1;
+
+        i8 = -1;
+
+        r5 = null;
+
+        l11 = 0L;
+
+     label047:
+        $i10 = staticinvoke <java.lang.Character: int digit(char,int)>($c7, i5);
+
+        if $i10 < 0 goto label052;
+
+        if $i1 >= 0 goto label048;
+
+        $i1 = i6 + -1;
+
+     label048:
+        $l12 = (long) i5;
+
+        l11 = $l12 * l11;
+
+        $l12 = (long) $i10;
+
+        l11 = l11 + $l12;
+
+     label049:
+        if i6 != $i3 goto label071;
+
+     label050:
+        b13 = 0;
+
+        if $i1 >= 0 goto label074;
+
+        if z0 == 0 goto label051;
+
+        $i10 = i6 + 4;
+
+        if $i10 >= $i3 goto label051;
+
+        $i10 = i6 + 3;
+
+        $c7 = $r0[$i10];
+
+        $i10 = (int) $c7;
+
+        if $i10 != 46 goto label051;
+
+        $i10 = i6 + 4;
+
+        $c7 = $r0[$i10];
+
+        $i10 = (int) $c7;
+
+        if $i10 != 48 goto label051;
+
+        $c7 = $r0[i6];
+
+        $i10 = (int) $c7;
+
+        if $i10 != 105 goto label072;
+
+        $i10 = i6 + 1;
+
+        $c7 = $r0[$i10];
+
+        $i10 = (int) $c7;
+
+        if $i10 != 110 goto label072;
+
+        $i10 = i6 + 2;
+
+        $c7 = $r0[$i10];
+
+        $i10 = (int) $c7;
+
+        if $i10 != 102 goto label072;
+
+        b13 = 105;
+
+     label051:
+        if b13 != 0 goto label073;
+
+        return "no digits";
+
+     label052:
+        $i10 = (int) $c7;
+
+        lookupswitch($i10)
+        {
+            case 46: goto label054;
+            case 47: goto label067;
+            case 68: goto label057;
+            case 69: goto label057;
+            case 70: goto label057;
+            case 76: goto label057;
+            case 83: goto label057;
+            case 100: goto label057;
+            case 101: goto label057;
+            case 102: goto label057;
+            case 108: goto label057;
+            case 115: goto label057;
+            default: goto label053;
+        };
+
+     label053:
+        i6 = i6 + -1;
+
+        goto label050;
+
+     label054:
+        if i8 < 0 goto label055;
+
+        return "duplicate \'.\' in number";
+
+     label055:
+        if i5 == 10 goto label056;
+
+        return "\'.\' in non-decimal number";
+
+     label056:
+        i8 = i6 + -1;
+
+        goto label049;
+
+     label057:
+        if i6 == $i3 goto label058;
+
+        if i5 == 10 goto label059;
+
+     label058:
+        i6 = i6 + -1;
+
+        goto label050;
+
+     label059:
+        $c7 = $r0[i6];
+
+        $i10 = i6 + -1;
+
+        $i14 = (int) $c7;
+
+        if $i14 == 43 goto label060;
+
+        $i14 = (int) $c7;
+
+        if $i14 != 45 goto label062;
+
+     label060:
+        i6 = i6 + 1;
+
+        if i6 >= $i3 goto label061;
+
+        $c7 = $r0[i6];
+
+        $i0 = staticinvoke <java.lang.Character: int digit(char,int)>($c7, 10);
+
+        if $i0 >= 0 goto label063;
+
+     label061:
+        return "missing exponent digits";
+
+     label062:
+        $i14 = staticinvoke <java.lang.Character: int digit(char,int)>($c7, 10);
+
+        if $i14 >= 0 goto label063;
+
+        i6 = i6 + -1;
+
+        goto label050;
+
+     label063:
+        if i5 == 10 goto label064;
+
+        return "exponent in non-decimal number";
+
+     label064:
+        if $i1 >= 0 goto label065;
+
+        return "mantissa with no digits";
+
+     label065:
+        $i0 = $i10;
+
+     label066:
+        i6 = i6 + 1;
+
+        if i6 >= $i3 goto label050;
+
+        $c7 = $r0[i6];
+
+        $i10 = staticinvoke <java.lang.Character: int digit(char,int)>($c7, 10);
+
+        if $i10 >= 0 goto label066;
+
+        goto label050;
+
+     label067:
+        if r5 == null goto label068;
+
+        return "multiple fraction symbol \'/\'";
+
+     label068:
+        if $i1 >= 0 goto label069;
+
+        return "no digits before fraction symbol \'/\'";
+
+     label069:
+        if i8 < 0 goto label070;
+
+        return "fraction symbol \'/\' following exponent or \'.\'";
+
+     label070:
+        $i10 = i6 - $i1;
+
+        r5 = staticinvoke <gnu.kawa.lispexpr.LispReader: gnu.math.IntNum valueOf(char[],int,int,int,boolean,long)>($r0, $i1, $i10, i5, z2, l11);
+
+        $i1 = -1;
+
+        l11 = 0L;
+
+        z2 = 0;
+
+        goto label049;
+
+     label071:
+        $i10 = i6;
+
+        i6 = i6 + 1;
+
+        $c7 = $r0[$i10];
+
+        goto label047;
+
+     label072:
+        $c7 = $r0[i6];
+
+        $i10 = (int) $c7;
+
+        if $i10 != 110 goto label051;
+
+        $i10 = i6 + 1;
+
+        $c7 = $r0[$i10];
+
+        $i10 = (int) $c7;
+
+        if $i10 != 97 goto label051;
+
+        $i10 = i6 + 2;
+
+        $c7 = $r0[$i10];
+
+        $i10 = (int) $c7;
+
+        if $i10 != 110 goto label051;
+
+        b13 = 110;
+
+        goto label051;
+
+     label073:
+        i6 = i6 + 5;
+
+     label074:
+        if $c2 == 105 goto label075;
+
+        if $c2 != 73 goto label082;
+
+     label075:
+        z0 = 1;
+
+     label076:
+        $z3 = z0;
+
+        $i10 = 0;
+
+        if b13 == 0 goto label084;
+
+        if b13 != 105 goto label083;
+
+        $d0 = #Infinity;
+
+     label077:
+        $r18 = new gnu.math.DFloNum;
+
+        $r6 = $r18;
+
+        if z2 == 0 goto label078;
+
+        $d0 = neg $d0;
+
+     label078:
+        specialinvoke $r18.<gnu.math.DFloNum: void <init>(double)>($d0);
+
+        r7 = $r6;
+
+     label079:
+        if $c2 == 101 goto label080;
+
+        if $c2 != 69 goto label081;
+
+     label080:
+        r7 = virtualinvoke r7.<gnu.math.RealNum: gnu.math.RatNum toExact()>();
+
+     label081:
+        if i6 >= $i3 goto label116;
+
+        $i0 = i6 + 1;
+
+        $c7 = $r0[i6];
+
+        c9 = $c7;
+
+        $i1 = (int) $c7;
+
+        if $i1 != 64 goto label104;
+
+        $i1 = $i3 - $i0;
+
+        $r8 = staticinvoke <gnu.kawa.lispexpr.LispReader: java.lang.Object parseNumber(char[],int,int,char,int,int)>($r0, $i0, $i1, $c2, 10, $i4);
+
+        $z1 = $r8 instanceof java.lang.String;
+
+        if $z1 == 0 goto label101;
+
+        return $r8;
+
+     label082:
+        z0 = 0;
+
+        goto label076;
+
+     label083:
+        $d0 = #NaN;
+
+        goto label077;
+
+     label084:
+        if $i0 >= 0 goto label085;
+
+        if i8 < 0 goto label090;
+
+     label085:
+        if $i1 <= i8 goto label086;
+
+        if i8 < 0 goto label086;
+
+        $i1 = i8;
+
+     label086:
+        if r5 == null goto label087;
+
+        return "floating-point number after fraction symbol \'/\'";
+
+     label087:
+        r9 = new java.lang.String;
+
+        $r2 = r9;
+
+        i5 = i6 - $i1;
+
+        specialinvoke r9.<java.lang.String: void <init>(char[],int,int)>($r0, $i1, i5);
+
+        if $i0 < 0 goto label088;
+
+        $c7 = $r0[$i0];
+
+        $c7 = staticinvoke <java.lang.Character: char toLowerCase(char)>($c7);
+
+        $i10 = $c7;
+
+        i5 = (int) $c7;
+
+        if i5 == 101 goto label088;
+
+        $i0 = $i0 - $i1;
+
+        $r16 = new java.lang.StringBuilder;
+
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+        r9 = virtualinvoke $r2.<java.lang.String: java.lang.String substring(int,int)>(0, $i0);
+
+        $r1 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r9);
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(101);
+
+        $i0 = $i0 + 1;
+
+        $r2 = virtualinvoke $r2.<java.lang.String: java.lang.String substring(int)>($i0);
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        r9 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label088:
+        $d0 = staticinvoke <gnu.lists.Convert: double parseDouble(java.lang.String)>(r9);
+
+        $r18 = new gnu.math.DFloNum;
+
+        $r6 = $r18;
+
+        if z2 == 0 goto label089;
+
+        $d0 = neg $d0;
+
+     label089:
+        specialinvoke $r18.<gnu.math.DFloNum: void <init>(double)>($d0);
+
+        r7 = $r6;
+
+        goto label079;
+
+     label090:
+        $i0 = i6 - $i1;
+
+        $r10 = staticinvoke <gnu.kawa.lispexpr.LispReader: gnu.math.IntNum valueOf(char[],int,int,int,boolean,long)>($r0, $i1, $i0, i5, z2, l11);
+
+        if r5 != null goto label093;
+
+        r7 = $r10;
+
+     label091:
+        if $z3 == 0 goto label079;
+
+        z2 = virtualinvoke r7.<gnu.math.RealNum: boolean isExact()>();
+
+        if z2 == 0 goto label079;
+
+        $r18 = new gnu.math.DFloNum;
+
+        $r6 = $r18;
+
+        if $z1 == 0 goto label100;
+
+        $z1 = virtualinvoke r7.<gnu.math.RealNum: boolean isZero()>();
+
+        if $z1 == 0 goto label100;
+
+        $d0 = -0.0;
+
+     label092:
+        specialinvoke $r18.<gnu.math.DFloNum: void <init>(double)>($d0);
+
+        r7 = $r6;
+
+        goto label079;
+
+     label093:
+        z2 = virtualinvoke $r10.<gnu.math.IntNum: boolean isZero()>();
+
+        if z2 == 0 goto label099;
+
+        z2 = virtualinvoke r5.<gnu.math.IntNum: boolean isZero()>();
+
+        if z0 == 0 goto label097;
+
+        $r18 = new gnu.math.DFloNum;
+
+        $r6 = $r18;
+
+        if z2 == 0 goto label095;
+
+        $d0 = #NaN;
+
+     label094:
+        specialinvoke $r18.<gnu.math.DFloNum: void <init>(double)>($d0);
+
+        r7 = $r6;
+
+        goto label091;
+
+     label095:
+        if $z1 == 0 goto label096;
+
+        $d0 = #-Infinity;
+
+        goto label094;
+
+     label096:
+        $d0 = #Infinity;
+
+        goto label094;
+
+     label097:
+        if z2 == 0 goto label098;
+
+        return "0/0 is undefined";
+
+     label098:
+        r7 = staticinvoke <gnu.math.RatNum: gnu.math.RatNum make(gnu.math.IntNum,gnu.math.IntNum)>(r5, $r10);
+
+        goto label091;
+
+     label099:
+        r7 = staticinvoke <gnu.math.RatNum: gnu.math.RatNum make(gnu.math.IntNum,gnu.math.IntNum)>(r5, $r10);
+
+        goto label091;
+
+     label100:
+        $d0 = virtualinvoke r7.<gnu.math.RealNum: double doubleValue()>();
+
+        goto label092;
+
+     label101:
+        $z1 = $r8 instanceof gnu.math.RealNum;
+
+        if $z1 != 0 goto label102;
+
+        return "invalid complex polar constant";
+
+     label102:
+        $r11 = (gnu.math.RealNum) $r8;
+
+        $z1 = virtualinvoke r7.<gnu.math.RealNum: boolean isZero()>();
+
+        if $z1 == 0 goto label103;
+
+        $z1 = virtualinvoke $r11.<gnu.math.RealNum: boolean isExact()>();
+
+        if $z1 != 0 goto label103;
+
+        $r18 = new gnu.math.DFloNum;
+
+        specialinvoke $r18.<gnu.math.DFloNum: void <init>(double)>(0.0);
+
+        return $r18;
+
+     label103:
+        $r3 = staticinvoke <gnu.math.Complex: gnu.math.DComplex polar(gnu.math.RealNum,gnu.math.RealNum)>(r7, $r11);
+
+        return $r3;
+
+     label104:
+        $i1 = (int) $c7;
+
+        if $i1 == 45 goto label105;
+
+        $i1 = (int) $c7;
+
+        if $i1 != 43 goto label109;
+
+     label105:
+        $i0 = $i0 + -1;
+
+        $i1 = $i3 - $i0;
+
+        $r8 = staticinvoke <gnu.kawa.lispexpr.LispReader: java.lang.Object parseNumber(char[],int,int,char,int,int)>($r0, $i0, $i1, $c2, 10, $i4);
+
+        $z1 = $r8 instanceof java.lang.String;
+
+        if $z1 == 0 goto label106;
+
+        return $r8;
+
+     label106:
+        $z1 = $r8 instanceof gnu.math.Complex;
+
+        if $z1 != 0 goto label107;
+
+        $r16 = new java.lang.StringBuilder;
+
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+        $r1 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("invalid numeric constant (");
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r8);
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(")");
+
+        $r2 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        return $r2;
+
+     label107:
+        $r12 = (gnu.math.Complex) $r8;
+
+        $r11 = virtualinvoke $r12.<gnu.math.Complex: gnu.math.RealNum re()>();
+
+        $z1 = virtualinvoke $r11.<gnu.math.RealNum: boolean isZero()>();
+
+        if $z1 != 0 goto label108;
+
+        return "invalid numeric constant";
+
+     label108:
+        $r11 = virtualinvoke $r12.<gnu.math.Complex: gnu.math.RealNum im()>();
+
+        $r12 = staticinvoke <gnu.math.Complex: gnu.math.Complex make(gnu.math.RealNum,gnu.math.RealNum)>(r7, $r11);
+
+        return $r12;
+
+     label109:
+        $i1 = 0;
+
+     label110:
+        $z1 = staticinvoke <java.lang.Character: boolean isLetter(char)>(c9);
+
+        if $z1 != 0 goto label113;
+
+        $i0 = $i0 + -1;
+
+     label111:
+        if $i1 != 1 goto label115;
+
+        $i1 = $i0 + -1;
+
+        $c2 = $r0[$i1];
+
+        $i1 = (int) $c2;
+
+        if $i1 == 105 goto label112;
+
+        $i1 = (int) $c2;
+
+        if $i1 != 73 goto label115;
+
+     label112:
+        if $i0 >= $i3 goto label114;
+
+        return "junk after imaginary suffix \'i\'";
+
+     label113:
+        $i1 = $i1 + 1;
+
+        if $i0 == $i3 goto label111;
+
+        $i4 = $i0;
+
+        $i0 = $i0 + 1;
+
+        c9 = $r0[$i4];
+
+        goto label110;
+
+     label114:
+        r5 = staticinvoke <gnu.math.IntNum: gnu.math.IntNum zero()>();
+
+        $r12 = staticinvoke <gnu.math.Complex: gnu.math.Complex make(gnu.math.RealNum,gnu.math.RealNum)>(r5, r7);
+
+        return $r12;
+
+     label115:
+        return "excess junk after number";
+
+     label116:
+        $z1 = r7 instanceof gnu.math.DFloNum;
+
+        if $z1 == 0 goto label117;
+
+        if $i10 <= 0 goto label117;
+
+        if $i10 == 101 goto label117;
+
+        $d0 = virtualinvoke r7.<gnu.math.RealNum: double doubleValue()>();
+
+        lookupswitch($i10)
+        {
+            case 100: goto label119;
+            case 102: goto label118;
+            case 108: goto label120;
+            case 115: goto label118;
+            default: goto label117;
+        };
+
+     label117:
+        return r7;
+
+     label118:
+        $f0 = (float) $d0;
+
+        $r13 = staticinvoke <java.lang.Float: java.lang.Float valueOf(float)>($f0);
+
+        return $r13;
+
+     label119:
+        $r14 = staticinvoke <java.lang.Double: java.lang.Double valueOf(double)>($d0);
+
+        return $r14;
+
+     label120:
+        $r15 = staticinvoke <java.math.BigDecimal: java.math.BigDecimal valueOf(double)>($d0);
+
+        return $r15;
+    }

@@ -1,0 +1,57 @@
+    public static final void writeFile(java.lang.String, java.lang.String)
+    {
+        byte[] $r7;
+        java.io.FileOutputStream $r5;
+        java.io.File $r0, $r4;
+        java.lang.Exception $r1;
+        java.nio.charset.Charset $r6;
+        java.lang.String $r2, $r3;
+
+        $r2 := @parameter0: java.lang.String;
+
+        $r3 := @parameter1: java.lang.String;
+
+        $r4 = staticinvoke <com.facebook.internal.instrument.InstrumentUtility: java.io.File getInstrumentReportDir()>();
+
+        if $r4 == null goto label7;
+
+        if $r2 == null goto label7;
+
+        if $r3 != null goto label1;
+
+        return;
+
+     label1:
+        $r0 = new java.io.File;
+
+        specialinvoke $r0.<java.io.File: void <init>(java.io.File,java.lang.String)>($r4, $r2);
+
+        $r5 = new java.io.FileOutputStream;
+
+     label2:
+        specialinvoke $r5.<java.io.FileOutputStream: void <init>(java.io.File)>($r0);
+
+     label3:
+        $r6 = <kotlin.text.Charsets: java.nio.charset.Charset UTF_8>;
+
+     label4:
+        $r7 = virtualinvoke $r3.<java.lang.String: byte[] getBytes(java.nio.charset.Charset)>($r6);
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkNotNullExpressionValue(java.lang.Object,java.lang.String)>($r7, "(this as java.lang.String).getBytes(charset)");
+
+        virtualinvoke $r5.<java.io.FileOutputStream: void write(byte[])>($r7);
+
+        virtualinvoke $r5.<java.io.FileOutputStream: void close()>();
+
+     label5:
+        return;
+
+     label6:
+        $r1 := @caughtexception;
+
+     label7:
+        return;
+
+        catch java.lang.Exception from label2 to label3 with label6;
+        catch java.lang.Exception from label4 to label5 with label6;
+    }

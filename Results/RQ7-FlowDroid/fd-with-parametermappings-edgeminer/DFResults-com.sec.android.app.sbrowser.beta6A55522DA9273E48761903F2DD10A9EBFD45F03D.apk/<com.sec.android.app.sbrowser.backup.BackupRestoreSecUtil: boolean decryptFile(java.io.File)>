@@ -1,0 +1,328 @@
+    boolean decryptFile(java.io.File)
+    {
+        byte[] $r5;
+        boolean $z0;
+        com.sec.android.app.sbrowser.backup.BackupRestoreSecUtil r0;
+        java.io.FileNotFoundException $r30;
+        java.security.NoSuchAlgorithmException $r27;
+        java.lang.StringBuilder $r21;
+        java.security.InvalidKeyException $r29;
+        java.lang.Throwable $r6, $r7, r8, r9, $r10, $r11, r12, r13, $r14, r15, r16, r17, r18, r19, r20;
+        java.security.InvalidAlgorithmParameterException $r28;
+        javax.crypto.NoSuchPaddingException $r26;
+        int $i0;
+        java.lang.String $r2, $r3;
+        java.io.FileOutputStream $r24;
+        java.io.IOException $r25;
+        java.io.FileInputStream $r23;
+        java.io.File $r1, $r22;
+        java.io.InputStream $r4;
+
+        r0 := @this: com.sec.android.app.sbrowser.backup.BackupRestoreSecUtil;
+
+        $r1 := @parameter0: java.io.File;
+
+        $z0 = virtualinvoke $r1.<java.io.File: boolean isFile()>();
+
+        if $z0 != 0 goto label01;
+
+        $r21 = new java.lang.StringBuilder;
+
+        specialinvoke $r21.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r1);
+
+        virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" is not a file");
+
+        $r2 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("BackupRestoreSecUtil", $r2);
+
+        return 0;
+
+     label01:
+        $r3 = virtualinvoke $r1.<java.io.File: java.lang.String getName()>();
+
+        $r2 = virtualinvoke $r1.<java.io.File: java.lang.String getParent()>();
+
+        $i0 = virtualinvoke $r3.<java.lang.String: int lastIndexOf(java.lang.String)>(".");
+
+        $r3 = virtualinvoke $r3.<java.lang.String: java.lang.String substring(int,int)>(0, $i0);
+
+        $r22 = new java.io.File;
+
+        $r21 = new java.lang.StringBuilder;
+
+        specialinvoke $r21.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".zip");
+
+        $r3 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r22.<java.io.File: void <init>(java.lang.String,java.lang.String)>($r2, $r3);
+
+        $r23 = new java.io.FileInputStream;
+
+     label02:
+        specialinvoke $r23.<java.io.FileInputStream: void <init>(java.io.File)>($r1);
+
+     label03:
+        $r24 = new java.io.FileOutputStream;
+
+     label04:
+        specialinvoke $r24.<java.io.FileOutputStream: void <init>(java.io.File)>($r22);
+
+     label05:
+        $r4 = specialinvoke r0.<com.sec.android.app.sbrowser.backup.BackupRestoreSecUtil: java.io.InputStream createDecryptor(java.io.InputStream)>($r23);
+
+     label06:
+        $r5 = newarray (byte)[1024];
+
+     label07:
+        $i0 = virtualinvoke $r4.<java.io.InputStream: int read(byte[],int,int)>($r5, 0, 1024);
+
+     label08:
+        if $i0 == -1 goto label11;
+
+     label09:
+        virtualinvoke $r24.<java.io.OutputStream: void write(byte[],int,int)>($r5, 0, $i0);
+
+     label10:
+        goto label07;
+
+     label11:
+        if $r4 == null goto label13;
+
+     label12:
+        virtualinvoke $r4.<java.io.InputStream: void close()>();
+
+     label13:
+        if $r24 == null goto label15;
+
+     label14:
+        virtualinvoke $r24.<java.io.OutputStream: void close()>();
+
+     label15:
+        if $r23 == null goto label17;
+
+     label16:
+        virtualinvoke $r23.<java.io.FileInputStream: void close()>();
+
+     label17:
+        return 1;
+
+     label18:
+        $r6 := @caughtexception;
+
+     label19:
+        throw $r6;
+
+     label20:
+        $r7 := @caughtexception;
+
+        if $r4 == null goto label27;
+
+        if $r6 == null goto label26;
+
+     label21:
+        virtualinvoke $r4.<java.io.InputStream: void close()>();
+
+     label22:
+        goto label27;
+
+     label23:
+        r8 := @caughtexception;
+
+     label24:
+        virtualinvoke $r6.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>(r8);
+
+     label25:
+        goto label27;
+
+     label26:
+        virtualinvoke $r4.<java.io.InputStream: void close()>();
+
+     label27:
+        throw $r7;
+
+     label28:
+        r9 := @caughtexception;
+
+     label29:
+        throw r9;
+
+     label30:
+        $r10 := @caughtexception;
+
+        if $r24 == null goto label37;
+
+        if r9 == null goto label36;
+
+     label31:
+        virtualinvoke $r24.<java.io.OutputStream: void close()>();
+
+     label32:
+        goto label37;
+
+     label33:
+        $r11 := @caughtexception;
+
+     label34:
+        virtualinvoke r9.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r11);
+
+     label35:
+        goto label37;
+
+     label36:
+        virtualinvoke $r24.<java.io.OutputStream: void close()>();
+
+     label37:
+        throw $r10;
+
+     label38:
+        r12 := @caughtexception;
+
+        goto label41;
+
+     label39:
+        r13 := @caughtexception;
+
+     label40:
+        throw r13;
+
+     label41:
+        if $r23 == null goto label48;
+
+        if r13 == null goto label47;
+
+     label42:
+        virtualinvoke $r23.<java.io.FileInputStream: void close()>();
+
+     label43:
+        goto label48;
+
+     label44:
+        $r14 := @caughtexception;
+
+     label45:
+        virtualinvoke r13.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r14);
+
+     label46:
+        goto label48;
+
+     label47:
+        virtualinvoke $r23.<java.io.FileInputStream: void close()>();
+
+     label48:
+        throw r12;
+
+     label49:
+        r15 := @caughtexception;
+
+        $r25 = (java.io.IOException) r15;
+
+        $r2 = virtualinvoke $r25.<java.io.IOException: java.lang.String getMessage()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("BackupRestoreSecUtil", $r2);
+
+        return 0;
+
+     label50:
+        r16 := @caughtexception;
+
+        $r26 = (javax.crypto.NoSuchPaddingException) r16;
+
+        $r2 = virtualinvoke $r26.<javax.crypto.NoSuchPaddingException: java.lang.String getMessage()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("BackupRestoreSecUtil", $r2);
+
+        return 0;
+
+     label51:
+        r17 := @caughtexception;
+
+        $r27 = (java.security.NoSuchAlgorithmException) r17;
+
+        $r2 = virtualinvoke $r27.<java.security.NoSuchAlgorithmException: java.lang.String getMessage()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("BackupRestoreSecUtil", $r2);
+
+        return 0;
+
+     label52:
+        r18 := @caughtexception;
+
+        $r28 = (java.security.InvalidAlgorithmParameterException) r18;
+
+        $r2 = virtualinvoke $r28.<java.security.InvalidAlgorithmParameterException: java.lang.String getMessage()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("BackupRestoreSecUtil", $r2);
+
+        return 0;
+
+     label53:
+        r19 := @caughtexception;
+
+        $r29 = (java.security.InvalidKeyException) r19;
+
+        $r2 = virtualinvoke $r29.<java.security.InvalidKeyException: java.lang.String getMessage()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("BackupRestoreSecUtil", $r2);
+
+        return 0;
+
+     label54:
+        r20 := @caughtexception;
+
+        $r30 = (java.io.FileNotFoundException) r20;
+
+        $r2 = virtualinvoke $r30.<java.io.FileNotFoundException: java.lang.String getMessage()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("BackupRestoreSecUtil", $r2);
+
+        return 0;
+
+        catch java.io.FileNotFoundException from label02 to label03 with label54;
+        catch java.security.InvalidKeyException from label02 to label03 with label53;
+        catch java.security.InvalidAlgorithmParameterException from label02 to label03 with label52;
+        catch java.security.NoSuchAlgorithmException from label02 to label03 with label51;
+        catch javax.crypto.NoSuchPaddingException from label02 to label03 with label50;
+        catch java.io.IOException from label02 to label03 with label49;
+        catch java.lang.Throwable from label03 to label04 with label39;
+        catch java.lang.Throwable from label04 to label05 with label39;
+        catch java.lang.Throwable from label05 to label06 with label28;
+        catch java.lang.Throwable from label07 to label08 with label18;
+        catch java.lang.Throwable from label09 to label10 with label18;
+        catch java.lang.Throwable from label12 to label13 with label28;
+        catch java.lang.Throwable from label14 to label15 with label39;
+        catch java.io.FileNotFoundException from label16 to label17 with label54;
+        catch java.security.InvalidKeyException from label16 to label17 with label53;
+        catch java.security.InvalidAlgorithmParameterException from label16 to label17 with label52;
+        catch java.security.NoSuchAlgorithmException from label16 to label17 with label51;
+        catch javax.crypto.NoSuchPaddingException from label16 to label17 with label50;
+        catch java.io.IOException from label16 to label17 with label49;
+        catch java.lang.Throwable from label19 to label20 with label20;
+        catch java.lang.Throwable from label21 to label22 with label23;
+        catch java.lang.Throwable from label24 to label25 with label28;
+        catch java.lang.Throwable from label26 to label28 with label28;
+        catch java.lang.Throwable from label29 to label30 with label30;
+        catch java.lang.Throwable from label31 to label32 with label33;
+        catch java.lang.Throwable from label34 to label35 with label39;
+        catch java.lang.Throwable from label36 to label38 with label39;
+        catch java.lang.Throwable from label40 to label41 with label38;
+        catch java.lang.Throwable from label42 to label43 with label44;
+        catch java.io.FileNotFoundException from label45 to label46 with label54;
+        catch java.io.FileNotFoundException from label47 to label49 with label54;
+        catch java.security.InvalidKeyException from label45 to label46 with label53;
+        catch java.security.InvalidKeyException from label47 to label49 with label53;
+        catch java.security.InvalidAlgorithmParameterException from label45 to label46 with label52;
+        catch java.security.InvalidAlgorithmParameterException from label47 to label49 with label52;
+        catch java.security.NoSuchAlgorithmException from label45 to label46 with label51;
+        catch java.security.NoSuchAlgorithmException from label47 to label49 with label51;
+        catch javax.crypto.NoSuchPaddingException from label45 to label46 with label50;
+        catch javax.crypto.NoSuchPaddingException from label47 to label49 with label50;
+        catch java.io.IOException from label45 to label46 with label49;
+        catch java.io.IOException from label47 to label49 with label49;
+    }

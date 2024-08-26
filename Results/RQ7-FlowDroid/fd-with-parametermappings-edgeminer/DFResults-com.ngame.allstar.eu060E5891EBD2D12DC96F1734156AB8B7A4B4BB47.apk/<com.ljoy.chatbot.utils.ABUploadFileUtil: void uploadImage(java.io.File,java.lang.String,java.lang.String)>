@@ -1,0 +1,690 @@
+    private static void uploadImage(java.io.File, java.lang.String, java.lang.String)
+    {
+        java.net.HttpURLConnection $r11;
+        byte[] $r19;
+        java.net.URL $r25;
+        java.lang.Integer $r9, $r20;
+        org.json.JSONException $r23;
+        org.json.JSONObject $r32;
+        com.ljoy.chatbot.model.DeviceInfo $r17;
+        java.io.DataOutputStream $r27;
+        java.util.Map $r7;
+        boolean $z0;
+        com.ljoy.chatbot.model.UserInfo $r16;
+        com.ljoy.chatbot.model.ManufacturerInfo $r18;
+        java.util.UUID $r4;
+        java.lang.Exception $r24;
+        float $f0;
+        java.lang.StringBuilder $r26;
+        long $l1;
+        com.ljoy.chatbot.controller.ElvaServiceController $r15;
+        java.net.URLConnection $r10;
+        java.lang.StringBuffer $r13, $r28;
+        int $i0, $i2, $i3;
+        java.lang.String $r1, $r2, $r3, $r5, $r6;
+        java.io.OutputStream $r12;
+        java.io.PrintStream $r22;
+        java.io.FileInputStream $r29;
+        java.io.InputStreamReader $r30;
+        java.io.File $r0;
+        java.lang.Object $r8;
+        java.io.BufferedReader $r31;
+        android.app.Activity $r14;
+        java.io.InputStream $r21;
+
+        $r0 := @parameter0: java.io.File;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r2 := @parameter2: java.lang.String;
+
+        $r4 = staticinvoke <java.util.UUID: java.util.UUID randomUUID()>();
+
+        $r5 = virtualinvoke $r4.<java.util.UUID: java.lang.String toString()>();
+
+        $r3 = staticinvoke <com.ljoy.chatbot.core.mqtt.NetMQTT: java.lang.String getUploadUrl()>();
+
+        $r6 = $r3;
+
+        $i0 = <android.os.Build$VERSION: int SDK_INT>;
+
+        if $i0 >= 21 goto label001;
+
+        $z0 = staticinvoke <com.ljoy.chatbot.utils.CommonUtils: boolean isEmpty(java.lang.String)>($r3);
+
+        if $z0 != 0 goto label001;
+
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean contains(java.lang.CharSequence)>("https://");
+
+        if $z0 == 0 goto label001;
+
+        $r6 = virtualinvoke $r3.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("https://", "http://");
+
+     label001:
+        $r7 = <com.ljoy.chatbot.utils.ABUploadFileUtil: java.util.Map fileTotalSize>;
+
+     label002:
+        $r8 = interfaceinvoke $r7.<java.util.Map: java.lang.Object get(java.lang.Object)>($r1);
+
+        $r9 = (java.lang.Integer) $r8;
+
+     label003:
+        $r25 = new java.net.URL;
+
+     label004:
+        specialinvoke $r25.<java.net.URL: void <init>(java.lang.String)>($r6);
+
+        $r10 = virtualinvoke $r25.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r11 = (java.net.HttpURLConnection) $r10;
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setReadTimeout(int)>(100000000);
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setConnectTimeout(int)>(100000000);
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setDoInput(boolean)>(1);
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setUseCaches(boolean)>(0);
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Charset", "utf-8");
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("connection", "keep-alive");
+
+     label005:
+        $r26 = new java.lang.StringBuilder;
+
+     label006:
+        specialinvoke $r26.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("multipart/form-data");
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(";boundary=");
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r3 = virtualinvoke $r26.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Type", $r3);
+
+     label007:
+        if $r0 == null goto label105;
+
+     label008:
+        $r12 = virtualinvoke $r11.<java.net.HttpURLConnection: java.io.OutputStream getOutputStream()>();
+
+     label009:
+        $r27 = new java.io.DataOutputStream;
+
+     label010:
+        specialinvoke $r27.<java.io.DataOutputStream: void <init>(java.io.OutputStream)>($r12);
+
+     label011:
+        $i0 = 0;
+
+     label012:
+        $r3 = "\r\n";
+
+        if $i0 >= 10 goto label053;
+
+        $r28 = new java.lang.StringBuffer;
+
+        $r13 = $r28;
+
+     label013:
+        specialinvoke $r28.<java.lang.StringBuffer: void <init>()>();
+
+        virtualinvoke $r28.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("--");
+
+        virtualinvoke $r28.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r5);
+
+        virtualinvoke $r28.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\r\n");
+
+     label014:
+        $r3 = "";
+
+        lookupswitch($i0)
+        {
+            case 0: goto label045;
+            case 1: goto label042;
+            case 2: goto label039;
+            case 3: goto label035;
+            case 4: goto label032;
+            case 5: goto label031;
+            case 6: goto label025;
+            case 7: goto label021;
+            case 8: goto label020;
+            case 9: goto label017;
+            default: goto label015;
+        };
+
+     label015:
+        $r6 = "";
+
+     label016:
+        $z0 = 0;
+
+        goto label048;
+
+     label017:
+        $r3 = "fileName";
+
+     label018:
+        $r6 = virtualinvoke $r0.<java.io.File: java.lang.String getName()>();
+
+     label019:
+        goto label016;
+
+     label020:
+        $r3 = "fileType";
+
+        $r6 = "png";
+
+        goto label016;
+
+     label021:
+        $r14 = staticinvoke <com.ljoy.chatbot.view.ChatServiceActivity: android.app.Activity getCurrentActivity()>();
+
+     label022:
+        if $r14 == null goto label030;
+
+     label023:
+        $r15 = staticinvoke <com.ljoy.chatbot.controller.ElvaServiceController: com.ljoy.chatbot.controller.ElvaServiceController getInstance()>();
+
+        $r16 = virtualinvoke $r15.<com.ljoy.chatbot.controller.ElvaServiceController: com.ljoy.chatbot.model.UserInfo getUserInfo()>();
+
+        $r3 = virtualinvoke $r16.<com.ljoy.chatbot.model.UserInfo: java.lang.String getUserId()>();
+
+     label024:
+        $r6 = $r3;
+
+        $r3 = "userid";
+
+        goto label029;
+
+     label025:
+        $r14 = staticinvoke <com.ljoy.chatbot.view.ChatServiceActivity: android.app.Activity getCurrentActivity()>();
+
+     label026:
+        if $r14 == null goto label030;
+
+     label027:
+        $r15 = staticinvoke <com.ljoy.chatbot.controller.ElvaServiceController: com.ljoy.chatbot.controller.ElvaServiceController getInstance()>();
+
+        $r16 = virtualinvoke $r15.<com.ljoy.chatbot.controller.ElvaServiceController: com.ljoy.chatbot.model.UserInfo getUserInfo()>();
+
+        $r3 = virtualinvoke $r16.<com.ljoy.chatbot.model.UserInfo: java.lang.String getServerId()>();
+
+     label028:
+        $r6 = $r3;
+
+        $r3 = "serverId";
+
+     label029:
+        $z0 = 0;
+
+        goto label048;
+
+     label030:
+        $r6 = "";
+
+        $z0 = 1;
+
+        goto label048;
+
+     label031:
+        $r3 = "sdkVersion";
+
+        $r6 = <com.ljoy.chatbot.utils.Constants: java.lang.String SDK_VERSION>;
+
+        goto label016;
+
+     label032:
+        $r3 = "deviceid";
+
+     label033:
+        $r15 = staticinvoke <com.ljoy.chatbot.controller.ElvaServiceController: com.ljoy.chatbot.controller.ElvaServiceController getInstance()>();
+
+        $r17 = virtualinvoke $r15.<com.ljoy.chatbot.controller.ElvaServiceController: com.ljoy.chatbot.model.DeviceInfo getDeviceInfo()>();
+
+        $r6 = virtualinvoke $r17.<com.ljoy.chatbot.model.DeviceInfo: java.lang.String getDeviceId()>();
+
+     label034:
+        goto label016;
+
+     label035:
+        $r3 = "timestamp";
+
+        if $r2 != null goto label038;
+
+     label036:
+        $l1 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $r6 = staticinvoke <java.lang.Long: java.lang.String toString(long)>($l1);
+
+     label037:
+        goto label016;
+
+     label038:
+        $r6 = $r2;
+
+        goto label016;
+
+     label039:
+        $r3 = "domain";
+
+     label040:
+        $r15 = staticinvoke <com.ljoy.chatbot.controller.ElvaServiceController: com.ljoy.chatbot.controller.ElvaServiceController getInstance()>();
+
+        $r18 = virtualinvoke $r15.<com.ljoy.chatbot.controller.ElvaServiceController: com.ljoy.chatbot.model.ManufacturerInfo getManufacturerInfo()>();
+
+        $r6 = virtualinvoke $r18.<com.ljoy.chatbot.model.ManufacturerInfo: java.lang.String getDomain()>();
+
+     label041:
+        goto label016;
+
+     label042:
+        $r3 = "appKey";
+
+     label043:
+        $r15 = staticinvoke <com.ljoy.chatbot.controller.ElvaServiceController: com.ljoy.chatbot.controller.ElvaServiceController getInstance()>();
+
+        $r18 = virtualinvoke $r15.<com.ljoy.chatbot.controller.ElvaServiceController: com.ljoy.chatbot.model.ManufacturerInfo getManufacturerInfo()>();
+
+        $r6 = virtualinvoke $r18.<com.ljoy.chatbot.model.ManufacturerInfo: java.lang.String getAppKey()>();
+
+     label044:
+        goto label016;
+
+     label045:
+        $r3 = "appId";
+
+     label046:
+        $r15 = staticinvoke <com.ljoy.chatbot.controller.ElvaServiceController: com.ljoy.chatbot.controller.ElvaServiceController getInstance()>();
+
+        $r18 = virtualinvoke $r15.<com.ljoy.chatbot.controller.ElvaServiceController: com.ljoy.chatbot.model.ManufacturerInfo getManufacturerInfo()>();
+
+        $r6 = virtualinvoke $r18.<com.ljoy.chatbot.model.ManufacturerInfo: java.lang.String getAppId()>();
+
+     label047:
+        goto label016;
+
+     label048:
+        if $z0 != 0 goto label052;
+
+        $r26 = new java.lang.StringBuilder;
+
+     label049:
+        specialinvoke $r26.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Content-Disposition: form-data; name=\"");
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\"");
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\r\n");
+
+        $r3 = virtualinvoke $r26.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r13.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r3);
+
+        virtualinvoke $r13.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\r\n");
+
+     label050:
+        $r26 = new java.lang.StringBuilder;
+
+     label051:
+        specialinvoke $r26.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\r\n");
+
+        $r3 = virtualinvoke $r26.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r13.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r13.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        virtualinvoke $r27.<java.io.DataOutputStream: void writeBytes(java.lang.String)>($r3);
+
+     label052:
+        $i0 = $i0 + 1;
+
+        goto label012;
+
+     label053:
+        $r28 = new java.lang.StringBuffer;
+
+     label054:
+        specialinvoke $r28.<java.lang.StringBuffer: void <init>()>();
+
+        virtualinvoke $r28.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("--");
+
+        virtualinvoke $r28.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r5);
+
+        virtualinvoke $r28.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\r\n");
+
+     label055:
+        $r26 = new java.lang.StringBuilder;
+
+     label056:
+        specialinvoke $r26.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Content-Disposition: form-data; name=\"file\";filename=\"");
+
+        $r6 = virtualinvoke $r0.<java.io.File: java.lang.String getName()>();
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\"");
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\r\n");
+
+        $r6 = virtualinvoke $r26.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r28.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r6);
+
+     label057:
+        $r26 = new java.lang.StringBuilder;
+
+     label058:
+        specialinvoke $r26.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Content-Type: application/octet-stream; charset=utf-8");
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\r\n");
+
+        $r6 = virtualinvoke $r26.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r28.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r6);
+
+        virtualinvoke $r28.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\r\n");
+
+        $r6 = virtualinvoke $r28.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        $r19 = virtualinvoke $r6.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke $r27.<java.io.DataOutputStream: void write(byte[])>($r19);
+
+     label059:
+        $r29 = new java.io.FileInputStream;
+
+     label060:
+        specialinvoke $r29.<java.io.FileInputStream: void <init>(java.io.File)>($r0);
+
+     label061:
+        $r19 = newarray (byte)[1024];
+
+     label062:
+        $i0 = virtualinvoke $r9.<java.lang.Integer: int intValue()>();
+
+     label063:
+        $f0 = (float) $i0;
+
+        $f0 = $f0 * 0.95F;
+
+        $i0 = (int) $f0;
+
+        $i2 = 0;
+
+     label064:
+        $i3 = virtualinvoke $r29.<java.io.InputStream: int read(byte[])>($r19);
+
+     label065:
+        if $i3 == -1 goto label070;
+
+     label066:
+        virtualinvoke $r27.<java.io.DataOutputStream: void write(byte[],int,int)>($r19, 0, $i3);
+
+     label067:
+        $i2 = $i2 + $i3;
+
+        if $i2 >= $i0 goto label064;
+
+        $r7 = <com.ljoy.chatbot.utils.ABUploadFileUtil: java.util.Map fileUploadSize>;
+
+     label068:
+        $r20 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i2);
+
+        interfaceinvoke $r7.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($r1, $r20);
+
+     label069:
+        goto label064;
+
+     label070:
+        virtualinvoke $r29.<java.io.InputStream: void close()>();
+
+        $r19 = virtualinvoke $r3.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke $r27.<java.io.DataOutputStream: void write(byte[])>($r19);
+
+     label071:
+        $r26 = new java.lang.StringBuilder;
+
+     label072:
+        specialinvoke $r26.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("--");
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("--");
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\r\n");
+
+        $r5 = virtualinvoke $r26.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r19 = virtualinvoke $r5.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke $r27.<java.io.DataOutputStream: void write(byte[])>($r19);
+
+        virtualinvoke $r27.<java.io.DataOutputStream: void flush()>();
+
+        $i0 = virtualinvoke $r11.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label073:
+        $r28 = new java.lang.StringBuffer;
+
+        $r13 = $r28;
+
+     label074:
+        specialinvoke $r28.<java.lang.StringBuffer: void <init>()>();
+
+     label075:
+        $r31 = new java.io.BufferedReader;
+
+        $r30 = new java.io.InputStreamReader;
+
+     label076:
+        $r21 = virtualinvoke $r11.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+        specialinvoke $r30.<java.io.InputStreamReader: void <init>(java.io.InputStream,java.lang.String)>($r21, "GBK");
+
+        specialinvoke $r31.<java.io.BufferedReader: void <init>(java.io.Reader)>($r30);
+
+     label077:
+        $r5 = virtualinvoke $r31.<java.io.BufferedReader: java.lang.String readLine()>();
+
+     label078:
+        if $r5 == null goto label081;
+
+     label079:
+        virtualinvoke $r13.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r5);
+
+     label080:
+        goto label077;
+
+     label081:
+        virtualinvoke $r31.<java.io.BufferedReader: void close()>();
+
+        $r5 = virtualinvoke $r13.<java.lang.StringBuffer: java.lang.String toString()>();
+
+     label082:
+        if $i0 != 200 goto label103;
+
+        $r32 = new org.json.JSONObject;
+
+     label083:
+        specialinvoke $r32.<org.json.JSONObject: void <init>(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r32.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("url");
+
+     label084:
+        if $r5 == null goto label097;
+
+        $r3 = "null";
+
+     label085:
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean equals(java.lang.Object)>($r5);
+
+     label086:
+        if $z0 != 0 goto label097;
+
+     label087:
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r5);
+
+     label088:
+        if $z0 != 0 goto label097;
+
+        $r7 = <com.ljoy.chatbot.utils.ABUploadFileUtil: java.util.Map fileUploadSize>;
+
+     label089:
+        interfaceinvoke $r7.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($r1, $r9);
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r5);
+
+     label090:
+        if $z0 != 0 goto label095;
+
+        $r7 = <com.ljoy.chatbot.utils.ABUploadFileUtil: java.util.Map upload_finish>;
+
+     label091:
+        interfaceinvoke $r7.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($r1, $r5);
+
+     label092:
+        $r26 = new java.lang.StringBuilder;
+
+     label093:
+        specialinvoke $r26.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\u4e0a\u4f20\u5b8c\u6bd5[2]\uff1a");
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r26.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.ljoy.chatbot.utils.Log: void debug(java.lang.String)>($r1);
+
+        staticinvoke <com.ljoy.chatbot.utils.ABUploadFileUtil: boolean postMessageAfterUpload(java.lang.String,java.lang.String,java.lang.String)>($r5, "1", $r2);
+
+     label094:
+        return;
+
+     label095:
+        staticinvoke <com.ljoy.chatbot.timer.ABTimerManager: void passiveGanTanHaoTimerReleaseResources(java.lang.String)>($r2);
+
+     label096:
+        return;
+
+     label097:
+        $r22 = <java.lang.System: java.io.PrintStream out>;
+
+     label098:
+        $r1 = virtualinvoke $r32.<org.json.JSONObject: java.lang.String toString()>();
+
+        virtualinvoke $r22.<java.io.PrintStream: void println(java.lang.String)>($r1);
+
+        staticinvoke <com.ljoy.chatbot.timer.ABTimerManager: void passiveGanTanHaoTimerReleaseResources(java.lang.String)>($r2);
+
+     label099:
+        return;
+
+     label100:
+        $r23 := @caughtexception;
+
+     label101:
+        staticinvoke <com.ljoy.chatbot.timer.ABTimerManager: void passiveGanTanHaoTimerReleaseResources(java.lang.String)>($r2);
+
+        virtualinvoke $r23.<org.json.JSONException: void printStackTrace()>();
+
+     label102:
+        return;
+
+     label103:
+        staticinvoke <com.ljoy.chatbot.timer.ABTimerManager: void passiveGanTanHaoTimerReleaseResources(java.lang.String)>($r2);
+
+     label104:
+        return;
+
+     label105:
+        staticinvoke <com.ljoy.chatbot.timer.ABTimerManager: void passiveGanTanHaoTimerReleaseResources(java.lang.String)>($r2);
+
+     label106:
+        return;
+
+     label107:
+        $r24 := @caughtexception;
+
+        staticinvoke <com.ljoy.chatbot.timer.ABTimerManager: void passiveGanTanHaoTimerReleaseResources(java.lang.String)>($r2);
+
+        virtualinvoke $r24.<java.lang.Exception: void printStackTrace()>();
+
+        return;
+
+        catch java.lang.Exception from label002 to label003 with label107;
+        catch java.lang.Exception from label004 to label005 with label107;
+        catch java.lang.Exception from label006 to label007 with label107;
+        catch java.lang.Exception from label008 to label009 with label107;
+        catch java.lang.Exception from label010 to label011 with label107;
+        catch java.lang.Exception from label013 to label014 with label107;
+        catch java.lang.Exception from label018 to label019 with label107;
+        catch java.lang.Exception from label021 to label022 with label107;
+        catch java.lang.Exception from label023 to label024 with label107;
+        catch java.lang.Exception from label025 to label026 with label107;
+        catch java.lang.Exception from label027 to label028 with label107;
+        catch java.lang.Exception from label033 to label034 with label107;
+        catch java.lang.Exception from label036 to label037 with label107;
+        catch java.lang.Exception from label040 to label041 with label107;
+        catch java.lang.Exception from label043 to label044 with label107;
+        catch java.lang.Exception from label046 to label047 with label107;
+        catch java.lang.Exception from label049 to label050 with label107;
+        catch java.lang.Exception from label051 to label052 with label107;
+        catch java.lang.Exception from label054 to label055 with label107;
+        catch java.lang.Exception from label056 to label057 with label107;
+        catch java.lang.Exception from label058 to label059 with label107;
+        catch java.lang.Exception from label060 to label061 with label107;
+        catch java.lang.Exception from label062 to label063 with label107;
+        catch java.lang.Exception from label064 to label065 with label107;
+        catch java.lang.Exception from label066 to label067 with label107;
+        catch java.lang.Exception from label068 to label069 with label107;
+        catch java.lang.Exception from label070 to label071 with label107;
+        catch java.lang.Exception from label072 to label073 with label107;
+        catch java.lang.Exception from label074 to label075 with label107;
+        catch java.lang.Exception from label076 to label078 with label107;
+        catch java.lang.Exception from label079 to label080 with label107;
+        catch java.lang.Exception from label081 to label082 with label107;
+        catch org.json.JSONException from label083 to label084 with label100;
+        catch org.json.JSONException from label085 to label086 with label100;
+        catch org.json.JSONException from label087 to label088 with label100;
+        catch org.json.JSONException from label089 to label090 with label100;
+        catch org.json.JSONException from label091 to label092 with label100;
+        catch org.json.JSONException from label093 to label094 with label100;
+        catch org.json.JSONException from label095 to label096 with label100;
+        catch org.json.JSONException from label098 to label099 with label100;
+        catch java.lang.Exception from label083 to label084 with label107;
+        catch java.lang.Exception from label085 to label086 with label107;
+        catch java.lang.Exception from label087 to label088 with label107;
+        catch java.lang.Exception from label089 to label090 with label107;
+        catch java.lang.Exception from label091 to label092 with label107;
+        catch java.lang.Exception from label093 to label094 with label107;
+        catch java.lang.Exception from label095 to label096 with label107;
+        catch java.lang.Exception from label098 to label099 with label107;
+        catch java.lang.Exception from label101 to label102 with label107;
+        catch java.lang.Exception from label103 to label104 with label107;
+        catch java.lang.Exception from label105 to label106 with label107;
+    }

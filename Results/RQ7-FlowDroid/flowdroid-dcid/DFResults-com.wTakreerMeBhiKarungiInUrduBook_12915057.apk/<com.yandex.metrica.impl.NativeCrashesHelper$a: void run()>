@@ -1,0 +1,98 @@
+    public void run()
+    {
+        java.lang.Throwable $r10;
+        com.yandex.metrica.impl.NativeCrashesHelper $r2;
+        java.lang.String[] $r4;
+        java.lang.Exception $r1;
+        java.io.File $r9;
+        com.yandex.metrica.impl.NativeCrashesHelper$a r0;
+        int $i0, $i1;
+        com.yandex.metrica.impl.ay $r8;
+        java.lang.StringBuilder $r6;
+        java.lang.String $r3, $r5, $r7;
+
+        r0 := @this: com.yandex.metrica.impl.NativeCrashesHelper$a;
+
+        $r2 = r0.<com.yandex.metrica.impl.NativeCrashesHelper$a: com.yandex.metrica.impl.NativeCrashesHelper b>;
+
+        $r3 = staticinvoke <com.yandex.metrica.impl.NativeCrashesHelper: java.lang.String a(com.yandex.metrica.impl.NativeCrashesHelper)>($r2);
+
+        $r4 = staticinvoke <com.yandex.metrica.impl.NativeCrashesHelper: java.lang.String[] a(java.lang.String)>($r3);
+
+        $i0 = lengthof $r4;
+
+        $i1 = 0;
+
+     label01:
+        if $i1 >= $i0 goto label09;
+
+        $r5 = $r4[$i1];
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label02:
+        $r7 = staticinvoke <com.yandex.metrica.impl.r: java.lang.String a(java.lang.String)>($r5);
+
+        $r7 = staticinvoke <com.yandex.metrica.impl.r: java.lang.String b(java.lang.String)>($r7);
+
+     label03:
+        if $r7 == null goto label05;
+
+     label04:
+        $r8 = r0.<com.yandex.metrica.impl.NativeCrashesHelper$a: com.yandex.metrica.impl.ay a>;
+
+        virtualinvoke $r8.<com.yandex.metrica.impl.ay: void a(java.lang.String)>($r7);
+
+     label05:
+        $r9 = new java.io.File;
+
+        specialinvoke $r9.<java.io.File: void <init>(java.lang.String)>($r5);
+
+        goto label08;
+
+     label06:
+        $r10 := @caughtexception;
+
+        $r9 = new java.io.File;
+
+        specialinvoke $r9.<java.io.File: void <init>(java.lang.String)>($r5);
+
+        virtualinvoke $r9.<java.io.File: boolean delete()>();
+
+        throw $r10;
+
+     label07:
+        $r9 = new java.io.File;
+
+        specialinvoke $r9.<java.io.File: void <init>(java.lang.String)>($r5);
+
+     label08:
+        virtualinvoke $r9.<java.io.File: boolean delete()>();
+
+        $i1 = $i1 + 1;
+
+        goto label01;
+
+     label09:
+        return;
+
+     label10:
+        $r1 := @caughtexception;
+
+        goto label07;
+
+        catch java.lang.Exception from label02 to label03 with label10;
+        catch java.lang.Exception from label04 to label05 with label10;
+        catch java.lang.Throwable from label02 to label03 with label06;
+        catch java.lang.Throwable from label04 to label05 with label06;
+    }

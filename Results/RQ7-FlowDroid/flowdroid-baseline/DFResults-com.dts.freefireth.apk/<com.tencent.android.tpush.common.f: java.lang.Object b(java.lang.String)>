@@ -1,0 +1,90 @@
+    public static java.lang.Object b(java.lang.String)
+    {
+        java.lang.Throwable $r5, $r6;
+        byte[] $r2;
+        java.io.ObjectInputStream $r3;
+        java.io.ByteArrayInputStream $r1;
+        int $i0;
+        java.lang.Object $r4;
+        java.lang.String $r0;
+
+        $r0 := @parameter0: java.lang.String;
+
+        if $r0 == null goto label13;
+
+        $i0 = virtualinvoke $r0.<java.lang.String: int length()>();
+
+        if $i0 != 0 goto label01;
+
+        return null;
+
+     label01:
+        $r1 = new java.io.ByteArrayInputStream;
+
+        $r2 = staticinvoke <com.tencent.android.tpush.common.f: byte[] a(java.lang.String)>($r0);
+
+        specialinvoke $r1.<java.io.ByteArrayInputStream: void <init>(byte[])>($r2);
+
+     label02:
+        $r3 = new java.io.ObjectInputStream;
+
+        specialinvoke $r3.<java.io.ObjectInputStream: void <init>(java.io.InputStream)>($r1);
+
+     label03:
+        $r4 = virtualinvoke $r3.<java.io.ObjectInputStream: java.lang.Object readObject()>();
+
+     label04:
+        virtualinvoke $r3.<java.io.ObjectInputStream: void close()>();
+
+        virtualinvoke $r1.<java.io.ByteArrayInputStream: void close()>();
+
+        return $r4;
+
+     label05:
+        if $r3 == null goto label06;
+
+        virtualinvoke $r3.<java.io.ObjectInputStream: void close()>();
+
+     label06:
+        if $r1 == null goto label07;
+
+        virtualinvoke $r1.<java.io.ByteArrayInputStream: void close()>();
+
+     label07:
+        throw $r6;
+
+     label08:
+        $r5 := @caughtexception;
+
+        $r3 = null;
+
+     label09:
+        throw $r5;
+
+     label10:
+        $r6 := @caughtexception;
+
+        goto label05;
+
+     label11:
+        $r5 := @caughtexception;
+
+        $r1 = null;
+
+        $r3 = null;
+
+        goto label09;
+
+     label12:
+        $r5 := @caughtexception;
+
+        goto label09;
+
+     label13:
+        return null;
+
+        catch java.lang.Throwable from label01 to label02 with label11;
+        catch java.lang.Throwable from label02 to label03 with label08;
+        catch java.lang.Throwable from label03 to label04 with label12;
+        catch java.lang.Throwable from label09 to label10 with label10;
+    }

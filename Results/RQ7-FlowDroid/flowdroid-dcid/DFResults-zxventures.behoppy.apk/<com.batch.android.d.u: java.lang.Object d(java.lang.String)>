@@ -1,0 +1,129 @@
+    private java.lang.Object d(java.lang.String) throws java.io.StreamCorruptedException, java.io.IOException, java.lang.ClassNotFoundException
+    {
+        java.lang.Throwable $r9, $r10, $r13;
+        byte[] $r3;
+        com.batch.android.d.u r0;
+        java.io.ObjectInputStream $r5;
+        java.lang.Exception $r7, $r8, $r11, $r12;
+        com.batch.android.d.f $r2;
+        java.io.ByteArrayInputStream $r4;
+        java.lang.Object $r6;
+        java.lang.String $r1;
+
+        r0 := @this: com.batch.android.d.u;
+
+        $r1 := @parameter0: java.lang.String;
+
+        if $r1 != null goto label01;
+
+        return null;
+
+     label01:
+        $r2 = r0.<com.batch.android.d.u: com.batch.android.d.f d>;
+
+        $r3 = interfaceinvoke $r2.<com.batch.android.d.f: byte[] c(java.lang.String)>($r1);
+
+        $r4 = new java.io.ByteArrayInputStream;
+
+        specialinvoke $r4.<java.io.ByteArrayInputStream: void <init>(byte[])>($r3);
+
+     label02:
+        $r5 = new java.io.ObjectInputStream;
+
+        specialinvoke $r5.<java.io.ObjectInputStream: void <init>(java.io.InputStream)>($r4);
+
+     label03:
+        $r6 = virtualinvoke $r5.<java.io.ObjectInputStream: java.lang.Object readObject()>();
+
+     label04:
+        if $r4 == null goto label06;
+
+     label05:
+        virtualinvoke $r4.<java.io.ByteArrayInputStream: void close()>();
+
+     label06:
+        if $r5 == null goto label21;
+
+     label07:
+        virtualinvoke $r5.<java.io.ObjectInputStream: void close()>();
+
+     label08:
+        return $r6;
+
+     label09:
+        $r7 := @caughtexception;
+
+        staticinvoke <com.batch.android.d.q: void b(java.lang.String,java.lang.Throwable)>("Error while closing ObjectInputStream", $r7);
+
+        return $r6;
+
+     label10:
+        $r8 := @caughtexception;
+
+        staticinvoke <com.batch.android.d.q: void b(java.lang.String,java.lang.Throwable)>("Error while closing ArrayInputStream", $r8);
+
+        goto label06;
+
+     label11:
+        $r9 := @caughtexception;
+
+        $r4 = null;
+
+        $r10 = $r9;
+
+        $r5 = null;
+
+     label12:
+        if $r4 == null goto label14;
+
+     label13:
+        virtualinvoke $r4.<java.io.ByteArrayInputStream: void close()>();
+
+     label14:
+        if $r5 == null goto label16;
+
+     label15:
+        virtualinvoke $r5.<java.io.ObjectInputStream: void close()>();
+
+     label16:
+        throw $r10;
+
+     label17:
+        $r11 := @caughtexception;
+
+        staticinvoke <com.batch.android.d.q: void b(java.lang.String,java.lang.Throwable)>("Error while closing ArrayInputStream", $r11);
+
+        goto label14;
+
+     label18:
+        $r12 := @caughtexception;
+
+        staticinvoke <com.batch.android.d.q: void b(java.lang.String,java.lang.Throwable)>("Error while closing ObjectInputStream", $r12);
+
+        goto label16;
+
+     label19:
+        $r13 := @caughtexception;
+
+        $r5 = null;
+
+        $r10 = $r13;
+
+        goto label12;
+
+     label20:
+        $r10 := @caughtexception;
+
+        goto label12;
+
+     label21:
+        return $r6;
+
+        catch java.lang.Throwable from label01 to label02 with label11;
+        catch java.lang.Throwable from label02 to label03 with label19;
+        catch java.lang.Throwable from label03 to label04 with label20;
+        catch java.lang.Exception from label05 to label06 with label10;
+        catch java.lang.Exception from label07 to label08 with label09;
+        catch java.lang.Exception from label13 to label14 with label17;
+        catch java.lang.Exception from label15 to label16 with label18;
+    }

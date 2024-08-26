@@ -1,0 +1,185 @@
+    public final java.lang.String a(java.lang.String, byte[])
+    {
+        java.lang.Throwable $r13;
+        byte[] $r2;
+        android.net.Uri $r7;
+        com.mbridge.msdk.videocommon.download.j r0;
+        int $i0;
+        java.lang.String $r1, $r3, $r5, $r10, $r11;
+        boolean $z0;
+        java.io.File $r6;
+        java.lang.Exception $r12;
+        java.util.List $r8;
+        java.lang.StringBuilder $r4;
+        java.lang.Object $r9;
+
+        r0 := @this: com.mbridge.msdk.videocommon.download.j;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: byte[];
+
+        entermonitor r0;
+
+     label01:
+        $r3 = "unknow exception ";
+
+     label02:
+        if $r2 == null goto label33;
+
+     label03:
+        $i0 = lengthof $r2;
+
+     label04:
+        if $i0 <= 0 goto label33;
+
+        $r4 = new java.lang.StringBuilder;
+
+     label05:
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+        $r5 = r0.<com.mbridge.msdk.videocommon.download.j: java.lang.String b>;
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        $r5 = staticinvoke <com.mbridge.msdk.foundation.tools.ae: java.lang.String a(java.lang.String)>($r1);
+
+        $r5 = staticinvoke <com.mbridge.msdk.foundation.tools.SameMD5: java.lang.String getMD5(java.lang.String)>($r5);
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".zip");
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label06:
+        $r6 = new java.io.File;
+
+     label07:
+        specialinvoke $r6.<java.io.File: void <init>(java.lang.String)>($r5);
+
+        $z0 = staticinvoke <com.mbridge.msdk.foundation.tools.t: boolean a(byte[],java.io.File)>($r2, $r6);
+
+     label08:
+        if $z0 == 0 goto label25;
+
+     label09:
+        $r7 = staticinvoke <android.net.Uri: android.net.Uri parse(java.lang.String)>($r1);
+
+        $r8 = virtualinvoke $r7.<android.net.Uri: java.util.List getQueryParameters(java.lang.String)>("nc");
+
+     label10:
+        if $r8 == null goto label15;
+
+     label11:
+        $i0 = interfaceinvoke $r8.<java.util.List: int size()>();
+
+     label12:
+        if $i0 == 0 goto label15;
+
+     label13:
+        $r1 = specialinvoke r0.<com.mbridge.msdk.videocommon.download.j: java.lang.String a(java.lang.String,java.lang.String,java.io.File)>($r1, $r5, $r6);
+
+     label14:
+        $r3 = $r1;
+
+        goto label25;
+
+     label15:
+        $r8 = virtualinvoke $r7.<android.net.Uri: java.util.List getQueryParameters(java.lang.String)>("md5filename");
+
+     label16:
+        if $r8 == null goto label25;
+
+     label17:
+        $i0 = interfaceinvoke $r8.<java.util.List: int size()>();
+
+     label18:
+        if $i0 <= 0 goto label25;
+
+     label19:
+        $r9 = interfaceinvoke $r8.<java.util.List: java.lang.Object get(int)>(0);
+
+        $r10 = (java.lang.String) $r9;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r10);
+
+     label20:
+        if $z0 != 0 goto label25;
+
+     label21:
+        $r11 = staticinvoke <com.mbridge.msdk.foundation.tools.s: java.lang.String a(java.io.File)>($r6);
+
+        $z0 = virtualinvoke $r10.<java.lang.String: boolean equals(java.lang.Object)>($r11);
+
+     label22:
+        if $z0 == 0 goto label25;
+
+     label23:
+        $r1 = specialinvoke r0.<com.mbridge.msdk.videocommon.download.j: java.lang.String a(java.lang.String,java.lang.String,java.io.File)>($r1, $r5, $r6);
+
+     label24:
+        $r3 = $r1;
+
+     label25:
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r3);
+
+     label26:
+        if $z0 != 0 goto label33;
+
+     label27:
+        staticinvoke <com.mbridge.msdk.foundation.tools.t: java.lang.String b(java.io.File)>($r6);
+
+     label28:
+        goto label33;
+
+     label29:
+        $r12 := @caughtexception;
+
+     label30:
+        $z0 = <com.mbridge.msdk.MBridgeConstans: boolean DEBUG>;
+
+        if $z0 == 0 goto label31;
+
+        virtualinvoke $r12.<java.lang.Exception: void printStackTrace()>();
+
+     label31:
+        $r1 = virtualinvoke $r12.<java.lang.Exception: java.lang.String getMessage()>();
+
+     label32:
+        goto label34;
+
+     label33:
+        $r1 = $r3;
+
+     label34:
+        exitmonitor r0;
+
+        return $r1;
+
+     label35:
+        $r13 := @caughtexception;
+
+        exitmonitor r0;
+
+        throw $r13;
+
+        catch java.lang.Throwable from label01 to label02 with label35;
+        catch java.lang.Exception from label03 to label04 with label29;
+        catch java.lang.Exception from label05 to label06 with label29;
+        catch java.lang.Exception from label07 to label08 with label29;
+        catch java.lang.Exception from label09 to label10 with label29;
+        catch java.lang.Exception from label11 to label12 with label29;
+        catch java.lang.Exception from label13 to label14 with label29;
+        catch java.lang.Exception from label15 to label16 with label29;
+        catch java.lang.Exception from label17 to label18 with label29;
+        catch java.lang.Exception from label19 to label20 with label29;
+        catch java.lang.Exception from label21 to label22 with label29;
+        catch java.lang.Exception from label23 to label24 with label29;
+        catch java.lang.Exception from label25 to label26 with label29;
+        catch java.lang.Exception from label27 to label28 with label29;
+        catch java.lang.Throwable from label03 to label28 with label35;
+        catch java.lang.Throwable from label30 to label32 with label35;
+    }

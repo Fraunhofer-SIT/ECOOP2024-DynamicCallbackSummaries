@@ -1,0 +1,105 @@
+    public static boolean a()
+    {
+        i.v.c.k $r6;
+        java.lang.String[] $r2;
+        i.v.h.e.o.i$a $r0;
+        int $i0, $i1;
+        java.lang.StringBuilder $r4;
+        java.lang.String $r1, $r3, $r5;
+        boolean $z0;
+
+        $r0 = staticinvoke <i.v.h.e.o.i: i.v.h.e.o.i$a d(java.lang.String,boolean)>("echo $PATH", 0);
+
+        $r1 = $r0.<i.v.h.e.o.i$a: java.lang.String a>;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r1);
+
+        if $z0 != 0 goto label1;
+
+        $r1 = $r0.<i.v.h.e.o.i$a: java.lang.String a>;
+
+        $r1 = virtualinvoke $r1.<java.lang.String: java.lang.String trim()>();
+
+        $r2 = virtualinvoke $r1.<java.lang.String: java.lang.String[] split(java.lang.String)>(":");
+
+        goto label2;
+
+     label1:
+        $r2 = newarray (java.lang.String)[7];
+
+        $r2[0] = "/system/bin";
+
+        $r2[1] = "/system/xbin";
+
+        $r2[2] = "/data/local/xbin";
+
+        $r2[3] = "/data/local/bin";
+
+        $r2[4] = "/system/sd/xbin";
+
+        $r2[5] = "/system/bin/failsafe";
+
+        $r2[6] = "/data/local";
+
+     label2:
+        $i0 = lengthof $r2;
+
+        $i1 = 0;
+
+     label3:
+        if $i1 >= $i0 goto label7;
+
+        $r1 = $r2[$i1];
+
+        $r3 = staticinvoke <i.d.c.a.a: java.lang.String X(java.lang.String,java.lang.String)>($r1, "/su");
+
+        $r4 = new java.lang.StringBuilder;
+
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("ls ");
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r0 = staticinvoke <i.v.h.e.o.i: i.v.h.e.o.i$a d(java.lang.String,boolean)>($r5, 0);
+
+        $r5 = $r0.<i.v.h.e.o.i$a: java.lang.String a>;
+
+        if $r5 == null goto label4;
+
+        $r5 = virtualinvoke $r5.<java.lang.String: java.lang.String trim()>();
+
+        $z0 = virtualinvoke $r5.<java.lang.String: boolean equals(java.lang.Object)>($r3);
+
+        if $z0 == 0 goto label4;
+
+        $z0 = 1;
+
+        goto label5;
+
+     label4:
+        $z0 = 0;
+
+     label5:
+        if $z0 == 0 goto label6;
+
+        $r6 = <i.v.h.e.o.i: i.v.c.k a>;
+
+        staticinvoke <i.d.c.a.a: void U0(java.lang.String,java.lang.String,i.v.c.k)>("su was found here: ", $r1, $r6);
+
+        return 1;
+
+     label6:
+        $i1 = $i1 + 1;
+
+        goto label3;
+
+     label7:
+        $r6 = <i.v.h.e.o.i: i.v.c.k a>;
+
+        virtualinvoke $r6.<i.v.c.k: void b(java.lang.String)>("su was not found");
+
+        return 0;
+    }

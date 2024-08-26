@@ -1,0 +1,83 @@
+    public static final int copyAndCloseInputStream(java.io.InputStream, java.io.OutputStream) throws java.io.IOException
+    {
+        java.io.OutputStream $r1;
+        java.lang.Throwable $r4;
+        byte[] $r3;
+        java.io.BufferedInputStream $r2, $r5;
+        int $i0, $i1;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $r1 := @parameter1: java.io.OutputStream;
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkNotNullParameter(java.lang.Object,java.lang.String)>($r1, "outputStream");
+
+     label01:
+        $r5 = new java.io.BufferedInputStream;
+
+     label02:
+        $r2 = $r5;
+
+     label03:
+        specialinvoke $r5.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r0);
+
+     label04:
+        $r3 = newarray (byte)[8192];
+
+        $i1 = 0;
+
+     label05:
+        $i0 = virtualinvoke $r5.<java.io.BufferedInputStream: int read(byte[])>($r3);
+
+     label06:
+        if $i0 == -1 goto label09;
+
+     label07:
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[],int,int)>($r3, 0, $i0);
+
+     label08:
+        $i1 = $i1 + $i0;
+
+        goto label05;
+
+     label09:
+        virtualinvoke $r5.<java.io.BufferedInputStream: void close()>();
+
+        if $r0 == null goto label15;
+
+        virtualinvoke $r0.<java.io.InputStream: void close()>();
+
+        return $i1;
+
+     label10:
+        $r4 := @caughtexception;
+
+        goto label12;
+
+     label11:
+        $r4 := @caughtexception;
+
+        $r2 = null;
+
+     label12:
+        if $r2 == null goto label13;
+
+        virtualinvoke $r2.<java.io.BufferedInputStream: void close()>();
+
+     label13:
+        if $r0 == null goto label14;
+
+        virtualinvoke $r0.<java.io.InputStream: void close()>();
+
+     label14:
+        throw $r4;
+
+     label15:
+        return $i1;
+
+        catch java.lang.Throwable from label01 to label02 with label11;
+        catch java.lang.Throwable from label03 to label04 with label11;
+        catch java.lang.Throwable from label05 to label06 with label10;
+        catch java.lang.Throwable from label07 to label08 with label10;
+    }

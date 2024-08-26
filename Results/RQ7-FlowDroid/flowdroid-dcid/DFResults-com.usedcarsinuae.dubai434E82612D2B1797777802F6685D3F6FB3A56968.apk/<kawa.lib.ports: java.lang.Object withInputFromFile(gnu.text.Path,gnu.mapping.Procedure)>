@@ -1,0 +1,39 @@
+    public static java.lang.Object withInputFromFile(gnu.text.Path, gnu.mapping.Procedure)
+    {
+        gnu.mapping.InPort $r2, $r3;
+        java.lang.Throwable $r5;
+        java.lang.Object $r4;
+        gnu.mapping.Procedure $r1;
+        gnu.text.Path $r0;
+
+        $r0 := @parameter0: gnu.text.Path;
+
+        $r1 := @parameter1: gnu.mapping.Procedure;
+
+        $r2 = staticinvoke <gnu.mapping.InPort: gnu.mapping.InPort openFile(java.lang.Object)>($r0);
+
+        $r3 = staticinvoke <gnu.mapping.InPort: gnu.mapping.InPort inDefault()>();
+
+     label1:
+        staticinvoke <gnu.mapping.InPort: void setInDefault(gnu.mapping.InPort)>($r2);
+
+        $r4 = virtualinvoke $r1.<gnu.mapping.Procedure: java.lang.Object apply0()>();
+
+     label2:
+        staticinvoke <gnu.mapping.InPort: void setInDefault(gnu.mapping.InPort)>($r3);
+
+        virtualinvoke $r2.<gnu.mapping.InPort: void close()>();
+
+        return $r4;
+
+     label3:
+        $r5 := @caughtexception;
+
+        staticinvoke <gnu.mapping.InPort: void setInDefault(gnu.mapping.InPort)>($r3);
+
+        virtualinvoke $r2.<gnu.mapping.InPort: void close()>();
+
+        throw $r5;
+
+        catch java.lang.Throwable from label1 to label2 with label3;
+    }

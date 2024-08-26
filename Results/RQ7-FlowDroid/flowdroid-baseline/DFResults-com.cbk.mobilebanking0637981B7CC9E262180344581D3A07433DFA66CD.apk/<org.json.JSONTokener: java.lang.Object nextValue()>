@@ -1,0 +1,103 @@
+    public java.lang.Object nextValue() throws org.json.JSONException
+    {
+        org.json.JSONTokener r0;
+        char $c0, $c1;
+        org.json.JSONException $r4;
+        org.json.JSONObject $r6;
+        int $i2;
+        java.lang.Object $r3;
+        java.lang.StringBuilder $r5;
+        java.lang.String $r1, $r2;
+        org.json.JSONArray $r7;
+        boolean $z0;
+
+        r0 := @this: org.json.JSONTokener;
+
+        $c0 = virtualinvoke r0.<org.json.JSONTokener: char nextClean()>();
+
+        $c1 = $c0;
+
+        $i2 = (int) $c0;
+
+        if $i2 == 34 goto label6;
+
+        $i2 = (int) $c0;
+
+        if $i2 == 39 goto label6;
+
+        $i2 = (int) $c0;
+
+        if $i2 == 91 goto label5;
+
+        $i2 = (int) $c0;
+
+        if $i2 == 123 goto label4;
+
+        $r5 = new java.lang.StringBuilder;
+
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>()>();
+
+     label1:
+        $i2 = (int) $c1;
+
+        if $i2 < 32 goto label2;
+
+        $r1 = ",:]}/\\\"[{;=#";
+
+        $i2 = (int) $c1;
+
+        $i2 = virtualinvoke $r1.<java.lang.String: int indexOf(int)>($i2);
+
+        if $i2 >= 0 goto label2;
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>($c1);
+
+        $c1 = virtualinvoke r0.<org.json.JSONTokener: char next()>();
+
+        goto label1;
+
+     label2:
+        virtualinvoke r0.<org.json.JSONTokener: void back()>();
+
+        $r1 = virtualinvoke $r5.<java.lang.Object: java.lang.String toString()>();
+
+        $r1 = virtualinvoke $r1.<java.lang.String: java.lang.String trim()>();
+
+        $r2 = "";
+
+        $z0 = virtualinvoke $r2.<java.lang.Object: boolean equals(java.lang.Object)>($r1);
+
+        if $z0 != 0 goto label3;
+
+        $r3 = staticinvoke <org.json.JSONObject: java.lang.Object stringToValue(java.lang.String)>($r1);
+
+        return $r3;
+
+     label3:
+        $r4 = virtualinvoke r0.<org.json.JSONTokener: org.json.JSONException syntaxError(java.lang.String)>("Missing value");
+
+        throw $r4;
+
+     label4:
+        virtualinvoke r0.<org.json.JSONTokener: void back()>();
+
+        $r6 = new org.json.JSONObject;
+
+        specialinvoke $r6.<org.json.JSONObject: void <init>(org.json.JSONTokener)>(r0);
+
+        return $r6;
+
+     label5:
+        virtualinvoke r0.<org.json.JSONTokener: void back()>();
+
+        $r7 = new org.json.JSONArray;
+
+        specialinvoke $r7.<org.json.JSONArray: void <init>(org.json.JSONTokener)>(r0);
+
+        return $r7;
+
+     label6:
+        $r1 = virtualinvoke r0.<org.json.JSONTokener: java.lang.String nextString(char)>($c0);
+
+        return $r1;
+    }

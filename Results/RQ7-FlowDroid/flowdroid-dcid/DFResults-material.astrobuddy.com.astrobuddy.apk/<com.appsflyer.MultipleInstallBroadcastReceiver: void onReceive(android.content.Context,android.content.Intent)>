@@ -1,0 +1,136 @@
+    public void onReceive(android.content.Context, android.content.Intent)
+    {
+        java.lang.Throwable $r16;
+        android.content.Context $r1;
+        com.appsflyer.h $r17;
+        android.content.pm.PackageManager $r3;
+        android.content.Intent $r2, $r4;
+        android.content.pm.ActivityInfo $r10;
+        java.lang.String $r9, $r11, $r12;
+        boolean $z0;
+        java.util.Iterator $r6;
+        com.appsflyer.MultipleInstallBroadcastReceiver r0;
+        android.content.BroadcastReceiver $r15;
+        android.content.pm.ResolveInfo $r8;
+        java.util.List $r5;
+        java.lang.Object $r7;
+        java.lang.Class $r13;
+        java.lang.StringBuilder $r14;
+
+        r0 := @this: com.appsflyer.MultipleInstallBroadcastReceiver;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $r2 := @parameter1: android.content.Intent;
+
+        $r2 = virtualinvoke r0.<com.appsflyer.MultipleInstallBroadcastReceiver: android.content.Intent getIntent()>();
+
+        staticinvoke <com.appsflyer.a: void a(java.lang.String)>("MultipleInstallBroadcastReceiver called");
+
+        $r3 = virtualinvoke $r1.<android.content.Context: android.content.pm.PackageManager getPackageManager()>();
+
+        $r4 = new android.content.Intent;
+
+        specialinvoke $r4.<android.content.Intent: void <init>(java.lang.String)>("com.android.vending.INSTALL_REFERRER");
+
+        $r5 = virtualinvoke $r3.<android.content.pm.PackageManager: java.util.List queryBroadcastReceivers(android.content.Intent,int)>($r4, 0);
+
+        $r6 = interfaceinvoke $r5.<java.util.List: java.util.Iterator iterator()>();
+
+     label1:
+        $z0 = interfaceinvoke $r6.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label5;
+
+        $r7 = interfaceinvoke $r6.<java.util.Iterator: java.lang.Object next()>();
+
+        $r8 = (android.content.pm.ResolveInfo) $r7;
+
+        $r9 = virtualinvoke $r2.<android.content.Intent: java.lang.String getAction()>();
+
+        $r10 = $r8.<android.content.pm.ResolveInfo: android.content.pm.ActivityInfo activityInfo>;
+
+        $r11 = $r10.<android.content.pm.ActivityInfo: java.lang.String packageName>;
+
+        $r12 = virtualinvoke $r1.<android.content.Context: java.lang.String getPackageName()>();
+
+        $z0 = virtualinvoke $r11.<java.lang.String: boolean equals(java.lang.Object)>($r12);
+
+        if $z0 == 0 goto label1;
+
+        $r11 = "com.android.vending.INSTALL_REFERRER";
+
+        $z0 = virtualinvoke $r11.<java.lang.String: boolean equals(java.lang.Object)>($r9);
+
+        if $z0 == 0 goto label1;
+
+        $r13 = virtualinvoke r0.<java.lang.Object: java.lang.Class getClass()>();
+
+        $r9 = virtualinvoke $r13.<java.lang.Class: java.lang.String getName()>();
+
+        $r10 = $r8.<android.content.pm.ResolveInfo: android.content.pm.ActivityInfo activityInfo>;
+
+        $r11 = $r10.<android.content.pm.ActivityInfo: java.lang.String name>;
+
+        $z0 = virtualinvoke $r9.<java.lang.String: boolean equals(java.lang.Object)>($r11);
+
+        if $z0 != 0 goto label1;
+
+        $r14 = new java.lang.StringBuilder;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>("trigger onReceive: class: ");
+
+        $r10 = $r8.<android.content.pm.ResolveInfo: android.content.pm.ActivityInfo activityInfo>;
+
+        $r9 = $r10.<android.content.pm.ActivityInfo: java.lang.String name>;
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        $r9 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.appsflyer.a: void a(java.lang.String)>($r9);
+
+     label2:
+        $r10 = $r8.<android.content.pm.ResolveInfo: android.content.pm.ActivityInfo activityInfo>;
+
+        $r9 = $r10.<android.content.pm.ActivityInfo: java.lang.String name>;
+
+        $r13 = staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>($r9);
+
+        $r7 = virtualinvoke $r13.<java.lang.Class: java.lang.Object newInstance()>();
+
+        $r15 = (android.content.BroadcastReceiver) $r7;
+
+        virtualinvoke $r15.<android.content.BroadcastReceiver: void onReceive(android.content.Context,android.content.Intent)>($r1, $r2);
+
+     label3:
+        goto label1;
+
+     label4:
+        $r16 := @caughtexception;
+
+        $r14 = new java.lang.StringBuilder;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>("error in BroadcastReceiver ");
+
+        $r10 = $r8.<android.content.pm.ResolveInfo: android.content.pm.ActivityInfo activityInfo>;
+
+        $r9 = $r10.<android.content.pm.ActivityInfo: java.lang.String name>;
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        $r9 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.appsflyer.a: void a(java.lang.String,java.lang.Throwable)>($r9, $r16);
+
+        goto label1;
+
+     label5:
+        $r17 = staticinvoke <com.appsflyer.h: com.appsflyer.h a()>();
+
+        virtualinvoke $r17.<com.appsflyer.h: void a(android.content.Context,android.content.Intent)>($r1, $r2);
+
+        return;
+
+        catch java.lang.Throwable from label2 to label3 with label4;
+    }

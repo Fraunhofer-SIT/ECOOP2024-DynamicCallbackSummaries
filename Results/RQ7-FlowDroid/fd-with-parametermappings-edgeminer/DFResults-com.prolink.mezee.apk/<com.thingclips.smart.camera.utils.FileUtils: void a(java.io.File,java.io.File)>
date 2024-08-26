@@ -1,0 +1,100 @@
+    public static void a(java.io.File, java.io.File) throws java.io.IOException
+    {
+        java.lang.Throwable $r6, $r7, $r8, $r9;
+        byte[] $r5;
+        java.io.FileOutputStream $r4;
+        java.io.FileInputStream $r3;
+        java.io.File $r0, $r1, $r2;
+        int $i0;
+        boolean $z0;
+
+        $r0 := @parameter0: java.io.File;
+
+        $r1 := @parameter1: java.io.File;
+
+        $r2 = virtualinvoke $r1.<java.io.File: java.io.File getParentFile()>();
+
+        $z0 = virtualinvoke $r2.<java.io.File: boolean exists()>();
+
+        if $z0 != 0 goto label01;
+
+        $r2 = virtualinvoke $r1.<java.io.File: java.io.File getParentFile()>();
+
+        virtualinvoke $r2.<java.io.File: boolean mkdirs()>();
+
+     label01:
+        $r3 = new java.io.FileInputStream;
+
+        specialinvoke $r3.<java.io.FileInputStream: void <init>(java.io.File)>($r0);
+
+     label02:
+        $r4 = new java.io.FileOutputStream;
+
+        specialinvoke $r4.<java.io.FileOutputStream: void <init>(java.io.File)>($r1);
+
+     label03:
+        $r5 = newarray (byte)[1024];
+
+     label04:
+        $i0 = virtualinvoke $r3.<java.io.InputStream: int read(byte[])>($r5);
+
+     label05:
+        if $i0 <= 0 goto label08;
+
+     label06:
+        virtualinvoke $r4.<java.io.OutputStream: void write(byte[],int,int)>($r5, 0, $i0);
+
+     label07:
+        goto label04;
+
+     label08:
+        virtualinvoke $r4.<java.io.OutputStream: void close()>();
+
+     label09:
+        virtualinvoke $r3.<java.io.InputStream: void close()>();
+
+        return;
+
+     label10:
+        $r6 := @caughtexception;
+
+     label11:
+        virtualinvoke $r4.<java.io.OutputStream: void close()>();
+
+     label12:
+        goto label15;
+
+     label13:
+        $r7 := @caughtexception;
+
+     label14:
+        virtualinvoke $r6.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r7);
+
+     label15:
+        throw $r6;
+
+     label16:
+        $r8 := @caughtexception;
+
+     label17:
+        virtualinvoke $r3.<java.io.InputStream: void close()>();
+
+     label18:
+        goto label20;
+
+     label19:
+        $r9 := @caughtexception;
+
+        virtualinvoke $r8.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r9);
+
+     label20:
+        throw $r8;
+
+        catch java.lang.Throwable from label02 to label03 with label16;
+        catch java.lang.Throwable from label04 to label05 with label10;
+        catch java.lang.Throwable from label06 to label07 with label10;
+        catch java.lang.Throwable from label08 to label09 with label16;
+        catch java.lang.Throwable from label11 to label12 with label13;
+        catch java.lang.Throwable from label14 to label16 with label16;
+        catch java.lang.Throwable from label17 to label18 with label19;
+    }

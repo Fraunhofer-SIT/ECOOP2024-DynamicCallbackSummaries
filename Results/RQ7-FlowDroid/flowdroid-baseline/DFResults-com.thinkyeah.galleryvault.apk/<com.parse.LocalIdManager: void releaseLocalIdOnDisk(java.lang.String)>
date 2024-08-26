@@ -1,0 +1,46 @@
+    public void releaseLocalIdOnDisk(java.lang.String)
+    {
+        java.lang.Throwable $r3;
+        com.parse.LocalIdManager r0;
+        com.parse.LocalIdManager$MapEntry $r1;
+        int $i0;
+        java.lang.String $r2;
+
+        r0 := @this: com.parse.LocalIdManager;
+
+        $r2 := @parameter0: java.lang.String;
+
+        entermonitor r0;
+
+     label1:
+        $r1 = virtualinvoke r0.<com.parse.LocalIdManager: com.parse.LocalIdManager$MapEntry getMapEntry(java.lang.String)>($r2);
+
+        $i0 = $r1.<com.parse.LocalIdManager$MapEntry: int retainCount>;
+
+        $i0 = $i0 + -1;
+
+        $r1.<com.parse.LocalIdManager$MapEntry: int retainCount> = $i0;
+
+        if $i0 <= 0 goto label2;
+
+        virtualinvoke r0.<com.parse.LocalIdManager: void putMapEntry(java.lang.String,com.parse.LocalIdManager$MapEntry)>($r2, $r1);
+
+        goto label3;
+
+     label2:
+        virtualinvoke r0.<com.parse.LocalIdManager: void removeMapEntry(java.lang.String)>($r2);
+
+     label3:
+        exitmonitor r0;
+
+        return;
+
+     label4:
+        $r3 := @caughtexception;
+
+        exitmonitor r0;
+
+        throw $r3;
+
+        catch java.lang.Throwable from label1 to label3 with label4;
+    }

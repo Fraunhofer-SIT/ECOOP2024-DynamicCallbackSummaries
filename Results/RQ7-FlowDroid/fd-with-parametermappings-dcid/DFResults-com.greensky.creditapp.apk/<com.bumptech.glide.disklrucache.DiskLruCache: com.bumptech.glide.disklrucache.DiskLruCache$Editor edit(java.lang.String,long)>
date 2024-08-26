@@ -1,0 +1,98 @@
+    private com.bumptech.glide.disklrucache.DiskLruCache$Editor edit(java.lang.String, long) throws java.io.IOException
+    {
+        java.lang.Throwable $r7;
+        long $l0;
+        com.bumptech.glide.disklrucache.DiskLruCache$Editor $r5;
+        java.util.LinkedHashMap $r2;
+        com.bumptech.glide.disklrucache.DiskLruCache r0;
+        java.io.Writer $r6;
+        java.lang.Object $r3;
+        java.lang.String $r1;
+        com.bumptech.glide.disklrucache.DiskLruCache$Entry $r4;
+
+        r0 := @this: com.bumptech.glide.disklrucache.DiskLruCache;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $l0 := @parameter1: long;
+
+        entermonitor r0;
+
+     label1:
+        specialinvoke r0.<com.bumptech.glide.disklrucache.DiskLruCache: void checkNotClosed()>();
+
+        $r2 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.util.LinkedHashMap lruEntries>;
+
+        $r3 = virtualinvoke $r2.<java.util.AbstractMap: java.lang.Object get(java.lang.Object)>($r1);
+
+        $r4 = (com.bumptech.glide.disklrucache.DiskLruCache$Entry) $r3;
+
+        goto label2;
+
+     label2:
+        if $r4 != null goto label4;
+
+     label3:
+        $r4 = new com.bumptech.glide.disklrucache.DiskLruCache$Entry;
+
+        specialinvoke $r4.<com.bumptech.glide.disklrucache.DiskLruCache$Entry: void <init>(com.bumptech.glide.disklrucache.DiskLruCache,java.lang.String,com.bumptech.glide.disklrucache.DiskLruCache$1)>(r0, $r1, null);
+
+        $r2 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.util.LinkedHashMap lruEntries>;
+
+        virtualinvoke $r2.<java.util.AbstractMap: java.lang.Object put(java.lang.Object,java.lang.Object)>($r1, $r4);
+
+        goto label6;
+
+     label4:
+        $r5 = staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$Entry: com.bumptech.glide.disklrucache.DiskLruCache$Editor access$800(com.bumptech.glide.disklrucache.DiskLruCache$Entry)>($r4);
+
+     label5:
+        if $r5 == null goto label6;
+
+        exitmonitor r0;
+
+        return null;
+
+     label6:
+        $r5 = new com.bumptech.glide.disklrucache.DiskLruCache$Editor;
+
+        specialinvoke $r5.<com.bumptech.glide.disklrucache.DiskLruCache$Editor: void <init>(com.bumptech.glide.disklrucache.DiskLruCache,com.bumptech.glide.disklrucache.DiskLruCache$Entry,com.bumptech.glide.disklrucache.DiskLruCache$1)>(r0, $r4, null);
+
+        staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$Entry: com.bumptech.glide.disklrucache.DiskLruCache$Editor access$802(com.bumptech.glide.disklrucache.DiskLruCache$Entry,com.bumptech.glide.disklrucache.DiskLruCache$Editor)>($r4, $r5);
+
+        $r6 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.Writer journalWriter>;
+
+        virtualinvoke $r6.<java.io.Writer: java.io.Writer append(java.lang.CharSequence)>("DIRTY");
+
+        $r6 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.Writer journalWriter>;
+
+        virtualinvoke $r6.<java.io.Writer: java.io.Writer append(char)>(32);
+
+        $r6 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.Writer journalWriter>;
+
+        virtualinvoke $r6.<java.io.Writer: java.io.Writer append(java.lang.CharSequence)>($r1);
+
+        $r6 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.Writer journalWriter>;
+
+        virtualinvoke $r6.<java.io.Writer: java.io.Writer append(char)>(10);
+
+        $r6 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.Writer journalWriter>;
+
+        virtualinvoke $r6.<java.io.Writer: void flush()>();
+
+     label7:
+        exitmonitor r0;
+
+        return $r5;
+
+     label8:
+        $r7 := @caughtexception;
+
+        exitmonitor r0;
+
+        throw $r7;
+
+        catch java.lang.Throwable from label1 to label2 with label8;
+        catch java.lang.Throwable from label3 to label5 with label8;
+        catch java.lang.Throwable from label6 to label7 with label8;
+    }

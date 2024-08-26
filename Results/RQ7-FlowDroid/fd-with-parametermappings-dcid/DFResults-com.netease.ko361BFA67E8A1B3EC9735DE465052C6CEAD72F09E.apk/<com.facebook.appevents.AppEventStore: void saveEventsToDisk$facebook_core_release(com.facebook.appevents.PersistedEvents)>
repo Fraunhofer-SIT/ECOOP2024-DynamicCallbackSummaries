@@ -1,0 +1,131 @@
+    public static final void saveEventsToDisk$facebook_core_release(com.facebook.appevents.PersistedEvents)
+    {
+        java.lang.Throwable $r12, $r15, $r16;
+        android.content.Context $r4;
+        com.facebook.FacebookSdk $r3;
+        java.io.BufferedOutputStream $r6;
+        java.io.ObjectOutputStream $r2, $r5;
+        java.lang.String $r13;
+        com.facebook.appevents.PersistedEvents $r1;
+        boolean $z0;
+        com.facebook.appevents.AppEventStore $r7;
+        java.io.OutputStream $r9;
+        java.io.FileOutputStream $r8;
+        java.lang.Exception $r0;
+        java.io.File $r14;
+        java.io.Closeable $r11;
+        com.facebook.internal.Utility $r10;
+
+        $r1 := @parameter0: com.facebook.appevents.PersistedEvents;
+
+        $z0 = staticinvoke <com.facebook.internal.instrument.crashshield.CrashShieldHandler: boolean isObjectCrashing(java.lang.Object)>(class "Lcom/facebook/appevents/AppEventStore;");
+
+        if $z0 == 0 goto label01;
+
+        return;
+
+     label01:
+        $r2 = null;
+
+     label02:
+        $r3 = <com.facebook.FacebookSdk: com.facebook.FacebookSdk INSTANCE>;
+
+        $r4 = staticinvoke <com.facebook.FacebookSdk: android.content.Context getApplicationContext()>();
+
+     label03:
+        $r5 = new java.io.ObjectOutputStream;
+
+        $r6 = new java.io.BufferedOutputStream;
+
+        $r7 = <com.facebook.appevents.AppEventStore: com.facebook.appevents.AppEventStore INSTANCE>;
+
+        $r8 = virtualinvoke $r4.<android.content.Context: java.io.FileOutputStream openFileOutput(java.lang.String,int)>("AppEventsLogger.persistedevents", 0);
+
+        $r9 = (java.io.OutputStream) $r8;
+
+        specialinvoke $r6.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r9);
+
+        $r9 = (java.io.OutputStream) $r6;
+
+        specialinvoke $r5.<java.io.ObjectOutputStream: void <init>(java.io.OutputStream)>($r9);
+
+     label04:
+        virtualinvoke $r5.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>($r1);
+
+     label05:
+        $r10 = <com.facebook.internal.Utility: com.facebook.internal.Utility INSTANCE>;
+
+        $r11 = (java.io.Closeable) $r5;
+
+        staticinvoke <com.facebook.internal.Utility: void closeQuietly(java.io.Closeable)>($r11);
+
+     label06:
+        return;
+
+     label07:
+        $r12 := @caughtexception;
+
+        $r2 = $r5;
+
+        goto label09;
+
+     label08:
+        $r12 := @caughtexception;
+
+     label09:
+        $r13 = <com.facebook.appevents.AppEventStore: java.lang.String TAG>;
+
+        staticinvoke <android.util.Log: int w(java.lang.String,java.lang.String,java.lang.Throwable)>($r13, "Got unexpected exception while persisting events: ", $r12);
+
+     label10:
+        $r7 = <com.facebook.appevents.AppEventStore: com.facebook.appevents.AppEventStore INSTANCE>;
+
+     label11:
+        $r14 = virtualinvoke $r4.<android.content.Context: java.io.File getFileStreamPath(java.lang.String)>("AppEventsLogger.persistedevents");
+
+        virtualinvoke $r14.<java.io.File: boolean delete()>();
+
+     label12:
+        $r10 = <com.facebook.internal.Utility: com.facebook.internal.Utility INSTANCE>;
+
+        $r11 = (java.io.Closeable) $r2;
+
+        staticinvoke <com.facebook.internal.Utility: void closeQuietly(java.io.Closeable)>($r11);
+
+     label13:
+        return;
+
+     label14:
+        $r15 := @caughtexception;
+
+     label15:
+        $r10 = <com.facebook.internal.Utility: com.facebook.internal.Utility INSTANCE>;
+
+        $r11 = (java.io.Closeable) $r2;
+
+        staticinvoke <com.facebook.internal.Utility: void closeQuietly(java.io.Closeable)>($r11);
+
+        throw $r15;
+
+     label16:
+        $r16 := @caughtexception;
+
+        staticinvoke <com.facebook.internal.instrument.crashshield.CrashShieldHandler: void handleThrowable(java.lang.Throwable,java.lang.Object)>($r16, class "Lcom/facebook/appevents/AppEventStore;");
+
+        return;
+
+     label17:
+        $r0 := @caughtexception;
+
+        goto label12;
+
+        catch java.lang.Throwable from label02 to label03 with label16;
+        catch java.lang.Throwable from label03 to label04 with label08;
+        catch java.lang.Throwable from label04 to label05 with label07;
+        catch java.lang.Throwable from label05 to label06 with label16;
+        catch java.lang.Throwable from label09 to label10 with label14;
+        catch java.lang.Exception from label11 to label12 with label17;
+        catch java.lang.Throwable from label10 to label12 with label14;
+        catch java.lang.Throwable from label12 to label13 with label16;
+        catch java.lang.Throwable from label15 to label16 with label16;
+    }

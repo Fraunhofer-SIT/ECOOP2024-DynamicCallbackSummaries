@@ -1,0 +1,322 @@
+    public static com.startapp.common.a.g$a a(java.lang.String, java.lang.String, boolean)
+    {
+        java.net.HttpURLConnection $r2, $r4;
+        java.lang.Throwable $r15, $r16, $r17;
+        com.startapp.common.a.g$a $r18;
+        java.util.Map $r7;
+        int $i0, $i1, $i2;
+        java.lang.String $r0, $r1;
+        java.net.URI $r6;
+        boolean $z0, $z1;
+        java.io.StringWriter $r9, $r19;
+        java.io.InputStreamReader $r20;
+        java.lang.Exception $r14;
+        com.startapp.common.e $r22;
+        java.net.CookieManager $r5;
+        char[] $r10;
+        java.lang.StringBuilder $r12, $r13;
+        java.io.BufferedReader $r11, $r21;
+        java.io.InputStream $r3, $r8;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $z0 := @parameter2: boolean;
+
+        $r2 = null;
+
+        $r3 = null;
+
+        $i0 = 0;
+
+        $z1 = 1;
+
+     label01:
+        $r4 = staticinvoke <com.startapp.common.a.g: java.net.HttpURLConnection b(java.lang.String,byte[],java.lang.String,boolean,java.lang.String)>($r0, null, $r1, $z0, null);
+
+     label02:
+        $r2 = $r4;
+
+     label03:
+        $i1 = virtualinvoke $r4.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label04:
+        $i0 = $i1;
+
+        if $i1 != 200 goto label27;
+
+        $z1 = 0;
+
+     label05:
+        $i1 = <android.os.Build$VERSION: int SDK_INT>;
+
+     label06:
+        if $i1 < 9 goto label10;
+
+     label07:
+        $r5 = staticinvoke <com.startapp.common.d.a: java.net.CookieManager a()>();
+
+     label08:
+        if $r5 == null goto label10;
+
+     label09:
+        $r6 = staticinvoke <java.net.URI: java.net.URI create(java.lang.String)>($r0);
+
+        $r7 = virtualinvoke $r4.<java.net.HttpURLConnection: java.util.Map getHeaderFields()>();
+
+        virtualinvoke $r5.<java.net.CookieManager: void put(java.net.URI,java.util.Map)>($r6, $r7);
+
+     label10:
+        $r8 = virtualinvoke $r4.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+     label11:
+        $r3 = $r8;
+
+     label12:
+        $r18 = new com.startapp.common.a.g$a;
+
+     label13:
+        specialinvoke $r18.<com.startapp.common.a.g$a: void <init>()>();
+
+        $r0 = virtualinvoke $r4.<java.net.HttpURLConnection: java.lang.String getContentType()>();
+
+        virtualinvoke $r18.<com.startapp.common.a.g$a: void b(java.lang.String)>($r0);
+
+     label14:
+        if $r8 == null goto label59;
+
+     label15:
+        $r19 = new java.io.StringWriter;
+
+     label16:
+        $r9 = $r19;
+
+     label17:
+        specialinvoke $r19.<java.io.StringWriter: void <init>()>();
+
+     label18:
+        $r10 = newarray (char)[1024];
+
+     label19:
+        $r21 = new java.io.BufferedReader;
+
+     label20:
+        $r11 = $r21;
+
+     label21:
+        $r20 = new java.io.InputStreamReader;
+
+     label22:
+        specialinvoke $r20.<java.io.InputStreamReader: void <init>(java.io.InputStream,java.lang.String)>($r8, "UTF-8");
+
+        specialinvoke $r21.<java.io.BufferedReader: void <init>(java.io.Reader)>($r20);
+
+     label23:
+        $i1 = virtualinvoke $r11.<java.io.Reader: int read(char[])>($r10);
+
+     label24:
+        if $i1 == -1 goto label56;
+
+     label25:
+        virtualinvoke $r9.<java.io.Writer: void write(char[],int,int)>($r10, 0, $i1);
+
+     label26:
+        goto label23;
+
+     label27:
+        $r13 = new java.lang.StringBuilder;
+
+     label28:
+        $r12 = $r13;
+
+     label29:
+        specialinvoke $r13.<java.lang.StringBuilder: void <init>()>();
+
+        $r13 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Error sendGetWithResponse code = [");
+
+        $r13 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(93);
+
+        $r8 = virtualinvoke $r4.<java.net.HttpURLConnection: java.io.InputStream getErrorStream()>();
+
+     label30:
+        $r3 = $r8;
+
+        if $r8 == null goto label44;
+
+     label31:
+        $r19 = new java.io.StringWriter;
+
+     label32:
+        $r9 = $r19;
+
+     label33:
+        specialinvoke $r19.<java.io.StringWriter: void <init>()>();
+
+     label34:
+        $r10 = newarray (char)[1024];
+
+     label35:
+        $r21 = new java.io.BufferedReader;
+
+     label36:
+        $r11 = $r21;
+
+     label37:
+        $r20 = new java.io.InputStreamReader;
+
+     label38:
+        specialinvoke $r20.<java.io.InputStreamReader: void <init>(java.io.InputStream,java.lang.String)>($r8, "UTF-8");
+
+        specialinvoke $r21.<java.io.BufferedReader: void <init>(java.io.Reader)>($r20);
+
+     label39:
+        $i2 = virtualinvoke $r11.<java.io.Reader: int read(char[])>($r10);
+
+     label40:
+        if $i2 == -1 goto label43;
+
+     label41:
+        virtualinvoke $r9.<java.io.Writer: void write(char[],int,int)>($r10, 0, $i2);
+
+     label42:
+        goto label39;
+
+     label43:
+        $r0 = virtualinvoke $r9.<java.lang.Object: java.lang.String toString()>();
+
+        virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+     label44:
+        $z1 = 1;
+
+     label45:
+        $r22 = new com.startapp.common.e;
+
+     label46:
+        $r0 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r22.<com.startapp.common.e: void <init>(java.lang.String,java.lang.Throwable,boolean,int)>($r0, null, 1, $i1);
+
+        throw $r22;
+
+     label47:
+        $r14 := @caughtexception;
+
+     label48:
+        $r13 = new java.lang.StringBuilder;
+
+     label49:
+        $r12 = $r13;
+
+     label50:
+        specialinvoke $r13.<java.lang.StringBuilder: void <init>()>();
+
+        $r13 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Error execute Exception ");
+
+        $r0 = virtualinvoke $r14.<java.lang.Exception: java.lang.String getMessage()>();
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r22 = new com.startapp.common.e;
+
+     label51:
+        $r0 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r22.<com.startapp.common.e: void <init>(java.lang.String,java.lang.Throwable,boolean,int)>($r0, $r14, $z1, $i0);
+
+        throw $r22;
+
+     label52:
+        $r15 := @caughtexception;
+
+        if $r3 == null goto label54;
+
+     label53:
+        virtualinvoke $r3.<java.io.InputStream: void close()>();
+
+     label54:
+        if $r2 == null goto label55;
+
+        virtualinvoke $r2.<java.net.HttpURLConnection: void disconnect()>();
+
+     label55:
+        throw $r15;
+
+     label56:
+        $r0 = virtualinvoke $r9.<java.lang.Object: java.lang.String toString()>();
+
+        virtualinvoke $r18.<com.startapp.common.a.g$a: void a(java.lang.String)>($r0);
+
+     label57:
+        if $r8 == null goto label59;
+
+     label58:
+        virtualinvoke $r8.<java.io.InputStream: void close()>();
+
+     label59:
+        if $r4 == null goto label60;
+
+        virtualinvoke $r4.<java.net.HttpURLConnection: void disconnect()>();
+
+     label60:
+        return $r18;
+
+     label61:
+        $r16 := @caughtexception;
+
+        goto label59;
+
+     label62:
+        $r17 := @caughtexception;
+
+        goto label54;
+
+        catch java.lang.Exception from label01 to label02 with label47;
+        catch java.lang.Exception from label03 to label04 with label47;
+        catch java.lang.Exception from label07 to label08 with label47;
+        catch java.lang.Exception from label09 to label11 with label47;
+        catch java.lang.Exception from label13 to label14 with label47;
+        catch java.lang.Exception from label17 to label18 with label47;
+        catch java.lang.Exception from label22 to label24 with label47;
+        catch java.lang.Exception from label25 to label26 with label47;
+        catch java.lang.Exception from label29 to label30 with label47;
+        catch java.lang.Exception from label33 to label34 with label47;
+        catch java.lang.Exception from label38 to label40 with label47;
+        catch java.lang.Exception from label41 to label42 with label47;
+        catch java.lang.Exception from label43 to label44 with label47;
+        catch java.lang.Exception from label46 to label47 with label47;
+        catch java.lang.Throwable from label01 to label02 with label52;
+        catch java.lang.Throwable from label03 to label04 with label52;
+        catch java.lang.Throwable from label05 to label06 with label52;
+        catch java.lang.Throwable from label07 to label08 with label52;
+        catch java.lang.Throwable from label09 to label11 with label52;
+        catch java.lang.Throwable from label12 to label13 with label52;
+        catch java.lang.Throwable from label13 to label14 with label52;
+        catch java.lang.Throwable from label15 to label16 with label52;
+        catch java.lang.Throwable from label17 to label18 with label52;
+        catch java.lang.Throwable from label19 to label20 with label52;
+        catch java.lang.Throwable from label21 to label22 with label52;
+        catch java.lang.Throwable from label22 to label24 with label52;
+        catch java.lang.Throwable from label25 to label26 with label52;
+        catch java.lang.Throwable from label27 to label28 with label52;
+        catch java.lang.Throwable from label29 to label30 with label52;
+        catch java.lang.Throwable from label31 to label32 with label52;
+        catch java.lang.Throwable from label33 to label34 with label52;
+        catch java.lang.Throwable from label35 to label36 with label52;
+        catch java.lang.Throwable from label37 to label38 with label52;
+        catch java.lang.Throwable from label38 to label40 with label52;
+        catch java.lang.Throwable from label41 to label42 with label52;
+        catch java.lang.Throwable from label43 to label44 with label52;
+        catch java.lang.Throwable from label45 to label46 with label52;
+        catch java.lang.Throwable from label46 to label47 with label52;
+        catch java.lang.Throwable from label48 to label49 with label52;
+        catch java.lang.Throwable from label50 to label51 with label52;
+        catch java.lang.Throwable from label51 to label52 with label52;
+        catch java.io.IOException from label53 to label54 with label62;
+        catch java.lang.Exception from label56 to label57 with label47;
+        catch java.lang.Throwable from label56 to label57 with label52;
+        catch java.io.IOException from label58 to label59 with label61;
+    }

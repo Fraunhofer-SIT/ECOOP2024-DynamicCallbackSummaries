@@ -1,0 +1,147 @@
+    protected void updateClouds(java.util.List)
+    {
+        com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud r7, r10;
+        java.util.HashMap r3;
+        java.util.ArrayList $r4;
+        int $i0, $i1;
+        com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager r0;
+        boolean z0, z1, $z2;
+        java.util.Iterator $r5;
+        com.adobe.creativesdk.foundation.internal.notification.AdobeNotification r2;
+        com.adobe.creativesdk.foundation.internal.notification.AdobeLocalNotificationCenter $r9;
+        java.util.List r1;
+        java.lang.Object $r6;
+        com.adobe.creativesdk.foundation.internal.notification.AdobeInternalNotificationID $r8;
+
+        r0 := @this: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager;
+
+        r1 := @parameter0: java.util.List;
+
+        z0 = 1;
+
+        $i0 = interfaceinvoke r1.<java.util.List: int size()>();
+
+        $r4 = r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: java.util.ArrayList clouds>;
+
+        $i1 = virtualinvoke $r4.<java.util.ArrayList: int size()>();
+
+        if $i0 != $i1 goto label3;
+
+        z1 = 1;
+
+        $r5 = interfaceinvoke r1.<java.util.List: java.util.Iterator iterator()>();
+
+     label1:
+        $z2 = interfaceinvoke $r5.<java.util.Iterator: boolean hasNext()>();
+
+        if $z2 == 0 goto label2;
+
+        $r6 = interfaceinvoke $r5.<java.util.Iterator: java.lang.Object next()>();
+
+        r7 = (com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud) $r6;
+
+        $r4 = r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: java.util.ArrayList clouds>;
+
+        $z2 = virtualinvoke $r4.<java.util.ArrayList: boolean contains(java.lang.Object)>(r7);
+
+        if $z2 != 0 goto label5;
+
+        z1 = 0;
+
+     label2:
+        if z1 == 0 goto label3;
+
+        z0 = 0;
+
+     label3:
+        if z0 == 0 goto label8;
+
+        $i0 = interfaceinvoke r1.<java.util.List: int size()>();
+
+        if $i0 != 1 goto label6;
+
+        $r6 = interfaceinvoke r1.<java.util.List: java.lang.Object get(int)>(0);
+
+        r7 = (com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud) $r6;
+
+        virtualinvoke r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: void updateCloud(com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud)>(r7);
+
+        r7 = virtualinvoke r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud getDefaultCloud()>();
+
+        if r7 != null goto label4;
+
+        $r6 = interfaceinvoke r1.<java.util.List: java.lang.Object get(int)>(0);
+
+        r7 = (com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud) $r6;
+
+        virtualinvoke r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: void setDefaultCloud(com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud)>(r7);
+
+     label4:
+        r3 = new java.util.HashMap;
+
+        specialinvoke r3.<java.util.HashMap: void <init>()>();
+
+        $r4 = r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: java.util.ArrayList clouds>;
+
+        interfaceinvoke r3.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("Clouds", $r4);
+
+        r2 = new com.adobe.creativesdk.foundation.internal.notification.AdobeNotification;
+
+        $r8 = <com.adobe.creativesdk.foundation.internal.notification.AdobeInternalNotificationID: com.adobe.creativesdk.foundation.internal.notification.AdobeInternalNotificationID AdobeCloudManagerCloudsUpdatedNotification>;
+
+        specialinvoke r2.<com.adobe.creativesdk.foundation.internal.notification.AdobeNotification: void <init>(com.adobe.creativesdk.foundation.internal.notification.IAdobeNotificationID,java.util.Map)>($r8, r3);
+
+        $r9 = staticinvoke <com.adobe.creativesdk.foundation.internal.notification.AdobeLocalNotificationCenter: com.adobe.creativesdk.foundation.internal.notification.AdobeLocalNotificationCenter getDefaultNotificationCenter()>();
+
+        virtualinvoke $r9.<com.adobe.creativesdk.foundation.internal.notification.AdobeLocalNotificationCenter: void postNotification(com.adobe.creativesdk.foundation.internal.notification.AdobeNotification)>(r2);
+
+        return;
+
+     label5:
+        $r4 = r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: java.util.ArrayList clouds>;
+
+        $i0 = virtualinvoke $r4.<java.util.ArrayList: int indexOf(java.lang.Object)>(r7);
+
+        $r4 = r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: java.util.ArrayList clouds>;
+
+        $r6 = virtualinvoke $r4.<java.util.ArrayList: java.lang.Object get(int)>($i0);
+
+        r10 = (com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud) $r6;
+
+        $z2 = virtualinvoke r10.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: boolean isStrictlyEqual(com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud)>(r7);
+
+        if $z2 != 0 goto label1;
+
+        z1 = 0;
+
+        goto label2;
+
+     label6:
+        $r5 = interfaceinvoke r1.<java.util.List: java.util.Iterator iterator()>();
+
+     label7:
+        z0 = interfaceinvoke $r5.<java.util.Iterator: boolean hasNext()>();
+
+        if z0 == 0 goto label4;
+
+        $r6 = interfaceinvoke $r5.<java.util.Iterator: java.lang.Object next()>();
+
+        r7 = (com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud) $r6;
+
+        virtualinvoke r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: void updateCloud(com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud)>(r7);
+
+        r10 = virtualinvoke r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud getDefaultCloud()>();
+
+        if r10 != null goto label7;
+
+        z0 = virtualinvoke r7.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: boolean isPrivateCloud()>();
+
+        if z0 != 0 goto label7;
+
+        virtualinvoke r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: void setDefaultCloud(com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud)>(r7);
+
+        goto label7;
+
+     label8:
+        return;
+    }

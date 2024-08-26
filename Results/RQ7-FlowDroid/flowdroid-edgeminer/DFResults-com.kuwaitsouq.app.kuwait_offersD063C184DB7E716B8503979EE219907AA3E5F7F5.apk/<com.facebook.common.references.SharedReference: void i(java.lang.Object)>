@@ -1,0 +1,68 @@
+    public static void i(java.lang.Object)
+    {
+        java.lang.Throwable $r6;
+        java.lang.Object[] $r4;
+        java.lang.Integer $r3;
+        java.util.Map $r0;
+        int $i0;
+        java.lang.Object $r1, $r2;
+        java.lang.Class $r5;
+
+        $r1 := @parameter0: java.lang.Object;
+
+        $r0 = <com.facebook.common.references.SharedReference: java.util.Map d>;
+
+        entermonitor $r0;
+
+     label1:
+        $r2 = interfaceinvoke $r0.<java.util.Map: java.lang.Object get(java.lang.Object)>($r1);
+
+        $r3 = (java.lang.Integer) $r2;
+
+        if $r3 != null goto label2;
+
+        $r4 = newarray (java.lang.Object)[1];
+
+        $r5 = virtualinvoke $r1.<java.lang.Object: java.lang.Class getClass()>();
+
+        $r4[0] = $r5;
+
+        staticinvoke <r4.a: void A(java.lang.String,java.lang.String,java.lang.Object[])>("SharedReference", "No entry in sLiveObjects for value of type %s", $r4);
+
+        goto label4;
+
+     label2:
+        $i0 = virtualinvoke $r3.<java.lang.Integer: int intValue()>();
+
+        if $i0 != 1 goto label3;
+
+        interfaceinvoke $r0.<java.util.Map: java.lang.Object remove(java.lang.Object)>($r1);
+
+        goto label4;
+
+     label3:
+        $i0 = virtualinvoke $r3.<java.lang.Integer: int intValue()>();
+
+        $i0 = $i0 - 1;
+
+        $r3 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+        interfaceinvoke $r0.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($r1, $r3);
+
+     label4:
+        exitmonitor $r0;
+
+     label5:
+        return;
+
+     label6:
+        $r6 := @caughtexception;
+
+        exitmonitor $r0;
+
+     label7:
+        throw $r6;
+
+        catch java.lang.Throwable from label1 to label5 with label6;
+        catch java.lang.Throwable from label6 to label7 with label6;
+    }

@@ -1,0 +1,128 @@
+    public void downloadFile(java.lang.String, java.io.File) throws java.lang.Exception
+    {
+        java.lang.Throwable $r8, $r9, $r10, $r11, $r12, $r13;
+        byte[] $r7;
+        com.google.api.services.drive.Drive $r3;
+        com.google.api.services.drive.Drive$Files$Get $r5;
+        int $i0;
+        java.lang.String $r1;
+        com.google.api.services.drive.Drive$Files $r4;
+        java.io.FileOutputStream $r14;
+        java.io.File $r2;
+        notes.easy.android.mynotes.backup.DriveServiceHelper r0;
+        java.io.InputStream $r6;
+
+        r0 := @this: notes.easy.android.mynotes.backup.DriveServiceHelper;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: java.io.File;
+
+        $r3 = r0.<notes.easy.android.mynotes.backup.DriveServiceHelper: com.google.api.services.drive.Drive mDriveService>;
+
+        $r4 = virtualinvoke $r3.<com.google.api.services.drive.Drive: com.google.api.services.drive.Drive$Files files()>();
+
+        $r5 = virtualinvoke $r4.<com.google.api.services.drive.Drive$Files: com.google.api.services.drive.Drive$Files$Get get(java.lang.String)>($r1);
+
+        $r6 = virtualinvoke $r5.<com.google.api.services.drive.Drive$Files$Get: java.io.InputStream executeMediaAsInputStream()>();
+
+     label01:
+        $r14 = new java.io.FileOutputStream;
+
+     label02:
+        specialinvoke $r14.<java.io.FileOutputStream: void <init>(java.io.File)>($r2);
+
+     label03:
+        $r7 = newarray (byte)[4096];
+
+     label04:
+        $i0 = lengthof $r7;
+
+        $i0 = virtualinvoke $r6.<java.io.InputStream: int read(byte[],int,int)>($r7, 0, $i0);
+
+     label05:
+        if $i0 == -1 goto label08;
+
+     label06:
+        virtualinvoke $r14.<java.io.FileOutputStream: void write(byte[],int,int)>($r7, 0, $i0);
+
+     label07:
+        goto label04;
+
+     label08:
+        virtualinvoke $r14.<java.io.FileOutputStream: void flush()>();
+
+     label09:
+        virtualinvoke $r14.<java.io.FileOutputStream: void close()>();
+
+     label10:
+        if $r6 == null goto label26;
+
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+        return;
+
+     label11:
+        $r8 := @caughtexception;
+
+     label12:
+        throw $r8;
+
+     label13:
+        $r9 := @caughtexception;
+
+     label14:
+        virtualinvoke $r14.<java.io.FileOutputStream: void close()>();
+
+     label15:
+        goto label18;
+
+     label16:
+        $r10 := @caughtexception;
+
+     label17:
+        virtualinvoke $r8.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r10);
+
+     label18:
+        throw $r9;
+
+     label19:
+        $r11 := @caughtexception;
+
+     label20:
+        throw $r11;
+
+     label21:
+        $r12 := @caughtexception;
+
+        if $r6 == null goto label25;
+
+     label22:
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+     label23:
+        goto label25;
+
+     label24:
+        $r13 := @caughtexception;
+
+        virtualinvoke $r11.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r13);
+
+     label25:
+        throw $r12;
+
+     label26:
+        return;
+
+        catch java.lang.Throwable from label01 to label02 with label19;
+        catch java.lang.Throwable from label02 to label03 with label19;
+        catch java.lang.Throwable from label04 to label05 with label11;
+        catch java.lang.Throwable from label06 to label07 with label11;
+        catch java.lang.Throwable from label08 to label09 with label11;
+        catch java.lang.Throwable from label09 to label10 with label19;
+        catch java.lang.Throwable from label12 to label13 with label13;
+        catch java.lang.Throwable from label14 to label15 with label16;
+        catch java.lang.Throwable from label17 to label19 with label19;
+        catch java.lang.Throwable from label20 to label21 with label21;
+        catch java.lang.Throwable from label22 to label23 with label24;
+    }

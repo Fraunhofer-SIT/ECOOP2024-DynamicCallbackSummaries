@@ -1,0 +1,102 @@
+    public java.lang.String b(java.lang.String)
+    {
+        java.lang.Throwable $r6;
+        byte[] $r2;
+        java.io.ByteArrayOutputStream $r9;
+        java.io.FileInputStream $r4, $r8;
+        java.io.File $r3, $r7;
+        lib.android.paypal.com.magnessdk.a.a r0;
+        int $i0;
+        java.lang.Class $r5;
+        java.lang.String $r1, $r10;
+        boolean $z0;
+
+        r0 := @this: lib.android.paypal.com.magnessdk.a.a;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 = newarray (byte)[1024];
+
+        $z0 = r0.<lib.android.paypal.com.magnessdk.a.a: boolean c>;
+
+        if $z0 == 0 goto label16;
+
+     label01:
+        $r7 = new java.io.File;
+
+     label02:
+        $r3 = r0.<lib.android.paypal.com.magnessdk.a.a: java.io.File d>;
+
+        specialinvoke $r7.<java.io.File: void <init>(java.io.File,java.lang.String)>($r3, "fb.bin");
+
+        $r8 = new java.io.FileInputStream;
+
+     label03:
+        $r4 = $r8;
+
+     label04:
+        specialinvoke $r8.<java.io.FileInputStream: void <init>(java.io.File)>($r7);
+
+     label05:
+        $r9 = new java.io.ByteArrayOutputStream;
+
+     label06:
+        specialinvoke $r9.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $i0 = virtualinvoke $r8.<java.io.FileInputStream: int read(byte[],int,int)>($r2, 0, 1024);
+
+     label07:
+        if $i0 == -1 goto label10;
+
+     label08:
+        virtualinvoke $r9.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r2, 0, $i0);
+
+        $i0 = virtualinvoke $r8.<java.io.FileInputStream: int read(byte[],int,int)>($r2, 0, 1024);
+
+     label09:
+        goto label07;
+
+     label10:
+        $r2 = virtualinvoke $r9.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $r10 = new java.lang.String;
+
+     label11:
+        specialinvoke $r10.<java.lang.String: void <init>(byte[],java.lang.String)>($r2, "UTF-8");
+
+     label12:
+        $r5 = virtualinvoke r0.<java.lang.Object: java.lang.Class getClass()>();
+
+        staticinvoke <lib.android.paypal.com.magnessdk.c: void a(java.lang.Class,java.io.Closeable)>($r5, $r8);
+
+        return $r10;
+
+     label13:
+        $r6 := @caughtexception;
+
+        goto label15;
+
+     label14:
+        $r6 := @caughtexception;
+
+        $r4 = null;
+
+     label15:
+        $r5 = virtualinvoke r0.<java.lang.Object: java.lang.Class getClass()>();
+
+        staticinvoke <lib.android.paypal.com.magnessdk.c: void a(java.lang.Class,java.io.Closeable)>($r5, $r4);
+
+        throw $r6;
+
+     label16:
+        return null;
+
+        catch java.lang.Throwable from label01 to label02 with label14;
+        catch java.lang.Throwable from label02 to label03 with label14;
+        catch java.lang.Throwable from label04 to label05 with label14;
+        catch java.lang.Throwable from label05 to label06 with label13;
+        catch java.lang.Throwable from label06 to label07 with label13;
+        catch java.lang.Throwable from label08 to label09 with label13;
+        catch java.lang.Throwable from label10 to label11 with label13;
+        catch java.lang.Throwable from label11 to label12 with label13;
+    }

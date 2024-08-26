@@ -1,0 +1,125 @@
+    public com.getvictorious.utils.g execute(com.getvictorious.net.ApiRequest)
+    {
+        com.getvictorious.net.ApiRequest $r1;
+        java.lang.Throwable $r12;
+        com.a.b.a.k $r15;
+        com.getvictorious.b.a.a $r3;
+        java.net.URL $r4;
+        com.getvictorious.net.VolleyCallbackHandler $r2;
+        java.util.ArrayList $r7;
+        com.a.b.e $r16;
+        com.getvictorious.net.VolleyTask r0;
+        int $i0;
+        com.getvictorious.b.b $r13;
+        java.lang.String $r5, $r10;
+        com.getvictorious.net.VolleyTask$1 $r14;
+        com.getvictorious.net.VolleyManagerSingleton $r17;
+        boolean $z0;
+        java.util.Iterator $r8;
+        com.a.b.aa $r11;
+        com.getvictorious.model.Model $r6;
+        java.lang.Object $r9;
+
+        r0 := @this: com.getvictorious.net.VolleyTask;
+
+        $r1 := @parameter0: com.getvictorious.net.ApiRequest;
+
+        $r2 = new com.getvictorious.net.VolleyCallbackHandler;
+
+        $r3 = r0.<com.getvictorious.net.VolleyTask: com.getvictorious.b.a.a mCallback>;
+
+        specialinvoke $r2.<com.getvictorious.net.VolleyCallbackHandler: void <init>(com.getvictorious.net.ApiRequest,com.getvictorious.b.a.a)>($r1, $r3);
+
+     label1:
+        $r4 = virtualinvoke $r1.<com.getvictorious.net.ApiRequest: java.net.URL prepareURL()>();
+
+     label2:
+        $r5 = virtualinvoke $r4.<java.net.URL: java.lang.String toString()>();
+
+        $r6 = staticinvoke <com.getvictorious.model.Model: com.getvictorious.model.Model getInstance()>();
+
+        $z0 = virtualinvoke $r6.<com.getvictorious.model.Model: boolean isAnonAccount()>();
+
+        if $z0 == 0 goto label6;
+
+        $z0 = virtualinvoke $r5.<java.lang.String: boolean contains(java.lang.CharSequence)>("/api/tracking");
+
+        if $z0 == 0 goto label6;
+
+        $r7 = <com.getvictorious.net.VolleyTask: java.util.ArrayList mCoppaTrackingWhiteList>;
+
+        $r8 = virtualinvoke $r7.<java.util.ArrayList: java.util.Iterator iterator()>();
+
+     label3:
+        $z0 = interfaceinvoke $r8.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label7;
+
+        $r9 = interfaceinvoke $r8.<java.util.Iterator: java.lang.Object next()>();
+
+        $r10 = (java.lang.String) $r9;
+
+        $z0 = virtualinvoke $r5.<java.lang.String: boolean contains(java.lang.CharSequence)>($r10);
+
+        if $z0 == 0 goto label3;
+
+        $z0 = 1;
+
+     label4:
+        if $z0 != 0 goto label6;
+
+        $r11 = new com.a.b.aa;
+
+        specialinvoke $r11.<com.a.b.aa: void <init>(java.lang.String)>("coppa: non whiteList tracking call ignored");
+
+        virtualinvoke $r2.<com.getvictorious.net.VolleyCallbackHandler: void onErrorResponse(com.a.b.aa)>($r11);
+
+        return r0;
+
+     label5:
+        $r12 := @caughtexception;
+
+        $r3 = r0.<com.getvictorious.net.VolleyTask: com.getvictorious.b.a.a mCallback>;
+
+        $r13 = new com.getvictorious.b.b;
+
+        specialinvoke $r13.<com.getvictorious.b.b: void <init>(java.lang.Throwable)>($r12);
+
+        interfaceinvoke $r3.<com.getvictorious.b.a.a: void onFailure(com.getvictorious.b.b)>($r13);
+
+        return r0;
+
+     label6:
+        $r14 = new com.getvictorious.net.VolleyTask$1;
+
+        $i0 = virtualinvoke $r1.<com.getvictorious.net.ApiRequest: int getMethod()>();
+
+        $r5 = virtualinvoke $r4.<java.net.URL: java.lang.String toString()>();
+
+        specialinvoke $r14.<com.getvictorious.net.VolleyTask$1: void <init>(com.getvictorious.net.VolleyTask,int,java.lang.String,com.a.b.v,com.a.b.u,com.getvictorious.net.ApiRequest)>(r0, $i0, $r5, $r2, $r2, $r1);
+
+        r0.<com.getvictorious.net.VolleyTask: com.a.b.a.k mStringRequest> = $r14;
+
+        $r15 = r0.<com.getvictorious.net.VolleyTask: com.a.b.a.k mStringRequest>;
+
+        $r16 = new com.a.b.e;
+
+        specialinvoke $r16.<com.a.b.e: void <init>(int,int,float)>(30000, 0, 1.0F);
+
+        virtualinvoke $r15.<com.a.b.a.k: com.a.b.p setRetryPolicy(com.a.b.x)>($r16);
+
+        $r17 = <com.getvictorious.net.VolleyTask: com.getvictorious.net.VolleyManagerSingleton sVolleyManager>;
+
+        $r15 = r0.<com.getvictorious.net.VolleyTask: com.a.b.a.k mStringRequest>;
+
+        virtualinvoke $r17.<com.getvictorious.net.VolleyManagerSingleton: void addToRequestQueue(com.a.b.p)>($r15);
+
+        return r0;
+
+     label7:
+        $z0 = 0;
+
+        goto label4;
+
+        catch java.net.MalformedURLException from label1 to label2 with label5;
+    }

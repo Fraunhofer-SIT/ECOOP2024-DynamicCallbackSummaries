@@ -1,0 +1,56 @@
+    private void reportData(int, java.lang.String)
+    {
+        android.content.Context $r5;
+        com.centauri.oversea.business.CTIPayManager$3 $r7;
+        com.centauri.oversea.business.CTIPayManager r0;
+        com.centauri.oversea.api.CTIPayAPI $r4;
+        com.centauri.oversea.comm.CTIDataReportManager $r3;
+        int $i0;
+        java.lang.StringBuilder $r1;
+        java.lang.String $r2;
+        com.centauri.oversea.newnetwork.http.NetworkManager $r6;
+
+        r0 := @this: com.centauri.oversea.business.CTIPayManager;
+
+        $i0 := @parameter0: int;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r3 = staticinvoke <com.centauri.oversea.comm.CTIDataReportManager: com.centauri.oversea.comm.CTIDataReportManager instance()>();
+
+        $r1 = new java.lang.StringBuilder;
+
+        specialinvoke $r1.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("name=exitPay&retCode=");
+
+        virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("&retMsg=");
+
+        virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r3.<com.centauri.oversea.comm.CTIDataReportManager: void insertData(java.lang.String,java.lang.String)>("sdk.oversea.exit", $r2);
+
+        $r3 = staticinvoke <com.centauri.oversea.comm.CTIDataReportManager: com.centauri.oversea.comm.CTIDataReportManager instance()>();
+
+        $r4 = staticinvoke <com.centauri.oversea.api.CTIPayAPI: com.centauri.oversea.api.CTIPayAPI singleton()>();
+
+        $r5 = virtualinvoke $r4.<com.centauri.oversea.api.CTIPayAPI: android.content.Context getApplicationContext()>();
+
+        $r2 = staticinvoke <com.centauri.oversea.comm.GDPR: java.lang.String getDeviceInfo(android.content.Context)>($r5);
+
+        virtualinvoke $r3.<com.centauri.oversea.comm.CTIDataReportManager: void insertData(java.lang.String,java.lang.String)>("sdk.oversea.deviceinfo", $r2);
+
+        $r6 = staticinvoke <com.centauri.oversea.newnetwork.http.NetworkManager: com.centauri.oversea.newnetwork.http.NetworkManager singleton()>();
+
+        $r7 = new com.centauri.oversea.business.CTIPayManager$3;
+
+        specialinvoke $r7.<com.centauri.oversea.business.CTIPayManager$3: void <init>(com.centauri.oversea.business.CTIPayManager)>(r0);
+
+        virtualinvoke $r6.<com.centauri.oversea.newnetwork.http.NetworkManager: void dataReport(com.centauri.http.centaurihttp.ICTIHttpCallback)>($r7);
+
+        return;
+    }

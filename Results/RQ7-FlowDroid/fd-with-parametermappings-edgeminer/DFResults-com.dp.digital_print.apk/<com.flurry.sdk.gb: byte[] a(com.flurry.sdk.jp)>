@@ -1,0 +1,206 @@
+    public static byte[] a(com.flurry.sdk.jp)
+    {
+        java.lang.Throwable $r6, $r7;
+        byte[] $r1, $r5;
+        com.flurry.sdk.jn $r3;
+        java.io.ByteArrayOutputStream $r9;
+        long $l3;
+        com.flurry.sdk.j $r8;
+        java.io.DataOutputStream $r2, $r11;
+        byte $b0;
+        int $i1, $i2;
+        java.lang.String $r4;
+        com.flurry.sdk.jp $r0;
+        boolean $z0;
+        java.security.DigestOutputStream $r10;
+        java.lang.StringBuilder $r12;
+
+        $r0 := @parameter0: com.flurry.sdk.jp;
+
+        $r1 = null;
+
+     label01:
+        $r8 = new com.flurry.sdk.j;
+
+     label02:
+        specialinvoke $r8.<com.flurry.sdk.j: void <init>()>();
+
+        $r9 = new java.io.ByteArrayOutputStream;
+
+     label03:
+        specialinvoke $r9.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r10 = new java.security.DigestOutputStream;
+
+     label04:
+        specialinvoke $r10.<java.security.DigestOutputStream: void <init>(java.io.OutputStream,java.security.MessageDigest)>($r9, $r8);
+
+        $r11 = new java.io.DataOutputStream;
+
+     label05:
+        $r2 = $r11;
+
+     label06:
+        specialinvoke $r11.<java.io.DataOutputStream: void <init>(java.io.OutputStream)>($r10);
+
+     label07:
+        $r12 = new java.lang.StringBuilder;
+
+     label08:
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>(java.lang.String)>("Adding frame ");
+
+        $r3 = interfaceinvoke $r0.<com.flurry.sdk.jp: com.flurry.sdk.jn a()>();
+
+        virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r3);
+
+        virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" payload ");
+
+        $r4 = interfaceinvoke $r0.<com.flurry.sdk.jp: java.lang.String e()>();
+
+        virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        $r4 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.flurry.sdk.cy: void a(int,java.lang.String,java.lang.String)>(3, "FrameSerializer", $r4);
+
+        $b0 = interfaceinvoke $r0.<com.flurry.sdk.jp: byte g()>();
+
+     label09:
+        $i1 = (int) $b0;
+
+     label10:
+        virtualinvoke $r11.<java.io.DataOutputStream: void writeByte(int)>($i1);
+
+        $r3 = interfaceinvoke $r0.<com.flurry.sdk.jp: com.flurry.sdk.jn a()>();
+
+        $i1 = $r3.<com.flurry.sdk.jn: int N>;
+
+     label11:
+        $r5 = newarray (byte)[4];
+
+        $i2 = $i1 >> 16;
+
+        $b0 = (byte) $i2;
+
+     label12:
+        $r5[0] = $b0;
+
+     label13:
+        $i2 = $i1 >> 8;
+
+        $b0 = (byte) $i2;
+
+     label14:
+        $r5[1] = $b0;
+
+     label15:
+        $i1 = $i1 >> 0;
+
+        $b0 = (byte) $i1;
+
+     label16:
+        $r5[2] = $b0;
+
+     label17:
+        $i1 = 0;
+
+     label18:
+        if $i1 >= 3 goto label23;
+
+     label19:
+        $b0 = $r5[$i1];
+
+     label20:
+        $i2 = (int) $b0;
+
+     label21:
+        virtualinvoke $r11.<java.io.DataOutputStream: void write(int)>($i2);
+
+     label22:
+        $i1 = $i1 + 1;
+
+        goto label18;
+
+     label23:
+        $l3 = interfaceinvoke $r0.<com.flurry.sdk.jp: long c()>();
+
+        virtualinvoke $r11.<java.io.DataOutputStream: void writeLong(long)>($l3);
+
+        $l3 = interfaceinvoke $r0.<com.flurry.sdk.jp: long d()>();
+
+        virtualinvoke $r11.<java.io.DataOutputStream: void writeLong(long)>($l3);
+
+        $r4 = interfaceinvoke $r0.<com.flurry.sdk.jp: java.lang.String e()>();
+
+        $r5 = virtualinvoke $r4.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8");
+
+        $i1 = lengthof $r5;
+
+        virtualinvoke $r11.<java.io.DataOutputStream: void writeInt(int)>($i1);
+
+        virtualinvoke $r11.<java.io.DataOutputStream: void write(byte[])>($r5);
+
+        $z0 = interfaceinvoke $r0.<com.flurry.sdk.jp: boolean h()>();
+
+     label24:
+        if $z0 == 0 goto label26;
+
+     label25:
+        virtualinvoke $r10.<java.security.DigestOutputStream: void on(boolean)>(0);
+
+        $i1 = virtualinvoke $r8.<com.flurry.sdk.j: int a()>();
+
+        virtualinvoke $r11.<java.io.DataOutputStream: void writeInt(int)>($i1);
+
+     label26:
+        virtualinvoke $r11.<java.io.DataOutputStream: void close()>();
+
+        $r5 = virtualinvoke $r9.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label27:
+        $r1 = $r5;
+
+        goto label31;
+
+     label28:
+        $r6 := @caughtexception;
+
+        goto label30;
+
+     label29:
+        $r6 := @caughtexception;
+
+        $r2 = null;
+
+     label30:
+        staticinvoke <com.flurry.sdk.cy: void a(int,java.lang.String,java.lang.String,java.lang.Throwable)>(3, "FrameSerializer", "Error when generating report", $r6);
+
+     label31:
+        staticinvoke <com.flurry.sdk.dz: void a(java.io.Closeable)>($r2);
+
+        return $r1;
+
+     label32:
+        $r7 := @caughtexception;
+
+        staticinvoke <com.flurry.sdk.dz: void a(java.io.Closeable)>($r2);
+
+        throw $r7;
+
+        catch java.lang.Throwable from label01 to label02 with label29;
+        catch java.lang.Throwable from label02 to label03 with label29;
+        catch java.lang.Throwable from label03 to label04 with label29;
+        catch java.lang.Throwable from label04 to label05 with label29;
+        catch java.lang.Throwable from label06 to label07 with label29;
+        catch java.lang.Throwable from label07 to label08 with label28;
+        catch java.lang.Throwable from label08 to label09 with label28;
+        catch java.lang.Throwable from label10 to label11 with label28;
+        catch java.lang.Throwable from label12 to label13 with label28;
+        catch java.lang.Throwable from label14 to label15 with label28;
+        catch java.lang.Throwable from label16 to label17 with label28;
+        catch java.lang.Throwable from label19 to label20 with label28;
+        catch java.lang.Throwable from label21 to label22 with label28;
+        catch java.lang.Throwable from label23 to label24 with label28;
+        catch java.lang.Throwable from label25 to label27 with label28;
+        catch java.lang.Throwable from label30 to label31 with label32;
+    }

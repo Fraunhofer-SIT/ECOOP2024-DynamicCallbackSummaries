@@ -1,0 +1,31 @@
+    public static byte[] a(java.io.InputStream) throws java.io.IOException
+    {
+        byte[] $r0;
+        java.io.ByteArrayOutputStream $r2;
+        int $i0;
+        java.io.InputStream $r1;
+
+        $r1 := @parameter0: java.io.InputStream;
+
+        $r2 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r2.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r0 = newarray (byte)[16384];
+
+     label1:
+        $i0 = virtualinvoke $r1.<java.io.InputStream: int read(byte[],int,int)>($r0, 0, 16384);
+
+        if $i0 == -1 goto label2;
+
+        virtualinvoke $r2.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r0, 0, $i0);
+
+        goto label1;
+
+     label2:
+        virtualinvoke $r2.<java.io.ByteArrayOutputStream: void flush()>();
+
+        $r0 = virtualinvoke $r2.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        return $r0;
+    }

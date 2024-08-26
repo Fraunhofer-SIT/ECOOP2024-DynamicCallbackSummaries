@@ -1,0 +1,63 @@
+    public static byte[] ComponentActivity$2(java.io.File)
+    {
+        java.lang.Throwable $r2;
+        byte[] $r1;
+        java.io.ByteArrayOutputStream $r4;
+        int $i0;
+        java.io.IOException $r5;
+        java.io.FileInputStream $r3;
+        java.io.File $r0;
+
+        $r0 := @parameter0: java.io.File;
+
+        $r3 = new java.io.FileInputStream;
+
+     label01:
+        specialinvoke $r3.<java.io.FileInputStream: void <init>(java.io.File)>($r0);
+
+     label02:
+        $r4 = new java.io.ByteArrayOutputStream;
+
+     label03:
+        specialinvoke $r4.<java.io.ByteArrayOutputStream: void <init>(int)>(4096);
+
+     label04:
+        $r1 = newarray (byte)[4096];
+
+     label05:
+        $i0 = virtualinvoke $r3.<java.io.FileInputStream: int read(byte[])>($r1);
+
+     label06:
+        if $i0 == -1 goto label09;
+
+     label07:
+        virtualinvoke $r4.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r1, 0, $i0);
+
+     label08:
+        goto label05;
+
+     label09:
+        virtualinvoke $r3.<java.io.FileInputStream: void close()>();
+
+        virtualinvoke $r4.<java.io.ByteArrayOutputStream: void close()>();
+
+        $r1 = virtualinvoke $r4.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label10:
+        return $r1;
+
+     label11:
+        $r2 := @caughtexception;
+
+        $r5 = (java.io.IOException) $r2;
+
+        virtualinvoke $r5.<java.io.IOException: void printStackTrace()>();
+
+        return null;
+
+        catch java.io.IOException from label01 to label02 with label11;
+        catch java.io.IOException from label03 to label04 with label11;
+        catch java.io.IOException from label05 to label06 with label11;
+        catch java.io.IOException from label07 to label08 with label11;
+        catch java.io.IOException from label09 to label10 with label11;
+    }

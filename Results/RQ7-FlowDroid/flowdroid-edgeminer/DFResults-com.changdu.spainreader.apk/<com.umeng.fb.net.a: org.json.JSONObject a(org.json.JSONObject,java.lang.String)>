@@ -1,0 +1,224 @@
+    private static org.json.JSONObject a(org.json.JSONObject, java.lang.String) throws java.io.IOException
+    {
+        java.net.HttpURLConnection $r3;
+        java.lang.Throwable $r11;
+        byte[] $r6;
+        java.net.URL $r12;
+        java.io.BufferedOutputStream $r13;
+        org.json.JSONException $r10;
+        org.json.JSONObject $r0, $r17;
+        java.net.URLConnection $r2;
+        int $i0;
+        java.lang.String $r1, $r4;
+        java.io.OutputStream $r5;
+        java.net.MalformedURLException $r19;
+        java.lang.RuntimeException $r18;
+        java.io.InputStreamReader $r14;
+        java.lang.StringBuilder $r8, $r9, $r16;
+        java.io.BufferedReader $r15;
+        java.io.InputStream $r7;
+
+        $r0 := @parameter0: org.json.JSONObject;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r12 = new java.net.URL;
+
+     label01:
+        specialinvoke $r12.<java.net.URL: void <init>(java.lang.String)>($r1);
+
+        $r2 = virtualinvoke $r12.<java.net.URL: java.net.URLConnection openConnection()>();
+
+     label02:
+        $r3 = (java.net.HttpURLConnection) $r2;
+
+     label03:
+        virtualinvoke $r3.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+        virtualinvoke $r3.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+        virtualinvoke $r3.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Type", "application/json");
+
+        $r4 = virtualinvoke $r0.<org.json.JSONObject: java.lang.String toString()>();
+
+     label04:
+        $r13 = new java.io.BufferedOutputStream;
+
+     label05:
+        $r5 = virtualinvoke $r3.<java.net.HttpURLConnection: java.io.OutputStream getOutputStream()>();
+
+        specialinvoke $r13.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r5);
+
+        $r6 = virtualinvoke $r4.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke $r13.<java.io.OutputStream: void write(byte[])>($r6);
+
+        virtualinvoke $r13.<java.io.OutputStream: void flush()>();
+
+        $i0 = virtualinvoke $r3.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label06:
+        if $i0 != 200 goto label24;
+
+        $r15 = new java.io.BufferedReader;
+
+        $r14 = new java.io.InputStreamReader;
+
+     label07:
+        $r7 = virtualinvoke $r3.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+        specialinvoke $r14.<java.io.InputStreamReader: void <init>(java.io.InputStream)>($r7);
+
+        specialinvoke $r15.<java.io.BufferedReader: void <init>(java.io.Reader)>($r14);
+
+     label08:
+        $r9 = new java.lang.StringBuilder;
+
+        $r8 = $r9;
+
+     label09:
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+     label10:
+        $r4 = virtualinvoke $r15.<java.io.BufferedReader: java.lang.String readLine()>();
+
+     label11:
+        if $r4 == null goto label14;
+
+     label12:
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+     label13:
+        goto label10;
+
+     label14:
+        virtualinvoke $r15.<java.io.BufferedReader: void close()>();
+
+        virtualinvoke $r3.<java.net.HttpURLConnection: void disconnect()>();
+
+     label15:
+        $r4 = <com.umeng.fb.net.a: java.lang.String h>;
+
+        $r16 = new java.lang.StringBuilder;
+
+     label16:
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("jsonHttpPost: ");
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.umeng.fb.util.Log: void c(java.lang.String,java.lang.String)>($r4, $r1);
+
+     label17:
+        $r1 = <com.umeng.fb.net.a: java.lang.String h>;
+
+        $r16 = new java.lang.StringBuilder;
+
+     label18:
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t request:\n");
+
+        $r4 = virtualinvoke $r0.<org.json.JSONObject: java.lang.String toString()>();
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        $r4 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.umeng.fb.util.Log: void c(java.lang.String,java.lang.String)>($r1, $r4);
+
+     label19:
+        $r1 = <com.umeng.fb.net.a: java.lang.String h>;
+
+        $r16 = new java.lang.StringBuilder;
+
+     label20:
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t response:\n");
+
+        $r4 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        $r4 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.umeng.fb.util.Log: void c(java.lang.String,java.lang.String)>($r1, $r4);
+
+     label21:
+        $r17 = new org.json.JSONObject;
+
+     label22:
+        $r1 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r17.<org.json.JSONObject: void <init>(java.lang.String)>($r1);
+
+     label23:
+        return $r17;
+
+     label24:
+        $r18 = new java.lang.RuntimeException;
+
+        $r9 = new java.lang.StringBuilder;
+
+     label25:
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Failed : HTTP error code : ");
+
+        $i0 = virtualinvoke $r3.<java.net.HttpURLConnection: int getResponseCode()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r1 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r18.<java.lang.RuntimeException: void <init>(java.lang.String)>($r1);
+
+     label26:
+        throw $r18;
+
+     label27:
+        $r10 := @caughtexception;
+
+        virtualinvoke $r10.<org.json.JSONException: void printStackTrace()>();
+
+        goto label29;
+
+     label28:
+        $r11 := @caughtexception;
+
+        $r19 = (java.net.MalformedURLException) $r11;
+
+        virtualinvoke $r19.<java.net.MalformedURLException: void printStackTrace()>();
+
+     label29:
+        return null;
+
+        catch java.net.MalformedURLException from label01 to label02 with label28;
+        catch java.net.MalformedURLException from label03 to label04 with label28;
+        catch java.net.MalformedURLException from label05 to label06 with label28;
+        catch java.net.MalformedURLException from label07 to label08 with label28;
+        catch java.net.MalformedURLException from label09 to label11 with label28;
+        catch java.net.MalformedURLException from label12 to label13 with label28;
+        catch java.net.MalformedURLException from label14 to label15 with label28;
+        catch java.net.MalformedURLException from label16 to label17 with label28;
+        catch java.net.MalformedURLException from label18 to label19 with label28;
+        catch java.net.MalformedURLException from label20 to label21 with label28;
+        catch java.net.MalformedURLException from label22 to label23 with label28;
+        catch java.net.MalformedURLException from label25 to label26 with label28;
+        catch org.json.JSONException from label01 to label02 with label27;
+        catch org.json.JSONException from label03 to label04 with label27;
+        catch org.json.JSONException from label05 to label06 with label27;
+        catch org.json.JSONException from label07 to label08 with label27;
+        catch org.json.JSONException from label09 to label11 with label27;
+        catch org.json.JSONException from label12 to label13 with label27;
+        catch org.json.JSONException from label14 to label15 with label27;
+        catch org.json.JSONException from label16 to label17 with label27;
+        catch org.json.JSONException from label18 to label19 with label27;
+        catch org.json.JSONException from label20 to label21 with label27;
+        catch org.json.JSONException from label22 to label23 with label27;
+        catch org.json.JSONException from label25 to label26 with label27;
+    }

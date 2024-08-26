@@ -1,0 +1,96 @@
+    public void dump(java.io.FileDescriptor, java.io.PrintWriter, java.lang.String[])
+    {
+        java.io.PrintWriter $r2;
+        java.lang.Throwable r7, r8, r9;
+        android.content.Context $r6;
+        java.lang.String[] $r3;
+        com.sec.android.app.sbrowser.dump.IndentingPrintWriter $r4;
+        com.sec.android.app.sbrowser.dump.DumpProvider r0;
+        java.io.FileDescriptor $r1;
+        java.lang.String $r5;
+        boolean $z0;
+
+        r0 := @this: com.sec.android.app.sbrowser.dump.DumpProvider;
+
+        $r1 := @parameter0: java.io.FileDescriptor;
+
+        $r2 := @parameter1: java.io.PrintWriter;
+
+        $r3 := @parameter2: java.lang.String[];
+
+        $r4 = new com.sec.android.app.sbrowser.dump.IndentingPrintWriter;
+
+        specialinvoke $r4.<com.sec.android.app.sbrowser.dump.IndentingPrintWriter: void <init>(java.io.Writer,java.lang.String,int)>($r2, "  ", 120);
+
+        virtualinvoke $r4.<com.sec.android.app.sbrowser.dump.IndentingPrintWriter: void println(java.lang.String)>("History:");
+
+        virtualinvoke $r4.<com.sec.android.app.sbrowser.dump.IndentingPrintWriter: void increaseIndent()>();
+
+     label01:
+        $r5 = staticinvoke <com.sec.android.app.sbrowser.dump.DumpData: java.lang.String getHistory()>();
+
+        virtualinvoke $r4.<com.sec.android.app.sbrowser.dump.IndentingPrintWriter: void printString(java.lang.String)>($r5);
+
+     label02:
+        virtualinvoke $r4.<com.sec.android.app.sbrowser.dump.IndentingPrintWriter: void decreaseIndent()>();
+
+        virtualinvoke $r4.<com.sec.android.app.sbrowser.dump.IndentingPrintWriter: void println(java.lang.String)>("Settings:");
+
+        virtualinvoke $r4.<com.sec.android.app.sbrowser.dump.IndentingPrintWriter: void increaseIndent()>();
+
+     label03:
+        $r6 = virtualinvoke r0.<com.sec.android.app.sbrowser.dump.DumpProvider: android.content.Context getContext()>();
+
+        $r5 = staticinvoke <com.sec.android.app.sbrowser.dump.DumpData: java.lang.String getSettings(android.content.Context)>($r6);
+
+        virtualinvoke $r4.<com.sec.android.app.sbrowser.dump.IndentingPrintWriter: void printString(java.lang.String)>($r5);
+
+     label04:
+        virtualinvoke $r4.<com.sec.android.app.sbrowser.dump.IndentingPrintWriter: void decreaseIndent()>();
+
+        virtualinvoke $r4.<com.sec.android.app.sbrowser.dump.IndentingPrintWriter: void println(java.lang.String)>("Tabs:");
+
+        virtualinvoke $r4.<com.sec.android.app.sbrowser.dump.IndentingPrintWriter: void increaseIndent()>();
+
+        $z0 = specialinvoke r0.<com.sec.android.app.sbrowser.dump.DumpProvider: boolean isAppRunning()>();
+
+        if $z0 == 0 goto label10;
+
+     label05:
+        $r5 = staticinvoke <com.sec.android.app.sbrowser.dump.DumpData: java.lang.String getTabInfo()>();
+
+        virtualinvoke $r4.<com.sec.android.app.sbrowser.dump.IndentingPrintWriter: void printString(java.lang.String)>($r5);
+
+     label06:
+        virtualinvoke $r4.<com.sec.android.app.sbrowser.dump.IndentingPrintWriter: void decreaseIndent()>();
+
+        return;
+
+     label07:
+        r7 := @caughtexception;
+
+        virtualinvoke $r4.<com.sec.android.app.sbrowser.dump.IndentingPrintWriter: void decreaseIndent()>();
+
+        throw r7;
+
+     label08:
+        r8 := @caughtexception;
+
+        virtualinvoke $r4.<com.sec.android.app.sbrowser.dump.IndentingPrintWriter: void decreaseIndent()>();
+
+        throw r8;
+
+     label09:
+        r9 := @caughtexception;
+
+        virtualinvoke $r4.<com.sec.android.app.sbrowser.dump.IndentingPrintWriter: void decreaseIndent()>();
+
+        throw r9;
+
+     label10:
+        return;
+
+        catch java.lang.Throwable from label01 to label02 with label09;
+        catch java.lang.Throwable from label03 to label04 with label08;
+        catch java.lang.Throwable from label05 to label06 with label07;
+    }

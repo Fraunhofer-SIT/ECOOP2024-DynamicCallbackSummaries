@@ -1,0 +1,67 @@
+    public final void save(com.bugsnag.android.User)
+    {
+        java.lang.Throwable $r10;
+        com.bugsnag.android.User $r1, $r5;
+        java.util.concurrent.atomic.AtomicReference $r3;
+        java.lang.Exception $r8;
+        com.bugsnag.android.Logger $r9;
+        com.bugsnag.android.UserStore r0;
+        com.bugsnag.android.JsonStream$Streamable $r7;
+        java.lang.Object $r4;
+        java.lang.String $r2;
+        boolean $z0;
+        com.bugsnag.android.SynchronizedStreamableStore $r6;
+
+        r0 := @this: com.bugsnag.android.UserStore;
+
+        $r1 := @parameter0: com.bugsnag.android.User;
+
+        $r2 = staticinvoke <runtime.Strings.StringIndexer: java.lang.String b08c60020(java.lang.String)>("11439");
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkParameterIsNotNull(java.lang.Object,java.lang.String)>($r1, $r2);
+
+        $z0 = r0.<com.bugsnag.android.UserStore: boolean persist>;
+
+        if $z0 == 0 goto label6;
+
+        $r3 = r0.<com.bugsnag.android.UserStore: java.util.concurrent.atomic.AtomicReference previousUser>;
+
+        $r4 = virtualinvoke $r3.<java.util.concurrent.atomic.AtomicReference: java.lang.Object getAndSet(java.lang.Object)>($r1);
+
+        $r5 = (com.bugsnag.android.User) $r4;
+
+        $z0 = staticinvoke <kotlin.jvm.internal.Intrinsics: boolean areEqual(java.lang.Object,java.lang.Object)>($r1, $r5);
+
+        $z0 = $z0 ^ 1;
+
+        if $z0 == 0 goto label6;
+
+     label1:
+        $r6 = r0.<com.bugsnag.android.UserStore: com.bugsnag.android.SynchronizedStreamableStore synchronizedStreamableStore>;
+
+     label2:
+        $r7 = (com.bugsnag.android.JsonStream$Streamable) $r1;
+
+     label3:
+        virtualinvoke $r6.<com.bugsnag.android.SynchronizedStreamableStore: void persist(com.bugsnag.android.JsonStream$Streamable)>($r7);
+
+     label4:
+        return;
+
+     label5:
+        $r8 := @caughtexception;
+
+        $r9 = r0.<com.bugsnag.android.UserStore: com.bugsnag.android.Logger logger>;
+
+        $r10 = (java.lang.Throwable) $r8;
+
+        $r2 = staticinvoke <runtime.Strings.StringIndexer: java.lang.String b08c60020(java.lang.String)>("11440");
+
+        interfaceinvoke $r9.<com.bugsnag.android.Logger: void w(java.lang.String,java.lang.Throwable)>($r2, $r10);
+
+     label6:
+        return;
+
+        catch java.lang.Exception from label1 to label2 with label5;
+        catch java.lang.Exception from label3 to label4 with label5;
+    }

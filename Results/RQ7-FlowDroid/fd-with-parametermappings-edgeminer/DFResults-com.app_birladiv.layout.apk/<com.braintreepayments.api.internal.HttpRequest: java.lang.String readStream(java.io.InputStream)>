@@ -1,0 +1,37 @@
+    private java.lang.String readStream(java.io.InputStream) throws java.io.IOException
+    {
+        byte[] r2;
+        java.io.ByteArrayOutputStream $r3;
+        com.braintreepayments.api.internal.HttpRequest r0;
+        int $i0;
+        java.lang.String $r4;
+        java.io.InputStream $r1;
+
+        r0 := @this: com.braintreepayments.api.internal.HttpRequest;
+
+        $r1 := @parameter0: java.io.InputStream;
+
+        $r3 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r3.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        r2 = newarray (byte)[1024];
+
+     label1:
+        $i0 = virtualinvoke $r1.<java.io.InputStream: int read(byte[])>(r2);
+
+        if $i0 == -1 goto label2;
+
+        virtualinvoke $r3.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>(r2, 0, $i0);
+
+        goto label1;
+
+     label2:
+        $r4 = new java.lang.String;
+
+        r2 = virtualinvoke $r3.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        specialinvoke $r4.<java.lang.String: void <init>(byte[],java.lang.String)>(r2, "UTF-8");
+
+        return $r4;
+    }

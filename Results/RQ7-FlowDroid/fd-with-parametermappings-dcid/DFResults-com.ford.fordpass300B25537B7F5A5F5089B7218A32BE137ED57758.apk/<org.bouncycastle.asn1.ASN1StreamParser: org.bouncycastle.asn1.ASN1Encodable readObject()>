@@ -1,0 +1,264 @@
+    public org.bouncycastle.asn1.ASN1Encodable readObject() throws java.io.IOException
+    {
+        org.bouncycastle.asn1.ASN1Primitive $r7;
+        java.lang.Throwable $r8;
+        byte[] $r4;
+        org.bouncycastle.asn1.DERExternalParser $r19;
+        org.bouncycastle.asn1.ASN1Exception $r21;
+        org.bouncycastle.asn1.DefiniteLengthInputStream $r14;
+        org.bouncycastle.asn1.BEROctetStringParser $r20;
+        org.bouncycastle.asn1.IndefiniteLengthInputStream $r9;
+        int $i0, $i1, $i2, $i3;
+        org.bouncycastle.asn1.DLSequenceParser $r18;
+        org.bouncycastle.asn1.BERTaggedObjectParser $r12;
+        org.bouncycastle.asn1.DEROctetStringParser $r22;
+        java.lang.String $r5;
+        boolean $z0, $z1;
+        org.bouncycastle.asn1.ASN1Encodable $r3;
+        org.bouncycastle.asn1.DLApplicationSpecific $r15;
+        java.io.IOException $r13;
+        org.bouncycastle.asn1.DLSetParser $r16;
+        org.bouncycastle.asn1.BERApplicationSpecificParser $r11;
+        byte[][] $r6;
+        org.bouncycastle.asn1.ASN1StreamParser r0, $r2, $r10;
+        java.lang.StringBuilder $r17;
+        java.io.InputStream $r1;
+
+        r0 := @this: org.bouncycastle.asn1.ASN1StreamParser;
+
+        $r1 = r0.<org.bouncycastle.asn1.ASN1StreamParser: java.io.InputStream _in>;
+
+        $i0 = virtualinvoke $r1.<java.io.InputStream: int read()>();
+
+        if $i0 != -1 goto label01;
+
+        return null;
+
+     label01:
+        $z0 = 0;
+
+        specialinvoke r0.<org.bouncycastle.asn1.ASN1StreamParser: void set00Check(boolean)>(0);
+
+        $r1 = r0.<org.bouncycastle.asn1.ASN1StreamParser: java.io.InputStream _in>;
+
+        $i1 = staticinvoke <org.bouncycastle.asn1.ASN1InputStream: int readTagNumber(java.io.InputStream,int)>($r1, $i0);
+
+        $i2 = $i0 & 32;
+
+        if $i2 == 0 goto label05;
+
+        $z1 = 1;
+
+     label02:
+        $r1 = r0.<org.bouncycastle.asn1.ASN1StreamParser: java.io.InputStream _in>;
+
+        $i2 = r0.<org.bouncycastle.asn1.ASN1StreamParser: int _limit>;
+
+        if $i1 == 4 goto label03;
+
+        if $i1 == 16 goto label03;
+
+        if $i1 == 17 goto label03;
+
+        if $i1 != 8 goto label04;
+
+     label03:
+        $z0 = 1;
+
+     label04:
+        $i2 = staticinvoke <org.bouncycastle.asn1.ASN1InputStream: int readLength(java.io.InputStream,int,boolean)>($r1, $i2, $z0);
+
+        if $i2 >= 0 goto label09;
+
+        if $z1 == 0 goto label08;
+
+        $r9 = new org.bouncycastle.asn1.IndefiniteLengthInputStream;
+
+        $r1 = r0.<org.bouncycastle.asn1.ASN1StreamParser: java.io.InputStream _in>;
+
+        $i2 = r0.<org.bouncycastle.asn1.ASN1StreamParser: int _limit>;
+
+        specialinvoke $r9.<org.bouncycastle.asn1.IndefiniteLengthInputStream: void <init>(java.io.InputStream,int)>($r1, $i2);
+
+        $r10 = new org.bouncycastle.asn1.ASN1StreamParser;
+
+        $i2 = r0.<org.bouncycastle.asn1.ASN1StreamParser: int _limit>;
+
+        specialinvoke $r10.<org.bouncycastle.asn1.ASN1StreamParser: void <init>(java.io.InputStream,int)>($r9, $i2);
+
+        $i2 = $i0 & 64;
+
+        if $i2 == 0 goto label06;
+
+        $r11 = new org.bouncycastle.asn1.BERApplicationSpecificParser;
+
+        specialinvoke $r11.<org.bouncycastle.asn1.BERApplicationSpecificParser: void <init>(int,org.bouncycastle.asn1.ASN1StreamParser)>($i1, $r10);
+
+        return $r11;
+
+     label05:
+        $z1 = 0;
+
+        goto label02;
+
+     label06:
+        $i0 = $i0 & 128;
+
+        if $i0 == 0 goto label07;
+
+        $r12 = new org.bouncycastle.asn1.BERTaggedObjectParser;
+
+        specialinvoke $r12.<org.bouncycastle.asn1.BERTaggedObjectParser: void <init>(boolean,int,org.bouncycastle.asn1.ASN1StreamParser)>(1, $i1, $r10);
+
+        return $r12;
+
+     label07:
+        $r3 = virtualinvoke $r10.<org.bouncycastle.asn1.ASN1StreamParser: org.bouncycastle.asn1.ASN1Encodable readIndef(int)>($i1);
+
+        return $r3;
+
+     label08:
+        $r13 = new java.io.IOException;
+
+        specialinvoke $r13.<java.io.IOException: void <init>(java.lang.String)>("indefinite-length primitive encoding encountered");
+
+        throw $r13;
+
+     label09:
+        $r14 = new org.bouncycastle.asn1.DefiniteLengthInputStream;
+
+        $r1 = r0.<org.bouncycastle.asn1.ASN1StreamParser: java.io.InputStream _in>;
+
+        $i3 = r0.<org.bouncycastle.asn1.ASN1StreamParser: int _limit>;
+
+        specialinvoke $r14.<org.bouncycastle.asn1.DefiniteLengthInputStream: void <init>(java.io.InputStream,int,int)>($r1, $i2, $i3);
+
+        $i2 = $i0 & 64;
+
+        if $i2 == 0 goto label10;
+
+        $r15 = new org.bouncycastle.asn1.DLApplicationSpecific;
+
+        $r4 = virtualinvoke $r14.<org.bouncycastle.asn1.DefiniteLengthInputStream: byte[] toByteArray()>();
+
+        specialinvoke $r15.<org.bouncycastle.asn1.DLApplicationSpecific: void <init>(boolean,int,byte[])>($z1, $i1, $r4);
+
+        return $r15;
+
+     label10:
+        $i0 = $i0 & 128;
+
+        if $i0 == 0 goto label11;
+
+        $r12 = new org.bouncycastle.asn1.BERTaggedObjectParser;
+
+        $r2 = new org.bouncycastle.asn1.ASN1StreamParser;
+
+        specialinvoke $r2.<org.bouncycastle.asn1.ASN1StreamParser: void <init>(java.io.InputStream)>($r14);
+
+        specialinvoke $r12.<org.bouncycastle.asn1.BERTaggedObjectParser: void <init>(boolean,int,org.bouncycastle.asn1.ASN1StreamParser)>($z1, $i1, $r2);
+
+        return $r12;
+
+     label11:
+        if $z1 == 0 goto label16;
+
+        if $i1 == 4 goto label15;
+
+        if $i1 == 8 goto label14;
+
+        if $i1 == 16 goto label13;
+
+        if $i1 != 17 goto label12;
+
+        $r16 = new org.bouncycastle.asn1.DLSetParser;
+
+        $r2 = new org.bouncycastle.asn1.ASN1StreamParser;
+
+        specialinvoke $r2.<org.bouncycastle.asn1.ASN1StreamParser: void <init>(java.io.InputStream)>($r14);
+
+        specialinvoke $r16.<org.bouncycastle.asn1.DLSetParser: void <init>(org.bouncycastle.asn1.ASN1StreamParser)>($r2);
+
+        return $r16;
+
+     label12:
+        $r13 = new java.io.IOException;
+
+        $r17 = new java.lang.StringBuilder;
+
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("unknown tag ");
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" encountered");
+
+        $r5 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r13.<java.io.IOException: void <init>(java.lang.String)>($r5);
+
+        throw $r13;
+
+     label13:
+        $r18 = new org.bouncycastle.asn1.DLSequenceParser;
+
+        $r2 = new org.bouncycastle.asn1.ASN1StreamParser;
+
+        specialinvoke $r2.<org.bouncycastle.asn1.ASN1StreamParser: void <init>(java.io.InputStream)>($r14);
+
+        specialinvoke $r18.<org.bouncycastle.asn1.DLSequenceParser: void <init>(org.bouncycastle.asn1.ASN1StreamParser)>($r2);
+
+        return $r18;
+
+     label14:
+        $r19 = new org.bouncycastle.asn1.DERExternalParser;
+
+        $r2 = new org.bouncycastle.asn1.ASN1StreamParser;
+
+        specialinvoke $r2.<org.bouncycastle.asn1.ASN1StreamParser: void <init>(java.io.InputStream)>($r14);
+
+        specialinvoke $r19.<org.bouncycastle.asn1.DERExternalParser: void <init>(org.bouncycastle.asn1.ASN1StreamParser)>($r2);
+
+        return $r19;
+
+     label15:
+        $r20 = new org.bouncycastle.asn1.BEROctetStringParser;
+
+        $r2 = new org.bouncycastle.asn1.ASN1StreamParser;
+
+        specialinvoke $r2.<org.bouncycastle.asn1.ASN1StreamParser: void <init>(java.io.InputStream)>($r14);
+
+        specialinvoke $r20.<org.bouncycastle.asn1.BEROctetStringParser: void <init>(org.bouncycastle.asn1.ASN1StreamParser)>($r2);
+
+        return $r20;
+
+     label16:
+        if $i1 == 4 goto label20;
+
+        $r6 = r0.<org.bouncycastle.asn1.ASN1StreamParser: byte[][] tmpBuffers>;
+
+     label17:
+        $r7 = staticinvoke <org.bouncycastle.asn1.ASN1InputStream: org.bouncycastle.asn1.ASN1Primitive createPrimitiveDERObject(int,org.bouncycastle.asn1.DefiniteLengthInputStream,byte[][])>($i1, $r14, $r6);
+
+     label18:
+        return $r7;
+
+     label19:
+        $r8 := @caughtexception;
+
+        $r21 = new org.bouncycastle.asn1.ASN1Exception;
+
+        specialinvoke $r21.<org.bouncycastle.asn1.ASN1Exception: void <init>(java.lang.String,java.lang.Throwable)>("corrupted stream detected", $r8);
+
+        throw $r21;
+
+     label20:
+        $r22 = new org.bouncycastle.asn1.DEROctetStringParser;
+
+        specialinvoke $r22.<org.bouncycastle.asn1.DEROctetStringParser: void <init>(org.bouncycastle.asn1.DefiniteLengthInputStream)>($r14);
+
+        return $r22;
+
+        catch java.lang.IllegalArgumentException from label17 to label18 with label19;
+    }

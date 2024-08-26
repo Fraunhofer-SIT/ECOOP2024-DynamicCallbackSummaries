@@ -1,0 +1,123 @@
+    public static void log(com.adobe.creativesdk.foundation.internal.utils.logging.Level, java.lang.String, java.lang.String, java.lang.Throwable)
+    {
+        java.lang.Throwable $r2;
+        java.lang.Exception r3;
+        int[] $r6;
+        com.adobe.creativesdk.foundation.internal.utils.logging.Level $r0;
+        int $i0;
+        java.lang.Class $r7;
+        java.lang.String $r1, $r4, $r5;
+        boolean $z0;
+
+        $r0 := @parameter0: com.adobe.creativesdk.foundation.internal.utils.logging.Level;
+
+        $r4 := @parameter1: java.lang.String;
+
+        $r1 := @parameter2: java.lang.String;
+
+        $r2 := @parameter3: java.lang.Throwable;
+
+        $z0 = <com.adobe.creativesdk.foundation.internal.utils.logging.AdobeLogger: boolean consoleLoggingEnabled>;
+
+        if $z0 != 0 goto label01;
+
+        $z0 = <com.adobe.creativesdk.foundation.internal.utils.logging.AdobeLogger: boolean fileLoggingEnabled>;
+
+        if $z0 != 0 goto label01;
+
+        return;
+
+     label01:
+        $i0 = virtualinvoke $r4.<java.lang.String: int lastIndexOf(java.lang.String)>(".");
+
+     label02:
+        $i0 = $i0 + 1;
+
+     label03:
+        $r4 = virtualinvoke $r4.<java.lang.String: java.lang.String substring(int)>($i0);
+
+     label04:
+        $r5 = $r4;
+
+     label05:
+        $i0 = virtualinvoke $r4.<java.lang.String: int length()>();
+
+     label06:
+        if $i0 > 23 goto label14;
+
+     label07:
+        $r6 = <com.adobe.creativesdk.foundation.internal.utils.logging.AdobeLogger$2: int[] $SwitchMap$com$adobe$creativesdk$foundation$internal$utils$logging$Level>;
+
+     label08:
+        $i0 = virtualinvoke $r0.<com.adobe.creativesdk.foundation.internal.utils.logging.Level: int ordinal()>();
+
+        $i0 = $r6[$i0];
+
+     label09:
+        lookupswitch($i0)
+        {
+            case 1: goto label11;
+            case 2: goto label16;
+            case 3: goto label18;
+            case 4: goto label20;
+            default: goto label10;
+        };
+
+     label10:
+        return;
+
+     label11:
+        staticinvoke <com.adobe.creativesdk.foundation.internal.utils.logging.AdobeLogger: void debug(java.lang.String,java.lang.String,java.lang.Throwable)>($r5, $r1, $r2);
+
+     label12:
+        return;
+
+     label13:
+        r3 := @caughtexception;
+
+        $r7 = class "Lcom/adobe/creativesdk/foundation/internal/utils/logging/AdobeLogger;";
+
+        $r4 = virtualinvoke $r7.<java.lang.Class: java.lang.String getSimpleName()>();
+
+        $r1 = virtualinvoke r3.<java.lang.Exception: java.lang.String getMessage()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>($r4, $r1, r3);
+
+        return;
+
+     label14:
+        $r4 = virtualinvoke $r4.<java.lang.String: java.lang.String substring(int,int)>(0, 23);
+
+     label15:
+        $r5 = $r4;
+
+        goto label07;
+
+     label16:
+        staticinvoke <com.adobe.creativesdk.foundation.internal.utils.logging.AdobeLogger: void info(java.lang.String,java.lang.String,java.lang.Throwable)>($r5, $r1, $r2);
+
+     label17:
+        return;
+
+     label18:
+        staticinvoke <com.adobe.creativesdk.foundation.internal.utils.logging.AdobeLogger: void error(java.lang.String,java.lang.String,java.lang.Throwable)>($r5, $r1, $r2);
+
+     label19:
+        return;
+
+     label20:
+        staticinvoke <com.adobe.creativesdk.foundation.internal.utils.logging.AdobeLogger: void warn(java.lang.String,java.lang.String,java.lang.Throwable)>($r5, $r1, $r2);
+
+     label21:
+        return;
+
+        catch java.lang.Exception from label01 to label02 with label13;
+        catch java.lang.Exception from label03 to label04 with label13;
+        catch java.lang.Exception from label05 to label06 with label13;
+        catch java.lang.Exception from label08 to label09 with label13;
+        catch java.lang.Exception from label11 to label12 with label13;
+        catch java.lang.Exception from label14 to label15 with label13;
+        catch java.lang.Exception from label16 to label17 with label13;
+        catch java.lang.Exception from label18 to label19 with label13;
+        catch java.lang.Exception from label20 to label21 with label13;
+    }

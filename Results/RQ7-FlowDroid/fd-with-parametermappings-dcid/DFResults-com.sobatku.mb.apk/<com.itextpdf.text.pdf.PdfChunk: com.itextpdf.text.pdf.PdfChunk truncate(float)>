@@ -1,0 +1,183 @@
+    com.itextpdf.text.pdf.PdfChunk truncate(float)
+    {
+        com.itextpdf.text.pdf.PdfFont $r3;
+        java.util.HashMap $r2;
+        byte $b0;
+        int $i1, $i2, $i3, $i4;
+        java.lang.String $r4, $r5;
+        boolean $z0, $z1;
+        com.itextpdf.text.pdf.PdfChunk r0, $r6;
+        char $c5;
+        float $f0, $f1, $f2;
+        com.itextpdf.text.Image $r1;
+
+        r0 := @this: com.itextpdf.text.pdf.PdfChunk;
+
+        $f0 := @parameter0: float;
+
+        $r1 = r0.<com.itextpdf.text.pdf.PdfChunk: com.itextpdf.text.Image image>;
+
+        if $r1 == null goto label03;
+
+        $f1 = virtualinvoke $r1.<com.itextpdf.text.Image: float getScaledWidth()>();
+
+        $b0 = $f1 cmpl $f0;
+
+        $i1 = (int) $b0;
+
+        if $i1 <= 0 goto label02;
+
+        $r1 = r0.<com.itextpdf.text.pdf.PdfChunk: com.itextpdf.text.Image image>;
+
+        $z0 = virtualinvoke $r1.<com.itextpdf.text.Image: boolean isScaleToFitLineWhenOverflow()>();
+
+        if $z0 == 0 goto label01;
+
+        $r1 = r0.<com.itextpdf.text.pdf.PdfChunk: com.itextpdf.text.Image image>;
+
+        $f1 = virtualinvoke $r1.<com.itextpdf.text.Image: float getWidth()>();
+
+        $f0 = $f0 / $f1;
+
+        virtualinvoke r0.<com.itextpdf.text.pdf.PdfChunk: void setImageScalePercentage(float)>($f0);
+
+        return null;
+
+     label01:
+        $r6 = new com.itextpdf.text.pdf.PdfChunk;
+
+        specialinvoke $r6.<com.itextpdf.text.pdf.PdfChunk: void <init>(java.lang.String,com.itextpdf.text.pdf.PdfChunk)>("", r0);
+
+        r0.<com.itextpdf.text.pdf.PdfChunk: java.lang.String value> = "";
+
+        $r2 = r0.<com.itextpdf.text.pdf.PdfChunk: java.util.HashMap attributes>;
+
+        virtualinvoke $r2.<java.util.HashMap: java.lang.Object remove(java.lang.Object)>("IMAGE");
+
+        r0.<com.itextpdf.text.pdf.PdfChunk: com.itextpdf.text.Image image> = null;
+
+        $r3 = staticinvoke <com.itextpdf.text.pdf.PdfFont: com.itextpdf.text.pdf.PdfFont getDefaultFont()>();
+
+        r0.<com.itextpdf.text.pdf.PdfChunk: com.itextpdf.text.pdf.PdfFont font> = $r3;
+
+        return $r6;
+
+     label02:
+        return null;
+
+     label03:
+        $r3 = r0.<com.itextpdf.text.pdf.PdfChunk: com.itextpdf.text.pdf.PdfFont font>;
+
+        $f1 = virtualinvoke $r3.<com.itextpdf.text.pdf.PdfFont: float width()>();
+
+        $i1 = 1;
+
+        $b0 = $f0 cmpg $f1;
+
+        $i2 = (int) $b0;
+
+        if $i2 >= 0 goto label04;
+
+        $r4 = r0.<com.itextpdf.text.pdf.PdfChunk: java.lang.String value>;
+
+        $r4 = virtualinvoke $r4.<java.lang.String: java.lang.String substring(int)>(1);
+
+        $r5 = r0.<com.itextpdf.text.pdf.PdfChunk: java.lang.String value>;
+
+        $r5 = virtualinvoke $r5.<java.lang.String: java.lang.String substring(int,int)>(0, 1);
+
+        r0.<com.itextpdf.text.pdf.PdfChunk: java.lang.String value> = $r5;
+
+        $r6 = new com.itextpdf.text.pdf.PdfChunk;
+
+        specialinvoke $r6.<com.itextpdf.text.pdf.PdfChunk: void <init>(java.lang.String,com.itextpdf.text.pdf.PdfChunk)>($r4, r0);
+
+        return $r6;
+
+     label04:
+        $r4 = r0.<com.itextpdf.text.pdf.PdfChunk: java.lang.String value>;
+
+        $i2 = virtualinvoke $r4.<java.lang.String: int length()>();
+
+        $i3 = 0;
+
+        $f1 = 0.0F;
+
+        $z0 = 0;
+
+     label05:
+        if $i3 >= $i2 goto label09;
+
+        $r4 = r0.<com.itextpdf.text.pdf.PdfChunk: java.lang.String value>;
+
+        $z1 = staticinvoke <com.itextpdf.text.Utilities: boolean isSurrogatePair(java.lang.String,int)>($r4, $i3);
+
+        $z0 = $z1;
+
+        $r4 = r0.<com.itextpdf.text.pdf.PdfChunk: java.lang.String value>;
+
+        if $z1 == 0 goto label06;
+
+        $i4 = staticinvoke <com.itextpdf.text.Utilities: int convertToUtf32(java.lang.String,int)>($r4, $i3);
+
+        goto label07;
+
+     label06:
+        $c5 = virtualinvoke $r4.<java.lang.String: char charAt(int)>($i3);
+
+        $i4 = (int) $c5;
+
+     label07:
+        $f2 = virtualinvoke r0.<com.itextpdf.text.pdf.PdfChunk: float getCharWidth(int)>($i4);
+
+        $f1 = $f1 + $f2;
+
+        $b0 = $f1 cmpl $f0;
+
+        $i4 = (int) $b0;
+
+        if $i4 > 0 goto label09;
+
+        if $z1 == 0 goto label08;
+
+        $i3 = $i3 + 1;
+
+     label08:
+        $i3 = $i3 + 1;
+
+        goto label05;
+
+     label09:
+        if $i3 != $i2 goto label10;
+
+        return null;
+
+     label10:
+        if $i3 != 0 goto label11;
+
+        if $z0 == 0 goto label12;
+
+        $i1 = 2;
+
+        goto label12;
+
+     label11:
+        $i1 = $i3;
+
+     label12:
+        $r4 = r0.<com.itextpdf.text.pdf.PdfChunk: java.lang.String value>;
+
+        $r4 = virtualinvoke $r4.<java.lang.String: java.lang.String substring(int)>($i1);
+
+        $r5 = r0.<com.itextpdf.text.pdf.PdfChunk: java.lang.String value>;
+
+        $r5 = virtualinvoke $r5.<java.lang.String: java.lang.String substring(int,int)>(0, $i1);
+
+        r0.<com.itextpdf.text.pdf.PdfChunk: java.lang.String value> = $r5;
+
+        $r6 = new com.itextpdf.text.pdf.PdfChunk;
+
+        specialinvoke $r6.<com.itextpdf.text.pdf.PdfChunk: void <init>(java.lang.String,com.itextpdf.text.pdf.PdfChunk)>($r4, r0);
+
+        return $r6;
+    }

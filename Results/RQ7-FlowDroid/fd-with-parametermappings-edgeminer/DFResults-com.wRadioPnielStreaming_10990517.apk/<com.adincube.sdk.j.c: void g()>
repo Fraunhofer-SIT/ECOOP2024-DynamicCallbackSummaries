@@ -1,0 +1,93 @@
+    protected final void g()
+    {
+        java.net.HttpURLConnection $r3, $r4;
+        java.lang.Throwable $r9, $r10;
+        java.net.URL $r1;
+        com.adincube.sdk.j.c r0;
+        com.adincube.sdk.d.c.d $r6;
+        com.adincube.sdk.d.c.a $r5;
+        org.json.JSONObject $r2;
+        int $i0;
+        java.lang.StringBuilder $r7;
+        java.lang.String $r8;
+
+        r0 := @this: com.adincube.sdk.j.c;
+
+     label01:
+        $r1 = staticinvoke <com.adincube.sdk.util.y: java.net.URL i()>();
+
+        $r2 = virtualinvoke r0.<com.adincube.sdk.j.c: org.json.JSONObject a()>();
+
+        $r3 = virtualinvoke r0.<com.adincube.sdk.j.c: java.net.HttpURLConnection a(java.net.URL,org.json.JSONObject)>($r1, $r2);
+
+     label02:
+        $r4 = $r3;
+
+     label03:
+        $i0 = virtualinvoke $r3.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label04:
+        if $i0 < 400 goto label06;
+
+        if $i0 >= 500 goto label06;
+
+     label05:
+        $r5 = new com.adincube.sdk.d.c.a;
+
+        specialinvoke $r5.<com.adincube.sdk.d.c.a: void <init>(int)>($i0);
+
+        throw $r5;
+
+     label06:
+        if $i0 < 500 goto label08;
+
+     label07:
+        $r6 = new com.adincube.sdk.d.c.d;
+
+        $r7 = new java.lang.StringBuilder;
+
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>(java.lang.String)>("Server Error : ");
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r6.<com.adincube.sdk.d.c.d: void <init>(java.lang.String)>($r8);
+
+        throw $r6;
+
+     label08:
+        if $r3 == null goto label13;
+
+        virtualinvoke $r3.<java.net.HttpURLConnection: void disconnect()>();
+
+        return;
+
+     label09:
+        $r9 := @caughtexception;
+
+        goto label11;
+
+     label10:
+        $r10 := @caughtexception;
+
+        $r4 = null;
+
+        $r9 = $r10;
+
+     label11:
+        if $r4 == null goto label12;
+
+        virtualinvoke $r4.<java.net.HttpURLConnection: void disconnect()>();
+
+     label12:
+        throw $r9;
+
+     label13:
+        return;
+
+        catch java.lang.Throwable from label01 to label02 with label10;
+        catch java.lang.Throwable from label03 to label04 with label09;
+        catch java.lang.Throwable from label05 to label06 with label09;
+        catch java.lang.Throwable from label07 to label08 with label09;
+    }

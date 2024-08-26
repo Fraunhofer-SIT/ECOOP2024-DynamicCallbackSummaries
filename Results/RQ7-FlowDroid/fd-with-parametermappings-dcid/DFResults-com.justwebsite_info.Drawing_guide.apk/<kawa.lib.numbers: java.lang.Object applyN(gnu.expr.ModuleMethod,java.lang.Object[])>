@@ -1,0 +1,118 @@
+    public java.lang.Object applyN(gnu.expr.ModuleMethod, java.lang.Object[])
+    {
+        java.lang.Object[] $r2;
+        gnu.math.IntNum[] $r4;
+        gnu.expr.ModuleMethod $r1;
+        java.lang.ClassCastException $r6, $r7;
+        gnu.mapping.WrongType $r8;
+        int $i0;
+        kawa.lib.numbers r0;
+        java.lang.Object $r3;
+        gnu.math.IntNum $r5;
+
+        r0 := @this: kawa.lib.numbers;
+
+        $r1 := @parameter0: gnu.expr.ModuleMethod;
+
+        $r2 := @parameter1: java.lang.Object[];
+
+        $i0 = $r1.<gnu.expr.ModuleMethod: int selector>;
+
+        lookupswitch($i0)
+        {
+            case 12: goto label02;
+            case 13: goto label03;
+            case 14: goto label01;
+            case 15: goto label01;
+            case 16: goto label01;
+            case 17: goto label04;
+            case 18: goto label09;
+            default: goto label01;
+        };
+
+     label01:
+        $r3 = specialinvoke r0.<gnu.expr.ModuleBody: java.lang.Object applyN(gnu.expr.ModuleMethod,java.lang.Object[])>($r1, $r2);
+
+        return $r3;
+
+     label02:
+        $r3 = staticinvoke <kawa.lib.numbers: java.lang.Object max(java.lang.Object[])>($r2);
+
+        return $r3;
+
+     label03:
+        $r3 = staticinvoke <kawa.lib.numbers: java.lang.Object min(java.lang.Object[])>($r2);
+
+        return $r3;
+
+     label04:
+        $i0 = lengthof $r2;
+
+        $r4 = newarray (gnu.math.IntNum)[$i0];
+
+     label05:
+        $i0 = $i0 + -1;
+
+        if $i0 >= 0 goto label06;
+
+        $r5 = staticinvoke <kawa.lib.numbers: gnu.math.IntNum gcd(gnu.math.IntNum[])>($r4);
+
+        return $r5;
+
+     label06:
+        $r3 = $r2[$i0];
+
+     label07:
+        $r5 = staticinvoke <gnu.kawa.lispexpr.LangObjType: gnu.math.IntNum coerceIntNum(java.lang.Object)>($r3);
+
+     label08:
+        $r4[$i0] = $r5;
+
+        goto label05;
+
+     label09:
+        $i0 = lengthof $r2;
+
+        $r4 = newarray (gnu.math.IntNum)[$i0];
+
+     label10:
+        $i0 = $i0 + -1;
+
+        if $i0 >= 0 goto label11;
+
+        $r5 = staticinvoke <kawa.lib.numbers: gnu.math.IntNum lcm(gnu.math.IntNum[])>($r4);
+
+        return $r5;
+
+     label11:
+        $r3 = $r2[$i0];
+
+     label12:
+        $r5 = staticinvoke <gnu.kawa.lispexpr.LangObjType: gnu.math.IntNum coerceIntNum(java.lang.Object)>($r3);
+
+     label13:
+        $r4[$i0] = $r5;
+
+        goto label10;
+
+     label14:
+        $r6 := @caughtexception;
+
+        $r8 = new gnu.mapping.WrongType;
+
+        specialinvoke $r8.<gnu.mapping.WrongType: void <init>(java.lang.ClassCastException,java.lang.String,int,java.lang.Object)>($r6, "gcd", 0, $r3);
+
+        throw $r8;
+
+     label15:
+        $r7 := @caughtexception;
+
+        $r8 = new gnu.mapping.WrongType;
+
+        specialinvoke $r8.<gnu.mapping.WrongType: void <init>(java.lang.ClassCastException,java.lang.String,int,java.lang.Object)>($r7, "lcm", 0, $r3);
+
+        throw $r8;
+
+        catch java.lang.ClassCastException from label07 to label08 with label14;
+        catch java.lang.ClassCastException from label12 to label13 with label15;
+    }

@@ -1,0 +1,68 @@
+    protected int fillBuffer() throws java.io.IOException
+    {
+        byte[] $r1, $r2;
+        cz.msebera.android.httpclient.impl.io.HttpTransportMetricsImpl $r4;
+        cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer r0;
+        long $l2;
+        int i0, $i1;
+        java.io.InputStream $r3;
+
+        r0 := @this: cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer;
+
+        i0 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: int bufferpos>;
+
+        if i0 <= 0 goto label2;
+
+        i0 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: int bufferlen>;
+
+        $i1 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: int bufferpos>;
+
+        i0 = i0 - $i1;
+
+        if i0 <= 0 goto label1;
+
+        $r2 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: byte[] buffer>;
+
+        $i1 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: int bufferpos>;
+
+        $r1 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: byte[] buffer>;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($r2, $i1, $r1, 0, i0);
+
+     label1:
+        r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: int bufferpos> = 0;
+
+        r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: int bufferlen> = i0;
+
+     label2:
+        i0 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: int bufferlen>;
+
+        $r1 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: byte[] buffer>;
+
+        $i1 = lengthof $r1;
+
+        $i1 = $i1 - i0;
+
+        $r3 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: java.io.InputStream instream>;
+
+        $r1 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: byte[] buffer>;
+
+        $i1 = virtualinvoke $r3.<java.io.InputStream: int read(byte[],int,int)>($r1, i0, $i1);
+
+        if $i1 != -1 goto label3;
+
+        return -1;
+
+     label3:
+        i0 = i0 + $i1;
+
+        r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: int bufferlen> = i0;
+
+        $r4 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: cz.msebera.android.httpclient.impl.io.HttpTransportMetricsImpl metrics>;
+
+        $l2 = (long) $i1;
+
+        virtualinvoke $r4.<cz.msebera.android.httpclient.impl.io.HttpTransportMetricsImpl: void incrementBytesTransferred(long)>($l2);
+
+        return $i1;
+    }

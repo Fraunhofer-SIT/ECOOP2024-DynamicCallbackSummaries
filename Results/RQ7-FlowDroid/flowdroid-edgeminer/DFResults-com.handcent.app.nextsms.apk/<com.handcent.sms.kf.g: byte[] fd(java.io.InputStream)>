@@ -1,0 +1,33 @@
+    public static byte[] fd(java.io.InputStream) throws java.lang.Exception
+    {
+        byte[] $r1;
+        java.io.ByteArrayOutputStream $r2;
+        int $i0;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $r1 = newarray (byte)[1024];
+
+        $r2 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r2.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label1:
+        $i0 = virtualinvoke $r0.<java.io.InputStream: int read(byte[])>($r1);
+
+        if $i0 == -1 goto label2;
+
+        virtualinvoke $r2.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r1, 0, $i0);
+
+        goto label1;
+
+     label2:
+        $r1 = virtualinvoke $r2.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        virtualinvoke $r2.<java.io.ByteArrayOutputStream: void close()>();
+
+        virtualinvoke $r0.<java.io.InputStream: void close()>();
+
+        return $r1;
+    }

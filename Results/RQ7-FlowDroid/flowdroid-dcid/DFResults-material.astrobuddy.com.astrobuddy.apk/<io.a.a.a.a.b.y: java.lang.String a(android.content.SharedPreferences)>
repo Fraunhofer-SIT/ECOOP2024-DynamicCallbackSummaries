@@ -1,0 +1,63 @@
+    private java.lang.String a(android.content.SharedPreferences)
+    {
+        android.content.SharedPreferences$Editor $r6;
+        java.lang.Throwable $r7;
+        java.util.concurrent.locks.ReentrantLock $r2;
+        io.a.a.a.a.b.y r0;
+        java.util.UUID $r5;
+        android.content.SharedPreferences $r1;
+        java.lang.String $r3, $r4;
+
+        r0 := @this: io.a.a.a.a.b.y;
+
+        $r1 := @parameter0: android.content.SharedPreferences;
+
+        $r2 = r0.<io.a.a.a.a.b.y: java.util.concurrent.locks.ReentrantLock f>;
+
+        virtualinvoke $r2.<java.util.concurrent.locks.ReentrantLock: void lock()>();
+
+     label1:
+        $r3 = interfaceinvoke $r1.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("crashlytics.installation.id", null);
+
+     label2:
+        $r4 = $r3;
+
+        if $r3 != null goto label6;
+
+     label3:
+        $r5 = staticinvoke <java.util.UUID: java.util.UUID randomUUID()>();
+
+        $r4 = virtualinvoke $r5.<java.util.UUID: java.lang.String toString()>();
+
+        $r3 = staticinvoke <io.a.a.a.a.b.y: java.lang.String a(java.lang.String)>($r4);
+
+     label4:
+        $r4 = $r3;
+
+     label5:
+        $r6 = interfaceinvoke $r1.<android.content.SharedPreferences: android.content.SharedPreferences$Editor edit()>();
+
+        $r6 = interfaceinvoke $r6.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putString(java.lang.String,java.lang.String)>("crashlytics.installation.id", $r3);
+
+        interfaceinvoke $r6.<android.content.SharedPreferences$Editor: boolean commit()>();
+
+     label6:
+        $r2 = r0.<io.a.a.a.a.b.y: java.util.concurrent.locks.ReentrantLock f>;
+
+        virtualinvoke $r2.<java.util.concurrent.locks.ReentrantLock: void unlock()>();
+
+        return $r4;
+
+     label7:
+        $r7 := @caughtexception;
+
+        $r2 = r0.<io.a.a.a.a.b.y: java.util.concurrent.locks.ReentrantLock f>;
+
+        virtualinvoke $r2.<java.util.concurrent.locks.ReentrantLock: void unlock()>();
+
+        throw $r7;
+
+        catch java.lang.Throwable from label1 to label2 with label7;
+        catch java.lang.Throwable from label3 to label4 with label7;
+        catch java.lang.Throwable from label5 to label6 with label7;
+    }

@@ -1,0 +1,35 @@
+    public static final void clear()
+    {
+        java.lang.Throwable $r3;
+        com.facebook.appevents.UserDataStore$clear$1 $r0;
+        java.util.concurrent.Executor $r2;
+        com.facebook.appevents.InternalAppEventsLogger$Companion $r1;
+        boolean $z0;
+
+        $z0 = staticinvoke <com.facebook.internal.instrument.crashshield.CrashShieldHandler: boolean isObjectCrashing(java.lang.Object)>(class "Lcom/facebook/appevents/UserDataStore;");
+
+        if $z0 == 0 goto label1;
+
+        return;
+
+     label1:
+        $r1 = <com.facebook.appevents.InternalAppEventsLogger: com.facebook.appevents.InternalAppEventsLogger$Companion Companion>;
+
+        $r2 = virtualinvoke $r1.<com.facebook.appevents.InternalAppEventsLogger$Companion: java.util.concurrent.Executor getAnalyticsExecutor()>();
+
+        $r0 = <com.facebook.appevents.UserDataStore$clear$1: com.facebook.appevents.UserDataStore$clear$1 INSTANCE>;
+
+        interfaceinvoke $r2.<java.util.concurrent.Executor: void execute(java.lang.Runnable)>($r0);
+
+     label2:
+        return;
+
+     label3:
+        $r3 := @caughtexception;
+
+        staticinvoke <com.facebook.internal.instrument.crashshield.CrashShieldHandler: void handleThrowable(java.lang.Throwable,java.lang.Object)>($r3, class "Lcom/facebook/appevents/UserDataStore;");
+
+        return;
+
+        catch java.lang.Throwable from label1 to label2 with label3;
+    }

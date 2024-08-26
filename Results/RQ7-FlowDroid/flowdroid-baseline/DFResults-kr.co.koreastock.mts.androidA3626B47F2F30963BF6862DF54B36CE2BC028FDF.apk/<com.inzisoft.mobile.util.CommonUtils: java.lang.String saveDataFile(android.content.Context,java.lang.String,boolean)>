@@ -1,0 +1,274 @@
+    public static java.lang.String saveDataFile(android.content.Context, java.lang.String, boolean)
+    {
+        java.lang.Throwable $r25, $r26;
+        android.content.Context $r8;
+        byte[] $r14;
+        android.content.res.AssetManager $r21;
+        int $i0;
+        java.lang.String $r9, $r12, $r18, $r19;
+        boolean $z0, $z1;
+        java.io.FileOutputStream $r22, $r23;
+        java.lang.Exception $r0, $r1, $r2, $r3, $r4, $r5, $r6, $r7;
+        java.io.File $r10, $r11;
+        com.inzisoft.mobile.data.MIDReaderProfile $r15;
+        java.lang.StringBuilder $r24;
+        java.io.InputStream $r13, $r20;
+        android.content.res.Resources $r16, $r17;
+
+        $r8 := @parameter0: android.content.Context;
+
+        $r9 := @parameter1: java.lang.String;
+
+        $z0 := @parameter2: boolean;
+
+        $r10 = new java.io.File;
+
+        $r11 = virtualinvoke $r8.<android.content.Context: java.io.File getFilesDir()>();
+
+        specialinvoke $r10.<java.io.File: void <init>(java.io.File,java.lang.String)>($r11, $r9);
+
+        $r12 = virtualinvoke $r10.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $r13 = null;
+
+     label01:
+        $z1 = virtualinvoke $r10.<java.io.File: boolean exists()>();
+
+     label02:
+        if $z1 == 0 goto label03;
+
+        if $z0 == 0 goto label51;
+
+     label03:
+        $r14 = newarray (byte)[1024];
+
+     label04:
+        $r15 = staticinvoke <com.inzisoft.mobile.data.MIDReaderProfile: com.inzisoft.mobile.data.MIDReaderProfile getInstance()>();
+
+        $z0 = $r15.<com.inzisoft.mobile.data.MIDReaderProfile: boolean LOAD_DATA_FROM_RAW_FOLDER>;
+
+     label05:
+        if $z0 == 0 goto label09;
+
+     label06:
+        $r16 = virtualinvoke $r8.<android.content.Context: android.content.res.Resources getResources()>();
+
+        $r17 = virtualinvoke $r8.<android.content.Context: android.content.res.Resources getResources()>();
+
+        $i0 = virtualinvoke $r9.<java.lang.String: int lastIndexOf(java.lang.String)>(".");
+
+        $r18 = virtualinvoke $r9.<java.lang.String: java.lang.String substring(int,int)>(0, $i0);
+
+     label07:
+        $r19 = virtualinvoke $r8.<android.content.Context: java.lang.String getPackageName()>();
+
+        $i0 = virtualinvoke $r17.<android.content.res.Resources: int getIdentifier(java.lang.String,java.lang.String,java.lang.String)>($r18, "raw", $r19);
+
+        $r20 = virtualinvoke $r16.<android.content.res.Resources: java.io.InputStream openRawResource(int)>($i0);
+
+     label08:
+        goto label10;
+
+     label09:
+        $r21 = virtualinvoke $r8.<android.content.Context: android.content.res.AssetManager getAssets()>();
+
+        $r20 = virtualinvoke $r21.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>($r9);
+
+     label10:
+        $r22 = virtualinvoke $r8.<android.content.Context: java.io.FileOutputStream openFileOutput(java.lang.String,int)>($r9, 0);
+
+     label11:
+        $r23 = $r22;
+
+     label12:
+        $i0 = virtualinvoke $r20.<java.io.InputStream: int read(byte[])>($r14);
+
+     label13:
+        if $i0 <= 0 goto label16;
+
+     label14:
+        virtualinvoke $r22.<java.io.FileOutputStream: void write(byte[],int,int)>($r14, 0, $i0);
+
+     label15:
+        goto label12;
+
+     label16:
+        virtualinvoke $r20.<java.io.InputStream: void close()>();
+
+     label17:
+        virtualinvoke $r22.<java.io.FileOutputStream: void close()>();
+
+     label18:
+        $r24 = new java.lang.StringBuilder;
+
+     label19:
+        specialinvoke $r24.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("mleader file written ");
+
+        virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        $r9 = virtualinvoke $r24.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.inzisoft.mobile.util.CommonUtils: void log(java.lang.String,java.lang.String)>("i", $r9);
+
+     label20:
+        return $r12;
+
+     label21:
+        $r25 := @caughtexception;
+
+        $r13 = $r20;
+
+        goto label35;
+
+     label22:
+        $r26 := @caughtexception;
+
+        $r22 = null;
+
+        $r13 = $r20;
+
+        goto label36;
+
+     label23:
+        $r23 = null;
+
+     label24:
+        $r13 = $r20;
+
+        goto label27;
+
+     label25:
+        $r26 := @caughtexception;
+
+        $r22 = null;
+
+        goto label36;
+
+     label26:
+        $r23 = null;
+
+     label27:
+        staticinvoke <com.inzisoft.mobile.util.CommonUtils: void log(java.lang.String,java.lang.String)>("e", "saveDataFile()");
+
+     label28:
+        if $r13 == null goto label30;
+
+     label29:
+        virtualinvoke $r13.<java.io.InputStream: void close()>();
+
+     label30:
+        if $r23 == null goto label51;
+
+     label31:
+        virtualinvoke $r23.<java.io.FileOutputStream: void close()>();
+
+     label32:
+        return $r12;
+
+     label33:
+        staticinvoke <com.inzisoft.mobile.util.CommonUtils: void log(java.lang.String,java.lang.String)>("e", "saveDataFile()");
+
+        return $r12;
+
+     label34:
+        $r25 := @caughtexception;
+
+     label35:
+        $r22 = $r23;
+
+        $r26 = $r25;
+
+     label36:
+        if $r13 == null goto label38;
+
+     label37:
+        virtualinvoke $r13.<java.io.InputStream: void close()>();
+
+     label38:
+        if $r22 == null goto label42;
+
+     label39:
+        virtualinvoke $r22.<java.io.FileOutputStream: void close()>();
+
+     label40:
+        goto label42;
+
+     label41:
+        staticinvoke <com.inzisoft.mobile.util.CommonUtils: void log(java.lang.String,java.lang.String)>("e", "saveDataFile()");
+
+     label42:
+        throw $r26;
+
+     label43:
+        $r0 := @caughtexception;
+
+        goto label26;
+
+     label44:
+        $r1 := @caughtexception;
+
+        goto label26;
+
+     label45:
+        $r2 := @caughtexception;
+
+        goto label23;
+
+     label46:
+        $r3 := @caughtexception;
+
+        goto label24;
+
+     label47:
+        $r4 := @caughtexception;
+
+        goto label27;
+
+     label48:
+        $r5 := @caughtexception;
+
+        goto label26;
+
+     label49:
+        $r6 := @caughtexception;
+
+        goto label33;
+
+     label50:
+        $r7 := @caughtexception;
+
+        goto label41;
+
+     label51:
+        return $r12;
+
+        catch java.lang.Exception from label01 to label02 with label43;
+        catch java.lang.Exception from label04 to label05 with label43;
+        catch java.lang.Exception from label06 to label07 with label43;
+        catch java.lang.Throwable from label01 to label02 with label25;
+        catch java.lang.Throwable from label04 to label05 with label25;
+        catch java.lang.Throwable from label06 to label07 with label25;
+        catch java.lang.Exception from label07 to label08 with label44;
+        catch java.lang.Exception from label09 to label10 with label44;
+        catch java.lang.Throwable from label07 to label08 with label25;
+        catch java.lang.Throwable from label09 to label10 with label25;
+        catch java.lang.Exception from label10 to label11 with label45;
+        catch java.lang.Throwable from label10 to label11 with label22;
+        catch java.lang.Exception from label12 to label13 with label46;
+        catch java.lang.Exception from label14 to label15 with label46;
+        catch java.lang.Exception from label16 to label17 with label46;
+        catch java.lang.Throwable from label12 to label13 with label21;
+        catch java.lang.Throwable from label14 to label15 with label21;
+        catch java.lang.Throwable from label16 to label17 with label21;
+        catch java.lang.Exception from label17 to label18 with label47;
+        catch java.lang.Throwable from label17 to label18 with label34;
+        catch java.lang.Exception from label19 to label20 with label48;
+        catch java.lang.Throwable from label18 to label20 with label25;
+        catch java.lang.Throwable from label27 to label28 with label34;
+        catch java.lang.Exception from label29 to label30 with label49;
+        catch java.lang.Exception from label31 to label32 with label49;
+        catch java.lang.Exception from label37 to label38 with label50;
+        catch java.lang.Exception from label39 to label40 with label50;
+    }

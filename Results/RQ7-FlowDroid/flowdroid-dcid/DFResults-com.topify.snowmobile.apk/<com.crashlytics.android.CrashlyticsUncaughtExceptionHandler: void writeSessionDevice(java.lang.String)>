@@ -1,0 +1,170 @@
+    private void writeSessionDevice(java.lang.String) throws java.lang.Exception
+    {
+        com.crashlytics.android.SessionDataWriter $r15;
+        java.lang.Throwable $r19;
+        android.content.Context $r10;
+        io.fabric.sdk.android.services.common.IdManager $r11;
+        com.crashlytics.android.CodedOutputStream r5, $r8;
+        long l0, $l3, $l5;
+        java.util.Map $r14;
+        int $i1, $i2, $i4;
+        java.lang.String $r1, $r12, $r16, $r17;
+        boolean $z0;
+        java.lang.Runtime $r13;
+        com.crashlytics.android.CrashlyticsUncaughtExceptionHandler r0;
+        java.io.File $r6;
+        java.lang.Exception r18;
+        android.os.StatFs r3;
+        com.crashlytics.android.Crashlytics $r9;
+        java.lang.StringBuilder $r7;
+        com.crashlytics.android.ClsFileOutputStream r2, r4;
+
+        r0 := @this: com.crashlytics.android.CrashlyticsUncaughtExceptionHandler;
+
+        $r1 := @parameter0: java.lang.String;
+
+        r4 = null;
+
+        r5 = null;
+
+     label01:
+        r2 = new com.crashlytics.android.ClsFileOutputStream;
+
+     label02:
+        $r6 = r0.<com.crashlytics.android.CrashlyticsUncaughtExceptionHandler: java.io.File filesDir>;
+
+     label03:
+        $r7 = new java.lang.StringBuilder;
+
+     label04:
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>()>();
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("SessionDevice");
+
+        $r1 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke r2.<com.crashlytics.android.ClsFileOutputStream: void <init>(java.io.File,java.lang.String)>($r6, $r1);
+
+     label05:
+        $r8 = staticinvoke <com.crashlytics.android.CodedOutputStream: com.crashlytics.android.CodedOutputStream newInstance(java.io.OutputStream)>(r2);
+
+     label06:
+        r5 = $r8;
+
+     label07:
+        $r9 = r0.<com.crashlytics.android.CrashlyticsUncaughtExceptionHandler: com.crashlytics.android.Crashlytics crashlytics>;
+
+        $r10 = virtualinvoke $r9.<com.crashlytics.android.Crashlytics: android.content.Context getContext()>();
+
+     label08:
+        r3 = new android.os.StatFs;
+
+     label09:
+        $r6 = staticinvoke <android.os.Environment: java.io.File getDataDirectory()>();
+
+        $r1 = virtualinvoke $r6.<java.io.File: java.lang.String getPath()>();
+
+        specialinvoke r3.<android.os.StatFs: void <init>(java.lang.String)>($r1);
+
+        $r11 = r0.<com.crashlytics.android.CrashlyticsUncaughtExceptionHandler: io.fabric.sdk.android.services.common.IdManager idManager>;
+
+        $r12 = virtualinvoke $r11.<io.fabric.sdk.android.services.common.IdManager: java.lang.String getDeviceUUID()>();
+
+        $i1 = staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: int getCpuArchitectureInt()>();
+
+        $r13 = staticinvoke <java.lang.Runtime: java.lang.Runtime getRuntime()>();
+
+        $i2 = virtualinvoke $r13.<java.lang.Runtime: int availableProcessors()>();
+
+        $l3 = staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: long getTotalRamInBytes()>();
+
+        $i4 = virtualinvoke r3.<android.os.StatFs: int getBlockCount()>();
+
+     label10:
+        l0 = (long) $i4;
+
+     label11:
+        $i4 = virtualinvoke r3.<android.os.StatFs: int getBlockSize()>();
+
+     label12:
+        $l5 = (long) $i4;
+
+        l0 = l0 * $l5;
+
+     label13:
+        $z0 = staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: boolean isEmulator(android.content.Context)>($r10);
+
+        $r11 = r0.<com.crashlytics.android.CrashlyticsUncaughtExceptionHandler: io.fabric.sdk.android.services.common.IdManager idManager>;
+
+        $r14 = virtualinvoke $r11.<io.fabric.sdk.android.services.common.IdManager: java.util.Map getDeviceIdentifiers()>();
+
+        $i4 = staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: int getDeviceState(android.content.Context)>($r10);
+
+        $r15 = r0.<com.crashlytics.android.CrashlyticsUncaughtExceptionHandler: com.crashlytics.android.SessionDataWriter sessionDataWriter>;
+
+     label14:
+        $r16 = <android.os.Build: java.lang.String MODEL>;
+
+        $r17 = <android.os.Build: java.lang.String MANUFACTURER>;
+
+        $r1 = <android.os.Build: java.lang.String PRODUCT>;
+
+     label15:
+        virtualinvoke $r15.<com.crashlytics.android.SessionDataWriter: void writeSessionDevice(com.crashlytics.android.CodedOutputStream,java.lang.String,int,java.lang.String,int,long,long,boolean,java.util.Map,int,java.lang.String,java.lang.String)>($r8, $r12, $i1, $r16, $i2, $l3, l0, $z0, $r14, $i4, $r17, $r1);
+
+     label16:
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void flushOrLog(java.io.Flushable,java.lang.String)>($r8, "Failed to flush session device info.");
+
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void closeOrLog(java.io.Closeable,java.lang.String)>(r2, "Failed to close session device file.");
+
+        return;
+
+     label17:
+        r18 := @caughtexception;
+
+     label18:
+        staticinvoke <com.crashlytics.android.ExceptionUtils: void writeStackTraceIfNotNull(java.lang.Throwable,java.io.OutputStream)>(r18, r4);
+
+        throw r18;
+
+     label19:
+        $r19 := @caughtexception;
+
+     label20:
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void flushOrLog(java.io.Flushable,java.lang.String)>(r5, "Failed to flush session device info.");
+
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void closeOrLog(java.io.Closeable,java.lang.String)>(r4, "Failed to close session device file.");
+
+        throw $r19;
+
+     label21:
+        $r19 := @caughtexception;
+
+        r4 = r2;
+
+        goto label20;
+
+     label22:
+        r18 := @caughtexception;
+
+        r4 = r2;
+
+        goto label18;
+
+        catch java.lang.Exception from label02 to label03 with label17;
+        catch java.lang.Exception from label04 to label05 with label17;
+        catch java.lang.Throwable from label01 to label05 with label19;
+        catch java.lang.Exception from label05 to label06 with label22;
+        catch java.lang.Exception from label07 to label08 with label22;
+        catch java.lang.Exception from label09 to label10 with label22;
+        catch java.lang.Exception from label11 to label12 with label22;
+        catch java.lang.Exception from label13 to label14 with label22;
+        catch java.lang.Exception from label15 to label16 with label22;
+        catch java.lang.Throwable from label05 to label06 with label21;
+        catch java.lang.Throwable from label07 to label10 with label21;
+        catch java.lang.Throwable from label11 to label12 with label21;
+        catch java.lang.Throwable from label13 to label16 with label21;
+        catch java.lang.Throwable from label18 to label19 with label19;
+    }

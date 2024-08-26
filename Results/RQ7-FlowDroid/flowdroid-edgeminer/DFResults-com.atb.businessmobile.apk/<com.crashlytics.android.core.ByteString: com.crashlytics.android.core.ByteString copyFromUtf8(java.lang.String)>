@@ -1,0 +1,31 @@
+    public static com.crashlytics.android.core.ByteString copyFromUtf8(java.lang.String)
+    {
+        java.lang.Throwable r1;
+        byte[] $r2;
+        com.crashlytics.android.core.ByteString $r3;
+        java.lang.String $r0;
+        java.lang.RuntimeException $r4;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r3 = new com.crashlytics.android.core.ByteString;
+
+     label1:
+        $r2 = virtualinvoke $r0.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8");
+
+        specialinvoke $r3.<com.crashlytics.android.core.ByteString: void <init>(byte[])>($r2);
+
+     label2:
+        return $r3;
+
+     label3:
+        r1 := @caughtexception;
+
+        $r4 = new java.lang.RuntimeException;
+
+        specialinvoke $r4.<java.lang.RuntimeException: void <init>(java.lang.String,java.lang.Throwable)>("UTF-8 not supported.", r1);
+
+        throw $r4;
+
+        catch java.io.UnsupportedEncodingException from label1 to label2 with label3;
+    }

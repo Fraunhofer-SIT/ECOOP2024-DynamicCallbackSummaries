@@ -1,0 +1,419 @@
+    public final void run()
+    {
+        org.apache.http.impl.client.DefaultHttpClient $r2;
+        byte[] $r14;
+        java.io.BufferedInputStream $r12, $r35;
+        org.apache.http.StatusLine $r5;
+        byte $b3;
+        boolean $z0;
+        org.apache.http.HttpEntity $r6;
+        java.lang.Exception $r15, $r18, $r32, $r33;
+        org.apache.http.client.methods.HttpGet $r34;
+        java.lang.Throwable $r16, $r19, $r20, $r21, $r22, $r23, $r24, $r25, $r26, $r27, $r28, $r29, $r30, $r31;
+        long $l1, $l2;
+        int $i0;
+        java.lang.String $r3, $r8;
+        java.io.FileOutputStream $r1, $r13, $r36;
+        java.io.File $r7, $r17, $r37;
+        org.apache.http.HttpResponse $r4;
+        cn.jpush.android.c.i r0;
+        cn.jpush.android.c.j $r9;
+        java.io.InputStream $r10, $r11;
+
+        r0 := @this: cn.jpush.android.c.i;
+
+        $r1 = null;
+
+        $r2 = staticinvoke <cn.jpush.android.c.h: org.apache.http.impl.client.DefaultHttpClient a()>();
+
+        $r34 = new org.apache.http.client.methods.HttpGet;
+
+        $r3 = r0.<cn.jpush.android.c.i: java.lang.String a>;
+
+        specialinvoke $r34.<org.apache.http.client.methods.HttpGet: void <init>(java.lang.String)>($r3);
+
+     label01:
+        $r4 = virtualinvoke $r2.<org.apache.http.impl.client.DefaultHttpClient: org.apache.http.HttpResponse execute(org.apache.http.client.methods.HttpUriRequest)>($r34);
+
+        $r5 = interfaceinvoke $r4.<org.apache.http.HttpResponse: org.apache.http.StatusLine getStatusLine()>();
+
+        $i0 = interfaceinvoke $r5.<org.apache.http.StatusLine: int getStatusCode()>();
+
+     label02:
+        if $i0 != 200 goto label54;
+
+     label03:
+        $r6 = interfaceinvoke $r4.<org.apache.http.HttpResponse: org.apache.http.HttpEntity getEntity()>();
+
+        $l1 = interfaceinvoke $r6.<org.apache.http.HttpEntity: long getContentLength()>();
+
+        $r3 = r0.<cn.jpush.android.c.i: java.lang.String a>;
+
+        $i0 = virtualinvoke $r3.<java.lang.String: int lastIndexOf(java.lang.String)>("/");
+
+        $r3 = r0.<cn.jpush.android.c.i: java.lang.String a>;
+
+     label04:
+        $i0 = $i0 + 1;
+
+     label05:
+        $r3 = virtualinvoke $r3.<java.lang.String: java.lang.String substring(int)>($i0);
+
+     label06:
+        $r17 = new java.io.File;
+
+     label07:
+        $r7 = $r17;
+
+     label08:
+        $r8 = r0.<cn.jpush.android.c.i: java.lang.String b>;
+
+        specialinvoke $r17.<java.io.File: void <init>(java.lang.String,java.lang.String)>($r8, $r3);
+
+        $z0 = virtualinvoke $r17.<java.io.File: boolean exists()>();
+
+     label09:
+        if $z0 == 0 goto label38;
+
+     label10:
+        $l2 = virtualinvoke $r17.<java.io.File: long length()>();
+
+     label11:
+        $b3 = $l2 cmp $l1;
+
+        if $b3 != 0 goto label14;
+
+        $b3 = $l1 cmp 0L;
+
+        if $b3 == 0 goto label14;
+
+     label12:
+        $r9 = r0.<cn.jpush.android.c.i: cn.jpush.android.c.j c>;
+
+        $r3 = virtualinvoke $r17.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        interfaceinvoke $r9.<cn.jpush.android.c.j: void a(boolean,java.lang.String)>(1, $r3);
+
+     label13:
+        return;
+
+     label14:
+        virtualinvoke $r7.<java.io.File: boolean delete()>();
+
+        virtualinvoke $r7.<java.io.File: boolean createNewFile()>();
+
+     label15:
+        $r6 = interfaceinvoke $r4.<org.apache.http.HttpResponse: org.apache.http.HttpEntity getEntity()>();
+
+        $r10 = interfaceinvoke $r6.<org.apache.http.HttpEntity: java.io.InputStream getContent()>();
+
+     label16:
+        $r11 = $r10;
+
+     label17:
+        $r35 = new java.io.BufferedInputStream;
+
+     label18:
+        $r12 = $r35;
+
+     label19:
+        specialinvoke $r35.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r10);
+
+     label20:
+        $r36 = new java.io.FileOutputStream;
+
+     label21:
+        $r13 = $r36;
+
+     label22:
+        specialinvoke $r36.<java.io.FileOutputStream: void <init>(java.io.File)>($r7);
+
+     label23:
+        $r14 = newarray (byte)[1024];
+
+     label24:
+        $i0 = virtualinvoke $r35.<java.io.BufferedInputStream: int read(byte[])>($r14);
+
+     label25:
+        if $i0 == -1 goto label45;
+
+     label26:
+        virtualinvoke $r36.<java.io.FileOutputStream: void write(byte[],int,int)>($r14, 0, $i0);
+
+     label27:
+        goto label24;
+
+     label28:
+        $r15 := @caughtexception;
+
+        $r1 = $r36;
+
+     label29:
+        staticinvoke <cn.jpush.android.c.l: void g()>();
+
+        $r9 = r0.<cn.jpush.android.c.i: cn.jpush.android.c.j c>;
+
+        interfaceinvoke $r9.<cn.jpush.android.c.j: void a(boolean,java.lang.String)>(0, "");
+
+     label30:
+        if $r1 == null goto label32;
+
+     label31:
+        virtualinvoke $r1.<java.io.FileOutputStream: void close()>();
+
+     label32:
+        if $r12 == null goto label34;
+
+     label33:
+        virtualinvoke $r12.<java.io.BufferedInputStream: void close()>();
+
+     label34:
+        if $r10 == null goto label77;
+
+     label35:
+        virtualinvoke $r10.<java.io.InputStream: void close()>();
+
+     label36:
+        return;
+
+     label37:
+        $r16 := @caughtexception;
+
+        return;
+
+     label38:
+        $r37 = new java.io.File;
+
+     label39:
+        $r3 = r0.<cn.jpush.android.c.i: java.lang.String b>;
+
+        specialinvoke $r37.<java.io.File: void <init>(java.lang.String)>($r3);
+
+        $z0 = virtualinvoke $r37.<java.io.File: boolean exists()>();
+
+     label40:
+        if $z0 != 0 goto label42;
+
+     label41:
+        virtualinvoke $r37.<java.io.File: boolean mkdirs()>();
+
+     label42:
+        virtualinvoke $r7.<java.io.File: boolean createNewFile()>();
+
+     label43:
+        goto label15;
+
+     label44:
+        $r18 := @caughtexception;
+
+        $r12 = null;
+
+        $r10 = null;
+
+        goto label29;
+
+     label45:
+        virtualinvoke $r36.<java.io.FileOutputStream: void flush()>();
+
+        $r9 = r0.<cn.jpush.android.c.i: cn.jpush.android.c.j c>;
+
+        $r3 = virtualinvoke $r7.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        interfaceinvoke $r9.<cn.jpush.android.c.j: void a(boolean,java.lang.String)>(1, $r3);
+
+     label46:
+        if $r36 == null goto label48;
+
+     label47:
+        virtualinvoke $r36.<java.io.FileOutputStream: void close()>();
+
+     label48:
+        if $r35 == null goto label50;
+
+     label49:
+        virtualinvoke $r35.<java.io.BufferedInputStream: void close()>();
+
+     label50:
+        if $r10 == null goto label77;
+
+     label51:
+        virtualinvoke $r10.<java.io.InputStream: void close()>();
+
+     label52:
+        return;
+
+     label53:
+        $r19 := @caughtexception;
+
+        return;
+
+     label54:
+        $r9 = r0.<cn.jpush.android.c.i: cn.jpush.android.c.j c>;
+
+        interfaceinvoke $r9.<cn.jpush.android.c.j: void a(boolean,java.lang.String)>(0, "");
+
+     label55:
+        return;
+
+     label56:
+        $r20 := @caughtexception;
+
+        $r12 = null;
+
+        $r11 = null;
+
+        $r13 = null;
+
+        $r21 = $r20;
+
+     label57:
+        if $r13 == null goto label59;
+
+     label58:
+        virtualinvoke $r13.<java.io.FileOutputStream: void close()>();
+
+     label59:
+        if $r12 == null goto label61;
+
+     label60:
+        virtualinvoke $r12.<java.io.BufferedInputStream: void close()>();
+
+     label61:
+        if $r11 == null goto label63;
+
+     label62:
+        virtualinvoke $r11.<java.io.InputStream: void close()>();
+
+     label63:
+        throw $r21;
+
+     label64:
+        $r22 := @caughtexception;
+
+        goto label48;
+
+     label65:
+        $r23 := @caughtexception;
+
+        goto label50;
+
+     label66:
+        $r24 := @caughtexception;
+
+        goto label32;
+
+     label67:
+        $r25 := @caughtexception;
+
+        goto label34;
+
+     label68:
+        $r26 := @caughtexception;
+
+        goto label59;
+
+     label69:
+        $r27 := @caughtexception;
+
+        goto label61;
+
+     label70:
+        $r28 := @caughtexception;
+
+        goto label63;
+
+     label71:
+        $r29 := @caughtexception;
+
+        $r12 = null;
+
+        $r21 = $r29;
+
+        $r13 = null;
+
+        goto label57;
+
+     label72:
+        $r30 := @caughtexception;
+
+        $r13 = null;
+
+        $r21 = $r30;
+
+        goto label57;
+
+     label73:
+        $r21 := @caughtexception;
+
+        goto label57;
+
+     label74:
+        $r31 := @caughtexception;
+
+        $r11 = $r10;
+
+        $r13 = $r1;
+
+        $r21 = $r31;
+
+        goto label57;
+
+     label75:
+        $r32 := @caughtexception;
+
+        $r12 = null;
+
+        goto label29;
+
+     label76:
+        $r33 := @caughtexception;
+
+        goto label29;
+
+     label77:
+        return;
+
+        catch java.lang.Exception from label01 to label02 with label44;
+        catch java.lang.Exception from label03 to label04 with label44;
+        catch java.lang.Exception from label05 to label06 with label44;
+        catch java.lang.Exception from label08 to label09 with label44;
+        catch java.lang.Exception from label10 to label11 with label44;
+        catch java.lang.Exception from label12 to label13 with label44;
+        catch java.lang.Exception from label14 to label16 with label44;
+        catch java.lang.Throwable from label01 to label02 with label56;
+        catch java.lang.Throwable from label03 to label04 with label56;
+        catch java.lang.Throwable from label05 to label07 with label56;
+        catch java.lang.Throwable from label08 to label09 with label56;
+        catch java.lang.Throwable from label10 to label11 with label56;
+        catch java.lang.Throwable from label12 to label13 with label56;
+        catch java.lang.Throwable from label14 to label16 with label56;
+        catch java.lang.Exception from label19 to label20 with label75;
+        catch java.lang.Throwable from label17 to label18 with label71;
+        catch java.lang.Throwable from label19 to label20 with label71;
+        catch java.lang.Exception from label22 to label23 with label76;
+        catch java.lang.Throwable from label20 to label21 with label72;
+        catch java.lang.Throwable from label22 to label23 with label72;
+        catch java.lang.Exception from label24 to label25 with label28;
+        catch java.lang.Exception from label26 to label27 with label28;
+        catch java.lang.Throwable from label24 to label25 with label73;
+        catch java.lang.Throwable from label26 to label27 with label73;
+        catch java.lang.Throwable from label29 to label30 with label74;
+        catch java.io.IOException from label31 to label32 with label66;
+        catch java.io.IOException from label33 to label34 with label67;
+        catch java.io.IOException from label35 to label36 with label37;
+        catch java.lang.Exception from label39 to label40 with label44;
+        catch java.lang.Exception from label41 to label43 with label44;
+        catch java.lang.Throwable from label38 to label39 with label56;
+        catch java.lang.Throwable from label39 to label40 with label56;
+        catch java.lang.Throwable from label41 to label43 with label56;
+        catch java.lang.Exception from label45 to label46 with label28;
+        catch java.lang.Throwable from label45 to label46 with label73;
+        catch java.io.IOException from label47 to label48 with label64;
+        catch java.io.IOException from label49 to label50 with label65;
+        catch java.io.IOException from label51 to label52 with label53;
+        catch java.lang.Exception from label54 to label55 with label44;
+        catch java.lang.Throwable from label54 to label55 with label56;
+        catch java.io.IOException from label58 to label59 with label68;
+        catch java.io.IOException from label60 to label61 with label69;
+        catch java.io.IOException from label62 to label63 with label70;
+    }

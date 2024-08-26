@@ -1,0 +1,102 @@
+    protected void setCurrentPlaylist(com.tune.ma.playlist.model.TunePlaylist)
+    {
+        java.lang.Throwable $r8;
+        com.tune.ma.file.FileManager $r5;
+        com.tune.ma.playlist.model.TunePlaylist $r1, $r4;
+        com.tune.ma.configuration.TuneConfigurationManager $r3;
+        org.json.JSONObject $r6;
+        com.tune.ma.TuneManager $r2;
+        com.tune.ma.eventbus.event.TunePlaylistManagerCurrentPlaylistChanged $r7;
+        com.tune.ma.playlist.TunePlaylistManager r0;
+        boolean $z0;
+
+        r0 := @this: com.tune.ma.playlist.TunePlaylistManager;
+
+        $r1 := @parameter0: com.tune.ma.playlist.model.TunePlaylist;
+
+        entermonitor r0;
+
+     label1:
+        $r2 = staticinvoke <com.tune.ma.TuneManager: com.tune.ma.TuneManager getInstance()>();
+
+        if $r2 == null goto label2;
+
+        $r2 = staticinvoke <com.tune.ma.TuneManager: com.tune.ma.TuneManager getInstance()>();
+
+        $r3 = virtualinvoke $r2.<com.tune.ma.TuneManager: com.tune.ma.configuration.TuneConfigurationManager getConfigurationManager()>();
+
+        $z0 = virtualinvoke $r3.<com.tune.ma.configuration.TuneConfigurationManager: boolean isTMADisabled()>();
+
+        if $z0 == 0 goto label3;
+
+     label2:
+        $r1 = new com.tune.ma.playlist.model.TunePlaylist;
+
+        specialinvoke $r1.<com.tune.ma.playlist.model.TunePlaylist: void <init>()>();
+
+     label3:
+        $r4 = r0.<com.tune.ma.playlist.TunePlaylistManager: com.tune.ma.playlist.model.TunePlaylist currentPlaylist>;
+
+        if $r4 == null goto label4;
+
+        $r4 = r0.<com.tune.ma.playlist.TunePlaylistManager: com.tune.ma.playlist.model.TunePlaylist currentPlaylist>;
+
+        $z0 = virtualinvoke $r4.<com.tune.ma.playlist.model.TunePlaylist: boolean equals(java.lang.Object)>($r1);
+
+        if $z0 != 0 goto label6;
+
+     label4:
+        r0.<com.tune.ma.playlist.TunePlaylistManager: com.tune.ma.playlist.model.TunePlaylist currentPlaylist> = $r1;
+
+        $r2 = staticinvoke <com.tune.ma.TuneManager: com.tune.ma.TuneManager getInstance()>();
+
+        if $r2 == null goto label5;
+
+        $z0 = virtualinvoke $r1.<com.tune.ma.playlist.model.TunePlaylist: boolean isFromDisk()>();
+
+        if $z0 != 0 goto label5;
+
+        $z0 = virtualinvoke $r1.<com.tune.ma.playlist.model.TunePlaylist: boolean isFromConnectedMode()>();
+
+        if $z0 != 0 goto label5;
+
+        staticinvoke <com.tune.ma.utils.TuneDebugLog: void i(java.lang.String)>("Saving New Playlist to Disk");
+
+        $r2 = staticinvoke <com.tune.ma.TuneManager: com.tune.ma.TuneManager getInstance()>();
+
+        $r5 = virtualinvoke $r2.<com.tune.ma.TuneManager: com.tune.ma.file.FileManager getFileManager()>();
+
+        $r4 = r0.<com.tune.ma.playlist.TunePlaylistManager: com.tune.ma.playlist.model.TunePlaylist currentPlaylist>;
+
+        $r6 = virtualinvoke $r4.<com.tune.ma.playlist.model.TunePlaylist: org.json.JSONObject toJson()>();
+
+        interfaceinvoke $r5.<com.tune.ma.file.FileManager: void writePlaylist(org.json.JSONObject)>($r6);
+
+     label5:
+        $r7 = new com.tune.ma.eventbus.event.TunePlaylistManagerCurrentPlaylistChanged;
+
+        specialinvoke $r7.<com.tune.ma.eventbus.event.TunePlaylistManagerCurrentPlaylistChanged: void <init>(com.tune.ma.playlist.model.TunePlaylist)>($r1);
+
+        staticinvoke <com.tune.ma.eventbus.TuneEventBus: void post(java.lang.Object)>($r7);
+
+     label6:
+        $z0 = virtualinvoke $r1.<com.tune.ma.playlist.model.TunePlaylist: boolean isFromDisk()>();
+
+        if $z0 != 0 goto label7;
+
+        specialinvoke r0.<com.tune.ma.playlist.TunePlaylistManager: void checkTriggerOnFirstPlaylistDownloadedCallback()>();
+
+     label7:
+        exitmonitor r0;
+
+        return;
+
+     label8:
+        $r8 := @caughtexception;
+
+        exitmonitor r0;
+
+        throw $r8;
+
+        catch java.lang.Throwable from label1 to label7 with label8;
+    }

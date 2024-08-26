@@ -1,0 +1,60 @@
+    public void sendPostHttpRequestJson(org.json.JSONObject)
+    {
+        org.json.JSONObject $r1;
+        com.ljoy.chatbot.utils.HttpURLData r0;
+        int $i0;
+        java.lang.String $r3;
+        android.app.Activity $r2;
+        boolean $z0;
+
+        r0 := @this: com.ljoy.chatbot.utils.HttpURLData;
+
+        $r1 := @parameter0: org.json.JSONObject;
+
+        $r2 = staticinvoke <com.ljoy.chatbot.view.ChatServiceActivity: android.app.Activity getActivity()>();
+
+        if $r2 == null goto label3;
+
+        $z0 = staticinvoke <com.ljoy.chatbot.utils.ABMqttUtil: boolean isNetworkAvailable(android.content.Context)>($r2);
+
+        if $z0 == 0 goto label3;
+
+        $r3 = r0.<com.ljoy.chatbot.utils.HttpURLData: java.lang.String urlStr>;
+
+        $z0 = staticinvoke <com.ljoy.chatbot.utils.CommonUtils: boolean isEmpty(java.lang.String)>($r3);
+
+        if $z0 != 0 goto label3;
+
+        $i0 = <android.os.Build$VERSION: int SDK_INT>;
+
+        if $i0 >= 21 goto label1;
+
+        $r3 = r0.<com.ljoy.chatbot.utils.HttpURLData: java.lang.String urlStr>;
+
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean contains(java.lang.CharSequence)>("https://");
+
+        if $z0 == 0 goto label1;
+
+        $r3 = r0.<com.ljoy.chatbot.utils.HttpURLData: java.lang.String urlStr>;
+
+        $r3 = virtualinvoke $r3.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("https://", "http://");
+
+        r0.<com.ljoy.chatbot.utils.HttpURLData: java.lang.String urlStr> = $r3;
+
+     label1:
+        $r3 = r0.<com.ljoy.chatbot.utils.HttpURLData: java.lang.String urlStr>;
+
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean startsWith(java.lang.String)>("https");
+
+        if $z0 == 0 goto label2;
+
+        specialinvoke r0.<com.ljoy.chatbot.utils.HttpURLData: void sendPostHttpRequestJsonHttps(org.json.JSONObject)>($r1);
+
+        return;
+
+     label2:
+        specialinvoke r0.<com.ljoy.chatbot.utils.HttpURLData: void sendPostHttpRequestJsonHttp(org.json.JSONObject)>($r1);
+
+     label3:
+        return;
+    }

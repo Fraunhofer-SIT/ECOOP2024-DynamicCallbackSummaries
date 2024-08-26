@@ -1,0 +1,142 @@
+    protected void onCreate(android.os.Bundle)
+    {
+        android.os.Bundle $r1;
+        java.lang.Object[] $r5;
+        com.mopub.common.privacy.ConsentDialogLayout $r10;
+        android.content.Intent $r2;
+        java.lang.Integer $r8;
+        com.mopub.common.logging.MoPubLog$ConsentLogEvent $r6;
+        int $i0;
+        com.mopub.common.logging.MoPubLog$SdkLogEvent $r4;
+        java.lang.String $r3;
+        boolean $z0;
+        com.mopub.common.privacy.ConsentDialogActivity$1 $r11;
+        com.mopub.common.privacy.ConsentDialogActivity$3 $r13;
+        com.mopub.common.privacy.ConsentDialogActivity$2 $r12;
+        java.lang.RuntimeException $r14;
+        com.mopub.common.privacy.ConsentDialogActivity r0;
+        com.mopub.mobileads.MoPubErrorCode $r7;
+        android.view.Window $r9;
+
+        r0 := @this: com.mopub.common.privacy.ConsentDialogActivity;
+
+        $r1 := @parameter0: android.os.Bundle;
+
+        specialinvoke r0.<android.app.Activity: void onCreate(android.os.Bundle)>($r1);
+
+        $r2 = virtualinvoke r0.<com.mopub.common.privacy.ConsentDialogActivity: android.content.Intent getIntent()>();
+
+        $r3 = virtualinvoke $r2.<android.content.Intent: java.lang.String getStringExtra(java.lang.String)>("html-page-content");
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r3);
+
+        if $z0 == 0 goto label1;
+
+        $r4 = <com.mopub.common.logging.MoPubLog$SdkLogEvent: com.mopub.common.logging.MoPubLog$SdkLogEvent CUSTOM>;
+
+        $r5 = newarray (java.lang.Object)[1];
+
+        $r5[0] = "Web page for ConsentDialogActivity is empty";
+
+        staticinvoke <com.mopub.common.logging.MoPubLog: void log(com.mopub.common.logging.MoPubLog$MPLogEventType,java.lang.Object[])>($r4, $r5);
+
+        $r6 = <com.mopub.common.logging.MoPubLog$ConsentLogEvent: com.mopub.common.logging.MoPubLog$ConsentLogEvent SHOW_FAILED>;
+
+        $r5 = newarray (java.lang.Object)[2];
+
+        $r7 = <com.mopub.mobileads.MoPubErrorCode: com.mopub.mobileads.MoPubErrorCode INTERNAL_ERROR>;
+
+        $i0 = virtualinvoke $r7.<com.mopub.mobileads.MoPubErrorCode: int getIntCode()>();
+
+        $r8 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+        $r5[0] = $r8;
+
+        $r7 = <com.mopub.mobileads.MoPubErrorCode: com.mopub.mobileads.MoPubErrorCode INTERNAL_ERROR>;
+
+        $r5[1] = $r7;
+
+        staticinvoke <com.mopub.common.logging.MoPubLog: void log(com.mopub.common.logging.MoPubLog$MPLogEventType,java.lang.Object[])>($r6, $r5);
+
+        virtualinvoke r0.<com.mopub.common.privacy.ConsentDialogActivity: void finish()>();
+
+        return;
+
+     label1:
+        virtualinvoke r0.<com.mopub.common.privacy.ConsentDialogActivity: boolean requestWindowFeature(int)>(1);
+
+        $r9 = virtualinvoke r0.<com.mopub.common.privacy.ConsentDialogActivity: android.view.Window getWindow()>();
+
+        virtualinvoke $r9.<android.view.Window: void addFlags(int)>(1024);
+
+        $r10 = new com.mopub.common.privacy.ConsentDialogLayout;
+
+     label2:
+        specialinvoke $r10.<com.mopub.common.privacy.ConsentDialogLayout: void <init>(android.content.Context)>(r0);
+
+        r0.<com.mopub.common.privacy.ConsentDialogActivity: com.mopub.common.privacy.ConsentDialogLayout mView> = $r10;
+
+     label3:
+        $r11 = new com.mopub.common.privacy.ConsentDialogActivity$1;
+
+        specialinvoke $r11.<com.mopub.common.privacy.ConsentDialogActivity$1: void <init>(com.mopub.common.privacy.ConsentDialogActivity)>(r0);
+
+        virtualinvoke $r10.<com.mopub.common.privacy.ConsentDialogLayout: void setConsentClickListener(com.mopub.common.privacy.ConsentDialogLayout$ConsentListener)>($r11);
+
+        $r12 = new com.mopub.common.privacy.ConsentDialogActivity$2;
+
+        specialinvoke $r12.<com.mopub.common.privacy.ConsentDialogActivity$2: void <init>(com.mopub.common.privacy.ConsentDialogActivity)>(r0);
+
+        r0.<com.mopub.common.privacy.ConsentDialogActivity: java.lang.Runnable mEnableCloseButtonRunnable> = $r12;
+
+        $r10 = r0.<com.mopub.common.privacy.ConsentDialogActivity: com.mopub.common.privacy.ConsentDialogLayout mView>;
+
+        virtualinvoke r0.<com.mopub.common.privacy.ConsentDialogActivity: void setContentView(android.view.View)>($r10);
+
+        $r10 = r0.<com.mopub.common.privacy.ConsentDialogActivity: com.mopub.common.privacy.ConsentDialogLayout mView>;
+
+        $r13 = new com.mopub.common.privacy.ConsentDialogActivity$3;
+
+        specialinvoke $r13.<com.mopub.common.privacy.ConsentDialogActivity$3: void <init>(com.mopub.common.privacy.ConsentDialogActivity)>(r0);
+
+        virtualinvoke $r10.<com.mopub.common.privacy.ConsentDialogLayout: void startLoading(java.lang.String,com.mopub.common.privacy.ConsentDialogLayout$PageLoadListener)>($r3, $r13);
+
+        return;
+
+     label4:
+        $r14 := @caughtexception;
+
+        $r4 = <com.mopub.common.logging.MoPubLog$SdkLogEvent: com.mopub.common.logging.MoPubLog$SdkLogEvent CUSTOM_WITH_THROWABLE>;
+
+        $r5 = newarray (java.lang.Object)[2];
+
+        $r5[0] = "Unable to create WebView";
+
+        $r5[1] = $r14;
+
+        staticinvoke <com.mopub.common.logging.MoPubLog: void log(com.mopub.common.logging.MoPubLog$MPLogEventType,java.lang.Object[])>($r4, $r5);
+
+        $r6 = <com.mopub.common.logging.MoPubLog$ConsentLogEvent: com.mopub.common.logging.MoPubLog$ConsentLogEvent SHOW_FAILED>;
+
+        $r5 = newarray (java.lang.Object)[2];
+
+        $r7 = <com.mopub.mobileads.MoPubErrorCode: com.mopub.mobileads.MoPubErrorCode INTERNAL_ERROR>;
+
+        $i0 = virtualinvoke $r7.<com.mopub.mobileads.MoPubErrorCode: int getIntCode()>();
+
+        $r8 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+        $r5[0] = $r8;
+
+        $r7 = <com.mopub.mobileads.MoPubErrorCode: com.mopub.mobileads.MoPubErrorCode INTERNAL_ERROR>;
+
+        $r5[1] = $r7;
+
+        staticinvoke <com.mopub.common.logging.MoPubLog: void log(com.mopub.common.logging.MoPubLog$MPLogEventType,java.lang.Object[])>($r6, $r5);
+
+        virtualinvoke r0.<com.mopub.common.privacy.ConsentDialogActivity: void finish()>();
+
+        return;
+
+        catch java.lang.RuntimeException from label2 to label3 with label4;
+    }

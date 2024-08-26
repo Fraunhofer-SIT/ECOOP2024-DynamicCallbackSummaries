@@ -1,0 +1,153 @@
+    public void <init>(java.io.InputStream) throws java.io.IOException
+    {
+        byte[] $r2;
+        java.io.ByteArrayOutputStream $r5;
+        java.lang.String[] $r4;
+        byte $b5;
+        com.ailleron.fastjson.asm.ClassReader r0;
+        int[] $r3;
+        int $i0, $i1, $i2, $i3, $i4, $i6;
+        java.io.InputStream $r1;
+
+        r0 := @this: com.ailleron.fastjson.asm.ClassReader;
+
+        $r1 := @parameter0: java.io.InputStream;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        $r5 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r5.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r2 = newarray (byte)[1024];
+
+     label1:
+        $i0 = virtualinvoke $r1.<java.io.InputStream: int read(byte[])>($r2);
+
+        $i1 = 0;
+
+        if $i0 != -1 goto label9;
+
+        virtualinvoke $r1.<java.io.InputStream: void close()>();
+
+        $r2 = virtualinvoke $r5.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        r0.<com.ailleron.fastjson.asm.ClassReader: byte[] b> = $r2;
+
+        $i0 = specialinvoke r0.<com.ailleron.fastjson.asm.ClassReader: int readUnsignedShort(int)>(8);
+
+        $r3 = newarray (int)[$i0];
+
+        r0.<com.ailleron.fastjson.asm.ClassReader: int[] items> = $r3;
+
+        $r3 = r0.<com.ailleron.fastjson.asm.ClassReader: int[] items>;
+
+        $i0 = lengthof $r3;
+
+        $r4 = newarray (java.lang.String)[$i0];
+
+        r0.<com.ailleron.fastjson.asm.ClassReader: java.lang.String[] strings> = $r4;
+
+        $i2 = 1;
+
+        $i3 = 10;
+
+     label2:
+        if $i2 >= $i0 goto label8;
+
+        $r3 = r0.<com.ailleron.fastjson.asm.ClassReader: int[] items>;
+
+        $i4 = $i3 + 1;
+
+        $r3[$i2] = $i4;
+
+        $r2 = r0.<com.ailleron.fastjson.asm.ClassReader: byte[] b>;
+
+        $b5 = $r2[$i3];
+
+        $i6 = 5;
+
+        if $b5 == 1 goto label6;
+
+        $i4 = (int) $b5;
+
+        if $i4 == 15 goto label5;
+
+        $i4 = (int) $b5;
+
+        if $i4 == 18 goto label7;
+
+        $i4 = (int) $b5;
+
+        if $i4 == 3 goto label7;
+
+        $i4 = (int) $b5;
+
+        if $i4 == 4 goto label7;
+
+        $i4 = (int) $b5;
+
+        if $i4 == 5 goto label4;
+
+        $i4 = (int) $b5;
+
+        if $i4 == 6 goto label4;
+
+        $i4 = (int) $b5;
+
+        lookupswitch($i4)
+        {
+            case 9: goto label7;
+            case 10: goto label7;
+            case 11: goto label7;
+            case 12: goto label7;
+            default: goto label3;
+        };
+
+     label3:
+        $i6 = 3;
+
+        goto label7;
+
+     label4:
+        $i6 = 9;
+
+        $i2 = $i2 + 1;
+
+        goto label7;
+
+     label5:
+        $i6 = 4;
+
+        goto label7;
+
+     label6:
+        $i6 = specialinvoke r0.<com.ailleron.fastjson.asm.ClassReader: int readUnsignedShort(int)>($i4);
+
+        $i6 = $i6 + 3;
+
+        if $i6 <= $i1 goto label7;
+
+        $i1 = $i6;
+
+     label7:
+        $i3 = $i3 + $i6;
+
+        $i2 = $i2 + 1;
+
+        goto label2;
+
+     label8:
+        r0.<com.ailleron.fastjson.asm.ClassReader: int maxStringLength> = $i1;
+
+        r0.<com.ailleron.fastjson.asm.ClassReader: int header> = $i3;
+
+        return;
+
+     label9:
+        if $i0 <= 0 goto label1;
+
+        virtualinvoke $r5.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r2, 0, $i0);
+
+        goto label1;
+    }

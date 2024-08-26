@@ -1,0 +1,281 @@
+    public static java.lang.Object readList(gnu.kawa.lispexpr.LispReader, int, int, int) throws java.io.IOException, gnu.text.SyntaxException
+    {
+        java.lang.Throwable $r12;
+        gnu.kawa.lispexpr.ReadTable $r4;
+        gnu.mapping.Values $r9;
+        int $i0, $i1, $i2, $i4, $i5, $i6, $i7, $i8, $i9, $i10;
+        gnu.text.LineBufferedReader $r2;
+        gnu.kawa.lispexpr.ReadTableEntry $r6, $r7;
+        java.lang.String $r8;
+        boolean $z0, $z1;
+        gnu.kawa.lispexpr.LispReader $r0;
+        char $c3, $c11;
+        gnu.lists.Pair $r11;
+        java.lang.Object $r1, $r3, $r5, $r10;
+        java.lang.StringBuilder $r13;
+
+        $r0 := @parameter0: gnu.kawa.lispexpr.LispReader;
+
+        $i0 := @parameter1: int;
+
+        $i1 := @parameter2: int;
+
+        $i2 := @parameter3: int;
+
+        $r2 = virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: gnu.text.LineBufferedReader getPort()>();
+
+        if $i2 != 93 goto label01;
+
+        $c3 = 91;
+
+        goto label02;
+
+     label01:
+        $c3 = 40;
+
+     label02:
+        $c3 = virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: char pushNesting(char)>($c3);
+
+        $i0 = virtualinvoke $r2.<gnu.text.LineBufferedReader: int getLineNumber()>();
+
+        $i1 = virtualinvoke $r2.<gnu.text.LineBufferedReader: int getColumnNumber()>();
+
+     label03:
+        $r3 = virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: java.lang.Object makeNil()>();
+
+     label04:
+        $r4 = staticinvoke <gnu.kawa.lispexpr.ReadTable: gnu.kawa.lispexpr.ReadTable getCurrent()>();
+
+     label05:
+        $r5 = null;
+
+        $z0 = 0;
+
+     label06:
+        $z1 = 0;
+
+     label07:
+        $i4 = virtualinvoke $r2.<gnu.text.LineBufferedReader: int getLineNumber()>();
+
+     label08:
+        $i5 = $i4;
+
+     label09:
+        $i6 = virtualinvoke $r2.<gnu.text.LineBufferedReader: int getColumnNumber()>();
+
+     label10:
+        $i7 = $i6;
+
+     label11:
+        $i8 = virtualinvoke $r2.<gnu.text.LineBufferedReader: int read()>();
+
+     label12:
+        $i9 = $i8;
+
+        if $i8 == $i2 goto label29;
+
+        if $i8 >= 0 goto label14;
+
+        $i10 = $i0 + 1;
+
+     label13:
+        virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: void eofError(java.lang.String,int,int)>("unexpected EOF in list starting here", $i10, $i1);
+
+     label14:
+        $r1 = $r5;
+
+        if $i8 != 46 goto label37;
+
+     label15:
+        $i8 = virtualinvoke $r2.<gnu.text.LineBufferedReader: int peek()>();
+
+     label16:
+        $i9 = $i8;
+
+     label17:
+        $r6 = virtualinvoke $r4.<gnu.kawa.lispexpr.ReadTable: gnu.kawa.lispexpr.ReadTableEntry lookup(int)>($i8);
+
+     label18:
+        $r7 = $r6;
+
+     label19:
+        $i10 = virtualinvoke $r6.<gnu.kawa.lispexpr.ReadTableEntry: int getKind()>();
+
+     label20:
+        if $i10 == 1 goto label23;
+
+        if $i10 == 5 goto label23;
+
+        if $i10 == 0 goto label23;
+
+     label21:
+        $r6 = staticinvoke <gnu.kawa.lispexpr.ReadTableEntry: gnu.kawa.lispexpr.ReadTableEntry getConstituentInstance()>();
+
+     label22:
+        $r7 = $r6;
+
+        $i9 = 46;
+
+        goto label39;
+
+     label23:
+        virtualinvoke $r2.<gnu.text.LineBufferedReader: void skip()>();
+
+     label24:
+        $i7 = $i6 + 1;
+
+        if $i8 != $i2 goto label30;
+
+     label25:
+        $r13 = new java.lang.StringBuilder;
+
+     label26:
+        specialinvoke $r13.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("unexpected \'");
+
+     label27:
+        $c11 = (char) $i2;
+
+     label28:
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>($c11);
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\' after \'.\'");
+
+        $r8 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: void error(java.lang.String)>($r8);
+
+     label29:
+        virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: void popNesting(char)>($c3);
+
+        return $r3;
+
+     label30:
+        if $i8 >= 0 goto label32;
+
+        $i6 = $i0 + 1;
+
+     label31:
+        virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: void eofError(java.lang.String,int,int)>("unexpected EOF in list starting here", $i6, $i1);
+
+     label32:
+        if $z0 == 0 goto label35;
+
+     label33:
+        virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: void error(java.lang.String)>("multiple \'.\' in list");
+
+        $r3 = virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: java.lang.Object makeNil()>();
+
+     label34:
+        $r5 = null;
+
+        $z1 = 0;
+
+        goto label36;
+
+     label35:
+        $r5 = $r1;
+
+     label36:
+        $z0 = 1;
+
+        goto label39;
+
+     label37:
+        $r6 = virtualinvoke $r4.<gnu.kawa.lispexpr.ReadTable: gnu.kawa.lispexpr.ReadTableEntry lookup(int)>($i8);
+
+     label38:
+        $r7 = $r6;
+
+     label39:
+        $r1 = virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: java.lang.Object readValues(int,gnu.kawa.lispexpr.ReadTableEntry,gnu.kawa.lispexpr.ReadTable)>($i9, $r7, $r4);
+
+        $r9 = <gnu.mapping.Values: gnu.mapping.Values empty>;
+
+     label40:
+        if $r1 == $r9 goto label07;
+
+     label41:
+        $r1 = virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: java.lang.Object handlePostfix(java.lang.Object,gnu.kawa.lispexpr.ReadTable,int,int)>($r1, $r4, $i4, $i7);
+
+     label42:
+        $r10 = $r1;
+
+        if $z1 == 0 goto label45;
+
+     label43:
+        virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: void error(java.lang.String)>("multiple values after \'.\'");
+
+        $r3 = virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: java.lang.Object makeNil()>();
+
+     label44:
+        $r5 = null;
+
+        goto label06;
+
+     label45:
+        if $z0 == 0 goto label46;
+
+        $z1 = 1;
+
+        goto label49;
+
+     label46:
+        if $r5 != null goto label47;
+
+        $i7 = $i1 + -1;
+
+        $i5 = $i0;
+
+     label47:
+        $r11 = virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: gnu.lists.Pair makePair(java.lang.Object,int,int)>($r1, $i5, $i7);
+
+     label48:
+        $r10 = $r11;
+
+     label49:
+        if $r5 != null goto label50;
+
+        $r3 = $r10;
+
+        goto label51;
+
+     label50:
+        virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: void setCdr(java.lang.Object,java.lang.Object)>($r5, $r10);
+
+     label51:
+        $r5 = $r10;
+
+        goto label07;
+
+     label52:
+        $r12 := @caughtexception;
+
+        virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: void popNesting(char)>($c3);
+
+        throw $r12;
+
+        catch java.lang.Throwable from label03 to label04 with label52;
+        catch java.lang.Throwable from label04 to label05 with label52;
+        catch java.lang.Throwable from label07 to label08 with label52;
+        catch java.lang.Throwable from label09 to label10 with label52;
+        catch java.lang.Throwable from label11 to label12 with label52;
+        catch java.lang.Throwable from label13 to label14 with label52;
+        catch java.lang.Throwable from label15 to label16 with label52;
+        catch java.lang.Throwable from label17 to label18 with label52;
+        catch java.lang.Throwable from label19 to label20 with label52;
+        catch java.lang.Throwable from label21 to label22 with label52;
+        catch java.lang.Throwable from label23 to label24 with label52;
+        catch java.lang.Throwable from label25 to label26 with label52;
+        catch java.lang.Throwable from label26 to label27 with label52;
+        catch java.lang.Throwable from label28 to label29 with label52;
+        catch java.lang.Throwable from label31 to label32 with label52;
+        catch java.lang.Throwable from label33 to label34 with label52;
+        catch java.lang.Throwable from label37 to label38 with label52;
+        catch java.lang.Throwable from label39 to label40 with label52;
+        catch java.lang.Throwable from label41 to label42 with label52;
+        catch java.lang.Throwable from label43 to label44 with label52;
+        catch java.lang.Throwable from label47 to label48 with label52;
+        catch java.lang.Throwable from label50 to label51 with label52;
+    }

@@ -1,0 +1,666 @@
+    public final void b(android.content.Context, java.lang.String, java.lang.String)
+    {
+        byte[] $r46;
+        java.lang.NullPointerException $r50;
+        byte $b4;
+        java.util.Locale $r27;
+        java.util.zip.ZipFile $r41;
+        java.util.zip.ZipEntry $r42;
+        boolean $z0;
+        java.util.Set $r25;
+        c.f.a.a$a $r40;
+        java.lang.Throwable $r4, $r5, $r6, $r7, $r8, $r9, $r10, $r11, $r12, $r13, $r14, $r15, $r16, $r17, $r18, $r19, $r20, $r21, $r22, $r23, $r24, $r48, $r49;
+        android.content.Context $r1;
+        java.lang.Object[] $r26;
+        java.lang.String[] $r38;
+        long $l2, $l3;
+        int $i0, $i1;
+        java.lang.String $r2, $r3, $r31, $r36;
+        java.io.FileOutputStream $r45, $r52;
+        java.io.File $r32, $r33, $r34;
+        c.f.a.h $r29;
+        java.io.FileDescriptor $r47;
+        c.f.a.c $r37;
+        c.f.a.b $r53;
+        c.f.a.a $r39;
+        java.lang.UnsatisfiedLinkError $r30;
+        c.f.a.g $r51;
+        c.f.a.f r0;
+        java.io.File[] $r35;
+        c.f.a.d $r28;
+        java.io.InputStream $r43, $r44;
+
+        r0 := @this: c.f.a.f;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r3 := @parameter2: java.lang.String;
+
+        $r25 = r0.<c.f.a.f: java.util.Set a>;
+
+        $z0 = interfaceinvoke $r25.<java.util.Set: boolean contains(java.lang.Object)>("mmkv");
+
+        if $z0 == 0 goto label001;
+
+        $r26 = newarray (java.lang.Object)[1];
+
+        $r26[0] = "mmkv";
+
+        $r27 = <java.util.Locale: java.util.Locale US>;
+
+        staticinvoke <java.lang.String: java.lang.String format(java.util.Locale,java.lang.String,java.lang.Object[])>($r27, "%s already loaded previously!", $r26);
+
+        return;
+
+     label001:
+        $r28 = r0.<c.f.a.f: c.f.a.d b>;
+
+        $r29 = (c.f.a.h) $r28;
+
+        if $r29 == null goto label008;
+
+     label002:
+        staticinvoke <java.lang.System: void loadLibrary(java.lang.String)>("mmkv");
+
+     label003:
+        $r25 = r0.<c.f.a.f: java.util.Set a>;
+
+     label004:
+        interfaceinvoke $r25.<java.util.Set: boolean add(java.lang.Object)>("mmkv");
+
+     label005:
+        $r26 = newarray (java.lang.Object)[2];
+
+        $r26[0] = "mmkv";
+
+        $r26[1] = null;
+
+     label006:
+        $r27 = <java.util.Locale: java.util.Locale US>;
+
+        staticinvoke <java.lang.String: java.lang.String format(java.util.Locale,java.lang.String,java.lang.Object[])>($r27, "%s (%s) was loaded normally!", $r26);
+
+     label007:
+        return;
+
+     label008:
+        $r50 = new java.lang.NullPointerException;
+
+     label009:
+        specialinvoke $r50.<java.lang.NullPointerException: void <init>(java.lang.String)>("Null throw statement replaced by Soot");
+
+     label010:
+        throw $r50;
+
+     label011:
+        $r30 := @caughtexception;
+
+        $r26 = newarray (java.lang.Object)[1];
+
+        $r31 = staticinvoke <android.util.Log: java.lang.String getStackTraceString(java.lang.Throwable)>($r30);
+
+        $r26[0] = $r31;
+
+        $r27 = <java.util.Locale: java.util.Locale US>;
+
+        staticinvoke <java.lang.String: java.lang.String format(java.util.Locale,java.lang.String,java.lang.Object[])>($r27, "Loading the library normally failed: %s", $r26);
+
+        $r26 = newarray (java.lang.Object)[2];
+
+        $r26[0] = "mmkv";
+
+        $r26[1] = null;
+
+        $r27 = <java.util.Locale: java.util.Locale US>;
+
+        staticinvoke <java.lang.String: java.lang.String format(java.util.Locale,java.lang.String,java.lang.Object[])>($r27, "%s (%s) was not loaded normally, re-linking...", $r26);
+
+        $r32 = virtualinvoke r0.<c.f.a.f: java.io.File a(android.content.Context,java.lang.String,java.lang.String)>($r1, "mmkv", null);
+
+        $z0 = virtualinvoke $r32.<java.io.File: boolean exists()>();
+
+        if $z0 != 0 goto label070;
+
+        $r33 = virtualinvoke r0.<c.f.a.f: java.io.File a(android.content.Context)>($r1);
+
+        $r34 = virtualinvoke r0.<c.f.a.f: java.io.File a(android.content.Context,java.lang.String,java.lang.String)>($r1, "mmkv", null);
+
+        $r28 = r0.<c.f.a.f: c.f.a.d b>;
+
+        $r29 = (c.f.a.h) $r28;
+
+        $r31 = virtualinvoke $r29.<c.f.a.h: java.lang.String a(java.lang.String)>("mmkv");
+
+        $r51 = new c.f.a.g;
+
+        specialinvoke $r51.<c.f.a.g: void <init>(c.f.a.f,java.lang.String)>(r0, $r31);
+
+        $r35 = virtualinvoke $r33.<java.io.File: java.io.File[] listFiles(java.io.FilenameFilter)>($r51);
+
+        if $r35 == null goto label014;
+
+        $i0 = lengthof $r35;
+
+        $i1 = 0;
+
+     label012:
+        if $i1 >= $i0 goto label014;
+
+        $r33 = $r35[$i1];
+
+        $r31 = virtualinvoke $r33.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $r36 = virtualinvoke $r34.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $z0 = virtualinvoke $r31.<java.lang.String: boolean equals(java.lang.Object)>($r36);
+
+        if $z0 != 0 goto label013;
+
+        virtualinvoke $r33.<java.io.File: boolean delete()>();
+
+     label013:
+        $i1 = $i1 + 1;
+
+        goto label012;
+
+     label014:
+        $r37 = r0.<c.f.a.f: c.f.a.c c>;
+
+        $r28 = r0.<c.f.a.f: c.f.a.d b>;
+
+        $r29 = (c.f.a.h) $r28;
+
+        if $r29 == null goto label080;
+
+        $r38 = <android.os.Build: java.lang.String[] SUPPORTED_ABIS>;
+
+        $i0 = lengthof $r38;
+
+        if $i0 > 0 goto label016;
+
+        $r31 = <android.os.Build: java.lang.String CPU_ABI2>;
+
+        $z0 = staticinvoke <c.a.a.a.a.a.q.d: boolean a(java.lang.CharSequence)>($r31);
+
+        if $z0 != 0 goto label015;
+
+        $r38 = newarray (java.lang.String)[2];
+
+        $r31 = <android.os.Build: java.lang.String CPU_ABI>;
+
+        $r38[0] = $r31;
+
+        $r31 = <android.os.Build: java.lang.String CPU_ABI2>;
+
+        $r38[1] = $r31;
+
+        goto label016;
+
+     label015:
+        $r38 = newarray (java.lang.String)[1];
+
+        $r31 = <android.os.Build: java.lang.String CPU_ABI>;
+
+        $r38[0] = $r31;
+
+     label016:
+        $r28 = r0.<c.f.a.f: c.f.a.d b>;
+
+        $r29 = (c.f.a.h) $r28;
+
+        $r31 = virtualinvoke $r29.<c.f.a.h: java.lang.String a(java.lang.String)>("mmkv");
+
+        $r39 = (c.f.a.a) $r37;
+
+        if $r39 == null goto label079;
+
+     label017:
+        $r40 = virtualinvoke $r39.<c.f.a.a: c.f.a.a$a a(android.content.Context,java.lang.String[],java.lang.String,c.f.a.f)>($r1, $r38, $r31, r0);
+
+     label018:
+        if $r40 == null goto label072;
+
+        $i1 = 0;
+
+     label019:
+        $i0 = $i1 + 1;
+
+        if $i1 >= 5 goto label068;
+
+     label020:
+        $r26 = newarray (java.lang.Object)[1];
+
+        $r26[0] = $r31;
+
+        $r27 = <java.util.Locale: java.util.Locale US>;
+
+        staticinvoke <java.lang.String: java.lang.String format(java.util.Locale,java.lang.String,java.lang.Object[])>($r27, "Found %s! Extracting...", $r26);
+
+     label021:
+        $z0 = virtualinvoke $r32.<java.io.File: boolean exists()>();
+
+     label022:
+        if $z0 != 0 goto label025;
+
+     label023:
+        $z0 = virtualinvoke $r32.<java.io.File: boolean createNewFile()>();
+
+     label024:
+        if $z0 == 0 goto label067;
+
+     label025:
+        $r41 = $r40.<c.f.a.a$a: java.util.zip.ZipFile a>;
+
+        $r42 = $r40.<c.f.a.a$a: java.util.zip.ZipEntry b>;
+
+     label026:
+        $r43 = virtualinvoke $r41.<java.util.zip.ZipFile: java.io.InputStream getInputStream(java.util.zip.ZipEntry)>($r42);
+
+     label027:
+        $r44 = $r43;
+
+     label028:
+        $r52 = new java.io.FileOutputStream;
+
+     label029:
+        $r45 = $r52;
+
+     label030:
+        specialinvoke $r52.<java.io.FileOutputStream: void <init>(java.io.File)>($r32);
+
+     label031:
+        $r46 = newarray (byte)[4096];
+
+        $l2 = 0L;
+
+     label032:
+        $i1 = virtualinvoke $r43.<java.io.InputStream: int read(byte[])>($r46);
+
+     label033:
+        if $i1 != -1 goto label045;
+
+     label034:
+        virtualinvoke $r52.<java.io.OutputStream: void flush()>();
+
+        $r47 = virtualinvoke $r52.<java.io.FileOutputStream: java.io.FileDescriptor getFD()>();
+
+        virtualinvoke $r47.<java.io.FileDescriptor: void sync()>();
+
+        $l3 = virtualinvoke $r32.<java.io.File: long length()>();
+
+     label035:
+        $b4 = $l2 cmp $l3;
+
+        if $b4 == 0 goto label039;
+
+     label036:
+        interfaceinvoke $r43.<java.io.Closeable: void close()>();
+
+     label037:
+        virtualinvoke $r52.<java.io.FileOutputStream: void close()>();
+
+     label038:
+        goto label067;
+
+     label039:
+        interfaceinvoke $r43.<java.io.Closeable: void close()>();
+
+     label040:
+        virtualinvoke $r52.<java.io.FileOutputStream: void close()>();
+
+     label041:
+        virtualinvoke $r32.<java.io.File: boolean setReadable(boolean,boolean)>(1, 0);
+
+        virtualinvoke $r32.<java.io.File: boolean setExecutable(boolean,boolean)>(1, 0);
+
+        virtualinvoke $r32.<java.io.File: boolean setWritable(boolean)>(1);
+
+     label042:
+        $r41 = $r40.<c.f.a.a$a: java.util.zip.ZipFile a>;
+
+        if $r41 == null goto label070;
+
+        $r41 = $r40.<c.f.a.a$a: java.util.zip.ZipFile a>;
+
+     label043:
+        virtualinvoke $r41.<java.util.zip.ZipFile: void close()>();
+
+     label044:
+        goto label070;
+
+     label045:
+        virtualinvoke $r52.<java.io.OutputStream: void write(byte[],int,int)>($r46, 0, $i1);
+
+     label046:
+        $l3 = (long) $i1;
+
+        $l2 = $l2 + $l3;
+
+        goto label032;
+
+     label047:
+        $r48 := @caughtexception;
+
+        goto label050;
+
+     label048:
+        $r48 := @caughtexception;
+
+        $r45 = null;
+
+        goto label050;
+
+     label049:
+        $r48 := @caughtexception;
+
+        $r43 = null;
+
+        $r45 = null;
+
+     label050:
+        if $r43 == null goto label052;
+
+     label051:
+        interfaceinvoke $r43.<java.io.Closeable: void close()>();
+
+     label052:
+        if $r45 == null goto label054;
+
+     label053:
+        interfaceinvoke $r45.<java.io.Closeable: void close()>();
+
+     label054:
+        throw $r48;
+
+     label055:
+        $r44 = null;
+
+     label056:
+        $r45 = null;
+
+     label057:
+        if $r44 == null goto label059;
+
+     label058:
+        interfaceinvoke $r44.<java.io.Closeable: void close()>();
+
+     label059:
+        if $r45 == null goto label067;
+
+     label060:
+        interfaceinvoke $r45.<java.io.Closeable: void close()>();
+
+     label061:
+        goto label067;
+
+     label062:
+        $r44 = null;
+
+     label063:
+        $r45 = null;
+
+     label064:
+        if $r44 == null goto label066;
+
+     label065:
+        interfaceinvoke $r44.<java.io.Closeable: void close()>();
+
+     label066:
+        if $r45 != null goto label060;
+
+     label067:
+        $i1 = $i0;
+
+        goto label019;
+
+     label068:
+        $r41 = $r40.<c.f.a.a$a: java.util.zip.ZipFile a>;
+
+        if $r41 == null goto label070;
+
+        $r41 = $r40.<c.f.a.a$a: java.util.zip.ZipFile a>;
+
+     label069:
+        virtualinvoke $r41.<java.util.zip.ZipFile: void close()>();
+
+     label070:
+        $r28 = r0.<c.f.a.f: c.f.a.d b>;
+
+        $r31 = virtualinvoke $r32.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $r29 = (c.f.a.h) $r28;
+
+        if $r29 == null goto label071;
+
+        staticinvoke <java.lang.System: void load(java.lang.String)>($r31);
+
+        $r25 = r0.<c.f.a.f: java.util.Set a>;
+
+        interfaceinvoke $r25.<java.util.Set: boolean add(java.lang.Object)>("mmkv");
+
+        $r26 = newarray (java.lang.Object)[2];
+
+        $r26[0] = "mmkv";
+
+        $r26[1] = null;
+
+        $r27 = <java.util.Locale: java.util.Locale US>;
+
+        staticinvoke <java.lang.String: java.lang.String format(java.util.Locale,java.lang.String,java.lang.Object[])>($r27, "%s (%s) was re-linked!", $r26);
+
+        return;
+
+     label071:
+        $r50 = new java.lang.NullPointerException;
+
+        specialinvoke $r50.<java.lang.NullPointerException: void <init>(java.lang.String)>("Null throw statement replaced by Soot");
+
+        throw $r50;
+
+     label072:
+        $r53 = new c.f.a.b;
+
+     label073:
+        specialinvoke $r53.<c.f.a.b: void <init>(java.lang.String)>($r31);
+
+        throw $r53;
+
+     label074:
+        $r49 := @caughtexception;
+
+        goto label076;
+
+     label075:
+        $r49 := @caughtexception;
+
+        $r40 = null;
+
+     label076:
+        if $r40 == null goto label078;
+
+        $r41 = $r40.<c.f.a.a$a: java.util.zip.ZipFile a>;
+
+        if $r41 == null goto label078;
+
+        $r41 = $r40.<c.f.a.a$a: java.util.zip.ZipFile a>;
+
+     label077:
+        virtualinvoke $r41.<java.util.zip.ZipFile: void close()>();
+
+     label078:
+        throw $r49;
+
+     label079:
+        $r50 = new java.lang.NullPointerException;
+
+        specialinvoke $r50.<java.lang.NullPointerException: void <init>(java.lang.String)>("Null throw statement replaced by Soot");
+
+        throw $r50;
+
+     label080:
+        $r50 = new java.lang.NullPointerException;
+
+        specialinvoke $r50.<java.lang.NullPointerException: void <init>(java.lang.String)>("Null throw statement replaced by Soot");
+
+        throw $r50;
+
+     label081:
+        $r4 := @caughtexception;
+
+        goto label067;
+
+     label082:
+        $r5 := @caughtexception;
+
+        goto label062;
+
+     label083:
+        $r6 := @caughtexception;
+
+        goto label055;
+
+     label084:
+        $r7 := @caughtexception;
+
+        goto label063;
+
+     label085:
+        $r8 := @caughtexception;
+
+        goto label056;
+
+     label086:
+        $r9 := @caughtexception;
+
+        goto label064;
+
+     label087:
+        $r10 := @caughtexception;
+
+        goto label057;
+
+     label088:
+        $r11 := @caughtexception;
+
+        goto label037;
+
+     label089:
+        $r12 := @caughtexception;
+
+        goto label067;
+
+     label090:
+        $r13 := @caughtexception;
+
+        goto label040;
+
+     label091:
+        $r14 := @caughtexception;
+
+        goto label041;
+
+     label092:
+        $r15 := @caughtexception;
+
+        goto label070;
+
+     label093:
+        $r16 := @caughtexception;
+
+        goto label064;
+
+     label094:
+        $r17 := @caughtexception;
+
+        goto label057;
+
+     label095:
+        $r18 := @caughtexception;
+
+        goto label052;
+
+     label096:
+        $r19 := @caughtexception;
+
+        goto label054;
+
+     label097:
+        $r20 := @caughtexception;
+
+        goto label059;
+
+     label098:
+        $r21 := @caughtexception;
+
+        goto label067;
+
+     label099:
+        $r22 := @caughtexception;
+
+        goto label066;
+
+     label100:
+        $r23 := @caughtexception;
+
+        goto label070;
+
+     label101:
+        $r24 := @caughtexception;
+
+        goto label078;
+
+        catch java.lang.UnsatisfiedLinkError from label002 to label003 with label011;
+        catch java.lang.UnsatisfiedLinkError from label004 to label005 with label011;
+        catch java.lang.UnsatisfiedLinkError from label006 to label007 with label011;
+        catch java.lang.UnsatisfiedLinkError from label008 to label009 with label011;
+        catch java.lang.UnsatisfiedLinkError from label009 to label010 with label011;
+        catch java.lang.Throwable from label017 to label018 with label075;
+        catch java.lang.Throwable from label020 to label021 with label074;
+        catch java.io.IOException from label021 to label022 with label081;
+        catch java.io.IOException from label023 to label024 with label081;
+        catch java.lang.Throwable from label021 to label022 with label074;
+        catch java.lang.Throwable from label023 to label024 with label074;
+        catch java.io.FileNotFoundException from label026 to label027 with label082;
+        catch java.io.IOException from label026 to label027 with label083;
+        catch java.lang.Throwable from label025 to label027 with label049;
+        catch java.io.FileNotFoundException from label030 to label031 with label084;
+        catch java.io.IOException from label030 to label031 with label085;
+        catch java.lang.Throwable from label028 to label029 with label048;
+        catch java.lang.Throwable from label030 to label031 with label048;
+        catch java.io.FileNotFoundException from label032 to label033 with label086;
+        catch java.io.FileNotFoundException from label034 to label035 with label086;
+        catch java.io.IOException from label032 to label033 with label087;
+        catch java.io.IOException from label034 to label035 with label087;
+        catch java.lang.Throwable from label032 to label033 with label047;
+        catch java.lang.Throwable from label034 to label035 with label047;
+        catch java.io.IOException from label036 to label037 with label088;
+        catch java.lang.Throwable from label036 to label037 with label074;
+        catch java.io.IOException from label037 to label038 with label089;
+        catch java.lang.Throwable from label037 to label038 with label074;
+        catch java.io.IOException from label039 to label040 with label090;
+        catch java.lang.Throwable from label039 to label040 with label074;
+        catch java.io.IOException from label040 to label041 with label091;
+        catch java.lang.Throwable from label040 to label041 with label074;
+        catch java.lang.Throwable from label041 to label042 with label074;
+        catch java.io.IOException from label043 to label044 with label092;
+        catch java.io.FileNotFoundException from label045 to label046 with label093;
+        catch java.io.IOException from label045 to label046 with label094;
+        catch java.lang.Throwable from label045 to label046 with label047;
+        catch java.io.IOException from label051 to label052 with label095;
+        catch java.lang.Throwable from label051 to label052 with label074;
+        catch java.io.IOException from label053 to label054 with label096;
+        catch java.lang.Throwable from label053 to label054 with label074;
+        catch java.lang.Throwable from label054 to label055 with label074;
+        catch java.io.IOException from label058 to label059 with label097;
+        catch java.lang.Throwable from label058 to label059 with label074;
+        catch java.io.IOException from label060 to label061 with label098;
+        catch java.lang.Throwable from label060 to label061 with label074;
+        catch java.io.IOException from label065 to label066 with label099;
+        catch java.lang.Throwable from label065 to label066 with label074;
+        catch java.io.IOException from label069 to label070 with label100;
+        catch java.lang.Throwable from label072 to label073 with label074;
+        catch java.lang.Throwable from label073 to label074 with label074;
+        catch java.io.IOException from label077 to label078 with label101;
+    }

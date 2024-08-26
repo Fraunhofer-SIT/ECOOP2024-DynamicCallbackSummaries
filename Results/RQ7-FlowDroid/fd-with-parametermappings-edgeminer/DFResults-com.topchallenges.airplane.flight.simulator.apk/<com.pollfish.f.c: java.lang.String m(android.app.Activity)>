@@ -1,0 +1,50 @@
+    public static java.lang.String m(android.app.Activity)
+    {
+        android.net.wifi.WifiManager $r2;
+        android.net.wifi.WifiInfo $r3;
+        java.lang.Object $r1;
+        java.lang.StringBuilder $r6;
+        java.lang.String $r4;
+        android.app.Activity $r0;
+        java.lang.Exception $r5;
+
+        $r0 := @parameter0: android.app.Activity;
+
+     label1:
+        $r1 = virtualinvoke $r0.<android.app.Activity: java.lang.Object getSystemService(java.lang.String)>("wifi");
+
+        $r2 = (android.net.wifi.WifiManager) $r1;
+
+        $r3 = virtualinvoke $r2.<android.net.wifi.WifiManager: android.net.wifi.WifiInfo getConnectionInfo()>();
+
+        $r4 = virtualinvoke $r3.<android.net.wifi.WifiInfo: java.lang.String getMacAddress()>();
+
+     label2:
+        if $r4 != null goto label4;
+
+        return "noMac";
+
+     label3:
+        $r5 := @caughtexception;
+
+        staticinvoke <com.pollfish.f.b.a: void a(java.lang.Throwable)>($r5);
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("noMac: ");
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r5);
+
+        $r4 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.pollfish.f.b: void b(java.lang.String,java.lang.String)>("PollfishUtilities", $r4);
+
+        return "noMac";
+
+     label4:
+        return $r4;
+
+        catch java.lang.Exception from label1 to label2 with label3;
+    }

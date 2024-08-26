@@ -1,0 +1,78 @@
+    public void insertData(java.lang.String, java.lang.String)
+    {
+        java.lang.Throwable $r7;
+        com.centauri.oversea.comm.CTIDataReportManager r0;
+        java.util.ArrayList $r6;
+        java.lang.StringBuilder $r3;
+        java.lang.String $r1, $r2, $r4;
+        com.centauri.oversea.comm.CTIDataReportManager$ReportItem $r5;
+        boolean $z0;
+
+        r0 := @this: com.centauri.oversea.comm.CTIDataReportManager;
+
+        $r2 := @parameter0: java.lang.String;
+
+        $r1 := @parameter1: java.lang.String;
+
+        entermonitor r0;
+
+     label1:
+        $r3 = new java.lang.StringBuilder;
+
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("format====");
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r4 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.centauri.comm.CTILog: void d(java.lang.String,java.lang.String)>("APDataReportManager", $r4);
+
+        $r3 = new java.lang.StringBuilder;
+
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("extend====");
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r4 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.centauri.comm.CTILog: void d(java.lang.String,java.lang.String)>("APDataReportManager", $r4);
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r2);
+
+        if $z0 != 0 goto label3;
+
+        $r5 = new com.centauri.oversea.comm.CTIDataReportManager$ReportItem;
+
+        specialinvoke $r5.<com.centauri.oversea.comm.CTIDataReportManager$ReportItem: void <init>()>();
+
+        $r5.<com.centauri.oversea.comm.CTIDataReportManager$ReportItem: java.lang.String format> = $r2;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r1);
+
+        if $z0 != 0 goto label2;
+
+        $r5.<com.centauri.oversea.comm.CTIDataReportManager$ReportItem: java.lang.String extend> = $r1;
+
+     label2:
+        $r6 = r0.<com.centauri.oversea.comm.CTIDataReportManager: java.util.ArrayList reportData>;
+
+        virtualinvoke $r6.<java.util.ArrayList: boolean add(java.lang.Object)>($r5);
+
+     label3:
+        exitmonitor r0;
+
+        return;
+
+     label4:
+        $r7 := @caughtexception;
+
+        exitmonitor r0;
+
+        throw $r7;
+
+        catch java.lang.Throwable from label1 to label3 with label4;
+    }

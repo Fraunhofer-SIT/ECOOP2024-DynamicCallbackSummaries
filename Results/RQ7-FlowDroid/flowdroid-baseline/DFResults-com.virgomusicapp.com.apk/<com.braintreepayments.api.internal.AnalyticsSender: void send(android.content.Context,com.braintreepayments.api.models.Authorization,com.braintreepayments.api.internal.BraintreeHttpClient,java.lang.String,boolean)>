@@ -1,0 +1,75 @@
+    public static void send(android.content.Context, com.braintreepayments.api.models.Authorization, com.braintreepayments.api.internal.BraintreeHttpClient, java.lang.String, boolean)
+    {
+        com.braintreepayments.api.internal.AnalyticsDatabase $r7;
+        android.content.Context $r0;
+        java.util.Iterator $r9;
+        com.braintreepayments.api.models.Authorization $r1;
+        com.braintreepayments.api.internal.BraintreeHttpClient $r2;
+        java.lang.Exception $r6;
+        org.json.JSONException $r5;
+        java.util.List $r8;
+        org.json.JSONObject $r11;
+        java.lang.Object $r10;
+        java.lang.String $r3, $r12;
+        boolean $z0, $z1;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 := @parameter1: com.braintreepayments.api.models.Authorization;
+
+        $r2 := @parameter2: com.braintreepayments.api.internal.BraintreeHttpClient;
+
+        $r3 := @parameter3: java.lang.String;
+
+        $z0 := @parameter4: boolean;
+
+        $r7 = staticinvoke <com.braintreepayments.api.internal.AnalyticsDatabase: com.braintreepayments.api.internal.AnalyticsDatabase getInstance(android.content.Context)>($r0);
+
+        $r8 = virtualinvoke $r7.<com.braintreepayments.api.internal.AnalyticsDatabase: java.util.List getPendingRequests()>();
+
+     label01:
+        $r9 = interfaceinvoke $r8.<java.util.List: java.util.Iterator iterator()>();
+
+     label02:
+        $z1 = interfaceinvoke $r9.<java.util.Iterator: boolean hasNext()>();
+
+     label03:
+        if $z1 == 0 goto label09;
+
+     label04:
+        $r10 = interfaceinvoke $r9.<java.util.Iterator: java.lang.Object next()>();
+
+     label05:
+        $r8 = (java.util.List) $r10;
+
+     label06:
+        $r11 = staticinvoke <com.braintreepayments.api.internal.AnalyticsSender: org.json.JSONObject serializeEvents(android.content.Context,com.braintreepayments.api.models.Authorization,java.util.List)>($r0, $r1, $r8);
+
+     label07:
+        $r12 = virtualinvoke $r11.<org.json.JSONObject: java.lang.String toString()>();
+
+        virtualinvoke $r2.<com.braintreepayments.api.internal.BraintreeHttpClient: java.lang.String post(java.lang.String,java.lang.String)>($r3, $r12);
+
+        virtualinvoke $r7.<com.braintreepayments.api.internal.AnalyticsDatabase: void removeEvents(java.util.List)>($r8);
+
+     label08:
+        goto label02;
+
+     label09:
+        return;
+
+     label10:
+        $r5 := @caughtexception;
+
+        return;
+
+     label11:
+        $r6 := @caughtexception;
+
+        goto label02;
+
+        catch org.json.JSONException from label01 to label03 with label10;
+        catch org.json.JSONException from label04 to label05 with label10;
+        catch org.json.JSONException from label06 to label07 with label10;
+        catch java.lang.Exception from label07 to label08 with label11;
+    }

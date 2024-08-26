@@ -1,0 +1,101 @@
+    public boolean writeData(java.lang.Object, boolean)
+    {
+        java.lang.Throwable $r7;
+        java.io.FileOutputStream r3;
+        java.lang.Exception r2;
+        java.io.File $r5, $r6;
+        com.callgate.util.CallgateFileManager r0;
+        java.lang.Object $r1;
+        java.io.ObjectOutputStream r4;
+        boolean $z0, $z1;
+
+        r0 := @this: com.callgate.util.CallgateFileManager;
+
+        $r1 := @parameter0: java.lang.Object;
+
+        $z0 := @parameter1: boolean;
+
+        $r5 = r0.<com.callgate.util.CallgateFileManager: java.io.File file>;
+
+        if $r5 != null goto label01;
+
+        return 0;
+
+     label01:
+        $r5 = r0.<com.callgate.util.CallgateFileManager: java.io.File file>;
+
+        entermonitor $r5;
+
+     label02:
+        $r6 = r0.<com.callgate.util.CallgateFileManager: java.io.File file>;
+
+        $z1 = virtualinvoke $r6.<java.io.File: boolean exists()>();
+
+     label03:
+        if $z1 != 0 goto label10;
+
+     label04:
+        $r6 = r0.<com.callgate.util.CallgateFileManager: java.io.File file>;
+
+        $z1 = virtualinvoke $r6.<java.io.File: boolean createNewFile()>();
+
+     label05:
+        if $z1 != 0 goto label10;
+
+     label06:
+        exitmonitor $r5;
+
+     label07:
+        return 0;
+
+     label08:
+        $r7 := @caughtexception;
+
+        exitmonitor $r5;
+
+     label09:
+        throw $r7;
+
+     label10:
+        r3 = new java.io.FileOutputStream;
+
+     label11:
+        $r6 = r0.<com.callgate.util.CallgateFileManager: java.io.File file>;
+
+        specialinvoke r3.<java.io.FileOutputStream: void <init>(java.io.File,boolean)>($r6, 0);
+
+     label12:
+        r4 = new java.io.ObjectOutputStream;
+
+     label13:
+        specialinvoke r4.<java.io.ObjectOutputStream: void <init>(java.io.OutputStream)>(r3);
+
+        virtualinvoke r4.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>($r1);
+
+        virtualinvoke r4.<java.io.ObjectOutputStream: void close()>();
+
+     label14:
+        exitmonitor $r5;
+
+     label15:
+        return 1;
+
+     label16:
+        r2 := @caughtexception;
+
+        exitmonitor $r5;
+
+     label17:
+        return 0;
+
+        catch java.lang.Exception from label02 to label03 with label16;
+        catch java.lang.Exception from label04 to label05 with label16;
+        catch java.lang.Throwable from label02 to label05 with label08;
+        catch java.lang.Throwable from label06 to label07 with label08;
+        catch java.lang.Throwable from label08 to label09 with label08;
+        catch java.lang.Exception from label11 to label12 with label16;
+        catch java.lang.Exception from label13 to label14 with label16;
+        catch java.lang.Throwable from label10 to label14 with label08;
+        catch java.lang.Throwable from label14 to label15 with label08;
+        catch java.lang.Throwable from label16 to label17 with label08;
+    }

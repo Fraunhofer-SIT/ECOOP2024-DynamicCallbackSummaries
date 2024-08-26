@@ -1,0 +1,123 @@
+    private static boolean b(java.lang.String)
+    {
+        android.content.Context $r5;
+        byte[] $r7;
+        java.io.FileOutputStream $r11;
+        java.io.File $r6, $r10;
+        java.lang.Exception $r8;
+        int $i0;
+        java.lang.StringBuilder $r1, $r9;
+        java.lang.Class $r3;
+        java.lang.String $r0, $r2;
+        java.io.InputStream $r4;
+        boolean $z0;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>(java.lang.String)>("fallback/");
+
+        $r1 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("preloader.zip");
+
+        $r2 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r3 = class "Lcom/ironsource/mobilcore/MobileCore;";
+
+     label01:
+        $r4 = virtualinvoke $r3.<java.lang.Class: java.io.InputStream getResourceAsStream(java.lang.String)>($r2);
+
+     label02:
+        $r10 = new java.io.File;
+
+        $r9 = new java.lang.StringBuilder;
+
+     label03:
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        $r5 = staticinvoke <com.ironsource.mobilcore.MobileCore: android.content.Context c()>();
+
+        $r6 = virtualinvoke $r5.<android.content.Context: java.io.File getFilesDir()>();
+
+        $r2 = virtualinvoke $r6.<java.io.File: java.lang.String getPath()>();
+
+        $r1 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        $r2 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r10.<java.io.File: void <init>(java.lang.String,java.lang.String)>($r2, "preloader.zip");
+
+     label04:
+        $r11 = new java.io.FileOutputStream;
+
+     label05:
+        specialinvoke $r11.<java.io.FileOutputStream: void <init>(java.io.File)>($r10);
+
+     label06:
+        $r7 = newarray (byte)[1024];
+
+     label07:
+        $i0 = virtualinvoke $r4.<java.io.InputStream: int read(byte[])>($r7);
+
+     label08:
+        if $i0 == -1 goto label12;
+
+     label09:
+        virtualinvoke $r11.<java.io.FileOutputStream: void write(byte[],int,int)>($r7, 0, $i0);
+
+     label10:
+        goto label07;
+
+     label11:
+        $r8 := @caughtexception;
+
+        $r5 = staticinvoke <com.ironsource.mobilcore.MobileCore: android.content.Context c()>();
+
+        $r3 = class "Lcom/ironsource/mobilcore/j;";
+
+        $r0 = virtualinvoke $r3.<java.lang.Class: java.lang.String getName()>();
+
+        staticinvoke <com.ironsource.mobilcore.aE: void a(android.content.Context,java.lang.String,java.lang.Exception)>($r5, $r0, $r8);
+
+        return 0;
+
+     label12:
+        virtualinvoke $r11.<java.io.FileOutputStream: void flush()>();
+
+        virtualinvoke $r11.<java.io.FileOutputStream: void close()>();
+
+        virtualinvoke $r4.<java.io.InputStream: void close()>();
+
+     label13:
+        $r9 = new java.lang.StringBuilder;
+
+     label14:
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        $r5 = staticinvoke <com.ironsource.mobilcore.MobileCore: android.content.Context c()>();
+
+        $r6 = virtualinvoke $r5.<android.content.Context: java.io.File getFilesDir()>();
+
+        $r0 = virtualinvoke $r6.<java.io.File: java.lang.String getPath()>();
+
+        $r1 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        $r0 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $z0 = staticinvoke <com.ironsource.mobilcore.aX: boolean a(java.lang.String,java.io.File)>($r0, $r10);
+
+     label15:
+        return $z0;
+
+        catch java.lang.Exception from label01 to label02 with label11;
+        catch java.lang.Exception from label03 to label04 with label11;
+        catch java.lang.Exception from label05 to label06 with label11;
+        catch java.lang.Exception from label07 to label08 with label11;
+        catch java.lang.Exception from label09 to label10 with label11;
+        catch java.lang.Exception from label12 to label13 with label11;
+        catch java.lang.Exception from label14 to label15 with label11;
+    }

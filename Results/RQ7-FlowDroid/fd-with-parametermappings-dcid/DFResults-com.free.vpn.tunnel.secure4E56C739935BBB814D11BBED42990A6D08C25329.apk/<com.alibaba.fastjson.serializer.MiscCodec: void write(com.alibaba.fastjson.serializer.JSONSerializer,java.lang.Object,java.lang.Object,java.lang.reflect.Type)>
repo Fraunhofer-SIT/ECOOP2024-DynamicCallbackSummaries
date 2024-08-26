@@ -1,0 +1,345 @@
+    public void write(com.alibaba.fastjson.serializer.JSONSerializer, java.lang.Object, java.lang.Object, java.lang.reflect.Type)
+    {
+        java.util.Enumeration $r22;
+        com.alibaba.fastjson.serializer.SerializerFeature $r7;
+        java.lang.Integer $r26;
+        java.lang.Character $r13;
+        com.alibaba.fastjson.serializer.JSONSerializable $r18;
+        com.alibaba.fastjson.serializer.MiscCodec r0;
+        boolean $z0;
+        com.alibaba.fastjson.serializer.SerializeWriter $r1;
+        java.util.TimeZone $r11;
+        com.alibaba.fastjson.serializer.SerialContext $r23;
+        com.alibaba.fastjson.serializer.ObjectSerializer $r25;
+        java.lang.reflect.Type $r5, $r19;
+        java.lang.reflect.Type[] $r21;
+        java.util.regex.Pattern $r9;
+        java.lang.Throwable $r27;
+        com.alibaba.fastjson.serializer.JSONSerializer $r2;
+        java.text.SimpleDateFormat $r14;
+        java.util.Currency $r12;
+        com.alibaba.fastjson.serializer.SerializeConfig $r24;
+        com.alibaba.fastjson.JSONAware $r17;
+        int $i0, $i1, $i3;
+        java.lang.String $r10, $r15;
+        char $c2;
+        java.lang.reflect.ParameterizedType $r20;
+        java.lang.Object $r3, $r4;
+        java.lang.Class $r6, $r8;
+        com.alibaba.fastjson.JSONStreamAware $r16;
+
+        r0 := @this: com.alibaba.fastjson.serializer.MiscCodec;
+
+        $r2 := @parameter0: com.alibaba.fastjson.serializer.JSONSerializer;
+
+        $r3 := @parameter1: java.lang.Object;
+
+        $r4 := @parameter2: java.lang.Object;
+
+        $r5 := @parameter3: java.lang.reflect.Type;
+
+        $r1 = $r2.<com.alibaba.fastjson.serializer.JSONSerializer: com.alibaba.fastjson.serializer.SerializeWriter out>;
+
+        if $r3 != null goto label03;
+
+        $r6 = <java.lang.Character: java.lang.Class TYPE>;
+
+        if $r5 == $r6 goto label02;
+
+        if $r5 == class "Ljava/lang/Character;" goto label02;
+
+        $i0 = $r1.<com.alibaba.fastjson.serializer.SerializeWriter: int features>;
+
+        $r7 = <com.alibaba.fastjson.serializer.SerializerFeature: com.alibaba.fastjson.serializer.SerializerFeature WriteNullListAsEmpty>;
+
+        $i1 = $r7.<com.alibaba.fastjson.serializer.SerializerFeature: int mask>;
+
+        $i0 = $i0 & $i1;
+
+        if $i0 == 0 goto label01;
+
+        $r6 = staticinvoke <com.alibaba.fastjson.util.TypeUtils: java.lang.Class getClass(java.lang.reflect.Type)>($r5);
+
+        $r8 = class "Ljava/util/Enumeration;";
+
+        $z0 = virtualinvoke $r8.<java.lang.Class: boolean isAssignableFrom(java.lang.Class)>($r6);
+
+        if $z0 == 0 goto label01;
+
+        virtualinvoke $r1.<com.alibaba.fastjson.serializer.SerializeWriter: void write(java.lang.String)>("[]");
+
+        return;
+
+     label01:
+        virtualinvoke $r1.<com.alibaba.fastjson.serializer.SerializeWriter: void writeNull()>();
+
+        return;
+
+     label02:
+        virtualinvoke $r2.<com.alibaba.fastjson.serializer.JSONSerializer: void write(java.lang.String)>("");
+
+        return;
+
+     label03:
+        $z0 = $r3 instanceof java.util.regex.Pattern;
+
+        if $z0 == 0 goto label05;
+
+        $r9 = (java.util.regex.Pattern) $r3;
+
+        $r10 = virtualinvoke $r9.<java.util.regex.Pattern: java.lang.String pattern()>();
+
+     label04:
+        virtualinvoke $r2.<com.alibaba.fastjson.serializer.JSONSerializer: void write(java.lang.String)>($r10);
+
+        return;
+
+     label05:
+        $z0 = $r3 instanceof java.util.TimeZone;
+
+        if $z0 == 0 goto label06;
+
+        $r11 = (java.util.TimeZone) $r3;
+
+        $r10 = virtualinvoke $r11.<java.util.TimeZone: java.lang.String getID()>();
+
+        goto label04;
+
+     label06:
+        $z0 = $r3 instanceof java.util.Currency;
+
+        if $z0 == 0 goto label07;
+
+        $r12 = (java.util.Currency) $r3;
+
+        $r10 = virtualinvoke $r12.<java.util.Currency: java.lang.String getCurrencyCode()>();
+
+        goto label04;
+
+     label07:
+        $z0 = $r3 instanceof java.lang.Class;
+
+        if $z0 == 0 goto label08;
+
+        $r6 = (java.lang.Class) $r3;
+
+        $r10 = virtualinvoke $r6.<java.lang.Class: java.lang.String getName()>();
+
+        goto label04;
+
+     label08:
+        $z0 = $r3 instanceof java.lang.Character;
+
+        if $z0 == 0 goto label10;
+
+        $r13 = (java.lang.Character) $r3;
+
+        $c2 = virtualinvoke $r13.<java.lang.Character: char charValue()>();
+
+        if $c2 != 0 goto label09;
+
+        $r10 = "\u0000";
+
+        goto label04;
+
+     label09:
+        $r10 = virtualinvoke $r13.<java.lang.Character: java.lang.String toString()>();
+
+        goto label04;
+
+     label10:
+        $z0 = $r3 instanceof java.text.SimpleDateFormat;
+
+        $i0 = 0;
+
+        if $z0 == 0 goto label12;
+
+        $r14 = (java.text.SimpleDateFormat) $r3;
+
+        $r10 = virtualinvoke $r14.<java.text.SimpleDateFormat: java.lang.String toPattern()>();
+
+        $i0 = $r1.<com.alibaba.fastjson.serializer.SerializeWriter: int features>;
+
+        $r7 = <com.alibaba.fastjson.serializer.SerializerFeature: com.alibaba.fastjson.serializer.SerializerFeature WriteClassName>;
+
+        $i1 = $r7.<com.alibaba.fastjson.serializer.SerializerFeature: int mask>;
+
+        $i0 = $i0 & $i1;
+
+        if $i0 == 0 goto label11;
+
+        $r6 = virtualinvoke $r3.<java.lang.Object: java.lang.Class getClass()>();
+
+        if $r6 == $r5 goto label11;
+
+        virtualinvoke $r1.<com.alibaba.fastjson.serializer.SerializeWriter: void write(int)>(123);
+
+        virtualinvoke $r1.<com.alibaba.fastjson.serializer.SerializeWriter: void writeFieldName(java.lang.String,boolean)>("@type", 0);
+
+        $r6 = virtualinvoke $r3.<java.lang.Object: java.lang.Class getClass()>();
+
+        $r15 = virtualinvoke $r6.<java.lang.Class: java.lang.String getName()>();
+
+        virtualinvoke $r2.<com.alibaba.fastjson.serializer.JSONSerializer: void write(java.lang.String)>($r15);
+
+        virtualinvoke $r1.<com.alibaba.fastjson.serializer.SerializeWriter: void write(int)>(44);
+
+        virtualinvoke $r1.<com.alibaba.fastjson.serializer.SerializeWriter: void writeFieldName(java.lang.String,boolean)>("val", 0);
+
+        virtualinvoke $r1.<com.alibaba.fastjson.serializer.SerializeWriter: void writeString(java.lang.String)>($r10);
+
+        virtualinvoke $r1.<com.alibaba.fastjson.serializer.SerializeWriter: void write(int)>(125);
+
+        return;
+
+     label11:
+        virtualinvoke $r1.<com.alibaba.fastjson.serializer.SerializeWriter: void writeString(java.lang.String)>($r10);
+
+        return;
+
+     label12:
+        $z0 = $r3 instanceof com.alibaba.fastjson.JSONStreamAware;
+
+        if $z0 == 0 goto label13;
+
+        $r16 = (com.alibaba.fastjson.JSONStreamAware) $r3;
+
+        interfaceinvoke $r16.<com.alibaba.fastjson.JSONStreamAware: void writeJSONString(java.lang.Appendable)>($r1);
+
+        return;
+
+     label13:
+        $z0 = $r3 instanceof com.alibaba.fastjson.JSONAware;
+
+        if $z0 == 0 goto label14;
+
+        $r17 = (com.alibaba.fastjson.JSONAware) $r3;
+
+        $r10 = interfaceinvoke $r17.<com.alibaba.fastjson.JSONAware: java.lang.String toJSONString()>();
+
+        virtualinvoke $r1.<com.alibaba.fastjson.serializer.SerializeWriter: void write(java.lang.String)>($r10);
+
+        return;
+
+     label14:
+        $z0 = $r3 instanceof com.alibaba.fastjson.serializer.JSONSerializable;
+
+        if $z0 == 0 goto label15;
+
+        $r18 = (com.alibaba.fastjson.serializer.JSONSerializable) $r3;
+
+        interfaceinvoke $r18.<com.alibaba.fastjson.serializer.JSONSerializable: void write(com.alibaba.fastjson.serializer.JSONSerializer,java.lang.Object,java.lang.reflect.Type)>($r2, $r4, $r5);
+
+        return;
+
+     label15:
+        $z0 = $r3 instanceof java.util.Enumeration;
+
+        if $z0 == 0 goto label33;
+
+        $r19 = null;
+
+        $i1 = $r1.<com.alibaba.fastjson.serializer.SerializeWriter: int features>;
+
+        $r7 = <com.alibaba.fastjson.serializer.SerializerFeature: com.alibaba.fastjson.serializer.SerializerFeature WriteClassName>;
+
+        $i3 = $r7.<com.alibaba.fastjson.serializer.SerializerFeature: int mask>;
+
+        $i1 = $i1 & $i3;
+
+        if $i1 == 0 goto label16;
+
+        $z0 = $r5 instanceof java.lang.reflect.ParameterizedType;
+
+        if $z0 == 0 goto label16;
+
+        $r20 = (java.lang.reflect.ParameterizedType) $r5;
+
+        $r21 = interfaceinvoke $r20.<java.lang.reflect.ParameterizedType: java.lang.reflect.Type[] getActualTypeArguments()>();
+
+        $r19 = $r21[0];
+
+     label16:
+        $r22 = (java.util.Enumeration) $r3;
+
+        $r23 = $r2.<com.alibaba.fastjson.serializer.JSONSerializer: com.alibaba.fastjson.serializer.SerialContext context>;
+
+        virtualinvoke $r2.<com.alibaba.fastjson.serializer.JSONSerializer: void setContext(com.alibaba.fastjson.serializer.SerialContext,java.lang.Object,java.lang.Object,int)>($r23, $r3, $r4, 0);
+
+     label17:
+        virtualinvoke $r1.<com.alibaba.fastjson.serializer.SerializeWriter: void write(int)>(91);
+
+     label18:
+        $z0 = interfaceinvoke $r22.<java.util.Enumeration: boolean hasMoreElements()>();
+
+     label19:
+        if $z0 == 0 goto label30;
+
+     label20:
+        $r3 = interfaceinvoke $r22.<java.util.Enumeration: java.lang.Object nextElement()>();
+
+     label21:
+        $i1 = $i0 + 1;
+
+        if $i0 == 0 goto label23;
+
+     label22:
+        virtualinvoke $r1.<com.alibaba.fastjson.serializer.SerializeWriter: void write(int)>(44);
+
+     label23:
+        if $r3 != null goto label26;
+
+     label24:
+        virtualinvoke $r1.<com.alibaba.fastjson.serializer.SerializeWriter: void writeNull()>();
+
+     label25:
+        goto label29;
+
+     label26:
+        $r6 = virtualinvoke $r3.<java.lang.Object: java.lang.Class getClass()>();
+
+        $r24 = $r2.<com.alibaba.fastjson.serializer.JSONSerializer: com.alibaba.fastjson.serializer.SerializeConfig config>;
+
+        $r25 = virtualinvoke $r24.<com.alibaba.fastjson.serializer.SerializeConfig: com.alibaba.fastjson.serializer.ObjectSerializer get(java.lang.Class)>($r6);
+
+     label27:
+        $i0 = $i1 + -1;
+
+     label28:
+        $r26 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+        interfaceinvoke $r25.<com.alibaba.fastjson.serializer.ObjectSerializer: void write(com.alibaba.fastjson.serializer.JSONSerializer,java.lang.Object,java.lang.Object,java.lang.reflect.Type)>($r2, $r3, $r26, $r19);
+
+     label29:
+        $i0 = $i1;
+
+        goto label18;
+
+     label30:
+        virtualinvoke $r1.<com.alibaba.fastjson.serializer.SerializeWriter: void write(int)>(93);
+
+     label31:
+        $r2.<com.alibaba.fastjson.serializer.JSONSerializer: com.alibaba.fastjson.serializer.SerialContext context> = $r23;
+
+        return;
+
+     label32:
+        $r27 := @caughtexception;
+
+        $r2.<com.alibaba.fastjson.serializer.JSONSerializer: com.alibaba.fastjson.serializer.SerialContext context> = $r23;
+
+        throw $r27;
+
+     label33:
+        $r10 = virtualinvoke $r3.<java.lang.Object: java.lang.String toString()>();
+
+        goto label04;
+
+        catch java.lang.Throwable from label17 to label19 with label32;
+        catch java.lang.Throwable from label20 to label21 with label32;
+        catch java.lang.Throwable from label22 to label23 with label32;
+        catch java.lang.Throwable from label24 to label25 with label32;
+        catch java.lang.Throwable from label26 to label27 with label32;
+        catch java.lang.Throwable from label28 to label29 with label32;
+        catch java.lang.Throwable from label30 to label31 with label32;
+    }

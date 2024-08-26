@@ -1,0 +1,40 @@
+    private static long extraCallback(java.io.InputStream, java.io.OutputStream, int)
+    {
+        java.io.OutputStream $r1;
+        byte[] $r2;
+        int $i0;
+        long $l1, $l2;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $r1 := @parameter1: java.io.OutputStream;
+
+        $i0 := @parameter2: int;
+
+        staticinvoke <o.removeAllUpdateListeners: void ICustomTabsCallback(java.lang.Object,java.lang.String)>($r0, "<this>");
+
+        staticinvoke <o.removeAllUpdateListeners: void ICustomTabsCallback(java.lang.Object,java.lang.String)>($r1, "out");
+
+        $r2 = newarray (byte)[8192];
+
+        $i0 = virtualinvoke $r0.<java.io.InputStream: int read(byte[])>($r2);
+
+        $l1 = 0L;
+
+     label1:
+        if $i0 < 0 goto label2;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[],int,int)>($r2, 0, $i0);
+
+        $l2 = (long) $i0;
+
+        $l1 = $l1 + $l2;
+
+        $i0 = virtualinvoke $r0.<java.io.InputStream: int read(byte[])>($r2);
+
+        goto label1;
+
+     label2:
+        return $l1;
+    }

@@ -1,0 +1,186 @@
+    public final java.lang.Object invokeSuspend(java.lang.Object)
+    {
+        java.lang.Throwable $r9;
+        byte[] $r6, $r8;
+        java.lang.IllegalStateException $r17;
+        java.io.BufferedInputStream $r13;
+        java.util.zip.ZipInputStream $r14;
+        java.io.ByteArrayOutputStream $r15;
+        java.util.ArrayList $r10;
+        int $i0;
+        java.lang.String $r3, $r7;
+        java.util.zip.ZipEntry $r5;
+        boolean $z0;
+        org.videolan.vlc.util.FileUtils$unpackZip$2 r0;
+        java.io.FileOutputStream $r16;
+        java.io.IOException $r18;
+        java.io.FileInputStream $r12;
+        java.io.File $r2, $r11;
+        java.lang.Object $r1;
+        java.io.InputStream $r4;
+
+        r0 := @this: org.videolan.vlc.util.FileUtils$unpackZip$2;
+
+        $r1 := @parameter0: java.lang.Object;
+
+        staticinvoke <kotlin.coroutines.intrinsics.IntrinsicsKt: java.lang.Object getCOROUTINE_SUSPENDED()>();
+
+        $i0 = r0.<org.videolan.vlc.util.FileUtils$unpackZip$2: int label>;
+
+        if $i0 != 0 goto label26;
+
+        staticinvoke <kotlin.ResultKt: void throwOnFailure(java.lang.Object)>($r1);
+
+        $r10 = new java.util.ArrayList;
+
+        specialinvoke $r10.<java.util.ArrayList: void <init>()>();
+
+        $r11 = new java.io.File;
+
+        $r3 = r0.<org.videolan.vlc.util.FileUtils$unpackZip$2: java.lang.String $unzipDirectory>;
+
+        specialinvoke $r11.<java.io.File: void <init>(java.lang.String)>($r3);
+
+        virtualinvoke $r11.<java.io.File: boolean mkdirs()>();
+
+        $r12 = new java.io.FileInputStream;
+
+        $r3 = r0.<org.videolan.vlc.util.FileUtils$unpackZip$2: java.lang.String $path>;
+
+     label01:
+        specialinvoke $r12.<java.io.FileInputStream: void <init>(java.lang.String)>($r3);
+
+     label02:
+        $r4 = (java.io.InputStream) $r12;
+
+        $r14 = new java.util.zip.ZipInputStream;
+
+        $r13 = new java.io.BufferedInputStream;
+
+     label03:
+        specialinvoke $r13.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r4);
+
+     label04:
+        $r4 = (java.io.InputStream) $r13;
+
+     label05:
+        specialinvoke $r14.<java.util.zip.ZipInputStream: void <init>(java.io.InputStream)>($r4);
+
+        $r5 = virtualinvoke $r14.<java.util.zip.ZipInputStream: java.util.zip.ZipEntry getNextEntry()>();
+
+     label06:
+        if $r5 == null goto label23;
+
+        $r15 = new java.io.ByteArrayOutputStream;
+
+     label07:
+        specialinvoke $r15.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label08:
+        $r6 = newarray (byte)[1024];
+
+     label09:
+        $i0 = virtualinvoke $r14.<java.util.zip.ZipInputStream: int read(byte[])>($r6);
+
+     label10:
+        $r3 = virtualinvoke $r5.<java.util.zip.ZipEntry: java.lang.String getName()>();
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkExpressionValueIsNotNull(java.lang.Object,java.lang.String)>($r3, "ze.name");
+
+        $r3 = staticinvoke <kotlin.text.StringsKt: java.lang.String replace$default(java.lang.String,char,char,boolean,int,java.lang.Object)>($r3, 47, 32, 0, 4, null);
+
+        $z0 = staticinvoke <kotlin.text.StringsKt: boolean endsWith$default(java.lang.String,java.lang.String,boolean,int,java.lang.Object)>($r3, ".nfo", 0, 2, null);
+
+     label11:
+        if $z0 == 0 goto label14;
+
+     label12:
+        virtualinvoke $r14.<java.util.zip.ZipInputStream: void closeEntry()>();
+
+        $r5 = virtualinvoke $r14.<java.util.zip.ZipInputStream: java.util.zip.ZipEntry getNextEntry()>();
+
+     label13:
+        goto label06;
+
+     label14:
+        $r11 = new java.io.File;
+
+        $r2 = $r11;
+
+        $r7 = r0.<org.videolan.vlc.util.FileUtils$unpackZip$2: java.lang.String $unzipDirectory>;
+
+     label15:
+        specialinvoke $r11.<java.io.File: void <init>(java.lang.String,java.lang.String)>($r7, $r3);
+
+     label16:
+        $r16 = new java.io.FileOutputStream;
+
+     label17:
+        specialinvoke $r16.<java.io.FileOutputStream: void <init>(java.io.File)>($r11);
+
+     label18:
+        if $i0 == -1 goto label21;
+
+     label19:
+        virtualinvoke $r15.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r6, 0, $i0);
+
+        $r8 = virtualinvoke $r15.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        virtualinvoke $r16.<java.io.FileOutputStream: void write(byte[])>($r8);
+
+        virtualinvoke $r15.<java.io.ByteArrayOutputStream: void reset()>();
+
+        $i0 = virtualinvoke $r14.<java.util.zip.ZipInputStream: int read(byte[])>($r6);
+
+     label20:
+        goto label18;
+
+     label21:
+        $r3 = virtualinvoke $r2.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r10.<java.util.ArrayList: boolean add(java.lang.Object)>($r3);
+
+        virtualinvoke $r16.<java.io.FileOutputStream: void close()>();
+
+        virtualinvoke $r14.<java.util.zip.ZipInputStream: void closeEntry()>();
+
+        $r5 = virtualinvoke $r14.<java.util.zip.ZipInputStream: java.util.zip.ZipEntry getNextEntry()>();
+
+     label22:
+        goto label06;
+
+     label23:
+        virtualinvoke $r14.<java.util.zip.ZipInputStream: void close()>();
+
+     label24:
+        return $r10;
+
+     label25:
+        $r9 := @caughtexception;
+
+        $r18 = (java.io.IOException) $r9;
+
+        virtualinvoke $r18.<java.io.IOException: void printStackTrace()>();
+
+        return $r10;
+
+     label26:
+        $r17 = new java.lang.IllegalStateException;
+
+        specialinvoke $r17.<java.lang.IllegalStateException: void <init>(java.lang.String)>("call to \'resume\' before \'invoke\' with coroutine");
+
+        throw $r17;
+
+        catch java.io.IOException from label01 to label02 with label25;
+        catch java.io.IOException from label03 to label04 with label25;
+        catch java.io.IOException from label05 to label06 with label25;
+        catch java.io.IOException from label07 to label08 with label25;
+        catch java.io.IOException from label09 to label10 with label25;
+        catch java.io.IOException from label10 to label11 with label25;
+        catch java.io.IOException from label12 to label13 with label25;
+        catch java.io.IOException from label15 to label16 with label25;
+        catch java.io.IOException from label17 to label18 with label25;
+        catch java.io.IOException from label19 to label20 with label25;
+        catch java.io.IOException from label21 to label22 with label25;
+        catch java.io.IOException from label23 to label24 with label25;
+    }

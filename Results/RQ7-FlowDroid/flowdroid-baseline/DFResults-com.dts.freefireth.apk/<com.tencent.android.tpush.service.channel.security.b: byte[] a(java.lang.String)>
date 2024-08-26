@@ -1,0 +1,81 @@
+    public static byte[] a(java.lang.String)
+    {
+        java.lang.Throwable $r3, $r4;
+        byte[] $r1, $r2;
+        java.io.ByteArrayOutputStream $r7;
+        com.tencent.android.tpush.service.channel.security.b $r6;
+        java.io.ByteArrayInputStream $r5;
+        int $i0;
+        java.lang.String $r0;
+        double $d0;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r1 = newarray (byte)[0];
+
+     label01:
+        $r2 = virtualinvoke $r0.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8");
+
+     label02:
+        $r1 = $r2;
+
+     label03:
+        $r6 = new com.tencent.android.tpush.service.channel.security.b;
+
+        $r5 = new java.io.ByteArrayInputStream;
+
+        specialinvoke $r5.<java.io.ByteArrayInputStream: void <init>(byte[])>($r1);
+
+        specialinvoke $r6.<com.tencent.android.tpush.service.channel.security.b: void <init>(java.io.InputStream)>($r5);
+
+        $r7 = new java.io.ByteArrayOutputStream;
+
+        $i0 = lengthof $r1;
+
+        $d0 = (double) $i0;
+
+        $d0 = $d0 * 0.67;
+
+        $i0 = (int) $d0;
+
+        specialinvoke $r7.<java.io.ByteArrayOutputStream: void <init>(int)>($i0);
+
+        $r1 = newarray (byte)[4096];
+
+     label04:
+        $i0 = virtualinvoke $r6.<java.io.FilterInputStream: int read(byte[])>($r1);
+
+     label05:
+        if $i0 == -1 goto label09;
+
+     label06:
+        virtualinvoke $r7.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r1, 0, $i0);
+
+     label07:
+        goto label04;
+
+     label08:
+        $r3 := @caughtexception;
+
+        return null;
+
+     label09:
+        virtualinvoke $r6.<java.io.FilterInputStream: void close()>();
+
+        virtualinvoke $r7.<java.io.ByteArrayOutputStream: void close()>();
+
+        $r1 = virtualinvoke $r7.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label10:
+        return $r1;
+
+     label11:
+        $r4 := @caughtexception;
+
+        goto label03;
+
+        catch java.lang.Throwable from label01 to label02 with label11;
+        catch java.io.IOException from label04 to label05 with label08;
+        catch java.io.IOException from label06 to label07 with label08;
+        catch java.io.IOException from label09 to label10 with label08;
+    }

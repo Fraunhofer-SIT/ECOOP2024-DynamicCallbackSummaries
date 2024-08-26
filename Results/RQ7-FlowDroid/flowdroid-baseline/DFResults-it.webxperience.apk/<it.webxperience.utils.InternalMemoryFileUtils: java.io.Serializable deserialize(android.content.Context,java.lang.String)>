@@ -1,0 +1,144 @@
+    public static java.io.Serializable deserialize(android.content.Context, java.lang.String)
+    {
+        java.lang.Throwable $r6, $r9, $r10, $r11;
+        android.content.Context $r0;
+        java.io.ObjectInputStream $r13;
+        java.io.IOException $r14;
+        java.io.FileInputStream $r2, $r3;
+        java.lang.Exception $r7, $r8, $r12;
+        java.io.Serializable $r5;
+        java.lang.Object $r4;
+        java.lang.String $r1;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 := @parameter1: java.lang.String;
+
+        if $r0 != null goto label01;
+
+        return null;
+
+     label01:
+        $r2 = virtualinvoke $r0.<android.content.Context: java.io.FileInputStream openFileInput(java.lang.String)>($r1);
+
+     label02:
+        $r3 = $r2;
+
+     label03:
+        $r13 = new java.io.ObjectInputStream;
+
+     label04:
+        specialinvoke $r13.<java.io.ObjectInputStream: void <init>(java.io.InputStream)>($r2);
+
+        $r4 = virtualinvoke $r13.<java.io.ObjectInputStream: java.lang.Object readObject()>();
+
+        $r5 = (java.io.Serializable) $r4;
+
+     label05:
+        virtualinvoke $r13.<java.io.ObjectInputStream: void close()>();
+
+     label06:
+        if $r2 == null goto label24;
+
+     label07:
+        virtualinvoke $r2.<java.io.FileInputStream: void close()>();
+
+     label08:
+        return $r5;
+
+     label09:
+        $r6 := @caughtexception;
+
+        $r14 = (java.io.IOException) $r6;
+
+        virtualinvoke $r14.<java.io.IOException: void printStackTrace()>();
+
+        return $r5;
+
+     label10:
+        $r7 := @caughtexception;
+
+        $r3 = null;
+
+        $r5 = null;
+
+        $r8 = $r7;
+
+     label11:
+        virtualinvoke $r8.<java.lang.Exception: void printStackTrace()>();
+
+     label12:
+        if $r3 == null goto label24;
+
+     label13:
+        virtualinvoke $r3.<java.io.FileInputStream: void close()>();
+
+     label14:
+        return $r5;
+
+     label15:
+        $r9 := @caughtexception;
+
+        $r14 = (java.io.IOException) $r9;
+
+        virtualinvoke $r14.<java.io.IOException: void printStackTrace()>();
+
+        return $r5;
+
+     label16:
+        $r10 := @caughtexception;
+
+        $r3 = null;
+
+     label17:
+        if $r3 == null goto label19;
+
+     label18:
+        virtualinvoke $r3.<java.io.FileInputStream: void close()>();
+
+     label19:
+        throw $r10;
+
+     label20:
+        $r11 := @caughtexception;
+
+        $r14 = (java.io.IOException) $r11;
+
+        virtualinvoke $r14.<java.io.IOException: void printStackTrace()>();
+
+        goto label19;
+
+     label21:
+        $r10 := @caughtexception;
+
+        goto label17;
+
+     label22:
+        $r12 := @caughtexception;
+
+        $r5 = null;
+
+        $r8 = $r12;
+
+        goto label11;
+
+     label23:
+        $r8 := @caughtexception;
+
+        goto label11;
+
+     label24:
+        return $r5;
+
+        catch java.lang.Exception from label01 to label02 with label10;
+        catch java.lang.Throwable from label01 to label02 with label16;
+        catch java.lang.Exception from label04 to label05 with label22;
+        catch java.lang.Throwable from label03 to label04 with label21;
+        catch java.lang.Throwable from label04 to label05 with label21;
+        catch java.lang.Exception from label05 to label06 with label23;
+        catch java.lang.Throwable from label05 to label06 with label21;
+        catch java.io.IOException from label07 to label08 with label09;
+        catch java.lang.Throwable from label11 to label12 with label21;
+        catch java.io.IOException from label13 to label14 with label15;
+        catch java.io.IOException from label18 to label19 with label20;
+    }

@@ -1,0 +1,119 @@
+    void <init>(java.io.InputStream) throws java.io.IOException
+    {
+        com.jirbo.adcolony.s r0;
+        char $c2;
+        int $i0, $i1, $i3;
+        char[] $r2;
+        java.lang.StringBuilder $r3;
+        java.io.InputStream $r1;
+
+        r0 := @this: com.jirbo.adcolony.s;
+
+        $r1 := @parameter0: java.io.InputStream;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        $r3 = new java.lang.StringBuilder;
+
+        $i0 = virtualinvoke $r1.<java.io.InputStream: int available()>();
+
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>(int)>($i0);
+
+        $i1 = virtualinvoke $r1.<java.io.InputStream: int read()>();
+
+     label1:
+        if $i1 == -1 goto label8;
+
+        if $i1 < 32 goto label2;
+
+        if $i1 <= 126 goto label3;
+
+     label2:
+        if $i1 != 10 goto label5;
+
+     label3:
+        $c2 = (char) $i1;
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>($c2);
+
+     label4:
+        $i1 = virtualinvoke $r1.<java.io.InputStream: int read()>();
+
+        goto label1;
+
+     label5:
+        $i0 = $i1 & 128;
+
+        if $i0 == 0 goto label7;
+
+        $i0 = $i1 & 224;
+
+        if $i0 != 192 goto label6;
+
+        $i0 = virtualinvoke $r1.<java.io.InputStream: int read()>();
+
+        $i1 = $i1 & 31;
+
+        $i1 = $i1 << 6;
+
+        $i0 = $i0 & 63;
+
+        $i0 = $i1 | $i0;
+
+        $c2 = (char) $i0;
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>($c2);
+
+        goto label4;
+
+     label6:
+        $i3 = virtualinvoke $r1.<java.io.InputStream: int read()>();
+
+        $i0 = virtualinvoke $r1.<java.io.InputStream: int read()>();
+
+        $i1 = $i1 & 15;
+
+        $i1 = $i1 << 12;
+
+        $i3 = $i3 & 63;
+
+        $i3 = $i3 << 6;
+
+        $i1 = $i1 | $i3;
+
+        $i0 = $i0 & 63;
+
+        $i0 = $i1 | $i0;
+
+        $c2 = (char) $i0;
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>($c2);
+
+        goto label4;
+
+     label7:
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(32);
+
+        goto label4;
+
+     label8:
+        virtualinvoke $r1.<java.io.InputStream: void close()>();
+
+        $i0 = virtualinvoke $r3.<java.lang.StringBuilder: int length()>();
+
+        r0.<com.jirbo.adcolony.s: int c> = $i0;
+
+        $i0 = r0.<com.jirbo.adcolony.s: int c>;
+
+        $r2 = newarray (char)[$i0];
+
+        r0.<com.jirbo.adcolony.s: char[] a> = $r2;
+
+        $i0 = r0.<com.jirbo.adcolony.s: int c>;
+
+        $r2 = r0.<com.jirbo.adcolony.s: char[] a>;
+
+        virtualinvoke $r3.<java.lang.StringBuilder: void getChars(int,int,char[],int)>(0, $i0, $r2, 0);
+
+        return;
+    }

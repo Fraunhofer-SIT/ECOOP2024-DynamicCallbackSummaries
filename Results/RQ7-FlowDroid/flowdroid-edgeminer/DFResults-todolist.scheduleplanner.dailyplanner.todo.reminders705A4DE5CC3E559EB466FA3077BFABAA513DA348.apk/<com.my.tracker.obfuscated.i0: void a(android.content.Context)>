@@ -1,0 +1,212 @@
+    public void a(android.content.Context)
+    {
+        java.lang.Throwable $r1;
+        android.content.Context $r2;
+        long $l1, $l2;
+        byte $b0, $b3;
+        int $i4;
+        java.lang.String $r8, $r9;
+        boolean $z0;
+        java.util.Iterator $r7;
+        com.my.tracker.obfuscated.i0 r0;
+        java.util.List $r6;
+        float $f0, $f1;
+        java.lang.Object $r4;
+        android.location.Location $r3, $r10;
+        android.location.LocationManager $r5;
+
+        r0 := @this: com.my.tracker.obfuscated.i0;
+
+        $r2 := @parameter0: android.content.Context;
+
+        $r3 = null;
+
+        r0.<com.my.tracker.obfuscated.i0: android.location.Location a> = null;
+
+        $b0 = -1;
+
+        r0.<com.my.tracker.obfuscated.i0: int b> = -1;
+
+        $z0 = r0.<com.my.tracker.obfuscated.i0: boolean c>;
+
+        if $z0 != 0 goto label01;
+
+        return;
+
+     label01:
+        $z0 = staticinvoke <com.my.tracker.obfuscated.p0: boolean a(java.lang.String,android.content.Context)>("android.permission.ACCESS_FINE_LOCATION", $r2);
+
+        if $z0 == 0 goto label22;
+
+        $z0 = staticinvoke <com.my.tracker.obfuscated.p0: boolean a(java.lang.String,android.content.Context)>("android.permission.ACCESS_COARSE_LOCATION", $r2);
+
+        if $z0 != 0 goto label02;
+
+        return;
+
+     label02:
+        $z0 = staticinvoke <com.my.tracker.obfuscated.p0: boolean a()>();
+
+        if $z0 == 0 goto label03;
+
+        return;
+
+     label03:
+        $r4 = virtualinvoke $r2.<android.content.Context: java.lang.Object getSystemService(java.lang.String)>("location");
+
+        $r5 = (android.location.LocationManager) $r4;
+
+        if $r5 != null goto label04;
+
+        return;
+
+     label04:
+        $r6 = virtualinvoke $r5.<android.location.LocationManager: java.util.List getAllProviders()>();
+
+        $r7 = interfaceinvoke $r6.<java.util.List: java.util.Iterator iterator()>();
+
+        $r8 = null;
+
+        $l1 = 0L;
+
+        $f0 = 3.4028235E38F;
+
+     label05:
+        $z0 = interfaceinvoke $r7.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label12;
+
+        $r4 = interfaceinvoke $r7.<java.util.Iterator: java.lang.Object next()>();
+
+        $r9 = (java.lang.String) $r4;
+
+     label06:
+        $r10 = virtualinvoke $r5.<android.location.LocationManager: android.location.Location getLastKnownLocation(java.lang.String)>($r9);
+
+     label07:
+        if $r10 == null goto label05;
+
+     label08:
+        $f1 = virtualinvoke $r10.<android.location.Location: float getAccuracy()>();
+
+        $l2 = virtualinvoke $r10.<android.location.Location: long getTime()>();
+
+     label09:
+        if $r3 == null goto label10;
+
+        $b3 = $l2 cmp $l1;
+
+        $i4 = (int) $b3;
+
+        if $i4 <= 0 goto label05;
+
+        $b3 = $f1 cmpg $f0;
+
+        $i4 = (int) $b3;
+
+        if $i4 >= 0 goto label05;
+
+     label10:
+        $r8 = $r9;
+
+        $r3 = $r10;
+
+        $f0 = $f1;
+
+        $l1 = $l2;
+
+        goto label05;
+
+     label11:
+        staticinvoke <com.my.tracker.obfuscated.e: void a(java.lang.String)>("Permission android.permission.ACCESS_COARSE_LOCATION or android.permission.ACCESS_FINE_LOCATION check was positive, but still got security exception on the location provider");
+
+        goto label05;
+
+     label12:
+        if $r3 == null goto label24;
+
+        r0.<com.my.tracker.obfuscated.i0: android.location.Location a> = $r3;
+
+        virtualinvoke $r8.<java.lang.String: int hashCode()>();
+
+        $i4 = virtualinvoke $r8.<java.lang.String: int hashCode()>();
+
+        lookupswitch($i4)
+        {
+            case -792039641: goto label15;
+            case 102570: goto label14;
+            case 1843485230: goto label13;
+            default: goto label16;
+        };
+
+     label13:
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean equals(java.lang.Object)>("network");
+
+        if $z0 == 0 goto label16;
+
+        $b0 = 2;
+
+        goto label16;
+
+     label14:
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean equals(java.lang.Object)>("gps");
+
+        if $z0 == 0 goto label16;
+
+        $b0 = 1;
+
+        goto label16;
+
+     label15:
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean equals(java.lang.Object)>("passive");
+
+        if $z0 == 0 goto label16;
+
+        $b0 = 0;
+
+     label16:
+        lookupswitch($b0)
+        {
+            case 0: goto label21;
+            case 1: goto label20;
+            case 2: goto label18;
+            default: goto label17;
+        };
+
+     label17:
+        r0.<com.my.tracker.obfuscated.i0: int b> = 1;
+
+        return;
+
+     label18:
+        $b0 = 3;
+
+     label19:
+        r0.<com.my.tracker.obfuscated.i0: int b> = $b0;
+
+        return;
+
+     label20:
+        r0.<com.my.tracker.obfuscated.i0: int b> = 2;
+
+        return;
+
+     label21:
+        $b0 = 4;
+
+        goto label19;
+
+     label22:
+        return;
+
+     label23:
+        $r1 := @caughtexception;
+
+        goto label11;
+
+     label24:
+        return;
+
+        catch java.lang.SecurityException from label06 to label07 with label23;
+        catch java.lang.SecurityException from label08 to label09 with label23;
+    }

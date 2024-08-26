@@ -1,0 +1,141 @@
+    public byte[] processCommandApdu(byte[], android.os.Bundle)
+    {
+        java.lang.Throwable $r2;
+        byte[] $r3, $r13;
+        android.os.Bundle $r4;
+        java.io.ByteArrayOutputStream $r11;
+        java.lang.String[] $r9;
+        java.nio.ByteBuffer $r12;
+        int $i0, $i1;
+        java.lang.String $r7, $r8, $r10;
+        boolean $z0;
+        o.\u0582\u0142 $r5;
+        java.lang.Exception $r1;
+        com.margento.valu.service.nfc.NFCService r0;
+        android.content.SharedPreferences $r6;
+        java.lang.StringBuilder $r14;
+
+        r0 := @this: com.margento.valu.service.nfc.NFCService;
+
+        $r3 := @parameter0: byte[];
+
+        $r4 := @parameter1: android.os.Bundle;
+
+        $r5 = new o.\u0582\u0142;
+
+        specialinvoke $r5.<o.\u0582\u0142: void <init>(android.content.Context)>(r0);
+
+        $r6 = $r5.<o.\u0582\u0142: android.content.SharedPreferences \u01c3>;
+
+        $r7 = interfaceinvoke $r6.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("PAYMENT_TOKEN", "");
+
+     label01:
+        $i1 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>($r7);
+
+     label02:
+        goto label04;
+
+     label03:
+        $i1 = 0;
+
+     label04:
+        $r8 = <com.margento.valu.service.nfc.NFCService: java.lang.String \u0399>;
+
+        $r9 = newarray (java.lang.String)[1];
+
+        $r7 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r7);
+
+        $r10 = "ADPU: ";
+
+        $r7 = virtualinvoke $r10.<java.lang.String: java.lang.String concat(java.lang.String)>($r7);
+
+        $r9[0] = $r7;
+
+        staticinvoke <o.\u0533: void \u0131(java.lang.String,java.lang.String[])>($r8, $r9);
+
+        $r3 = newarray (byte)[2];
+
+        $r3[0] = -112;
+
+        $r3[1] = 0;
+
+        $r11 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r11.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        if $i1 == 0 goto label05;
+
+        $z0 = 1;
+
+        goto label06;
+
+     label05:
+        $z0 = 0;
+
+     label06:
+        if $z0 == 0 goto label08;
+
+        $i0 = <com.margento.valu.service.nfc.NFCService: int \u01c3>;
+
+        $i0 = $i0 + 95;
+
+        $i0 = $i0 % 128;
+
+        <com.margento.valu.service.nfc.NFCService: int \u0131> = $i0;
+
+     label07:
+        $r12 = staticinvoke <java.nio.ByteBuffer: java.nio.ByteBuffer allocate(int)>(4);
+
+        $r12 = virtualinvoke $r12.<java.nio.ByteBuffer: java.nio.ByteBuffer putInt(int)>($i1);
+
+        $r13 = virtualinvoke $r12.<java.nio.ByteBuffer: byte[] array()>();
+
+        virtualinvoke $r11.<java.io.OutputStream: void write(byte[])>($r13);
+
+     label08:
+        virtualinvoke $r11.<java.io.OutputStream: void write(byte[])>($r3);
+
+     label09:
+        $r3 = virtualinvoke $r11.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $r8 = <com.margento.valu.service.nfc.NFCService: java.lang.String \u0399>;
+
+        $r9 = newarray (java.lang.String)[1];
+
+        $r14 = new java.lang.StringBuilder;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>("ADPU Byte Array. ");
+
+        $r7 = staticinvoke <java.util.Arrays: java.lang.String toString(byte[])>($r3);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r7 = virtualinvoke $r14.<java.lang.Object: java.lang.String toString()>();
+
+        $r9[0] = $r7;
+
+        staticinvoke <o.\u0533: void \u0131(java.lang.String,java.lang.String[])>($r8, $r9);
+
+        $i1 = <com.margento.valu.service.nfc.NFCService: int \u01c3>;
+
+        $i1 = $i1 + 77;
+
+        $i1 = $i1 % 128;
+
+        <com.margento.valu.service.nfc.NFCService: int \u0131> = $i1;
+
+        return $r3;
+
+     label10:
+        $r1 := @caughtexception;
+
+        goto label03;
+
+     label11:
+        $r2 := @caughtexception;
+
+        goto label09;
+
+        catch java.lang.Exception from label01 to label02 with label10;
+        catch java.io.IOException from label07 to label09 with label11;
+    }

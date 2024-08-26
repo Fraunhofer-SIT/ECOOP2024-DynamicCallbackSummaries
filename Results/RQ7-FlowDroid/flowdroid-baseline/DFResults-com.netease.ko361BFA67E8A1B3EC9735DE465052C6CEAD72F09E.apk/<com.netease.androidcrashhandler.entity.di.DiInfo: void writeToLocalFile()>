@@ -1,0 +1,57 @@
+    public void writeToLocalFile()
+    {
+        java.lang.Throwable $r6;
+        org.json.JSONObject $r2;
+        java.lang.StringBuilder $r1;
+        com.netease.androidcrashhandler.entity.di.DiInfo r0;
+        java.lang.String $r3, $r4, $r5;
+
+        r0 := @this: com.netease.androidcrashhandler.entity.di.DiInfo;
+
+        entermonitor r0;
+
+     label1:
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", "DiInfo [freshToLocalFile] start");
+
+        $r1 = new java.lang.StringBuilder;
+
+        specialinvoke $r1.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("DiInfo [freshToLocalFile] mParamsJson=");
+
+        $r2 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mDiInfoJson>;
+
+        $r3 = virtualinvoke $r2.<org.json.JSONObject: java.lang.String toString()>();
+
+        virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", $r3);
+
+        $r2 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mDiInfoJson>;
+
+        $r3 = virtualinvoke $r2.<org.json.JSONObject: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.init.InitProxy: com.netease.androidcrashhandler.init.InitProxy getInstance()>();
+
+        $r4 = <com.netease.androidcrashhandler.init.InitProxy: java.lang.String sUploadFilePath>;
+
+        $r5 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: java.lang.String mFileName>;
+
+        staticinvoke <com.netease.androidcrashhandler.util.CUtil: boolean str2File(java.lang.String,java.lang.String,java.lang.String)>($r3, $r4, $r5);
+
+     label2:
+        exitmonitor r0;
+
+        return;
+
+     label3:
+        $r6 := @caughtexception;
+
+        exitmonitor r0;
+
+        throw $r6;
+
+        catch java.lang.Throwable from label1 to label2 with label3;
+    }

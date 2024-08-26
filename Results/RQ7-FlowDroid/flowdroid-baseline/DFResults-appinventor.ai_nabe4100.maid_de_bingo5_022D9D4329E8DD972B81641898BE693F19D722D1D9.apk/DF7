@@ -1,0 +1,16 @@
+Source: $i0 = virtualinvoke $r2.<java.io.Reader: int read(char[],int,int)>($r1, $i1, $i0)
+$i0 = virtualinvoke $r2.<java.io.Reader: int read(char[],int,int)>($r1, $i1, $i0) in <gnu.text.LineBufferedReader: int fill(int)>
+Sink: virtualinvoke $r2.<java.io.Writer: void write(char[],int,int)>($r1, $i0, $i1) in <gnu.mapping.LogWriter: void echo(char[],int,int)>
+
+<gnu.text.LineBufferedReader: int fill(int)>: $i0 = virtualinvoke $r2.<java.io.Reader: int read(char[],int,int)>($r1, $i1, $i0)
+<gnu.text.LineBufferedReader: int fill(int)>: $r1 = r0.<gnu.text.LineBufferedReader: char[] buffer>
+<gnu.text.LineBufferedReader: int fill(int)>: return $i0
+<gnu.text.LineBufferedReader: int read()>: return -1
+<gnu.text.LineBufferedReader: int peek()>: return $i0
+<gnu.kawa.lispexpr.ReaderParens: java.lang.Object readList(gnu.kawa.lispexpr.LispReader,int,int,int)>: virtualinvoke $r1.<gnu.text.LineBufferedReader: void skip()>()
+<gnu.text.LineBufferedReader: void skip()>: virtualinvoke r0.<gnu.text.LineBufferedReader: int read()>()
+<gnu.text.LineBufferedReader: int read()>: $i1 = virtualinvoke r0.<gnu.text.LineBufferedReader: int fill(int)>($i1)
+<gnu.mapping.TtyInPort: int fill(int)>: $r2 = r0.<gnu.mapping.TtyInPort: char[] buffer>
+<gnu.mapping.TtyInPort: int fill(int)>: virtualinvoke $r3.<gnu.mapping.OutPort: void echo(char[],int,int)>($r2, $i1, $i0)
+<gnu.mapping.OutPort: void echo(char[],int,int)>: virtualinvoke $r3.<gnu.mapping.LogWriter: void echo(char[],int,int)>($r1, $i0, $i1)
+<gnu.mapping.LogWriter: void echo(char[],int,int)>: virtualinvoke $r2.<java.io.Writer: void write(char[],int,int)>($r1, $i0, $i1)

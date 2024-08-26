@@ -1,0 +1,156 @@
+    public static java.lang.String readAsset(java.lang.String)
+    {
+        java.lang.Throwable r2;
+        byte[] r1;
+        java.io.ByteArrayOutputStream $r13;
+        android.content.res.AssetManager r11;
+        int $i0;
+        java.lang.String $r0, $r3, $r5;
+        java.lang.ref.WeakReference $r9;
+        boolean $z0;
+        org.appcelerator.kroll.common.TiFastDev $r6;
+        org.appcelerator.kroll.util.KrollAssetHelper$AssetCrypt $r8;
+        java.lang.StringBuilder $r4, $r12;
+        java.lang.Object $r10;
+        java.io.InputStream $r7;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r3 = virtualinvoke $r0.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("Resources/", "");
+
+        $z0 = staticinvoke <org.appcelerator.kroll.common.TiFastDev: boolean isFastDevEnabled()>();
+
+        if $z0 == 0 goto label02;
+
+        if $r0 == null goto label02;
+
+        $z0 = virtualinvoke $r0.<java.lang.String: boolean startsWith(java.lang.String)>("Resources/");
+
+        if $z0 == 0 goto label02;
+
+        $r12 = new java.lang.StringBuilder;
+
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Fetching \"");
+
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\" with Fastdev...");
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("TiAssetHelper", $r5);
+
+        $r6 = staticinvoke <org.appcelerator.kroll.common.TiFastDev: org.appcelerator.kroll.common.TiFastDev getInstance()>();
+
+        $r7 = virtualinvoke $r6.<org.appcelerator.kroll.common.TiFastDev: java.io.InputStream openInputStream(java.lang.String)>($r3);
+
+        $r5 = staticinvoke <org.appcelerator.kroll.util.KrollStreamHelper: java.lang.String toString(java.io.InputStream)>($r7);
+
+        $z0 = virtualinvoke $r5.<java.lang.String: boolean equals(java.lang.Object)>("NOT_FOUND");
+
+        if $z0 != 0 goto label01;
+
+        return $r5;
+
+     label01:
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("TiAssetHelper", "File not found with Fastdev.");
+
+     label02:
+        $r8 = <org.appcelerator.kroll.util.KrollAssetHelper: org.appcelerator.kroll.util.KrollAssetHelper$AssetCrypt assetCrypt>;
+
+        if $r8 == null goto label03;
+
+        $r8 = <org.appcelerator.kroll.util.KrollAssetHelper: org.appcelerator.kroll.util.KrollAssetHelper$AssetCrypt assetCrypt>;
+
+        $r3 = interfaceinvoke $r8.<org.appcelerator.kroll.util.KrollAssetHelper$AssetCrypt: java.lang.String readAsset(java.lang.String)>($r3);
+
+        if $r3 != null goto label18;
+
+     label03:
+        $r9 = <org.appcelerator.kroll.util.KrollAssetHelper: java.lang.ref.WeakReference manager>;
+
+     label04:
+        $r10 = virtualinvoke $r9.<java.lang.ref.WeakReference: java.lang.Object get()>();
+
+     label05:
+        r11 = (android.content.res.AssetManager) $r10;
+
+        if r11 != null goto label08;
+
+        $r12 = new java.lang.StringBuilder;
+
+     label06:
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("AssetManager is null, can\'t read asset: ");
+
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r3 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("TiAssetHelper", $r3);
+
+     label07:
+        return null;
+
+     label08:
+        $r7 = virtualinvoke r11.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>($r0);
+
+     label09:
+        $r13 = new java.io.ByteArrayOutputStream;
+
+     label10:
+        specialinvoke $r13.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label11:
+        r1 = newarray (byte)[1024];
+
+     label12:
+        $i0 = virtualinvoke $r7.<java.io.InputStream: int read(byte[])>(r1);
+
+     label13:
+        if $i0 == -1 goto label17;
+
+        if $r13 == null goto label12;
+
+     label14:
+        virtualinvoke $r13.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>(r1, 0, $i0);
+
+     label15:
+        goto label12;
+
+     label16:
+        r2 := @caughtexception;
+
+        $r12 = new java.lang.StringBuilder;
+
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Error while reading asset \"");
+
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\":");
+
+        $r0 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("TiAssetHelper", $r0, r2);
+
+        return null;
+
+     label17:
+        $r3 = virtualinvoke $r13.<java.io.ByteArrayOutputStream: java.lang.String toString()>();
+
+     label18:
+        return $r3;
+
+        catch java.io.IOException from label04 to label05 with label16;
+        catch java.io.IOException from label06 to label07 with label16;
+        catch java.io.IOException from label08 to label09 with label16;
+        catch java.io.IOException from label10 to label11 with label16;
+        catch java.io.IOException from label12 to label13 with label16;
+        catch java.io.IOException from label14 to label15 with label16;
+        catch java.io.IOException from label17 to label18 with label16;
+    }

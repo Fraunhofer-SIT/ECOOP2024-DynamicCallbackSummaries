@@ -1,0 +1,118 @@
+    public static boolean H(java.lang.String, java.io.File, boolean) throws java.io.IOException
+    {
+        java.lang.Throwable $r0, $r1, $r7, $r8;
+        byte[] $r4;
+        java.io.FileOutputStream $r5, $r10;
+        java.io.IOException $r11;
+        java.io.File $r3;
+        java.io.ByteArrayInputStream $r9;
+        java.io.FileDescriptor $r6;
+        int $i0;
+        java.lang.String $r2;
+        boolean $z0, $z1;
+
+        $r2 := @parameter0: java.lang.String;
+
+        $r3 := @parameter1: java.io.File;
+
+        $z0 := @parameter2: boolean;
+
+        if $r2 != null goto label01;
+
+        return 0;
+
+     label01:
+        $r9 = new java.io.ByteArrayInputStream;
+
+        $r4 = virtualinvoke $r2.<java.lang.String: byte[] getBytes()>();
+
+        specialinvoke $r9.<java.io.ByteArrayInputStream: void <init>(byte[])>($r4);
+
+        $z1 = staticinvoke <i.v.c.g0.f: boolean k(java.io.File)>($r3);
+
+        if $z1 == 0 goto label17;
+
+        $r5 = null;
+
+     label02:
+        $r10 = new java.io.FileOutputStream;
+
+     label03:
+        specialinvoke $r10.<java.io.FileOutputStream: void <init>(java.io.File,boolean)>($r3, $z0);
+
+     label04:
+        $r4 = newarray (byte)[4096];
+
+     label05:
+        $i0 = virtualinvoke $r9.<java.io.InputStream: int read(byte[])>($r4);
+
+     label06:
+        if $i0 == -1 goto label09;
+
+     label07:
+        virtualinvoke $r10.<java.io.FileOutputStream: void write(byte[],int,int)>($r4, 0, $i0);
+
+     label08:
+        goto label05;
+
+     label09:
+        virtualinvoke $r10.<java.io.FileOutputStream: void flush()>();
+
+        $r6 = virtualinvoke $r10.<java.io.FileOutputStream: java.io.FileDescriptor getFD()>();
+
+        virtualinvoke $r6.<java.io.FileDescriptor: void sync()>();
+
+     label10:
+        virtualinvoke $r10.<java.io.FileOutputStream: void close()>();
+
+     label11:
+        return 1;
+
+     label12:
+        $r7 := @caughtexception;
+
+        $r8 = $r7;
+
+        $r5 = $r10;
+
+        goto label14;
+
+     label13:
+        $r8 := @caughtexception;
+
+     label14:
+        if $r5 == null goto label16;
+
+     label15:
+        interfaceinvoke $r5.<java.io.Closeable: void close()>();
+
+     label16:
+        throw $r8;
+
+     label17:
+        $r11 = new java.io.IOException;
+
+        $r2 = staticinvoke <i.d.c.a.a: java.lang.String T(java.lang.String,java.io.File)>("EnsureParentDirectoryOfFile failed, path: ", $r3);
+
+        specialinvoke $r11.<java.io.IOException: void <init>(java.lang.String)>($r2);
+
+        throw $r11;
+
+     label18:
+        $r0 := @caughtexception;
+
+        goto label11;
+
+     label19:
+        $r1 := @caughtexception;
+
+        goto label16;
+
+        catch java.lang.Throwable from label02 to label03 with label13;
+        catch java.lang.Throwable from label03 to label04 with label13;
+        catch java.lang.Throwable from label05 to label06 with label12;
+        catch java.lang.Throwable from label07 to label08 with label12;
+        catch java.lang.Throwable from label09 to label10 with label12;
+        catch java.io.IOException from label10 to label11 with label18;
+        catch java.io.IOException from label15 to label16 with label19;
+    }

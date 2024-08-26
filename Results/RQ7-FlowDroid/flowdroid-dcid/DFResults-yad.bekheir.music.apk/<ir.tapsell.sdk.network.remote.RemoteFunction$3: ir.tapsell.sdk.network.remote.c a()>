@@ -1,0 +1,436 @@
+    public ir.tapsell.sdk.network.remote.c a()
+    {
+        java.net.HttpURLConnection $r11;
+        byte[] $r14;
+        java.net.URL $r26;
+        java.lang.Integer $r16;
+        com.google.gson.Gson $r2;
+        java.util.Map $r6;
+        boolean $z0;
+        java.util.Set $r7;
+        ir.tapsell.sdk.network.remote.RemoteFunction $r15;
+        ir.tapsell.sdk.network.remote.RemoteFunction$3 r0;
+        ir.tapsell.sdk.network.remote.a $r22;
+        java.lang.StringBuilder $r27;
+        ir.tapsell.sdk.network.remote.c $r23;
+        java.lang.Throwable $r20, $r21, $r24, $r25;
+        java.net.URLConnection $r5;
+        int $i0;
+        java.lang.String $r1, $r4, $r10;
+        java.io.OutputStream $r12, $r13;
+        java.util.Iterator $r8;
+        java.io.IOException $r30;
+        java.io.InputStreamReader $r18, $r28;
+        java.lang.Object $r3, $r9;
+        java.io.BufferedReader $r19, $r29;
+        java.io.InputStream $r17;
+
+        r0 := @this: ir.tapsell.sdk.network.remote.RemoteFunction$3;
+
+        $r1 = r0.<ir.tapsell.sdk.network.remote.RemoteFunction$3: java.lang.String a>;
+
+        $r2 = staticinvoke <ir.tapsell.sdk.utils.GsonHelper: com.google.gson.Gson getCustomGson()>();
+
+        $r3 = r0.<ir.tapsell.sdk.network.remote.RemoteFunction$3: java.lang.Object b>;
+
+        $r4 = virtualinvoke $r2.<com.google.gson.Gson: java.lang.String toJson(java.lang.Object)>($r3);
+
+        $r26 = new java.net.URL;
+
+        specialinvoke $r26.<java.net.URL: void <init>(java.lang.String)>($r1);
+
+        staticinvoke <java.lang.System: java.lang.String setProperty(java.lang.String,java.lang.String)>("http.keepAlive", "false");
+
+        $z0 = staticinvoke <android.webkit.URLUtil: boolean isHttpsUrl(java.lang.String)>($r1);
+
+        if $z0 == 0 goto label03;
+
+        $r5 = virtualinvoke $r26.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r3 = (javax.net.ssl.HttpsURLConnection) $r5;
+
+     label01:
+        $r11 = (java.net.HttpURLConnection) $r3;
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("connection", "close");
+
+        $r11 = (java.net.HttpURLConnection) $r3;
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+        $r11 = (java.net.HttpURLConnection) $r3;
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Type", "application/json; charset=utf-8");
+
+        $r11 = (java.net.HttpURLConnection) $r3;
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("User-Agent", "Android-Agent");
+
+        $r11 = (java.net.HttpURLConnection) $r3;
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Accept", "application/json");
+
+        $r6 = r0.<ir.tapsell.sdk.network.remote.RemoteFunction$3: java.util.Map c>;
+
+        if $r6 == null goto label04;
+
+        $r6 = r0.<ir.tapsell.sdk.network.remote.RemoteFunction$3: java.util.Map c>;
+
+        $r7 = interfaceinvoke $r6.<java.util.Map: java.util.Set keySet()>();
+
+        $r8 = interfaceinvoke $r7.<java.util.Set: java.util.Iterator iterator()>();
+
+     label02:
+        $z0 = interfaceinvoke $r8.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label04;
+
+        $r9 = interfaceinvoke $r8.<java.util.Iterator: java.lang.Object next()>();
+
+        $r1 = (java.lang.String) $r9;
+
+        $r6 = r0.<ir.tapsell.sdk.network.remote.RemoteFunction$3: java.util.Map c>;
+
+        $r9 = interfaceinvoke $r6.<java.util.Map: java.lang.Object get(java.lang.Object)>($r1);
+
+        $r10 = (java.lang.String) $r9;
+
+        $r11 = (java.net.HttpURLConnection) $r3;
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>($r1, $r10);
+
+        goto label02;
+
+     label03:
+        $r5 = virtualinvoke $r26.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r3 = (java.net.HttpURLConnection) $r5;
+
+        goto label01;
+
+     label04:
+        $r11 = (java.net.HttpURLConnection) $r3;
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setConnectTimeout(int)>(30000);
+
+        $r11 = (java.net.HttpURLConnection) $r3;
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setReadTimeout(int)>(1200000);
+
+     label05:
+        $r11 = (java.net.HttpURLConnection) $r3;
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+        $r11 = (java.net.HttpURLConnection) $r3;
+
+        $r12 = virtualinvoke $r11.<java.net.HttpURLConnection: java.io.OutputStream getOutputStream()>();
+
+     label06:
+        $r13 = $r12;
+
+     label07:
+        $r14 = virtualinvoke $r4.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke $r12.<java.io.OutputStream: void write(byte[])>($r14);
+
+        virtualinvoke $r12.<java.io.OutputStream: void flush()>();
+
+     label08:
+        $r15 = r0.<ir.tapsell.sdk.network.remote.RemoteFunction$3: ir.tapsell.sdk.network.remote.RemoteFunction e>;
+
+        staticinvoke <ir.tapsell.sdk.network.remote.RemoteFunction: void a(ir.tapsell.sdk.network.remote.RemoteFunction,java.io.Closeable)>($r15, $r12);
+
+     label09:
+        $r11 = (java.net.HttpURLConnection) $r3;
+
+     label10:
+        $i0 = virtualinvoke $r11.<java.net.HttpURLConnection: int getResponseCode()>();
+
+        $r16 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+     label11:
+        $i0 = virtualinvoke $r16.<java.lang.Integer: int intValue()>();
+
+     label12:
+        if $i0 < 400 goto label38;
+
+     label13:
+        $r11 = (java.net.HttpURLConnection) $r3;
+
+        $r17 = virtualinvoke $r11.<java.net.HttpURLConnection: java.io.InputStream getErrorStream()>();
+
+     label14:
+        $r27 = new java.lang.StringBuilder;
+
+     label15:
+        specialinvoke $r27.<java.lang.StringBuilder: void <init>()>();
+
+     label16:
+        if $r17 == null goto label40;
+
+     label17:
+        $r28 = new java.io.InputStreamReader;
+
+     label18:
+        $r18 = $r28;
+
+     label19:
+        specialinvoke $r28.<java.io.InputStreamReader: void <init>(java.io.InputStream)>($r17);
+
+     label20:
+        $r29 = new java.io.BufferedReader;
+
+     label21:
+        $r19 = $r29;
+
+     label22:
+        specialinvoke $r29.<java.io.BufferedReader: void <init>(java.io.Reader)>($r28);
+
+     label23:
+        $r4 = virtualinvoke $r29.<java.io.BufferedReader: java.lang.String readLine()>();
+
+     label24:
+        if $r4 == null goto label41;
+
+     label25:
+        virtualinvoke $r27.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        virtualinvoke $r27.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(10);
+
+        $r4 = virtualinvoke $r29.<java.io.BufferedReader: java.lang.String readLine()>();
+
+     label26:
+        goto label24;
+
+     label27:
+        $r20 := @caughtexception;
+
+        $r13 = null;
+
+     label28:
+        staticinvoke <ir.tapsell.sdk.d.a: void a(java.lang.Throwable)>($r20);
+
+     label29:
+        $r15 = r0.<ir.tapsell.sdk.network.remote.RemoteFunction$3: ir.tapsell.sdk.network.remote.RemoteFunction e>;
+
+        staticinvoke <ir.tapsell.sdk.network.remote.RemoteFunction: void a(ir.tapsell.sdk.network.remote.RemoteFunction,java.io.Closeable)>($r15, $r13);
+
+        goto label09;
+
+     label30:
+        $r15 = r0.<ir.tapsell.sdk.network.remote.RemoteFunction$3: ir.tapsell.sdk.network.remote.RemoteFunction e>;
+
+        staticinvoke <ir.tapsell.sdk.network.remote.RemoteFunction: void a(ir.tapsell.sdk.network.remote.RemoteFunction,java.io.Closeable)>($r15, $r13);
+
+        throw $r25;
+
+     label31:
+        $r21 := @caughtexception;
+
+     label32:
+        $r30 = (java.io.IOException) $r21;
+
+        virtualinvoke $r30.<java.io.IOException: void printStackTrace()>();
+
+        staticinvoke <ir.tapsell.sdk.d.a: void a(java.lang.Throwable)>($r21);
+
+        $r30 = (java.io.IOException) $r21;
+
+        $r4 = virtualinvoke $r30.<java.io.IOException: java.lang.String getMessage()>();
+
+        $z0 = virtualinvoke $r4.<java.lang.String: boolean contains(java.lang.CharSequence)>("Received authentication challenge is null");
+
+     label33:
+        if $z0 == 0 goto label36;
+
+     label34:
+        $r16 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(401);
+
+     label35:
+        goto label11;
+
+     label36:
+        $r11 = (java.net.HttpURLConnection) $r3;
+
+        $i0 = virtualinvoke $r11.<java.net.HttpURLConnection: int getResponseCode()>();
+
+        $r16 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+     label37:
+        goto label11;
+
+     label38:
+        $r11 = (java.net.HttpURLConnection) $r3;
+
+        $r17 = virtualinvoke $r11.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+     label39:
+        goto label14;
+
+     label40:
+        $r19 = null;
+
+        $r18 = null;
+
+     label41:
+        $r15 = r0.<ir.tapsell.sdk.network.remote.RemoteFunction$3: ir.tapsell.sdk.network.remote.RemoteFunction e>;
+
+        staticinvoke <ir.tapsell.sdk.network.remote.RemoteFunction: void a(ir.tapsell.sdk.network.remote.RemoteFunction,java.io.Closeable)>($r15, $r17);
+
+        $r15 = r0.<ir.tapsell.sdk.network.remote.RemoteFunction$3: ir.tapsell.sdk.network.remote.RemoteFunction e>;
+
+        staticinvoke <ir.tapsell.sdk.network.remote.RemoteFunction: void a(ir.tapsell.sdk.network.remote.RemoteFunction,java.io.Closeable)>($r15, $r18);
+
+        $r15 = r0.<ir.tapsell.sdk.network.remote.RemoteFunction$3: ir.tapsell.sdk.network.remote.RemoteFunction e>;
+
+        staticinvoke <ir.tapsell.sdk.network.remote.RemoteFunction: void a(ir.tapsell.sdk.network.remote.RemoteFunction,java.io.Closeable)>($r15, $r19);
+
+     label42:
+        $r15 = r0.<ir.tapsell.sdk.network.remote.RemoteFunction$3: ir.tapsell.sdk.network.remote.RemoteFunction e>;
+
+        $r11 = (java.net.HttpURLConnection) $r3;
+
+        staticinvoke <ir.tapsell.sdk.network.remote.RemoteFunction: void a(ir.tapsell.sdk.network.remote.RemoteFunction,java.net.HttpURLConnection)>($r15, $r11);
+
+     label43:
+        $r4 = virtualinvoke $r27.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r22 = r0.<ir.tapsell.sdk.network.remote.RemoteFunction$3: ir.tapsell.sdk.network.remote.a d>;
+
+     label44:
+        if $r22 == null goto label46;
+
+     label45:
+        $r22 = r0.<ir.tapsell.sdk.network.remote.RemoteFunction$3: ir.tapsell.sdk.network.remote.a d>;
+
+        interfaceinvoke $r22.<ir.tapsell.sdk.network.remote.a: void a(int,java.lang.String)>($i0, $r4);
+
+     label46:
+        $r23 = staticinvoke <ir.tapsell.sdk.network.remote.c: ir.tapsell.sdk.network.remote.c a(int,java.lang.String)>($i0, $r4);
+
+     label47:
+        return $r23;
+
+     label48:
+        $r24 := @caughtexception;
+
+        $r16 = null;
+
+        $r19 = null;
+
+        $r18 = null;
+
+        $r17 = null;
+
+     label49:
+        $r15 = r0.<ir.tapsell.sdk.network.remote.RemoteFunction$3: ir.tapsell.sdk.network.remote.RemoteFunction e>;
+
+        staticinvoke <ir.tapsell.sdk.network.remote.RemoteFunction: void a(ir.tapsell.sdk.network.remote.RemoteFunction,java.io.Closeable)>($r15, $r17);
+
+        $r15 = r0.<ir.tapsell.sdk.network.remote.RemoteFunction$3: ir.tapsell.sdk.network.remote.RemoteFunction e>;
+
+        staticinvoke <ir.tapsell.sdk.network.remote.RemoteFunction: void a(ir.tapsell.sdk.network.remote.RemoteFunction,java.io.Closeable)>($r15, $r18);
+
+        $r15 = r0.<ir.tapsell.sdk.network.remote.RemoteFunction$3: ir.tapsell.sdk.network.remote.RemoteFunction e>;
+
+        staticinvoke <ir.tapsell.sdk.network.remote.RemoteFunction: void a(ir.tapsell.sdk.network.remote.RemoteFunction,java.io.Closeable)>($r15, $r19);
+
+        $r15 = r0.<ir.tapsell.sdk.network.remote.RemoteFunction$3: ir.tapsell.sdk.network.remote.RemoteFunction e>;
+
+        $r11 = (java.net.HttpURLConnection) $r3;
+
+        staticinvoke <ir.tapsell.sdk.network.remote.RemoteFunction: void a(ir.tapsell.sdk.network.remote.RemoteFunction,java.net.HttpURLConnection)>($r15, $r11);
+
+        $r22 = r0.<ir.tapsell.sdk.network.remote.RemoteFunction$3: ir.tapsell.sdk.network.remote.a d>;
+
+        if $r22 == null goto label50;
+
+        $r22 = r0.<ir.tapsell.sdk.network.remote.RemoteFunction$3: ir.tapsell.sdk.network.remote.a d>;
+
+        interfaceinvoke $r22.<ir.tapsell.sdk.network.remote.a: void a(java.lang.Integer,java.lang.Throwable)>($r16, $r24);
+
+     label50:
+        $r23 = staticinvoke <ir.tapsell.sdk.network.remote.c: ir.tapsell.sdk.network.remote.c a(java.lang.Throwable)>($r24);
+
+        return $r23;
+
+     label51:
+        $r24 := @caughtexception;
+
+        $r19 = null;
+
+        $r18 = null;
+
+        $r17 = null;
+
+        goto label49;
+
+     label52:
+        $r24 := @caughtexception;
+
+        $r19 = null;
+
+        $r18 = null;
+
+        goto label49;
+
+     label53:
+        $r24 := @caughtexception;
+
+        $r19 = null;
+
+        goto label49;
+
+     label54:
+        $r24 := @caughtexception;
+
+        goto label49;
+
+     label55:
+        $r24 := @caughtexception;
+
+        $r19 = null;
+
+        $r18 = null;
+
+        $r17 = null;
+
+        $r3 = null;
+
+        goto label49;
+
+     label56:
+        $r25 := @caughtexception;
+
+        goto label30;
+
+     label57:
+        $r20 := @caughtexception;
+
+        goto label28;
+
+        catch java.lang.Throwable from label05 to label06 with label27;
+        catch java.lang.Throwable from label07 to label08 with label57;
+        catch java.io.IOException from label10 to label11 with label31;
+        catch java.lang.Throwable from label09 to label11 with label48;
+        catch java.lang.Throwable from label11 to label12 with label51;
+        catch java.lang.Throwable from label13 to label14 with label51;
+        catch java.lang.Throwable from label14 to label15 with label52;
+        catch java.lang.Throwable from label15 to label16 with label52;
+        catch java.lang.Throwable from label17 to label18 with label52;
+        catch java.lang.Throwable from label19 to label20 with label52;
+        catch java.lang.Throwable from label20 to label21 with label53;
+        catch java.lang.Throwable from label22 to label23 with label53;
+        catch java.lang.Throwable from label23 to label24 with label54;
+        catch java.lang.Throwable from label25 to label26 with label54;
+        catch java.lang.Throwable from label28 to label29 with label56;
+        catch java.lang.Throwable from label32 to label33 with label48;
+        catch java.lang.Throwable from label34 to label35 with label48;
+        catch java.lang.Throwable from label36 to label37 with label48;
+        catch java.lang.Throwable from label38 to label39 with label51;
+        catch java.lang.Throwable from label41 to label42 with label54;
+        catch java.lang.Throwable from label42 to label43 with label51;
+        catch java.lang.Throwable from label43 to label44 with label55;
+        catch java.lang.Throwable from label45 to label47 with label55;
+    }

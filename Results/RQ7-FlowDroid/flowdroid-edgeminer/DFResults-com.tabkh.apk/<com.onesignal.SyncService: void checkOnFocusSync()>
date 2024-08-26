@@ -1,0 +1,24 @@
+    private void checkOnFocusSync()
+    {
+        byte $b1;
+        int $i2;
+        long $l0;
+        com.onesignal.SyncService r0;
+
+        r0 := @this: com.onesignal.SyncService;
+
+        $l0 = staticinvoke <com.onesignal.OneSignal: long GetUnsentActiveTime()>();
+
+        $b1 = $l0 cmp 60L;
+
+        $i2 = (int) $b1;
+
+        if $i2 >= 0 goto label1;
+
+        return;
+
+     label1:
+        staticinvoke <com.onesignal.OneSignal: void sendOnFocus(long,boolean)>($l0, 1);
+
+        return;
+    }

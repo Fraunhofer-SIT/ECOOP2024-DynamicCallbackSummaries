@@ -1,0 +1,150 @@
+    private final void processRequest(com.facebook.GraphRequestBatch, com.facebook.internal.Logger, int, java.net.URL, java.io.OutputStream, boolean)
+    {
+        com.facebook.internal.Logger $r3;
+        android.os.Bundle $r8;
+        java.net.URL $r4;
+        java.util.HashMap $r7;
+        org.json.JSONObject $r14;
+        int $i0;
+        com.facebook.GraphRequest$Companion r0;
+        java.lang.String $r12;
+        boolean $z0;
+        java.io.OutputStream $r5;
+        java.util.Iterator $r10;
+        com.facebook.GraphRequest$Attachment $r13;
+        com.facebook.GraphRequestBatch $r2;
+        com.facebook.FacebookException $r15;
+        com.facebook.GraphRequest$Serializer $r1;
+        java.util.Set $r9;
+        java.lang.Object $r11;
+        com.facebook.GraphRequest $r6;
+
+        r0 := @this: com.facebook.GraphRequest$Companion;
+
+        $r2 := @parameter0: com.facebook.GraphRequestBatch;
+
+        $r3 := @parameter1: com.facebook.internal.Logger;
+
+        $i0 := @parameter2: int;
+
+        $r4 := @parameter3: java.net.URL;
+
+        $r5 := @parameter4: java.io.OutputStream;
+
+        $z0 := @parameter5: boolean;
+
+        $r1 = new com.facebook.GraphRequest$Serializer;
+
+        specialinvoke $r1.<com.facebook.GraphRequest$Serializer: void <init>(java.io.OutputStream,com.facebook.internal.Logger,boolean)>($r5, $r3, $z0);
+
+        $z0 = 0;
+
+        if $i0 != 1 goto label5;
+
+        $r6 = virtualinvoke $r2.<com.facebook.GraphRequestBatch: com.facebook.GraphRequest get(int)>(0);
+
+        $r7 = new java.util.HashMap;
+
+        specialinvoke $r7.<java.util.HashMap: void <init>()>();
+
+        $r8 = virtualinvoke $r6.<com.facebook.GraphRequest: android.os.Bundle getParameters()>();
+
+        $r9 = virtualinvoke $r8.<android.os.BaseBundle: java.util.Set keySet()>();
+
+        $r10 = interfaceinvoke $r9.<java.util.Set: java.util.Iterator iterator()>();
+
+     label1:
+        $z0 = interfaceinvoke $r10.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label2;
+
+        $r11 = interfaceinvoke $r10.<java.util.Iterator: java.lang.Object next()>();
+
+        $r12 = (java.lang.String) $r11;
+
+        $r8 = virtualinvoke $r6.<com.facebook.GraphRequest: android.os.Bundle getParameters()>();
+
+        $r11 = virtualinvoke $r8.<android.os.BaseBundle: java.lang.Object get(java.lang.String)>($r12);
+
+        $z0 = specialinvoke r0.<com.facebook.GraphRequest$Companion: boolean isSupportedAttachmentType(java.lang.Object)>($r11);
+
+        if $z0 == 0 goto label1;
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkNotNullExpressionValue(java.lang.Object,java.lang.String)>($r12, "key");
+
+        $r13 = new com.facebook.GraphRequest$Attachment;
+
+        specialinvoke $r13.<com.facebook.GraphRequest$Attachment: void <init>(com.facebook.GraphRequest,java.lang.Object)>($r6, $r11);
+
+        interfaceinvoke $r7.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($r12, $r13);
+
+        goto label1;
+
+     label2:
+        if $r3 == null goto label3;
+
+        virtualinvoke $r3.<com.facebook.internal.Logger: void append(java.lang.String)>("  Parameters:\n");
+
+     label3:
+        $r8 = virtualinvoke $r6.<com.facebook.GraphRequest: android.os.Bundle getParameters()>();
+
+        specialinvoke r0.<com.facebook.GraphRequest$Companion: void serializeParameters(android.os.Bundle,com.facebook.GraphRequest$Serializer,com.facebook.GraphRequest)>($r8, $r1, $r6);
+
+        if $r3 == null goto label4;
+
+        virtualinvoke $r3.<com.facebook.internal.Logger: void append(java.lang.String)>("  Attachments:\n");
+
+     label4:
+        specialinvoke r0.<com.facebook.GraphRequest$Companion: void serializeAttachments(java.util.Map,com.facebook.GraphRequest$Serializer)>($r7, $r1);
+
+        $r14 = virtualinvoke $r6.<com.facebook.GraphRequest: org.json.JSONObject getGraphObject()>();
+
+        if $r14 == null goto label9;
+
+        $r12 = virtualinvoke $r4.<java.net.URL: java.lang.String getPath()>();
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkNotNullExpressionValue(java.lang.Object,java.lang.String)>($r12, "url.path");
+
+        specialinvoke r0.<com.facebook.GraphRequest$Companion: void processGraphObject(org.json.JSONObject,java.lang.String,com.facebook.GraphRequest$KeyValueSerializer)>($r14, $r12, $r1);
+
+        return;
+
+     label5:
+        $r12 = specialinvoke r0.<com.facebook.GraphRequest$Companion: java.lang.String getBatchAppId(com.facebook.GraphRequestBatch)>($r2);
+
+        $i0 = interfaceinvoke $r12.<java.lang.CharSequence: int length()>();
+
+        if $i0 != 0 goto label6;
+
+        $z0 = 1;
+
+     label6:
+        if $z0 != 0 goto label8;
+
+        virtualinvoke $r1.<com.facebook.GraphRequest$Serializer: void writeString(java.lang.String,java.lang.String)>("batch_app_id", $r12);
+
+        $r7 = new java.util.HashMap;
+
+        specialinvoke $r7.<java.util.HashMap: void <init>()>();
+
+        specialinvoke r0.<com.facebook.GraphRequest$Companion: void serializeRequestsAsJSON(com.facebook.GraphRequest$Serializer,java.util.Collection,java.util.Map)>($r1, $r2, $r7);
+
+        if $r3 == null goto label7;
+
+        virtualinvoke $r3.<com.facebook.internal.Logger: void append(java.lang.String)>("  Attachments:\n");
+
+     label7:
+        specialinvoke r0.<com.facebook.GraphRequest$Companion: void serializeAttachments(java.util.Map,com.facebook.GraphRequest$Serializer)>($r7, $r1);
+
+        return;
+
+     label8:
+        $r15 = new com.facebook.FacebookException;
+
+        specialinvoke $r15.<com.facebook.FacebookException: void <init>(java.lang.String)>("App ID was not specified at the request or Settings.");
+
+        throw $r15;
+
+     label9:
+        return;
+    }

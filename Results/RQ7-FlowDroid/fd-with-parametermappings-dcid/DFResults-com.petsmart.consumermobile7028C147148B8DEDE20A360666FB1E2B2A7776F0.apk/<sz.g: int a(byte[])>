@@ -1,0 +1,245 @@
+    public int a(byte[])
+    {
+        java.lang.Throwable $r16;
+        byte[] $r1;
+        java.io.BufferedInputStream $r13, $r18;
+        java.io.ByteArrayOutputStream $r19;
+        java.net.URL $r17;
+        android.net.Uri $r2;
+        sz.g r0;
+        java.net.URLConnection $r4;
+        java.util.Map $r7;
+        int $i0, $i1;
+        java.lang.String $r3, $r12;
+        javax.net.ssl.HostnameVerifier $r6;
+        boolean $z0;
+        javax.net.ssl.HttpsURLConnection $r5;
+        java.util.Map$Entry $r11;
+        java.util.Iterator $r9;
+        java.util.Set $r8;
+        java.lang.Exception $r15;
+        java.lang.Object $r10;
+        java.io.InputStream $r14;
+
+        r0 := @this: sz.g;
+
+        $r1 := @parameter0: byte[];
+
+     label01:
+        $r17 = new java.net.URL;
+
+     label02:
+        $r2 = r0.<sz.g: android.net.Uri c>;
+
+        $r3 = virtualinvoke $r2.<android.net.Uri: java.lang.String toString()>();
+
+        specialinvoke $r17.<java.net.URL: void <init>(java.lang.String)>($r3);
+
+        $r4 = virtualinvoke $r17.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r4 = staticinvoke <com.fullstory.instrumentation.InstrumentInjector: java.net.URLConnection urlconnection_wrapInstance(java.net.URLConnection)>($r4);
+
+        $r5 = (javax.net.ssl.HttpsURLConnection) $r4;
+
+     label03:
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setReadTimeout(int)>(60000);
+
+     label04:
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setConnectTimeout(int)>(60000);
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setRequestMethod(java.lang.String)>("GET");
+
+        $r6 = staticinvoke <sz.f: javax.net.ssl.HostnameVerifier a()>();
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setHostnameVerifier(javax.net.ssl.HostnameVerifier)>($r6);
+
+        $r7 = r0.<sz.g: java.util.Map d>;
+
+        $r8 = interfaceinvoke $r7.<java.util.Map: java.util.Set entrySet()>();
+
+        $r9 = interfaceinvoke $r8.<java.util.Set: java.util.Iterator iterator()>();
+
+     label05:
+        $z0 = interfaceinvoke $r9.<java.util.Iterator: boolean hasNext()>();
+
+     label06:
+        if $z0 == 0 goto label09;
+
+     label07:
+        $r10 = interfaceinvoke $r9.<java.util.Iterator: java.lang.Object next()>();
+
+        $r11 = (java.util.Map$Entry) $r10;
+
+        $r10 = interfaceinvoke $r11.<java.util.Map$Entry: java.lang.Object getKey()>();
+
+        $r3 = virtualinvoke $r10.<java.lang.Object: java.lang.String toString()>();
+
+        $r10 = interfaceinvoke $r11.<java.util.Map$Entry: java.lang.Object getValue()>();
+
+        $r12 = virtualinvoke $r10.<java.lang.Object: java.lang.String toString()>();
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>($r3, $r12);
+
+     label08:
+        goto label05;
+
+     label09:
+        $i0 = virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: int getResponseCode()>();
+
+        $r3 = virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: java.lang.String getHeaderField(java.lang.String)>("correlation-id");
+
+        r0.<sz.g: java.lang.String b> = $r3;
+
+     label10:
+        if $i0 != 200 goto label24;
+
+     label11:
+        $r18 = new java.io.BufferedInputStream;
+
+     label12:
+        $r13 = $r18;
+
+     label13:
+        $r14 = virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: java.io.InputStream getInputStream()>();
+
+        specialinvoke $r18.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r14);
+
+     label14:
+        $r1 = newarray (byte)[1024];
+
+     label15:
+        $r19 = new java.io.ByteArrayOutputStream;
+
+     label16:
+        specialinvoke $r19.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label17:
+        $i1 = virtualinvoke $r18.<java.io.BufferedInputStream: int read(byte[])>($r1);
+
+     label18:
+        if $i1 == -1 goto label21;
+
+     label19:
+        virtualinvoke $r19.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r1, 0, $i1);
+
+     label20:
+        goto label17;
+
+     label21:
+        $r1 = virtualinvoke $r19.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        r0.<sz.g: byte[] a> = $r1;
+
+     label22:
+        goto label27;
+
+     label23:
+        $r15 := @caughtexception;
+
+        goto label32;
+
+     label24:
+        $r1 = newarray (byte)[0];
+
+     label25:
+        r0.<sz.g: byte[] a> = $r1;
+
+     label26:
+        $r13 = null;
+
+     label27:
+        staticinvoke <pz.g: void d(java.lang.Class,java.io.Closeable)>(class "Lsz/g;", $r13);
+
+        staticinvoke <pz.g: void d(java.lang.Class,java.io.Closeable)>(class "Lsz/g;", null);
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void disconnect()>();
+
+        return $i0;
+
+     label28:
+        $r16 := @caughtexception;
+
+        $r13 = null;
+
+        goto label35;
+
+     label29:
+        $r15 := @caughtexception;
+
+        $r13 = null;
+
+        goto label32;
+
+     label30:
+        $r16 := @caughtexception;
+
+        $r5 = null;
+
+        $r13 = null;
+
+        goto label35;
+
+     label31:
+        $r15 := @caughtexception;
+
+        $r5 = null;
+
+        $r13 = null;
+
+     label32:
+        staticinvoke <rz.a: void b(java.lang.Class,int,java.lang.Throwable)>(class "Lsz/g;", 3, $r15);
+
+     label33:
+        staticinvoke <pz.g: void d(java.lang.Class,java.io.Closeable)>(class "Lsz/g;", $r13);
+
+        staticinvoke <pz.g: void d(java.lang.Class,java.io.Closeable)>(class "Lsz/g;", null);
+
+        if $r5 == null goto label37;
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void disconnect()>();
+
+        return -1;
+
+     label34:
+        $r16 := @caughtexception;
+
+     label35:
+        staticinvoke <pz.g: void d(java.lang.Class,java.io.Closeable)>(class "Lsz/g;", $r13);
+
+        staticinvoke <pz.g: void d(java.lang.Class,java.io.Closeable)>(class "Lsz/g;", null);
+
+        if $r5 == null goto label36;
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void disconnect()>();
+
+     label36:
+        throw $r16;
+
+     label37:
+        return -1;
+
+        catch java.lang.Exception from label02 to label03 with label31;
+        catch java.lang.Throwable from label01 to label02 with label30;
+        catch java.lang.Throwable from label02 to label03 with label30;
+        catch java.lang.Exception from label03 to label04 with label29;
+        catch java.lang.Exception from label04 to label06 with label29;
+        catch java.lang.Exception from label07 to label08 with label29;
+        catch java.lang.Exception from label09 to label10 with label29;
+        catch java.lang.Exception from label13 to label14 with label29;
+        catch java.lang.Throwable from label03 to label04 with label28;
+        catch java.lang.Throwable from label04 to label06 with label28;
+        catch java.lang.Throwable from label07 to label08 with label28;
+        catch java.lang.Throwable from label09 to label10 with label28;
+        catch java.lang.Throwable from label11 to label12 with label28;
+        catch java.lang.Throwable from label13 to label14 with label28;
+        catch java.lang.Exception from label16 to label18 with label23;
+        catch java.lang.Exception from label19 to label20 with label23;
+        catch java.lang.Exception from label21 to label22 with label23;
+        catch java.lang.Throwable from label15 to label16 with label34;
+        catch java.lang.Throwable from label16 to label18 with label34;
+        catch java.lang.Throwable from label19 to label20 with label34;
+        catch java.lang.Throwable from label21 to label22 with label34;
+        catch java.lang.Exception from label25 to label26 with label29;
+        catch java.lang.Throwable from label25 to label26 with label28;
+        catch java.lang.Throwable from label32 to label33 with label34;
+    }

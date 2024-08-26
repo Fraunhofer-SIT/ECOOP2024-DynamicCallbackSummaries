@@ -1,0 +1,108 @@
+    public void onLoggedIn()
+    {
+        com.beetalk.sdk.AuthClient$Result $r9;
+        android.content.Context $r11;
+        com.beetalk.sdk.VKAuthRequestHandler r0;
+        java.lang.Object[] $r10;
+        android.app.Dialog r1;
+        java.lang.Integer $r8;
+        int $i0;
+        com.beetalk.sdk.VKAuthRequestHandler$1 $r12;
+        com.beetalk.sdk.VKAuthRequestHandler$2 $r14;
+        com.vk.sdk.VKAccessToken $r2;
+        java.lang.String $r3;
+        bolts.Task $r13;
+        boolean $z0;
+        java.util.concurrent.Executor $r15;
+        com.beetalk.sdk.AuthClient$AuthClientRequest $r6;
+        com.beetalk.sdk.AuthClient $r4, $r5;
+        java.lang.Exception $r16;
+        com.garena.pay.android.GGErrorCode $r7;
+
+        r0 := @this: com.beetalk.sdk.VKAuthRequestHandler;
+
+        $r2 = staticinvoke <com.vk.sdk.VKAccessToken: com.vk.sdk.VKAccessToken currentToken()>();
+
+        if $r2 == null goto label1;
+
+        $r3 = $r2.<com.vk.sdk.VKAccessToken: java.lang.String accessToken>;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r3);
+
+        if $z0 == 0 goto label2;
+
+     label1:
+        $r4 = r0.<com.beetalk.sdk.VKAuthRequestHandler: com.beetalk.sdk.AuthClient client>;
+
+        $r5 = r0.<com.beetalk.sdk.VKAuthRequestHandler: com.beetalk.sdk.AuthClient client>;
+
+        $r6 = virtualinvoke $r5.<com.beetalk.sdk.AuthClient: com.beetalk.sdk.AuthClient$AuthClientRequest getPendingRequest()>();
+
+        $r7 = <com.garena.pay.android.GGErrorCode: com.garena.pay.android.GGErrorCode LOGIN_FAILED>;
+
+        $r8 = virtualinvoke $r7.<com.garena.pay.android.GGErrorCode: java.lang.Integer getCode()>();
+
+        $i0 = virtualinvoke $r8.<java.lang.Integer: int intValue()>();
+
+        $r9 = staticinvoke <com.beetalk.sdk.AuthClient$Result: com.beetalk.sdk.AuthClient$Result createErrorResult(com.beetalk.sdk.AuthClient$AuthClientRequest,java.lang.String,java.lang.String,int)>($r6, "error", "vk access token is null", $i0);
+
+        virtualinvoke $r4.<com.beetalk.sdk.AuthClient: void notifyListener(com.beetalk.sdk.AuthClient$Result)>($r9);
+
+        return;
+
+     label2:
+        $r10 = newarray (java.lang.Object)[1];
+
+        $r3 = $r2.<com.vk.sdk.VKAccessToken: java.lang.String accessToken>;
+
+        $r10[0] = $r3;
+
+        staticinvoke <com.beetalk.sdk.helper.BBLogger: void d(java.lang.String,java.lang.Object[])>("vk auth success: %s", $r10);
+
+        r1 = new android.app.Dialog;
+
+        $r4 = r0.<com.beetalk.sdk.VKAuthRequestHandler: com.beetalk.sdk.AuthClient client>;
+
+        $r11 = virtualinvoke $r4.<com.beetalk.sdk.AuthClient: android.content.Context getContext()>();
+
+        $i0 = <com.garena.msdk.R$style: int ProgressDialogTheme>;
+
+        specialinvoke r1.<android.app.Dialog: void <init>(android.content.Context,int)>($r11, $i0);
+
+        $i0 = <com.garena.msdk.R$layout: int msdk_progress_dialog>;
+
+        virtualinvoke r1.<android.app.Dialog: void setContentView(int)>($i0);
+
+        virtualinvoke r1.<android.app.Dialog: void setCanceledOnTouchOutside(boolean)>(0);
+
+        $r12 = new com.beetalk.sdk.VKAuthRequestHandler$1;
+
+        specialinvoke $r12.<com.beetalk.sdk.VKAuthRequestHandler$1: void <init>(com.beetalk.sdk.VKAuthRequestHandler)>(r0);
+
+        virtualinvoke r1.<android.app.Dialog: void setOnCancelListener(android.content.DialogInterface$OnCancelListener)>($r12);
+
+     label3:
+        virtualinvoke r1.<android.app.Dialog: void show()>();
+
+     label4:
+        $r3 = $r2.<com.vk.sdk.VKAccessToken: java.lang.String accessToken>;
+
+        $r13 = specialinvoke r0.<com.beetalk.sdk.VKAuthRequestHandler: bolts.Task exchangeToken(java.lang.String)>($r3);
+
+        $r14 = new com.beetalk.sdk.VKAuthRequestHandler$2;
+
+        specialinvoke $r14.<com.beetalk.sdk.VKAuthRequestHandler$2: void <init>(com.beetalk.sdk.VKAuthRequestHandler,android.app.Dialog)>(r0, r1);
+
+        $r15 = <bolts.Task: java.util.concurrent.Executor UI_THREAD_EXECUTOR>;
+
+        virtualinvoke $r13.<bolts.Task: bolts.Task continueWith(bolts.Continuation,java.util.concurrent.Executor)>($r14, $r15);
+
+        return;
+
+     label5:
+        $r16 := @caughtexception;
+
+        goto label4;
+
+        catch java.lang.Exception from label3 to label4 with label5;
+    }

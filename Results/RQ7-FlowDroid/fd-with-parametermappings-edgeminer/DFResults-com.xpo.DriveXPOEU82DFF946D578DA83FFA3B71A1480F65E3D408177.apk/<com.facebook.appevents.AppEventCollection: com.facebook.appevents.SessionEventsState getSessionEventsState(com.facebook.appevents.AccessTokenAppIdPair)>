@@ -1,0 +1,56 @@
+    private com.facebook.appevents.SessionEventsState getSessionEventsState(com.facebook.appevents.AccessTokenAppIdPair)
+    {
+        java.lang.Throwable $r8;
+        android.content.Context $r5;
+        java.util.HashMap $r2;
+        com.facebook.appevents.SessionEventsState $r4;
+        com.facebook.appevents.AccessTokenAppIdPair $r1;
+        java.lang.Object $r3;
+        com.facebook.internal.AttributionIdentifiers $r6;
+        java.lang.String $r7;
+        com.facebook.appevents.AppEventCollection r0;
+
+        r0 := @this: com.facebook.appevents.AppEventCollection;
+
+        $r1 := @parameter0: com.facebook.appevents.AccessTokenAppIdPair;
+
+        entermonitor r0;
+
+     label1:
+        $r2 = r0.<com.facebook.appevents.AppEventCollection: java.util.HashMap stateMap>;
+
+        $r3 = virtualinvoke $r2.<java.util.HashMap: java.lang.Object get(java.lang.Object)>($r1);
+
+        $r4 = (com.facebook.appevents.SessionEventsState) $r3;
+
+        if $r4 != null goto label2;
+
+        $r5 = staticinvoke <com.facebook.FacebookSdk: android.content.Context getApplicationContext()>();
+
+        $r4 = new com.facebook.appevents.SessionEventsState;
+
+        $r6 = staticinvoke <com.facebook.internal.AttributionIdentifiers: com.facebook.internal.AttributionIdentifiers getAttributionIdentifiers(android.content.Context)>($r5);
+
+        $r7 = staticinvoke <com.facebook.appevents.AppEventsLogger: java.lang.String getAnonymousAppDeviceGUID(android.content.Context)>($r5);
+
+        specialinvoke $r4.<com.facebook.appevents.SessionEventsState: void <init>(com.facebook.internal.AttributionIdentifiers,java.lang.String)>($r6, $r7);
+
+     label2:
+        $r2 = r0.<com.facebook.appevents.AppEventCollection: java.util.HashMap stateMap>;
+
+        virtualinvoke $r2.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>($r1, $r4);
+
+     label3:
+        exitmonitor r0;
+
+        return $r4;
+
+     label4:
+        $r8 := @caughtexception;
+
+        exitmonitor r0;
+
+        throw $r8;
+
+        catch java.lang.Throwable from label1 to label3 with label4;
+    }

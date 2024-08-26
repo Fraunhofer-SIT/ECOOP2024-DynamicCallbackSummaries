@@ -1,0 +1,100 @@
+    private static void uploadScoresWithBlobs()
+    {
+        java.lang.Throwable $r11;
+        byte[] $r9;
+        java.util.Iterator $r4;
+        com.openfeint.api.resource.Score r0;
+        com.openfeint.internal.offline.OfflineSupport$1 $r1;
+        java.util.concurrent.atomic.AtomicBoolean $r5;
+        long $l0;
+        com.openfeint.internal.offline.OfflineSupport$DB $r2;
+        com.openfeint.api.resource.Leaderboard $r10;
+        com.openfeint.internal.offline.OfflineSupport$OfflineScore r7;
+        java.util.ArrayList $r3;
+        java.lang.Object $r6;
+        java.lang.String $r8;
+        boolean $z0;
+
+        $r2 = <com.openfeint.internal.offline.OfflineSupport: com.openfeint.internal.offline.OfflineSupport$DB db>;
+
+        $r3 = $r2.<com.openfeint.internal.offline.OfflineSupport$DB: java.util.ArrayList scores>;
+
+        $r4 = virtualinvoke $r3.<java.util.ArrayList: java.util.Iterator iterator()>();
+
+     label1:
+        $z0 = interfaceinvoke $r4.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 != 0 goto label2;
+
+        $r5 = <com.openfeint.internal.offline.OfflineSupport: java.util.concurrent.atomic.AtomicBoolean updateInProgress>;
+
+        virtualinvoke $r5.<java.util.concurrent.atomic.AtomicBoolean: void set(boolean)>(0);
+
+        return;
+
+     label2:
+        $r6 = interfaceinvoke $r4.<java.util.Iterator: java.lang.Object next()>();
+
+        r7 = (com.openfeint.internal.offline.OfflineSupport$OfflineScore) $r6;
+
+        $r8 = r7.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: java.lang.String blobFileName>;
+
+        if $r8 == null goto label1;
+
+        r0 = new com.openfeint.api.resource.Score;
+
+        $l0 = r7.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: long score>;
+
+        specialinvoke r0.<com.openfeint.api.resource.Score: void <init>(long)>($l0);
+
+        $r8 = r7.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: java.lang.String customData>;
+
+        r0.<com.openfeint.api.resource.Score: java.lang.String customData> = $r8;
+
+        $r8 = r7.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: java.lang.String displayText>;
+
+        r0.<com.openfeint.api.resource.Score: java.lang.String displayText> = $r8;
+
+        $r8 = r7.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: java.lang.String blobFileName>;
+
+     label3:
+        $r8 = staticinvoke <com.openfeint.internal.offline.OfflineSupport: java.lang.String fullPath(java.lang.String)>($r8);
+
+        $r9 = staticinvoke <com.openfeint.internal.Util: byte[] readWholeFile(java.lang.String)>($r8);
+
+     label4:
+        r0.<com.openfeint.api.resource.Score: byte[] blob> = $r9;
+
+     label5:
+        $r9 = r0.<com.openfeint.api.resource.Score: byte[] blob>;
+
+        if $r9 != null goto label6;
+
+        staticinvoke <com.openfeint.internal.offline.OfflineSupport: void removeAndUploadNext(com.openfeint.internal.offline.OfflineSupport$OfflineScore)>(r7);
+
+        return;
+
+     label6:
+        $r10 = new com.openfeint.api.resource.Leaderboard;
+
+        $r8 = r7.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: java.lang.String leaderboardID>;
+
+        specialinvoke $r10.<com.openfeint.api.resource.Leaderboard: void <init>(java.lang.String)>($r8);
+
+        $r8 = r7.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: java.lang.String timestamp>;
+
+        $r1 = new com.openfeint.internal.offline.OfflineSupport$1;
+
+        specialinvoke $r1.<com.openfeint.internal.offline.OfflineSupport$1: void <init>(com.openfeint.internal.offline.OfflineSupport$OfflineScore)>(r7);
+
+        virtualinvoke r0.<com.openfeint.api.resource.Score: void submitToFromOffline(com.openfeint.api.resource.Leaderboard,java.lang.String,com.openfeint.api.resource.Score$SubmitToCB)>($r10, $r8, $r1);
+
+        return;
+
+     label7:
+        $r11 := @caughtexception;
+
+        goto label5;
+
+        catch java.io.IOException from label3 to label4 with label7;
+    }

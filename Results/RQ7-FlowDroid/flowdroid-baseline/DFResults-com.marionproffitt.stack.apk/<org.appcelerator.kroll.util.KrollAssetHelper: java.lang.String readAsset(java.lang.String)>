@@ -1,0 +1,110 @@
+    public static java.lang.String readAsset(java.lang.String)
+    {
+        java.lang.Throwable r2;
+        byte[] r1;
+        java.io.ByteArrayOutputStream $r9;
+        android.content.res.AssetManager $r5;
+        org.appcelerator.kroll.util.KrollAssetHelper$AssetCrypt $r3;
+        int $i0;
+        java.lang.StringBuilder $r6, $r8;
+        java.lang.String $r0, $r4;
+        java.io.InputStream $r7;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r3 = <org.appcelerator.kroll.util.KrollAssetHelper: org.appcelerator.kroll.util.KrollAssetHelper$AssetCrypt assetCrypt>;
+
+        if $r3 == null goto label01;
+
+        $r3 = <org.appcelerator.kroll.util.KrollAssetHelper: org.appcelerator.kroll.util.KrollAssetHelper$AssetCrypt assetCrypt>;
+
+        $r4 = staticinvoke <org.appcelerator.kroll.util.KrollAssetHelper: java.lang.String normalizeAssetCryptPath(java.lang.String)>($r0);
+
+        $r4 = interfaceinvoke $r3.<org.appcelerator.kroll.util.KrollAssetHelper$AssetCrypt: java.lang.String readAsset(java.lang.String)>($r4);
+
+        if $r4 == null goto label01;
+
+        return $r4;
+
+     label01:
+        $r5 = <org.appcelerator.kroll.util.KrollAssetHelper: android.content.res.AssetManager assetManager>;
+
+        if $r5 != null goto label04;
+
+        $r8 = new java.lang.StringBuilder;
+
+     label02:
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        $r6 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("AssetManager is null, can\'t read asset: ");
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r4 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("TiAssetHelper", $r4);
+
+     label03:
+        return null;
+
+     label04:
+        $r5 = <org.appcelerator.kroll.util.KrollAssetHelper: android.content.res.AssetManager assetManager>;
+
+     label05:
+        $r7 = virtualinvoke $r5.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>($r0);
+
+     label06:
+        $r9 = new java.io.ByteArrayOutputStream;
+
+     label07:
+        specialinvoke $r9.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label08:
+        r1 = newarray (byte)[1024];
+
+     label09:
+        $i0 = virtualinvoke $r7.<java.io.InputStream: int read(byte[])>(r1);
+
+     label10:
+        if $i0 == -1 goto label14;
+
+        if $r9 == null goto label09;
+
+     label11:
+        virtualinvoke $r9.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>(r1, 0, $i0);
+
+     label12:
+        goto label09;
+
+     label13:
+        r2 := @caughtexception;
+
+        $r8 = new java.lang.StringBuilder;
+
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        $r6 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Error while reading asset \"");
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\":");
+
+        $r0 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("TiAssetHelper", $r0, r2);
+
+        return null;
+
+     label14:
+        $r4 = virtualinvoke $r9.<java.io.ByteArrayOutputStream: java.lang.String toString()>();
+
+     label15:
+        return $r4;
+
+        catch java.io.IOException from label02 to label03 with label13;
+        catch java.io.IOException from label05 to label06 with label13;
+        catch java.io.IOException from label07 to label08 with label13;
+        catch java.io.IOException from label09 to label10 with label13;
+        catch java.io.IOException from label11 to label12 with label13;
+        catch java.io.IOException from label14 to label15 with label13;
+    }

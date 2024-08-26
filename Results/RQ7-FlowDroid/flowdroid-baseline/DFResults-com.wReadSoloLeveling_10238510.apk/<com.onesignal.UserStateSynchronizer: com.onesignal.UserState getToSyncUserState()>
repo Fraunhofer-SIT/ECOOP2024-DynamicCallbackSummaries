@@ -1,0 +1,42 @@
+    protected com.onesignal.UserState getToSyncUserState()
+    {
+        java.lang.Throwable $r3;
+        java.lang.Object $r2;
+        com.onesignal.UserState $r1;
+        com.onesignal.UserStateSynchronizer r0;
+
+        r0 := @this: com.onesignal.UserStateSynchronizer;
+
+        $r2 = r0.<com.onesignal.UserStateSynchronizer: java.lang.Object syncLock>;
+
+        entermonitor $r2;
+
+     label1:
+        $r1 = r0.<com.onesignal.UserStateSynchronizer: com.onesignal.UserState toSyncUserState>;
+
+        if $r1 != null goto label2;
+
+        $r1 = virtualinvoke r0.<com.onesignal.UserStateSynchronizer: com.onesignal.UserState newUserState(java.lang.String,boolean)>("TOSYNC_STATE", 1);
+
+        r0.<com.onesignal.UserStateSynchronizer: com.onesignal.UserState toSyncUserState> = $r1;
+
+     label2:
+        exitmonitor $r2;
+
+     label3:
+        $r1 = r0.<com.onesignal.UserStateSynchronizer: com.onesignal.UserState toSyncUserState>;
+
+        return $r1;
+
+     label4:
+        $r3 := @caughtexception;
+
+     label5:
+        exitmonitor $r2;
+
+     label6:
+        throw $r3;
+
+        catch java.lang.Throwable from label1 to label3 with label4;
+        catch java.lang.Throwable from label5 to label6 with label4;
+    }

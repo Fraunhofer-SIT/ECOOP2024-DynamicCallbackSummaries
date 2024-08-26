@@ -1,0 +1,49 @@
+    public final void onResponse()
+    {
+        byte[] $r2;
+        com.openfeint.internal.resource.ServerException r1;
+        com.openfeint.internal.request.BaseRequest r0;
+        int $i0;
+        java.lang.String $r3;
+        boolean $z0;
+
+        r0 := @this: com.openfeint.internal.request.BaseRequest;
+
+        $z0 = r0.<com.openfeint.internal.request.BaseRequest: boolean mResponded>;
+
+        if $z0 != 0 goto label2;
+
+        r0.<com.openfeint.internal.request.BaseRequest: boolean mResponded> = 1;
+
+        $r2 = r0.<com.openfeint.internal.request.BaseRequest: byte[] mResponseBody>;
+
+        if $r2 != null goto label1;
+
+        r0.<com.openfeint.internal.request.BaseRequest: int mResponseCode> = 0;
+
+        r1 = new com.openfeint.internal.resource.ServerException;
+
+        specialinvoke r1.<com.openfeint.internal.resource.ServerException: void <init>()>();
+
+        r1.<com.openfeint.internal.resource.ServerException: java.lang.String exceptionClass> = "Unknown";
+
+        $i0 = staticinvoke <com.openfeint.internal.RR: int string(java.lang.String)>("of_unknown_server_error");
+
+        $r3 = staticinvoke <com.openfeint.internal.OpenFeintInternal: java.lang.String getRString(int)>($i0);
+
+        r1.<com.openfeint.internal.resource.ServerException: java.lang.String message> = $r3;
+
+        specialinvoke r0.<com.openfeint.internal.request.BaseRequest: void fakeServerException(com.openfeint.internal.resource.ServerException)>(r1);
+
+     label1:
+        $i0 = r0.<com.openfeint.internal.request.BaseRequest: int mResponseCode>;
+
+        $r2 = r0.<com.openfeint.internal.request.BaseRequest: byte[] mResponseBody>;
+
+        virtualinvoke r0.<com.openfeint.internal.request.BaseRequest: void onResponse(int,byte[])>($i0, $r2);
+
+        r0.<com.openfeint.internal.request.BaseRequest: org.apache.http.HttpResponse response_> = null;
+
+     label2:
+        return;
+    }

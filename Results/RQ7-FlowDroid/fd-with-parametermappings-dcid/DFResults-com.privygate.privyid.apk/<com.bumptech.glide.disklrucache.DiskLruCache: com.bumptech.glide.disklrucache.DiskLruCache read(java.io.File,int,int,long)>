@@ -1,0 +1,124 @@
+    public static com.bumptech.glide.disklrucache.DiskLruCache read(java.io.File, int, int, long) throws java.io.IOException
+    {
+        java.lang.Throwable $r4;
+        long $l1;
+        com.bumptech.glide.disklrucache.DiskLruCache $r3, $r8;
+        byte $b3;
+        int $i0, $i2, $i4;
+        java.lang.String $r6;
+        boolean $z0;
+        java.io.PrintStream $r5;
+        java.io.IOException $r11;
+        java.lang.IllegalArgumentException $r10;
+        java.io.File $r0, $r1, $r2, $r7;
+        java.lang.StringBuilder $r9;
+
+        $r0 := @parameter0: java.io.File;
+
+        $i2 := @parameter1: int;
+
+        $i0 := @parameter2: int;
+
+        $l1 := @parameter3: long;
+
+        $b3 = $l1 cmp 0L;
+
+        $i4 = (int) $b3;
+
+        if $i4 <= 0 goto label7;
+
+        $r2 = new java.io.File;
+
+        $r1 = $r2;
+
+        specialinvoke $r2.<java.io.File: void <init>(java.io.File,java.lang.String)>($r0, "journal.bkp");
+
+        $z0 = virtualinvoke $r2.<java.io.File: boolean exists()>();
+
+        if $z0 == 0 goto label2;
+
+        $r7 = new java.io.File;
+
+        specialinvoke $r7.<java.io.File: void <init>(java.io.File,java.lang.String)>($r0, "journal");
+
+        $z0 = virtualinvoke $r7.<java.io.File: boolean exists()>();
+
+        if $z0 == 0 goto label1;
+
+        virtualinvoke $r1.<java.io.File: boolean delete()>();
+
+        goto label2;
+
+     label1:
+        staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache: void IconCompatParcelizer(java.io.File,java.io.File,boolean)>($r1, $r7, 0);
+
+     label2:
+        $r8 = new com.bumptech.glide.disklrucache.DiskLruCache;
+
+        $r3 = $r8;
+
+        specialinvoke $r8.<com.bumptech.glide.disklrucache.DiskLruCache: void <init>(java.io.File,int,int,long)>($r0, 1, 1, $l1);
+
+        $r1 = $r8.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.File journalFile>;
+
+        $z0 = virtualinvoke $r1.<java.io.File: boolean exists()>();
+
+        if $z0 == 0 goto label6;
+
+     label3:
+        specialinvoke $r8.<com.bumptech.glide.disklrucache.DiskLruCache: void readJournal()>();
+
+        specialinvoke $r8.<com.bumptech.glide.disklrucache.DiskLruCache: void processJournal()>();
+
+     label4:
+        return $r8;
+
+     label5:
+        $r4 := @caughtexception;
+
+        $r5 = <java.lang.System: java.io.PrintStream out>;
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("DiskLruCache ");
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r0);
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" is corrupt: ");
+
+        $r11 = (java.io.IOException) $r4;
+
+        $r6 = virtualinvoke $r11.<java.io.IOException: java.lang.String getMessage()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", removing");
+
+        $r6 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r5.<java.io.PrintStream: void println(java.lang.String)>($r6);
+
+        virtualinvoke $r3.<com.bumptech.glide.disklrucache.DiskLruCache: void delete()>();
+
+     label6:
+        virtualinvoke $r0.<java.io.File: boolean mkdirs()>();
+
+        $r8 = new com.bumptech.glide.disklrucache.DiskLruCache;
+
+        specialinvoke $r8.<com.bumptech.glide.disklrucache.DiskLruCache: void <init>(java.io.File,int,int,long)>($r0, 1, 1, $l1);
+
+        specialinvoke $r8.<com.bumptech.glide.disklrucache.DiskLruCache: void CachedHashCodeArrayMap()>();
+
+        return $r8;
+
+     label7:
+        $r10 = new java.lang.IllegalArgumentException;
+
+        specialinvoke $r10.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>("maxSize <= 0");
+
+        throw $r10;
+
+        catch java.io.IOException from label3 to label4 with label5;
+    }

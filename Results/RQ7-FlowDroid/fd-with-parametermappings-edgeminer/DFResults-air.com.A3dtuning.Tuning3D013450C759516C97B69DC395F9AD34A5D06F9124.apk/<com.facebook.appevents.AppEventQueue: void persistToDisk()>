@@ -1,0 +1,34 @@
+    public static void persistToDisk()
+    {
+        com.facebook.appevents.AppEventQueue$2 $r1;
+        java.lang.Throwable $r2;
+        java.util.concurrent.ScheduledExecutorService $r0;
+        boolean $z0;
+
+        $z0 = staticinvoke <com.facebook.internal.instrument.crashshield.CrashShieldHandler: boolean isObjectCrashing(java.lang.Object)>(class "Lcom/facebook/appevents/AppEventQueue;");
+
+        if $z0 == 0 goto label1;
+
+        return;
+
+     label1:
+        $r0 = <com.facebook.appevents.AppEventQueue: java.util.concurrent.ScheduledExecutorService singleThreadExecutor>;
+
+        $r1 = new com.facebook.appevents.AppEventQueue$2;
+
+        specialinvoke $r1.<com.facebook.appevents.AppEventQueue$2: void <init>()>();
+
+        interfaceinvoke $r0.<java.util.concurrent.ScheduledExecutorService: void execute(java.lang.Runnable)>($r1);
+
+     label2:
+        return;
+
+     label3:
+        $r2 := @caughtexception;
+
+        staticinvoke <com.facebook.internal.instrument.crashshield.CrashShieldHandler: void handleThrowable(java.lang.Throwable,java.lang.Object)>($r2, class "Lcom/facebook/appevents/AppEventQueue;");
+
+        return;
+
+        catch java.lang.Throwable from label1 to label2 with label3;
+    }

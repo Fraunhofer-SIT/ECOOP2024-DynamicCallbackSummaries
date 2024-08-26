@@ -1,0 +1,228 @@
+    public static void postOfflineScore(com.openfeint.api.resource.Score, com.openfeint.api.resource.Leaderboard)
+    {
+        java.lang.Throwable r2, $r18;
+        byte[] $r5;
+        java.lang.Object[] $r11;
+        java.security.MessageDigest $r10;
+        long $l0, $l1;
+        com.openfeint.internal.offline.OfflineSupport$DB $r7;
+        java.util.ArrayList $r8;
+        com.openfeint.api.Notification$Category $r14;
+        byte $b2;
+        int $i3;
+        java.lang.String $r4, $r12, $r19;
+        boolean $z0;
+        java.util.Iterator $r9;
+        com.openfeint.api.resource.Score $r0;
+        com.openfeint.api.resource.Leaderboard $r1;
+        com.openfeint.internal.offline.OfflineSupport$OfflineScore r3, r6, r17;
+        char[] $r13;
+        java.lang.Object $r16;
+        com.openfeint.api.Notification$Type $r15;
+
+        $r0 := @parameter0: com.openfeint.api.resource.Score;
+
+        $r1 := @parameter1: com.openfeint.api.resource.Leaderboard;
+
+        $r4 = <com.openfeint.internal.offline.OfflineSupport: java.lang.String userID>;
+
+        if $r4 != null goto label01;
+
+        return;
+
+     label01:
+        r6 = new com.openfeint.internal.offline.OfflineSupport$OfflineScore;
+
+        r3 = r6;
+
+        specialinvoke r6.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: void <init>()>();
+
+        $r4 = virtualinvoke $r1.<com.openfeint.api.resource.Leaderboard: java.lang.String resourceID()>();
+
+        r6.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: java.lang.String leaderboardID> = $r4;
+
+        $l0 = $r0.<com.openfeint.api.resource.Score: long score>;
+
+        r6.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: long score> = $l0;
+
+        $r4 = $r0.<com.openfeint.api.resource.Score: java.lang.String displayText>;
+
+        r6.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: java.lang.String displayText> = $r4;
+
+        $r4 = $r0.<com.openfeint.api.resource.Score: java.lang.String customData>;
+
+        r6.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: java.lang.String customData> = $r4;
+
+        $r4 = staticinvoke <com.openfeint.internal.offline.OfflineSupport: java.lang.String now()>();
+
+        r6.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: java.lang.String timestamp> = $r4;
+
+        $r5 = $r0.<com.openfeint.api.resource.Score: byte[] blob>;
+
+        if $r5 == null goto label18;
+
+        r6 = null;
+
+        $r7 = <com.openfeint.internal.offline.OfflineSupport: com.openfeint.internal.offline.OfflineSupport$DB db>;
+
+        $r8 = $r7.<com.openfeint.internal.offline.OfflineSupport$DB: java.util.ArrayList scores>;
+
+        $r9 = virtualinvoke $r8.<java.util.ArrayList: java.util.Iterator iterator()>();
+
+     label02:
+        $z0 = interfaceinvoke $r9.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 != 0 goto label19;
+
+     label03:
+        if r6 == null goto label06;
+
+        $z0 = $r1.<com.openfeint.api.resource.Leaderboard: boolean allowsWorseScores>;
+
+        if $z0 != 0 goto label05;
+
+        $z0 = $r1.<com.openfeint.api.resource.Leaderboard: boolean descendingSortOrder>;
+
+        if $z0 == 0 goto label04;
+
+        $l0 = r6.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: long score>;
+
+        $l1 = $r0.<com.openfeint.api.resource.Score: long score>;
+
+        $b2 = $l0 cmp $l1;
+
+        $i3 = (int) $b2;
+
+        if $i3 < 0 goto label05;
+
+     label04:
+        $z0 = $r1.<com.openfeint.api.resource.Leaderboard: boolean descendingSortOrder>;
+
+        if $z0 != 0 goto label22;
+
+        $l0 = r6.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: long score>;
+
+        $l1 = $r0.<com.openfeint.api.resource.Score: long score>;
+
+        $b2 = $l0 cmp $l1;
+
+        $i3 = (int) $b2;
+
+        if $i3 <= 0 goto label22;
+
+     label05:
+        $r4 = r6.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: java.lang.String blobFileName>;
+
+        staticinvoke <com.openfeint.internal.offline.OfflineSupport: void deleteDataFile(java.lang.String)>($r4);
+
+        $r7 = <com.openfeint.internal.offline.OfflineSupport: com.openfeint.internal.offline.OfflineSupport$DB db>;
+
+        $r8 = $r7.<com.openfeint.internal.offline.OfflineSupport$DB: java.util.ArrayList scores>;
+
+        virtualinvoke $r8.<java.util.ArrayList: boolean remove(java.lang.Object)>(r6);
+
+     label06:
+        $r4 = "unknown.blob";
+
+     label07:
+        $r10 = staticinvoke <java.security.MessageDigest: java.security.MessageDigest getInstance(java.lang.String)>("SHA1");
+
+     label08:
+        $r5 = $r0.<com.openfeint.api.resource.Score: byte[] blob>;
+
+     label09:
+        virtualinvoke $r10.<java.security.MessageDigest: void update(byte[])>($r5);
+
+     label10:
+        $r11 = newarray (java.lang.Object)[1];
+
+        $r19 = new java.lang.String;
+
+     label11:
+        $r5 = virtualinvoke $r10.<java.security.MessageDigest: byte[] digest()>();
+
+        $r13 = staticinvoke <com.openfeint.internal.vendor.org.apache.commons.codec.binary.Hex: char[] encodeHex(byte[])>($r5);
+
+        specialinvoke $r19.<java.lang.String: void <init>(char[])>($r13);
+
+     label12:
+        $r11[0] = $r19;
+
+     label13:
+        $r12 = staticinvoke <java.lang.String: java.lang.String format(java.lang.String,java.lang.Object[])>("%s.blob", $r11);
+
+     label14:
+        $r4 = $r12;
+
+     label15:
+        $r5 = $r0.<com.openfeint.api.resource.Score: byte[] blob>;
+
+     label16:
+        $r12 = staticinvoke <com.openfeint.internal.offline.OfflineSupport: java.lang.String fullPath(java.lang.String)>($r4);
+
+        staticinvoke <com.openfeint.internal.Util: void saveFile(byte[],java.lang.String)>($r5, $r12);
+
+     label17:
+        r3.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: java.lang.String blobFileName> = $r4;
+
+     label18:
+        $r7 = <com.openfeint.internal.offline.OfflineSupport: com.openfeint.internal.offline.OfflineSupport$DB db>;
+
+        $r8 = $r7.<com.openfeint.internal.offline.OfflineSupport$DB: java.util.ArrayList scores>;
+
+        virtualinvoke $r8.<java.util.ArrayList: boolean add(java.lang.Object)>(r3);
+
+        staticinvoke <com.openfeint.internal.offline.OfflineSupport: void save()>();
+
+        $z0 = staticinvoke <com.openfeint.internal.offline.OfflineSupport: boolean isUserTemporary()>();
+
+        if $z0 != 0 goto label22;
+
+        $i3 = staticinvoke <com.openfeint.internal.RR: int string(java.lang.String)>("of_score_submitted_notification");
+
+        $r4 = staticinvoke <com.openfeint.internal.OpenFeintInternal: java.lang.String getRString(int)>($i3);
+
+        $r14 = <com.openfeint.api.Notification$Category: com.openfeint.api.Notification$Category HighScore>;
+
+        $r15 = <com.openfeint.api.Notification$Type: com.openfeint.api.Notification$Type Success>;
+
+        staticinvoke <com.openfeint.internal.notifications.SimpleNotification: void show(java.lang.String,java.lang.String,com.openfeint.api.Notification$Category,com.openfeint.api.Notification$Type)>($r4, "@drawable/of_icon_highscore_notification", $r14, $r15);
+
+        return;
+
+     label19:
+        $r16 = interfaceinvoke $r9.<java.util.Iterator: java.lang.Object next()>();
+
+        r17 = (com.openfeint.internal.offline.OfflineSupport$OfflineScore) $r16;
+
+        $r4 = r3.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: java.lang.String leaderboardID>;
+
+        $r12 = r17.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: java.lang.String leaderboardID>;
+
+        $z0 = virtualinvoke $r4.<java.lang.String: boolean equals(java.lang.Object)>($r12);
+
+        if $z0 == 0 goto label02;
+
+        r6 = r17;
+
+        goto label03;
+
+     label20:
+        r2 := @caughtexception;
+
+        return;
+
+     label21:
+        $r18 := @caughtexception;
+
+        goto label15;
+
+     label22:
+        return;
+
+        catch java.security.NoSuchAlgorithmException from label07 to label08 with label21;
+        catch java.security.NoSuchAlgorithmException from label09 to label10 with label21;
+        catch java.security.NoSuchAlgorithmException from label11 to label12 with label21;
+        catch java.security.NoSuchAlgorithmException from label13 to label14 with label21;
+        catch java.io.IOException from label16 to label17 with label20;
+    }

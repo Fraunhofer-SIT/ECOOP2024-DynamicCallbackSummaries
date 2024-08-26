@@ -1,0 +1,160 @@
+    private static boolean a(java.io.File, java.util.List, java.util.zip.ZipFile, java.util.zip.ZipEntry, java.lang.String) throws java.io.IOException
+    {
+        java.lang.Throwable $r10, $r11;
+        byte[] $r9;
+        java.io.BufferedInputStream $r6, $r14;
+        java.io.BufferedOutputStream $r8, $r15;
+        int $i0;
+        java.util.zip.ZipFile $r2;
+        java.lang.String $r4;
+        java.util.zip.ZipEntry $r3;
+        boolean $z0;
+        java.io.FileOutputStream $r5, $r13;
+        java.io.File $r0, $r12;
+        java.util.List $r1;
+        java.io.InputStream $r7;
+
+        $r0 := @parameter0: java.io.File;
+
+        $r1 := @parameter1: java.util.List;
+
+        $r2 := @parameter2: java.util.zip.ZipFile;
+
+        $r3 := @parameter3: java.util.zip.ZipEntry;
+
+        $r4 := @parameter4: java.lang.String;
+
+        $r12 = new java.io.File;
+
+        specialinvoke $r12.<java.io.File: void <init>(java.io.File,java.lang.String)>($r0, $r4);
+
+        interfaceinvoke $r1.<java.util.List: boolean add(java.lang.Object)>($r12);
+
+        $z0 = virtualinvoke $r3.<java.util.zip.ZipEntry: boolean isDirectory()>();
+
+        if $z0 == 0 goto label01;
+
+        $z0 = staticinvoke <com.bytedance.sdk.component.utils.v: boolean a(java.io.File)>($r12);
+
+        return $z0;
+
+     label01:
+        $z0 = staticinvoke <com.bytedance.sdk.component.utils.v: boolean b(java.io.File)>($r12);
+
+        if $z0 != 0 goto label02;
+
+        return 0;
+
+     label02:
+        $r13 = new java.io.FileOutputStream;
+
+     label03:
+        $r5 = $r13;
+
+     label04:
+        specialinvoke $r13.<java.io.FileOutputStream: void <init>(java.io.File)>($r12);
+
+     label05:
+        $r14 = new java.io.BufferedInputStream;
+
+     label06:
+        $r6 = $r14;
+
+     label07:
+        $r7 = virtualinvoke $r2.<java.util.zip.ZipFile: java.io.InputStream getInputStream(java.util.zip.ZipEntry)>($r3);
+
+        specialinvoke $r14.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r7);
+
+     label08:
+        $r15 = new java.io.BufferedOutputStream;
+
+     label09:
+        $r8 = $r15;
+
+     label10:
+        specialinvoke $r15.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r13);
+
+     label11:
+        $r9 = newarray (byte)[8192];
+
+     label12:
+        $i0 = virtualinvoke $r14.<java.io.InputStream: int read(byte[])>($r9);
+
+     label13:
+        if $i0 == -1 goto label16;
+
+     label14:
+        virtualinvoke $r15.<java.io.OutputStream: void write(byte[],int,int)>($r9, 0, $i0);
+
+     label15:
+        goto label12;
+
+     label16:
+        virtualinvoke $r14.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r15.<java.io.OutputStream: void close()>();
+
+        virtualinvoke $r13.<java.io.OutputStream: void close()>();
+
+        return 1;
+
+     label17:
+        $r10 := @caughtexception;
+
+        goto label22;
+
+     label18:
+        $r11 := @caughtexception;
+
+        $r8 = null;
+
+        goto label21;
+
+     label19:
+        $r11 := @caughtexception;
+
+        $r8 = null;
+
+        $r6 = null;
+
+        goto label21;
+
+     label20:
+        $r11 := @caughtexception;
+
+        $r8 = null;
+
+        $r5 = null;
+
+        $r6 = null;
+
+     label21:
+        $r10 = $r11;
+
+     label22:
+        if $r6 == null goto label23;
+
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+     label23:
+        if $r8 == null goto label24;
+
+        virtualinvoke $r8.<java.io.OutputStream: void close()>();
+
+     label24:
+        if $r5 == null goto label25;
+
+        virtualinvoke $r5.<java.io.OutputStream: void close()>();
+
+     label25:
+        throw $r10;
+
+        catch java.lang.Throwable from label02 to label03 with label20;
+        catch java.lang.Throwable from label04 to label05 with label20;
+        catch java.lang.Throwable from label05 to label06 with label19;
+        catch java.lang.Throwable from label07 to label08 with label19;
+        catch java.lang.Throwable from label08 to label09 with label18;
+        catch java.lang.Throwable from label10 to label11 with label18;
+        catch java.lang.Throwable from label12 to label13 with label17;
+        catch java.lang.Throwable from label14 to label15 with label17;
+    }

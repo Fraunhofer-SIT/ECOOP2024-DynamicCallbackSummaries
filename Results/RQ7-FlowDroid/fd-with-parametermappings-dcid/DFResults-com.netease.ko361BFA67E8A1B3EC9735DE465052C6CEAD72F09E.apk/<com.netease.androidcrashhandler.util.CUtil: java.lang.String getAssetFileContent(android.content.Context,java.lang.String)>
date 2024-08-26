@@ -1,0 +1,81 @@
+    public static java.lang.String getAssetFileContent(android.content.Context, java.lang.String)
+    {
+        java.lang.Throwable $r5;
+        android.content.Context $r0;
+        byte[] $r4;
+        java.io.IOException $r8;
+        android.content.res.AssetManager $r2;
+        int $i0;
+        java.lang.StringBuilder $r7;
+        java.lang.String $r1, $r6;
+        boolean $z0;
+        java.io.InputStream $r3;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 := @parameter1: java.lang.String;
+
+        if $r0 == null goto label8;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r1);
+
+        if $z0 != 0 goto label8;
+
+     label1:
+        $r2 = virtualinvoke $r0.<android.content.Context: android.content.res.AssetManager getAssets()>();
+
+        $r3 = virtualinvoke $r2.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>($r1);
+
+        $i0 = virtualinvoke $r3.<java.io.InputStream: int available()>();
+
+     label2:
+        $r4 = newarray (byte)[$i0];
+
+     label3:
+        virtualinvoke $r3.<java.io.InputStream: int read(byte[])>($r4);
+
+        virtualinvoke $r3.<java.io.InputStream: void close()>();
+
+     label4:
+        $r6 = new java.lang.String;
+
+     label5:
+        specialinvoke $r6.<java.lang.String: void <init>(byte[])>($r4);
+
+     label6:
+        return $r6;
+
+     label7:
+        $r5 := @caughtexception;
+
+        $r7 = new java.lang.StringBuilder;
+
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("MyFileUtils [getAssetFile] IOException=");
+
+        $r8 = (java.io.IOException) $r5;
+
+        $r1 = virtualinvoke $r8.<java.io.IOException: java.lang.String toString()>();
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", $r1);
+
+        $r8 = (java.io.IOException) $r5;
+
+        virtualinvoke $r8.<java.io.IOException: void printStackTrace()>();
+
+        return null;
+
+     label8:
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", "MyFileUtils [getAssetFile] param is error");
+
+        return null;
+
+        catch java.io.IOException from label1 to label2 with label7;
+        catch java.io.IOException from label3 to label4 with label7;
+        catch java.io.IOException from label5 to label6 with label7;
+    }

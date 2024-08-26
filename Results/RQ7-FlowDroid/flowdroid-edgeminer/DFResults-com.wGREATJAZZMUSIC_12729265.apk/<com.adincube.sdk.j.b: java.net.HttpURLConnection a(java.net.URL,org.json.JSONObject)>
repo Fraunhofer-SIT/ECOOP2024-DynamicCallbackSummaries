@@ -1,0 +1,48 @@
+    public final java.net.HttpURLConnection a(java.net.URL, org.json.JSONObject)
+    {
+        java.net.HttpURLConnection $r4;
+        java.io.OutputStream $r6;
+        byte[] $r8;
+        java.net.URL $r1;
+        com.adincube.sdk.j.b r0;
+        java.io.BufferedOutputStream $r7;
+        org.json.JSONObject $r2;
+        java.util.zip.GZIPOutputStream $r5;
+        java.lang.String $r3;
+
+        r0 := @this: com.adincube.sdk.j.b;
+
+        $r1 := @parameter0: java.net.URL;
+
+        $r2 := @parameter1: org.json.JSONObject;
+
+        $r3 = virtualinvoke $r2.<org.json.JSONObject: java.lang.String toString()>();
+
+        $r4 = virtualinvoke r0.<com.adincube.sdk.j.b: java.net.HttpURLConnection a(java.net.URL,java.lang.String)>($r1, "POST");
+
+        virtualinvoke $r4.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Type", "application/json; charset=utf-8");
+
+        virtualinvoke $r4.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Encoding", "gzip");
+
+        virtualinvoke $r4.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+        $r5 = new java.util.zip.GZIPOutputStream;
+
+        $r6 = virtualinvoke $r4.<java.net.HttpURLConnection: java.io.OutputStream getOutputStream()>();
+
+        specialinvoke $r5.<java.util.zip.GZIPOutputStream: void <init>(java.io.OutputStream)>($r6);
+
+        $r7 = new java.io.BufferedOutputStream;
+
+        specialinvoke $r7.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r5);
+
+        $r8 = virtualinvoke $r3.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8");
+
+        virtualinvoke $r7.<java.io.OutputStream: void write(byte[])>($r8);
+
+        virtualinvoke $r7.<java.io.OutputStream: void flush()>();
+
+        virtualinvoke $r7.<java.io.OutputStream: void close()>();
+
+        return $r4;
+    }

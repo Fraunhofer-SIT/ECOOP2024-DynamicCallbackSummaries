@@ -1,0 +1,141 @@
+    public static org.json.JSONObject getChannelInfos()
+    {
+        android.content.Context $r2;
+        java.util.Iterator $r6;
+        java.lang.Exception $r9;
+        org.json.JSONObject $r0, $r8;
+        com.netease.androidcrashhandler.NTCrashHunterKit $r1;
+        int $i0;
+        java.lang.StringBuilder $r4;
+        java.lang.Object $r7;
+        java.lang.String $r3, $r5;
+        boolean $z0;
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", "DiInfo [getChannelInfos] start");
+
+        $r0 = <com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mChannelInfosJson>;
+
+        if $r0 != null goto label17;
+
+     label01:
+        $r1 = staticinvoke <com.netease.androidcrashhandler.NTCrashHunterKit: com.netease.androidcrashhandler.NTCrashHunterKit sharedKit()>();
+
+        $r2 = virtualinvoke $r1.<com.netease.androidcrashhandler.NTCrashHunterKit: android.content.Context getContext()>();
+
+        $r3 = staticinvoke <com.netease.androidcrashhandler.util.CUtil: java.lang.String getAssetFileContent(android.content.Context,java.lang.String)>($r2, "channel_infos_data");
+
+     label02:
+        $r4 = new java.lang.StringBuilder;
+
+     label03:
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("DiInfo [getChannelInfos] channelInfos =");
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", $r5);
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r3);
+
+     label04:
+        if $z0 != 0 goto label17;
+
+        $r0 = new org.json.JSONObject;
+
+     label05:
+        specialinvoke $r0.<org.json.JSONObject: void <init>(java.lang.String)>($r3);
+
+        $z0 = virtualinvoke $r0.<org.json.JSONObject: boolean has(java.lang.String)>("main_channel");
+
+     label06:
+        if $z0 == 0 goto label17;
+
+     label07:
+        $r0 = virtualinvoke $r0.<org.json.JSONObject: org.json.JSONObject optJSONObject(java.lang.String)>("main_channel");
+
+     label08:
+        if $r0 == null goto label17;
+
+     label09:
+        $i0 = virtualinvoke $r0.<org.json.JSONObject: int length()>();
+
+     label10:
+        if $i0 <= 0 goto label17;
+
+     label11:
+        $r6 = virtualinvoke $r0.<org.json.JSONObject: java.util.Iterator keys()>();
+
+     label12:
+        $z0 = interfaceinvoke $r6.<java.util.Iterator: boolean hasNext()>();
+
+     label13:
+        if $z0 == 0 goto label17;
+
+     label14:
+        $r7 = interfaceinvoke $r6.<java.util.Iterator: java.lang.Object next()>();
+
+        $r3 = (java.lang.String) $r7;
+
+        $r8 = virtualinvoke $r0.<org.json.JSONObject: org.json.JSONObject optJSONObject(java.lang.String)>($r3);
+
+     label15:
+        <com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mChannelInfosJson> = $r8;
+
+        goto label12;
+
+     label16:
+        $r9 := @caughtexception;
+
+        $r4 = new java.lang.StringBuilder;
+
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("DiInfo [getChannelInfos] Exception=");
+
+        $r3 = virtualinvoke $r9.<java.lang.Exception: java.lang.String toString()>();
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", $r3);
+
+        virtualinvoke $r9.<java.lang.Exception: void printStackTrace()>();
+
+     label17:
+        $r0 = <com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mChannelInfosJson>;
+
+        if $r0 == null goto label18;
+
+        $r4 = new java.lang.StringBuilder;
+
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("DiInfo [getChannelInfos] mChannelInfosJson=");
+
+        $r0 = <com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mChannelInfosJson>;
+
+        $r3 = virtualinvoke $r0.<org.json.JSONObject: java.lang.String toString()>();
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", $r3);
+
+     label18:
+        $r0 = <com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mChannelInfosJson>;
+
+        return $r0;
+
+        catch java.lang.Exception from label01 to label02 with label16;
+        catch java.lang.Exception from label03 to label04 with label16;
+        catch java.lang.Exception from label05 to label06 with label16;
+        catch java.lang.Exception from label07 to label08 with label16;
+        catch java.lang.Exception from label09 to label10 with label16;
+        catch java.lang.Exception from label11 to label13 with label16;
+        catch java.lang.Exception from label14 to label15 with label16;
+    }

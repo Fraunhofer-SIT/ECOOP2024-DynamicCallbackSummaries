@@ -1,0 +1,160 @@
+    private static void exfr(java.lang.String, java.io.InputStream, java.io.OutputStream) throws java.lang.Exception
+    {
+        byte[] $r6;
+        byte $b8, $b9;
+        int[] $r4, $r5;
+        int $i0, $i3, $i4, $i5, $i6, $i7;
+        java.lang.String $r0;
+        java.io.OutputStream $r2;
+        char $c1, $c2;
+        char[] $r3;
+        java.io.InputStream $r1;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r1 := @parameter1: java.io.InputStream;
+
+        $r2 := @parameter2: java.io.OutputStream;
+
+        $r3 = virtualinvoke $r0.<java.lang.String: char[] toCharArray()>();
+
+        $r4 = newarray (int)[4];
+
+        $c1 = $r3[0];
+
+        $c2 = $r3[1];
+
+        $i3 = (int) $c2;
+
+        $i3 = $i3 << 16;
+
+        $i4 = (int) $c1;
+
+        $i3 = $i4 | $i3;
+
+        $r4[0] = $i3;
+
+        $c1 = $r3[2];
+
+        $c2 = $r3[3];
+
+        $i3 = (int) $c2;
+
+        $i3 = $i3 << 16;
+
+        $i4 = (int) $c1;
+
+        $i3 = $i4 | $i3;
+
+        $r4[1] = $i3;
+
+        $c1 = $r3[4];
+
+        $c2 = $r3[5];
+
+        $i3 = (int) $c2;
+
+        $i3 = $i3 << 16;
+
+        $i4 = (int) $c1;
+
+        $i3 = $i4 | $i3;
+
+        $r4[2] = $i3;
+
+        $c1 = $r3[6];
+
+        $c2 = $r3[7];
+
+        $i3 = (int) $c2;
+
+        $i3 = $i3 << 16;
+
+        $i4 = (int) $c1;
+
+        $i3 = $i4 | $i3;
+
+        $r4[3] = $i3;
+
+        $r5 = newarray (int)[2];
+
+        $c1 = $r3[8];
+
+        $c2 = $r3[9];
+
+        $i3 = (int) $c2;
+
+        $i3 = $i3 << 16;
+
+        $i4 = (int) $c1;
+
+        $i3 = $i4 | $i3;
+
+        $r5[0] = $i3;
+
+        $c1 = $r3[10];
+
+        $c2 = $r3[11];
+
+        $i0 = (int) $c2;
+
+        $i0 = $i0 << 16;
+
+        $i3 = (int) $c1;
+
+        $i0 = $i3 | $i0;
+
+        $r5[1] = $i0;
+
+        staticinvoke <com.alfaisal.studio.Application$d: int[] FxIjsF(int[])>($r4);
+
+        $r6 = newarray (byte)[8192];
+
+        $i0 = 0;
+
+     label1:
+        $i3 = virtualinvoke $r1.<java.io.InputStream: int read(byte[])>($r6);
+
+        if $i3 < 0 goto label4;
+
+        $i4 = $i0 + $i3;
+
+        $i5 = 0;
+
+     label2:
+        if $i0 < $i4 goto label3;
+
+        virtualinvoke $r2.<java.io.OutputStream: void write(byte[],int,int)>($r6, 0, $i3);
+
+        goto label1;
+
+     label3:
+        $i6 = $i0 % 8;
+
+        $i7 = $i6 / 4;
+
+        $i6 = $i0 % 4;
+
+        $i7 = $r5[$i7];
+
+        $i6 = $i6 * 8;
+
+        $i6 = $i7 >> $i6;
+
+        $b8 = (byte) $i6;
+
+        $b9 = $r6[$i5];
+
+        $b8 = $b8 ^ $b9;
+
+        $r6[$i5] = $b8;
+
+        $i0 = $i0 + 1;
+
+        $i5 = $i5 + 1;
+
+        goto label2;
+
+     label4:
+        return;
+    }

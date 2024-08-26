@@ -1,0 +1,110 @@
+    private void reset()
+    {
+        byte[] $r5, $r6, $r7;
+        long $l1;
+        java.io.FileInputStream $r4;
+        java.io.File $r3;
+        java.lang.Exception $r8;
+        java.util.LinkedHashMap $r1;
+        io.dcloud.common.adapter.util.SharedPreferencesExt r0;
+        byte $b0;
+        int $i2, $i3;
+        java.lang.String $r2;
+
+        r0 := @this: io.dcloud.common.adapter.util.SharedPreferencesExt;
+
+     label01:
+        $r1 = r0.<io.dcloud.common.adapter.util.SharedPreferencesExt: java.util.LinkedHashMap mKeyValue>;
+
+        virtualinvoke $r1.<java.util.LinkedHashMap: void clear()>();
+
+        $r3 = r0.<io.dcloud.common.adapter.util.SharedPreferencesExt: java.io.File mFileHandler>;
+
+        $l1 = virtualinvoke $r3.<java.io.File: long lastModified()>();
+
+        r0.<io.dcloud.common.adapter.util.SharedPreferencesExt: long mFileModifyTime> = $l1;
+
+     label02:
+        $r4 = new java.io.FileInputStream;
+
+     label03:
+        $r3 = r0.<io.dcloud.common.adapter.util.SharedPreferencesExt: java.io.File mFileHandler>;
+
+        specialinvoke $r4.<java.io.FileInputStream: void <init>(java.io.File)>($r3);
+
+     label04:
+        $r5 = newarray (byte)[4];
+
+        $r6 = newarray (byte)[1];
+
+        $r7 = newarray (byte)[256];
+
+     label05:
+        $i2 = virtualinvoke $r4.<java.io.InputStream: int read(byte[])>($r5);
+
+     label06:
+        if $i2 > 0 goto label07;
+
+        return;
+
+     label07:
+        $i2 = staticinvoke <io.dcloud.common.adapter.util.ByteUtil: int toInt(byte[])>($r5);
+
+        $i3 = lengthof $r7;
+
+     label08:
+        if $i2 <= $i3 goto label10;
+
+     label09:
+        $r7 = newarray (byte)[$i2];
+
+     label10:
+        $i2 = virtualinvoke $r4.<java.io.InputStream: int read(byte[],int,int)>($r7, 0, $i2);
+
+     label11:
+        $r2 = new java.lang.String;
+
+     label12:
+        specialinvoke $r2.<java.lang.String: void <init>(byte[],int,int,java.lang.String)>($r7, 0, $i2, "UTF-8");
+
+        virtualinvoke $r4.<java.io.InputStream: int read(byte[])>($r6);
+
+        $b0 = $r6[0];
+
+        virtualinvoke $r4.<java.io.InputStream: int read(byte[])>($r5);
+
+        $i2 = staticinvoke <io.dcloud.common.adapter.util.ByteUtil: int toInt(byte[])>($r5);
+
+        $i3 = lengthof $r7;
+
+     label13:
+        if $i2 <= $i3 goto label15;
+
+     label14:
+        $r7 = newarray (byte)[$i2];
+
+     label15:
+        $i2 = virtualinvoke $r4.<java.io.InputStream: int read(byte[],int,int)>($r7, 0, $i2);
+
+        $r1 = r0.<io.dcloud.common.adapter.util.SharedPreferencesExt: java.util.LinkedHashMap mKeyValue>;
+
+        virtualinvoke r0.<io.dcloud.common.adapter.util.SharedPreferencesExt: void load(java.util.LinkedHashMap,java.lang.String,byte[],int,byte)>($r1, $r2, $r7, $i2, $b0);
+
+     label16:
+        goto label05;
+
+     label17:
+        $r8 := @caughtexception;
+
+        virtualinvoke $r8.<java.lang.Exception: void printStackTrace()>();
+
+        return;
+
+        catch java.lang.Exception from label01 to label02 with label17;
+        catch java.lang.Exception from label03 to label04 with label17;
+        catch java.lang.Exception from label05 to label06 with label17;
+        catch java.lang.Exception from label07 to label08 with label17;
+        catch java.lang.Exception from label09 to label11 with label17;
+        catch java.lang.Exception from label12 to label13 with label17;
+        catch java.lang.Exception from label14 to label16 with label17;
+    }

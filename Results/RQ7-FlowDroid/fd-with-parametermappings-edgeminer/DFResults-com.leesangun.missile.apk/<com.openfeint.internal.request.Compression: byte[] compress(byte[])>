@@ -1,0 +1,230 @@
+    public static byte[] compress(byte[])
+    {
+        java.lang.Throwable r1;
+        byte[] $r0, r2, $r6, $r7, $r8, $r9;
+        java.lang.Float $r12;
+        java.lang.Object[] $r10;
+        java.lang.Integer $r11;
+        int[] $r3;
+        com.openfeint.internal.request.Compression$CompressionMethod $r4;
+        int i0, $i1, $i2;
+        java.lang.String $r5, $r13;
+        float $f0, $f1;
+
+        $r0 := @parameter0: byte[];
+
+        r2 = $r0;
+
+     label01:
+        $r3 = staticinvoke <com.openfeint.internal.request.Compression: int[] $SWITCH_TABLE$com$openfeint$internal$request$Compression$CompressionMethod()>();
+
+        $r4 = staticinvoke <com.openfeint.internal.request.Compression: com.openfeint.internal.request.Compression$CompressionMethod compressionMethod()>();
+
+        i0 = virtualinvoke $r4.<com.openfeint.internal.request.Compression$CompressionMethod: int ordinal()>();
+
+     label02:
+        i0 = $r3[i0];
+
+        lookupswitch(i0)
+        {
+            case 1: goto label06;
+            case 2: goto label03;
+            case 3: goto label28;
+            default: goto label03;
+        };
+
+     label03:
+        $r5 = <com.openfeint.internal.request.Compression: java.lang.String TAG>;
+
+     label04:
+        staticinvoke <com.openfeint.internal.logcat.OFLog: void i(java.lang.String,java.lang.String)>($r5, "Using Uncompressed strategy");
+
+     label05:
+        return r2;
+
+     label06:
+        $r6 = staticinvoke <com.openfeint.internal.request.Compression: byte[] _compress(byte[])>($r0);
+
+     label07:
+        i0 = lengthof $r0;
+
+     label08:
+        $r7 = staticinvoke <com.openfeint.internal.request.Compression: byte[] integerToLittleEndianByteArray(int)>(i0);
+
+     label09:
+        i0 = lengthof $r6;
+
+        $r8 = <com.openfeint.internal.request.Compression: byte[] MagicHeader>;
+
+        $i1 = lengthof $r8;
+
+        i0 = i0 + $i1;
+
+        $i1 = lengthof $r7;
+
+        i0 = i0 + $i1;
+
+        $i1 = lengthof $r0;
+
+        if i0 >= $i1 goto label25;
+
+        r2 = newarray (byte)[i0];
+
+        $r8 = <com.openfeint.internal.request.Compression: byte[] MagicHeader>;
+
+        $r9 = <com.openfeint.internal.request.Compression: byte[] MagicHeader>;
+
+        $i1 = lengthof $r9;
+
+     label10:
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($r8, 0, r2, 0, $i1);
+
+     label11:
+        $r8 = <com.openfeint.internal.request.Compression: byte[] MagicHeader>;
+
+        $i1 = lengthof $r8;
+
+        $i2 = lengthof $r7;
+
+     label12:
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($r7, 0, r2, $i1, $i2);
+
+     label13:
+        $r7 = <com.openfeint.internal.request.Compression: byte[] MagicHeader>;
+
+        $i1 = lengthof $r7;
+
+        $i1 = $i1 + 4;
+
+        $i2 = lengthof $r6;
+
+     label14:
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($r6, 0, r2, $i1, $i2);
+
+     label15:
+        $r5 = <com.openfeint.internal.request.Compression: java.lang.String TAG>;
+
+        $r10 = newarray (java.lang.Object)[3];
+
+        $i1 = lengthof $r0;
+
+     label16:
+        $r11 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i1);
+
+     label17:
+        $r10[0] = $r11;
+
+     label18:
+        $r11 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(i0);
+
+     label19:
+        $r10[1] = $r11;
+
+        $f0 = (float) i0;
+
+        i0 = lengthof $r0;
+
+        $f1 = (float) i0;
+
+        $f0 = $f0 / $f1;
+
+        $f0 = $f0 * 100.0F;
+
+     label20:
+        $r12 = staticinvoke <java.lang.Float: java.lang.Float valueOf(float)>($f0);
+
+     label21:
+        $r10[2] = $r12;
+
+     label22:
+        $r13 = staticinvoke <java.lang.String: java.lang.String format(java.lang.String,java.lang.Object[])>("Using Default strategy: orig %d bytes, compressed %d bytes (%.2f%% of original size)", $r10);
+
+        staticinvoke <com.openfeint.internal.logcat.OFLog: void i(java.lang.String,java.lang.String)>($r5, $r13);
+
+     label23:
+        goto label05;
+
+     label24:
+        r1 := @caughtexception;
+
+        return null;
+
+     label25:
+        $r5 = <com.openfeint.internal.request.Compression: java.lang.String TAG>;
+
+     label26:
+        staticinvoke <com.openfeint.internal.logcat.OFLog: void i(java.lang.String,java.lang.String)>($r5, "Using Default strategy: compression declined");
+
+     label27:
+        goto label05;
+
+     label28:
+        $r6 = staticinvoke <com.openfeint.internal.request.Compression: byte[] _compress(byte[])>($r0);
+
+     label29:
+        r2 = $r6;
+
+        $r5 = <com.openfeint.internal.request.Compression: java.lang.String TAG>;
+
+        $r10 = newarray (java.lang.Object)[3];
+
+        i0 = lengthof $r0;
+
+     label30:
+        $r11 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(i0);
+
+     label31:
+        $r10[0] = $r11;
+
+        i0 = lengthof $r6;
+
+     label32:
+        $r11 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(i0);
+
+     label33:
+        $r10[1] = $r11;
+
+        i0 = lengthof $r6;
+
+        $f0 = (float) i0;
+
+        i0 = lengthof $r0;
+
+        $f1 = (float) i0;
+
+        $f0 = $f0 / $f1;
+
+        $f0 = $f0 * 100.0F;
+
+     label34:
+        $r12 = staticinvoke <java.lang.Float: java.lang.Float valueOf(float)>($f0);
+
+     label35:
+        $r10[2] = $r12;
+
+     label36:
+        $r13 = staticinvoke <java.lang.String: java.lang.String format(java.lang.String,java.lang.Object[])>("Using Default strategy: orig %d bytes, compressed %d bytes (%.2f%% of original size)", $r10);
+
+        staticinvoke <com.openfeint.internal.logcat.OFLog: void i(java.lang.String,java.lang.String)>($r5, $r13);
+
+     label37:
+        goto label05;
+
+        catch java.io.IOException from label01 to label02 with label24;
+        catch java.io.IOException from label04 to label05 with label24;
+        catch java.io.IOException from label06 to label07 with label24;
+        catch java.io.IOException from label08 to label09 with label24;
+        catch java.io.IOException from label10 to label11 with label24;
+        catch java.io.IOException from label12 to label13 with label24;
+        catch java.io.IOException from label14 to label15 with label24;
+        catch java.io.IOException from label16 to label17 with label24;
+        catch java.io.IOException from label18 to label19 with label24;
+        catch java.io.IOException from label20 to label21 with label24;
+        catch java.io.IOException from label22 to label23 with label24;
+        catch java.io.IOException from label26 to label27 with label24;
+        catch java.io.IOException from label28 to label29 with label24;
+        catch java.io.IOException from label30 to label31 with label24;
+        catch java.io.IOException from label32 to label33 with label24;
+        catch java.io.IOException from label34 to label35 with label24;
+        catch java.io.IOException from label36 to label37 with label24;
+    }

@@ -1,0 +1,30 @@
+    private static java.lang.String getStringFromStream(java.io.InputStream) throws java.io.IOException
+    {
+        byte[] $r1;
+        java.io.ByteArrayOutputStream $r3;
+        int $i0;
+        java.lang.String $r2;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $r3 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r3.<java.io.ByteArrayOutputStream: void <init>(int)>(4096);
+
+        $r1 = newarray (byte)[4096];
+
+     label1:
+        $i0 = virtualinvoke $r0.<java.io.InputStream: int read(byte[])>($r1);
+
+        if $i0 == -1 goto label2;
+
+        virtualinvoke $r3.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r1, 0, $i0);
+
+        goto label1;
+
+     label2:
+        $r2 = virtualinvoke $r3.<java.io.ByteArrayOutputStream: java.lang.String toString(java.lang.String)>("UTF-8");
+
+        return $r2;
+    }

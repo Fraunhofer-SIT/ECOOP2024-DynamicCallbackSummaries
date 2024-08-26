@@ -1,0 +1,141 @@
+    public static java.util.List A01(java.io.File, java.io.File)
+    {
+        java.lang.Throwable $r3, $r4, $r5, $r6, $r13, $r15;
+        byte[] $r2;
+        java.util.zip.ZipInputStream $r16;
+        java.util.ArrayList $r7;
+        int $i0;
+        java.lang.String $r10, $r11;
+        java.util.zip.ZipEntry $r9;
+        boolean $z0;
+        java.io.FileOutputStream $r12;
+        java.io.IOException $r14;
+        java.io.FileInputStream $r8;
+        java.io.File $r0, $r1;
+
+        $r0 := @parameter0: java.io.File;
+
+        $r1 := @parameter1: java.io.File;
+
+        virtualinvoke $r1.<java.io.File: boolean mkdirs()>();
+
+        $r7 = staticinvoke <X.000: java.util.ArrayList A0l()>();
+
+        $r8 = staticinvoke <X.002: java.io.FileInputStream A0X(java.io.File)>($r0);
+
+        $r16 = new java.util.zip.ZipInputStream;
+
+        specialinvoke $r16.<java.util.zip.ZipInputStream: void <init>(java.io.InputStream)>($r8);
+
+     label01:
+        $r9 = virtualinvoke $r16.<java.util.zip.ZipInputStream: java.util.zip.ZipEntry getNextEntry()>();
+
+     label02:
+        if $r9 == null goto label18;
+
+     label03:
+        $r10 = virtualinvoke $r9.<java.util.zip.ZipEntry: java.lang.String getName()>();
+
+        $r0 = staticinvoke <X.000: java.io.File A0E(java.io.File,java.lang.String)>($r1, $r10);
+
+        $r10 = virtualinvoke $r0.<java.io.File: java.lang.String getCanonicalPath()>();
+
+        $r11 = virtualinvoke $r1.<java.io.File: java.lang.String getCanonicalPath()>();
+
+        $z0 = virtualinvoke $r10.<java.lang.String: boolean startsWith(java.lang.String)>($r11);
+
+     label04:
+        if $z0 == 0 goto label17;
+
+     label05:
+        $r12 = staticinvoke <X.003: java.io.FileOutputStream A0T(java.io.File)>($r0);
+
+     label06:
+        $r2 = newarray (byte)[1024];
+
+     label07:
+        $i0 = virtualinvoke $r16.<java.io.InputStream: int read(byte[])>($r2);
+
+     label08:
+        if $i0 == -1 goto label11;
+
+     label09:
+        virtualinvoke $r12.<java.io.OutputStream: void write(byte[],int,int)>($r2, 0, $i0);
+
+     label10:
+        goto label07;
+
+     label11:
+        interfaceinvoke $r12.<java.io.Closeable: void close()>();
+
+     label12:
+        virtualinvoke $r7.<java.util.AbstractCollection: boolean add(java.lang.Object)>($r0);
+
+        virtualinvoke $r16.<java.util.zip.ZipInputStream: void closeEntry()>();
+
+     label13:
+        goto label01;
+
+     label14:
+        $r13 := @caughtexception;
+
+     label15:
+        interfaceinvoke $r12.<java.io.Closeable: void close()>();
+
+     label16:
+        throw $r13;
+
+     label17:
+        $r14 = staticinvoke <X.000: java.io.IOException A0F(java.lang.String)>("File path does not match parent directory path");
+
+        throw $r14;
+
+     label18:
+        interfaceinvoke $r16.<java.io.Closeable: void close()>();
+
+     label19:
+        return $r7;
+
+     label20:
+        $r15 := @caughtexception;
+
+     label21:
+        interfaceinvoke $r16.<java.io.Closeable: void close()>();
+
+     label22:
+        throw $r15;
+
+     label23:
+        $r3 := @caughtexception;
+
+        goto label12;
+
+     label24:
+        $r4 := @caughtexception;
+
+        goto label16;
+
+     label25:
+        $r5 := @caughtexception;
+
+        return $r7;
+
+     label26:
+        $r6 := @caughtexception;
+
+        goto label22;
+
+        catch java.lang.Throwable from label01 to label02 with label20;
+        catch java.lang.Throwable from label03 to label04 with label20;
+        catch java.lang.Throwable from label05 to label06 with label20;
+        catch java.lang.Throwable from label07 to label08 with label14;
+        catch java.lang.Throwable from label09 to label10 with label14;
+        catch java.io.IOException from label11 to label12 with label23;
+        catch java.lang.Throwable from label11 to label12 with label20;
+        catch java.lang.Throwable from label12 to label13 with label20;
+        catch java.io.IOException from label15 to label16 with label24;
+        catch java.lang.Throwable from label15 to label16 with label20;
+        catch java.lang.Throwable from label16 to label18 with label20;
+        catch java.io.IOException from label18 to label19 with label25;
+        catch java.io.IOException from label21 to label22 with label26;
+    }

@@ -1,0 +1,74 @@
+    private static void a(java.io.OutputStream, java.lang.String)
+    {
+        java.io.OutputStream $r0;
+        java.lang.Throwable $r1, $r2, $r3, $r8;
+        byte[] $r6;
+        java.io.IOException $r9;
+        java.io.BufferedOutputStream $r7;
+        java.nio.charset.Charset $r5;
+        java.lang.String $r4;
+
+        $r0 := @parameter0: java.io.OutputStream;
+
+        $r4 := @parameter1: java.lang.String;
+
+        $r5 = staticinvoke <com.kochava.base.ab: java.nio.charset.Charset a()>();
+
+        $r6 = virtualinvoke $r4.<java.lang.String: byte[] getBytes(java.nio.charset.Charset)>($r5);
+
+        $r7 = new java.io.BufferedOutputStream;
+
+        specialinvoke $r7.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r0);
+
+     label01:
+        virtualinvoke $r7.<java.io.OutputStream: void write(byte[])>($r6);
+
+     label02:
+        virtualinvoke $r7.<java.io.OutputStream: void close()>();
+
+        virtualinvoke $r0.<java.io.OutputStream: void close()>();
+
+     label03:
+        return;
+
+     label04:
+        $r8 := @caughtexception;
+
+        goto label06;
+
+     label05:
+        $r9 = new java.io.IOException;
+
+        specialinvoke $r9.<java.io.IOException: void <init>(java.lang.String)>("Failed to write output stream");
+
+        throw $r9;
+
+     label06:
+        virtualinvoke $r7.<java.io.OutputStream: void close()>();
+
+        virtualinvoke $r0.<java.io.OutputStream: void close()>();
+
+     label07:
+        throw $r8;
+
+     label08:
+        $r1 := @caughtexception;
+
+        goto label05;
+
+     label09:
+        $r2 := @caughtexception;
+
+        return;
+
+     label10:
+        $r3 := @caughtexception;
+
+        goto label07;
+
+        catch java.io.IOException from label01 to label02 with label08;
+        catch java.lang.Throwable from label01 to label02 with label04;
+        catch java.io.IOException from label02 to label03 with label09;
+        catch java.lang.Throwable from label05 to label06 with label04;
+        catch java.io.IOException from label06 to label07 with label10;
+    }

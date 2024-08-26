@@ -1,0 +1,120 @@
+    private void sendBroadcastForDiscovery()
+    {
+        java.lang.Throwable $r8;
+        byte[] $r4;
+        com.tuya.sdk.hardware.enums.FrameTypeEnum $r5;
+        com.tuya.smart.android.hardware.service.GwBroadcastMonitorService$2 $r13;
+        com.tuya.smart.android.hardware.service.GwBroadcastMonitorService r0;
+        com.tuya.smart.android.device.TuyaNetworkInterface$ProtocolVersion $r6;
+        java.net.InetAddress $r7;
+        java.nio.charset.Charset $r3;
+        android.os.Looper $r9;
+        com.tuya.smart.android.common.utils.SafeHandler $r12;
+        int $i0, $i1;
+        java.lang.String $r2;
+        boolean $z0;
+        java.io.IOException $r14;
+        android.app.Application $r1;
+        com.alibaba.fastjson.JSONObject $r10;
+        java.lang.StringBuilder $r11;
+
+        r0 := @this: com.tuya.smart.android.hardware.service.GwBroadcastMonitorService;
+
+        specialinvoke r0.<com.tuya.smart.android.hardware.service.GwBroadcastMonitorService: void stopSendBroadcastForDiscovery()>();
+
+        $r10 = new com.alibaba.fastjson.JSONObject;
+
+        specialinvoke $r10.<com.alibaba.fastjson.JSONObject: void <init>()>();
+
+        $r1 = staticinvoke <com.tuya.smart.sdk.TuyaBaseSdk: android.app.Application getApplication()>();
+
+        $r2 = staticinvoke <com.tuya.smart.android.common.utils.WiFiUtil: java.lang.String getIpAddress(android.content.Context)>($r1);
+
+        virtualinvoke $r10.<com.alibaba.fastjson.JSONObject: java.lang.Object put(java.lang.String,java.lang.Object)>("ip", $r2);
+
+        virtualinvoke $r10.<com.alibaba.fastjson.JSONObject: java.lang.Object put(java.lang.String,java.lang.Object)>("from", "app");
+
+        $r2 = virtualinvoke $r10.<com.alibaba.fastjson.JSONObject: java.lang.String toJSONString()>();
+
+        $r3 = <java.nio.charset.StandardCharsets: java.nio.charset.Charset UTF_8>;
+
+        $r4 = virtualinvoke $r2.<java.lang.String: byte[] getBytes(java.nio.charset.Charset)>($r3);
+
+        $r11 = new java.lang.StringBuilder;
+
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("broadcast_for_discovery: ");
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("255.255.255.255");
+
+        $r2 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.tuya.smart.android.common.utils.L: void d(java.lang.String,java.lang.String)>("GwBroadcastMonitorService", $r2);
+
+        $r5 = <com.tuya.sdk.hardware.enums.FrameTypeEnum: com.tuya.sdk.hardware.enums.FrameTypeEnum APP_SEND_BROADCAST>;
+
+        $i0 = $r5.<com.tuya.sdk.hardware.enums.FrameTypeEnum: int type>;
+
+        $r6 = <com.tuya.smart.android.device.TuyaNetworkInterface$ProtocolVersion: com.tuya.smart.android.device.TuyaNetworkInterface$ProtocolVersion LAN_PROTOCOL_VERSION_3_5>;
+
+        $i1 = virtualinvoke $r6.<com.tuya.smart.android.device.TuyaNetworkInterface$ProtocolVersion: int getVersion()>();
+
+        $i0 = staticinvoke <com.tuya.smart.android.device.TuyaNetworkInterface: int sendBroadcast(java.lang.String,int,int,byte[],int,int)>("255.255.255.255", 7000, 6000, $r4, $i0, $i1);
+
+        r0.<com.tuya.smart.android.hardware.service.GwBroadcastMonitorService: int broadcastToken> = $i0;
+
+     label1:
+        $r1 = staticinvoke <com.tuya.smart.sdk.TuyaBaseSdk: android.app.Application getApplication()>();
+
+        $r7 = staticinvoke <com.tuya.smart.android.common.utils.WiFiUtil: java.net.InetAddress getSubnetBroadcastAddress(android.content.Context)>($r1);
+
+     label2:
+        goto label6;
+
+     label3:
+        $r8 := @caughtexception;
+
+        goto label5;
+
+     label4:
+        $r8 := @caughtexception;
+
+     label5:
+        $r14 = (java.io.IOException) $r8;
+
+        virtualinvoke $r14.<java.io.IOException: void printStackTrace()>();
+
+        $r7 = null;
+
+     label6:
+        if $r7 == null goto label7;
+
+        $r2 = virtualinvoke $r7.<java.net.InetAddress: java.lang.String getHostAddress()>();
+
+        if $r2 == null goto label7;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean equals(java.lang.CharSequence,java.lang.CharSequence)>("255.255.255.255", $r2);
+
+        if $z0 != 0 goto label7;
+
+        $r12 = new com.tuya.smart.android.common.utils.SafeHandler;
+
+        $r9 = staticinvoke <android.os.Looper: android.os.Looper getMainLooper()>();
+
+        specialinvoke $r12.<com.tuya.smart.android.common.utils.SafeHandler: void <init>(android.os.Looper)>($r9);
+
+        r0.<com.tuya.smart.android.hardware.service.GwBroadcastMonitorService: com.tuya.smart.android.common.utils.SafeHandler subnetBroadcastDelayHandler> = $r12;
+
+        $r13 = new com.tuya.smart.android.hardware.service.GwBroadcastMonitorService$2;
+
+        specialinvoke $r13.<com.tuya.smart.android.hardware.service.GwBroadcastMonitorService$2: void <init>(com.tuya.smart.android.hardware.service.GwBroadcastMonitorService,java.lang.String,byte[])>(r0, $r2, $r4);
+
+        virtualinvoke $r12.<com.tuya.smart.android.common.utils.SafeHandler: boolean postDelayed(java.lang.Runnable,long)>($r13, 3000L);
+
+     label7:
+        return;
+
+        catch java.net.UnknownHostException from label1 to label2 with label4;
+        catch java.net.SocketException from label1 to label2 with label3;
+    }

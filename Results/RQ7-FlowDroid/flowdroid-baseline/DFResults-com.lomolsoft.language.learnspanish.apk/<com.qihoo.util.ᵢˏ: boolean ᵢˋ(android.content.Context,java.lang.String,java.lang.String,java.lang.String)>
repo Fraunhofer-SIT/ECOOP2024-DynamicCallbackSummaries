@@ -1,0 +1,227 @@
+    public static boolean \u1d62\u02cb(android.content.Context, java.lang.String, java.lang.String, java.lang.String)
+    {
+        java.lang.Throwable $r16;
+        android.content.Context $r0;
+        byte[] $r14;
+        java.io.BufferedInputStream $r4, $r5;
+        android.content.res.AssetManager $r9;
+        int $i0;
+        java.lang.String $r1, $r2, $r3;
+        boolean $z0;
+        java.io.FileOutputStream $r13;
+        java.io.FileInputStream $r11;
+        java.io.File $r7;
+        java.lang.Exception $r15, $r17, $r18;
+        java.lang.StringBuilder $r6;
+        android.content.res.Resources $r8;
+        java.io.InputStream $r10, $r12;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r2 := @parameter2: java.lang.String;
+
+        $r3 := @parameter3: java.lang.String;
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r7 = new java.io.File;
+
+        specialinvoke $r7.<java.io.File: void <init>(java.lang.String)>($r2);
+
+        $z0 = virtualinvoke $r7.<java.io.File: boolean exists()>();
+
+        if $z0 != 0 goto label01;
+
+        virtualinvoke $r7.<java.io.File: boolean mkdir()>();
+
+     label01:
+        $r7 = new java.io.File;
+
+     label02:
+        specialinvoke $r7.<java.io.File: void <init>(java.lang.String)>($r3);
+
+        $z0 = virtualinvoke $r7.<java.io.File: boolean exists()>();
+
+     label03:
+        if $z0 == 0 goto label14;
+
+     label04:
+        $r8 = virtualinvoke $r0.<android.content.Context: android.content.res.Resources getResources()>();
+
+        $r9 = virtualinvoke $r8.<android.content.res.Resources: android.content.res.AssetManager getAssets()>();
+
+        $r10 = virtualinvoke $r9.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>($r1);
+
+     label05:
+        $r11 = new java.io.FileInputStream;
+
+     label06:
+        specialinvoke $r11.<java.io.FileInputStream: void <init>(java.io.File)>($r7);
+
+     label07:
+        $r4 = new java.io.BufferedInputStream;
+
+     label08:
+        specialinvoke $r4.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r10);
+
+     label09:
+        $r5 = new java.io.BufferedInputStream;
+
+     label10:
+        specialinvoke $r5.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r11);
+
+        $z0 = staticinvoke <com.qihoo.util.\u1d62\u02cf: boolean \u1d62\u02cb(java.io.BufferedInputStream,java.io.BufferedInputStream)>($r4, $r5);
+
+     label11:
+        if $z0 == 0 goto label33;
+
+        $z0 = 1;
+
+     label12:
+        virtualinvoke $r10.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r11.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r4.<java.io.BufferedInputStream: void close()>();
+
+        virtualinvoke $r5.<java.io.BufferedInputStream: void close()>();
+
+     label13:
+        if $z0 == 0 goto label14;
+
+        staticinvoke <com.qihoo.util.\u1d62\u02cf: void \u1d62\u02cb(java.io.Closeable)>(null);
+
+        staticinvoke <com.qihoo.util.\u1d62\u02cf: void \u1d62\u02cb(java.io.Closeable)>(null);
+
+        return 1;
+
+     label14:
+        $r8 = virtualinvoke $r0.<android.content.Context: android.content.res.Resources getResources()>();
+
+        $r9 = virtualinvoke $r8.<android.content.res.Resources: android.content.res.AssetManager getAssets()>();
+
+        $r10 = virtualinvoke $r9.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>($r1);
+
+     label15:
+        $r12 = $r10;
+
+     label16:
+        $r13 = new java.io.FileOutputStream;
+
+     label17:
+        specialinvoke $r13.<java.io.FileOutputStream: void <init>(java.lang.String)>($r3);
+
+     label18:
+        $r14 = newarray (byte)[7168];
+
+     label19:
+        $i0 = virtualinvoke $r10.<java.io.InputStream: int read(byte[])>($r14);
+
+     label20:
+        if $i0 <= 0 goto label25;
+
+     label21:
+        virtualinvoke $r13.<java.io.FileOutputStream: void write(byte[],int,int)>($r14, 0, $i0);
+
+     label22:
+        goto label19;
+
+     label23:
+        $r15 := @caughtexception;
+
+     label24:
+        staticinvoke <com.qihoo.util.\u1d62\u02cf: void \u1d62\u02cb(java.io.Closeable)>($r13);
+
+        staticinvoke <com.qihoo.util.\u1d62\u02cf: void \u1d62\u02cb(java.io.Closeable)>($r12);
+
+        return 0;
+
+     label25:
+        virtualinvoke $r13.<java.io.FileOutputStream: void flush()>();
+
+     label26:
+        staticinvoke <com.qihoo.util.\u1d62\u02cf: void \u1d62\u02cb(java.io.Closeable)>($r13);
+
+        staticinvoke <com.qihoo.util.\u1d62\u02cf: void \u1d62\u02cb(java.io.Closeable)>($r10);
+
+        return 1;
+
+     label27:
+        $r16 := @caughtexception;
+
+        $r13 = null;
+
+        $r12 = null;
+
+     label28:
+        staticinvoke <com.qihoo.util.\u1d62\u02cf: void \u1d62\u02cb(java.io.Closeable)>($r13);
+
+        staticinvoke <com.qihoo.util.\u1d62\u02cf: void \u1d62\u02cb(java.io.Closeable)>($r12);
+
+        throw $r16;
+
+     label29:
+        $r16 := @caughtexception;
+
+        $r13 = null;
+
+        goto label28;
+
+     label30:
+        $r16 := @caughtexception;
+
+        goto label28;
+
+     label31:
+        $r17 := @caughtexception;
+
+        $r13 = null;
+
+        $r12 = null;
+
+        goto label24;
+
+     label32:
+        $r18 := @caughtexception;
+
+        $r13 = null;
+
+        goto label24;
+
+     label33:
+        $z0 = 0;
+
+        goto label12;
+
+        catch java.lang.Exception from label02 to label03 with label31;
+        catch java.lang.Exception from label04 to label05 with label31;
+        catch java.lang.Exception from label06 to label07 with label31;
+        catch java.lang.Exception from label08 to label09 with label31;
+        catch java.lang.Exception from label10 to label11 with label31;
+        catch java.lang.Exception from label12 to label13 with label31;
+        catch java.lang.Throwable from label01 to label03 with label27;
+        catch java.lang.Throwable from label04 to label11 with label27;
+        catch java.lang.Throwable from label12 to label13 with label27;
+        catch java.lang.Exception from label14 to label15 with label31;
+        catch java.lang.Throwable from label14 to label15 with label27;
+        catch java.lang.Exception from label17 to label18 with label32;
+        catch java.lang.Throwable from label16 to label18 with label29;
+        catch java.lang.Exception from label19 to label20 with label23;
+        catch java.lang.Exception from label21 to label22 with label23;
+        catch java.lang.Throwable from label19 to label20 with label30;
+        catch java.lang.Throwable from label21 to label22 with label30;
+        catch java.lang.Exception from label25 to label26 with label23;
+        catch java.lang.Throwable from label25 to label26 with label30;
+    }

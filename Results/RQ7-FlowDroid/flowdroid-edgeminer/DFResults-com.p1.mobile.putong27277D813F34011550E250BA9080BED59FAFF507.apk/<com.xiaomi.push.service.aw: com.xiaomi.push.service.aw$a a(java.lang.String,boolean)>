@@ -1,0 +1,369 @@
+    private static com.xiaomi.push.service.aw$a a(java.lang.String, boolean)
+    {
+        java.lang.Throwable $r1, $r2, $r3, $r4, $r5, $r6, $r14, $r15;
+        java.net.HttpURLConnection $r10;
+        byte[] $r0;
+        java.io.ByteArrayOutputStream $r18;
+        java.net.URL $r16;
+        com.xiaomi.push.service.aw$a $r19;
+        java.net.URLConnection $r9;
+        int $i0, $i1;
+        java.lang.String $r7, $r11;
+        boolean $z0;
+        java.lang.StringBuilder $r17;
+        java.io.InputStream $r8, $r12, $r13;
+
+        $r7 := @parameter0: java.lang.String;
+
+        $z0 := @parameter1: boolean;
+
+        $r8 = null;
+
+     label01:
+        $r16 = new java.net.URL;
+
+     label02:
+        specialinvoke $r16.<java.net.URL: void <init>(java.lang.String)>($r7);
+
+        $r9 = virtualinvoke $r16.<java.net.URL: java.net.URLConnection openConnection()>();
+
+     label03:
+        $r10 = (java.net.HttpURLConnection) $r9;
+
+     label04:
+        virtualinvoke $r10.<java.net.HttpURLConnection: void setConnectTimeout(int)>(8000);
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void setReadTimeout(int)>(20000);
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("User-agent", "Mozilla/5.0 (Linux; U;) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/71.0.3578.141 Mobile Safari/537.36 XiaoMi/MiuiBrowser");
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void connect()>();
+
+        $i0 = virtualinvoke $r10.<java.net.HttpURLConnection: int getContentLength()>();
+
+     label05:
+        if $z0 == 0 goto label09;
+
+        if $i0 <= 102400 goto label09;
+
+     label06:
+        $r17 = new java.lang.StringBuilder;
+
+     label07:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Bitmap size is too big, max size is 102400  contentLen size is ");
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" from url ");
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r11 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <l.lgl: void a(java.lang.String)>($r11);
+
+     label08:
+        staticinvoke <l.lhk: void a(java.io.Closeable)>(null);
+
+        if $r10 == null goto label59;
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void disconnect()>();
+
+        return null;
+
+     label09:
+        $i0 = virtualinvoke $r10.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label10:
+        if $i0 == 200 goto label14;
+
+     label11:
+        $r17 = new java.lang.StringBuilder;
+
+     label12:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Invalid Http Response Code ");
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" received");
+
+        $r11 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <l.lgl: void a(java.lang.String)>($r11);
+
+     label13:
+        staticinvoke <l.lhk: void a(java.io.Closeable)>(null);
+
+        if $r10 == null goto label59;
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void disconnect()>();
+
+        return null;
+
+     label14:
+        $r12 = virtualinvoke $r10.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+     label15:
+        $r13 = $r12;
+
+     label16:
+        $r18 = new java.io.ByteArrayOutputStream;
+
+     label17:
+        specialinvoke $r18.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label18:
+        if $z0 == 0 goto label19;
+
+        $i0 = 102400;
+
+        goto label20;
+
+     label19:
+        $i0 = 2048000;
+
+     label20:
+        $r0 = newarray (byte)[1024];
+
+     label21:
+        if $i0 <= 0 goto label26;
+
+     label22:
+        $i1 = virtualinvoke $r12.<java.io.InputStream: int read(byte[],int,int)>($r0, 0, 1024);
+
+     label23:
+        if $i1 == -1 goto label26;
+
+        $i0 = $i0 - $i1;
+
+     label24:
+        virtualinvoke $r18.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r0, 0, $i1);
+
+     label25:
+        goto label21;
+
+     label26:
+        if $i0 > 0 goto label31;
+
+     label27:
+        staticinvoke <l.lgl: void a(java.lang.String)>("length 102400 exhausted.");
+
+     label28:
+        $r19 = new com.xiaomi.push.service.aw$a;
+
+     label29:
+        specialinvoke $r19.<com.xiaomi.push.service.aw$a: void <init>(byte[],int)>(null, 102400);
+
+     label30:
+        staticinvoke <l.lhk: void a(java.io.Closeable)>($r12);
+
+        if $r10 == null goto label60;
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void disconnect()>();
+
+        return $r19;
+
+     label31:
+        $r0 = virtualinvoke $r18.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label32:
+        $r19 = new com.xiaomi.push.service.aw$a;
+
+     label33:
+        $i0 = lengthof $r0;
+
+     label34:
+        specialinvoke $r19.<com.xiaomi.push.service.aw$a: void <init>(byte[],int)>($r0, $i0);
+
+     label35:
+        staticinvoke <l.lhk: void a(java.io.Closeable)>($r12);
+
+        if $r10 == null goto label60;
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void disconnect()>();
+
+        return $r19;
+
+     label36:
+        $r14 := @caughtexception;
+
+        goto label42;
+
+     label37:
+        $r15 := @caughtexception;
+
+        goto label51;
+
+     label38:
+        $r14 := @caughtexception;
+
+        $r13 = null;
+
+        goto label42;
+
+     label39:
+        $r13 = null;
+
+        goto label46;
+
+     label40:
+        $r15 := @caughtexception;
+
+        $r10 = null;
+
+        goto label51;
+
+     label41:
+        $r14 := @caughtexception;
+
+        $r10 = null;
+
+        $r13 = null;
+
+     label42:
+        staticinvoke <l.lgl: void a(java.lang.Throwable)>($r14);
+
+     label43:
+        staticinvoke <l.lhk: void a(java.io.Closeable)>($r13);
+
+        if $r10 == null goto label49;
+
+     label44:
+        virtualinvoke $r10.<java.net.HttpURLConnection: void disconnect()>();
+
+        return null;
+
+     label45:
+        $r10 = null;
+
+        $r13 = null;
+
+     label46:
+        $r17 = new java.lang.StringBuilder;
+
+     label47:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Connect timeout to ");
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r7 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <l.lgl: void d(java.lang.String)>($r7);
+
+     label48:
+        staticinvoke <l.lhk: void a(java.io.Closeable)>($r13);
+
+        if $r10 == null goto label61;
+
+        goto label44;
+
+     label49:
+        return null;
+
+     label50:
+        $r15 := @caughtexception;
+
+        $r8 = $r13;
+
+     label51:
+        staticinvoke <l.lhk: void a(java.io.Closeable)>($r8);
+
+        if $r10 == null goto label52;
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void disconnect()>();
+
+     label52:
+        throw $r15;
+
+     label53:
+        $r1 := @caughtexception;
+
+        goto label45;
+
+     label54:
+        $r2 := @caughtexception;
+
+        goto label39;
+
+     label55:
+        $r3 := @caughtexception;
+
+        goto label39;
+
+     label56:
+        $r4 := @caughtexception;
+
+        goto label39;
+
+     label57:
+        $r5 := @caughtexception;
+
+        goto label46;
+
+     label58:
+        $r6 := @caughtexception;
+
+        goto label46;
+
+     label59:
+        return null;
+
+     label60:
+        return $r19;
+
+     label61:
+        return null;
+
+        catch java.net.SocketTimeoutException from label02 to label03 with label53;
+        catch java.io.IOException from label02 to label03 with label41;
+        catch java.lang.Throwable from label01 to label02 with label40;
+        catch java.lang.Throwable from label02 to label04 with label40;
+        catch java.net.SocketTimeoutException from label04 to label05 with label54;
+        catch java.net.SocketTimeoutException from label07 to label08 with label54;
+        catch java.io.IOException from label04 to label05 with label38;
+        catch java.io.IOException from label07 to label08 with label38;
+        catch java.lang.Throwable from label04 to label05 with label37;
+        catch java.lang.Throwable from label06 to label07 with label37;
+        catch java.lang.Throwable from label07 to label08 with label37;
+        catch java.net.SocketTimeoutException from label09 to label10 with label55;
+        catch java.net.SocketTimeoutException from label12 to label13 with label55;
+        catch java.io.IOException from label09 to label10 with label38;
+        catch java.io.IOException from label12 to label13 with label38;
+        catch java.lang.Throwable from label09 to label10 with label37;
+        catch java.lang.Throwable from label11 to label12 with label37;
+        catch java.lang.Throwable from label12 to label13 with label37;
+        catch java.net.SocketTimeoutException from label14 to label15 with label56;
+        catch java.io.IOException from label14 to label15 with label38;
+        catch java.lang.Throwable from label14 to label15 with label37;
+        catch java.net.SocketTimeoutException from label17 to label18 with label57;
+        catch java.net.SocketTimeoutException from label22 to label23 with label57;
+        catch java.net.SocketTimeoutException from label24 to label25 with label57;
+        catch java.net.SocketTimeoutException from label27 to label28 with label57;
+        catch java.net.SocketTimeoutException from label29 to label30 with label57;
+        catch java.io.IOException from label17 to label18 with label36;
+        catch java.io.IOException from label22 to label23 with label36;
+        catch java.io.IOException from label24 to label25 with label36;
+        catch java.io.IOException from label27 to label28 with label36;
+        catch java.io.IOException from label29 to label30 with label36;
+        catch java.lang.Throwable from label16 to label17 with label50;
+        catch java.lang.Throwable from label17 to label18 with label50;
+        catch java.lang.Throwable from label22 to label23 with label50;
+        catch java.lang.Throwable from label24 to label25 with label50;
+        catch java.lang.Throwable from label27 to label29 with label50;
+        catch java.lang.Throwable from label29 to label30 with label50;
+        catch java.net.SocketTimeoutException from label31 to label32 with label58;
+        catch java.net.SocketTimeoutException from label34 to label35 with label58;
+        catch java.io.IOException from label31 to label32 with label36;
+        catch java.io.IOException from label34 to label35 with label36;
+        catch java.lang.Throwable from label31 to label33 with label50;
+        catch java.lang.Throwable from label33 to label35 with label50;
+        catch java.lang.Throwable from label42 to label43 with label50;
+        catch java.lang.Throwable from label46 to label47 with label50;
+        catch java.lang.Throwable from label47 to label48 with label50;
+    }

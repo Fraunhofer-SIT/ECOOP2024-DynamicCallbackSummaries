@@ -1,0 +1,132 @@
+    public final java.lang.Object invoke(java.lang.Object)
+    {
+        java.security.cert.X509Certificate $r8, $r9, $r10;
+        java.lang.Throwable $r13;
+        byte[] $r6;
+        o.LinearCurveFit$MediaBrowserCompat$CustomActionResultReceiver$getDefaultImpl$2 r0;
+        java.io.ByteArrayOutputStream $r5;
+        java.security.cert.X509CRL $r11;
+        java.io.ByteArrayInputStream $r7;
+        o.leftToLeft $r12;
+        o.setGroupAlertBehavior r15;
+        int $i0;
+        java.lang.String $r14;
+        boolean $z0, $z1;
+        o.dfunc $r4;
+        o.parseAttributes $r3;
+        java.lang.Object $r1;
+        java.io.InputStream $r2;
+
+        r0 := @this: o.LinearCurveFit$MediaBrowserCompat$CustomActionResultReceiver$getDefaultImpl$2;
+
+        $r1 := @parameter0: java.lang.Object;
+
+        $r2 = (java.io.InputStream) $r1;
+
+        staticinvoke <o.setContentIconGravity: void onTransact(java.lang.Object,java.lang.String)>($r2, "it");
+
+        $r3 = r0.<o.LinearCurveFit$MediaBrowserCompat$CustomActionResultReceiver$getDefaultImpl$2: o.parseAttributes getDefaultImpl>;
+
+        $r4 = interfaceinvoke $r3.<o.parseAttributes: o.dfunc write()>();
+
+        $r5 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r5.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r6 = newarray (byte)[2048];
+
+     label1:
+        $i0 = virtualinvoke $r2.<java.io.InputStream: int read(byte[])>($r6);
+
+        $z0 = 0;
+
+        if $i0 < 0 goto label2;
+
+        virtualinvoke $r5.<java.io.OutputStream: void write(byte[],int,int)>($r6, 0, $i0);
+
+        goto label1;
+
+     label2:
+        virtualinvoke $r5.<java.io.OutputStream: void flush()>();
+
+        $r6 = virtualinvoke $r5.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $r4.<o.dfunc: byte[] setInternalConnectionCallback> = $r6;
+
+        staticinvoke <o.barrier: void setDefaultImpl(java.io.OutputStream,java.lang.String)>($r5, "server cert");
+
+        $r7 = new java.io.ByteArrayInputStream;
+
+        $r6 = $r4.<o.dfunc: byte[] setInternalConnectionCallback>;
+
+     label3:
+        specialinvoke $r7.<java.io.ByteArrayInputStream: void <init>(byte[])>($r6);
+
+        $r8 = staticinvoke <o.width: java.security.cert.X509Certificate getDefaultImpl(java.io.InputStream)>($r7);
+
+     label4:
+        $r4.<o.dfunc: java.security.cert.X509Certificate RemoteActionCompatParcelizer> = $r8;
+
+        $r8 = $r4.<o.dfunc: java.security.cert.X509Certificate RemoteActionCompatParcelizer>;
+
+        $r9 = $r4.<o.dfunc: java.security.cert.X509Certificate asInterface>;
+
+        $r10 = $r4.<o.dfunc: java.security.cert.X509Certificate IconCompatParcelizer>;
+
+        $r11 = $r4.<o.dfunc: java.security.cert.X509CRL onTransact>;
+
+        $z1 = staticinvoke <o.width: boolean setDefaultImpl(java.security.cert.X509Certificate,java.security.cert.X509Certificate,java.security.cert.X509Certificate,java.security.cert.X509CRL)>($r8, $r9, $r10, $r11);
+
+        if $z1 != 0 goto label5;
+
+        $r4.<o.dfunc: java.security.cert.X509Certificate RemoteActionCompatParcelizer> = null;
+
+        goto label6;
+
+     label5:
+        $z0 = 1;
+
+     label6:
+        if $z0 == 0 goto label8;
+
+        $r11 = $r4.<o.dfunc: java.security.cert.X509CRL onTransact>;
+
+        if $r11 == null goto label7;
+
+        $r8 = $r4.<o.dfunc: java.security.cert.X509Certificate RemoteActionCompatParcelizer>;
+
+        $z0 = virtualinvoke $r11.<java.security.cert.CRL: boolean isRevoked(java.security.cert.Certificate)>($r8);
+
+        if $z0 == 0 goto label7;
+
+        $r12 = new o.leftToLeft;
+
+        specialinvoke $r12.<o.leftToLeft: void <init>(java.lang.String)>("serverCert revoked in crl ");
+
+        throw $r12;
+
+     label7:
+        r15 = <o.setGroupAlertBehavior: o.setGroupAlertBehavior asBinder>;
+
+        return r15;
+
+     label8:
+        $r12 = new o.leftToLeft;
+
+        specialinvoke $r12.<o.leftToLeft: void <init>(java.lang.String)>("chain certificate not valid");
+
+        throw $r12;
+
+     label9:
+        $r13 := @caughtexception;
+
+        $r12 = new o.leftToLeft;
+
+        $r14 = virtualinvoke $r13.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        specialinvoke $r12.<o.leftToLeft: void <init>(java.lang.String,java.lang.Throwable)>($r14, $r13);
+
+        throw $r12;
+
+        catch java.security.cert.CertificateException from label3 to label4 with label9;
+    }

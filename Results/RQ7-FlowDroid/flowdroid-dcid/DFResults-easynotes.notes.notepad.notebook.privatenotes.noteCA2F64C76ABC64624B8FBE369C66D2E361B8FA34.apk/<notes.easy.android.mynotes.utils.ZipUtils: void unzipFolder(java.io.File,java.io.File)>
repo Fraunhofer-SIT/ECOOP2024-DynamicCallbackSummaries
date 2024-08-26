@@ -1,0 +1,152 @@
+    public static void unzipFolder(java.io.File, java.io.File) throws java.lang.Exception
+    {
+        java.lang.Throwable $r8, $r9;
+        byte[] $r7;
+        java.util.zip.ZipInputStream $r4, $r11;
+        java.io.FileOutputStream $r3, $r12;
+        java.io.FileInputStream $r10;
+        java.io.File $r0, $r1;
+        int $i0;
+        java.lang.String $r2, $r6;
+        java.util.zip.ZipEntry $r5;
+        boolean $z0;
+
+        $r0 := @parameter0: java.io.File;
+
+        $r1 := @parameter1: java.io.File;
+
+        $r2 = virtualinvoke $r1.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $r3 = null;
+
+     label01:
+        $r11 = new java.util.zip.ZipInputStream;
+
+     label02:
+        $r4 = $r11;
+
+     label03:
+        $r10 = new java.io.FileInputStream;
+
+     label04:
+        specialinvoke $r10.<java.io.FileInputStream: void <init>(java.io.File)>($r0);
+
+        specialinvoke $r11.<java.util.zip.ZipInputStream: void <init>(java.io.InputStream)>($r10);
+
+     label05:
+        $r5 = virtualinvoke $r11.<java.util.zip.ZipInputStream: java.util.zip.ZipEntry getNextEntry()>();
+
+     label06:
+        if $r5 == null goto label25;
+
+     label07:
+        $r6 = virtualinvoke $r5.<java.util.zip.ZipEntry: java.lang.String getName()>();
+
+        $r1 = new java.io.File;
+
+     label08:
+        $r0 = $r1;
+
+     label09:
+        specialinvoke $r1.<java.io.File: void <init>(java.lang.String,java.lang.String)>($r2, $r6);
+
+        $r6 = virtualinvoke $r1.<java.io.File: java.lang.String getCanonicalPath()>();
+
+        $z0 = virtualinvoke $r6.<java.lang.String: boolean startsWith(java.lang.String)>("/storage/emulated/0/Android/data/easynotes.notes.notepad.notebook.privatenotes.note/files/");
+
+     label10:
+        if $z0 != 0 goto label13;
+
+     label11:
+        $z0 = virtualinvoke $r6.<java.lang.String: boolean startsWith(java.lang.String)>("/data/data/easynotes.notes.notepad.notebook.privatenotes.note/files/");
+
+     label12:
+        if $z0 == 0 goto label05;
+
+     label13:
+        $z0 = virtualinvoke $r0.<java.io.File: boolean exists()>();
+
+     label14:
+        if $z0 != 0 goto label16;
+
+     label15:
+        $r1 = virtualinvoke $r0.<java.io.File: java.io.File getParentFile()>();
+
+        virtualinvoke $r1.<java.io.File: boolean mkdirs()>();
+
+        virtualinvoke $r0.<java.io.File: boolean createNewFile()>();
+
+     label16:
+        $r12 = new java.io.FileOutputStream;
+
+     label17:
+        specialinvoke $r12.<java.io.FileOutputStream: void <init>(java.io.File)>($r0);
+
+     label18:
+        $r7 = newarray (byte)[512];
+
+     label19:
+        $i0 = virtualinvoke $r11.<java.util.zip.ZipInputStream: int read(byte[])>($r7);
+
+     label20:
+        if $i0 == -1 goto label23;
+
+     label21:
+        virtualinvoke $r12.<java.io.FileOutputStream: void write(byte[],int,int)>($r7, 0, $i0);
+
+        virtualinvoke $r12.<java.io.FileOutputStream: void flush()>();
+
+     label22:
+        goto label19;
+
+     label23:
+        $r3 = $r12;
+
+        goto label05;
+
+     label24:
+        $r8 := @caughtexception;
+
+        $r3 = $r12;
+
+        $r9 = $r8;
+
+        goto label28;
+
+     label25:
+        staticinvoke <notes.easy.android.mynotes.utils.FileUtils: void closeStream(java.io.Closeable)>($r3);
+
+        staticinvoke <notes.easy.android.mynotes.utils.FileUtils: void closeStream(java.io.Closeable)>($r11);
+
+        return;
+
+     label26:
+        $r9 := @caughtexception;
+
+        goto label28;
+
+     label27:
+        $r9 := @caughtexception;
+
+        $r4 = null;
+
+     label28:
+        staticinvoke <notes.easy.android.mynotes.utils.FileUtils: void closeStream(java.io.Closeable)>($r3);
+
+        staticinvoke <notes.easy.android.mynotes.utils.FileUtils: void closeStream(java.io.Closeable)>($r4);
+
+        throw $r9;
+
+        catch java.lang.Throwable from label01 to label02 with label27;
+        catch java.lang.Throwable from label03 to label04 with label27;
+        catch java.lang.Throwable from label04 to label05 with label27;
+        catch java.lang.Throwable from label05 to label06 with label26;
+        catch java.lang.Throwable from label07 to label08 with label26;
+        catch java.lang.Throwable from label09 to label10 with label26;
+        catch java.lang.Throwable from label11 to label12 with label26;
+        catch java.lang.Throwable from label13 to label14 with label26;
+        catch java.lang.Throwable from label15 to label17 with label26;
+        catch java.lang.Throwable from label17 to label18 with label26;
+        catch java.lang.Throwable from label19 to label20 with label24;
+        catch java.lang.Throwable from label21 to label22 with label24;
+    }

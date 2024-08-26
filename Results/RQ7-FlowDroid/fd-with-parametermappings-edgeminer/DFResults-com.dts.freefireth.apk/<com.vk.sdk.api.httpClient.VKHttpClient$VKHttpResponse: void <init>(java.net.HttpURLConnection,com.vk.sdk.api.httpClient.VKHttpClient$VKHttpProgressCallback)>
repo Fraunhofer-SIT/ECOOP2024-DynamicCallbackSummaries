@@ -1,0 +1,163 @@
+    public void <init>(java.net.HttpURLConnection, com.vk.sdk.api.httpClient.VKHttpClient$VKHttpProgressCallback) throws java.io.IOException
+    {
+        java.net.HttpURLConnection $r1;
+        byte[] r2;
+        java.util.zip.GZIPInputStream $r14;
+        java.io.ByteArrayOutputStream $r15;
+        long $l1, $l2;
+        java.util.HashMap $r13;
+        java.lang.Iterable $r10;
+        byte $b3;
+        java.util.Map $r3;
+        int $i0;
+        java.lang.String $r11;
+        boolean $z0;
+        java.util.Map$Entry r8;
+        java.util.Iterator $r6;
+        java.util.Set $r5;
+        com.vk.sdk.api.httpClient.VKHttpClient$VKHttpResponse r0;
+        com.vk.sdk.api.httpClient.VKHttpClient$VKHttpProgressCallback $r4;
+        java.lang.Object $r7, $r9;
+        java.io.InputStream $r12;
+
+        r0 := @this: com.vk.sdk.api.httpClient.VKHttpClient$VKHttpResponse;
+
+        $r1 := @parameter0: java.net.HttpURLConnection;
+
+        $r4 := @parameter1: com.vk.sdk.api.httpClient.VKHttpClient$VKHttpProgressCallback;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHttpResponse: java.util.Map responseHeaders> = null;
+
+        $i0 = virtualinvoke $r1.<java.net.HttpURLConnection: int getResponseCode()>();
+
+        r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHttpResponse: int statusCode> = $i0;
+
+        $i0 = virtualinvoke $r1.<java.net.HttpURLConnection: int getContentLength()>();
+
+        $l1 = (long) $i0;
+
+        r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHttpResponse: long contentLength> = $l1;
+
+        $r3 = virtualinvoke $r1.<java.net.HttpURLConnection: java.util.Map getHeaderFields()>();
+
+        if $r3 == null goto label2;
+
+        $r13 = new java.util.HashMap;
+
+        specialinvoke $r13.<java.util.HashMap: void <init>()>();
+
+        r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHttpResponse: java.util.Map responseHeaders> = $r13;
+
+        $r3 = virtualinvoke $r1.<java.net.HttpURLConnection: java.util.Map getHeaderFields()>();
+
+        $r5 = interfaceinvoke $r3.<java.util.Map: java.util.Set entrySet()>();
+
+        $r6 = interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>();
+
+     label1:
+        $z0 = interfaceinvoke $r6.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label2;
+
+        $r7 = interfaceinvoke $r6.<java.util.Iterator: java.lang.Object next()>();
+
+        r8 = (java.util.Map$Entry) $r7;
+
+        $r3 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHttpResponse: java.util.Map responseHeaders>;
+
+        $r7 = interfaceinvoke r8.<java.util.Map$Entry: java.lang.Object getKey()>();
+
+        $r9 = interfaceinvoke r8.<java.util.Map$Entry: java.lang.Object getValue()>();
+
+        $r10 = (java.lang.Iterable) $r9;
+
+        $r11 = staticinvoke <android.text.TextUtils: java.lang.String join(java.lang.CharSequence,java.lang.Iterable)>(",", $r10);
+
+        interfaceinvoke $r3.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($r7, $r11);
+
+        goto label1;
+
+     label2:
+        $r12 = virtualinvoke $r1.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+        $r7 = $r12;
+
+        $r3 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHttpResponse: java.util.Map responseHeaders>;
+
+        if $r3 == null goto label3;
+
+        $r3 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHttpResponse: java.util.Map responseHeaders>;
+
+        $r9 = interfaceinvoke $r3.<java.util.Map: java.lang.Object get(java.lang.Object)>("Content-Encoding");
+
+        $r11 = (java.lang.String) $r9;
+
+        if $r11 == null goto label3;
+
+        $z0 = virtualinvoke $r11.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>("gzip");
+
+        if $z0 == 0 goto label3;
+
+        $r14 = new java.util.zip.GZIPInputStream;
+
+        specialinvoke $r14.<java.util.zip.GZIPInputStream: void <init>(java.io.InputStream)>($r12);
+
+        $r7 = $r14;
+
+     label3:
+        $r15 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r15.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        r2 = newarray (byte)[1024];
+
+        $l1 = 0L;
+
+        $l2 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHttpResponse: long contentLength>;
+
+        $b3 = $l2 cmp 0L;
+
+        $i0 = (int) $b3;
+
+        if $i0 > 0 goto label4;
+
+        $r4 = null;
+
+     label4:
+        $r12 = (java.io.InputStream) $r7;
+
+        $i0 = virtualinvoke $r12.<java.io.InputStream: int read(byte[])>(r2);
+
+        if $i0 == -1 goto label5;
+
+        virtualinvoke $r15.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>(r2, 0, $i0);
+
+        $l2 = (long) $i0;
+
+        $l1 = $l1 + $l2;
+
+        if $r4 == null goto label4;
+
+        $l2 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHttpResponse: long contentLength>;
+
+        interfaceinvoke $r4.<com.vk.sdk.api.httpClient.VKHttpClient$VKHttpProgressCallback: void onProgress(long,long)>($l1, $l2);
+
+        goto label4;
+
+     label5:
+        $r12 = (java.io.InputStream) $r7;
+
+        virtualinvoke $r12.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r15.<java.io.ByteArrayOutputStream: void flush()>();
+
+        r2 = virtualinvoke $r15.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHttpResponse: byte[] responseBytes> = r2;
+
+        virtualinvoke $r15.<java.io.ByteArrayOutputStream: void close()>();
+
+        return;
+    }

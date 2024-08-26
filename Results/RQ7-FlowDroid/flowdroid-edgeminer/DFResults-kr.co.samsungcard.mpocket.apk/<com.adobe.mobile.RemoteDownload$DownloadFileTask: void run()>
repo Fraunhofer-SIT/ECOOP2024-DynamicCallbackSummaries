@@ -1,0 +1,935 @@
+    public void run()
+    {
+        java.net.HttpURLConnection $r15;
+        byte[] $r26;
+        java.util.Date $r37;
+        com.adobe.mobile.RemoteDownload$DownloadFileTask r0;
+        java.lang.Integer $r19;
+        byte $b2;
+        java.lang.Long $r16;
+        boolean $z0;
+        com.adobe.mobile.RemoteDownload$RemoteDownloadBlock $r11;
+        java.lang.Exception $r28;
+        java.lang.Throwable $r1, $r2, $r3, $r4, $r5, $r6, $r7, $r17, $r18, $r20, $r22, $r29, $r30, $r31, $r32, $r33, $r34, $r35, $r36;
+        java.lang.Object[] $r10;
+        java.text.SimpleDateFormat $r14;
+        java.lang.Error $r27;
+        long $l1;
+        int $i0;
+        java.lang.String $r8, $r12, $r21;
+        java.io.FileOutputStream $r9, $r25, $r38;
+        java.io.IOException $r39;
+        java.io.File $r13;
+        java.io.InputStream $r23, $r24;
+
+        r0 := @this: com.adobe.mobile.RemoteDownload$DownloadFileTask;
+
+        $r8 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: java.lang.String url>;
+
+        $r9 = null;
+
+        if $r8 != null goto label001;
+
+        $r10 = newarray (java.lang.Object)[0];
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logDebugFormat(java.lang.String,java.lang.Object[])>("Cached Files - url is null and cannot be cached", $r10);
+
+        $r11 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: com.adobe.mobile.RemoteDownload$RemoteDownloadBlock callback>;
+
+        if $r11 == null goto label153;
+
+        interfaceinvoke $r11.<com.adobe.mobile.RemoteDownload$RemoteDownloadBlock: void call(boolean,java.io.File)>(0, null);
+
+        return;
+
+     label001:
+        $z0 = staticinvoke <com.adobe.mobile.RemoteDownload: boolean stringIsUrl(java.lang.String)>($r8);
+
+        if $z0 != 0 goto label002;
+
+        $r10 = newarray (java.lang.Object)[1];
+
+        $r8 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: java.lang.String url>;
+
+        $r10[0] = $r8;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logDebugFormat(java.lang.String,java.lang.Object[])>("Cached Files - given url is not valid and cannot be cached (\"%s\")", $r10);
+
+        $r11 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: com.adobe.mobile.RemoteDownload$RemoteDownloadBlock callback>;
+
+        if $r11 == null goto label153;
+
+        interfaceinvoke $r11.<com.adobe.mobile.RemoteDownload$RemoteDownloadBlock: void call(boolean,java.io.File)>(0, null);
+
+        return;
+
+     label002:
+        $r8 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: java.lang.String url>;
+
+        $r12 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: java.lang.String directory>;
+
+        $r13 = staticinvoke <com.adobe.mobile.RemoteDownload: java.io.File getFileForCachedURL(java.lang.String,java.lang.String)>($r8, $r12);
+
+        $r14 = staticinvoke <com.adobe.mobile.RemoteDownload: java.text.SimpleDateFormat access$100()>();
+
+        $r8 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: java.lang.String url>;
+
+        $r15 = staticinvoke <com.adobe.mobile.RemoteDownload$DownloadFileTask: java.net.HttpURLConnection requestConnect(java.lang.String)>($r8);
+
+        if $r15 != null goto label003;
+
+        $r11 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: com.adobe.mobile.RemoteDownload$RemoteDownloadBlock callback>;
+
+        if $r11 == null goto label153;
+
+        interfaceinvoke $r11.<com.adobe.mobile.RemoteDownload$RemoteDownloadBlock: void call(boolean,java.io.File)>(0, null);
+
+        return;
+
+     label003:
+        $i0 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: int connectionTimeout>;
+
+        virtualinvoke $r15.<java.net.HttpURLConnection: void setConnectTimeout(int)>($i0);
+
+        $i0 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: int readTimeout>;
+
+        virtualinvoke $r15.<java.net.HttpURLConnection: void setReadTimeout(int)>($i0);
+
+        if $r13 == null goto label005;
+
+        $r8 = virtualinvoke $r13.<java.io.File: java.lang.String getPath()>();
+
+        $r8 = staticinvoke <com.adobe.mobile.RemoteDownload: java.lang.String access$200(java.lang.String)>($r8);
+
+        $r8 = staticinvoke <com.adobe.mobile.StaticMethods: java.lang.String hexToString(java.lang.String)>($r8);
+
+        $r12 = virtualinvoke $r13.<java.io.File: java.lang.String getPath()>();
+
+        $l1 = staticinvoke <com.adobe.mobile.RemoteDownload: long access$300(java.lang.String)>($r12);
+
+        $r16 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>($l1);
+
+        $l1 = virtualinvoke $r16.<java.lang.Long: long longValue()>();
+
+        $b2 = $l1 cmp 0L;
+
+        if $b2 == 0 goto label004;
+
+        $r12 = virtualinvoke $r14.<java.text.SimpleDateFormat: java.lang.String format(java.lang.Object)>($r16);
+
+        virtualinvoke $r15.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("If-Modified-Since", $r12);
+
+     label004:
+        if $r8 == null goto label005;
+
+        virtualinvoke $r15.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("If-None-Match", $r8);
+
+     label005:
+        virtualinvoke $r15.<java.net.HttpURLConnection: void connect()>();
+
+        $i0 = virtualinvoke $r15.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label006:
+        if $i0 != 304 goto label017;
+
+     label007:
+        $r10 = newarray (java.lang.Object)[1];
+
+     label008:
+        $r8 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: java.lang.String url>;
+
+     label009:
+        $r10[0] = $r8;
+
+     label010:
+        staticinvoke <com.adobe.mobile.StaticMethods: void logDebugFormat(java.lang.String,java.lang.Object[])>("Cached Files - File has not been modified since last download. (%s)", $r10);
+
+     label011:
+        $r11 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: com.adobe.mobile.RemoteDownload$RemoteDownloadBlock callback>;
+
+     label012:
+        if $r11 == null goto label014;
+
+     label013:
+        interfaceinvoke $r11.<com.adobe.mobile.RemoteDownload$RemoteDownloadBlock: void call(boolean,java.io.File)>(0, $r13);
+
+     label014:
+        virtualinvoke $r15.<java.net.HttpURLConnection: void disconnect()>();
+
+     label015:
+        return;
+
+     label016:
+        $r17 := @caughtexception;
+
+        $r10 = newarray (java.lang.Object)[1];
+
+        $r39 = (java.io.IOException) $r17;
+
+        $r8 = virtualinvoke $r39.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        $r10[0] = $r8;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("Cached Files - Exception while attempting to close streams (%s)", $r10);
+
+        return;
+
+     label017:
+        $i0 = virtualinvoke $r15.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label018:
+        if $i0 != 404 goto label029;
+
+     label019:
+        $r10 = newarray (java.lang.Object)[1];
+
+     label020:
+        $r8 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: java.lang.String url>;
+
+     label021:
+        $r10[0] = $r8;
+
+     label022:
+        staticinvoke <com.adobe.mobile.StaticMethods: void logDebugFormat(java.lang.String,java.lang.Object[])>("Cached Files - File not found. (%s)", $r10);
+
+     label023:
+        $r11 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: com.adobe.mobile.RemoteDownload$RemoteDownloadBlock callback>;
+
+     label024:
+        if $r11 == null goto label026;
+
+     label025:
+        interfaceinvoke $r11.<com.adobe.mobile.RemoteDownload$RemoteDownloadBlock: void call(boolean,java.io.File)>(0, $r13);
+
+     label026:
+        virtualinvoke $r15.<java.net.HttpURLConnection: void disconnect()>();
+
+     label027:
+        return;
+
+     label028:
+        $r18 := @caughtexception;
+
+        $r10 = newarray (java.lang.Object)[1];
+
+        $r39 = (java.io.IOException) $r18;
+
+        $r8 = virtualinvoke $r39.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        $r10[0] = $r8;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("Cached Files - Exception while attempting to close streams (%s)", $r10);
+
+        return;
+
+     label029:
+        $i0 = virtualinvoke $r15.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label030:
+        if $i0 == 200 goto label045;
+
+     label031:
+        $r10 = newarray (java.lang.Object)[3];
+
+     label032:
+        $r8 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: java.lang.String url>;
+
+     label033:
+        $r10[0] = $r8;
+
+     label034:
+        $i0 = virtualinvoke $r15.<java.net.HttpURLConnection: int getResponseCode()>();
+
+        $r19 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+     label035:
+        $r10[1] = $r19;
+
+     label036:
+        $r8 = virtualinvoke $r15.<java.net.HttpURLConnection: java.lang.String getResponseMessage()>();
+
+     label037:
+        $r10[2] = $r8;
+
+     label038:
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("Cached Files - File could not be downloaded from URL (%s) Response: (%d) Message: (%s)", $r10);
+
+     label039:
+        $r11 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: com.adobe.mobile.RemoteDownload$RemoteDownloadBlock callback>;
+
+     label040:
+        if $r11 == null goto label042;
+
+     label041:
+        interfaceinvoke $r11.<com.adobe.mobile.RemoteDownload$RemoteDownloadBlock: void call(boolean,java.io.File)>(0, $r13);
+
+     label042:
+        virtualinvoke $r15.<java.net.HttpURLConnection: void disconnect()>();
+
+     label043:
+        return;
+
+     label044:
+        $r20 := @caughtexception;
+
+        $r10 = newarray (java.lang.Object)[1];
+
+        $r39 = (java.io.IOException) $r20;
+
+        $r8 = virtualinvoke $r39.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        $r10[0] = $r8;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("Cached Files - Exception while attempting to close streams (%s)", $r10);
+
+        return;
+
+     label045:
+        if $r13 == null goto label048;
+
+     label046:
+        $r8 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: java.lang.String url>;
+
+        $r12 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: java.lang.String directory>;
+
+     label047:
+        staticinvoke <com.adobe.mobile.RemoteDownload: boolean access$400(java.lang.String,java.lang.String)>($r8, $r12);
+
+     label048:
+        $r37 = new java.util.Date;
+
+     label049:
+        $l1 = virtualinvoke $r15.<java.net.HttpURLConnection: long getLastModified()>();
+
+        specialinvoke $r37.<java.util.Date: void <init>(long)>($l1);
+
+        $r12 = virtualinvoke $r15.<java.net.HttpURLConnection: java.lang.String getHeaderField(java.lang.String)>("ETag");
+
+     label050:
+        $r8 = $r12;
+
+        if $r12 == null goto label052;
+
+     label051:
+        $r8 = staticinvoke <com.adobe.mobile.StaticMethods: java.lang.String getHexString(java.lang.String)>($r12);
+
+     label052:
+        $r12 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: java.lang.String url>;
+
+        $r21 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: java.lang.String directory>;
+
+     label053:
+        $r13 = staticinvoke <com.adobe.mobile.RemoteDownload: java.io.File access$500(java.lang.String,java.util.Date,java.lang.String,java.lang.String)>($r12, $r37, $r8, $r21);
+
+     label054:
+        if $r13 != null goto label061;
+
+     label055:
+        $r11 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: com.adobe.mobile.RemoteDownload$RemoteDownloadBlock callback>;
+
+     label056:
+        if $r11 == null goto label058;
+
+     label057:
+        interfaceinvoke $r11.<com.adobe.mobile.RemoteDownload$RemoteDownloadBlock: void call(boolean,java.io.File)>(0, null);
+
+     label058:
+        virtualinvoke $r15.<java.net.HttpURLConnection: void disconnect()>();
+
+     label059:
+        return;
+
+     label060:
+        $r22 := @caughtexception;
+
+        $r10 = newarray (java.lang.Object)[1];
+
+        $r39 = (java.io.IOException) $r22;
+
+        $r8 = virtualinvoke $r39.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        $r10[0] = $r8;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("Cached Files - Exception while attempting to close streams (%s)", $r10);
+
+        return;
+
+     label061:
+        $r23 = virtualinvoke $r15.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+     label062:
+        $r24 = $r23;
+
+     label063:
+        $r38 = new java.io.FileOutputStream;
+
+     label064:
+        $r25 = $r38;
+
+     label065:
+        specialinvoke $r38.<java.io.FileOutputStream: void <init>(java.io.File)>($r13);
+
+     label066:
+        $r26 = newarray (byte)[4096];
+
+     label067:
+        $i0 = virtualinvoke $r23.<java.io.InputStream: int read(byte[])>($r26);
+
+     label068:
+        if $i0 == -1 goto label071;
+
+     label069:
+        virtualinvoke $r38.<java.io.OutputStream: void write(byte[],int,int)>($r26, 0, $i0);
+
+     label070:
+        goto label067;
+
+     label071:
+        $r10 = newarray (java.lang.Object)[1];
+
+     label072:
+        $r8 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: java.lang.String url>;
+
+     label073:
+        $r10[0] = $r8;
+
+     label074:
+        staticinvoke <com.adobe.mobile.StaticMethods: void logDebugFormat(java.lang.String,java.lang.Object[])>("Cached Files - Caching successful (%s)", $r10);
+
+     label075:
+        $r11 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: com.adobe.mobile.RemoteDownload$RemoteDownloadBlock callback>;
+
+     label076:
+        if $r11 == null goto label078;
+
+     label077:
+        interfaceinvoke $r11.<com.adobe.mobile.RemoteDownload$RemoteDownloadBlock: void call(boolean,java.io.File)>(1, $r13);
+
+     label078:
+        virtualinvoke $r38.<java.io.OutputStream: void close()>();
+
+     label079:
+        if $r23 == null goto label081;
+
+     label080:
+        virtualinvoke $r23.<java.io.InputStream: void close()>();
+
+     label081:
+        virtualinvoke $r15.<java.net.HttpURLConnection: void disconnect()>();
+
+     label082:
+        return;
+
+     label083:
+        $r27 := @caughtexception;
+
+        goto label092;
+
+     label084:
+        $r28 := @caughtexception;
+
+        goto label103;
+
+     label085:
+        $r29 := @caughtexception;
+
+        goto label114;
+
+     label086:
+        $r27 := @caughtexception;
+
+        $r25 = null;
+
+        goto label092;
+
+     label087:
+        $r28 := @caughtexception;
+
+        $r25 = null;
+
+        goto label103;
+
+     label088:
+        $r29 := @caughtexception;
+
+        $r25 = null;
+
+        goto label114;
+
+     label089:
+        $r25 = null;
+
+        goto label125;
+
+     label090:
+        $r30 := @caughtexception;
+
+        $r24 = null;
+
+        goto label138;
+
+     label091:
+        $r27 := @caughtexception;
+
+        $r24 = null;
+
+        $r25 = null;
+
+     label092:
+        $r10 = newarray (java.lang.Object)[1];
+
+        $r8 = virtualinvoke $r27.<java.lang.Error: java.lang.String getLocalizedMessage()>();
+
+        $r10[0] = $r8;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("Cached Files - Unexpected error while attempting to get remote file (%s)", $r10);
+
+        $r11 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: com.adobe.mobile.RemoteDownload$RemoteDownloadBlock callback>;
+
+     label093:
+        if $r11 == null goto label095;
+
+     label094:
+        interfaceinvoke $r11.<com.adobe.mobile.RemoteDownload$RemoteDownloadBlock: void call(boolean,java.io.File)>(0, null);
+
+     label095:
+        if $r25 == null goto label097;
+
+     label096:
+        virtualinvoke $r25.<java.io.OutputStream: void close()>();
+
+     label097:
+        if $r24 == null goto label099;
+
+     label098:
+        virtualinvoke $r24.<java.io.InputStream: void close()>();
+
+     label099:
+        virtualinvoke $r15.<java.net.HttpURLConnection: void disconnect()>();
+
+     label100:
+        return;
+
+     label101:
+        $r31 := @caughtexception;
+
+        $r10 = newarray (java.lang.Object)[1];
+
+        $r39 = (java.io.IOException) $r31;
+
+        $r8 = virtualinvoke $r39.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        $r10[0] = $r8;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("Cached Files - Exception while attempting to close streams (%s)", $r10);
+
+        return;
+
+     label102:
+        $r28 := @caughtexception;
+
+        $r24 = null;
+
+        $r25 = null;
+
+     label103:
+        $r10 = newarray (java.lang.Object)[1];
+
+        $r8 = virtualinvoke $r28.<java.lang.Exception: java.lang.String getLocalizedMessage()>();
+
+        $r10[0] = $r8;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("Cached Files - Unexpected exception while attempting to get remote file (%s)", $r10);
+
+        $r11 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: com.adobe.mobile.RemoteDownload$RemoteDownloadBlock callback>;
+
+     label104:
+        if $r11 == null goto label106;
+
+     label105:
+        interfaceinvoke $r11.<com.adobe.mobile.RemoteDownload$RemoteDownloadBlock: void call(boolean,java.io.File)>(0, null);
+
+     label106:
+        if $r25 == null goto label108;
+
+     label107:
+        virtualinvoke $r25.<java.io.OutputStream: void close()>();
+
+     label108:
+        if $r24 == null goto label110;
+
+     label109:
+        virtualinvoke $r24.<java.io.InputStream: void close()>();
+
+     label110:
+        virtualinvoke $r15.<java.net.HttpURLConnection: void disconnect()>();
+
+     label111:
+        return;
+
+     label112:
+        $r32 := @caughtexception;
+
+        $r10 = newarray (java.lang.Object)[1];
+
+        $r39 = (java.io.IOException) $r32;
+
+        $r8 = virtualinvoke $r39.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        $r10[0] = $r8;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("Cached Files - Exception while attempting to close streams (%s)", $r10);
+
+        return;
+
+     label113:
+        $r29 := @caughtexception;
+
+        $r24 = null;
+
+        $r25 = null;
+
+     label114:
+        $r10 = newarray (java.lang.Object)[1];
+
+        $r39 = (java.io.IOException) $r29;
+
+        $r8 = virtualinvoke $r39.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        $r10[0] = $r8;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("Cached Files - IOException while making request (%s)", $r10);
+
+        $r11 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: com.adobe.mobile.RemoteDownload$RemoteDownloadBlock callback>;
+
+     label115:
+        if $r11 == null goto label117;
+
+     label116:
+        interfaceinvoke $r11.<com.adobe.mobile.RemoteDownload$RemoteDownloadBlock: void call(boolean,java.io.File)>(0, null);
+
+     label117:
+        if $r25 == null goto label119;
+
+     label118:
+        virtualinvoke $r25.<java.io.OutputStream: void close()>();
+
+     label119:
+        if $r24 == null goto label121;
+
+     label120:
+        virtualinvoke $r24.<java.io.InputStream: void close()>();
+
+     label121:
+        virtualinvoke $r15.<java.net.HttpURLConnection: void disconnect()>();
+
+     label122:
+        return;
+
+     label123:
+        $r33 := @caughtexception;
+
+        $r10 = newarray (java.lang.Object)[1];
+
+        $r39 = (java.io.IOException) $r33;
+
+        $r8 = virtualinvoke $r39.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        $r10[0] = $r8;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("Cached Files - Exception while attempting to close streams (%s)", $r10);
+
+        return;
+
+     label124:
+        $r24 = null;
+
+        $r25 = null;
+
+     label125:
+        $r10 = newarray (java.lang.Object)[1];
+
+        $r8 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: java.lang.String url>;
+
+        $r10[0] = $r8;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("Cached Files - Timed out making request (%s)", $r10);
+
+        $r11 = r0.<com.adobe.mobile.RemoteDownload$DownloadFileTask: com.adobe.mobile.RemoteDownload$RemoteDownloadBlock callback>;
+
+     label126:
+        if $r11 == null goto label128;
+
+     label127:
+        interfaceinvoke $r11.<com.adobe.mobile.RemoteDownload$RemoteDownloadBlock: void call(boolean,java.io.File)>(0, null);
+
+     label128:
+        if $r25 == null goto label130;
+
+     label129:
+        virtualinvoke $r25.<java.io.OutputStream: void close()>();
+
+     label130:
+        if $r24 == null goto label132;
+
+     label131:
+        virtualinvoke $r24.<java.io.InputStream: void close()>();
+
+     label132:
+        virtualinvoke $r15.<java.net.HttpURLConnection: void disconnect()>();
+
+     label133:
+        return;
+
+     label134:
+        $r34 := @caughtexception;
+
+        $r10 = newarray (java.lang.Object)[1];
+
+        $r39 = (java.io.IOException) $r34;
+
+        $r8 = virtualinvoke $r39.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        $r10[0] = $r8;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("Cached Files - Exception while attempting to close streams (%s)", $r10);
+
+        return;
+
+     label135:
+        $r35 := @caughtexception;
+
+        $r10 = newarray (java.lang.Object)[1];
+
+        $r39 = (java.io.IOException) $r35;
+
+        $r8 = virtualinvoke $r39.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        $r10[0] = $r8;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("Cached Files - Exception while attempting to close streams (%s)", $r10);
+
+        return;
+
+     label136:
+        $r30 := @caughtexception;
+
+        $r9 = $r25;
+
+        goto label138;
+
+     label137:
+        $r30 := @caughtexception;
+
+     label138:
+        if $r9 == null goto label140;
+
+     label139:
+        virtualinvoke $r9.<java.io.OutputStream: void close()>();
+
+     label140:
+        if $r24 == null goto label142;
+
+     label141:
+        virtualinvoke $r24.<java.io.InputStream: void close()>();
+
+     label142:
+        virtualinvoke $r15.<java.net.HttpURLConnection: void disconnect()>();
+
+     label143:
+        goto label145;
+
+     label144:
+        $r36 := @caughtexception;
+
+        $r10 = newarray (java.lang.Object)[1];
+
+        $r39 = (java.io.IOException) $r36;
+
+        $r8 = virtualinvoke $r39.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        $r10[0] = $r8;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("Cached Files - Exception while attempting to close streams (%s)", $r10);
+
+     label145:
+        throw $r30;
+
+     label146:
+        $r1 := @caughtexception;
+
+        goto label124;
+
+     label147:
+        $r2 := @caughtexception;
+
+        goto label124;
+
+     label148:
+        $r3 := @caughtexception;
+
+        goto label124;
+
+     label149:
+        $r4 := @caughtexception;
+
+        goto label124;
+
+     label150:
+        $r5 := @caughtexception;
+
+        goto label124;
+
+     label151:
+        $r6 := @caughtexception;
+
+        goto label089;
+
+     label152:
+        $r7 := @caughtexception;
+
+        goto label125;
+
+     label153:
+        return;
+
+        catch java.net.SocketTimeoutException from label005 to label006 with label146;
+        catch java.net.SocketTimeoutException from label010 to label011 with label146;
+        catch java.net.SocketTimeoutException from label013 to label014 with label146;
+        catch java.io.IOException from label005 to label006 with label113;
+        catch java.io.IOException from label010 to label011 with label113;
+        catch java.io.IOException from label013 to label014 with label113;
+        catch java.lang.Exception from label005 to label006 with label102;
+        catch java.lang.Exception from label008 to label012 with label102;
+        catch java.lang.Exception from label013 to label014 with label102;
+        catch java.lang.Error from label005 to label006 with label091;
+        catch java.lang.Error from label007 to label009 with label091;
+        catch java.lang.Error from label010 to label012 with label091;
+        catch java.lang.Error from label013 to label014 with label091;
+        catch java.lang.Throwable from label005 to label006 with label090;
+        catch java.lang.Throwable from label010 to label011 with label090;
+        catch java.lang.Throwable from label013 to label014 with label090;
+        catch java.io.IOException from label014 to label015 with label016;
+        catch java.net.SocketTimeoutException from label017 to label018 with label147;
+        catch java.net.SocketTimeoutException from label022 to label023 with label147;
+        catch java.net.SocketTimeoutException from label025 to label026 with label147;
+        catch java.io.IOException from label017 to label018 with label113;
+        catch java.io.IOException from label022 to label023 with label113;
+        catch java.io.IOException from label025 to label026 with label113;
+        catch java.lang.Exception from label017 to label018 with label102;
+        catch java.lang.Exception from label020 to label024 with label102;
+        catch java.lang.Exception from label025 to label026 with label102;
+        catch java.lang.Error from label017 to label018 with label091;
+        catch java.lang.Error from label019 to label021 with label091;
+        catch java.lang.Error from label022 to label024 with label091;
+        catch java.lang.Error from label025 to label026 with label091;
+        catch java.lang.Throwable from label017 to label018 with label090;
+        catch java.lang.Throwable from label022 to label023 with label090;
+        catch java.lang.Throwable from label025 to label026 with label090;
+        catch java.io.IOException from label026 to label027 with label028;
+        catch java.net.SocketTimeoutException from label029 to label030 with label148;
+        catch java.net.SocketTimeoutException from label034 to label035 with label148;
+        catch java.net.SocketTimeoutException from label036 to label037 with label148;
+        catch java.net.SocketTimeoutException from label038 to label039 with label148;
+        catch java.net.SocketTimeoutException from label041 to label042 with label148;
+        catch java.io.IOException from label029 to label030 with label113;
+        catch java.io.IOException from label034 to label035 with label113;
+        catch java.io.IOException from label036 to label037 with label113;
+        catch java.io.IOException from label038 to label039 with label113;
+        catch java.io.IOException from label041 to label042 with label113;
+        catch java.lang.Exception from label029 to label030 with label102;
+        catch java.lang.Exception from label032 to label040 with label102;
+        catch java.lang.Exception from label041 to label042 with label102;
+        catch java.lang.Error from label029 to label030 with label091;
+        catch java.lang.Error from label031 to label033 with label091;
+        catch java.lang.Error from label034 to label035 with label091;
+        catch java.lang.Error from label036 to label037 with label091;
+        catch java.lang.Error from label038 to label040 with label091;
+        catch java.lang.Error from label041 to label042 with label091;
+        catch java.lang.Throwable from label029 to label030 with label090;
+        catch java.lang.Throwable from label034 to label035 with label090;
+        catch java.lang.Throwable from label036 to label037 with label090;
+        catch java.lang.Throwable from label038 to label039 with label090;
+        catch java.lang.Throwable from label041 to label042 with label090;
+        catch java.io.IOException from label042 to label043 with label044;
+        catch java.net.SocketTimeoutException from label047 to label048 with label149;
+        catch java.net.SocketTimeoutException from label049 to label050 with label149;
+        catch java.net.SocketTimeoutException from label051 to label052 with label149;
+        catch java.net.SocketTimeoutException from label053 to label054 with label149;
+        catch java.net.SocketTimeoutException from label057 to label058 with label149;
+        catch java.io.IOException from label047 to label048 with label113;
+        catch java.io.IOException from label049 to label050 with label113;
+        catch java.io.IOException from label051 to label052 with label113;
+        catch java.io.IOException from label053 to label054 with label113;
+        catch java.io.IOException from label057 to label058 with label113;
+        catch java.lang.Exception from label046 to label048 with label102;
+        catch java.lang.Exception from label049 to label050 with label102;
+        catch java.lang.Exception from label051 to label052 with label102;
+        catch java.lang.Exception from label052 to label054 with label102;
+        catch java.lang.Exception from label055 to label056 with label102;
+        catch java.lang.Exception from label057 to label058 with label102;
+        catch java.lang.Error from label046 to label049 with label091;
+        catch java.lang.Error from label049 to label050 with label091;
+        catch java.lang.Error from label051 to label052 with label091;
+        catch java.lang.Error from label052 to label054 with label091;
+        catch java.lang.Error from label055 to label056 with label091;
+        catch java.lang.Error from label057 to label058 with label091;
+        catch java.lang.Throwable from label047 to label048 with label090;
+        catch java.lang.Throwable from label049 to label050 with label090;
+        catch java.lang.Throwable from label051 to label052 with label090;
+        catch java.lang.Throwable from label053 to label054 with label090;
+        catch java.lang.Throwable from label057 to label058 with label090;
+        catch java.io.IOException from label058 to label059 with label060;
+        catch java.net.SocketTimeoutException from label061 to label062 with label150;
+        catch java.io.IOException from label061 to label062 with label113;
+        catch java.lang.Exception from label061 to label062 with label102;
+        catch java.lang.Error from label061 to label062 with label091;
+        catch java.lang.Throwable from label061 to label062 with label090;
+        catch java.net.SocketTimeoutException from label065 to label066 with label151;
+        catch java.io.IOException from label065 to label066 with label088;
+        catch java.lang.Exception from label065 to label066 with label087;
+        catch java.lang.Error from label063 to label064 with label086;
+        catch java.lang.Error from label065 to label066 with label086;
+        catch java.lang.Throwable from label065 to label066 with label137;
+        catch java.net.SocketTimeoutException from label067 to label068 with label152;
+        catch java.net.SocketTimeoutException from label069 to label070 with label152;
+        catch java.net.SocketTimeoutException from label074 to label075 with label152;
+        catch java.net.SocketTimeoutException from label077 to label078 with label152;
+        catch java.io.IOException from label067 to label068 with label085;
+        catch java.io.IOException from label069 to label070 with label085;
+        catch java.io.IOException from label074 to label075 with label085;
+        catch java.io.IOException from label077 to label078 with label085;
+        catch java.lang.Exception from label067 to label068 with label084;
+        catch java.lang.Exception from label069 to label070 with label084;
+        catch java.lang.Exception from label072 to label076 with label084;
+        catch java.lang.Exception from label077 to label078 with label084;
+        catch java.lang.Error from label067 to label068 with label083;
+        catch java.lang.Error from label069 to label070 with label083;
+        catch java.lang.Error from label071 to label073 with label083;
+        catch java.lang.Error from label074 to label076 with label083;
+        catch java.lang.Error from label077 to label078 with label083;
+        catch java.lang.Throwable from label067 to label068 with label136;
+        catch java.lang.Throwable from label069 to label070 with label136;
+        catch java.lang.Throwable from label074 to label075 with label136;
+        catch java.lang.Throwable from label077 to label078 with label136;
+        catch java.io.IOException from label078 to label079 with label135;
+        catch java.io.IOException from label080 to label082 with label135;
+        catch java.lang.Throwable from label092 to label093 with label136;
+        catch java.lang.Throwable from label094 to label095 with label136;
+        catch java.io.IOException from label096 to label097 with label101;
+        catch java.io.IOException from label098 to label100 with label101;
+        catch java.lang.Throwable from label103 to label104 with label136;
+        catch java.lang.Throwable from label105 to label106 with label136;
+        catch java.io.IOException from label107 to label108 with label112;
+        catch java.io.IOException from label109 to label111 with label112;
+        catch java.lang.Throwable from label114 to label115 with label136;
+        catch java.lang.Throwable from label116 to label117 with label136;
+        catch java.io.IOException from label118 to label119 with label123;
+        catch java.io.IOException from label120 to label122 with label123;
+        catch java.lang.Throwable from label125 to label126 with label136;
+        catch java.lang.Throwable from label127 to label128 with label136;
+        catch java.io.IOException from label129 to label130 with label134;
+        catch java.io.IOException from label131 to label133 with label134;
+        catch java.io.IOException from label139 to label140 with label144;
+        catch java.io.IOException from label141 to label143 with label144;
+    }

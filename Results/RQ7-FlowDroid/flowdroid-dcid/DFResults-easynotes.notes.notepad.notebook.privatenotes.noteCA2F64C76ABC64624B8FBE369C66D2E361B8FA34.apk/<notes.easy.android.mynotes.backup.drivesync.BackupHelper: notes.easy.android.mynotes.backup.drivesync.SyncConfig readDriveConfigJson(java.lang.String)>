@@ -1,0 +1,80 @@
+    public notes.easy.android.mynotes.backup.drivesync.SyncConfig readDriveConfigJson(java.lang.String)
+    {
+        notes.easy.android.mynotes.backup.drivesync.SyncConfig $r2, $r8;
+        java.lang.Exception $r9;
+        notes.easy.android.mynotes.backup.drivesync.BackupHelper r0;
+        notes.easy.android.mynotes.backup.DriveServiceHelper $r3;
+        com.google.gson.Gson $r6;
+        java.lang.Object $r7;
+        java.lang.StringBuilder $r10;
+        java.lang.String $r1, $r5;
+        boolean $z0;
+        java.io.InputStream $r4;
+
+        r0 := @this: notes.easy.android.mynotes.backup.drivesync.BackupHelper;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 = null;
+
+     label1:
+        $z0 = staticinvoke <org.apache.commons.lang3.StringUtils: boolean isEmpty(java.lang.CharSequence)>($r1);
+
+     label2:
+        if $z0 != 0 goto label9;
+
+     label3:
+        $r3 = staticinvoke <notes.easy.android.mynotes.backup.DriveServiceHelper: notes.easy.android.mynotes.backup.DriveServiceHelper getInstance()>();
+
+        $r4 = virtualinvoke $r3.<notes.easy.android.mynotes.backup.DriveServiceHelper: java.io.InputStream openInputStream(java.lang.String)>($r1);
+
+        $r5 = staticinvoke <notes.easy.android.mynotes.utils.FileUtils: java.lang.String readString(java.io.InputStream)>($r4);
+
+        $r6 = r0.<notes.easy.android.mynotes.backup.drivesync.BackupHelper: com.google.gson.Gson mGson>;
+
+        $r7 = virtualinvoke $r6.<com.google.gson.Gson: java.lang.Object fromJson(java.lang.String,java.lang.Class)>($r5, class "Lnotes/easy/android/mynotes/backup/drivesync/SyncConfig;");
+
+        $r8 = (notes.easy.android.mynotes.backup.drivesync.SyncConfig) $r7;
+
+     label4:
+        virtualinvoke $r8.<notes.easy.android.mynotes.backup.drivesync.SyncConfig: void setConfigFileId(java.lang.String)>($r1);
+
+     label5:
+        return $r8;
+
+     label6:
+        $r9 := @caughtexception;
+
+        $r2 = $r8;
+
+        goto label8;
+
+     label7:
+        $r9 := @caughtexception;
+
+     label8:
+        virtualinvoke $r9.<java.lang.Exception: void printStackTrace()>();
+
+        $r10 = new java.lang.StringBuilder;
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("e = ");
+
+        $r1 = virtualinvoke $r9.<java.lang.Exception: java.lang.String getMessage()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <notes.easy.android.mynotes.backup.drivesync.BackupHelper: void Log(java.lang.String,java.lang.String,java.lang.String)>("BackupHelper", "readDriveConfigJson", $r1);
+
+        return $r2;
+
+     label9:
+        return null;
+
+        catch java.lang.Exception from label1 to label2 with label7;
+        catch java.lang.Exception from label3 to label4 with label7;
+        catch java.lang.Exception from label4 to label5 with label6;
+    }

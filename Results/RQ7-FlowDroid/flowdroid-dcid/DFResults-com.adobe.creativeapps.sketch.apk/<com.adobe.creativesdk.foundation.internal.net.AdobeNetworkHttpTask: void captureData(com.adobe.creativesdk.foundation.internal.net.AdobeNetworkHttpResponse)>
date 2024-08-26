@@ -1,0 +1,183 @@
+    protected void captureData(com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse)
+    {
+        java.net.HttpURLConnection $r2;
+        java.lang.Throwable r7, r10;
+        byte[] r4;
+        com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTaskHandle $r5;
+        java.io.ByteArrayOutputStream $r11;
+        java.lang.Integer $r6;
+        java.nio.ByteBuffer $r9;
+        com.adobe.creativesdk.foundation.internal.utils.logging.Level $r8;
+        int $i0, i1, $i2;
+        com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse $r1;
+        boolean $z0;
+        com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask r0;
+        float $f0, $f1;
+        java.io.InputStream $r3;
+
+        r0 := @this: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask;
+
+        $r1 := @parameter0: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse;
+
+        $i0 = virtualinvoke $r1.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse: int getStatusCode()>();
+
+        if $i0 < 200 goto label24;
+
+        if $i0 >= 299 goto label24;
+
+        $r2 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: java.net.HttpURLConnection urlConnection>;
+
+     label01:
+        $r3 = virtualinvoke $r2.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+     label02:
+        if $r3 == null goto label30;
+
+        r4 = newarray (byte)[32768];
+
+        $r11 = new java.io.ByteArrayOutputStream;
+
+     label03:
+        specialinvoke $r11.<java.io.ByteArrayOutputStream: void <init>(int)>(32768);
+
+     label04:
+        $i0 = virtualinvoke $r3.<java.io.InputStream: int read(byte[],int,int)>(r4, 0, 32768);
+
+     label05:
+        i1 = $i0;
+
+        $i0 = 0;
+
+     label06:
+        if i1 <= 0 goto label22;
+
+        $r5 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTaskHandle requestHandler>;
+
+     label07:
+        $z0 = virtualinvoke $r5.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTaskHandle: boolean isCancelled()>();
+
+     label08:
+        if $z0 == 0 goto label11;
+
+     label09:
+        staticinvoke <org.apache.commons.io.IOUtils: void closeQuietly(java.io.InputStream)>($r3);
+
+        staticinvoke <org.apache.commons.io.IOUtils: void closeQuietly(java.io.OutputStream)>($r11);
+
+     label10:
+        return;
+
+     label11:
+        virtualinvoke $r11.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>(r4, 0, i1);
+
+        virtualinvoke $r11.<java.io.ByteArrayOutputStream: void flush()>();
+
+     label12:
+        $i0 = $i0 + i1;
+
+     label13:
+        i1 = virtualinvoke $r3.<java.io.InputStream: int read(byte[],int,int)>(r4, 0, 32768);
+
+     label14:
+        $r2 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: java.net.HttpURLConnection urlConnection>;
+
+     label15:
+        $i2 = virtualinvoke $r2.<java.net.HttpURLConnection: int getContentLength()>();
+
+     label16:
+        if $i2 <= 0 goto label06;
+
+        $f0 = (float) $i0;
+
+        $r2 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: java.net.HttpURLConnection urlConnection>;
+
+     label17:
+        $i2 = virtualinvoke $r2.<java.net.HttpURLConnection: int getContentLength()>();
+
+     label18:
+        $f1 = (float) $i2;
+
+        $f0 = $f0 / $f1;
+
+        $f0 = $f0 * 100.0F;
+
+        $i2 = (int) $f0;
+
+     label19:
+        $r6 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i2);
+
+        virtualinvoke r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: void onProgressUpdate(java.lang.Integer)>($r6);
+
+     label20:
+        goto label06;
+
+     label21:
+        r7 := @caughtexception;
+
+        virtualinvoke $r1.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse: void setStatusCode(int)>(503);
+
+        $r8 = <com.adobe.creativesdk.foundation.internal.utils.logging.Level: com.adobe.creativesdk.foundation.internal.utils.logging.Level ERROR>;
+
+        staticinvoke <com.adobe.creativesdk.foundation.internal.utils.logging.AdobeLogger: void log(com.adobe.creativesdk.foundation.internal.utils.logging.Level,java.lang.String,java.lang.String,java.lang.Throwable)>($r8, "NetworkService", "Error during io operation", r7);
+
+        return;
+
+     label22:
+        r4 = virtualinvoke $r11.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $r9 = staticinvoke <java.nio.ByteBuffer: java.nio.ByteBuffer wrap(byte[])>(r4);
+
+        virtualinvoke $r1.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse: void setData(java.nio.ByteBuffer)>($r9);
+
+        virtualinvoke $r3.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r11.<java.io.ByteArrayOutputStream: void close()>();
+
+     label23:
+        return;
+
+     label24:
+        $r2 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: java.net.HttpURLConnection urlConnection>;
+
+     label25:
+        $r3 = virtualinvoke $r2.<java.net.HttpURLConnection: java.io.InputStream getErrorStream()>();
+
+     label26:
+        if $r3 == null goto label30;
+
+     label27:
+        r4 = staticinvoke <org.apache.commons.io.IOUtils: byte[] toByteArray(java.io.InputStream)>($r3);
+
+        $r9 = staticinvoke <java.nio.ByteBuffer: java.nio.ByteBuffer wrap(byte[])>(r4);
+
+        virtualinvoke $r1.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse: void setData(java.nio.ByteBuffer)>($r9);
+
+        virtualinvoke $r3.<java.io.InputStream: void close()>();
+
+     label28:
+        return;
+
+     label29:
+        r10 := @caughtexception;
+
+        $r8 = <com.adobe.creativesdk.foundation.internal.utils.logging.Level: com.adobe.creativesdk.foundation.internal.utils.logging.Level ERROR>;
+
+        staticinvoke <com.adobe.creativesdk.foundation.internal.utils.logging.AdobeLogger: void log(com.adobe.creativesdk.foundation.internal.utils.logging.Level,java.lang.String,java.lang.String,java.lang.Throwable)>($r8, "NetworkService", "Error during io operation", r10);
+
+     label30:
+        return;
+
+        catch java.io.IOException from label01 to label02 with label21;
+        catch java.io.IOException from label03 to label04 with label21;
+        catch java.io.IOException from label04 to label05 with label21;
+        catch java.io.IOException from label07 to label08 with label21;
+        catch java.io.IOException from label09 to label10 with label21;
+        catch java.io.IOException from label11 to label12 with label21;
+        catch java.io.IOException from label13 to label14 with label21;
+        catch java.io.IOException from label15 to label16 with label21;
+        catch java.io.IOException from label17 to label18 with label21;
+        catch java.io.IOException from label19 to label20 with label21;
+        catch java.io.IOException from label22 to label23 with label21;
+        catch java.io.IOException from label25 to label26 with label29;
+        catch java.io.IOException from label27 to label28 with label29;
+    }

@@ -1,0 +1,102 @@
+    public void d(com.handcent.sms.e2.j0, java.lang.Object, java.lang.Object, java.lang.reflect.Type, int) throws java.io.IOException
+    {
+        com.handcent.sms.z1.d $r11;
+        java.lang.Throwable $r12;
+        com.handcent.sms.e2.j0 $r1;
+        java.io.IOException $r13;
+        java.io.Reader $r6;
+        java.lang.Exception $r10;
+        com.handcent.sms.e2.s r0;
+        java.lang.reflect.Type $r4;
+        int $i0;
+        char[] $r8;
+        java.lang.Object $r2, $r3;
+        java.lang.StringBuilder $r7;
+        java.lang.String $r9;
+        java.sql.Clob $r5;
+
+        r0 := @this: com.handcent.sms.e2.s;
+
+        $r1 := @parameter0: com.handcent.sms.e2.j0;
+
+        $r2 := @parameter1: java.lang.Object;
+
+        $r3 := @parameter2: java.lang.Object;
+
+        $r4 := @parameter3: java.lang.reflect.Type;
+
+        $i0 := @parameter4: int;
+
+        if $r2 != null goto label03;
+
+     label01:
+        virtualinvoke $r1.<com.handcent.sms.e2.j0: void a0()>();
+
+     label02:
+        return;
+
+     label03:
+        $r5 = (java.sql.Clob) $r2;
+
+     label04:
+        $r6 = interfaceinvoke $r5.<java.sql.Clob: java.io.Reader getCharacterStream()>();
+
+     label05:
+        $r7 = new java.lang.StringBuilder;
+
+     label06:
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>()>();
+
+     label07:
+        $r8 = newarray (char)[2048];
+
+     label08:
+        $i0 = virtualinvoke $r6.<java.io.Reader: int read(char[],int,int)>($r8, 0, 2048);
+
+     label09:
+        if $i0 >= 0 goto label12;
+
+     label10:
+        $r9 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r6.<java.io.Reader: void close()>();
+
+        virtualinvoke $r1.<com.handcent.sms.e2.j0: void X(java.lang.String)>($r9);
+
+     label11:
+        return;
+
+     label12:
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(char[],int,int)>($r8, 0, $i0);
+
+     label13:
+        goto label08;
+
+     label14:
+        $r10 := @caughtexception;
+
+        $r11 = new com.handcent.sms.z1.d;
+
+     label15:
+        specialinvoke $r11.<com.handcent.sms.z1.d: void <init>(java.lang.String,java.lang.Throwable)>("read string from reader error", $r10);
+
+     label16:
+        throw $r11;
+
+     label17:
+        $r12 := @caughtexception;
+
+        $r13 = new java.io.IOException;
+
+        specialinvoke $r13.<java.io.IOException: void <init>(java.lang.String,java.lang.Throwable)>("write clob error", $r12);
+
+        throw $r13;
+
+        catch java.sql.SQLException from label01 to label02 with label17;
+        catch java.sql.SQLException from label04 to label05 with label17;
+        catch java.sql.SQLException from label06 to label07 with label17;
+        catch java.lang.Exception from label08 to label09 with label14;
+        catch java.sql.SQLException from label10 to label11 with label17;
+        catch java.lang.Exception from label12 to label13 with label14;
+        catch java.sql.SQLException from label15 to label16 with label17;
+    }

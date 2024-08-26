@@ -1,0 +1,167 @@
+    private void <init>()
+    {
+        android.content.Context $r2;
+        com.goodbarber.v2.data.downloads.GBDownloadManager$ItemBeingDownloaded $r13;
+        com.goodbarber.v2.models.GBItem $r15;
+        long $l0;
+        java.util.ArrayList $r1;
+        byte $b1;
+        int $i2;
+        java.lang.String $r6, $r9;
+        boolean $z0;
+        com.goodbarber.v2.data.downloads.GBDownloadManager$1 $r11;
+        com.goodbarber.v2.data.downloads.GBDownloadManager r0;
+        android.content.IntentFilter $r10;
+        android.content.BroadcastReceiver $r16;
+        java.io.File $r7;
+        android.app.DownloadManager $r4;
+        android.content.SharedPreferences $r12;
+        java.lang.Object $r3;
+        java.lang.StringBuilder $r8;
+        com.goodbarber.v2.data.IDataManager $r14;
+        com.goodbarber.v2.utils.DiskCache $r5;
+
+        r0 := @this: com.goodbarber.v2.data.downloads.GBDownloadManager;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        $r1 = new java.util.ArrayList;
+
+        specialinvoke $r1.<java.util.ArrayList: void <init>()>();
+
+        r0.<com.goodbarber.v2.data.downloads.GBDownloadManager: java.util.ArrayList filesInMediaDir> = $r1;
+
+        $z0 = staticinvoke <com.goodbarber.v2.utils.Utils: boolean hasGingerbread_API9()>();
+
+        if $z0 == 0 goto label4;
+
+        $r2 = staticinvoke <com.goodbarber.v2.GBApplication: android.content.Context getAppContext()>();
+
+        $r3 = virtualinvoke $r2.<android.content.Context: java.lang.Object getSystemService(java.lang.String)>("download");
+
+        $r4 = (android.app.DownloadManager) $r3;
+
+        r0.<com.goodbarber.v2.data.downloads.GBDownloadManager: android.app.DownloadManager mDownloadManager> = $r4;
+
+        $r5 = new com.goodbarber.v2.utils.DiskCache;
+
+        specialinvoke $r5.<com.goodbarber.v2.utils.DiskCache: void <init>(java.lang.String)>("downloaded");
+
+        r0.<com.goodbarber.v2.data.downloads.GBDownloadManager: com.goodbarber.v2.utils.DiskCache downloadedCache> = $r5;
+
+        $r2 = staticinvoke <com.goodbarber.v2.GBApplication: android.content.Context getAppContext()>();
+
+        $r6 = <android.os.Environment: java.lang.String DIRECTORY_PODCASTS>;
+
+        $r7 = virtualinvoke $r2.<android.content.Context: java.io.File getExternalFilesDir(java.lang.String)>($r6);
+
+        r0.<com.goodbarber.v2.data.downloads.GBDownloadManager: java.io.File mediaDir> = $r7;
+
+        $r6 = <com.goodbarber.v2.data.downloads.GBDownloadManager: java.lang.String TAG>;
+
+        $r8 = new java.lang.StringBuilder;
+
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("path mediaFile: ");
+
+        $r7 = r0.<com.goodbarber.v2.data.downloads.GBDownloadManager: java.io.File mediaDir>;
+
+        $r9 = virtualinvoke $r7.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        $r9 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.goodbarber.v2.utils.GBLog: void d(java.lang.String,java.lang.String)>($r6, $r9);
+
+        specialinvoke r0.<com.goodbarber.v2.data.downloads.GBDownloadManager: void refreshListOfDownloadedFiles()>();
+
+        specialinvoke r0.<com.goodbarber.v2.data.downloads.GBDownloadManager: void initializeCorrespondancyFile()>();
+
+        $r10 = new android.content.IntentFilter;
+
+        specialinvoke $r10.<android.content.IntentFilter: void <init>(java.lang.String)>("android.intent.action.DOWNLOAD_COMPLETE");
+
+        r0.<com.goodbarber.v2.data.downloads.GBDownloadManager: android.content.IntentFilter mIntentFilter> = $r10;
+
+        $r11 = new com.goodbarber.v2.data.downloads.GBDownloadManager$1;
+
+        specialinvoke $r11.<com.goodbarber.v2.data.downloads.GBDownloadManager$1: void <init>(com.goodbarber.v2.data.downloads.GBDownloadManager)>(r0);
+
+        r0.<com.goodbarber.v2.data.downloads.GBDownloadManager: android.content.BroadcastReceiver mReceiver> = $r11;
+
+        $r2 = staticinvoke <com.goodbarber.v2.GBApplication: android.content.Context getAppContext()>();
+
+        $r12 = virtualinvoke $r2.<android.content.Context: android.content.SharedPreferences getSharedPreferences(java.lang.String,int)>("downloadsSharedPreferences", 0);
+
+        r0.<com.goodbarber.v2.data.downloads.GBDownloadManager: android.content.SharedPreferences mSharedPreferences> = $r12;
+
+        $r12 = r0.<com.goodbarber.v2.data.downloads.GBDownloadManager: android.content.SharedPreferences mSharedPreferences>;
+
+        $r6 = interfaceinvoke $r12.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("itemId", null);
+
+        $r12 = r0.<com.goodbarber.v2.data.downloads.GBDownloadManager: android.content.SharedPreferences mSharedPreferences>;
+
+        $r9 = interfaceinvoke $r12.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("sectionId", null);
+
+        $r12 = r0.<com.goodbarber.v2.data.downloads.GBDownloadManager: android.content.SharedPreferences mSharedPreferences>;
+
+        $l0 = interfaceinvoke $r12.<android.content.SharedPreferences: long getLong(java.lang.String,long)>("referenceId", -1L);
+
+        if $r6 == null goto label2;
+
+        if $r9 == null goto label2;
+
+        $b1 = $l0 cmp -1L;
+
+        if $b1 == 0 goto label2;
+
+        $i2 = specialinvoke r0.<com.goodbarber.v2.data.downloads.GBDownloadManager: int returnStatus(long)>($l0);
+
+        if $i2 == 4 goto label1;
+
+        if $i2 == 1 goto label1;
+
+        if $i2 != 2 goto label3;
+
+     label1:
+        $r13 = new com.goodbarber.v2.data.downloads.GBDownloadManager$ItemBeingDownloaded;
+
+        $r14 = staticinvoke <com.goodbarber.v2.data.DataManager: com.goodbarber.v2.data.IDataManager instance()>();
+
+        $r15 = interfaceinvoke $r14.<com.goodbarber.v2.data.IDataManager: com.goodbarber.v2.models.GBItem getItemByIdInCache(java.lang.String)>($r6);
+
+        specialinvoke $r13.<com.goodbarber.v2.data.downloads.GBDownloadManager$ItemBeingDownloaded: void <init>(com.goodbarber.v2.data.downloads.GBDownloadManager,com.goodbarber.v2.models.GBItem,long,java.lang.String)>(r0, $r15, $l0, $r9);
+
+        r0.<com.goodbarber.v2.data.downloads.GBDownloadManager: com.goodbarber.v2.data.downloads.GBDownloadManager$ItemBeingDownloaded mItemBeingDownloaded> = $r13;
+
+        $r2 = staticinvoke <com.goodbarber.v2.GBApplication: android.content.Context getAppContext()>();
+
+        $r16 = r0.<com.goodbarber.v2.data.downloads.GBDownloadManager: android.content.BroadcastReceiver mReceiver>;
+
+        $r10 = r0.<com.goodbarber.v2.data.downloads.GBDownloadManager: android.content.IntentFilter mIntentFilter>;
+
+        virtualinvoke $r2.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r16, $r10);
+
+     label2:
+        $r6 = <com.goodbarber.v2.data.downloads.GBDownloadManager: java.lang.String TAG>;
+
+        staticinvoke <com.goodbarber.v2.utils.GBLog: void d(java.lang.String,java.lang.String)>($r6, "initializing");
+
+        return;
+
+     label3:
+        if $i2 != 8 goto label2;
+
+        $r14 = staticinvoke <com.goodbarber.v2.data.DataManager: com.goodbarber.v2.data.IDataManager instance()>();
+
+        $r15 = interfaceinvoke $r14.<com.goodbarber.v2.data.IDataManager: com.goodbarber.v2.models.GBItem getItemByIdInCache(java.lang.String)>($r6);
+
+        virtualinvoke r0.<com.goodbarber.v2.data.downloads.GBDownloadManager: boolean addDownloadedItem(com.goodbarber.v2.models.GBItem,java.lang.String)>($r15, $r9);
+
+        goto label2;
+
+     label4:
+        return;
+    }

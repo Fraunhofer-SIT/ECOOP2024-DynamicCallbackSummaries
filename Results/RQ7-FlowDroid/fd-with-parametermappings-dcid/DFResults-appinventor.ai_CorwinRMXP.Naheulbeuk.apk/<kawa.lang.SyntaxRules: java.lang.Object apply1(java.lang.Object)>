@@ -1,0 +1,58 @@
+    public java.lang.Object apply1(java.lang.Object)
+    {
+        java.lang.Throwable $r7;
+        kawa.lang.SyntaxRules r0;
+        kawa.lang.Translator r4;
+        gnu.expr.Compilation $r3;
+        kawa.lang.TemplateScope $r6;
+        kawa.lang.SyntaxForm r2;
+        gnu.expr.ScopeExp $r5;
+        java.lang.Object $r1;
+        boolean $z0;
+
+        r0 := @this: kawa.lang.SyntaxRules;
+
+        $r1 := @parameter0: java.lang.Object;
+
+        $z0 = $r1 instanceof kawa.lang.SyntaxForm;
+
+        if $z0 == 0 goto label4;
+
+        r2 = (kawa.lang.SyntaxForm) $r1;
+
+        $r3 = staticinvoke <gnu.expr.Compilation: gnu.expr.Compilation getCurrent()>();
+
+        r4 = (kawa.lang.Translator) $r3;
+
+        $r5 = virtualinvoke r4.<kawa.lang.Translator: gnu.expr.ScopeExp currentScope()>();
+
+        $r6 = interfaceinvoke r2.<kawa.lang.SyntaxForm: kawa.lang.TemplateScope getScope()>();
+
+        virtualinvoke r4.<kawa.lang.Translator: void setCurrentScope(gnu.expr.ScopeExp)>($r6);
+
+     label1:
+        $r1 = virtualinvoke r0.<kawa.lang.SyntaxRules: java.lang.Object expand(java.lang.Object,kawa.lang.Translator)>(r2, r4);
+
+     label2:
+        virtualinvoke r4.<kawa.lang.Translator: void setCurrentScope(gnu.expr.ScopeExp)>($r5);
+
+        return $r1;
+
+     label3:
+        $r7 := @caughtexception;
+
+        virtualinvoke r4.<kawa.lang.Translator: void setCurrentScope(gnu.expr.ScopeExp)>($r5);
+
+        throw $r7;
+
+     label4:
+        $r3 = staticinvoke <gnu.expr.Compilation: gnu.expr.Compilation getCurrent()>();
+
+        r4 = (kawa.lang.Translator) $r3;
+
+        $r1 = virtualinvoke r0.<kawa.lang.SyntaxRules: java.lang.Object expand(java.lang.Object,kawa.lang.Translator)>($r1, r4);
+
+        return $r1;
+
+        catch java.lang.Throwable from label1 to label2 with label3;
+    }

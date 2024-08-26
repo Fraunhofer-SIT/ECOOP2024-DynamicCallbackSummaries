@@ -1,0 +1,91 @@
+    private static java.io.File copyFile(android.net.Uri) throws java.io.IOException
+    {
+        java.lang.Throwable $r7;
+        android.content.Context $r1;
+        byte[] $r6;
+        android.net.Uri $r0;
+        java.io.FileOutputStream $r5;
+        java.io.File $r2;
+        java.lang.Exception $r8;
+        android.content.ContentResolver $r3;
+        int $i0;
+        boolean $z0;
+        java.io.InputStream $r4;
+
+        $r0 := @parameter0: android.net.Uri;
+
+        $r1 = staticinvoke <notes.easy.android.mynotes.App: android.content.Context getAppContext()>();
+
+        $r2 = staticinvoke <notes.easy.android.mynotes.utils.StorageHelper: java.io.File createNewAttachmentFile(android.content.Context,java.lang.String)>($r1, ".jpeg");
+
+        if $r2 == null goto label01;
+
+        $z0 = virtualinvoke $r2.<java.io.File: boolean exists()>();
+
+        if $z0 != 0 goto label01;
+
+        virtualinvoke $r2.<java.io.File: boolean createNewFile()>();
+
+     label01:
+        $r1 = staticinvoke <notes.easy.android.mynotes.App: android.content.Context getAppContext()>();
+
+        $r3 = virtualinvoke $r1.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+        $r4 = virtualinvoke $r3.<android.content.ContentResolver: java.io.InputStream openInputStream(android.net.Uri)>($r0);
+
+        $r5 = new java.io.FileOutputStream;
+
+        specialinvoke $r5.<java.io.FileOutputStream: void <init>(java.io.File)>($r2);
+
+        if $r2 == null goto label11;
+
+        if $r4 == null goto label11;
+
+        $r6 = newarray (byte)[1024];
+
+     label02:
+        $i0 = virtualinvoke $r4.<java.io.InputStream: int read(byte[])>($r6);
+
+     label03:
+        if $i0 <= 0 goto label11;
+
+     label04:
+        virtualinvoke $r5.<java.io.OutputStream: void write(byte[],int,int)>($r6, 0, $i0);
+
+     label05:
+        goto label02;
+
+     label06:
+        $r7 := @caughtexception;
+
+        goto label10;
+
+     label07:
+        $r8 := @caughtexception;
+
+     label08:
+        virtualinvoke $r8.<java.lang.Exception: void printStackTrace()>();
+
+     label09:
+        goto label11;
+
+     label10:
+        staticinvoke <notes.easy.android.mynotes.utils.FileUtils: void closeStream(java.io.Closeable)>($r4);
+
+        staticinvoke <notes.easy.android.mynotes.utils.FileUtils: void closeStream(java.io.Closeable)>($r5);
+
+        throw $r7;
+
+     label11:
+        staticinvoke <notes.easy.android.mynotes.utils.FileUtils: void closeStream(java.io.Closeable)>($r4);
+
+        staticinvoke <notes.easy.android.mynotes.utils.FileUtils: void closeStream(java.io.Closeable)>($r5);
+
+        return $r2;
+
+        catch java.lang.Exception from label02 to label03 with label07;
+        catch java.lang.Exception from label04 to label05 with label07;
+        catch java.lang.Throwable from label02 to label03 with label06;
+        catch java.lang.Throwable from label04 to label05 with label06;
+        catch java.lang.Throwable from label08 to label09 with label06;
+    }

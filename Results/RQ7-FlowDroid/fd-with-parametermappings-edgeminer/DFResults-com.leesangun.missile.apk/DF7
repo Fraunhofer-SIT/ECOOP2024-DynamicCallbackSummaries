@@ -1,0 +1,13 @@
+Source: virtualinvoke r3.<java.io.InputStream: int read(byte[])>(r1)
+virtualinvoke r3.<java.io.InputStream: int read(byte[])>(r1) in <com.openfeint.internal.Util: byte[] readWholeFile(java.lang.String)>
+Sink: virtualinvoke r3.<java.io.FileOutputStream: void write(byte[])>($r0) in <com.openfeint.internal.Util: void saveFile(byte[],java.lang.String)>
+
+<com.openfeint.internal.Util: byte[] readWholeFile(java.lang.String)>: virtualinvoke r3.<java.io.InputStream: int read(byte[])>(r1)
+<com.openfeint.internal.Util: byte[] readWholeFile(java.lang.String)>: return r1
+<com.openfeint.internal.offline.OfflineSupport: void uploadScoresWithBlobs()>: r0.<com.openfeint.api.resource.Score: byte[] blob> = $r9
+<com.openfeint.internal.offline.OfflineSupport: void uploadScoresWithBlobs()>: virtualinvoke r0.<com.openfeint.api.resource.Score: void submitToFromOffline(com.openfeint.api.resource.Leaderboard,java.lang.String,com.openfeint.api.resource.Score$SubmitToCB)>($r10, $r8, $r1)
+<com.openfeint.api.resource.Score: void submitToFromOffline(com.openfeint.api.resource.Leaderboard,java.lang.String,com.openfeint.api.resource.Score$SubmitToCB)>: specialinvoke r0.<com.openfeint.api.resource.Score: void submitToInternal(com.openfeint.api.resource.Leaderboard,java.lang.String,com.openfeint.api.resource.Score$SubmitToCB,boolean)>($r1, $r2, $r3, 1)
+<com.openfeint.api.resource.Score: void submitToInternal(com.openfeint.api.resource.Leaderboard,java.lang.String,com.openfeint.api.resource.Score$SubmitToCB,boolean)>: staticinvoke <com.openfeint.internal.offline.OfflineSupport: void postOfflineScore(com.openfeint.api.resource.Score,com.openfeint.api.resource.Leaderboard)>(r0, $r1)
+<com.openfeint.internal.offline.OfflineSupport: void postOfflineScore(com.openfeint.api.resource.Score,com.openfeint.api.resource.Leaderboard)>: $r5 = $r0.<com.openfeint.api.resource.Score: byte[] blob>
+<com.openfeint.internal.offline.OfflineSupport: void postOfflineScore(com.openfeint.api.resource.Score,com.openfeint.api.resource.Leaderboard)>: staticinvoke <com.openfeint.internal.Util: void saveFile(byte[],java.lang.String)>($r5, $r12)
+<com.openfeint.internal.Util: void saveFile(byte[],java.lang.String)>: virtualinvoke r3.<java.io.FileOutputStream: void write(byte[])>($r0)

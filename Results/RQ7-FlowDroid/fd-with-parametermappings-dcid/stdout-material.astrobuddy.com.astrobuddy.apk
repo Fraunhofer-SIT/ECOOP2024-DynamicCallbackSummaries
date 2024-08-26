@@ -1,0 +1,533 @@
+2024-01-15 11:15:41
+Full thread dump OpenJDK 64-Bit Server VM (17.0.9+9-Ubuntu-120.04 mixed mode, sharing):
+
+Threads class SMR info:
+_java_thread_list=0x00007ed9780013b0, length=12, elements={
+0x00007f1cfc013b80, 0x00007f1cfc3733f0, 0x00007f1cfc374860, 0x00007f1cfc37b4c0,
+0x00007f1cfc37c880, 0x00007f1cfc37dca0, 0x00007f1cfc37f720, 0x00007f1cfc380ca0,
+0x00007f1cfc382140, 0x00007f1cfc3ccf20, 0x00007f1cfc3d0a10, 0x00007f1cfcc19a90
+}
+
+"main" #1 prio=5 os_prio=0 cpu=121399.54ms elapsed=1060.28s tid=0x00007f1cfc013b80 nid=0x2a430a runnable  [0x00007f1d00ee6000]
+   java.lang.Thread.State: RUNNABLE
+	at soot.jimple.infoflow.data.pathBuilders.BatchPathBuilder.computeTaintPaths(BatchPathBuilder.java:43)
+	at soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$ShutdownBatchPathBuilder.computeTaintPaths(DefaultPathBuilderFactory.java:56)
+	at soot.jimple.infoflow.AbstractInfoflow.runTaintAnalysis(AbstractInfoflow.java:1107)
+	at soot.jimple.infoflow.AbstractInfoflow.runAnalysis(AbstractInfoflow.java:634)
+	at soot.jimple.infoflow.AbstractInfoflow.runAnalysis(AbstractInfoflow.java:567)
+	at soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow.runAnalysis(SetupApplication.java:1316)
+	at soot.jimple.infoflow.android.SetupApplication.processEntryPoint(SetupApplication.java:1605)
+	at soot.jimple.infoflow.android.SetupApplication.runInfoflow(SetupApplication.java:1540)
+	at soot.jimple.infoflow.android.SetupApplication.runInfoflow(SetupApplication.java:1487)
+	at reproduction.dcidsubmit.FlowDroidSecondStep.main(FlowDroidSecondStep.java:121)
+
+"Reference Handler" #2 daemon prio=10 os_prio=0 cpu=1.54ms elapsed=1060.24s tid=0x00007f1cfc3733f0 nid=0x2a4312 waiting on condition  [0x00007edbf8351000]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.ref.Reference.waitForReferencePendingList(java.base@17.0.9/Native Method)
+	at java.lang.ref.Reference.processPendingReferences(java.base@17.0.9/Reference.java:253)
+	at java.lang.ref.Reference$ReferenceHandler.run(java.base@17.0.9/Reference.java:215)
+
+"Finalizer" #3 daemon prio=8 os_prio=0 cpu=0.22ms elapsed=1060.24s tid=0x00007f1cfc374860 nid=0x2a4313 in Object.wait()  [0x00007edbf8250000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@17.0.9/Native Method)
+	- waiting on <0x00007ede604e9fc0> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(java.base@17.0.9/ReferenceQueue.java:155)
+	- locked <0x00007ede604e9fc0> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(java.base@17.0.9/ReferenceQueue.java:176)
+	at java.lang.ref.Finalizer$FinalizerThread.run(java.base@17.0.9/Finalizer.java:172)
+
+"Signal Dispatcher" #4 daemon prio=9 os_prio=0 cpu=0.47ms elapsed=1060.24s tid=0x00007f1cfc37b4c0 nid=0x2a4314 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Service Thread" #5 daemon prio=9 os_prio=0 cpu=19.73ms elapsed=1060.24s tid=0x00007f1cfc37c880 nid=0x2a4315 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Monitor Deflation Thread" #6 daemon prio=9 os_prio=0 cpu=503.04ms elapsed=1060.24s tid=0x00007f1cfc37dca0 nid=0x2a4316 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread0" #7 daemon prio=9 os_prio=0 cpu=40284.80ms elapsed=1060.24s tid=0x00007f1cfc37f720 nid=0x2a4317 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   Compiling: 10377   !   4       com.google.common.cache.LocalCache$Segment::clear (261 bytes)
+
+"C1 CompilerThread0" #21 daemon prio=9 os_prio=0 cpu=2125.54ms elapsed=1060.24s tid=0x00007f1cfc380ca0 nid=0x2a4318 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+"Sweeper thread" #28 daemon prio=9 os_prio=0 cpu=770.11ms elapsed=1060.24s tid=0x00007f1cfc382140 nid=0x2a4319 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Notification Thread" #29 daemon prio=9 os_prio=0 cpu=0.08ms elapsed=1060.22s tid=0x00007f1cfc3ccf20 nid=0x2a431b runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Common-Cleaner" #30 daemon prio=8 os_prio=0 cpu=3.65ms elapsed=1060.22s tid=0x00007f1cfc3d0a10 nid=0x2a431d in Object.wait()  [0x00007edbaa286000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@17.0.9/Native Method)
+	- waiting on <0x00007ede60003368> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(java.base@17.0.9/ReferenceQueue.java:155)
+	- locked <0x00007ede60003368> (a java.lang.ref.ReferenceQueue$Lock)
+	at jdk.internal.ref.CleanerImpl.run(java.base@17.0.9/CleanerImpl.java:140)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+	at jdk.internal.misc.InnocuousThread.run(java.base@17.0.9/InnocuousThread.java:162)
+
+"Low memory monitor" #34 daemon prio=1 os_prio=0 cpu=231.19ms elapsed=1056.41s tid=0x00007f1cfcc19a90 nid=0x2a435d waiting on condition  [0x00007edba9375000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(java.base@17.0.9/Native Method)
+	at soot.jimple.infoflow.memory.MemoryWarningSystem$4.run(MemoryWarningSystem.java:250)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"VM Thread" os_prio=0 cpu=951.73ms elapsed=1060.25s tid=0x00007f1cfc36eb30 nid=0x2a4311 runnable  
+
+"GC Thread#0" os_prio=0 cpu=16258.13ms elapsed=1060.27s tid=0x00007f1cfc0bdd30 nid=0x2a430b runnable  
+
+"GC Thread#1" os_prio=0 cpu=15928.37ms elapsed=1058.65s tid=0x00007edba4017470 nid=0x2a4329 runnable  
+
+"GC Thread#2" os_prio=0 cpu=14723.44ms elapsed=1058.65s tid=0x00007edba4017e40 nid=0x2a432a runnable  
+
+"GC Thread#3" os_prio=0 cpu=15042.43ms elapsed=1058.65s tid=0x00007edba4018850 nid=0x2a432b runnable  
+
+"GC Thread#4" os_prio=0 cpu=16010.64ms elapsed=1058.65s tid=0x00007edba4019260 nid=0x2a432c runnable  
+
+"GC Thread#5" os_prio=0 cpu=15423.79ms elapsed=1058.65s tid=0x00007edba4019c70 nid=0x2a432d runnable  
+
+"GC Thread#6" os_prio=0 cpu=17649.88ms elapsed=1058.65s tid=0x00007edba401a6b0 nid=0x2a432e runnable  
+
+"GC Thread#7" os_prio=0 cpu=14856.15ms elapsed=1058.65s tid=0x00007edba401b0f0 nid=0x2a432f runnable  
+
+"GC Thread#8" os_prio=0 cpu=15893.40ms elapsed=1058.65s tid=0x00007edba401bb30 nid=0x2a4330 runnable  
+
+"GC Thread#9" os_prio=0 cpu=16678.54ms elapsed=1058.65s tid=0x00007edba401c960 nid=0x2a4331 runnable  
+
+"GC Thread#10" os_prio=0 cpu=16049.24ms elapsed=1058.65s tid=0x00007edba401d790 nid=0x2a4332 runnable  
+
+"GC Thread#11" os_prio=0 cpu=17731.18ms elapsed=1058.65s tid=0x00007edba401e600 nid=0x2a4333 runnable  
+
+"GC Thread#12" os_prio=0 cpu=14709.22ms elapsed=1058.65s tid=0x00007edba401f470 nid=0x2a4334 runnable  
+
+"GC Thread#13" os_prio=0 cpu=15125.18ms elapsed=1058.65s tid=0x00007edba40202e0 nid=0x2a4335 runnable  
+
+"GC Thread#14" os_prio=0 cpu=15963.84ms elapsed=1058.65s tid=0x00007edba4021150 nid=0x2a4336 runnable  
+
+"GC Thread#15" os_prio=0 cpu=16793.11ms elapsed=1058.65s tid=0x00007edba4021fc0 nid=0x2a4337 runnable  
+
+"GC Thread#16" os_prio=0 cpu=15607.94ms elapsed=1058.64s tid=0x00007edba4022e30 nid=0x2a4338 runnable  
+
+"GC Thread#17" os_prio=0 cpu=15343.02ms elapsed=1058.64s tid=0x00007edba4023ca0 nid=0x2a4339 runnable  
+
+"GC Thread#18" os_prio=0 cpu=15515.26ms elapsed=1058.64s tid=0x00007edba4024b10 nid=0x2a433a runnable  
+
+"GC Thread#19" os_prio=0 cpu=15394.80ms elapsed=1058.64s tid=0x00007edba4025980 nid=0x2a433b runnable  
+
+"GC Thread#20" os_prio=0 cpu=14735.52ms elapsed=1058.64s tid=0x00007edba40267f0 nid=0x2a433c runnable  
+
+"GC Thread#21" os_prio=0 cpu=15083.49ms elapsed=1058.64s tid=0x00007edba4027660 nid=0x2a433d runnable  
+
+"GC Thread#22" os_prio=0 cpu=15310.83ms elapsed=1058.64s tid=0x00007edba40284d0 nid=0x2a433e runnable  
+
+"GC Thread#23" os_prio=0 cpu=14300.47ms elapsed=1058.64s tid=0x00007edba4029340 nid=0x2a433f runnable  
+
+"GC Thread#24" os_prio=0 cpu=15600.17ms elapsed=1058.64s tid=0x00007edba402a1b0 nid=0x2a4340 runnable  
+
+"GC Thread#25" os_prio=0 cpu=15363.05ms elapsed=1058.64s tid=0x00007edba402b020 nid=0x2a4341 runnable  
+
+"GC Thread#26" os_prio=0 cpu=17943.37ms elapsed=1058.64s tid=0x00007edba402be90 nid=0x2a4342 runnable  
+
+"GC Thread#27" os_prio=0 cpu=15308.35ms elapsed=1058.64s tid=0x00007edba402cd00 nid=0x2a4343 runnable  
+
+"GC Thread#28" os_prio=0 cpu=16985.02ms elapsed=1058.64s tid=0x00007edba402db70 nid=0x2a4344 runnable  
+
+"GC Thread#29" os_prio=0 cpu=14573.85ms elapsed=1058.63s tid=0x00007edba402e9e0 nid=0x2a4345 runnable  
+
+"GC Thread#30" os_prio=0 cpu=15281.56ms elapsed=1058.63s tid=0x00007edba402f850 nid=0x2a4346 runnable  
+
+"GC Thread#31" os_prio=0 cpu=14582.11ms elapsed=1058.63s tid=0x00007edba40306c0 nid=0x2a4347 runnable  
+
+"GC Thread#32" os_prio=0 cpu=15257.23ms elapsed=1058.63s tid=0x00007edba4031530 nid=0x2a4348 runnable  
+
+"GC Thread#33" os_prio=0 cpu=18665.67ms elapsed=1058.63s tid=0x00007edba40323a0 nid=0x2a4349 runnable  
+
+"GC Thread#34" os_prio=0 cpu=15923.21ms elapsed=1058.63s tid=0x00007edba4033210 nid=0x2a434a runnable  
+
+"GC Thread#35" os_prio=0 cpu=15473.29ms elapsed=1058.63s tid=0x00007edba4034080 nid=0x2a434b runnable  
+
+"GC Thread#36" os_prio=0 cpu=14801.73ms elapsed=1058.63s tid=0x00007edba4034ef0 nid=0x2a434c runnable  
+
+"GC Thread#37" os_prio=0 cpu=15855.44ms elapsed=1058.63s tid=0x00007edba4035d60 nid=0x2a434d runnable  
+
+"GC Thread#38" os_prio=0 cpu=15940.49ms elapsed=1058.63s tid=0x00007edba4036bd0 nid=0x2a434e runnable  
+
+"GC Thread#39" os_prio=0 cpu=15853.48ms elapsed=1058.62s tid=0x00007edba4037a40 nid=0x2a434f runnable  
+
+"GC Thread#40" os_prio=0 cpu=15449.95ms elapsed=1058.62s tid=0x00007edba40388b0 nid=0x2a4350 runnable  
+
+"GC Thread#41" os_prio=0 cpu=14786.38ms elapsed=1058.62s tid=0x00007edba4039720 nid=0x2a4351 runnable  
+
+"GC Thread#42" os_prio=0 cpu=16369.29ms elapsed=1058.62s tid=0x00007edba403a590 nid=0x2a4352 runnable  
+
+"GC Thread#43" os_prio=0 cpu=14033.05ms elapsed=1058.62s tid=0x00007edba403b400 nid=0x2a4353 runnable  
+
+"GC Thread#44" os_prio=0 cpu=14967.93ms elapsed=1058.62s tid=0x00007edba403c270 nid=0x2a4354 runnable  
+
+"GC Thread#45" os_prio=0 cpu=14513.40ms elapsed=1058.62s tid=0x00007edba403d0e0 nid=0x2a4355 runnable  
+
+"GC Thread#46" os_prio=0 cpu=16184.37ms elapsed=1058.62s tid=0x00007edba403df50 nid=0x2a4356 runnable  
+
+"GC Thread#47" os_prio=0 cpu=14478.59ms elapsed=1058.62s tid=0x00007edba403edc0 nid=0x2a4357 runnable  
+
+"GC Thread#48" os_prio=0 cpu=15874.91ms elapsed=1058.62s tid=0x00007edba403fc30 nid=0x2a4358 runnable  
+
+"GC Thread#49" os_prio=0 cpu=14607.46ms elapsed=1056.16s tid=0x00007edba409e4c0 nid=0x2a435f runnable  
+
+"GC Thread#50" os_prio=0 cpu=14878.16ms elapsed=1056.16s tid=0x00007edba409ee40 nid=0x2a4360 runnable  
+
+"GC Thread#51" os_prio=0 cpu=16261.40ms elapsed=1056.16s tid=0x00007edba409f850 nid=0x2a4361 runnable  
+
+"GC Thread#52" os_prio=0 cpu=14927.77ms elapsed=1056.16s tid=0x00007edba40a01f0 nid=0x2a4362 runnable  
+
+"GC Thread#53" os_prio=0 cpu=15492.50ms elapsed=1056.16s tid=0x00007edba40a0af0 nid=0x2a4363 runnable  
+
+"GC Thread#54" os_prio=0 cpu=15129.58ms elapsed=1056.15s tid=0x00007edba40a14c0 nid=0x2a4364 runnable  
+
+"GC Thread#55" os_prio=0 cpu=14790.95ms elapsed=1056.15s tid=0x00007edba40a1ef0 nid=0x2a4365 runnable  
+
+"GC Thread#56" os_prio=0 cpu=15119.52ms elapsed=1056.15s tid=0x00007edba40a2940 nid=0x2a4366 runnable  
+
+"GC Thread#57" os_prio=0 cpu=15538.62ms elapsed=1056.15s tid=0x00007edba40a33c0 nid=0x2a4367 runnable  
+
+"GC Thread#58" os_prio=0 cpu=14587.11ms elapsed=1056.15s tid=0x00007edba40a3e40 nid=0x2a4368 runnable  
+
+"GC Thread#59" os_prio=0 cpu=16229.82ms elapsed=1056.15s tid=0x00007edba40a48c0 nid=0x2a4369 runnable  
+
+"GC Thread#60" os_prio=0 cpu=14814.14ms elapsed=1056.15s tid=0x00007edba40a5340 nid=0x2a436a runnable  
+
+"GC Thread#61" os_prio=0 cpu=15013.74ms elapsed=1056.15s tid=0x00007edba40a5dc0 nid=0x2a436b runnable  
+
+"GC Thread#62" os_prio=0 cpu=14601.16ms elapsed=1056.15s tid=0x00007edba40a6840 nid=0x2a436c runnable  
+
+"GC Thread#63" os_prio=0 cpu=15201.19ms elapsed=1056.15s tid=0x00007edba40a72c0 nid=0x2a436d runnable  
+
+"GC Thread#64" os_prio=0 cpu=14419.09ms elapsed=1056.15s tid=0x00007edba40a7d40 nid=0x2a436e runnable  
+
+"GC Thread#65" os_prio=0 cpu=15196.57ms elapsed=1056.15s tid=0x00007edba40a87c0 nid=0x2a436f runnable  
+
+"GC Thread#66" os_prio=0 cpu=14781.86ms elapsed=1056.15s tid=0x00007edba40a9240 nid=0x2a4370 runnable  
+
+"GC Thread#67" os_prio=0 cpu=16341.29ms elapsed=1056.15s tid=0x00007edba40a9cc0 nid=0x2a4371 runnable  
+
+"GC Thread#68" os_prio=0 cpu=16164.57ms elapsed=1056.15s tid=0x00007edba40aa740 nid=0x2a4372 runnable  
+
+"GC Thread#69" os_prio=0 cpu=14351.23ms elapsed=1056.14s tid=0x00007edba40ab1c0 nid=0x2a4373 runnable  
+
+"GC Thread#70" os_prio=0 cpu=15231.48ms elapsed=1056.14s tid=0x00007edba40abc40 nid=0x2a4374 runnable  
+
+"GC Thread#71" os_prio=0 cpu=14856.92ms elapsed=1056.14s tid=0x00007edba40ac6c0 nid=0x2a4375 runnable  
+
+"GC Thread#72" os_prio=0 cpu=15455.22ms elapsed=1056.14s tid=0x00007edba40ad140 nid=0x2a4376 runnable  
+
+"GC Thread#73" os_prio=0 cpu=15608.55ms elapsed=1056.13s tid=0x00007edba40adbc0 nid=0x2a4377 runnable  
+
+"GC Thread#74" os_prio=0 cpu=14835.38ms elapsed=1056.13s tid=0x00007edba40ae640 nid=0x2a4378 runnable  
+
+"GC Thread#75" os_prio=0 cpu=17115.18ms elapsed=1056.13s tid=0x00007edba40af0c0 nid=0x2a4379 runnable  
+
+"GC Thread#76" os_prio=0 cpu=14923.81ms elapsed=1056.13s tid=0x00007edba40afb40 nid=0x2a437a runnable  
+
+"GC Thread#77" os_prio=0 cpu=15502.50ms elapsed=1056.13s tid=0x00007edba40b05c0 nid=0x2a437b runnable  
+
+"GC Thread#78" os_prio=0 cpu=15356.31ms elapsed=1056.13s tid=0x00007edba40b1040 nid=0x2a437c runnable  
+
+"GC Thread#79" os_prio=0 cpu=15334.21ms elapsed=1056.13s tid=0x00007edba40b1ac0 nid=0x2a437d runnable  
+
+"GC Thread#80" os_prio=0 cpu=14977.00ms elapsed=1056.13s tid=0x00007edba40b2540 nid=0x2a437e runnable  
+
+"GC Thread#81" os_prio=0 cpu=16361.52ms elapsed=1056.13s tid=0x00007edba40b2fc0 nid=0x2a437f runnable  
+
+"GC Thread#82" os_prio=0 cpu=14935.16ms elapsed=907.40s tid=0x00007edba40c62b0 nid=0x2a4523 runnable  
+
+"GC Thread#83" os_prio=0 cpu=13515.45ms elapsed=907.40s tid=0x00007edba40c69b0 nid=0x2a4524 runnable  
+
+"GC Thread#84" os_prio=0 cpu=16506.63ms elapsed=907.40s tid=0x00007edba40c7170 nid=0x2a4525 runnable  
+
+"GC Thread#85" os_prio=0 cpu=14327.14ms elapsed=907.40s tid=0x00007edba40bc090 nid=0x2a4526 runnable  
+
+"GC Thread#86" os_prio=0 cpu=14065.24ms elapsed=907.40s tid=0x00007edba40bc910 nid=0x2a4527 runnable  
+
+"GC Thread#87" os_prio=0 cpu=15608.81ms elapsed=897.46s tid=0x00007edba40bd190 nid=0x2a4549 runnable  
+
+"GC Thread#88" os_prio=0 cpu=15699.30ms elapsed=897.46s tid=0x00007edba41243c0 nid=0x2a454a runnable  
+
+"GC Thread#89" os_prio=0 cpu=14857.04ms elapsed=897.46s tid=0x00007edba4124e00 nid=0x2a454b runnable  
+
+"GC Thread#90" os_prio=0 cpu=16180.26ms elapsed=897.46s tid=0x00007edba4125840 nid=0x2a454c runnable  
+
+"GC Thread#91" os_prio=0 cpu=18110.20ms elapsed=897.46s tid=0x00007edba41262a0 nid=0x2a454d runnable  
+
+"GC Thread#92" os_prio=0 cpu=17431.19ms elapsed=897.46s tid=0x00007edba4126d20 nid=0x2a454e runnable  
+
+"G1 Main Marker" os_prio=0 cpu=11.18ms elapsed=1060.27s tid=0x00007f1cfc0fdde0 nid=0x2a430c runnable  
+
+"G1 Conc#0" os_prio=0 cpu=967.17ms elapsed=1060.27s tid=0x00007f1cfc0fedf0 nid=0x2a430d runnable  
+
+"G1 Conc#1" os_prio=0 cpu=994.35ms elapsed=1056.09s tid=0x00007edc00000d20 nid=0x2a4380 runnable  
+
+"G1 Conc#2" os_prio=0 cpu=972.18ms elapsed=1056.09s tid=0x00007edc00001770 nid=0x2a4381 runnable  
+
+"G1 Conc#3" os_prio=0 cpu=1075.08ms elapsed=1056.07s tid=0x00007edc000021f0 nid=0x2a4382 runnable  
+
+"G1 Conc#4" os_prio=0 cpu=946.47ms elapsed=1056.07s tid=0x00007edc00002c70 nid=0x2a4383 runnable  
+
+"G1 Conc#5" os_prio=0 cpu=927.74ms elapsed=1056.07s tid=0x00007edc000036f0 nid=0x2a4384 runnable  
+
+"G1 Conc#6" os_prio=0 cpu=963.65ms elapsed=1056.06s tid=0x00007edc00004170 nid=0x2a4385 runnable  
+
+"G1 Conc#7" os_prio=0 cpu=897.21ms elapsed=1056.06s tid=0x00007edc00004bf0 nid=0x2a4386 runnable  
+
+"G1 Conc#8" os_prio=0 cpu=988.24ms elapsed=1056.06s tid=0x00007edc00005670 nid=0x2a4387 runnable  
+
+"G1 Conc#9" os_prio=0 cpu=779.48ms elapsed=1056.06s tid=0x00007edc000060f0 nid=0x2a4388 runnable  
+
+"G1 Conc#10" os_prio=0 cpu=906.79ms elapsed=1056.06s tid=0x00007edc00006b70 nid=0x2a4389 runnable  
+
+"G1 Conc#11" os_prio=0 cpu=840.10ms elapsed=1056.06s tid=0x00007edc000075f0 nid=0x2a438a runnable  
+
+"G1 Conc#12" os_prio=0 cpu=902.91ms elapsed=1056.06s tid=0x00007edc00008070 nid=0x2a438b runnable  
+
+"G1 Conc#13" os_prio=0 cpu=1011.49ms elapsed=1056.06s tid=0x00007edc00008af0 nid=0x2a438c runnable  
+
+"G1 Conc#14" os_prio=0 cpu=958.12ms elapsed=1056.06s tid=0x00007edc00009570 nid=0x2a438d runnable  
+
+"G1 Conc#15" os_prio=0 cpu=961.21ms elapsed=1056.05s tid=0x00007edc00009ff0 nid=0x2a438e runnable  
+
+"G1 Conc#16" os_prio=0 cpu=1081.53ms elapsed=1056.05s tid=0x00007edc0000a680 nid=0x2a438f runnable  
+
+"G1 Conc#17" os_prio=0 cpu=970.81ms elapsed=1056.05s tid=0x00007edc0000aef0 nid=0x2a4390 runnable  
+
+"G1 Conc#18" os_prio=0 cpu=863.45ms elapsed=1056.05s tid=0x00007edc0000b970 nid=0x2a4391 runnable  
+
+"G1 Conc#19" os_prio=0 cpu=1099.25ms elapsed=1056.05s tid=0x00007edc0000c3f0 nid=0x2a4392 runnable  
+
+"G1 Conc#20" os_prio=0 cpu=1005.10ms elapsed=1056.05s tid=0x00007edc0000ce70 nid=0x2a4393 runnable  
+
+"G1 Conc#21" os_prio=0 cpu=988.68ms elapsed=1056.05s tid=0x00007edc0000d500 nid=0x2a4394 runnable  
+
+"G1 Conc#22" os_prio=0 cpu=976.82ms elapsed=1056.05s tid=0x00007edc0000db40 nid=0x2a4395 runnable  
+
+"G1 Refine#0" os_prio=0 cpu=387267.55ms elapsed=1060.27s tid=0x00007f1cfc3195c0 nid=0x2a430e runnable  
+
+"G1 Refine#1" os_prio=0 cpu=56671.88ms elapsed=1018.24s tid=0x00007edbf4000d20 nid=0x2a4465 runnable  
+
+"G1 Refine#2" os_prio=0 cpu=31232.01ms elapsed=1018.24s tid=0x00007edb7c48ea50 nid=0x2a4466 runnable  
+
+"G1 Refine#3" os_prio=0 cpu=24305.69ms elapsed=1018.24s tid=0x00007edb5c3ef200 nid=0x2a4467 runnable  
+
+"G1 Refine#4" os_prio=0 cpu=21527.70ms elapsed=954.47s tid=0x00007edb68537730 nid=0x2a44c4 runnable  
+
+"G1 Refine#5" os_prio=0 cpu=19779.00ms elapsed=954.47s tid=0x00007edb60fdfb90 nid=0x2a44c5 runnable  
+
+"G1 Refine#6" os_prio=0 cpu=18937.63ms elapsed=954.47s tid=0x00007edb583d1cd0 nid=0x2a44c6 runnable  
+
+"G1 Refine#7" os_prio=0 cpu=18306.11ms elapsed=954.47s tid=0x00007edb7046e250 nid=0x2a44c7 runnable  
+
+"G1 Refine#8" os_prio=0 cpu=17384.46ms elapsed=953.45s tid=0x00007edb6403b7f0 nid=0x2a44c9 runnable  
+
+"G1 Refine#9" os_prio=0 cpu=16704.60ms elapsed=953.45s tid=0x00007edb6c0063c0 nid=0x2a44ca runnable  
+
+"G1 Refine#10" os_prio=0 cpu=16379.11ms elapsed=953.45s tid=0x00007eda90049d70 nid=0x2a44cb runnable  
+
+"G1 Refine#11" os_prio=0 cpu=15910.32ms elapsed=953.45s tid=0x00007edb540c3560 nid=0x2a44cc runnable  
+
+"G1 Refine#12" os_prio=0 cpu=15275.70ms elapsed=953.44s tid=0x00007ed9a4050b90 nid=0x2a44cd runnable  
+
+"G1 Refine#13" os_prio=0 cpu=14817.77ms elapsed=953.44s tid=0x00007ed998002020 nid=0x2a44ce runnable  
+
+"G1 Refine#14" os_prio=0 cpu=14374.12ms elapsed=953.44s tid=0x00007ed99c001160 nid=0x2a44cf runnable  
+
+"G1 Refine#15" os_prio=0 cpu=13988.61ms elapsed=953.44s tid=0x00007ed990000c00 nid=0x2a44d0 runnable  
+
+"G1 Refine#16" os_prio=0 cpu=13545.75ms elapsed=953.44s tid=0x00007ed994001fd0 nid=0x2a44d1 runnable  
+
+"G1 Refine#17" os_prio=0 cpu=13169.54ms elapsed=926.79s tid=0x00007ed988001fd0 nid=0x2a450a runnable  
+
+"G1 Refine#18" os_prio=0 cpu=12669.23ms elapsed=924.63s tid=0x00007eda7427d6e0 nid=0x2a450c runnable  
+
+"G1 Refine#19" os_prio=0 cpu=12323.31ms elapsed=919.32s tid=0x00007ed98c390d40 nid=0x2a450e runnable  
+
+"G1 Refine#20" os_prio=0 cpu=12152.92ms elapsed=919.31s tid=0x00007ed97c577920 nid=0x2a450f runnable  
+
+"G1 Refine#21" os_prio=0 cpu=11935.64ms elapsed=919.29s tid=0x00007ed9700017d0 nid=0x2a4510 runnable  
+
+"G1 Refine#22" os_prio=0 cpu=11411.07ms elapsed=914.87s tid=0x00007ed974000ff0 nid=0x2a4511 runnable  
+
+"G1 Refine#23" os_prio=0 cpu=11080.49ms elapsed=914.87s tid=0x00007ed98482e600 nid=0x2a4512 runnable  
+
+"G1 Refine#24" os_prio=0 cpu=10940.32ms elapsed=914.87s tid=0x00007ed918007260 nid=0x2a4513 runnable  
+
+"G1 Refine#25" os_prio=0 cpu=10723.01ms elapsed=914.87s tid=0x00007ed9807ddc90 nid=0x2a4514 runnable  
+
+"G1 Refine#26" os_prio=0 cpu=10209.16ms elapsed=914.87s tid=0x00007ed9140079b0 nid=0x2a4515 runnable  
+
+"G1 Refine#27" os_prio=0 cpu=10181.94ms elapsed=914.86s tid=0x00007ed96800a920 nid=0x2a4516 runnable  
+
+"G1 Refine#28" os_prio=0 cpu=9747.62ms elapsed=914.86s tid=0x00007ed90412bb20 nid=0x2a4517 runnable  
+
+"G1 Refine#29" os_prio=0 cpu=9356.67ms elapsed=914.86s tid=0x00007ed9007809b0 nid=0x2a4518 runnable  
+
+"G1 Refine#30" os_prio=0 cpu=9229.16ms elapsed=914.85s tid=0x00007ed96c6cf3c0 nid=0x2a4519 runnable  
+
+"G1 Refine#31" os_prio=0 cpu=9072.00ms elapsed=914.84s tid=0x00007ed8f8000e80 nid=0x2a451a runnable  
+
+"G1 Refine#32" os_prio=0 cpu=8708.14ms elapsed=912.12s tid=0x00007ed8fc77f100 nid=0x2a451b runnable  
+
+"G1 Refine#33" os_prio=0 cpu=8556.02ms elapsed=912.11s tid=0x00007ed90c04e8d0 nid=0x2a451c runnable  
+
+"G1 Refine#34" os_prio=0 cpu=8435.94ms elapsed=912.09s tid=0x00007ed908003570 nid=0x2a451d runnable  
+
+"G1 Refine#35" os_prio=0 cpu=8216.30ms elapsed=910.27s tid=0x00007ed8f00f5f80 nid=0x2a451e runnable  
+
+"G1 Refine#36" os_prio=0 cpu=7955.98ms elapsed=910.27s tid=0x00007ed8e8000e60 nid=0x2a451f runnable  
+
+"G1 Refine#37" os_prio=0 cpu=7851.40ms elapsed=907.30s tid=0x00007ed8ec000be0 nid=0x2a4528 runnable  
+
+"G1 Refine#38" os_prio=0 cpu=7603.99ms elapsed=907.30s tid=0x00007ed8d4000be0 nid=0x2a4529 runnable  
+
+"G1 Refine#39" os_prio=0 cpu=7468.03ms elapsed=907.30s tid=0x00007ed8c8000be0 nid=0x2a452a runnable  
+
+"G1 Refine#40" os_prio=0 cpu=7116.23ms elapsed=907.30s tid=0x00007ed8cc000be0 nid=0x2a452b runnable  
+
+"G1 Refine#41" os_prio=0 cpu=7001.49ms elapsed=907.30s tid=0x00007ed8c0000be0 nid=0x2a452c runnable  
+
+"G1 Refine#42" os_prio=0 cpu=6986.18ms elapsed=907.29s tid=0x00007ed8c4000be0 nid=0x2a452d runnable  
+
+"G1 Refine#43" os_prio=0 cpu=6603.50ms elapsed=907.29s tid=0x00007ed8b8000be0 nid=0x2a452e runnable  
+
+"G1 Refine#44" os_prio=0 cpu=6492.48ms elapsed=907.29s tid=0x00007ed8bc000be0 nid=0x2a452f runnable  
+
+"G1 Refine#45" os_prio=0 cpu=6236.70ms elapsed=907.28s tid=0x00007ed8b0000be0 nid=0x2a4530 runnable  
+
+"G1 Refine#46" os_prio=0 cpu=6310.05ms elapsed=904.61s tid=0x00007ed8b4000be0 nid=0x2a4531 runnable  
+
+"G1 Refine#47" os_prio=0 cpu=5995.85ms elapsed=904.61s tid=0x00007ed8a8000be0 nid=0x2a4532 runnable  
+
+"G1 Refine#48" os_prio=0 cpu=5828.18ms elapsed=904.60s tid=0x00007ed8ac000be0 nid=0x2a4533 runnable  
+
+"G1 Refine#49" os_prio=0 cpu=5708.50ms elapsed=904.60s tid=0x00007ed8a0000be0 nid=0x2a4534 runnable  
+
+"G1 Refine#50" os_prio=0 cpu=5557.62ms elapsed=904.60s tid=0x00007ed8a4000be0 nid=0x2a4535 runnable  
+
+"G1 Refine#51" os_prio=0 cpu=5477.05ms elapsed=904.60s tid=0x00007ed898000be0 nid=0x2a4536 runnable  
+
+"G1 Refine#52" os_prio=0 cpu=5270.51ms elapsed=904.58s tid=0x00007ed89c000be0 nid=0x2a4537 runnable  
+
+"G1 Refine#53" os_prio=0 cpu=5140.36ms elapsed=902.59s tid=0x00007ed890000be0 nid=0x2a4538 runnable  
+
+"G1 Refine#54" os_prio=0 cpu=4913.11ms elapsed=902.59s tid=0x00007ed894000be0 nid=0x2a4539 runnable  
+
+"G1 Refine#55" os_prio=0 cpu=4801.52ms elapsed=902.59s tid=0x00007ed888000be0 nid=0x2a453a runnable  
+
+"G1 Refine#56" os_prio=0 cpu=4649.45ms elapsed=902.59s tid=0x00007ed88c000be0 nid=0x2a453b runnable  
+
+"G1 Refine#57" os_prio=0 cpu=4561.62ms elapsed=902.59s tid=0x00007ed880000be0 nid=0x2a453c runnable  
+
+"G1 Refine#58" os_prio=0 cpu=4484.58ms elapsed=902.59s tid=0x00007ed884000be0 nid=0x2a453d runnable  
+
+"G1 Refine#59" os_prio=0 cpu=4426.98ms elapsed=902.59s tid=0x00007ed878000be0 nid=0x2a453e runnable  
+
+"G1 Refine#60" os_prio=0 cpu=4314.93ms elapsed=902.58s tid=0x00007ed87c000be0 nid=0x2a453f runnable  
+
+"G1 Refine#61" os_prio=0 cpu=4169.53ms elapsed=902.58s tid=0x00007ed870000be0 nid=0x2a4540 runnable  
+
+"G1 Refine#62" os_prio=0 cpu=4009.77ms elapsed=902.57s tid=0x00007ed874000be0 nid=0x2a4541 runnable  
+
+"G1 Refine#63" os_prio=0 cpu=3954.18ms elapsed=902.57s tid=0x00007ed868000be0 nid=0x2a4542 runnable  
+
+"G1 Refine#64" os_prio=0 cpu=3764.78ms elapsed=902.57s tid=0x00007ed86c000be0 nid=0x2a4543 runnable  
+
+"G1 Refine#65" os_prio=0 cpu=3709.15ms elapsed=902.57s tid=0x00007ed860000be0 nid=0x2a4544 runnable  
+
+"G1 Refine#66" os_prio=0 cpu=3584.11ms elapsed=902.57s tid=0x00007ed864000be0 nid=0x2a4545 runnable  
+
+"G1 Refine#67" os_prio=0 cpu=3432.84ms elapsed=902.57s tid=0x00007ed858000be0 nid=0x2a4546 runnable  
+
+"G1 Refine#68" os_prio=0 cpu=3318.58ms elapsed=900.43s tid=0x00007ed85c000be0 nid=0x2a4547 runnable  
+
+"G1 Refine#69" os_prio=0 cpu=3251.03ms elapsed=900.43s tid=0x00007ed850000be0 nid=0x2a4548 runnable  
+
+"G1 Refine#70" os_prio=0 cpu=3241.87ms elapsed=897.33s tid=0x00007ed854000be0 nid=0x2a454f runnable  
+
+"G1 Refine#71" os_prio=0 cpu=3046.40ms elapsed=897.33s tid=0x00007ed830000be0 nid=0x2a4550 runnable  
+
+"G1 Refine#72" os_prio=0 cpu=3042.48ms elapsed=897.33s tid=0x00007ed834000be0 nid=0x2a4551 runnable  
+
+"G1 Refine#73" os_prio=0 cpu=2952.32ms elapsed=897.33s tid=0x00007ed828000be0 nid=0x2a4552 runnable  
+
+"G1 Refine#74" os_prio=0 cpu=2884.25ms elapsed=897.32s tid=0x00007ed82c000be0 nid=0x2a4553 runnable  
+
+"G1 Refine#75" os_prio=0 cpu=2799.98ms elapsed=897.32s tid=0x00007ed820000be0 nid=0x2a4554 runnable  
+
+"G1 Refine#76" os_prio=0 cpu=2687.55ms elapsed=897.31s tid=0x00007ed824000be0 nid=0x2a4555 runnable  
+
+"G1 Refine#77" os_prio=0 cpu=2619.63ms elapsed=897.31s tid=0x00007ed818000be0 nid=0x2a4556 runnable  
+
+"G1 Refine#78" os_prio=0 cpu=2525.74ms elapsed=897.31s tid=0x00007ed81c000be0 nid=0x2a4557 runnable  
+
+"G1 Refine#79" os_prio=0 cpu=2512.36ms elapsed=897.31s tid=0x00007ed810000be0 nid=0x2a4558 runnable  
+
+"G1 Refine#80" os_prio=0 cpu=2439.96ms elapsed=897.31s tid=0x00007ed814000be0 nid=0x2a4559 runnable  
+
+"G1 Refine#81" os_prio=0 cpu=2249.80ms elapsed=897.31s tid=0x00007ed808000be0 nid=0x2a455a runnable  
+
+"G1 Refine#82" os_prio=0 cpu=2259.34ms elapsed=897.31s tid=0x00007ed80c000be0 nid=0x2a455b runnable  
+
+"G1 Refine#83" os_prio=0 cpu=2240.73ms elapsed=897.31s tid=0x00007ed800000be0 nid=0x2a455c runnable  
+
+"G1 Refine#84" os_prio=0 cpu=2116.95ms elapsed=897.31s tid=0x00007ed804000be0 nid=0x2a455d runnable  
+
+"G1 Refine#85" os_prio=0 cpu=2012.35ms elapsed=897.31s tid=0x00007ed7f8000be0 nid=0x2a455e runnable  
+
+"G1 Refine#86" os_prio=0 cpu=2032.03ms elapsed=897.30s tid=0x00007ed7fc000be0 nid=0x2a455f runnable  
+
+"G1 Refine#87" os_prio=0 cpu=1999.78ms elapsed=894.70s tid=0x00007ed7f0000be0 nid=0x2a4561 runnable  
+
+"G1 Refine#88" os_prio=0 cpu=1965.39ms elapsed=894.69s tid=0x00007ed7e8000be0 nid=0x2a4562 runnable  
+
+"G1 Refine#89" os_prio=0 cpu=1837.71ms elapsed=894.69s tid=0x00007ed7ec000be0 nid=0x2a4563 runnable  
+
+"G1 Refine#90" os_prio=0 cpu=1856.61ms elapsed=894.68s tid=0x00007ed7e0000be0 nid=0x2a4564 runnable  
+
+"G1 Refine#91" os_prio=0 cpu=1766.81ms elapsed=892.77s tid=0x00007ed7e4000be0 nid=0x2a4566 runnable  
+
+"G1 Refine#92" os_prio=0 cpu=1701.88ms elapsed=892.77s tid=0x00007ed7d8000be0 nid=0x2a4567 runnable  
+
+"G1 Service" os_prio=0 cpu=301.41ms elapsed=1060.27s tid=0x00007f1cfc31a4c0 nid=0x2a430f runnable  
+
+"VM Periodic Task Thread" os_prio=0 cpu=567.98ms elapsed=1060.22s tid=0x00007f1cfc3ce920 nid=0x2a431c waiting on condition  
+
+JNI global refs: 35, weak refs: 0
+
+Heap
+ garbage-first heap   total 106070016K, used 30419461K [0x00007ede60000000, 0x00007f1ce0000000)
+  region size 32768K, 1 young (32768K), 0 survivors (0K)
+ Metaspace       used 27590K, committed 27840K, reserved 1114112K
+  class space    used 2878K, committed 3008K, reserved 1048576K
+
+2024-01-15 11:23:52,902 [WARNING] ANDROID Unable to get new instance of class com.j256.ormlite.android.AndroidLogBackend$AndroidLogBackendFactory, so had to use local log: com.j256.ormlite.android.AndroidLogBackend$AndroidLogBackendFactory
+2024-01-15 11:23:52,903 [WARNING] LOGBACK Unable to get new instance of class com.j256.ormlite.logger.LogbackLogBackend$LogbackLogBackendFactory, so had to use local log: org/slf4j/impl/StaticLoggerBinder
+2024-01-15 11:23:52,904 [WARNING] COMMONS_LOGGING Unable to get new instance of class com.j256.ormlite.logger.CommonsLoggingLogBackend$CommonsLoggingLogBackendFactory, so had to use local log: org/apache/commons/logging/LogFactory
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+2024-01-15 11:23:52,919 [WARNING] LOG4J Unable to get new instance of class com.j256.ormlite.logger.Log4jLogBackend$Log4jLogBackendFactory, so had to use local log: org/apache/log4j/Priority
+11:23:53.492 [main] ERROR reproduction.dcidsubmit.MainClass - Could not write callgraph data to database
+org.postgresql.util.PSQLException: FATAL: Datenbank »dcid-callbacks3« existiert nicht
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2674) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at org.postgresql.core.v3.QueryExecutorImpl.readStartupMessages(QueryExecutorImpl.java:2786) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at org.postgresql.core.v3.QueryExecutorImpl.<init>(QueryExecutorImpl.java:172) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:271) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:51) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:225) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at org.postgresql.Driver.makeConnection(Driver.java:466) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at org.postgresql.Driver.connect(Driver.java:265) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at java.sql.DriverManager.getConnection(DriverManager.java:681) ~[java.sql:?]
+	at java.sql.DriverManager.getConnection(DriverManager.java:190) ~[java.sql:?]
+	at com.j256.ormlite.jdbc.JdbcConnectionSource.makeConnection(JdbcConnectionSource.java:139) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at com.j256.ormlite.jdbc.BaseJdbcConnectionSource.getReadWriteConnection(BaseJdbcConnectionSource.java:154) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at com.j256.ormlite.dao.BaseDaoImpl.create(BaseDaoImpl.java:330) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at reproduction.dcidsubmit.database.DatabaseManager.addToDatabase(DatabaseManager.java:103) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at reproduction.dcidsubmit.FlowDroidSecondStep.main(FlowDroidSecondStep.java:181) [JobSubmissionTool-jar-with-dependencies.jar:?]

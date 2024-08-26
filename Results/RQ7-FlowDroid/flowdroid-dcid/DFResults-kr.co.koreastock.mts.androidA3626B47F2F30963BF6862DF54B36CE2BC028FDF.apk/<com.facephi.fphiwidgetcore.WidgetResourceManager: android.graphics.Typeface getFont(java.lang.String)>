@@ -1,0 +1,179 @@
+    public android.graphics.Typeface getFont(java.lang.String)
+    {
+        android.graphics.Typeface $r5;
+        java.lang.Throwable $r12;
+        android.content.Context $r9;
+        byte[] $r11;
+        com.facephi.fphiwidgetcore.WidgetResourceManager r0;
+        java.util.HashMap $r3;
+        java.io.BufferedOutputStream $r16;
+        int $i0;
+        java.util.zip.ZipFile $r6;
+        java.lang.String $r1, $r2;
+        java.util.zip.ZipEntry $r7;
+        boolean $z0;
+        java.io.FileOutputStream $r15;
+        java.io.IOException $r17;
+        java.io.File $r10;
+        java.lang.Exception $r13;
+        java.lang.Object $r4;
+        java.lang.StringBuilder $r14;
+        java.io.InputStream $r8;
+
+        r0 := @this: com.facephi.fphiwidgetcore.WidgetResourceManager;
+
+        $r1 := @parameter0: java.lang.String;
+
+        if $r1 == null goto label14;
+
+        $z0 = virtualinvoke $r1.<java.lang.String: boolean equals(java.lang.Object)>("");
+
+        if $z0 == 0 goto label01;
+
+        return null;
+
+     label01:
+        staticinvoke <java.lang.System: long nanoTime()>();
+
+        $r14 = new java.lang.StringBuilder;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("resources/");
+
+        $i0 = r0.<com.facephi.fphiwidgetcore.WidgetResourceManager: int _DPIResources>;
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("dpi/");
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r2 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r3 = r0.<com.facephi.fphiwidgetcore.WidgetResourceManager: java.util.HashMap _widgetFonts>;
+
+        $r4 = virtualinvoke $r3.<java.util.HashMap: java.lang.Object get(java.lang.Object)>($r2);
+
+        $r5 = (android.graphics.Typeface) $r4;
+
+        if $r5 == null goto label02;
+
+        return $r5;
+
+     label02:
+        $r6 = r0.<com.facephi.fphiwidgetcore.WidgetResourceManager: java.util.zip.ZipFile _resourcesFile>;
+
+        $r7 = virtualinvoke $r6.<java.util.zip.ZipFile: java.util.zip.ZipEntry getEntry(java.lang.String)>($r2);
+
+        $r8 = virtualinvoke $r6.<java.util.zip.ZipFile: java.io.InputStream getInputStream(java.util.zip.ZipEntry)>($r7);
+
+     label03:
+        if $r8 != null goto label04;
+
+        $r14 = new java.lang.StringBuilder;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("File \'");
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\' not found");
+
+        $r1 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("ResourceManager", $r1);
+
+        return null;
+
+     label04:
+        $r14 = new java.lang.StringBuilder;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        $r9 = r0.<com.facephi.fphiwidgetcore.WidgetResourceManager: android.content.Context _context>;
+
+        $r10 = virtualinvoke $r9.<android.content.Context: java.io.File getCacheDir()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r10);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/tmp-");
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r11 = newarray (byte)[8192];
+
+        $r16 = new java.io.BufferedOutputStream;
+
+        $r15 = new java.io.FileOutputStream;
+
+     label05:
+        specialinvoke $r15.<java.io.FileOutputStream: void <init>(java.lang.String)>($r1);
+
+        specialinvoke $r16.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r15);
+
+     label06:
+        $i0 = virtualinvoke $r8.<java.io.InputStream: int read(byte[],int,int)>($r11, 0, 8192);
+
+     label07:
+        if $i0 <= 0 goto label10;
+
+     label08:
+        virtualinvoke $r16.<java.io.BufferedOutputStream: void write(byte[],int,int)>($r11, 0, $i0);
+
+     label09:
+        goto label06;
+
+     label10:
+        virtualinvoke $r16.<java.io.BufferedOutputStream: void close()>();
+
+        virtualinvoke $r8.<java.io.InputStream: void close()>();
+
+        $r5 = staticinvoke <android.graphics.Typeface: android.graphics.Typeface createFromFile(java.lang.String)>($r1);
+
+     label11:
+        $r3 = r0.<com.facephi.fphiwidgetcore.WidgetResourceManager: java.util.HashMap _widgetFonts>;
+
+        virtualinvoke $r3.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>($r2, $r5);
+
+        $r14 = new java.lang.StringBuilder;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("File \'");
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\' loaded");
+
+        $r1 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int v(java.lang.String,java.lang.String)>("ResourceManager", $r1);
+
+        return $r5;
+
+     label12:
+        $r12 := @caughtexception;
+
+        $r17 = (java.io.IOException) $r12;
+
+        virtualinvoke $r17.<java.io.IOException: void printStackTrace()>();
+
+        return null;
+
+     label13:
+        $r13 := @caughtexception;
+
+        virtualinvoke $r13.<java.lang.Exception: void printStackTrace()>();
+
+     label14:
+        return null;
+
+        catch java.lang.Exception from label02 to label03 with label13;
+        catch java.io.IOException from label05 to label07 with label12;
+        catch java.io.IOException from label08 to label09 with label12;
+        catch java.io.IOException from label10 to label11 with label12;
+    }

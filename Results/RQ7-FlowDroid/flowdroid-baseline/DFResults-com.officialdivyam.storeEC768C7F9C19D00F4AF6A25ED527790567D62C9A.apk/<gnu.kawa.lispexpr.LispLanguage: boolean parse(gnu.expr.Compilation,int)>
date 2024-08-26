@@ -1,0 +1,157 @@
+    public boolean parse(gnu.expr.Compilation, int) throws java.io.IOException, gnu.text.SyntaxException
+    {
+        java.lang.Throwable $r10;
+        gnu.mapping.Values $r5;
+        gnu.kawa.lispexpr.LispReader $r6;
+        gnu.text.SourceMessages $r9;
+        gnu.kawa.lispexpr.LispLanguage r0;
+        kawa.lang.Translator $r2;
+        gnu.expr.Compilation $r1;
+        int $i0, $i1;
+        java.lang.Object $r7, $r8;
+        gnu.expr.ModuleExp $r4;
+        gnu.text.Lexer $r3;
+        boolean $z0;
+
+        r0 := @this: gnu.kawa.lispexpr.LispLanguage;
+
+        $r1 := @parameter0: gnu.expr.Compilation;
+
+        $i0 := @parameter1: int;
+
+        $r2 = (kawa.lang.Translator) $r1;
+
+        $r3 = $r2.<kawa.lang.Translator: gnu.text.Lexer lexer>;
+
+        $r4 = $r2.<kawa.lang.Translator: gnu.expr.ModuleExp mainLambda>;
+
+        $r5 = new gnu.mapping.Values;
+
+        specialinvoke $r5.<gnu.mapping.Values: void <init>()>();
+
+        $r6 = (gnu.kawa.lispexpr.LispReader) $r3;
+
+        $r1 = staticinvoke <gnu.expr.Compilation: gnu.expr.Compilation setSaveCurrent(gnu.expr.Compilation)>($r2);
+
+     label01:
+        $r7 = $r2.<kawa.lang.Translator: java.lang.Object pendingForm>;
+
+     label02:
+        if $r7 == null goto label04;
+
+     label03:
+        $r7 = $r2.<kawa.lang.Translator: java.lang.Object pendingForm>;
+
+        virtualinvoke $r2.<kawa.lang.Translator: void scanForm(java.lang.Object,gnu.expr.ScopeExp)>($r7, $r4);
+
+        $r2.<kawa.lang.Translator: java.lang.Object pendingForm> = null;
+
+     label04:
+        $r7 = virtualinvoke $r6.<gnu.kawa.lispexpr.LispReader: java.lang.Object readCommand()>();
+
+        $r8 = <gnu.lists.Sequence: java.lang.Object eofValue>;
+
+     label05:
+        if $r7 != $r8 goto label06;
+
+        $i1 = $i0 & 4;
+
+        if $i1 == 0 goto label12;
+
+        staticinvoke <gnu.expr.Compilation: void restoreCurrent(gnu.expr.Compilation)>($r1);
+
+        return 0;
+
+     label06:
+        virtualinvoke $r2.<kawa.lang.Translator: void scanForm(java.lang.Object,gnu.expr.ScopeExp)>($r7, $r4);
+
+     label07:
+        $i1 = $i0 & 4;
+
+        if $i1 == 0 goto label22;
+
+     label08:
+        $r9 = virtualinvoke $r2.<kawa.lang.Translator: gnu.text.SourceMessages getMessages()>();
+
+        $z0 = virtualinvoke $r9.<gnu.text.SourceMessages: boolean seenErrors()>();
+
+     label09:
+        if $z0 == 0 goto label12;
+
+     label10:
+        $i1 = virtualinvoke $r6.<gnu.kawa.lispexpr.LispReader: int peek()>();
+
+     label11:
+        if $i1 < 0 goto label12;
+
+        if $i1 == 13 goto label12;
+
+        if $i1 != 10 goto label20;
+
+     label12:
+        $i1 = virtualinvoke $r3.<gnu.text.Lexer: int peek()>();
+
+     label13:
+        if $i1 != 41 goto label15;
+
+     label14:
+        virtualinvoke $r3.<gnu.text.Lexer: void fatal(java.lang.String)>("An unexpected close paren was read.");
+
+     label15:
+        virtualinvoke $r2.<kawa.lang.Translator: void finishModule(gnu.expr.ModuleExp)>($r4);
+
+     label16:
+        $i0 = $i0 & 8;
+
+        if $i0 != 0 goto label18;
+
+     label17:
+        $r2.<kawa.lang.Translator: int firstForm> = 0;
+
+     label18:
+        virtualinvoke $r2.<kawa.lang.Translator: void setState(int)>(4);
+
+     label19:
+        staticinvoke <gnu.expr.Compilation: void restoreCurrent(gnu.expr.Compilation)>($r1);
+
+        return 1;
+
+     label20:
+        virtualinvoke $r6.<gnu.kawa.lispexpr.LispReader: void skip()>();
+
+     label21:
+        goto label10;
+
+     label22:
+        $i1 = $i0 & 8;
+
+        if $i1 == 0 goto label04;
+
+     label23:
+        $i1 = virtualinvoke $r2.<kawa.lang.Translator: int getState()>();
+
+     label24:
+        if $i1 < 2 goto label04;
+
+        staticinvoke <gnu.expr.Compilation: void restoreCurrent(gnu.expr.Compilation)>($r1);
+
+        return 1;
+
+     label25:
+        $r10 := @caughtexception;
+
+        staticinvoke <gnu.expr.Compilation: void restoreCurrent(gnu.expr.Compilation)>($r1);
+
+        throw $r10;
+
+        catch java.lang.Throwable from label01 to label02 with label25;
+        catch java.lang.Throwable from label03 to label05 with label25;
+        catch java.lang.Throwable from label06 to label07 with label25;
+        catch java.lang.Throwable from label08 to label09 with label25;
+        catch java.lang.Throwable from label10 to label11 with label25;
+        catch java.lang.Throwable from label12 to label13 with label25;
+        catch java.lang.Throwable from label14 to label16 with label25;
+        catch java.lang.Throwable from label17 to label19 with label25;
+        catch java.lang.Throwable from label20 to label21 with label25;
+        catch java.lang.Throwable from label23 to label24 with label25;
+    }

@@ -1,0 +1,46 @@
+    public void enable()
+    {
+        com.crashlytics.android.answers.AnswersPreferenceManager $r5;
+        com.crashlytics.android.answers.AnswersLifecycleCallbacks $r1;
+        long $l0;
+        io.fabric.sdk.android.ActivityLifecycleManager $r4;
+        com.crashlytics.android.answers.SessionAnalyticsManager r0;
+        com.crashlytics.android.answers.BackgroundManager $r2;
+        boolean $z0;
+        com.crashlytics.android.answers.AnswersEventsHandler $r3;
+
+        r0 := @this: com.crashlytics.android.answers.SessionAnalyticsManager;
+
+        $r3 = r0.<com.crashlytics.android.answers.SessionAnalyticsManager: com.crashlytics.android.answers.AnswersEventsHandler eventsHandler>;
+
+        virtualinvoke $r3.<com.crashlytics.android.answers.AnswersEventsHandler: void enable()>();
+
+        $r4 = r0.<com.crashlytics.android.answers.SessionAnalyticsManager: io.fabric.sdk.android.ActivityLifecycleManager lifecycleManager>;
+
+        $r1 = new com.crashlytics.android.answers.AnswersLifecycleCallbacks;
+
+        $r2 = r0.<com.crashlytics.android.answers.SessionAnalyticsManager: com.crashlytics.android.answers.BackgroundManager backgroundManager>;
+
+        specialinvoke $r1.<com.crashlytics.android.answers.AnswersLifecycleCallbacks: void <init>(com.crashlytics.android.answers.SessionAnalyticsManager,com.crashlytics.android.answers.BackgroundManager)>(r0, $r2);
+
+        virtualinvoke $r4.<io.fabric.sdk.android.ActivityLifecycleManager: boolean registerCallbacks(io.fabric.sdk.android.ActivityLifecycleManager$Callbacks)>($r1);
+
+        $r2 = r0.<com.crashlytics.android.answers.SessionAnalyticsManager: com.crashlytics.android.answers.BackgroundManager backgroundManager>;
+
+        virtualinvoke $r2.<com.crashlytics.android.answers.BackgroundManager: void registerListener(com.crashlytics.android.answers.BackgroundManager$Listener)>(r0);
+
+        $z0 = virtualinvoke r0.<com.crashlytics.android.answers.SessionAnalyticsManager: boolean isFirstLaunch()>();
+
+        if $z0 == 0 goto label1;
+
+        $l0 = r0.<com.crashlytics.android.answers.SessionAnalyticsManager: long installedAt>;
+
+        virtualinvoke r0.<com.crashlytics.android.answers.SessionAnalyticsManager: void onInstall(long)>($l0);
+
+        $r5 = r0.<com.crashlytics.android.answers.SessionAnalyticsManager: com.crashlytics.android.answers.AnswersPreferenceManager preferenceManager>;
+
+        virtualinvoke $r5.<com.crashlytics.android.answers.AnswersPreferenceManager: void setAnalyticsLaunched()>();
+
+     label1:
+        return;
+    }

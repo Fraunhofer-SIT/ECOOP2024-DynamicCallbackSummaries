@@ -1,0 +1,75 @@
+    public static byte[] downloadFile(java.lang.String)
+    {
+        byte[] $r1;
+        java.io.ByteArrayOutputStream $r6;
+        java.net.URL $r5;
+        java.lang.Exception $r4;
+        java.net.URLConnection $r2;
+        int $i0;
+        java.lang.StringBuilder $r7;
+        java.lang.String $r0;
+        java.io.InputStream $r3;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r5 = new java.net.URL;
+
+     label01:
+        specialinvoke $r5.<java.net.URL: void <init>(java.lang.String)>($r0);
+
+        $r2 = virtualinvoke $r5.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        staticinvoke <com.dynatrace.android.callback.Callback: void openConnection(java.net.URLConnection)>($r2);
+
+        $r3 = staticinvoke <com.dynatrace.android.callback.Callback: java.io.InputStream getInputStream(java.net.URLConnection)>($r2);
+
+     label02:
+        $r6 = new java.io.ByteArrayOutputStream;
+
+     label03:
+        specialinvoke $r6.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label04:
+        $r1 = newarray (byte)[4096];
+
+     label05:
+        $i0 = virtualinvoke $r3.<java.io.InputStream: int read(byte[],int,int)>($r1, 0, 4096);
+
+     label06:
+        if $i0 == -1 goto label09;
+
+     label07:
+        virtualinvoke $r6.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r1, 0, $i0);
+
+     label08:
+        goto label05;
+
+     label09:
+        $r1 = virtualinvoke $r6.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label10:
+        return $r1;
+
+     label11:
+        $r4 := @caughtexception;
+
+        $r7 = new java.lang.StringBuilder;
+
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Unable to download file - ");
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r0 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.smartdevicelink.util.DebugTool: void logError(java.lang.String,java.lang.Throwable)>($r0, $r4);
+
+        return null;
+
+        catch java.lang.Exception from label01 to label02 with label11;
+        catch java.lang.Exception from label03 to label04 with label11;
+        catch java.lang.Exception from label05 to label06 with label11;
+        catch java.lang.Exception from label07 to label08 with label11;
+        catch java.lang.Exception from label09 to label10 with label11;
+    }

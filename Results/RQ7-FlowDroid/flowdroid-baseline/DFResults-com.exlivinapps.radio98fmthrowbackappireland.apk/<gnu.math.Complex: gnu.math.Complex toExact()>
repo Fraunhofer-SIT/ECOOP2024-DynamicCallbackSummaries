@@ -1,0 +1,30 @@
+    public gnu.math.Complex toExact()
+    {
+        gnu.math.CComplex $r5;
+        gnu.math.RealNum $r1, $r2;
+        gnu.math.RatNum $r3, $r4;
+        gnu.math.Complex r0;
+
+        r0 := @this: gnu.math.Complex;
+
+        $r1 = virtualinvoke r0.<gnu.math.Complex: gnu.math.RealNum re()>();
+
+        $r2 = virtualinvoke r0.<gnu.math.Complex: gnu.math.RealNum im()>();
+
+        $r3 = virtualinvoke $r1.<gnu.math.RealNum: gnu.math.RatNum toExact()>();
+
+        $r4 = virtualinvoke $r2.<gnu.math.RealNum: gnu.math.RatNum toExact()>();
+
+        if $r3 != $r1 goto label1;
+
+        if $r4 != $r2 goto label1;
+
+        return r0;
+
+     label1:
+        $r5 = new gnu.math.CComplex;
+
+        specialinvoke $r5.<gnu.math.CComplex: void <init>(gnu.math.RealNum,gnu.math.RealNum)>($r3, $r4);
+
+        return $r5;
+    }

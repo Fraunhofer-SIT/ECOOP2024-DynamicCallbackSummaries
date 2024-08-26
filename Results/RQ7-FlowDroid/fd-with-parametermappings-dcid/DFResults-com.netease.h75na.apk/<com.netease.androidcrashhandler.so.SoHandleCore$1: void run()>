@@ -1,0 +1,49 @@
+    public void run()
+    {
+        android.content.Context $r2;
+        com.netease.androidcrashhandler.so.SoHandleCore $r1;
+        com.netease.androidcrashhandler.MyNetworkUtils $r7;
+        com.netease.androidcrashhandler.so.SoHandleCore$1 r0;
+        com.netease.androidcrashhandler.AndroidCrashHandler $r6;
+        com.netease.androidcrashhandler.NTCrashHunterKit $r8;
+        java.lang.StringBuilder $r4;
+        java.lang.String $r3, $r5;
+        boolean $z0;
+
+        r0 := @this: com.netease.androidcrashhandler.so.SoHandleCore$1;
+
+        $r1 = r0.<com.netease.androidcrashhandler.so.SoHandleCore$1: com.netease.androidcrashhandler.so.SoHandleCore this$0>;
+
+        $r2 = staticinvoke <com.netease.androidcrashhandler.so.SoHandleCore: android.content.Context access$000(com.netease.androidcrashhandler.so.SoHandleCore)>($r1);
+
+        $r3 = staticinvoke <com.netease.androidcrashhandler.util.CUtil: java.lang.String getAssetFileContent(android.content.Context,java.lang.String)>($r2, "crashhunter_so_uuid_md5.txt");
+
+        $r4 = new java.lang.StringBuilder;
+
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("SoHandleCore [setSoUuidMd5] soUuidsMd5 =");
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", $r5);
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r3);
+
+        if $z0 != 0 goto label1;
+
+        $r6 = staticinvoke <com.netease.androidcrashhandler.AndroidCrashHandler: com.netease.androidcrashhandler.AndroidCrashHandler getInstance()>();
+
+        $r7 = virtualinvoke $r6.<com.netease.androidcrashhandler.AndroidCrashHandler: com.netease.androidcrashhandler.MyNetworkUtils getNetworkUtils()>();
+
+        if $r7 == null goto label1;
+
+        $r8 = staticinvoke <com.netease.androidcrashhandler.NTCrashHunterKit: com.netease.androidcrashhandler.NTCrashHunterKit sharedKit()>();
+
+        virtualinvoke $r8.<com.netease.androidcrashhandler.NTCrashHunterKit: void setParam(java.lang.String,java.lang.String)>("so_uuids_md5", $r3);
+
+     label1:
+        return;
+    }

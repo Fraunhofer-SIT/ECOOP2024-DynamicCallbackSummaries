@@ -1,0 +1,237 @@
+    public static java.util.regex.Pattern readRegex(gnu.text.Lexer, int, int) throws java.io.IOException, gnu.text.SyntaxException
+    {
+        java.lang.Throwable $r8;
+        byte $b2;
+        int $i0, $i1, $i4, $i5;
+        gnu.text.LineBufferedReader $r1;
+        java.lang.String $r3, $r5;
+        boolean $z0, $z1;
+        gnu.mapping.InPort $r2;
+        char $c3, $c6;
+        gnu.kawa.lispexpr.LispReader $r7;
+        char[] $r4;
+        java.lang.StringBuilder $r9;
+        java.util.regex.Pattern $r6;
+        gnu.text.Lexer $r0;
+
+        $r0 := @parameter0: gnu.text.Lexer;
+
+        $i0 := @parameter1: int;
+
+        $i1 := @parameter2: int;
+
+        $i1 = $r0.<gnu.text.Lexer: int tokenBufferLength>;
+
+        $r1 = virtualinvoke $r0.<gnu.text.Lexer: gnu.text.LineBufferedReader getPort()>();
+
+        $z0 = $r1 instanceof gnu.mapping.InPort;
+
+        $b2 = 0;
+
+        if $z0 == 0 goto label01;
+
+        $r2 = (gnu.mapping.InPort) $r1;
+
+        $c3 = $r2.<gnu.mapping.InPort: char readState>;
+
+        $r2.<gnu.mapping.InPort: char readState> = 47;
+
+        goto label02;
+
+     label01:
+        $c3 = 0;
+
+     label02:
+        $i4 = virtualinvoke $r1.<gnu.text.LineBufferedReader: int read()>();
+
+     label03:
+        $i5 = $i4;
+
+        if $i4 >= 0 goto label05;
+
+     label04:
+        virtualinvoke $r0.<gnu.text.Lexer: void eofError(java.lang.String)>("unexpected EOF in regex literal");
+
+     label05:
+        if $i4 != $i0 goto label27;
+
+     label06:
+        $r5 = new java.lang.String;
+
+     label07:
+        $r3 = $r5;
+
+     label08:
+        $r4 = $r0.<gnu.text.Lexer: char[] tokenBuffer>;
+
+        $i0 = $r0.<gnu.text.Lexer: int tokenBufferLength>;
+
+     label09:
+        $i0 = $i0 - $i1;
+
+     label10:
+        specialinvoke $r5.<java.lang.String: void <init>(char[],int,int)>($r4, $i1, $i0);
+
+     label11:
+        $i0 = virtualinvoke $r0.<gnu.text.Lexer: int peek()>();
+
+     label12:
+        if $i0 == 105 goto label24;
+
+        if $i0 == 73 goto label24;
+
+        if $i0 == 115 goto label23;
+
+        if $i0 == 83 goto label23;
+
+        if $i0 == 109 goto label22;
+
+        if $i0 == 77 goto label22;
+
+     label13:
+        $z1 = staticinvoke <java.lang.Character: boolean isLetter(int)>($i0);
+
+     label14:
+        if $z1 == 0 goto label20;
+
+     label15:
+        $r9 = new java.lang.StringBuilder;
+
+     label16:
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("unrecognized regex option \'");
+
+     label17:
+        $c6 = (char) $i0;
+
+     label18:
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>($c6);
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(39);
+
+        $r5 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r0.<gnu.text.Lexer: void error(java.lang.String)>($r5);
+
+     label19:
+        goto label25;
+
+     label20:
+        $r6 = staticinvoke <java.util.regex.Pattern: java.util.regex.Pattern compile(java.lang.String,int)>($r3, $b2);
+
+     label21:
+        $r0.<gnu.text.Lexer: int tokenBufferLength> = $i1;
+
+        if $z0 == 0 goto label42;
+
+        $r2 = (gnu.mapping.InPort) $r1;
+
+        $r2.<gnu.mapping.InPort: char readState> = $c3;
+
+        return $r6;
+
+     label22:
+        $b2 = $b2 | 8;
+
+        goto label25;
+
+     label23:
+        $b2 = $b2 | 32;
+
+        goto label25;
+
+     label24:
+        $b2 = $b2 | 66;
+
+     label25:
+        virtualinvoke $r0.<gnu.text.Lexer: void skip()>();
+
+     label26:
+        goto label11;
+
+     label27:
+        if $i4 != 92 goto label38;
+
+     label28:
+        $i4 = virtualinvoke $r1.<gnu.text.LineBufferedReader: int read()>();
+
+     label29:
+        $i5 = $i4;
+
+        if $i4 == 32 goto label30;
+
+        if $i4 == 9 goto label30;
+
+        if $i4 == 13 goto label30;
+
+        if $i4 != 10 goto label34;
+
+     label30:
+        $z1 = $r0 instanceof gnu.kawa.lispexpr.LispReader;
+
+     label31:
+        if $z1 == 0 goto label34;
+
+     label32:
+        $r7 = (gnu.kawa.lispexpr.LispReader) $r0;
+
+        $i4 = virtualinvoke $r7.<gnu.kawa.lispexpr.LispReader: int readEscape(int)>($i4);
+
+     label33:
+        $i5 = $i4;
+
+        if $i4 == -2 goto label02;
+
+     label34:
+        if $i5 >= 0 goto label36;
+
+     label35:
+        virtualinvoke $r0.<gnu.text.Lexer: void eofError(java.lang.String)>("unexpected EOF in regex literal");
+
+     label36:
+        if $i5 == $i0 goto label38;
+
+     label37:
+        virtualinvoke $r0.<gnu.text.Lexer: void tokenBufferAppend(int)>(92);
+
+     label38:
+        virtualinvoke $r0.<gnu.text.Lexer: void tokenBufferAppend(int)>($i5);
+
+     label39:
+        goto label02;
+
+     label40:
+        $r8 := @caughtexception;
+
+        $r0.<gnu.text.Lexer: int tokenBufferLength> = $i1;
+
+        if $z0 == 0 goto label41;
+
+        $r2 = (gnu.mapping.InPort) $r1;
+
+        $r2.<gnu.mapping.InPort: char readState> = $c3;
+
+     label41:
+        throw $r8;
+
+     label42:
+        return $r6;
+
+        catch java.lang.Throwable from label02 to label03 with label40;
+        catch java.lang.Throwable from label04 to label05 with label40;
+        catch java.lang.Throwable from label06 to label07 with label40;
+        catch java.lang.Throwable from label08 to label09 with label40;
+        catch java.lang.Throwable from label10 to label12 with label40;
+        catch java.lang.Throwable from label13 to label14 with label40;
+        catch java.lang.Throwable from label15 to label16 with label40;
+        catch java.lang.Throwable from label16 to label17 with label40;
+        catch java.lang.Throwable from label18 to label19 with label40;
+        catch java.lang.Throwable from label20 to label21 with label40;
+        catch java.lang.Throwable from label25 to label26 with label40;
+        catch java.lang.Throwable from label28 to label29 with label40;
+        catch java.lang.Throwable from label30 to label31 with label40;
+        catch java.lang.Throwable from label32 to label33 with label40;
+        catch java.lang.Throwable from label35 to label36 with label40;
+        catch java.lang.Throwable from label37 to label39 with label40;
+    }

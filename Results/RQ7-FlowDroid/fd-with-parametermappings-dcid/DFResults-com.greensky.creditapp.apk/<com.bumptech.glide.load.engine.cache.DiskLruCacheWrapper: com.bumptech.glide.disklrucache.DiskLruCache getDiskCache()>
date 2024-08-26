@@ -1,0 +1,42 @@
+    private com.bumptech.glide.disklrucache.DiskLruCache getDiskCache() throws java.io.IOException
+    {
+        java.lang.Throwable $r3;
+        com.bumptech.glide.disklrucache.DiskLruCache $r1;
+        com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper r0;
+        long $l0;
+        java.io.File $r2;
+
+        r0 := @this: com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
+
+        entermonitor r0;
+
+     label1:
+        $r1 = r0.<com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper: com.bumptech.glide.disklrucache.DiskLruCache diskLruCache>;
+
+        if $r1 != null goto label2;
+
+        $r2 = r0.<com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper: java.io.File directory>;
+
+        $l0 = r0.<com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper: long maxSize>;
+
+        $r1 = staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache: com.bumptech.glide.disklrucache.DiskLruCache open(java.io.File,int,int,long)>($r2, 1, 1, $l0);
+
+        r0.<com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper: com.bumptech.glide.disklrucache.DiskLruCache diskLruCache> = $r1;
+
+     label2:
+        $r1 = r0.<com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper: com.bumptech.glide.disklrucache.DiskLruCache diskLruCache>;
+
+     label3:
+        exitmonitor r0;
+
+        return $r1;
+
+     label4:
+        $r3 := @caughtexception;
+
+        exitmonitor r0;
+
+        throw $r3;
+
+        catch java.lang.Throwable from label1 to label3 with label4;
+    }

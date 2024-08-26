@@ -1,0 +1,489 @@
+    public java.io.InputStream openInputStream(java.lang.String, boolean) throws java.io.IOException
+    {
+        byte[] $r18;
+        java.net.URL $r32;
+        java.lang.Integer r14;
+        java.io.ByteArrayInputStream $r34;
+        java.net.URI $r31;
+        boolean $z0, $z1;
+        org.appcelerator.titanium.util.TiFileHelper r0;
+        java.lang.Exception $r21, $r26, $r27, $r28;
+        java.lang.StringBuilder $r9, $r30;
+        java.lang.Throwable $r16, $r19, $r20, $r25, $r29;
+        android.content.Context r7;
+        java.io.ByteArrayOutputStream r17, $r33;
+        java.lang.String[] $r8;
+        java.util.HashMap $r13;
+        java.util.HashSet $r22, $r24;
+        android.content.res.AssetManager $r23;
+        int $i0, $i1;
+        java.lang.String r1, r2, $r3, $r10;
+        java.lang.ref.SoftReference $r5;
+        java.io.FileInputStream $r36;
+        java.io.File $r35;
+        java.lang.Object r4, $r6;
+        java.lang.Class $r11;
+        java.io.InputStream $r12;
+        android.content.res.Resources $r15;
+
+        r0 := @this: org.appcelerator.titanium.util.TiFileHelper;
+
+        $r3 := @parameter0: java.lang.String;
+
+        $z0 := @parameter1: boolean;
+
+        r4 = null;
+
+        $r5 = r0.<org.appcelerator.titanium.util.TiFileHelper: java.lang.ref.SoftReference softContext>;
+
+        $r6 = virtualinvoke $r5.<java.lang.ref.SoftReference: java.lang.Object get()>();
+
+        r7 = (android.content.Context) $r6;
+
+        if r7 == null goto label02;
+
+        $z0 = virtualinvoke r0.<org.appcelerator.titanium.util.TiFileHelper: boolean isTitaniumResource(java.lang.String)>($r3);
+
+        if $z0 == 0 goto label06;
+
+        $r8 = virtualinvoke $r3.<java.lang.String: java.lang.String[] split(java.lang.String)>(":");
+
+        $i0 = lengthof $r8;
+
+        if $i0 == 3 goto label01;
+
+        $r30 = new java.lang.StringBuilder;
+
+        specialinvoke $r30.<java.lang.StringBuilder: void <init>()>();
+
+        $r9 = virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("malformed titanium resource url, resource not loaded: ");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.appcelerator.titanium.util.Log: int w(java.lang.String,java.lang.String)>("TiFileHlpr", $r3);
+
+        return null;
+
+     label01:
+        r1 = $r8[0];
+
+        r2 = $r8[1];
+
+        r1 = $r8[2];
+
+        $r10 = "ti:";
+
+        $z0 = virtualinvoke $r10.<java.lang.String: boolean equals(java.lang.Object)>(r2);
+
+        if $z0 == 0 goto label03;
+
+        $r11 = class "Lorg/appcelerator/titanium/util/TiFileHelper;";
+
+        $r30 = new java.lang.StringBuilder;
+
+        specialinvoke $r30.<java.lang.StringBuilder: void <init>()>();
+
+        $r9 = virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/org/appcelerator/titanium/res/drawable/");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r1);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".png");
+
+        $r3 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r4 = virtualinvoke $r11.<java.lang.Class: java.io.InputStream getResourceAsStream(java.lang.String)>($r3);
+
+     label02:
+        $r12 = (java.io.InputStream) r4;
+
+        return $r12;
+
+     label03:
+        $r10 = "Sys";
+
+        $z0 = virtualinvoke $r10.<java.lang.String: boolean equals(java.lang.Object)>(r2);
+
+        if $z0 == 0 goto label05;
+
+        $r13 = <org.appcelerator.titanium.util.TiFileHelper: java.util.HashMap systemIcons>;
+
+        $r6 = virtualinvoke $r13.<java.util.HashMap: java.lang.Object get(java.lang.Object)>(r1);
+
+        r14 = (java.lang.Integer) $r6;
+
+        if r14 == null goto label04;
+
+        $r15 = staticinvoke <android.content.res.Resources: android.content.res.Resources getSystem()>();
+
+        $i0 = virtualinvoke r14.<java.lang.Integer: int intValue()>();
+
+        r4 = virtualinvoke $r15.<android.content.res.Resources: java.io.InputStream openRawResource(int)>($i0);
+
+        goto label02;
+
+     label04:
+        $r30 = new java.lang.StringBuilder;
+
+        specialinvoke $r30.<java.lang.StringBuilder: void <init>()>();
+
+        $r9 = virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Drawable not found for system id: ");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.appcelerator.titanium.util.Log: int w(java.lang.String,java.lang.String)>("TiFileHlpr", $r3);
+
+        goto label02;
+
+     label05:
+        $r30 = new java.lang.StringBuilder;
+
+        specialinvoke $r30.<java.lang.StringBuilder: void <init>()>();
+
+        $r9 = virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Unknown section identifier: ");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r2);
+
+        $r3 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.appcelerator.titanium.util.Log: int e(java.lang.String,java.lang.String)>("TiFileHlpr", $r3);
+
+        goto label02;
+
+     label06:
+        $z0 = staticinvoke <android.webkit.URLUtil: boolean isNetworkUrl(java.lang.String)>($r3);
+
+        if $z0 == 0 goto label38;
+
+        $r31 = new java.net.URI;
+
+     label07:
+        specialinvoke $r31.<java.net.URI: void <init>(java.lang.String)>($r3);
+
+        $z0 = staticinvoke <org.appcelerator.titanium.util.TiResponseCache: boolean peek(java.net.URI)>($r31);
+
+     label08:
+        if $z0 == 0 goto label12;
+
+     label09:
+        $r12 = staticinvoke <org.appcelerator.titanium.util.TiResponseCache: java.io.InputStream openCachedStream(java.net.URI)>($r31);
+
+     label10:
+        return $r12;
+
+     label11:
+        $r16 := @caughtexception;
+
+     label12:
+        $r32 = new java.net.URL;
+
+        specialinvoke $r32.<java.net.URL: void <init>(java.lang.String)>($r3);
+
+        $r12 = virtualinvoke $r32.<java.net.URL: java.io.InputStream openStream()>();
+
+        r17 = null;
+
+     label13:
+        $r33 = new java.io.ByteArrayOutputStream;
+
+     label14:
+        specialinvoke $r33.<java.io.ByteArrayOutputStream: void <init>(int)>(8192);
+
+     label15:
+        $r18 = newarray (byte)[8192];
+
+     label16:
+        $i0 = virtualinvoke $r12.<java.io.InputStream: int read(byte[])>($r18);
+
+     label17:
+        if $i0 == -1 goto label29;
+
+     label18:
+        virtualinvoke $r33.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r18, 0, $i0);
+
+     label19:
+        goto label16;
+
+     label20:
+        $r19 := @caughtexception;
+
+        $r16 = $r19;
+
+        r17 = $r33;
+
+     label21:
+        $r30 = new java.lang.StringBuilder;
+
+     label22:
+        specialinvoke $r30.<java.lang.StringBuilder: void <init>()>();
+
+        $r9 = virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Problem pulling image data from ");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.appcelerator.titanium.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("TiFileHlpr", $r3, $r16);
+
+        throw $r16;
+
+     label23:
+        $r20 := @caughtexception;
+
+     label24:
+        if $r12 == null goto label26;
+
+     label25:
+        virtualinvoke $r12.<java.io.InputStream: void close()>();
+
+     label26:
+        if r17 == null goto label28;
+
+     label27:
+        virtualinvoke r17.<java.io.ByteArrayOutputStream: void close()>();
+
+     label28:
+        throw $r20;
+
+     label29:
+        $r34 = new java.io.ByteArrayInputStream;
+
+     label30:
+        r4 = $r34;
+
+     label31:
+        $r18 = virtualinvoke $r33.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        specialinvoke $r34.<java.io.ByteArrayInputStream: void <init>(byte[])>($r18);
+
+     label32:
+        if $r12 == null goto label34;
+
+     label33:
+        virtualinvoke $r12.<java.io.InputStream: void close()>();
+
+     label34:
+        if $r33 == null goto label02;
+
+     label35:
+        virtualinvoke $r33.<java.io.ByteArrayOutputStream: void close()>();
+
+     label36:
+        goto label02;
+
+     label37:
+        $r21 := @caughtexception;
+
+        goto label02;
+
+     label38:
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean startsWith(java.lang.String)>("file:///android_asset/Resources");
+
+        if $z0 == 0 goto label49;
+
+        r1 = "file:///android_asset/";
+
+        $i0 = virtualinvoke r1.<java.lang.String: int length()>();
+
+        $r3 = virtualinvoke $r3.<java.lang.String: java.lang.String substring(int)>($i0);
+
+        $z0 = 0;
+
+        $r22 = <org.appcelerator.titanium.util.TiFileHelper: java.util.HashSet foundResourcePathCache>;
+
+        $z1 = virtualinvoke $r22.<java.util.HashSet: boolean contains(java.lang.Object)>($r3);
+
+        if $z1 == 0 goto label40;
+
+        $z0 = 1;
+
+     label39:
+        if $z0 == 0 goto label02;
+
+        $r23 = virtualinvoke r7.<android.content.Context: android.content.res.AssetManager getAssets()>();
+
+        r4 = virtualinvoke $r23.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>($r3);
+
+        goto label02;
+
+     label40:
+        $r22 = <org.appcelerator.titanium.util.TiFileHelper: java.util.HashSet notFoundResourcePathCache>;
+
+        $z1 = virtualinvoke $r22.<java.util.HashSet: boolean contains(java.lang.Object)>($r3);
+
+        if $z1 != 0 goto label39;
+
+        $i0 = virtualinvoke $r3.<java.lang.String: int lastIndexOf(java.lang.String)>("/");
+
+        r1 = virtualinvoke $r3.<java.lang.String: java.lang.String substring(int,int)>(0, $i0);
+
+        $r22 = <org.appcelerator.titanium.util.TiFileHelper: java.util.HashSet resourcePathCache>;
+
+        entermonitor $r22;
+
+     label41:
+        $r24 = <org.appcelerator.titanium.util.TiFileHelper: java.util.HashSet resourcePathCache>;
+
+        $z1 = virtualinvoke $r24.<java.util.HashSet: boolean contains(java.lang.Object)>(r1);
+
+        if $z1 != 0 goto label44;
+
+        $r23 = virtualinvoke r7.<android.content.Context: android.content.res.AssetManager getAssets()>();
+
+        $r8 = virtualinvoke $r23.<android.content.res.AssetManager: java.lang.String[] list(java.lang.String)>(r1);
+
+        $i0 = 0;
+
+     label42:
+        $i1 = lengthof $r8;
+
+        if $i0 >= $i1 goto label43;
+
+        $r24 = <org.appcelerator.titanium.util.TiFileHelper: java.util.HashSet foundResourcePathCache>;
+
+        $r30 = new java.lang.StringBuilder;
+
+        specialinvoke $r30.<java.lang.StringBuilder: void <init>()>();
+
+        $r9 = virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r1);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(47);
+
+        r2 = $r8[$i0];
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r2);
+
+        r2 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r24.<java.util.HashSet: boolean add(java.lang.Object)>(r2);
+
+        $i0 = $i0 + 1;
+
+        goto label42;
+
+     label43:
+        $r24 = <org.appcelerator.titanium.util.TiFileHelper: java.util.HashSet resourcePathCache>;
+
+        virtualinvoke $r24.<java.util.HashSet: boolean add(java.lang.Object)>(r1);
+
+        $r24 = <org.appcelerator.titanium.util.TiFileHelper: java.util.HashSet foundResourcePathCache>;
+
+        $z1 = virtualinvoke $r24.<java.util.HashSet: boolean contains(java.lang.Object)>($r3);
+
+        if $z1 == 0 goto label44;
+
+        $z0 = 1;
+
+     label44:
+        if $z0 != 0 goto label45;
+
+        $r24 = <org.appcelerator.titanium.util.TiFileHelper: java.util.HashSet notFoundResourcePathCache>;
+
+        virtualinvoke $r24.<java.util.HashSet: boolean add(java.lang.Object)>($r3);
+
+     label45:
+        exitmonitor $r22;
+
+     label46:
+        goto label39;
+
+     label47:
+        $r25 := @caughtexception;
+
+        exitmonitor $r22;
+
+     label48:
+        throw $r25;
+
+     label49:
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean startsWith(java.lang.String)>("/sdcard/Ti.debug");
+
+        if $z0 == 0 goto label50;
+
+        $r36 = new java.io.FileInputStream;
+
+        r4 = $r36;
+
+        $r35 = new java.io.File;
+
+        specialinvoke $r35.<java.io.File: void <init>(java.lang.String)>($r3);
+
+        specialinvoke $r36.<java.io.FileInputStream: void <init>(java.io.File)>($r35);
+
+        goto label02;
+
+     label50:
+        $z0 = staticinvoke <android.webkit.URLUtil: boolean isFileUrl(java.lang.String)>($r3);
+
+        if $z0 == 0 goto label51;
+
+        $r32 = new java.net.URL;
+
+        specialinvoke $r32.<java.net.URL: void <init>(java.lang.String)>($r3);
+
+        r4 = virtualinvoke $r32.<java.net.URL: java.io.InputStream openStream()>();
+
+        goto label02;
+
+     label51:
+        $r3 = virtualinvoke r0.<org.appcelerator.titanium.util.TiFileHelper: java.lang.String joinPaths(java.lang.String,java.lang.String)>("Resources", $r3);
+
+        $r23 = virtualinvoke r7.<android.content.Context: android.content.res.AssetManager getAssets()>();
+
+        r4 = virtualinvoke $r23.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>($r3);
+
+        goto label02;
+
+     label52:
+        $r26 := @caughtexception;
+
+        goto label34;
+
+     label53:
+        $r27 := @caughtexception;
+
+        goto label26;
+
+     label54:
+        $r28 := @caughtexception;
+
+        goto label28;
+
+     label55:
+        $r20 := @caughtexception;
+
+        r17 = $r33;
+
+        goto label24;
+
+     label56:
+        $r29 := @caughtexception;
+
+        $r16 = $r29;
+
+        goto label21;
+
+        catch java.net.URISyntaxException from label07 to label08 with label11;
+        catch java.net.URISyntaxException from label09 to label10 with label11;
+        catch java.io.IOException from label14 to label15 with label56;
+        catch java.lang.Throwable from label13 to label14 with label23;
+        catch java.lang.Throwable from label14 to label15 with label23;
+        catch java.io.IOException from label16 to label17 with label20;
+        catch java.io.IOException from label18 to label19 with label20;
+        catch java.lang.Throwable from label16 to label17 with label55;
+        catch java.lang.Throwable from label18 to label19 with label55;
+        catch java.lang.Throwable from label21 to label22 with label23;
+        catch java.lang.Throwable from label22 to label23 with label23;
+        catch java.lang.Exception from label25 to label26 with label53;
+        catch java.lang.Exception from label27 to label28 with label54;
+        catch java.io.IOException from label31 to label32 with label20;
+        catch java.lang.Throwable from label29 to label30 with label55;
+        catch java.lang.Throwable from label31 to label32 with label55;
+        catch java.lang.Exception from label33 to label34 with label52;
+        catch java.lang.Exception from label35 to label36 with label37;
+        catch java.lang.Throwable from label41 to label46 with label47;
+        catch java.lang.Throwable from label47 to label48 with label47;
+    }

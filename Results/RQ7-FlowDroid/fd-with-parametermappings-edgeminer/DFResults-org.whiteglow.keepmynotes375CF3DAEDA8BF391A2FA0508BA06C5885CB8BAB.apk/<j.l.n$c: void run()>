@@ -1,0 +1,543 @@
+    public void run()
+    {
+        java.net.HttpURLConnection $r5;
+        java.net.URL $r21;
+        java.lang.Runnable $r10;
+        org.json.JSONObject $r20;
+        java.util.Locale $r6;
+        boolean $z0;
+        java.io.Reader $r28;
+        java.lang.Exception $r18;
+        j.b.d $r11;
+        java.lang.StringBuilder $r24;
+        android.content.SharedPreferences$Editor $r13;
+        java.lang.Throwable $r17;
+        java.lang.Object[] $r7;
+        java.net.URLConnection $r4;
+        int $i0, $i1;
+        java.io.OutputStreamWriter $r22;
+        java.lang.String $r1, $r12;
+        java.io.OutputStream $r8;
+        java.io.BufferedWriter $r23;
+        java.io.InputStreamReader $r25;
+        k.c.b $r19;
+        android.content.SharedPreferences $r3;
+        android.graphics.Bitmap $r16;
+        java.lang.Object $r2, $r15;
+        j.c.e $r14;
+        java.io.BufferedReader $r26;
+        j.l.n$c r0;
+        java.io.InputStream $r9, $r27;
+
+        r0 := @this: j.l.n$c;
+
+        $r2 = null;
+
+     label01:
+        $r3 = staticinvoke <j.l.a: android.content.SharedPreferences i0()>();
+
+        $i0 = interfaceinvoke $r3.<android.content.SharedPreferences: int getInt(java.lang.String,int)>("aidx", 0);
+
+     label02:
+        $r20 = new org.json.JSONObject;
+
+     label03:
+        specialinvoke $r20.<org.json.JSONObject: void <init>()>();
+
+        $r1 = staticinvoke <j.l.r: java.lang.String B0()>();
+
+        virtualinvoke $r20.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("country", $r1);
+
+        virtualinvoke $r20.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,int)>("index", $i0);
+
+        $z0 = staticinvoke <j.b.b: boolean s()>();
+
+     label04:
+        if $z0 == 0 goto label08;
+
+     label05:
+        $r21 = new java.net.URL;
+
+     label06:
+        specialinvoke $r21.<java.net.URL: void <init>(java.lang.String)>("http://www.kitetech.co/request-ad");
+
+        $r4 = virtualinvoke $r21.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r5 = (java.net.HttpURLConnection) $r4;
+
+     label07:
+        goto label12;
+
+     label08:
+        $r21 = new java.net.URL;
+
+     label09:
+        $r6 = <java.util.Locale: java.util.Locale ENGLISH>;
+
+        $r7 = newarray (java.lang.Object)[1];
+
+        $r1 = <j.f.y: java.lang.String a>;
+
+     label10:
+        $r7[0] = $r1;
+
+     label11:
+        $r1 = staticinvoke <java.lang.String: java.lang.String format(java.util.Locale,java.lang.String,java.lang.Object[])>($r6, "http://%s/request-ad", $r7);
+
+        specialinvoke $r21.<java.net.URL: void <init>(java.lang.String)>($r1);
+
+        $r4 = virtualinvoke $r21.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r5 = (java.net.HttpURLConnection) $r4;
+
+     label12:
+        virtualinvoke $r5.<java.net.HttpURLConnection: void setReadTimeout(int)>(9999);
+
+        virtualinvoke $r5.<java.net.HttpURLConnection: void setConnectTimeout(int)>(18000);
+
+        virtualinvoke $r5.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+        virtualinvoke $r5.<java.net.HttpURLConnection: void setDoInput(boolean)>(1);
+
+        virtualinvoke $r5.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+        virtualinvoke $r5.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Type", "application/json");
+
+        virtualinvoke $r5.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Accept", "application/json");
+
+        $r8 = virtualinvoke $r5.<java.net.HttpURLConnection: java.io.OutputStream getOutputStream()>();
+
+     label13:
+        $r23 = new java.io.BufferedWriter;
+
+     label14:
+        $r22 = new java.io.OutputStreamWriter;
+
+     label15:
+        specialinvoke $r22.<java.io.OutputStreamWriter: void <init>(java.io.OutputStream,java.lang.String)>($r8, "UTF-8");
+
+        specialinvoke $r23.<java.io.BufferedWriter: void <init>(java.io.Writer)>($r22);
+
+        $r1 = virtualinvoke $r20.<org.json.JSONObject: java.lang.String toString()>();
+
+        virtualinvoke $r23.<java.io.BufferedWriter: void write(java.lang.String)>($r1);
+
+        virtualinvoke $r23.<java.io.BufferedWriter: void flush()>();
+
+        virtualinvoke $r23.<java.io.BufferedWriter: void close()>();
+
+        virtualinvoke $r8.<java.io.OutputStream: void close()>();
+
+        virtualinvoke $r5.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label16:
+        $r24 = new java.lang.StringBuilder;
+
+     label17:
+        specialinvoke $r24.<java.lang.StringBuilder: void <init>()>();
+
+     label18:
+        $r26 = new java.io.BufferedReader;
+
+     label19:
+        $r25 = new java.io.InputStreamReader;
+
+     label20:
+        $r9 = virtualinvoke $r5.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+        specialinvoke $r25.<java.io.InputStreamReader: void <init>(java.io.InputStream)>($r9);
+
+        specialinvoke $r26.<java.io.BufferedReader: void <init>(java.io.Reader)>($r25);
+
+     label21:
+        $i1 = 0;
+
+     label22:
+        $r1 = virtualinvoke $r26.<java.io.BufferedReader: java.lang.String readLine()>();
+
+     label23:
+        if $r1 == null goto label27;
+
+        if $i1 <= 0 goto label25;
+
+     label24:
+        virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+     label25:
+        virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+     label26:
+        $i1 = $i1 + 1;
+
+        goto label22;
+
+     label27:
+        if $i1 != 0 goto label32;
+
+     label28:
+        $r10 = r0.<j.l.n$c: java.lang.Runnable a>;
+
+     label29:
+        if $r10 == null goto label31;
+
+     label30:
+        interfaceinvoke $r10.<java.lang.Runnable: void run()>();
+
+     label31:
+        staticinvoke <j.l.r: void l(java.io.Reader)>($r26);
+
+        staticinvoke <j.l.r: void j(java.io.InputStream)>(null);
+
+        staticinvoke <j.l.r: void j(java.io.InputStream)>(null);
+
+        return;
+
+     label32:
+        $r1 = virtualinvoke $r24.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r11 = staticinvoke <j.l.n: j.b.d j(java.lang.String)>($r1);
+
+        $r1 = $r11.<j.b.d: java.lang.String f>;
+
+     label33:
+        if $r1 != null goto label36;
+
+     label34:
+        $r12 = $r11.<j.b.d: java.lang.String g>;
+
+     label35:
+        if $r12 == null goto label43;
+
+     label36:
+        if $r1 == null goto label39;
+
+     label37:
+        $z0 = virtualinvoke $r1.<java.lang.String: boolean endsWith(java.lang.String)>("blank.png");
+
+     label38:
+        if $z0 != 0 goto label43;
+
+     label39:
+        $r1 = $r11.<j.b.d: java.lang.String g>;
+
+     label40:
+        if $r1 == null goto label46;
+
+     label41:
+        $z0 = virtualinvoke $r1.<java.lang.String: boolean endsWith(java.lang.String)>("blank.mp4");
+
+     label42:
+        if $z0 == 0 goto label46;
+
+     label43:
+        $i0 = $i0 + 1;
+
+     label44:
+        $r3 = staticinvoke <j.l.a: android.content.SharedPreferences i0()>();
+
+        $r13 = interfaceinvoke $r3.<android.content.SharedPreferences: android.content.SharedPreferences$Editor edit()>();
+
+        $r13 = interfaceinvoke $r13.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putInt(java.lang.String,int)>("aidx", $i0);
+
+        interfaceinvoke $r13.<android.content.SharedPreferences$Editor: boolean commit()>();
+
+        $r14 = r0.<j.l.n$c: j.c.e b>;
+
+        $r10 = r0.<j.l.n$c: java.lang.Runnable a>;
+
+        staticinvoke <j.l.n: void g(j.c.e,java.lang.Runnable)>($r14, $r10);
+
+     label45:
+        goto label31;
+
+     label46:
+        $r1 = $r11.<j.b.d: java.lang.String d>;
+
+        $z0 = virtualinvoke $r1.<java.lang.String: boolean contains(java.lang.CharSequence)>("play.google.com");
+
+     label47:
+        if $z0 == 0 goto label52;
+
+     label48:
+        $r1 = $r11.<j.b.d: java.lang.String d>;
+
+        $r1 = staticinvoke <j.l.r: java.lang.String B(java.lang.String)>($r1);
+
+        $z0 = staticinvoke <j.l.r: boolean a(java.lang.String)>($r1);
+
+     label49:
+        if $z0 == 0 goto label52;
+
+        $i0 = $i0 + 1;
+
+     label50:
+        $r3 = staticinvoke <j.l.a: android.content.SharedPreferences i0()>();
+
+        $r13 = interfaceinvoke $r3.<android.content.SharedPreferences: android.content.SharedPreferences$Editor edit()>();
+
+        $r13 = interfaceinvoke $r13.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putInt(java.lang.String,int)>("aidx", $i0);
+
+        interfaceinvoke $r13.<android.content.SharedPreferences$Editor: boolean commit()>();
+
+        $r14 = r0.<j.l.n$c: j.c.e b>;
+
+        $r10 = r0.<j.l.n$c: java.lang.Runnable a>;
+
+        staticinvoke <j.l.n: void g(j.c.e,java.lang.Runnable)>($r14, $r10);
+
+     label51:
+        goto label31;
+
+     label52:
+        $r21 = new java.net.URL;
+
+     label53:
+        $r1 = $r11.<j.b.d: java.lang.String e>;
+
+        specialinvoke $r21.<java.net.URL: void <init>(java.lang.String)>($r1);
+
+        $r15 = virtualinvoke $r21.<java.net.URL: java.lang.Object getContent()>();
+
+        $r9 = (java.io.InputStream) $r15;
+
+     label54:
+        $r16 = staticinvoke <android.graphics.BitmapFactory: android.graphics.Bitmap decodeStream(java.io.InputStream)>($r9);
+
+        $r11.<j.b.d: android.graphics.Bitmap h> = $r16;
+
+        $r1 = $r11.<j.b.d: java.lang.String f>;
+
+     label55:
+        if $r1 == null goto label62;
+
+     label56:
+        $r21 = new java.net.URL;
+
+     label57:
+        $r1 = $r11.<j.b.d: java.lang.String f>;
+
+        specialinvoke $r21.<java.net.URL: void <init>(java.lang.String)>($r1);
+
+        $r15 = virtualinvoke $r21.<java.net.URL: java.lang.Object getContent()>();
+
+        $r15 = (java.io.InputStream) $r15;
+
+     label58:
+        $r27 = (java.io.InputStream) $r15;
+
+        $r16 = staticinvoke <android.graphics.BitmapFactory: android.graphics.Bitmap decodeStream(java.io.InputStream)>($r27);
+
+        $r11.<j.b.d: android.graphics.Bitmap i> = $r16;
+
+     label59:
+        $r2 = $r15;
+
+        goto label62;
+
+     label60:
+        $r17 := @caughtexception;
+
+        goto label67;
+
+     label61:
+        $r18 := @caughtexception;
+
+        goto label69;
+
+     label62:
+        $r14 = r0.<j.l.n$c: j.c.e b>;
+
+        interfaceinvoke $r14.<j.c.e: void a(java.lang.Object)>($r11);
+
+     label63:
+        staticinvoke <j.l.r: void l(java.io.Reader)>($r26);
+
+        staticinvoke <j.l.r: void j(java.io.InputStream)>($r9);
+
+        $r9 = (java.io.InputStream) $r2;
+
+        staticinvoke <j.l.r: void j(java.io.InputStream)>($r9);
+
+        return;
+
+     label64:
+        $r17 := @caughtexception;
+
+        $r15 = $r2;
+
+        goto label67;
+
+     label65:
+        $r18 := @caughtexception;
+
+        $r15 = $r2;
+
+        goto label69;
+
+     label66:
+        $r17 := @caughtexception;
+
+        $r9 = null;
+
+        $r15 = null;
+
+     label67:
+        $r2 = $r26;
+
+        goto label82;
+
+     label68:
+        $r18 := @caughtexception;
+
+        $r9 = null;
+
+        $r15 = null;
+
+     label69:
+        $r2 = $r26;
+
+        goto label72;
+
+     label70:
+        $r17 := @caughtexception;
+
+        $r9 = null;
+
+        $r15 = null;
+
+        goto label82;
+
+     label71:
+        $r18 := @caughtexception;
+
+        $r9 = null;
+
+        $r15 = null;
+
+     label72:
+        $z0 = staticinvoke <j.b.b: boolean s()>();
+
+     label73:
+        if $z0 == 0 goto label75;
+
+     label74:
+        $r19 = staticinvoke <j.l.n: k.c.b b()>();
+
+        interfaceinvoke $r19.<k.c.b: void b(java.lang.String,java.lang.Throwable)>("", $r18);
+
+     label75:
+        $r3 = staticinvoke <j.l.a: android.content.SharedPreferences i0()>();
+
+        $i0 = interfaceinvoke $r3.<android.content.SharedPreferences: int getInt(java.lang.String,int)>("aidx", 0);
+
+     label76:
+        $i0 = $i0 + 1;
+
+     label77:
+        $r3 = staticinvoke <j.l.a: android.content.SharedPreferences i0()>();
+
+        $r13 = interfaceinvoke $r3.<android.content.SharedPreferences: android.content.SharedPreferences$Editor edit()>();
+
+        $r13 = interfaceinvoke $r13.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putInt(java.lang.String,int)>("aidx", $i0);
+
+        interfaceinvoke $r13.<android.content.SharedPreferences$Editor: boolean commit()>();
+
+        $r10 = r0.<j.l.n$c: java.lang.Runnable a>;
+
+     label78:
+        if $r10 == null goto label80;
+
+     label79:
+        interfaceinvoke $r10.<java.lang.Runnable: void run()>();
+
+     label80:
+        $r28 = (java.io.Reader) $r2;
+
+        staticinvoke <j.l.r: void l(java.io.Reader)>($r28);
+
+        staticinvoke <j.l.r: void j(java.io.InputStream)>($r9);
+
+        $r9 = (java.io.InputStream) $r15;
+
+        staticinvoke <j.l.r: void j(java.io.InputStream)>($r9);
+
+        return;
+
+     label81:
+        $r17 := @caughtexception;
+
+     label82:
+        $r28 = (java.io.Reader) $r2;
+
+        staticinvoke <j.l.r: void l(java.io.Reader)>($r28);
+
+        staticinvoke <j.l.r: void j(java.io.InputStream)>($r9);
+
+        $r9 = (java.io.InputStream) $r15;
+
+        staticinvoke <j.l.r: void j(java.io.InputStream)>($r9);
+
+        throw $r17;
+
+        catch java.lang.Exception from label01 to label02 with label71;
+        catch java.lang.Exception from label03 to label04 with label71;
+        catch java.lang.Exception from label06 to label07 with label71;
+        catch java.lang.Exception from label10 to label13 with label71;
+        catch java.lang.Exception from label15 to label16 with label71;
+        catch java.lang.Exception from label17 to label18 with label71;
+        catch java.lang.Exception from label20 to label21 with label71;
+        catch java.lang.Throwable from label01 to label03 with label70;
+        catch java.lang.Throwable from label03 to label04 with label70;
+        catch java.lang.Throwable from label05 to label06 with label70;
+        catch java.lang.Throwable from label06 to label07 with label70;
+        catch java.lang.Throwable from label08 to label09 with label70;
+        catch java.lang.Throwable from label09 to label10 with label70;
+        catch java.lang.Throwable from label11 to label14 with label70;
+        catch java.lang.Throwable from label14 to label15 with label70;
+        catch java.lang.Throwable from label15 to label17 with label70;
+        catch java.lang.Throwable from label17 to label19 with label70;
+        catch java.lang.Throwable from label19 to label20 with label70;
+        catch java.lang.Throwable from label20 to label21 with label70;
+        catch java.lang.Exception from label22 to label23 with label68;
+        catch java.lang.Exception from label24 to label26 with label68;
+        catch java.lang.Exception from label28 to label29 with label68;
+        catch java.lang.Exception from label30 to label31 with label68;
+        catch java.lang.Throwable from label22 to label23 with label66;
+        catch java.lang.Throwable from label24 to label26 with label66;
+        catch java.lang.Throwable from label28 to label29 with label66;
+        catch java.lang.Throwable from label30 to label31 with label66;
+        catch java.lang.Exception from label32 to label33 with label68;
+        catch java.lang.Exception from label34 to label35 with label68;
+        catch java.lang.Exception from label37 to label38 with label68;
+        catch java.lang.Exception from label39 to label40 with label68;
+        catch java.lang.Exception from label41 to label42 with label68;
+        catch java.lang.Exception from label44 to label45 with label68;
+        catch java.lang.Exception from label46 to label47 with label68;
+        catch java.lang.Exception from label48 to label49 with label68;
+        catch java.lang.Exception from label50 to label51 with label68;
+        catch java.lang.Exception from label53 to label54 with label68;
+        catch java.lang.Throwable from label32 to label33 with label66;
+        catch java.lang.Throwable from label34 to label35 with label66;
+        catch java.lang.Throwable from label37 to label38 with label66;
+        catch java.lang.Throwable from label39 to label40 with label66;
+        catch java.lang.Throwable from label41 to label42 with label66;
+        catch java.lang.Throwable from label44 to label45 with label66;
+        catch java.lang.Throwable from label46 to label47 with label66;
+        catch java.lang.Throwable from label48 to label49 with label66;
+        catch java.lang.Throwable from label50 to label51 with label66;
+        catch java.lang.Throwable from label52 to label53 with label66;
+        catch java.lang.Throwable from label53 to label54 with label66;
+        catch java.lang.Exception from label54 to label55 with label65;
+        catch java.lang.Exception from label57 to label58 with label65;
+        catch java.lang.Throwable from label54 to label55 with label64;
+        catch java.lang.Throwable from label56 to label57 with label64;
+        catch java.lang.Throwable from label57 to label58 with label64;
+        catch java.lang.Exception from label58 to label59 with label61;
+        catch java.lang.Throwable from label58 to label59 with label60;
+        catch java.lang.Exception from label62 to label63 with label65;
+        catch java.lang.Throwable from label62 to label63 with label64;
+        catch java.lang.Throwable from label72 to label73 with label81;
+        catch java.lang.Throwable from label74 to label76 with label81;
+        catch java.lang.Throwable from label77 to label78 with label81;
+        catch java.lang.Throwable from label79 to label80 with label81;
+    }

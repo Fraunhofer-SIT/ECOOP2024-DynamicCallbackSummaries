@@ -1,0 +1,825 @@
+    public fi.iki.elonen.NanoHTTPD$Response serve(fi.iki.elonen.NanoHTTPD$IHTTPSession)
+    {
+        byte[] $r23;
+        androidx.core.app.NotificationCompat$Builder $r8;
+        android.net.Uri $r20;
+        com.shareit.share.file.shareT.util.NotificationUtils $r6;
+        android.app.PendingIntent $r31;
+        fi.iki.elonen.NanoHTTPD$Response$Status $r33;
+        byte $b7;
+        android.content.ContentResolver $r19;
+        java.util.Map $r11;
+        boolean $z0;
+        java.lang.CharSequence $r13;
+        fi.iki.elonen.NanoHTTPD$Response $r34;
+        com.genonbeta.android.framework.util.Interrupter $r41;
+        java.lang.Exception $r2, $r25, $r27, $r32, $r36, $r42;
+        fi.iki.elonen.NanoHTTPD$ResponseException $r37;
+        java.lang.StringBuilder $r45;
+        java.lang.Throwable $r38;
+        android.content.Context $r9, $r29;
+        com.shareit.share.file.shareT.util.DynamicNotification $r5, $r7;
+        java.lang.Object[] $r28;
+        long $l0, $l1, $l3, $l4, $l5, $l6;
+        android.content.Intent $r30, $r44;
+        java.lang.String[] $r35;
+        java.util.HashMap $r39;
+        com.genonbeta.android.framework.io.DocumentFile $r15, $r16, $r17, $r18, $r24;
+        fi.iki.elonen.NanoHTTPD$Method $r3, $r4;
+        int $i2, $i8;
+        java.lang.String $r10, $r14;
+        java.io.OutputStream $r22;
+        fi.iki.elonen.NanoHTTPD$IHTTPSession $r1;
+        java.io.IOException $r26, $r43;
+        com.shareit.share.file.shareT.service.WebShareServer r0;
+        java.io.File $r40;
+        java.lang.Object $r12;
+        java.io.InputStream $r21;
+
+        r0 := @this: com.shareit.share.file.shareT.service.WebShareServer;
+
+        $r1 := @parameter0: fi.iki.elonen.NanoHTTPD$IHTTPSession;
+
+        $r39 = new java.util.HashMap;
+
+        specialinvoke $r39.<java.util.HashMap: void <init>()>();
+
+        $r3 = interfaceinvoke $r1.<fi.iki.elonen.NanoHTTPD$IHTTPSession: fi.iki.elonen.NanoHTTPD$Method getMethod()>();
+
+        $l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $l1 = $l0;
+
+        $i2 = staticinvoke <com.shareit.share.file.shareT.util.AppUtils: int getUniqueNumber()>();
+
+        $l3 = (long) $i2;
+
+        $r4 = <fi.iki.elonen.NanoHTTPD$Method: fi.iki.elonen.NanoHTTPD$Method PUT>;
+
+        $z0 = virtualinvoke $r4.<fi.iki.elonen.NanoHTTPD$Method: boolean equals(java.lang.Object)>($r3);
+
+        if $z0 != 0 goto label001;
+
+        $r4 = <fi.iki.elonen.NanoHTTPD$Method: fi.iki.elonen.NanoHTTPD$Method POST>;
+
+        $z0 = virtualinvoke $r4.<fi.iki.elonen.NanoHTTPD$Method: boolean equals(java.lang.Object)>($r3);
+
+        if $z0 != 0 goto label001;
+
+        $r5 = null;
+
+        goto label012;
+
+     label001:
+        $r6 = r0.<com.shareit.share.file.shareT.service.WebShareServer: com.shareit.share.file.shareT.util.NotificationUtils mNotificationUtils>;
+
+     label002:
+        $r7 = virtualinvoke $r6.<com.shareit.share.file.shareT.util.NotificationUtils: com.shareit.share.file.shareT.util.DynamicNotification buildDynamicNotification(long,java.lang.String)>($l3, "tsLowPriority");
+
+     label003:
+        $r5 = $r7;
+
+     label004:
+        $r8 = virtualinvoke $r7.<com.shareit.share.file.shareT.util.DynamicNotification: androidx.core.app.NotificationCompat$Builder setSmallIcon(int)>(17301633);
+
+     label005:
+        $r9 = r0.<com.shareit.share.file.shareT.service.WebShareServer: android.content.Context mContext>;
+
+     label006:
+        $r10 = virtualinvoke $r9.<android.content.Context: java.lang.String getString(int)>(2131755483);
+
+        $r8 = virtualinvoke $r8.<androidx.core.app.NotificationCompat$Builder: androidx.core.app.NotificationCompat$Builder setContentInfo(java.lang.CharSequence)>($r10);
+
+     label007:
+        $r9 = r0.<com.shareit.share.file.shareT.service.WebShareServer: android.content.Context mContext>;
+
+     label008:
+        $r10 = virtualinvoke $r9.<android.content.Context: java.lang.String getString(int)>(2131755428);
+
+        $r8 = virtualinvoke $r8.<androidx.core.app.NotificationCompat$Builder: androidx.core.app.NotificationCompat$Builder setContentTitle(java.lang.CharSequence)>($r10);
+
+        $r11 = interfaceinvoke $r1.<fi.iki.elonen.NanoHTTPD$IHTTPSession: java.util.Map getHeaders()>();
+
+        $r12 = interfaceinvoke $r11.<java.util.Map: java.lang.Object get(java.lang.Object)>("http-client-ip");
+
+     label009:
+        $r13 = (java.lang.CharSequence) $r12;
+
+     label010:
+        virtualinvoke $r8.<androidx.core.app.NotificationCompat$Builder: androidx.core.app.NotificationCompat$Builder setContentText(java.lang.CharSequence)>($r13);
+
+        virtualinvoke $r7.<com.shareit.share.file.shareT.util.DynamicNotification: com.shareit.share.file.shareT.util.DynamicNotification show()>();
+
+        interfaceinvoke $r1.<fi.iki.elonen.NanoHTTPD$IHTTPSession: void parseBody(java.util.Map)>($r39);
+
+        $l1 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+     label011:
+        $l1 = $l1 - $l0;
+
+     label012:
+        if $r5 == null goto label062;
+
+        $r11 = interfaceinvoke $r1.<fi.iki.elonen.NanoHTTPD$IHTTPSession: java.util.Map getParms()>();
+
+        $z0 = interfaceinvoke $r11.<java.util.Map: boolean containsKey(java.lang.Object)>("file");
+
+        if $z0 == 0 goto label062;
+
+        $r11 = interfaceinvoke $r1.<fi.iki.elonen.NanoHTTPD$IHTTPSession: java.util.Map getParms()>();
+
+        $r12 = interfaceinvoke $r11.<java.util.Map: java.lang.Object get(java.lang.Object)>("file");
+
+        $r10 = (java.lang.String) $r12;
+
+        $r12 = interfaceinvoke $r39.<java.util.Map: java.lang.Object get(java.lang.Object)>("file");
+
+        $r14 = (java.lang.String) $r12;
+
+        if $r10 == null goto label061;
+
+        if $r14 == null goto label061;
+
+        $i2 = virtualinvoke $r10.<java.lang.String: int length()>();
+
+        if $i2 < 1 goto label061;
+
+        $r40 = new java.io.File;
+
+        specialinvoke $r40.<java.io.File: void <init>(java.lang.String)>($r14);
+
+        $r9 = r0.<com.shareit.share.file.shareT.service.WebShareServer: android.content.Context mContext>;
+
+        $r15 = staticinvoke <com.shareit.share.file.shareT.util.FileUtils: com.genonbeta.android.framework.io.DocumentFile getApplicationDirectory(android.content.Context)>($r9);
+
+        $r16 = $r15;
+
+        $r41 = new com.genonbeta.android.framework.util.Interrupter;
+
+        specialinvoke $r41.<com.genonbeta.android.framework.util.Interrupter: void <init>()>();
+
+        $r17 = staticinvoke <com.genonbeta.android.framework.io.DocumentFile: com.genonbeta.android.framework.io.DocumentFile fromFile(java.io.File)>($r40);
+
+        $r14 = staticinvoke <com.shareit.share.file.shareT.util.FileUtils: java.lang.String getUniqueFileName(com.genonbeta.android.framework.io.DocumentFile,java.lang.String,boolean)>($r15, $r10, 1);
+
+        $r18 = virtualinvoke $r15.<com.genonbeta.android.framework.io.DocumentFile: com.genonbeta.android.framework.io.DocumentFile createFile(java.lang.String,java.lang.String)>(null, $r14);
+
+        $r8 = virtualinvoke $r5.<com.shareit.share.file.shareT.util.DynamicNotification: androidx.core.app.NotificationCompat$Builder setSmallIcon(int)>(2131165360);
+
+        $r9 = r0.<com.shareit.share.file.shareT.service.WebShareServer: android.content.Context mContext>;
+
+        $r14 = virtualinvoke $r9.<android.content.Context: java.lang.String getString(int)>(2131755483);
+
+        $r8 = virtualinvoke $r8.<androidx.core.app.NotificationCompat$Builder: androidx.core.app.NotificationCompat$Builder setContentInfo(java.lang.CharSequence)>($r14);
+
+        $r9 = r0.<com.shareit.share.file.shareT.service.WebShareServer: android.content.Context mContext>;
+
+        $r14 = virtualinvoke $r9.<android.content.Context: java.lang.String getString(int)>(2131755419);
+
+        $r8 = virtualinvoke $r8.<androidx.core.app.NotificationCompat$Builder: androidx.core.app.NotificationCompat$Builder setContentTitle(java.lang.CharSequence)>($r14);
+
+        virtualinvoke $r8.<androidx.core.app.NotificationCompat$Builder: androidx.core.app.NotificationCompat$Builder setContentText(java.lang.CharSequence)>($r10);
+
+        virtualinvoke $r5.<com.shareit.share.file.shareT.util.DynamicNotification: com.shareit.share.file.shareT.util.DynamicNotification show()>();
+
+     label013:
+        $r9 = r0.<com.shareit.share.file.shareT.service.WebShareServer: android.content.Context mContext>;
+
+        $r19 = virtualinvoke $r9.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+        $r20 = virtualinvoke $r17.<com.genonbeta.android.framework.io.DocumentFile: android.net.Uri getUri()>();
+
+        $r21 = virtualinvoke $r19.<android.content.ContentResolver: java.io.InputStream openInputStream(android.net.Uri)>($r20);
+
+        $r20 = virtualinvoke $r18.<com.genonbeta.android.framework.io.DocumentFile: android.net.Uri getUri()>();
+
+        $r22 = virtualinvoke $r19.<android.content.ContentResolver: java.io.OutputStream openOutputStream(android.net.Uri)>($r20);
+
+     label014:
+        if $r21 == null goto label041;
+
+        if $r22 == null goto label041;
+
+        $r23 = newarray (byte)[8096];
+
+     label015:
+        $l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+     label016:
+        $l4 = $l0;
+
+        $l0 = 0L;
+
+        $l5 = 0L;
+
+        $i2 = 0;
+
+     label017:
+        if $i2 == -1 goto label038;
+
+     label018:
+        $i2 = virtualinvoke $r21.<java.io.InputStream: int read(byte[])>($r23);
+
+     label019:
+        if $i2 <= 0 goto label022;
+
+     label020:
+        virtualinvoke $r22.<java.io.OutputStream: void write(byte[],int,int)>($r23, 0, $i2);
+
+        virtualinvoke $r22.<java.io.OutputStream: void flush()>();
+
+        $l4 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+     label021:
+        $l6 = (long) $i2;
+
+        $l0 = $l0 + $l6;
+
+     label022:
+        $l6 = virtualinvoke $r17.<com.genonbeta.android.framework.io.DocumentFile: long length()>();
+
+     label023:
+        $b7 = $l6 cmp 0L;
+
+        $i8 = (int) $b7;
+
+        if $i8 <= 0 goto label030;
+
+        $b7 = $l0 cmp 0L;
+
+        $i8 = (int) $b7;
+
+        if $i8 <= 0 goto label030;
+
+     label024:
+        $l6 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+     label025:
+        $l6 = $l6 - $l5;
+
+        $b7 = $l6 cmp 2000L;
+
+        $i8 = (int) $b7;
+
+        if $i8 <= 0 goto label030;
+
+     label026:
+        $l5 = virtualinvoke $r17.<com.genonbeta.android.framework.io.DocumentFile: long length()>();
+
+        $l5 = $l0 / $l5;
+
+     label027:
+        $r24 = $r16;
+
+        $l5 = $l5 * 100L;
+
+        $i8 = (int) $l5;
+
+     label028:
+        virtualinvoke $r5.<com.shareit.share.file.shareT.util.DynamicNotification: com.shareit.share.file.shareT.util.DynamicNotification updateProgress(int,int,boolean)>(100, $i8, 0);
+
+        $l5 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+     label029:
+        goto label031;
+
+     label030:
+        $r24 = $r16;
+
+     label031:
+        $l6 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+     label032:
+        $l6 = $l6 - $l4;
+
+        $b7 = $l6 cmp 5000L;
+
+        $i8 = (int) $b7;
+
+        if $i8 > 0 goto label035;
+
+     label033:
+        $z0 = virtualinvoke $r41.<com.genonbeta.android.framework.util.Interrupter: boolean interrupted()>();
+
+     label034:
+        if $z0 != 0 goto label035;
+
+        $r16 = $r24;
+
+        goto label017;
+
+     label035:
+        $r42 = new java.lang.Exception;
+
+     label036:
+        specialinvoke $r42.<java.lang.Exception: void <init>(java.lang.String)>("Timed out or interrupted. Exiting!");
+
+        throw $r42;
+
+     label037:
+        $r25 := @caughtexception;
+
+        $r24 = $r16;
+
+        goto label045;
+
+     label038:
+        $r24 = $r16;
+
+     label039:
+        virtualinvoke $r22.<java.io.OutputStream: void close()>();
+
+        virtualinvoke $r21.<java.io.InputStream: void close()>();
+
+     label040:
+        goto label046;
+
+     label041:
+        $r24 = $r15;
+
+        $r43 = new java.io.IOException;
+
+     label042:
+        specialinvoke $r43.<java.io.IOException: void <init>(java.lang.String)>("Failed to open streams to start copying");
+
+        throw $r43;
+
+     label043:
+        $r25 := @caughtexception;
+
+        goto label045;
+
+     label044:
+        $r25 := @caughtexception;
+
+        $r24 = $r15;
+
+     label045:
+        virtualinvoke $r25.<java.lang.Exception: void printStackTrace()>();
+
+     label046:
+        virtualinvoke $r18.<com.genonbeta.android.framework.io.DocumentFile: void sync()>();
+
+     label047:
+        goto label049;
+
+     label048:
+        $r27 := @caughtexception;
+
+        virtualinvoke $r27.<java.lang.Exception: void printStackTrace()>();
+
+     label049:
+        $l0 = virtualinvoke $r18.<com.genonbeta.android.framework.io.DocumentFile: long length()>();
+
+        $l4 = virtualinvoke $r40.<java.io.File: long length()>();
+
+        $b7 = $l0 cmp $l4;
+
+        if $b7 == 0 goto label050;
+
+        $l0 = virtualinvoke $r40.<java.io.File: long length()>();
+
+        $b7 = $l0 cmp 0L;
+
+        if $b7 == 0 goto label050;
+
+        virtualinvoke $r5.<com.shareit.share.file.shareT.util.DynamicNotification: com.shareit.share.file.shareT.util.DynamicNotification cancel()>();
+
+        goto label062;
+
+     label050:
+        $r6 = r0.<com.shareit.share.file.shareT.service.WebShareServer: com.shareit.share.file.shareT.util.NotificationUtils mNotificationUtils>;
+
+        $r5 = virtualinvoke $r6.<com.shareit.share.file.shareT.util.NotificationUtils: com.shareit.share.file.shareT.util.DynamicNotification buildDynamicNotification(long,java.lang.String)>($l3, "tsHighPriority");
+
+        $r8 = virtualinvoke $r5.<com.shareit.share.file.shareT.util.DynamicNotification: androidx.core.app.NotificationCompat$Builder setSmallIcon(int)>(17301634);
+
+        $r9 = r0.<com.shareit.share.file.shareT.service.WebShareServer: android.content.Context mContext>;
+
+        $r14 = virtualinvoke $r9.<android.content.Context: java.lang.String getString(int)>(2131755483);
+
+        $r8 = virtualinvoke $r8.<androidx.core.app.NotificationCompat$Builder: androidx.core.app.NotificationCompat$Builder setContentInfo(java.lang.CharSequence)>($r14);
+
+        $r8 = virtualinvoke $r8.<androidx.core.app.NotificationCompat$Builder: androidx.core.app.NotificationCompat$Builder setAutoCancel(boolean)>(1);
+
+        $r8 = virtualinvoke $r8.<androidx.core.app.NotificationCompat$Builder: androidx.core.app.NotificationCompat$Builder setContentTitle(java.lang.CharSequence)>($r10);
+
+        $r6 = r0.<com.shareit.share.file.shareT.service.WebShareServer: com.shareit.share.file.shareT.util.NotificationUtils mNotificationUtils>;
+
+        $i2 = virtualinvoke $r6.<com.shareit.share.file.shareT.util.NotificationUtils: int getNotificationSettings()>();
+
+        $r8 = virtualinvoke $r8.<androidx.core.app.NotificationCompat$Builder: androidx.core.app.NotificationCompat$Builder setDefaults(int)>($i2);
+
+        $r8 = virtualinvoke $r8.<androidx.core.app.NotificationCompat$Builder: androidx.core.app.NotificationCompat$Builder setPriority(int)>(1);
+
+        $r9 = r0.<com.shareit.share.file.shareT.service.WebShareServer: android.content.Context mContext>;
+
+     label051:
+        $r28 = newarray (java.lang.Object)[2];
+
+     label052:
+        $l3 = virtualinvoke $r18.<com.genonbeta.android.framework.io.DocumentFile: long length()>();
+
+        $r10 = staticinvoke <com.shareit.share.file.shareT.util.FileUtils: java.lang.String sizeExpression(long,boolean)>($l3, 0);
+
+        $r28[0] = $r10;
+
+        $r29 = r0.<com.shareit.share.file.shareT.service.WebShareServer: android.content.Context mContext>;
+
+        $r10 = staticinvoke <com.shareit.share.file.shareT.util.TimeUtils: java.lang.String getFriendlyElapsedTime(android.content.Context,long)>($r29, $l1);
+
+        $r28[1] = $r10;
+
+        $r10 = virtualinvoke $r9.<android.content.Context: java.lang.String getString(int,java.lang.Object[])>(2131755427, $r28);
+
+        $r8 = virtualinvoke $r8.<androidx.core.app.NotificationCompat$Builder: androidx.core.app.NotificationCompat$Builder setContentText(java.lang.CharSequence)>($r10);
+
+        $r9 = r0.<com.shareit.share.file.shareT.service.WebShareServer: android.content.Context mContext>;
+
+        $r10 = virtualinvoke $r9.<android.content.Context: java.lang.String getString(int)>(2131755106);
+
+        $r9 = r0.<com.shareit.share.file.shareT.service.WebShareServer: android.content.Context mContext>;
+
+        $i2 = staticinvoke <com.shareit.share.file.shareT.util.AppUtils: int getUniqueNumber()>();
+
+     label053:
+        $r44 = new android.content.Intent;
+
+     label054:
+        $r29 = r0.<com.shareit.share.file.shareT.service.WebShareServer: android.content.Context mContext>;
+
+        specialinvoke $r44.<android.content.Intent: void <init>(android.content.Context,java.lang.Class)>($r29, class "Lcom/shareit/share/file/shareT/activity/FileExplorerActivity;");
+
+        $r20 = virtualinvoke $r24.<com.genonbeta.android.framework.io.DocumentFile: android.net.Uri getUri()>();
+
+        $r30 = virtualinvoke $r44.<android.content.Intent: android.content.Intent putExtra(java.lang.String,android.os.Parcelable)>("filePath", $r20);
+
+        $r31 = staticinvoke <android.app.PendingIntent: android.app.PendingIntent getActivity(android.content.Context,int,android.content.Intent,int)>($r9, $i2, $r30, 0);
+
+        virtualinvoke $r8.<androidx.core.app.NotificationCompat$Builder: androidx.core.app.NotificationCompat$Builder addAction(int,java.lang.CharSequence,android.app.PendingIntent)>(2131165381, $r10, $r31);
+
+     label055:
+        $r9 = r0.<com.shareit.share.file.shareT.service.WebShareServer: android.content.Context mContext>;
+
+        $r30 = staticinvoke <com.shareit.share.file.shareT.util.FileUtils: android.content.Intent getOpenIntent(android.content.Context,com.genonbeta.android.framework.io.DocumentFile)>($r9, $r18);
+
+        $r9 = r0.<com.shareit.share.file.shareT.service.WebShareServer: android.content.Context mContext>;
+
+        $i2 = staticinvoke <com.shareit.share.file.shareT.util.AppUtils: int getUniqueNumber()>();
+
+        $r31 = staticinvoke <android.app.PendingIntent: android.app.PendingIntent getActivity(android.content.Context,int,android.content.Intent,int)>($r9, $i2, $r30, 0);
+
+        virtualinvoke $r5.<com.shareit.share.file.shareT.util.DynamicNotification: androidx.core.app.NotificationCompat$Builder setContentIntent(android.app.PendingIntent)>($r31);
+
+     label056:
+        virtualinvoke $r5.<com.shareit.share.file.shareT.util.DynamicNotification: com.shareit.share.file.shareT.util.DynamicNotification show()>();
+
+     label057:
+        goto label062;
+
+     label058:
+        $r32 := @caughtexception;
+
+        goto label060;
+
+     label059:
+        $r32 := @caughtexception;
+
+     label060:
+        virtualinvoke $r32.<java.lang.Exception: void printStackTrace()>();
+
+        goto label062;
+
+     label061:
+        virtualinvoke $r5.<com.shareit.share.file.shareT.util.DynamicNotification: com.shareit.share.file.shareT.util.DynamicNotification cancel()>();
+
+        $r33 = <fi.iki.elonen.NanoHTTPD$Response$Status: fi.iki.elonen.NanoHTTPD$Response$Status ACCEPTED>;
+
+        $r10 = specialinvoke r0.<com.shareit.share.file.shareT.service.WebShareServer: java.lang.String makeNotFoundTemplate(int,int)>(2131755243, 2131755398);
+
+        $r10 = specialinvoke r0.<com.shareit.share.file.shareT.service.WebShareServer: java.lang.String makePage(java.lang.String,int,java.lang.String)>("arrow-left.svg", 2131755447, $r10);
+
+        $r34 = staticinvoke <com.shareit.share.file.shareT.service.WebShareServer: fi.iki.elonen.NanoHTTPD$Response newFixedLengthResponse(fi.iki.elonen.NanoHTTPD$Response$IStatus,java.lang.String,java.lang.String)>($r33, "text/html", $r10);
+
+        return $r34;
+
+     label062:
+        $r10 = interfaceinvoke $r1.<fi.iki.elonen.NanoHTTPD$IHTTPSession: java.lang.String getUri()>();
+
+        $r14 = "/kill";
+
+        $z0 = virtualinvoke $r14.<java.lang.String: boolean equals(java.lang.Object)>($r10);
+
+        if $z0 == 0 goto label063;
+
+        $r9 = r0.<com.shareit.share.file.shareT.service.WebShareServer: android.content.Context mContext>;
+
+        $r44 = new android.content.Intent;
+
+        $r29 = r0.<com.shareit.share.file.shareT.service.WebShareServer: android.content.Context mContext>;
+
+        specialinvoke $r44.<android.content.Intent: void <init>(android.content.Context,java.lang.Class)>($r29, class "Lcom/shareit/share/file/shareT/service/CommunicationService;");
+
+        $r30 = virtualinvoke $r44.<android.content.Intent: android.content.Intent setAction(java.lang.String)>("com.abc.sharefilesz.transaction.action.TOGGLE_WEBSHARE");
+
+        staticinvoke <com.shareit.share.file.shareT.util.AppUtils: void startForegroundService(android.content.Context,android.content.Intent)>($r9, $r30);
+
+     label063:
+        $r35 = newarray (java.lang.String)[0];
+
+        $r10 = interfaceinvoke $r1.<fi.iki.elonen.NanoHTTPD$IHTTPSession: java.lang.String getUri()>();
+
+        $i2 = virtualinvoke $r10.<java.lang.String: int length()>();
+
+        if $i2 <= 1 goto label064;
+
+        $r10 = interfaceinvoke $r1.<fi.iki.elonen.NanoHTTPD$IHTTPSession: java.lang.String getUri()>();
+
+        $r10 = virtualinvoke $r10.<java.lang.String: java.lang.String substring(int)>(1);
+
+        $r35 = virtualinvoke $r10.<java.lang.String: java.lang.String[] split(java.lang.String)>("/");
+
+     label064:
+        $i2 = lengthof $r35;
+
+     label065:
+        if $i2 < 1 goto label068;
+
+     label066:
+        $r10 = $r35[0];
+
+     label067:
+        goto label069;
+
+     label068:
+        $r10 = "";
+
+     label069:
+        $i2 = virtualinvoke $r10.<java.lang.String: int hashCode()>();
+
+     label070:
+        lookupswitch($i2)
+        {
+            case -789730799: goto label083;
+            case 3198785: goto label081;
+            case 3529469: goto label079;
+            case 3556498: goto label077;
+            case 100313435: goto label075;
+            case 1107923036: goto label073;
+            case 1427818632: goto label071;
+            default: goto label085;
+        };
+
+     label071:
+        $z0 = virtualinvoke $r10.<java.lang.String: boolean equals(java.lang.Object)>("download");
+
+     label072:
+        if $z0 == 0 goto label085;
+
+        $b7 = 0;
+
+        goto label086;
+
+     label073:
+        $z0 = virtualinvoke $r10.<java.lang.String: boolean equals(java.lang.Object)>("download-zip");
+
+     label074:
+        if $z0 == 0 goto label085;
+
+        $b7 = 1;
+
+        goto label086;
+
+     label075:
+        $z0 = virtualinvoke $r10.<java.lang.String: boolean equals(java.lang.Object)>("image");
+
+     label076:
+        if $z0 == 0 goto label085;
+
+        $b7 = 2;
+
+        goto label086;
+
+     label077:
+        $z0 = virtualinvoke $r10.<java.lang.String: boolean equals(java.lang.Object)>("test");
+
+     label078:
+        if $z0 == 0 goto label085;
+
+        $b7 = 5;
+
+        goto label086;
+
+     label079:
+        $z0 = virtualinvoke $r10.<java.lang.String: boolean equals(java.lang.Object)>("show");
+
+     label080:
+        if $z0 == 0 goto label085;
+
+        $b7 = 4;
+
+        goto label086;
+
+     label081:
+        $z0 = virtualinvoke $r10.<java.lang.String: boolean equals(java.lang.Object)>("help");
+
+     label082:
+        if $z0 == 0 goto label085;
+
+        $b7 = 6;
+
+        goto label086;
+
+     label083:
+        $z0 = virtualinvoke $r10.<java.lang.String: boolean equals(java.lang.Object)>("TBShare");
+
+     label084:
+        if $z0 == 0 goto label085;
+
+        $b7 = 3;
+
+        goto label086;
+
+     label085:
+        $b7 = -1;
+
+     label086:
+        lookupswitch($b7)
+        {
+            case 0: goto label101;
+            case 1: goto label101;
+            case 2: goto label099;
+            case 3: goto label097;
+            case 4: goto label094;
+            case 5: goto label091;
+            case 6: goto label088;
+            default: goto label087;
+        };
+
+     label087:
+        $r33 = <fi.iki.elonen.NanoHTTPD$Response$Status: fi.iki.elonen.NanoHTTPD$Response$Status ACCEPTED>;
+
+        goto label104;
+
+     label088:
+        $r33 = <fi.iki.elonen.NanoHTTPD$Response$Status: fi.iki.elonen.NanoHTTPD$Response$Status ACCEPTED>;
+
+     label089:
+        $r10 = specialinvoke r0.<com.shareit.share.file.shareT.service.WebShareServer: java.lang.String serveHelpPage()>();
+
+        $r34 = staticinvoke <com.shareit.share.file.shareT.service.WebShareServer: fi.iki.elonen.NanoHTTPD$Response newFixedLengthResponse(fi.iki.elonen.NanoHTTPD$Response$IStatus,java.lang.String,java.lang.String)>($r33, "text/html", $r10);
+
+     label090:
+        return $r34;
+
+     label091:
+        $r33 = <fi.iki.elonen.NanoHTTPD$Response$Status: fi.iki.elonen.NanoHTTPD$Response$Status ACCEPTED>;
+
+     label092:
+        $r34 = staticinvoke <com.shareit.share.file.shareT.service.WebShareServer: fi.iki.elonen.NanoHTTPD$Response newFixedLengthResponse(fi.iki.elonen.NanoHTTPD$Response$IStatus,java.lang.String,java.lang.String)>($r33, "text/plain", "Works");
+
+     label093:
+        return $r34;
+
+     label094:
+        $r33 = <fi.iki.elonen.NanoHTTPD$Response$Status: fi.iki.elonen.NanoHTTPD$Response$Status ACCEPTED>;
+
+     label095:
+        $r10 = specialinvoke r0.<com.shareit.share.file.shareT.service.WebShareServer: java.lang.String serveTransferPage(java.lang.String[])>($r35);
+
+        $r34 = staticinvoke <com.shareit.share.file.shareT.service.WebShareServer: fi.iki.elonen.NanoHTTPD$Response newFixedLengthResponse(fi.iki.elonen.NanoHTTPD$Response$IStatus,java.lang.String,java.lang.String)>($r33, "text/html", $r10);
+
+     label096:
+        return $r34;
+
+     label097:
+        $r34 = specialinvoke r0.<com.shareit.share.file.shareT.service.WebShareServer: fi.iki.elonen.NanoHTTPD$Response serveAPK()>();
+
+     label098:
+        return $r34;
+
+     label099:
+        $r34 = specialinvoke r0.<com.shareit.share.file.shareT.service.WebShareServer: fi.iki.elonen.NanoHTTPD$Response serveFile(java.lang.String[])>($r35);
+
+     label100:
+        return $r34;
+
+     label101:
+        $r34 = specialinvoke r0.<com.shareit.share.file.shareT.service.WebShareServer: fi.iki.elonen.NanoHTTPD$Response serveFileDownload(java.lang.String[],fi.iki.elonen.NanoHTTPD$IHTTPSession)>($r35, $r1);
+
+     label102:
+        return $r34;
+
+     label103:
+        $r36 := @caughtexception;
+
+        goto label107;
+
+     label104:
+        $r10 = specialinvoke r0.<com.shareit.share.file.shareT.service.WebShareServer: java.lang.String serveMainPage()>();
+
+        $r34 = staticinvoke <com.shareit.share.file.shareT.service.WebShareServer: fi.iki.elonen.NanoHTTPD$Response newFixedLengthResponse(fi.iki.elonen.NanoHTTPD$Response$IStatus,java.lang.String,java.lang.String)>($r33, "text/html", $r10);
+
+     label105:
+        return $r34;
+
+     label106:
+        $r36 := @caughtexception;
+
+     label107:
+        virtualinvoke $r36.<java.lang.Exception: void printStackTrace()>();
+
+        $r33 = <fi.iki.elonen.NanoHTTPD$Response$Status: fi.iki.elonen.NanoHTTPD$Response$Status NOT_ACCEPTABLE>;
+
+        $r10 = virtualinvoke $r36.<java.lang.Exception: java.lang.String toString()>();
+
+        $r34 = staticinvoke <com.shareit.share.file.shareT.service.WebShareServer: fi.iki.elonen.NanoHTTPD$Response newFixedLengthResponse(fi.iki.elonen.NanoHTTPD$Response$IStatus,java.lang.String,java.lang.String)>($r33, "text/plain", $r10);
+
+        return $r34;
+
+     label108:
+        $r37 := @caughtexception;
+
+        $r33 = virtualinvoke $r37.<fi.iki.elonen.NanoHTTPD$ResponseException: fi.iki.elonen.NanoHTTPD$Response$Status getStatus()>();
+
+        $r10 = virtualinvoke $r37.<fi.iki.elonen.NanoHTTPD$ResponseException: java.lang.String getMessage()>();
+
+        $r34 = staticinvoke <com.shareit.share.file.shareT.service.WebShareServer: fi.iki.elonen.NanoHTTPD$Response newFixedLengthResponse(fi.iki.elonen.NanoHTTPD$Response$IStatus,java.lang.String,java.lang.String)>($r33, "text/plain", $r10);
+
+        return $r34;
+
+     label109:
+        $r38 := @caughtexception;
+
+        $r33 = <fi.iki.elonen.NanoHTTPD$Response$Status: fi.iki.elonen.NanoHTTPD$Response$Status INTERNAL_ERROR>;
+
+        $r45 = new java.lang.StringBuilder;
+
+        specialinvoke $r45.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r45.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("SERVER INTERNAL ERROR: IOException: ");
+
+        $r26 = (java.io.IOException) $r38;
+
+        $r10 = virtualinvoke $r26.<java.io.IOException: java.lang.String getMessage()>();
+
+        virtualinvoke $r45.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r10 = virtualinvoke $r45.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r34 = staticinvoke <com.shareit.share.file.shareT.service.WebShareServer: fi.iki.elonen.NanoHTTPD$Response newFixedLengthResponse(fi.iki.elonen.NanoHTTPD$Response$IStatus,java.lang.String,java.lang.String)>($r33, "text/plain", $r10);
+
+        return $r34;
+
+     label110:
+        $r2 := @caughtexception;
+
+        goto label056;
+
+        catch java.io.IOException from label002 to label003 with label109;
+        catch java.io.IOException from label004 to label005 with label109;
+        catch java.io.IOException from label006 to label007 with label109;
+        catch java.io.IOException from label008 to label009 with label109;
+        catch java.io.IOException from label010 to label011 with label109;
+        catch fi.iki.elonen.NanoHTTPD$ResponseException from label002 to label003 with label108;
+        catch fi.iki.elonen.NanoHTTPD$ResponseException from label004 to label005 with label108;
+        catch fi.iki.elonen.NanoHTTPD$ResponseException from label006 to label007 with label108;
+        catch fi.iki.elonen.NanoHTTPD$ResponseException from label008 to label009 with label108;
+        catch fi.iki.elonen.NanoHTTPD$ResponseException from label010 to label011 with label108;
+        catch java.lang.Exception from label013 to label014 with label044;
+        catch java.lang.Exception from label015 to label016 with label044;
+        catch java.lang.Exception from label018 to label019 with label037;
+        catch java.lang.Exception from label020 to label021 with label037;
+        catch java.lang.Exception from label022 to label023 with label037;
+        catch java.lang.Exception from label024 to label025 with label037;
+        catch java.lang.Exception from label026 to label027 with label037;
+        catch java.lang.Exception from label028 to label029 with label043;
+        catch java.lang.Exception from label031 to label032 with label043;
+        catch java.lang.Exception from label033 to label034 with label043;
+        catch java.lang.Exception from label036 to label037 with label043;
+        catch java.lang.Exception from label039 to label040 with label043;
+        catch java.lang.Exception from label042 to label043 with label043;
+        catch java.lang.Exception from label046 to label047 with label048;
+        catch java.lang.Exception from label050 to label051 with label059;
+        catch java.lang.Exception from label052 to label053 with label058;
+        catch java.lang.Exception from label054 to label055 with label058;
+        catch java.lang.Exception from label055 to label056 with label110;
+        catch java.lang.Exception from label056 to label057 with label058;
+        catch java.lang.Exception from label064 to label065 with label106;
+        catch java.lang.Exception from label066 to label067 with label106;
+        catch java.lang.Exception from label069 to label070 with label106;
+        catch java.lang.Exception from label071 to label072 with label106;
+        catch java.lang.Exception from label073 to label074 with label106;
+        catch java.lang.Exception from label075 to label076 with label106;
+        catch java.lang.Exception from label077 to label078 with label106;
+        catch java.lang.Exception from label079 to label080 with label106;
+        catch java.lang.Exception from label081 to label082 with label106;
+        catch java.lang.Exception from label083 to label084 with label106;
+        catch java.lang.Exception from label089 to label090 with label106;
+        catch java.lang.Exception from label092 to label093 with label103;
+        catch java.lang.Exception from label095 to label096 with label103;
+        catch java.lang.Exception from label097 to label098 with label103;
+        catch java.lang.Exception from label099 to label100 with label103;
+        catch java.lang.Exception from label101 to label102 with label103;
+        catch java.lang.Exception from label104 to label105 with label103;
+    }

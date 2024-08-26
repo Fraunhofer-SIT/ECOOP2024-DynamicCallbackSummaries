@@ -1,0 +1,147 @@
+    public static java.lang.String l0(java.io.File, int, java.lang.String) throws java.io.IOException
+    {
+        java.lang.Throwable $r6;
+        byte[] $r0;
+        java.io.BufferedInputStream $r8;
+        java.io.ByteArrayOutputStream $r10;
+        long $l2;
+        java.io.FileInputStream $r7;
+        java.io.File $r1;
+        byte $b3;
+        int $i1, $i4;
+        java.lang.String $r2, $r3;
+
+        $r1 := @parameter0: java.io.File;
+
+        $i1 := @parameter1: int;
+
+        $r2 := @parameter2: java.lang.String;
+
+        $r7 = new java.io.FileInputStream;
+
+        specialinvoke $r7.<java.io.FileInputStream: void <init>(java.io.File)>($r1);
+
+        $r8 = new java.io.BufferedInputStream;
+
+        specialinvoke $r8.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r7);
+
+     label01:
+        $l2 = virtualinvoke $r1.<java.io.File: long length()>();
+
+     label02:
+        $r3 = "";
+
+        $b3 = $l2 cmp 0L;
+
+        $i4 = (int) $b3;
+
+        if $i4 > 0 goto label13;
+
+        goto label04;
+
+     label03:
+        virtualinvoke $r8.<java.io.BufferedInputStream: void close()>();
+
+        virtualinvoke $r7.<java.io.InputStream: void close()>();
+
+        return $r3;
+
+     label04:
+        $r10 = new java.io.ByteArrayOutputStream;
+
+     label05:
+        specialinvoke $r10.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label06:
+        $r0 = newarray (byte)[1024];
+
+     label07:
+        $i1 = virtualinvoke $r8.<java.io.BufferedInputStream: int read(byte[])>($r0);
+
+     label08:
+        if $i1 <= 0 goto label10;
+
+     label09:
+        virtualinvoke $r10.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r0, 0, $i1);
+
+     label10:
+        if $i1 == 1024 goto label07;
+
+     label11:
+        $r2 = virtualinvoke $r10.<java.io.ByteArrayOutputStream: java.lang.String toString()>();
+
+     label12:
+        $r3 = $r2;
+
+        goto label03;
+
+     label13:
+        $b3 = $l2 cmp 0L;
+
+        $i4 = (int) $b3;
+
+        if $i4 <= 0 goto label15;
+
+        goto label14;
+
+     label14:
+        $i1 = (int) $l2;
+
+     label15:
+        $i4 = $i1 + 1;
+
+     label16:
+        $r0 = newarray (byte)[$i4];
+
+        $i4 = virtualinvoke $r8.<java.io.BufferedInputStream: int read(byte[])>($r0);
+
+     label17:
+        if $i4 <= 0 goto label03;
+
+        if $i4 > $i1 goto label22;
+
+     label18:
+        $r2 = new java.lang.String;
+
+     label19:
+        $r3 = $r2;
+
+     label20:
+        specialinvoke $r2.<java.lang.String: void <init>(byte[],int,int)>($r0, 0, $i4);
+
+     label21:
+        goto label03;
+
+     label22:
+        $r2 = new java.lang.String;
+
+     label23:
+        $r3 = $r2;
+
+     label24:
+        specialinvoke $r2.<java.lang.String: void <init>(byte[],int,int)>($r0, 0, $i1);
+
+     label25:
+        goto label03;
+
+     label26:
+        $r6 := @caughtexception;
+
+        virtualinvoke $r8.<java.io.BufferedInputStream: void close()>();
+
+        virtualinvoke $r7.<java.io.InputStream: void close()>();
+
+        throw $r6;
+
+        catch java.lang.Throwable from label01 to label02 with label26;
+        catch java.lang.Throwable from label04 to label05 with label26;
+        catch java.lang.Throwable from label05 to label06 with label26;
+        catch java.lang.Throwable from label07 to label08 with label26;
+        catch java.lang.Throwable from label09 to label10 with label26;
+        catch java.lang.Throwable from label11 to label12 with label26;
+        catch java.lang.Throwable from label16 to label17 with label26;
+        catch java.lang.Throwable from label18 to label19 with label26;
+        catch java.lang.Throwable from label20 to label21 with label26;
+        catch java.lang.Throwable from label22 to label23 with label26;
+        catch java.lang.Throwable from label24 to label25 with label26;
+    }

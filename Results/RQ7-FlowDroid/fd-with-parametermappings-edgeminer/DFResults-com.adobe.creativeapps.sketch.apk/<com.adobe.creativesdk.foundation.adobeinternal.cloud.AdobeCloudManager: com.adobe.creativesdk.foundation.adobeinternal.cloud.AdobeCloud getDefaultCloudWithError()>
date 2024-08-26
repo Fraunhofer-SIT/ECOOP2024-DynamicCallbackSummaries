@@ -1,0 +1,265 @@
+    public com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud getDefaultCloudWithError() throws com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudException
+    {
+        java.lang.Throwable r12;
+        com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud $r3, $r7;
+        com.adobe.creativesdk.foundation.internal.auth.AdobeAuthKeychain $r5;
+        com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudErrorCode $r13;
+        com.adobe.creativesdk.foundation.adobeinternal.analytics.AdobeAnalyticsEventParams$Core $r8;
+        com.adobe.creativesdk.foundation.internal.utils.logging.Level $r11;
+        java.lang.String $r1, $r6, $r14;
+        com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager r0;
+        boolean $z0;
+        java.lang.Exception $r17;
+        com.adobe.creativesdk.foundation.adobeinternal.auth.AdobeUXAuthManagerRestricted $r4;
+        com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudException r2, $r16;
+        java.lang.Class $r9;
+        java.lang.StringBuilder $r10, $r15;
+
+        r0 := @this: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager;
+
+        $r1 = null;
+
+        r2 = null;
+
+        $r3 = r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud defaultCloud>;
+
+        if $r3 != null goto label06;
+
+        $r4 = staticinvoke <com.adobe.creativesdk.foundation.adobeinternal.auth.AdobeUXAuthManagerRestricted: com.adobe.creativesdk.foundation.adobeinternal.auth.AdobeUXAuthManagerRestricted getSharedAuthManagerRestricted()>();
+
+        $z0 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.adobeinternal.auth.AdobeUXAuthManagerRestricted: boolean hasPrivateCloudScope()>();
+
+        if $z0 == 0 goto label15;
+
+        $r5 = staticinvoke <com.adobe.creativesdk.foundation.internal.auth.AdobeAuthKeychain: com.adobe.creativesdk.foundation.internal.auth.AdobeAuthKeychain getSharedKeychain()>();
+
+        $r6 = virtualinvoke $r5.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthKeychain: java.lang.String findKey(java.lang.String)>("defaultCloud");
+
+        if $r6 == null goto label13;
+
+        $r3 = null;
+
+     label01:
+        $r7 = staticinvoke <com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud fromString(java.lang.String)>($r6);
+
+     label02:
+        $r3 = $r7;
+
+     label03:
+        if $r3 == null goto label11;
+
+        $z0 = staticinvoke <com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudUtils: boolean isCloudValid(com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud)>($r3);
+
+        if $z0 == 0 goto label10;
+
+        virtualinvoke r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: void addCloud(com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud)>($r3);
+
+        r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud defaultCloud> = $r3;
+
+        $r8 = <com.adobe.creativesdk.foundation.adobeinternal.analytics.AdobeAnalyticsEventParams$Core: com.adobe.creativesdk.foundation.adobeinternal.analytics.AdobeAnalyticsEventParams$Core AdobeEventPropertyCloud>;
+
+        $r1 = virtualinvoke $r8.<com.adobe.creativesdk.foundation.adobeinternal.analytics.AdobeAnalyticsEventParams$Core: java.lang.String getValue()>();
+
+        $r3 = r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud defaultCloud>;
+
+        $r6 = virtualinvoke $r3.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: java.lang.String getHref()>();
+
+        staticinvoke <com.adobe.creativesdk.foundation.internal.analytics.AdobeAnalyticsETSEvent: void setCoreParam(java.lang.String,java.lang.String)>($r1, $r6);
+
+     label04:
+        $r9 = class "Lcom/adobe/creativesdk/foundation/adobeinternal/cloud/AdobeCloudManager;";
+
+        $r1 = virtualinvoke $r9.<java.lang.Class: java.lang.String getSimpleName()>();
+
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        $r10 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("default cloud being set: ");
+
+        $r3 = r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud defaultCloud>;
+
+        if $r3 != null goto label16;
+
+        $r6 = null;
+
+     label05:
+        $r10 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r6 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.adobe.creativesdk.foundation.adobeinternal.storage.dcx.AdobeDCXUtils: void logAnalytics(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>($r1, "getDefaultCloudWithError", $r6, null);
+
+     label06:
+        $r3 = r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud defaultCloud>;
+
+        if $r3 == null goto label07;
+
+        $r11 = <com.adobe.creativesdk.foundation.internal.utils.logging.Level: com.adobe.creativesdk.foundation.internal.utils.logging.Level DEBUG>;
+
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        $r10 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Getting default cloud =");
+
+        $r3 = r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud defaultCloud>;
+
+        $r1 = virtualinvoke $r3.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: java.lang.String toString()>();
+
+        $r10 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.adobe.creativesdk.foundation.internal.utils.logging.AdobeLogger: void log(com.adobe.creativesdk.foundation.internal.utils.logging.Level,java.lang.String,java.lang.String)>($r11, "AdobeCloudManager", $r1);
+
+     label07:
+        $r3 = r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud defaultCloud>;
+
+        return $r3;
+
+     label08:
+        r12 := @caughtexception;
+
+     label09:
+        $r11 = <com.adobe.creativesdk.foundation.internal.utils.logging.Level: com.adobe.creativesdk.foundation.internal.utils.logging.Level DEBUG>;
+
+        $r9 = class "Lcom/adobe/creativesdk/foundation/adobeinternal/cloud/AdobeCloudManager;";
+
+        $r6 = virtualinvoke $r9.<java.lang.Class: java.lang.String getSimpleName()>();
+
+        staticinvoke <com.adobe.creativesdk.foundation.internal.utils.logging.AdobeLogger: void log(com.adobe.creativesdk.foundation.internal.utils.logging.Level,java.lang.String,java.lang.String,java.lang.Throwable)>($r11, $r6, null, r12);
+
+        $r16 = new com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudException;
+
+        r2 = $r16;
+
+        $r13 = <com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudErrorCode: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudErrorCode ADOBE_CLOUD_ERROR_DECODE_FAILURE>;
+
+        $r17 = (java.lang.Exception) r12;
+
+        specialinvoke $r16.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudException: void <init>(com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudErrorCode,java.lang.String,java.util.HashMap,java.lang.Exception)>($r13, "Failed to decode default cloud from AdobeAuthKeychain", null, $r17);
+
+        goto label03;
+
+     label10:
+        if $r3 == null goto label11;
+
+        $r16 = new com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudException;
+
+        r2 = $r16;
+
+        $r13 = <com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudErrorCode: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudErrorCode ADOBE_CLOUD_ERROR_INVALID_CLOUD>;
+
+        specialinvoke $r16.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudException: void <init>(com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudErrorCode,java.lang.String,java.util.HashMap,java.lang.Exception)>($r13, "Invalid cloud", null, null);
+
+     label11:
+        $r11 = <com.adobe.creativesdk.foundation.internal.utils.logging.Level: com.adobe.creativesdk.foundation.internal.utils.logging.Level DEBUG>;
+
+        staticinvoke <com.adobe.creativesdk.foundation.internal.utils.logging.AdobeLogger: void log(com.adobe.creativesdk.foundation.internal.utils.logging.Level,java.lang.String,java.lang.String)>($r11, "AdobeCloudManager", "Should not hit this condition");
+
+        $r9 = class "Lcom/adobe/creativesdk/foundation/adobeinternal/cloud/AdobeCloudManager;";
+
+        $r6 = virtualinvoke $r9.<java.lang.Class: java.lang.String getSimpleName()>();
+
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        $r10 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("default cloud error: ");
+
+        $r14 = staticinvoke <android.util.Log: java.lang.String getStackTraceString(java.lang.Throwable)>(r2);
+
+        $r10 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r14);
+
+        $r14 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        if $r3 == null goto label12;
+
+        $r1 = virtualinvoke $r3.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: java.lang.String toString()>();
+
+     label12:
+        staticinvoke <com.adobe.creativesdk.foundation.adobeinternal.storage.dcx.AdobeDCXUtils: void logAnalytics(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>($r6, "getDefaultCloudWithError", $r14, $r1);
+
+        throw r2;
+
+     label13:
+        $r3 = virtualinvoke r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud getBestGuessForDefaultCloud()>();
+
+        r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud defaultCloud> = $r3;
+
+        $r3 = r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud defaultCloud>;
+
+        if $r3 == null goto label14;
+
+        $r8 = <com.adobe.creativesdk.foundation.adobeinternal.analytics.AdobeAnalyticsEventParams$Core: com.adobe.creativesdk.foundation.adobeinternal.analytics.AdobeAnalyticsEventParams$Core AdobeEventPropertyCloud>;
+
+        $r1 = virtualinvoke $r8.<com.adobe.creativesdk.foundation.adobeinternal.analytics.AdobeAnalyticsEventParams$Core: java.lang.String getValue()>();
+
+        $r3 = r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud defaultCloud>;
+
+        $r6 = virtualinvoke $r3.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: java.lang.String getHref()>();
+
+        staticinvoke <com.adobe.creativesdk.foundation.internal.analytics.AdobeAnalyticsETSEvent: void setCoreParam(java.lang.String,java.lang.String)>($r1, $r6);
+
+        goto label04;
+
+     label14:
+        $r9 = class "Lcom/adobe/creativesdk/foundation/adobeinternal/cloud/AdobeCloudManager;";
+
+        $r1 = virtualinvoke $r9.<java.lang.Class: java.lang.String getSimpleName()>();
+
+        staticinvoke <com.adobe.creativesdk.foundation.adobeinternal.storage.dcx.AdobeDCXUtils: void logAnalytics(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>($r1, "getDefaultCloudWithError", "default cloud not found", null);
+
+        $r16 = new com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudException;
+
+        $r13 = <com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudErrorCode: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudErrorCode ADOBE_CLOUD_ERROR_CLOUD_NOT_FOUND>;
+
+        specialinvoke $r16.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudException: void <init>(com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudErrorCode,java.lang.String,java.util.HashMap,java.lang.Exception)>($r13, "Default cloud not found", null, null);
+
+        throw $r16;
+
+     label15:
+        $r7 = new com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud;
+
+        specialinvoke $r7.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: void <init>()>();
+
+        virtualinvoke $r7.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: void setGUID(java.lang.String)>("00000000-0000-0000-0000-000000000000");
+
+        virtualinvoke $r7.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: void setName(java.lang.String)>("Adobe Creative Cloud");
+
+        virtualinvoke $r7.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: void setAvailable(boolean)>(1);
+
+        virtualinvoke $r7.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: void setPrivateCloud(boolean)>(0);
+
+        virtualinvoke r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: void addCloud(com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud)>($r7);
+
+        r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud defaultCloud> = $r7;
+
+        $r8 = <com.adobe.creativesdk.foundation.adobeinternal.analytics.AdobeAnalyticsEventParams$Core: com.adobe.creativesdk.foundation.adobeinternal.analytics.AdobeAnalyticsEventParams$Core AdobeEventPropertyCloud>;
+
+        $r1 = virtualinvoke $r8.<com.adobe.creativesdk.foundation.adobeinternal.analytics.AdobeAnalyticsEventParams$Core: java.lang.String getValue()>();
+
+        $r3 = r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud defaultCloud>;
+
+        $r6 = virtualinvoke $r3.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: java.lang.String getHref()>();
+
+        staticinvoke <com.adobe.creativesdk.foundation.internal.analytics.AdobeAnalyticsETSEvent: void setCoreParam(java.lang.String,java.lang.String)>($r1, $r6);
+
+        goto label04;
+
+     label16:
+        $r3 = r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud defaultCloud>;
+
+        $r6 = virtualinvoke $r3.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud: java.lang.String getGUID()>();
+
+        goto label05;
+
+     label17:
+        r12 := @caughtexception;
+
+        goto label09;
+
+        catch java.io.IOException from label01 to label02 with label08;
+        catch java.lang.ClassNotFoundException from label01 to label02 with label17;
+    }

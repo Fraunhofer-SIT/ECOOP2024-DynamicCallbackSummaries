@@ -1,0 +1,776 @@
+2024-01-15 11:15:40
+Full thread dump OpenJDK 64-Bit Server VM (17.0.9+9-Ubuntu-120.04 mixed mode, sharing):
+
+Threads class SMR info:
+_java_thread_list=0x00007f77d8056240, length=32, elements={
+0x00007fbee0013b80, 0x00007fbee03733f0, 0x00007fbee0374860, 0x00007fbee037b4c0,
+0x00007fbee037c880, 0x00007fbee037dca0, 0x00007fbee037f720, 0x00007fbee0380ca0,
+0x00007fbee0382140, 0x00007fbee03ccfb0, 0x00007fbee03d0aa0, 0x00007fbee0b169d0,
+0x00007fbee04fe0f0, 0x00007fbee099ad70, 0x00007fbee051f010, 0x00007fbee0515f10,
+0x00007fbee05192c0, 0x00007f7bdc03c750, 0x00007f7be402c1c0, 0x00007f7bdc00d880,
+0x00007f7bb8002180, 0x00007f7c48003470, 0x00007f7bac029ec0, 0x00007f7b9bffe6d0,
+0x00007f7bb400b8c0, 0x00007f7bdc010f80, 0x00007f7bb00388a0, 0x00007f7bbc027ce0,
+0x00007f7bc0001c40, 0x00007f7b98002dc0, 0x00007f7bc402b9d0, 0x00007f7bcc029580
+}
+
+"main" #1 prio=5 os_prio=0 cpu=21634.62ms elapsed=6568.76s tid=0x00007fbee0013b80 nid=0x29f81b waiting on condition  [0x00007fbee7ec7000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@17.0.9/Native Method)
+	- parking to wait for  <0x00007f805a858a70> (a heros.solver.CountLatch$Sync)
+	at java.util.concurrent.locks.LockSupport.park(java.base@17.0.9/LockSupport.java:211)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire(java.base@17.0.9/AbstractQueuedSynchronizer.java:715)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireShared(java.base@17.0.9/AbstractQueuedSynchronizer.java:1027)
+	at heros.solver.CountLatch.awaitZero(CountLatch.java:75)
+	at heros.solver.CountingThreadPoolExecutor.awaitCompletion(CountingThreadPoolExecutor.java:79)
+	at soot.jimple.infoflow.solver.executors.InterruptableExecutor.awaitCompletion(InterruptableExecutor.java:77)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder.computeTaintPaths(ContextSensitivePathBuilder.java:275)
+	at soot.jimple.infoflow.data.pathBuilders.BatchPathBuilder.computeTaintPaths(BatchPathBuilder.java:47)
+	at soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$ShutdownBatchPathBuilder.computeTaintPaths(DefaultPathBuilderFactory.java:56)
+	at soot.jimple.infoflow.AbstractInfoflow.runTaintAnalysis(AbstractInfoflow.java:1107)
+	at soot.jimple.infoflow.AbstractInfoflow.runAnalysis(AbstractInfoflow.java:634)
+	at soot.jimple.infoflow.AbstractInfoflow.runAnalysis(AbstractInfoflow.java:567)
+	at soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow.runAnalysis(SetupApplication.java:1316)
+	at soot.jimple.infoflow.android.SetupApplication.processEntryPoint(SetupApplication.java:1605)
+	at soot.jimple.infoflow.android.SetupApplication.runInfoflow(SetupApplication.java:1540)
+	at soot.jimple.infoflow.android.SetupApplication.runInfoflow(SetupApplication.java:1487)
+	at reproduction.dcidsubmit.FlowDroidSecondStep.main(FlowDroidSecondStep.java:121)
+
+"Reference Handler" #2 daemon prio=10 os_prio=0 cpu=2.15ms elapsed=6568.72s tid=0x00007fbee03733f0 nid=0x29f870 waiting on condition  [0x00007f7ddf361000]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.ref.Reference.waitForReferencePendingList(java.base@17.0.9/Native Method)
+	at java.lang.ref.Reference.processPendingReferences(java.base@17.0.9/Reference.java:253)
+	at java.lang.ref.Reference$ReferenceHandler.run(java.base@17.0.9/Reference.java:215)
+
+"Finalizer" #3 daemon prio=8 os_prio=0 cpu=0.21ms elapsed=6568.72s tid=0x00007fbee0374860 nid=0x29f872 in Object.wait()  [0x00007f7ddf260000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@17.0.9/Native Method)
+	- waiting on <0x00007f80460250e0> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(java.base@17.0.9/ReferenceQueue.java:155)
+	- locked <0x00007f80460250e0> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(java.base@17.0.9/ReferenceQueue.java:176)
+	at java.lang.ref.Finalizer$FinalizerThread.run(java.base@17.0.9/Finalizer.java:172)
+
+"Signal Dispatcher" #4 daemon prio=9 os_prio=0 cpu=0.23ms elapsed=6568.72s tid=0x00007fbee037b4c0 nid=0x29f87a waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Service Thread" #5 daemon prio=9 os_prio=0 cpu=1017.67ms elapsed=6568.72s tid=0x00007fbee037c880 nid=0x29f87c runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Monitor Deflation Thread" #6 daemon prio=9 os_prio=0 cpu=52051.54ms elapsed=6568.72s tid=0x00007fbee037dca0 nid=0x29f87d runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread0" #7 daemon prio=9 os_prio=0 cpu=20001.51ms elapsed=6568.72s tid=0x00007fbee037f720 nid=0x29f87f waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+"C1 CompilerThread0" #21 daemon prio=9 os_prio=0 cpu=1704.97ms elapsed=6568.72s tid=0x00007fbee0380ca0 nid=0x29f881 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+"Sweeper thread" #28 daemon prio=9 os_prio=0 cpu=846.17ms elapsed=6568.72s tid=0x00007fbee0382140 nid=0x29f882 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Notification Thread" #29 daemon prio=9 os_prio=0 cpu=0.05ms elapsed=6568.70s tid=0x00007fbee03ccfb0 nid=0x29f8a6 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Common-Cleaner" #30 daemon prio=8 os_prio=0 cpu=9.43ms elapsed=6568.70s tid=0x00007fbee03d0aa0 nid=0x29f8ab in Object.wait()  [0x00007f7dde2e6000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@17.0.9/Native Method)
+	- waiting on <0x00007f8046002448> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(java.base@17.0.9/ReferenceQueue.java:155)
+	- locked <0x00007f8046002448> (a java.lang.ref.ReferenceQueue$Lock)
+	at jdk.internal.ref.CleanerImpl.run(java.base@17.0.9/CleanerImpl.java:140)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+	at jdk.internal.misc.InnocuousThread.run(java.base@17.0.9/InnocuousThread.java:162)
+
+"Low memory monitor" #34 daemon prio=1 os_prio=0 cpu=2003.42ms elapsed=6566.94s tid=0x00007fbee0b169d0 nid=0x29fa66 sleeping [0x00007f7d8d0df000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(java.base@17.0.9/Native Method)
+	at soot.jimple.infoflow.memory.MemoryWarningSystem$4.run(MemoryWarningSystem.java:250)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"Path reconstruction" #57 prio=5 os_prio=0 cpu=3290025.11ms elapsed=5630.70s tid=0x00007fbee04fe0f0 nid=0x2a0d52 waiting for monitor entry  [0x00007f7d8ccdb000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at java.util.concurrent.ConcurrentHashMap.putVal(java.base@17.0.9/ConcurrentHashMap.java:1031)
+	- waiting to lock <0x00007fa254ffc448> (a java.util.concurrent.ConcurrentHashMap$Node)
+	at java.util.concurrent.ConcurrentHashMap.put(java.base@17.0.9/ConcurrentHashMap.java:1006)
+	at soot.jimple.infoflow.collect.ConcurrentIdentityHashMultiMap.put(ConcurrentIdentityHashMultiMap.java:94)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processPredecessor(ContextSensitivePathBuilder.java:178)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processAndQueue(ContextSensitivePathBuilder.java:111)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.run(ContextSensitivePathBuilder.java:103)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"Path reconstruction" #58 prio=5 os_prio=0 cpu=3285457.28ms elapsed=5630.70s tid=0x00007fbee099ad70 nid=0x2a0d53 waiting for monitor entry  [0x00007f7c1e3e2000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at java.util.concurrent.ConcurrentHashMap.putVal(java.base@17.0.9/ConcurrentHashMap.java:1031)
+	- waiting to lock <0x00007f8d4b975de8> (a java.util.concurrent.ConcurrentHashMap$Node)
+	at java.util.concurrent.ConcurrentHashMap.put(java.base@17.0.9/ConcurrentHashMap.java:1006)
+	at soot.jimple.infoflow.collect.ConcurrentHashSet.add(ConcurrentHashSet.java:59)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processAndQueue(ContextSensitivePathBuilder.java:123)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.run(ContextSensitivePathBuilder.java:103)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"Path reconstruction" #59 prio=5 os_prio=0 cpu=3287075.73ms elapsed=5630.70s tid=0x00007fbee051f010 nid=0x2a0d54 waiting for monitor entry  [0x00007f7c1efee000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at java.util.concurrent.ConcurrentHashMap.putVal(java.base@17.0.9/ConcurrentHashMap.java:1031)
+	- locked <0x00007f8d4b975de8> (a java.util.concurrent.ConcurrentHashMap$Node)
+	at java.util.concurrent.ConcurrentHashMap.put(java.base@17.0.9/ConcurrentHashMap.java:1006)
+	at soot.jimple.infoflow.collect.ConcurrentHashSet.add(ConcurrentHashSet.java:59)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processAndQueue(ContextSensitivePathBuilder.java:123)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.run(ContextSensitivePathBuilder.java:103)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"Path reconstruction" #60 prio=5 os_prio=0 cpu=3284173.38ms elapsed=5630.70s tid=0x00007fbee0515f10 nid=0x2a0d55 waiting for monitor entry  [0x00007f7c1f1f0000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at java.util.concurrent.ConcurrentHashMap.putVal(java.base@17.0.9/ConcurrentHashMap.java:1031)
+	- waiting to lock <0x00007f8d4b975de8> (a java.util.concurrent.ConcurrentHashMap$Node)
+	at java.util.concurrent.ConcurrentHashMap.put(java.base@17.0.9/ConcurrentHashMap.java:1006)
+	at soot.jimple.infoflow.collect.ConcurrentHashSet.add(ConcurrentHashSet.java:59)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processAndQueue(ContextSensitivePathBuilder.java:123)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.run(ContextSensitivePathBuilder.java:103)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"Path reconstruction" #61 prio=5 os_prio=0 cpu=3284684.72ms elapsed=5630.70s tid=0x00007fbee05192c0 nid=0x2a0d56 waiting for monitor entry  [0x00007f7c1e8e7000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at java.util.concurrent.ConcurrentHashMap.putVal(java.base@17.0.9/ConcurrentHashMap.java:1031)
+	- waiting to lock <0x00007fa254ffc448> (a java.util.concurrent.ConcurrentHashMap$Node)
+	at java.util.concurrent.ConcurrentHashMap.put(java.base@17.0.9/ConcurrentHashMap.java:1006)
+	at soot.jimple.infoflow.collect.ConcurrentIdentityHashMultiMap.put(ConcurrentIdentityHashMultiMap.java:94)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processPredecessor(ContextSensitivePathBuilder.java:178)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processAndQueue(ContextSensitivePathBuilder.java:111)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.run(ContextSensitivePathBuilder.java:103)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"Path reconstruction" #62 prio=5 os_prio=0 cpu=3290042.92ms elapsed=5630.70s tid=0x00007f7bdc03c750 nid=0x2a0d57 waiting for monitor entry  [0x00007f7c1e0df000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at java.util.concurrent.ConcurrentHashMap.putVal(java.base@17.0.9/ConcurrentHashMap.java:1031)
+	- waiting to lock <0x00007fa254ffc448> (a java.util.concurrent.ConcurrentHashMap$Node)
+	at java.util.concurrent.ConcurrentHashMap.put(java.base@17.0.9/ConcurrentHashMap.java:1006)
+	at soot.jimple.infoflow.collect.ConcurrentIdentityHashMultiMap.put(ConcurrentIdentityHashMultiMap.java:94)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processPredecessor(ContextSensitivePathBuilder.java:178)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processAndQueue(ContextSensitivePathBuilder.java:111)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.run(ContextSensitivePathBuilder.java:103)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"Path reconstruction" #63 prio=5 os_prio=0 cpu=3284819.06ms elapsed=5630.70s tid=0x00007f7be402c1c0 nid=0x2a0d58 waiting for monitor entry  [0x00007f7c1e5e4000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at java.util.concurrent.ConcurrentHashMap.putVal(java.base@17.0.9/ConcurrentHashMap.java:1031)
+	- waiting to lock <0x00007fa254ffc448> (a java.util.concurrent.ConcurrentHashMap$Node)
+	at java.util.concurrent.ConcurrentHashMap.put(java.base@17.0.9/ConcurrentHashMap.java:1006)
+	at soot.jimple.infoflow.collect.ConcurrentIdentityHashMultiMap.put(ConcurrentIdentityHashMultiMap.java:94)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processPredecessor(ContextSensitivePathBuilder.java:178)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processAndQueue(ContextSensitivePathBuilder.java:111)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.run(ContextSensitivePathBuilder.java:103)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"Path reconstruction" #67 prio=5 os_prio=0 cpu=3285271.33ms elapsed=5630.70s tid=0x00007f7bdc00d880 nid=0x2a0d59 waiting for monitor entry  [0x00007f7c1e6e5000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at java.util.concurrent.ConcurrentHashMap.putVal(java.base@17.0.9/ConcurrentHashMap.java:1031)
+	- waiting to lock <0x00007f8d4b975de8> (a java.util.concurrent.ConcurrentHashMap$Node)
+	at java.util.concurrent.ConcurrentHashMap.put(java.base@17.0.9/ConcurrentHashMap.java:1006)
+	at soot.jimple.infoflow.collect.ConcurrentHashSet.add(ConcurrentHashSet.java:59)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processAndQueue(ContextSensitivePathBuilder.java:123)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.run(ContextSensitivePathBuilder.java:103)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"Path reconstruction" #65 prio=5 os_prio=0 cpu=3285520.62ms elapsed=5630.70s tid=0x00007f7bb8002180 nid=0x2a0d5a runnable  [0x00007f7c1e7e5000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.concurrent.ConcurrentHashMap.put(java.base@17.0.9/ConcurrentHashMap.java:1006)
+	at soot.jimple.infoflow.collect.ConcurrentIdentityHashMultiMap.put(ConcurrentIdentityHashMultiMap.java:94)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processPredecessor(ContextSensitivePathBuilder.java:178)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processAndQueue(ContextSensitivePathBuilder.java:111)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.run(ContextSensitivePathBuilder.java:103)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"Path reconstruction" #66 prio=5 os_prio=0 cpu=3281512.86ms elapsed=5630.70s tid=0x00007f7c48003470 nid=0x2a0d5b waiting for monitor entry  [0x00007f7c1eae9000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at java.util.concurrent.ConcurrentHashMap.putVal(java.base@17.0.9/ConcurrentHashMap.java:1031)
+	- waiting to lock <0x00007f8d4b975de8> (a java.util.concurrent.ConcurrentHashMap$Node)
+	at java.util.concurrent.ConcurrentHashMap.put(java.base@17.0.9/ConcurrentHashMap.java:1006)
+	at soot.jimple.infoflow.collect.ConcurrentHashSet.add(ConcurrentHashSet.java:59)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processAndQueue(ContextSensitivePathBuilder.java:123)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.run(ContextSensitivePathBuilder.java:103)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"Path reconstruction" #64 prio=5 os_prio=0 cpu=3287884.77ms elapsed=5630.70s tid=0x00007f7bac029ec0 nid=0x2a0d5c waiting for monitor entry  [0x00007f7c1e9e8000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at java.util.concurrent.ConcurrentHashMap.putVal(java.base@17.0.9/ConcurrentHashMap.java:1031)
+	- waiting to lock <0x00007f8d4b975de8> (a java.util.concurrent.ConcurrentHashMap$Node)
+	at java.util.concurrent.ConcurrentHashMap.put(java.base@17.0.9/ConcurrentHashMap.java:1006)
+	at soot.jimple.infoflow.collect.ConcurrentHashSet.add(ConcurrentHashSet.java:59)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processAndQueue(ContextSensitivePathBuilder.java:123)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.run(ContextSensitivePathBuilder.java:103)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"Path reconstruction" #68 prio=5 os_prio=0 cpu=3282703.58ms elapsed=5630.70s tid=0x00007f7b9bffe6d0 nid=0x2a0d5d waiting for monitor entry  [0x00007f7c1ebea000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at java.util.concurrent.ConcurrentHashMap.putVal(java.base@17.0.9/ConcurrentHashMap.java:1031)
+	- waiting to lock <0x00007fa254ffc448> (a java.util.concurrent.ConcurrentHashMap$Node)
+	at java.util.concurrent.ConcurrentHashMap.put(java.base@17.0.9/ConcurrentHashMap.java:1006)
+	at soot.jimple.infoflow.collect.ConcurrentIdentityHashMultiMap.put(ConcurrentIdentityHashMultiMap.java:94)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processPredecessor(ContextSensitivePathBuilder.java:178)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processAndQueue(ContextSensitivePathBuilder.java:111)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.run(ContextSensitivePathBuilder.java:103)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"Path reconstruction" #69 prio=5 os_prio=0 cpu=3290321.80ms elapsed=5630.70s tid=0x00007f7bb400b8c0 nid=0x2a0d5e waiting for monitor entry  [0x00007f7c1e2e1000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at java.util.concurrent.ConcurrentHashMap.putVal(java.base@17.0.9/ConcurrentHashMap.java:1031)
+	- locked <0x00007fa254ffc448> (a java.util.concurrent.ConcurrentHashMap$Node)
+	at java.util.concurrent.ConcurrentHashMap.put(java.base@17.0.9/ConcurrentHashMap.java:1006)
+	at soot.jimple.infoflow.collect.ConcurrentIdentityHashMultiMap.put(ConcurrentIdentityHashMultiMap.java:94)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processPredecessor(ContextSensitivePathBuilder.java:178)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processAndQueue(ContextSensitivePathBuilder.java:111)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.run(ContextSensitivePathBuilder.java:103)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"Path reconstruction" #70 prio=5 os_prio=0 cpu=3283533.84ms elapsed=5630.70s tid=0x00007f7bdc010f80 nid=0x2a0d5f waiting for monitor entry  [0x00007f7c1f2f1000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at java.util.concurrent.ConcurrentHashMap.putVal(java.base@17.0.9/ConcurrentHashMap.java:1031)
+	- waiting to lock <0x00007fa254ffc448> (a java.util.concurrent.ConcurrentHashMap$Node)
+	at java.util.concurrent.ConcurrentHashMap.put(java.base@17.0.9/ConcurrentHashMap.java:1006)
+	at soot.jimple.infoflow.collect.ConcurrentIdentityHashMultiMap.put(ConcurrentIdentityHashMultiMap.java:94)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processPredecessor(ContextSensitivePathBuilder.java:178)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processAndQueue(ContextSensitivePathBuilder.java:111)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.run(ContextSensitivePathBuilder.java:103)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"Path reconstruction" #71 prio=5 os_prio=0 cpu=3286446.82ms elapsed=5630.70s tid=0x00007f7bb00388a0 nid=0x2a0d60 waiting for monitor entry  [0x00007f7c1eceb000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at java.util.concurrent.ConcurrentHashMap.putVal(java.base@17.0.9/ConcurrentHashMap.java:1031)
+	- waiting to lock <0x00007fa254ffc448> (a java.util.concurrent.ConcurrentHashMap$Node)
+	at java.util.concurrent.ConcurrentHashMap.put(java.base@17.0.9/ConcurrentHashMap.java:1006)
+	at soot.jimple.infoflow.collect.ConcurrentIdentityHashMultiMap.put(ConcurrentIdentityHashMultiMap.java:94)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processPredecessor(ContextSensitivePathBuilder.java:178)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processAndQueue(ContextSensitivePathBuilder.java:111)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.run(ContextSensitivePathBuilder.java:103)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"Path reconstruction" #72 prio=5 os_prio=0 cpu=3285242.59ms elapsed=5630.70s tid=0x00007f7bbc027ce0 nid=0x2a0d61 waiting for monitor entry  [0x00007f7c1f3f2000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at java.util.concurrent.ConcurrentHashMap.putVal(java.base@17.0.9/ConcurrentHashMap.java:1031)
+	- waiting to lock <0x00007fa254ffc448> (a java.util.concurrent.ConcurrentHashMap$Node)
+	at java.util.concurrent.ConcurrentHashMap.put(java.base@17.0.9/ConcurrentHashMap.java:1006)
+	at soot.jimple.infoflow.collect.ConcurrentIdentityHashMultiMap.put(ConcurrentIdentityHashMultiMap.java:94)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processPredecessor(ContextSensitivePathBuilder.java:178)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processAndQueue(ContextSensitivePathBuilder.java:111)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.run(ContextSensitivePathBuilder.java:103)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"Path reconstruction" #73 prio=5 os_prio=0 cpu=3288500.39ms elapsed=5630.70s tid=0x00007f7bc0001c40 nid=0x2a0d62 runnable  [0x00007f7c1eeec000]
+   java.lang.Thread.State: RUNNABLE
+	at soot.jimple.infoflow.data.SourceContextAndPath.equals(SourceContextAndPath.java:306)
+	at java.util.concurrent.ConcurrentHashMap.putVal(java.base@17.0.9/ConcurrentHashMap.java:1039)
+	- locked <0x00007fa200bcd6b8> (a java.util.concurrent.ConcurrentHashMap$Node)
+	at java.util.concurrent.ConcurrentHashMap.put(java.base@17.0.9/ConcurrentHashMap.java:1006)
+	at soot.jimple.infoflow.collect.ConcurrentIdentityHashMultiMap.put(ConcurrentIdentityHashMultiMap.java:94)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processPredecessor(ContextSensitivePathBuilder.java:178)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processAndQueue(ContextSensitivePathBuilder.java:111)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.run(ContextSensitivePathBuilder.java:103)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"Path reconstruction" #74 prio=5 os_prio=0 cpu=3282409.61ms elapsed=5630.70s tid=0x00007f7b98002dc0 nid=0x2a0d63 waiting for monitor entry  [0x00007f7c1e1e0000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at java.util.concurrent.ConcurrentHashMap.putVal(java.base@17.0.9/ConcurrentHashMap.java:1031)
+	- locked <0x00007f9339e274e0> (a java.util.concurrent.ConcurrentHashMap$Node)
+	at java.util.concurrent.ConcurrentHashMap.put(java.base@17.0.9/ConcurrentHashMap.java:1006)
+	at soot.jimple.infoflow.collect.ConcurrentHashSet.add(ConcurrentHashSet.java:59)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processAndQueue(ContextSensitivePathBuilder.java:123)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.run(ContextSensitivePathBuilder.java:103)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"Path reconstruction" #75 prio=5 os_prio=0 cpu=3285257.63ms elapsed=5630.70s tid=0x00007f7bc402b9d0 nid=0x2a0d64 waiting for monitor entry  [0x00007f7c1edec000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at java.util.concurrent.ConcurrentHashMap.putVal(java.base@17.0.9/ConcurrentHashMap.java:1031)
+	- waiting to lock <0x00007fa254ffc448> (a java.util.concurrent.ConcurrentHashMap$Node)
+	at java.util.concurrent.ConcurrentHashMap.put(java.base@17.0.9/ConcurrentHashMap.java:1006)
+	at soot.jimple.infoflow.collect.ConcurrentIdentityHashMultiMap.put(ConcurrentIdentityHashMultiMap.java:94)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processPredecessor(ContextSensitivePathBuilder.java:178)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processAndQueue(ContextSensitivePathBuilder.java:111)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.run(ContextSensitivePathBuilder.java:103)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"Path reconstruction" #76 prio=5 os_prio=0 cpu=3285125.61ms elapsed=5630.70s tid=0x00007f7bcc029580 nid=0x2a0d65 waiting for monitor entry  [0x00007f7c1f0ef000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at java.util.concurrent.ConcurrentHashMap.putVal(java.base@17.0.9/ConcurrentHashMap.java:1031)
+	- waiting to lock <0x00007f8d4b975de8> (a java.util.concurrent.ConcurrentHashMap$Node)
+	at java.util.concurrent.ConcurrentHashMap.put(java.base@17.0.9/ConcurrentHashMap.java:1006)
+	at soot.jimple.infoflow.collect.ConcurrentHashSet.add(ConcurrentHashSet.java:59)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.processAndQueue(ContextSensitivePathBuilder.java:123)
+	at soot.jimple.infoflow.data.pathBuilders.ContextSensitivePathBuilder$SourceFindingTask.run(ContextSensitivePathBuilder.java:103)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"VM Thread" os_prio=0 cpu=6639.58ms elapsed=6568.73s tid=0x00007fbee036eb30 nid=0x29f861 runnable  
+
+"GC Thread#0" os_prio=0 cpu=80415.43ms elapsed=6568.76s tid=0x00007fbee00bdd30 nid=0x29f833 runnable  
+
+"GC Thread#1" os_prio=0 cpu=83100.48ms elapsed=6567.62s tid=0x00007f7d88017530 nid=0x29fa18 runnable  
+
+"GC Thread#2" os_prio=0 cpu=80881.95ms elapsed=6567.62s tid=0x00007f7d88017b50 nid=0x29fa19 runnable  
+
+"GC Thread#3" os_prio=0 cpu=82343.23ms elapsed=6567.62s tid=0x00007f7d88018350 nid=0x29fa1a runnable  
+
+"GC Thread#4" os_prio=0 cpu=92703.66ms elapsed=6567.62s tid=0x00007f7d88018d60 nid=0x29fa1b runnable  
+
+"GC Thread#5" os_prio=0 cpu=81269.46ms elapsed=6567.62s tid=0x00007f7d88019770 nid=0x29fa1c runnable  
+
+"GC Thread#6" os_prio=0 cpu=81860.39ms elapsed=6567.62s tid=0x00007f7d8801a1b0 nid=0x29fa1d runnable  
+
+"GC Thread#7" os_prio=0 cpu=83245.94ms elapsed=6567.62s tid=0x00007f7d8801abf0 nid=0x29fa1e runnable  
+
+"GC Thread#8" os_prio=0 cpu=83215.49ms elapsed=6567.62s tid=0x00007f7d8801b630 nid=0x29fa1f runnable  
+
+"GC Thread#9" os_prio=0 cpu=82923.32ms elapsed=6567.62s tid=0x00007f7d8801c070 nid=0x29fa20 runnable  
+
+"GC Thread#10" os_prio=0 cpu=82098.51ms elapsed=6567.62s tid=0x00007f7d8801cab0 nid=0x29fa21 runnable  
+
+"GC Thread#11" os_prio=0 cpu=83011.54ms elapsed=6567.62s tid=0x00007f7d8801d4f0 nid=0x29fa22 runnable  
+
+"GC Thread#12" os_prio=0 cpu=81523.50ms elapsed=6567.62s tid=0x00007f7d8801df70 nid=0x29fa23 runnable  
+
+"GC Thread#13" os_prio=0 cpu=82731.21ms elapsed=6567.62s tid=0x00007f7d8801e9f0 nid=0x29fa24 runnable  
+
+"GC Thread#14" os_prio=0 cpu=82414.04ms elapsed=6567.62s tid=0x00007f7d8801f470 nid=0x29fa25 runnable  
+
+"GC Thread#15" os_prio=0 cpu=81375.71ms elapsed=6567.62s tid=0x00007f7d8801fef0 nid=0x29fa26 runnable  
+
+"GC Thread#16" os_prio=0 cpu=80853.16ms elapsed=6567.62s tid=0x00007f7d88020970 nid=0x29fa27 runnable  
+
+"GC Thread#17" os_prio=0 cpu=81341.55ms elapsed=6567.62s tid=0x00007f7d880213f0 nid=0x29fa28 runnable  
+
+"GC Thread#18" os_prio=0 cpu=81270.75ms elapsed=6567.62s tid=0x00007f7d88021e70 nid=0x29fa29 runnable  
+
+"GC Thread#19" os_prio=0 cpu=84742.07ms elapsed=6567.62s tid=0x00007f7d880228f0 nid=0x29fa2a runnable  
+
+"GC Thread#20" os_prio=0 cpu=88949.01ms elapsed=6567.62s tid=0x00007f7d88023370 nid=0x29fa2b runnable  
+
+"GC Thread#21" os_prio=0 cpu=81590.32ms elapsed=6567.62s tid=0x00007f7d880241e0 nid=0x29fa2c runnable  
+
+"GC Thread#22" os_prio=0 cpu=82036.70ms elapsed=6567.62s tid=0x00007f7d88025050 nid=0x29fa2d runnable  
+
+"GC Thread#23" os_prio=0 cpu=83722.39ms elapsed=6567.62s tid=0x00007f7d88025ec0 nid=0x29fa2e runnable  
+
+"GC Thread#24" os_prio=0 cpu=87402.55ms elapsed=6567.62s tid=0x00007f7d88026d30 nid=0x29fa2f runnable  
+
+"GC Thread#25" os_prio=0 cpu=83255.22ms elapsed=6567.62s tid=0x00007f7d88027ba0 nid=0x29fa30 runnable  
+
+"GC Thread#26" os_prio=0 cpu=83609.59ms elapsed=6567.62s tid=0x00007f7d88028a10 nid=0x29fa31 runnable  
+
+"GC Thread#27" os_prio=0 cpu=80826.14ms elapsed=6567.62s tid=0x00007f7d88029880 nid=0x29fa32 runnable  
+
+"GC Thread#28" os_prio=0 cpu=80609.04ms elapsed=6567.62s tid=0x00007f7d8802a6f0 nid=0x29fa33 runnable  
+
+"GC Thread#29" os_prio=0 cpu=80151.25ms elapsed=6567.62s tid=0x00007f7d8802b560 nid=0x29fa34 runnable  
+
+"GC Thread#30" os_prio=0 cpu=81859.04ms elapsed=6567.62s tid=0x00007f7d8802c3d0 nid=0x29fa35 runnable  
+
+"GC Thread#31" os_prio=0 cpu=83270.10ms elapsed=6567.62s tid=0x00007f7d8802d240 nid=0x29fa36 runnable  
+
+"GC Thread#32" os_prio=0 cpu=81442.38ms elapsed=6567.62s tid=0x00007f7d8802e0b0 nid=0x29fa37 runnable  
+
+"GC Thread#33" os_prio=0 cpu=84523.47ms elapsed=6567.62s tid=0x00007f7d8802ef20 nid=0x29fa38 runnable  
+
+"GC Thread#34" os_prio=0 cpu=81511.74ms elapsed=6567.61s tid=0x00007f7d8802fd90 nid=0x29fa39 runnable  
+
+"GC Thread#35" os_prio=0 cpu=82455.41ms elapsed=6567.61s tid=0x00007f7d88030c00 nid=0x29fa3a runnable  
+
+"GC Thread#36" os_prio=0 cpu=82336.43ms elapsed=6567.61s tid=0x00007f7d88031a70 nid=0x29fa3b runnable  
+
+"GC Thread#37" os_prio=0 cpu=81209.92ms elapsed=6567.61s tid=0x00007f7d880328e0 nid=0x29fa3c runnable  
+
+"GC Thread#38" os_prio=0 cpu=81391.84ms elapsed=6567.61s tid=0x00007f7d88033750 nid=0x29fa3d runnable  
+
+"GC Thread#39" os_prio=0 cpu=81136.54ms elapsed=6567.61s tid=0x00007f7d880341d0 nid=0x29fa3e runnable  
+
+"GC Thread#40" os_prio=0 cpu=92326.38ms elapsed=6567.61s tid=0x00007f7d88034c50 nid=0x29fa3f runnable  
+
+"GC Thread#41" os_prio=0 cpu=81804.74ms elapsed=6567.61s tid=0x00007f7d88035ac0 nid=0x29fa40 runnable  
+
+"GC Thread#42" os_prio=0 cpu=81316.71ms elapsed=6567.61s tid=0x00007f7d88036930 nid=0x29fa41 runnable  
+
+"GC Thread#43" os_prio=0 cpu=82090.14ms elapsed=6567.60s tid=0x00007f7d880377a0 nid=0x29fa42 runnable  
+
+"GC Thread#44" os_prio=0 cpu=81892.11ms elapsed=6567.60s tid=0x00007f7d88038610 nid=0x29fa43 runnable  
+
+"GC Thread#45" os_prio=0 cpu=82018.07ms elapsed=6567.60s tid=0x00007f7d88039480 nid=0x29fa44 runnable  
+
+"GC Thread#46" os_prio=0 cpu=82591.40ms elapsed=6567.60s tid=0x00007f7d8803a2f0 nid=0x29fa45 runnable  
+
+"GC Thread#47" os_prio=0 cpu=83129.44ms elapsed=6567.60s tid=0x00007f7d8803b160 nid=0x29fa46 runnable  
+
+"GC Thread#48" os_prio=0 cpu=82323.91ms elapsed=6567.60s tid=0x00007f7d8803bfd0 nid=0x29fa47 runnable  
+
+"GC Thread#49" os_prio=0 cpu=86453.61ms elapsed=6540.06s tid=0x00007f7d880a6a70 nid=0x2a0350 runnable  
+
+"GC Thread#50" os_prio=0 cpu=90713.36ms elapsed=6540.06s tid=0x00007f7d880a6ed0 nid=0x2a0351 runnable  
+
+"GC Thread#51" os_prio=0 cpu=88073.52ms elapsed=6540.06s tid=0x00007f7d880a7550 nid=0x2a0352 runnable  
+
+"GC Thread#52" os_prio=0 cpu=87428.99ms elapsed=6540.06s tid=0x00007f7d880a7f50 nid=0x2a0353 runnable  
+
+"GC Thread#53" os_prio=0 cpu=84683.36ms elapsed=6540.06s tid=0x00007f7d880a8990 nid=0x2a0354 runnable  
+
+"GC Thread#54" os_prio=0 cpu=95991.50ms elapsed=6540.06s tid=0x00007f7d880a93d0 nid=0x2a0355 runnable  
+
+"GC Thread#55" os_prio=0 cpu=88949.74ms elapsed=6540.06s tid=0x00007f7d880a9e10 nid=0x2a0356 runnable  
+
+"GC Thread#56" os_prio=0 cpu=97234.14ms elapsed=6540.06s tid=0x00007f7d880aa850 nid=0x2a0357 runnable  
+
+"GC Thread#57" os_prio=0 cpu=87208.27ms elapsed=6540.06s tid=0x00007f7d880ab680 nid=0x2a0358 runnable  
+
+"GC Thread#58" os_prio=0 cpu=94319.61ms elapsed=6540.06s tid=0x00007f7d880ac4b0 nid=0x2a0359 runnable  
+
+"GC Thread#59" os_prio=0 cpu=85976.46ms elapsed=6540.06s tid=0x00007f7d880ad2e0 nid=0x2a035a runnable  
+
+"GC Thread#60" os_prio=0 cpu=84210.36ms elapsed=6540.06s tid=0x00007f7d880ae110 nid=0x2a035b runnable  
+
+"GC Thread#61" os_prio=0 cpu=90672.67ms elapsed=6540.06s tid=0x00007f7d880aef40 nid=0x2a035c runnable  
+
+"GC Thread#62" os_prio=0 cpu=94594.92ms elapsed=6540.06s tid=0x00007f7d880afdb0 nid=0x2a035d runnable  
+
+"GC Thread#63" os_prio=0 cpu=91684.15ms elapsed=6540.06s tid=0x00007f7d880b0c20 nid=0x2a035e runnable  
+
+"GC Thread#64" os_prio=0 cpu=93575.10ms elapsed=6540.06s tid=0x00007f7d880b1a90 nid=0x2a035f runnable  
+
+"GC Thread#65" os_prio=0 cpu=91823.75ms elapsed=6540.06s tid=0x00007f7d880b2900 nid=0x2a0360 runnable  
+
+"GC Thread#66" os_prio=0 cpu=86187.82ms elapsed=6540.06s tid=0x00007f7d880b3770 nid=0x2a0361 runnable  
+
+"GC Thread#67" os_prio=0 cpu=80975.92ms elapsed=6540.06s tid=0x00007f7d880b45e0 nid=0x2a0362 runnable  
+
+"GC Thread#68" os_prio=0 cpu=90947.85ms elapsed=6540.06s tid=0x00007f7d880b5450 nid=0x2a0363 runnable  
+
+"GC Thread#69" os_prio=0 cpu=92943.35ms elapsed=6540.06s tid=0x00007f7d880b62c0 nid=0x2a0364 runnable  
+
+"GC Thread#70" os_prio=0 cpu=83949.59ms elapsed=6540.06s tid=0x00007f7d880b7130 nid=0x2a0365 runnable  
+
+"GC Thread#71" os_prio=0 cpu=89599.07ms elapsed=6540.06s tid=0x00007f7d880b7fa0 nid=0x2a0366 runnable  
+
+"GC Thread#72" os_prio=0 cpu=91434.44ms elapsed=6540.06s tid=0x00007f7d880b8e10 nid=0x2a0367 runnable  
+
+"GC Thread#73" os_prio=0 cpu=91132.36ms elapsed=6540.06s tid=0x00007f7d880b9c80 nid=0x2a0368 runnable  
+
+"GC Thread#74" os_prio=0 cpu=86636.36ms elapsed=6540.06s tid=0x00007f7d880baaf0 nid=0x2a0369 runnable  
+
+"GC Thread#75" os_prio=0 cpu=93336.07ms elapsed=6540.06s tid=0x00007f7d880bb960 nid=0x2a036a runnable  
+
+"GC Thread#76" os_prio=0 cpu=84766.66ms elapsed=6540.06s tid=0x00007f7d880bc7d0 nid=0x2a036c runnable  
+
+"GC Thread#77" os_prio=0 cpu=89146.19ms elapsed=6540.06s tid=0x00007f7d880bd640 nid=0x2a036d runnable  
+
+"GC Thread#78" os_prio=0 cpu=84717.67ms elapsed=6540.06s tid=0x00007f7d880be4b0 nid=0x2a036e runnable  
+
+"GC Thread#79" os_prio=0 cpu=90595.41ms elapsed=6540.06s tid=0x00007f7d880bf320 nid=0x2a036f runnable  
+
+"GC Thread#80" os_prio=0 cpu=95436.72ms elapsed=6540.06s tid=0x00007f7d880c0190 nid=0x2a0370 runnable  
+
+"GC Thread#81" os_prio=0 cpu=94036.64ms elapsed=6540.06s tid=0x00007f7d880c1000 nid=0x2a0371 runnable  
+
+"GC Thread#82" os_prio=0 cpu=84686.58ms elapsed=6540.06s tid=0x00007f7d880c1e70 nid=0x2a0372 runnable  
+
+"GC Thread#83" os_prio=0 cpu=87447.33ms elapsed=6540.06s tid=0x00007f7d880c2ce0 nid=0x2a0373 runnable  
+
+"GC Thread#84" os_prio=0 cpu=86883.40ms elapsed=6532.58s tid=0x00007f7d881b2f30 nid=0x2a0538 runnable  
+
+"GC Thread#85" os_prio=0 cpu=85747.83ms elapsed=6532.58s tid=0x00007f7d881b3590 nid=0x2a0539 runnable  
+
+"GC Thread#86" os_prio=0 cpu=88060.06ms elapsed=6532.58s tid=0x00007f7d881b3fa0 nid=0x2a053a runnable  
+
+"GC Thread#87" os_prio=0 cpu=94932.11ms elapsed=6532.58s tid=0x00007f7d881b4d60 nid=0x2a053b runnable  
+
+"GC Thread#88" os_prio=0 cpu=90848.44ms elapsed=6532.58s tid=0x00007f7d881b5b60 nid=0x2a053c runnable  
+
+"GC Thread#89" os_prio=0 cpu=93631.85ms elapsed=6532.58s tid=0x00007f7d881b6960 nid=0x2a053d runnable  
+
+"GC Thread#90" os_prio=0 cpu=85131.27ms elapsed=6532.58s tid=0x00007f7d881b7780 nid=0x2a053e runnable  
+
+"GC Thread#91" os_prio=0 cpu=81808.22ms elapsed=6532.58s tid=0x00007f7d881b85c0 nid=0x2a053f runnable  
+
+"GC Thread#92" os_prio=0 cpu=85763.61ms elapsed=6532.58s tid=0x00007f7d881b9430 nid=0x2a0540 runnable  
+
+"G1 Main Marker" os_prio=0 cpu=5.51ms elapsed=6568.76s tid=0x00007fbee00fdde0 nid=0x29f835 runnable  
+
+"G1 Conc#0" os_prio=0 cpu=38000.31ms elapsed=6568.76s tid=0x00007fbee00fedf0 nid=0x29f838 runnable  
+
+"G1 Conc#1" os_prio=0 cpu=37863.98ms elapsed=6566.78s tid=0x00007f7de4000d20 nid=0x29fa7a runnable  
+
+"G1 Conc#2" os_prio=0 cpu=38121.88ms elapsed=6566.78s tid=0x00007f7de4001770 nid=0x29fa7b runnable  
+
+"G1 Conc#3" os_prio=0 cpu=38127.52ms elapsed=6566.77s tid=0x00007f7de40021f0 nid=0x29fa7c runnable  
+
+"G1 Conc#4" os_prio=0 cpu=38415.87ms elapsed=6566.77s tid=0x00007f7de4002c70 nid=0x29fa7d runnable  
+
+"G1 Conc#5" os_prio=0 cpu=38706.94ms elapsed=6566.77s tid=0x00007f7de40036f0 nid=0x29fa7e runnable  
+
+"G1 Conc#6" os_prio=0 cpu=38859.90ms elapsed=6566.77s tid=0x00007f7de4004170 nid=0x29fa7f runnable  
+
+"G1 Conc#7" os_prio=0 cpu=38041.34ms elapsed=6566.77s tid=0x00007f7de4004bf0 nid=0x29fa80 runnable  
+
+"G1 Conc#8" os_prio=0 cpu=38058.80ms elapsed=6566.77s tid=0x00007f7de4005670 nid=0x29fa81 runnable  
+
+"G1 Conc#9" os_prio=0 cpu=37829.67ms elapsed=6566.77s tid=0x00007f7de40060f0 nid=0x29fa82 runnable  
+
+"G1 Conc#10" os_prio=0 cpu=37539.98ms elapsed=6566.77s tid=0x00007f7de4006f60 nid=0x29fa83 runnable  
+
+"G1 Conc#11" os_prio=0 cpu=38672.72ms elapsed=6566.77s tid=0x00007f7de40079e0 nid=0x29fa84 runnable  
+
+"G1 Conc#12" os_prio=0 cpu=37934.14ms elapsed=6566.77s tid=0x00007f7de4008850 nid=0x29fa85 runnable  
+
+"G1 Conc#13" os_prio=0 cpu=38351.56ms elapsed=6566.77s tid=0x00007f7de40096c0 nid=0x29fa86 runnable  
+
+"G1 Conc#14" os_prio=0 cpu=37666.15ms elapsed=6566.77s tid=0x00007f7de400a530 nid=0x29fa87 runnable  
+
+"G1 Conc#15" os_prio=0 cpu=37951.45ms elapsed=6566.77s tid=0x00007f7de400afb0 nid=0x29fa88 runnable  
+
+"G1 Conc#16" os_prio=0 cpu=38690.49ms elapsed=6566.77s tid=0x00007f7de400ba30 nid=0x29fa89 runnable  
+
+"G1 Conc#17" os_prio=0 cpu=37416.94ms elapsed=6566.77s tid=0x00007f7de400c8a0 nid=0x29fa8a runnable  
+
+"G1 Conc#18" os_prio=0 cpu=38235.64ms elapsed=6566.77s tid=0x00007f7de400d710 nid=0x29fa8b runnable  
+
+"G1 Conc#19" os_prio=0 cpu=38290.62ms elapsed=6566.77s tid=0x00007f7de400e580 nid=0x29fa8c runnable  
+
+"G1 Conc#20" os_prio=0 cpu=37606.70ms elapsed=6566.77s tid=0x00007f7de400f3f0 nid=0x29fa8d runnable  
+
+"G1 Conc#21" os_prio=0 cpu=38346.76ms elapsed=6566.77s tid=0x00007f7de400fe70 nid=0x29fa8e runnable  
+
+"G1 Conc#22" os_prio=0 cpu=38586.83ms elapsed=6566.77s tid=0x00007f7de4010ce0 nid=0x29fa8f runnable  
+
+"G1 Refine#0" os_prio=0 cpu=450580.84ms elapsed=6568.75s tid=0x00007fbee03195c0 nid=0x29f843 runnable  
+
+"G1 Refine#1" os_prio=0 cpu=86792.60ms elapsed=6556.81s tid=0x00007f7dd800d930 nid=0x29fdb8 runnable  
+
+"G1 Refine#2" os_prio=0 cpu=48867.21ms elapsed=6556.81s tid=0x00007f7d60340490 nid=0x29fdb9 runnable  
+
+"G1 Refine#3" os_prio=0 cpu=41438.57ms elapsed=6556.81s tid=0x00007f7d44001140 nid=0x29fdba runnable  
+
+"G1 Refine#4" os_prio=0 cpu=37201.52ms elapsed=6556.81s tid=0x00007f7d483374d0 nid=0x29fdbb runnable  
+
+"G1 Refine#5" os_prio=0 cpu=34104.43ms elapsed=6556.81s tid=0x00007f7d4c2bddd0 nid=0x29fdbc runnable  
+
+"G1 Refine#6" os_prio=0 cpu=32117.35ms elapsed=6556.81s tid=0x00007f7d401d1740 nid=0x29fdbd runnable  
+
+"G1 Refine#7" os_prio=0 cpu=29868.31ms elapsed=6556.81s tid=0x00007f7d38001660 nid=0x29fdbe runnable  
+
+"G1 Refine#8" os_prio=0 cpu=28261.68ms elapsed=6556.81s tid=0x00007f7d3c1f5fd0 nid=0x29fdbf runnable  
+
+"G1 Refine#9" os_prio=0 cpu=27212.60ms elapsed=6545.05s tid=0x00007f7d309acd80 nid=0x2a0215 runnable  
+
+"G1 Refine#10" os_prio=0 cpu=25835.73ms elapsed=6545.05s tid=0x00007f7c6c5ed5b0 nid=0x2a0216 runnable  
+
+"G1 Refine#11" os_prio=0 cpu=24850.13ms elapsed=6545.05s tid=0x00007f7c5039cb20 nid=0x2a0217 runnable  
+
+"G1 Refine#12" os_prio=0 cpu=23845.99ms elapsed=6545.05s tid=0x00007f7c60299120 nid=0x2a0218 runnable  
+
+"G1 Refine#13" os_prio=0 cpu=22897.44ms elapsed=6545.05s tid=0x00007f7b9c118890 nid=0x2a0219 runnable  
+
+"G1 Refine#14" os_prio=0 cpu=22142.79ms elapsed=6545.05s tid=0x00007f7c540f8170 nid=0x2a021a runnable  
+
+"G1 Refine#15" os_prio=0 cpu=21425.85ms elapsed=6545.05s tid=0x00007f7be848b170 nid=0x2a021b runnable  
+
+"G1 Refine#16" os_prio=0 cpu=20767.95ms elapsed=6544.17s tid=0x00007f7b94001e40 nid=0x2a0266 runnable  
+
+"G1 Refine#17" os_prio=0 cpu=19977.64ms elapsed=6544.17s tid=0x00007f7d500d33a0 nid=0x2a0267 runnable  
+
+"G1 Refine#18" os_prio=0 cpu=19160.56ms elapsed=6544.17s tid=0x00007f7c688bbce0 nid=0x2a0268 runnable  
+
+"G1 Refine#19" os_prio=0 cpu=18802.47ms elapsed=6544.17s tid=0x00007f7c5c1fded0 nid=0x2a0269 runnable  
+
+"G1 Refine#20" os_prio=0 cpu=18323.83ms elapsed=6544.17s tid=0x00007f7b900035d0 nid=0x2a026a runnable  
+
+"G1 Refine#21" os_prio=0 cpu=17767.56ms elapsed=6544.17s tid=0x00007f7b88001a50 nid=0x2a026b runnable  
+
+"G1 Refine#22" os_prio=0 cpu=17208.62ms elapsed=6544.17s tid=0x00007f7b8c3ef400 nid=0x2a026c runnable  
+
+"G1 Refine#23" os_prio=0 cpu=16826.47ms elapsed=6544.17s tid=0x00007f7b80031270 nid=0x2a026d runnable  
+
+"G1 Refine#24" os_prio=0 cpu=16243.41ms elapsed=6544.17s tid=0x00007f7b84000ed0 nid=0x2a026e runnable  
+
+"G1 Refine#25" os_prio=0 cpu=16054.08ms elapsed=6544.17s tid=0x00007f7b7820d8e0 nid=0x2a026f runnable  
+
+"G1 Refine#26" os_prio=0 cpu=15401.51ms elapsed=6544.17s tid=0x00007f7b7c000be0 nid=0x2a0270 runnable  
+
+"G1 Refine#27" os_prio=0 cpu=15095.33ms elapsed=6544.17s tid=0x00007f7b70000be0 nid=0x2a0271 runnable  
+
+"G1 Refine#28" os_prio=0 cpu=14628.37ms elapsed=6544.17s tid=0x00007f7b74000be0 nid=0x2a0272 runnable  
+
+"G1 Refine#29" os_prio=0 cpu=14437.19ms elapsed=6544.17s tid=0x00007f7b68000be0 nid=0x2a0273 runnable  
+
+"G1 Refine#30" os_prio=0 cpu=14024.92ms elapsed=6544.17s tid=0x00007f7b6c000be0 nid=0x2a0274 runnable  
+
+"G1 Refine#31" os_prio=0 cpu=13960.89ms elapsed=6544.17s tid=0x00007f7b60000be0 nid=0x2a0275 runnable  
+
+"G1 Refine#32" os_prio=0 cpu=13668.67ms elapsed=6544.17s tid=0x00007f7b64000be0 nid=0x2a0276 runnable  
+
+"G1 Refine#33" os_prio=0 cpu=13256.35ms elapsed=6544.17s tid=0x00007f7b58000be0 nid=0x2a0277 runnable  
+
+"G1 Refine#34" os_prio=0 cpu=13092.40ms elapsed=6543.31s tid=0x00007f7b5c000be0 nid=0x2a029f runnable  
+
+"G1 Refine#35" os_prio=0 cpu=12645.85ms elapsed=6543.31s tid=0x00007f7b50000be0 nid=0x2a02a0 runnable  
+
+"G1 Refine#36" os_prio=0 cpu=12450.38ms elapsed=6543.31s tid=0x00007f7b54000be0 nid=0x2a02a1 runnable  
+
+"G1 Refine#37" os_prio=0 cpu=12201.04ms elapsed=6543.31s tid=0x00007f7b48000be0 nid=0x2a02a2 runnable  
+
+"G1 Refine#38" os_prio=0 cpu=12148.95ms elapsed=6543.31s tid=0x00007f7b4c000be0 nid=0x2a02a3 runnable  
+
+"G1 Refine#39" os_prio=0 cpu=11964.11ms elapsed=6543.31s tid=0x00007f7b40000be0 nid=0x2a02a4 runnable  
+
+"G1 Refine#40" os_prio=0 cpu=11615.17ms elapsed=6543.31s tid=0x00007f7b44000be0 nid=0x2a02a5 runnable  
+
+"G1 Refine#41" os_prio=0 cpu=11649.89ms elapsed=6543.31s tid=0x00007f7b38000be0 nid=0x2a02a6 runnable  
+
+"G1 Refine#42" os_prio=0 cpu=11266.85ms elapsed=6543.31s tid=0x00007f7b3c000be0 nid=0x2a02a7 runnable  
+
+"G1 Refine#43" os_prio=0 cpu=11053.76ms elapsed=6543.31s tid=0x00007f7b30000be0 nid=0x2a02a8 runnable  
+
+"G1 Refine#44" os_prio=0 cpu=10908.29ms elapsed=6543.31s tid=0x00007f7b34000be0 nid=0x2a02a9 runnable  
+
+"G1 Refine#45" os_prio=0 cpu=10786.72ms elapsed=6543.31s tid=0x00007f7b28000be0 nid=0x2a02aa runnable  
+
+"G1 Refine#46" os_prio=0 cpu=10674.61ms elapsed=6543.31s tid=0x00007f7b2c000be0 nid=0x2a02ab runnable  
+
+"G1 Refine#47" os_prio=0 cpu=10500.24ms elapsed=6543.31s tid=0x00007f7b20000be0 nid=0x2a02ac runnable  
+
+"G1 Refine#48" os_prio=0 cpu=10333.76ms elapsed=6543.31s tid=0x00007f7b24000be0 nid=0x2a02ad runnable  
+
+"G1 Refine#49" os_prio=0 cpu=10217.58ms elapsed=6543.31s tid=0x00007f7b18000be0 nid=0x2a02ae runnable  
+
+"G1 Refine#50" os_prio=0 cpu=9983.21ms elapsed=6543.31s tid=0x00007f7b10000be0 nid=0x2a02af runnable  
+
+"G1 Refine#51" os_prio=0 cpu=9983.74ms elapsed=6543.30s tid=0x00007f7b14000be0 nid=0x2a02b0 runnable  
+
+"G1 Refine#52" os_prio=0 cpu=9780.94ms elapsed=6543.30s tid=0x00007f7b08000be0 nid=0x2a02b1 runnable  
+
+"G1 Refine#53" os_prio=0 cpu=9716.08ms elapsed=6543.30s tid=0x00007f7b0c000be0 nid=0x2a02b2 runnable  
+
+"G1 Refine#54" os_prio=0 cpu=9635.23ms elapsed=6542.60s tid=0x00007f7b00000be0 nid=0x2a02b8 runnable  
+
+"G1 Refine#55" os_prio=0 cpu=9349.29ms elapsed=6542.60s tid=0x00007f7c741e8830 nid=0x2a02b9 runnable  
+
+"G1 Refine#56" os_prio=0 cpu=9236.09ms elapsed=6542.60s tid=0x00007f7b04000be0 nid=0x2a02ba runnable  
+
+"G1 Refine#57" os_prio=0 cpu=9167.44ms elapsed=6542.60s tid=0x00007f7af8000be0 nid=0x2a02bb runnable  
+
+"G1 Refine#58" os_prio=0 cpu=8933.88ms elapsed=6541.92s tid=0x00007f7afc000be0 nid=0x2a0314 runnable  
+
+"G1 Refine#59" os_prio=0 cpu=8878.44ms elapsed=6541.92s tid=0x00007f7d5433ff50 nid=0x2a0315 runnable  
+
+"G1 Refine#60" os_prio=0 cpu=8754.00ms elapsed=6541.92s tid=0x00007f7af0000be0 nid=0x2a0316 runnable  
+
+"G1 Refine#61" os_prio=0 cpu=8681.55ms elapsed=6541.92s tid=0x00007f7af4000be0 nid=0x2a0317 runnable  
+
+"G1 Refine#62" os_prio=0 cpu=8621.99ms elapsed=6541.92s tid=0x00007f7ae8000be0 nid=0x2a0318 runnable  
+
+"G1 Refine#63" os_prio=0 cpu=8436.05ms elapsed=6541.91s tid=0x00007f7aec000be0 nid=0x2a0319 runnable  
+
+"G1 Refine#64" os_prio=0 cpu=8381.74ms elapsed=6541.92s tid=0x00007f7ae0000be0 nid=0x2a031a runnable  
+
+"G1 Refine#65" os_prio=0 cpu=8166.82ms elapsed=6541.92s tid=0x00007f7ae4000be0 nid=0x2a031b runnable  
+
+"G1 Refine#66" os_prio=0 cpu=8261.62ms elapsed=6541.92s tid=0x00007f7ad8000be0 nid=0x2a031c runnable  
+
+"G1 Refine#67" os_prio=0 cpu=8108.30ms elapsed=6541.92s tid=0x00007f7adc000be0 nid=0x2a031d runnable  
+
+"G1 Refine#68" os_prio=0 cpu=7948.20ms elapsed=6541.92s tid=0x00007f7ad0000be0 nid=0x2a031e runnable  
+
+"G1 Refine#69" os_prio=0 cpu=7971.77ms elapsed=6541.92s tid=0x00007f7ad4000be0 nid=0x2a031f runnable  
+
+"G1 Refine#70" os_prio=0 cpu=7676.62ms elapsed=6541.92s tid=0x00007f7ac8000be0 nid=0x2a0320 runnable  
+
+"G1 Refine#71" os_prio=0 cpu=7771.71ms elapsed=6541.92s tid=0x00007f7acc000be0 nid=0x2a0321 runnable  
+
+"G1 Refine#72" os_prio=0 cpu=7669.05ms elapsed=6541.92s tid=0x00007f7ac0000be0 nid=0x2a0322 runnable  
+
+"G1 Refine#73" os_prio=0 cpu=7514.68ms elapsed=6541.92s tid=0x00007f7ac4000be0 nid=0x2a0323 runnable  
+
+"G1 Refine#74" os_prio=0 cpu=7425.90ms elapsed=6541.92s tid=0x00007f7ab8000be0 nid=0x2a0324 runnable  
+
+"G1 Refine#75" os_prio=0 cpu=7638.14ms elapsed=6541.92s tid=0x00007f7abc000be0 nid=0x2a0325 runnable  
+
+"G1 Refine#76" os_prio=0 cpu=7297.94ms elapsed=6541.92s tid=0x00007f7ab0000be0 nid=0x2a0326 runnable  
+
+"G1 Refine#77" os_prio=0 cpu=7276.44ms elapsed=6541.91s tid=0x00007f7ab4000be0 nid=0x2a0327 runnable  
+
+"G1 Refine#78" os_prio=0 cpu=7225.30ms elapsed=6541.91s tid=0x00007f7aa8000be0 nid=0x2a0328 runnable  
+
+"G1 Refine#79" os_prio=0 cpu=7182.38ms elapsed=6539.97s tid=0x00007f7aac000be0 nid=0x2a0377 runnable  
+
+"G1 Refine#80" os_prio=0 cpu=6992.09ms elapsed=6539.97s tid=0x00007f7a18000be0 nid=0x2a0378 runnable  
+
+"G1 Refine#81" os_prio=0 cpu=6919.53ms elapsed=6539.97s tid=0x00007f7a10000be0 nid=0x2a0379 runnable  
+
+"G1 Refine#82" os_prio=0 cpu=6983.75ms elapsed=6539.97s tid=0x00007f7a14000be0 nid=0x2a037a runnable  
+
+"G1 Refine#83" os_prio=0 cpu=6883.86ms elapsed=6539.97s tid=0x00007f7a08000be0 nid=0x2a037b runnable  
+
+"G1 Refine#84" os_prio=0 cpu=6792.56ms elapsed=6539.97s tid=0x00007f7a0c000be0 nid=0x2a037c runnable  
+
+"G1 Refine#85" os_prio=0 cpu=6821.49ms elapsed=6539.97s tid=0x00007f7a00000be0 nid=0x2a037d runnable  
+
+"G1 Refine#86" os_prio=0 cpu=6797.01ms elapsed=6539.96s tid=0x00007f7a04000be0 nid=0x2a037e runnable  
+
+"G1 Refine#87" os_prio=0 cpu=6688.84ms elapsed=6539.95s tid=0x00007f79f8000be0 nid=0x2a037f runnable  
+
+"G1 Refine#88" os_prio=0 cpu=6565.35ms elapsed=6539.95s tid=0x00007f79fc000be0 nid=0x2a0380 runnable  
+
+"G1 Refine#89" os_prio=0 cpu=6484.90ms elapsed=6538.73s tid=0x00007f79f0000be0 nid=0x2a03a9 runnable  
+
+"G1 Refine#90" os_prio=0 cpu=6370.79ms elapsed=6538.73s tid=0x00007f79f4000be0 nid=0x2a03aa runnable  
+
+"G1 Refine#91" os_prio=0 cpu=6370.68ms elapsed=6538.73s tid=0x00007f79e8000be0 nid=0x2a03ab runnable  
+
+"G1 Refine#92" os_prio=0 cpu=6276.03ms elapsed=6538.73s tid=0x00007f79ec000be0 nid=0x2a03ac runnable  
+
+"G1 Service" os_prio=0 cpu=18637.37ms elapsed=6568.76s tid=0x00007fbee031a4c0 nid=0x29f844 runnable  
+
+"VM Periodic Task Thread" os_prio=0 cpu=4006.14ms elapsed=6568.72s tid=0x00007fbee03ce9b0 nid=0x29f8a8 waiting on condition  
+
+JNI global refs: 34, weak refs: 0
+
+Heap
+ garbage-first heap   total 195461120K, used 128233779K [0x00007f8046000000, 0x00007fbec6000000)
+  region size 32768K, 231 young (7569408K), 39 survivors (1277952K)
+ Metaspace       used 27592K, committed 27776K, reserved 1114112K
+  class space    used 2888K, committed 3008K, reserved 1048576K
+

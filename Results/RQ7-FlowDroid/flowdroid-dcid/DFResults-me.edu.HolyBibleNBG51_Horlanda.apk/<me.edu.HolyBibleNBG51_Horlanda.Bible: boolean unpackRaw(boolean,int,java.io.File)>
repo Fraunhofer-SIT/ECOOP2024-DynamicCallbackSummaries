@@ -1,0 +1,109 @@
+    private boolean unpackRaw(boolean, int, java.io.File)
+    {
+        byte[] r2;
+        android.content.Context $r8;
+        java.io.FileOutputStream $r7;
+        me.edu.HolyBibleNBG51_Horlanda.Bible r0;
+        java.io.File $r1;
+        java.lang.Exception r3;
+        java.io.BufferedOutputStream r4;
+        int $i0;
+        java.lang.StringBuilder $r5;
+        java.lang.String $r6;
+        boolean $z0, $z1;
+        android.content.res.Resources $r9;
+        java.io.InputStream $r10;
+
+        r0 := @this: me.edu.HolyBibleNBG51_Horlanda.Bible;
+
+        $z0 := @parameter0: boolean;
+
+        $i0 := @parameter1: int;
+
+        $r1 := @parameter2: java.io.File;
+
+        $z1 = virtualinvoke $r1.<java.io.File: boolean exists()>();
+
+        if $z1 == 0 goto label02;
+
+        if $z0 != 0 goto label01;
+
+        return 1;
+
+     label01:
+        virtualinvoke $r1.<java.io.File: boolean delete()>();
+
+     label02:
+        $r5 = new java.lang.StringBuilder;
+
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>(java.lang.String)>("unpacking ");
+
+        $r6 = virtualinvoke $r1.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <me.edu.HolyBibleNBG51_Horlanda.Log: int d(java.lang.String,java.lang.String)>("me.edu.HolyBibleNBG51_Horlanda$Bible", $r6);
+
+        r2 = newarray (byte)[8192];
+
+        r4 = new java.io.BufferedOutputStream;
+
+        $r7 = new java.io.FileOutputStream;
+
+     label03:
+        specialinvoke $r7.<java.io.FileOutputStream: void <init>(java.io.File)>($r1);
+
+        specialinvoke r4.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r7);
+
+     label04:
+        $r8 = <me.edu.HolyBibleNBG51_Horlanda.Bible: android.content.Context mContext>;
+
+     label05:
+        $r9 = virtualinvoke $r8.<android.content.Context: android.content.res.Resources getResources()>();
+
+        $r10 = virtualinvoke $r9.<android.content.res.Resources: java.io.InputStream openRawResource(int)>(2131034112);
+
+     label06:
+        $i0 = virtualinvoke $r10.<java.io.InputStream: int read(byte[])>(r2);
+
+     label07:
+        if $i0 >= 0 goto label11;
+
+     label08:
+        virtualinvoke $r10.<java.io.InputStream: void close()>();
+
+        virtualinvoke r4.<java.io.OutputStream: void close()>();
+
+     label09:
+        return 1;
+
+     label10:
+        r3 := @caughtexception;
+
+        $r5 = new java.lang.StringBuilder;
+
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>(java.lang.String)>("unpacked ");
+
+        $r6 = virtualinvoke $r1.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <me.edu.HolyBibleNBG51_Horlanda.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("me.edu.HolyBibleNBG51_Horlanda$Bible", $r6, r3);
+
+        return 0;
+
+     label11:
+        virtualinvoke r4.<java.io.OutputStream: void write(byte[],int,int)>(r2, 0, $i0);
+
+     label12:
+        goto label06;
+
+        catch java.lang.Exception from label03 to label04 with label10;
+        catch java.lang.Exception from label05 to label07 with label10;
+        catch java.lang.Exception from label08 to label09 with label10;
+        catch java.lang.Exception from label11 to label12 with label10;
+    }

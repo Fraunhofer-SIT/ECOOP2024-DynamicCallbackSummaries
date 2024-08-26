@@ -1,0 +1,134 @@
+    private void cacheData(java.lang.Object)
+    {
+        java.lang.Throwable $r16;
+        com.bumptech.glide.load.engine.DataCacheGenerator $r14;
+        long $l0;
+        com.bumptech.glide.load.engine.DecodeHelper $r2;
+        com.bumptech.glide.load.engine.DataCacheKey $r6;
+        com.bumptech.glide.load.Key $r8, $r9;
+        com.bumptech.glide.load.model.ModelLoader$LoadData $r7;
+        java.lang.String $r12;
+        com.bumptech.glide.load.Encoder $r3;
+        boolean $z0;
+        double $d0;
+        com.bumptech.glide.load.engine.cache.DiskCache $r10;
+        com.bumptech.glide.load.data.DataFetcher $r13;
+        com.bumptech.glide.load.engine.DataCacheWriter $r4;
+        java.util.List $r15;
+        com.bumptech.glide.load.engine.SourceGenerator r0;
+        com.bumptech.glide.load.Options $r5;
+        java.lang.Object $r1;
+        java.lang.StringBuilder $r11;
+
+        r0 := @this: com.bumptech.glide.load.engine.SourceGenerator;
+
+        $r1 := @parameter0: java.lang.Object;
+
+        $l0 = staticinvoke <com.bumptech.glide.util.LogTime: long getLogTime()>();
+
+     label1:
+        $r2 = r0.<com.bumptech.glide.load.engine.SourceGenerator: com.bumptech.glide.load.engine.DecodeHelper helper>;
+
+        $r3 = virtualinvoke $r2.<com.bumptech.glide.load.engine.DecodeHelper: com.bumptech.glide.load.Encoder getSourceEncoder(java.lang.Object)>($r1);
+
+        $r4 = new com.bumptech.glide.load.engine.DataCacheWriter;
+
+        $r2 = r0.<com.bumptech.glide.load.engine.SourceGenerator: com.bumptech.glide.load.engine.DecodeHelper helper>;
+
+        $r5 = virtualinvoke $r2.<com.bumptech.glide.load.engine.DecodeHelper: com.bumptech.glide.load.Options getOptions()>();
+
+        specialinvoke $r4.<com.bumptech.glide.load.engine.DataCacheWriter: void <init>(com.bumptech.glide.load.Encoder,java.lang.Object,com.bumptech.glide.load.Options)>($r3, $r1, $r5);
+
+        $r6 = new com.bumptech.glide.load.engine.DataCacheKey;
+
+        $r7 = r0.<com.bumptech.glide.load.engine.SourceGenerator: com.bumptech.glide.load.model.ModelLoader$LoadData loadData>;
+
+        $r8 = $r7.<com.bumptech.glide.load.model.ModelLoader$LoadData: com.bumptech.glide.load.Key sourceKey>;
+
+        $r2 = r0.<com.bumptech.glide.load.engine.SourceGenerator: com.bumptech.glide.load.engine.DecodeHelper helper>;
+
+        $r9 = virtualinvoke $r2.<com.bumptech.glide.load.engine.DecodeHelper: com.bumptech.glide.load.Key getSignature()>();
+
+        specialinvoke $r6.<com.bumptech.glide.load.engine.DataCacheKey: void <init>(com.bumptech.glide.load.Key,com.bumptech.glide.load.Key)>($r8, $r9);
+
+        r0.<com.bumptech.glide.load.engine.SourceGenerator: com.bumptech.glide.load.engine.DataCacheKey originalKey> = $r6;
+
+        $r2 = r0.<com.bumptech.glide.load.engine.SourceGenerator: com.bumptech.glide.load.engine.DecodeHelper helper>;
+
+        $r10 = virtualinvoke $r2.<com.bumptech.glide.load.engine.DecodeHelper: com.bumptech.glide.load.engine.cache.DiskCache getDiskCache()>();
+
+        $r6 = r0.<com.bumptech.glide.load.engine.SourceGenerator: com.bumptech.glide.load.engine.DataCacheKey originalKey>;
+
+        interfaceinvoke $r10.<com.bumptech.glide.load.engine.cache.DiskCache: void put(com.bumptech.glide.load.Key,com.bumptech.glide.load.engine.cache.DiskCache$Writer)>($r6, $r4);
+
+        $z0 = staticinvoke <android.util.Log: boolean isLoggable(java.lang.String,int)>("SourceGenerator", 2);
+
+     label2:
+        if $z0 == 0 goto label4;
+
+     label3:
+        $r11 = new java.lang.StringBuilder;
+
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Finished encoding source to cache, key: ");
+
+        $r6 = r0.<com.bumptech.glide.load.engine.SourceGenerator: com.bumptech.glide.load.engine.DataCacheKey originalKey>;
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r6);
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", data: ");
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r1);
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", encoder: ");
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r3);
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", duration: ");
+
+        $d0 = staticinvoke <com.bumptech.glide.util.LogTime: double getElapsedMillis(long)>($l0);
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(double)>($d0);
+
+        $r12 = virtualinvoke $r11.<java.lang.Object: java.lang.String toString()>();
+
+        staticinvoke <com.fullstory.instrumentation.InstrumentInjector: int log_v(java.lang.String,java.lang.String)>("SourceGenerator", $r12);
+
+     label4:
+        $r7 = r0.<com.bumptech.glide.load.engine.SourceGenerator: com.bumptech.glide.load.model.ModelLoader$LoadData loadData>;
+
+        $r13 = $r7.<com.bumptech.glide.load.model.ModelLoader$LoadData: com.bumptech.glide.load.data.DataFetcher fetcher>;
+
+        interfaceinvoke $r13.<com.bumptech.glide.load.data.DataFetcher: void cleanup()>();
+
+        $r7 = r0.<com.bumptech.glide.load.engine.SourceGenerator: com.bumptech.glide.load.model.ModelLoader$LoadData loadData>;
+
+        $r8 = $r7.<com.bumptech.glide.load.model.ModelLoader$LoadData: com.bumptech.glide.load.Key sourceKey>;
+
+        $r14 = new com.bumptech.glide.load.engine.DataCacheGenerator;
+
+        $r15 = staticinvoke <java.util.Collections: java.util.List singletonList(java.lang.Object)>($r8);
+
+        $r2 = r0.<com.bumptech.glide.load.engine.SourceGenerator: com.bumptech.glide.load.engine.DecodeHelper helper>;
+
+        specialinvoke $r14.<com.bumptech.glide.load.engine.DataCacheGenerator: void <init>(java.util.List,com.bumptech.glide.load.engine.DecodeHelper,com.bumptech.glide.load.engine.DataFetcherGenerator$FetcherReadyCallback)>($r15, $r2, r0);
+
+        r0.<com.bumptech.glide.load.engine.SourceGenerator: com.bumptech.glide.load.engine.DataCacheGenerator sourceCacheGenerator> = $r14;
+
+        return;
+
+     label5:
+        $r16 := @caughtexception;
+
+        $r7 = r0.<com.bumptech.glide.load.engine.SourceGenerator: com.bumptech.glide.load.model.ModelLoader$LoadData loadData>;
+
+        $r13 = $r7.<com.bumptech.glide.load.model.ModelLoader$LoadData: com.bumptech.glide.load.data.DataFetcher fetcher>;
+
+        interfaceinvoke $r13.<com.bumptech.glide.load.data.DataFetcher: void cleanup()>();
+
+        throw $r16;
+
+        catch java.lang.Throwable from label1 to label2 with label5;
+        catch java.lang.Throwable from label3 to label4 with label5;
+    }

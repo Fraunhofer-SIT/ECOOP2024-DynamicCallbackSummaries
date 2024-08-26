@@ -1,0 +1,333 @@
+    private static int a(android.content.Context, java.lang.String)
+    {
+        java.lang.Throwable $r0, $r1, $r2, $r3, $r4, $r5, $r6, $r7, $r8, $r21;
+        android.content.Context $r9;
+        byte[] $r18;
+        long $l2;
+        byte $b0;
+        android.content.res.AssetManager $r16;
+        int $i1;
+        java.lang.String $r10, $r12;
+        boolean $z0;
+        java.io.PrintStream $r22;
+        java.io.FileOutputStream $r15, $r19, $r20;
+        java.io.File $r11, $r13, $r14, $r24;
+        java.lang.StringBuilder $r23;
+        java.io.InputStream $r17;
+
+        $r9 := @parameter0: android.content.Context;
+
+        $r10 := @parameter1: java.lang.String;
+
+        $r13 = new java.io.File;
+
+        $r11 = $r13;
+
+        $r12 = <kr.co.sdk.vguard2.c: java.lang.String c>;
+
+        specialinvoke $r13.<java.io.File: void <init>(java.lang.String)>($r12);
+
+        $r14 = new java.io.File;
+
+        $r13 = $r14;
+
+        $r23 = new java.lang.StringBuilder;
+
+        $r12 = <kr.co.sdk.vguard2.c: java.lang.String c>;
+
+        $r12 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r12);
+
+        specialinvoke $r23.<java.lang.StringBuilder: void <init>(java.lang.String)>($r12);
+
+        virtualinvoke $r23.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("cache/");
+
+        $r12 = virtualinvoke $r23.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r14.<java.io.File: void <init>(java.lang.String)>($r12);
+
+        $z0 = virtualinvoke $r14.<java.io.File: boolean exists()>();
+
+        if $z0 != 0 goto label01;
+
+        virtualinvoke $r14.<java.io.File: boolean mkdir()>();
+
+     label01:
+        $r24 = new java.io.File;
+
+        $r14 = $r24;
+
+        specialinvoke $r24.<java.io.File: void <init>(java.io.File,java.lang.String)>($r11, $r10);
+
+        $r24 = new java.io.File;
+
+        specialinvoke $r24.<java.io.File: void <init>(java.io.File,java.lang.String)>($r13, $r10);
+
+        $r15 = null;
+
+     label02:
+        $r16 = <kr.co.sdk.vguard2.c: android.content.res.AssetManager a>;
+
+     label03:
+        $r17 = virtualinvoke $r16.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String,int)>($r10, 3);
+
+        $i1 = virtualinvoke $r17.<java.io.InputStream: int available()>();
+
+     label04:
+        $l2 = (long) $i1;
+
+        $b0 = $l2 cmp 0L;
+
+        if $b0 != 0 goto label05;
+
+        return 0;
+
+     label05:
+        $i1 = (int) $b0;
+
+        if $i1 <= 0 goto label22;
+
+        $i1 = (int) $l2;
+
+     label06:
+        $r18 = newarray (byte)[$i1];
+
+     label07:
+        virtualinvoke $r17.<java.io.InputStream: int read(byte[])>($r18);
+
+        virtualinvoke $r17.<java.io.InputStream: void close()>();
+
+     label08:
+        $r20 = new java.io.FileOutputStream;
+
+     label09:
+        $r19 = $r20;
+
+     label10:
+        specialinvoke $r20.<java.io.FileOutputStream: void <init>(java.io.File)>($r14);
+
+     label11:
+        virtualinvoke $r20.<java.io.FileOutputStream: void write(byte[])>($r18);
+
+     label12:
+        $r15 = new java.io.FileOutputStream;
+
+     label13:
+        $r20 = $r15;
+
+     label14:
+        specialinvoke $r15.<java.io.FileOutputStream: void <init>(java.io.File)>($r24);
+
+     label15:
+        virtualinvoke $r15.<java.io.FileOutputStream: void write(byte[])>($r18);
+
+     label16:
+        $r15 = $r19;
+
+        goto label23;
+
+     label17:
+        $r21 := @caughtexception;
+
+        goto label19;
+
+     label18:
+        $r21 := @caughtexception;
+
+        $r20 = null;
+
+     label19:
+        $r15 = $r19;
+
+        goto label44;
+
+     label20:
+        $r20 = null;
+
+     label21:
+        $r15 = $r19;
+
+        goto label35;
+
+     label22:
+        $r20 = null;
+
+     label23:
+        if $r15 == null goto label27;
+
+     label24:
+        virtualinvoke $r15.<java.io.FileOutputStream: void close()>();
+
+     label25:
+        goto label27;
+
+     label26:
+        $r22 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $r22.<java.io.PrintStream: void println(java.lang.String)>("Exception  - moveEngine position 2");
+
+        $b0 = 0;
+
+        goto label28;
+
+     label27:
+        $b0 = 1;
+
+     label28:
+        if $r20 == null goto label32;
+
+     label29:
+        virtualinvoke $r20.<java.io.FileOutputStream: void close()>();
+
+     label30:
+        goto label32;
+
+     label31:
+        $r22 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $r22.<java.io.PrintStream: void println(java.lang.String)>("Exception  - moveEngine position 3");
+
+        return 0;
+
+     label32:
+        return $b0;
+
+     label33:
+        $r21 := @caughtexception;
+
+        $r20 = null;
+
+        goto label44;
+
+     label34:
+        $r20 = null;
+
+     label35:
+        $r22 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $r22.<java.io.PrintStream: void println(java.lang.String)>("Exception - moveEngine position 1");
+
+     label36:
+        if $r15 == null goto label40;
+
+     label37:
+        virtualinvoke $r15.<java.io.FileOutputStream: void close()>();
+
+     label38:
+        goto label40;
+
+     label39:
+        $r22 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $r22.<java.io.PrintStream: void println(java.lang.String)>("Exception  - moveEngine position 2");
+
+     label40:
+        if $r20 == null goto label62;
+
+     label41:
+        virtualinvoke $r20.<java.io.FileOutputStream: void close()>();
+
+     label42:
+        return 0;
+
+     label43:
+        $r21 := @caughtexception;
+
+     label44:
+        if $r15 == null goto label48;
+
+     label45:
+        virtualinvoke $r15.<java.io.FileOutputStream: void close()>();
+
+     label46:
+        goto label48;
+
+     label47:
+        $r22 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $r22.<java.io.PrintStream: void println(java.lang.String)>("Exception  - moveEngine position 2");
+
+     label48:
+        if $r20 == null goto label52;
+
+     label49:
+        virtualinvoke $r20.<java.io.FileOutputStream: void close()>();
+
+     label50:
+        goto label52;
+
+     label51:
+        $r22 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $r22.<java.io.PrintStream: void println(java.lang.String)>("Exception  - moveEngine position 3");
+
+     label52:
+        throw $r21;
+
+     label53:
+        $r0 := @caughtexception;
+
+        goto label34;
+
+     label54:
+        $r1 := @caughtexception;
+
+        goto label20;
+
+     label55:
+        $r2 := @caughtexception;
+
+        goto label21;
+
+     label56:
+        $r3 := @caughtexception;
+
+        goto label26;
+
+     label57:
+        $r4 := @caughtexception;
+
+        goto label31;
+
+     label58:
+        $r5 := @caughtexception;
+
+        goto label39;
+
+     label59:
+        $r6 := @caughtexception;
+
+        goto label31;
+
+     label60:
+        $r7 := @caughtexception;
+
+        goto label47;
+
+     label61:
+        $r8 := @caughtexception;
+
+        goto label51;
+
+     label62:
+        return 0;
+
+        catch java.io.IOException from label03 to label04 with label53;
+        catch java.io.IOException from label07 to label08 with label53;
+        catch java.io.IOException from label10 to label11 with label53;
+        catch java.lang.Throwable from label02 to label04 with label33;
+        catch java.lang.Throwable from label06 to label09 with label33;
+        catch java.lang.Throwable from label10 to label11 with label33;
+        catch java.io.IOException from label11 to label12 with label54;
+        catch java.io.IOException from label14 to label15 with label54;
+        catch java.lang.Throwable from label11 to label13 with label18;
+        catch java.lang.Throwable from label14 to label15 with label18;
+        catch java.io.IOException from label15 to label16 with label55;
+        catch java.lang.Throwable from label15 to label16 with label17;
+        catch java.io.IOException from label24 to label25 with label56;
+        catch java.io.IOException from label29 to label30 with label57;
+        catch java.lang.Throwable from label35 to label36 with label43;
+        catch java.io.IOException from label37 to label38 with label58;
+        catch java.io.IOException from label41 to label42 with label59;
+        catch java.io.IOException from label45 to label46 with label60;
+        catch java.io.IOException from label49 to label50 with label61;
+    }

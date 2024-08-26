@@ -1,0 +1,2082 @@
+    public java.lang.Boolean writePDFFile(java.io.File)
+    {
+        com.popculturesoft.agencyapp.AccidentReportActivity r0;
+        byte[] $r25, $r32, $r34;
+        java.lang.Float $r40;
+        android.net.Uri $r38;
+        java.lang.Integer $r41;
+        android.database.sqlite.SQLiteDatabase $r8;
+        java.lang.Exception r36, r42, r44, r45, r47, r52, r58, $r59;
+        java.lang.StringBuilder $r9, $r31, $r63;
+        java.lang.Throwable r48, r49, r51, r53, r54, r55, r56, r57;
+        java.lang.Object[] $r39;
+        java.io.ByteArrayOutputStream $r62;
+        com.popculturesoft.agencyapp.AccidentDatabaseHelper $r7;
+        java.util.ArrayList $r61;
+        android.graphics.Bitmap$CompressFormat $r24;
+        java.lang.String r3, r5, r6, $r10, $r13, $r14, $r15, $r16, $r17, $r18, $r22, $r26, $r27, $r28, $r29, $r30;
+        java.io.FileOutputStream r4, $r60;
+        java.io.IOException $r66;
+        java.io.File $r1;
+        android.content.SharedPreferences $r12;
+        org.json.JSONObject $r21;
+        boolean $z0;
+        float $f0, $f1;
+        android.graphics.BitmapFactory$Options r2, r46, $r65;
+        android.content.Context $r19;
+        int i0, $i1, $i2, $i3;
+        java.lang.Boolean $r35;
+        android.database.Cursor $r11, $r43;
+        double $d0, $d1;
+        java.util.Iterator $r33;
+        java.io.FileInputStream r37, $r64;
+        android.graphics.Bitmap $r23;
+        java.lang.Object $r50;
+        android.content.res.Resources $r20;
+
+        r0 := @this: com.popculturesoft.agencyapp.AccidentReportActivity;
+
+        $r1 := @parameter0: java.io.File;
+
+        r4 = null;
+
+        $r60 = new java.io.FileOutputStream;
+
+     label001:
+        specialinvoke $r60.<java.io.FileOutputStream: void <init>(java.io.File)>($r1);
+
+     label002:
+        r4 = $r60;
+
+     label003:
+        i0 = 1;
+
+        r3 = "3 0 R ";
+
+        r5 = "";
+
+        r6 = "";
+
+        $r7 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: com.popculturesoft.agencyapp.AccidentDatabaseHelper db>;
+
+        $r8 = virtualinvoke $r7.<com.popculturesoft.agencyapp.AccidentDatabaseHelper: android.database.sqlite.SQLiteDatabase getReadableDatabase()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>("select thumbnail, filename from scenePhotos where accident_id = ");
+
+        $r10 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: java.lang.String accident_id>;
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r11 = virtualinvoke $r8.<android.database.sqlite.SQLiteDatabase: android.database.Cursor rawQuery(java.lang.String,java.lang.String[])>($r10, null);
+
+        $i1 = interfaceinvoke $r11.<android.database.Cursor: int getCount()>();
+
+        if $i1 <= 0 goto label006;
+
+        i0 = 2;
+
+        $r31 = new java.lang.StringBuilder;
+
+        r5 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>("3 0 R ");
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>(r5);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" 20 0 R ");
+
+        r3 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r5 = "21 0 obj\n<<\n\t/ProcSet [/PDF /ImageB]\n\t/Font\n   \t\t<< /F1\n       \t\t<< /Type /Font\n           \t\t/Subtype /Type1\n          \t\t/BaseFont /Helvetica\n        \t>>\n\t\t/F2\n\t\t\t<<\n\t\t\t\t/Type /Font\n\t\t\t\t/Subtype /Type1\n\t\t\t\t/BaseFont /Helvetica-Bold\n\t\t\t>>\n     \t>>\n\t\t/XObject <<\n";
+
+        r6 = "20 0 obj\n<<  /Type /Page\n/Parent 2 0 R\n/Resources 21 0 R\n/Contents 200 0 R\n>>\nendobj\n\n200 0 obj\n<< /Length 0 >>\nstream\n\tBT\n\t\t/F1 24 Tf\n\t\t20 752 Td\n\t\t(Accident Scene Photos) Tj\n\tET\n";
+
+        $i1 = 0;
+
+     label004:
+        $z0 = interfaceinvoke $r11.<android.database.Cursor: boolean moveToNext()>();
+
+        if $z0 != 0 goto label045;
+
+     label005:
+        $r31 = new java.lang.StringBuilder;
+
+        r5 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>(r5);
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>(r5);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t>>\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(">>\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("endobj\n\n");
+
+        r5 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        r6 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>(r6);
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>(r6);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("endstream\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("endobj\n\n");
+
+        r6 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label006:
+        $r61 = new java.util.ArrayList;
+
+        specialinvoke $r61.<java.util.ArrayList: void <init>()>();
+
+        $r7 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: com.popculturesoft.agencyapp.AccidentDatabaseHelper db>;
+
+        $r8 = virtualinvoke $r7.<com.popculturesoft.agencyapp.AccidentDatabaseHelper: android.database.sqlite.SQLiteDatabase getReadableDatabase()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>("select _id, vehicleYear, make, model from vehicles where accident_id = ");
+
+        $r10 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: java.lang.String accident_id>;
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r11 = virtualinvoke $r8.<android.database.sqlite.SQLiteDatabase: android.database.Cursor rawQuery(java.lang.String,java.lang.String[])>($r10, null);
+
+     label007:
+        $z0 = interfaceinvoke $r11.<android.database.Cursor: boolean moveToNext()>();
+
+        if $z0 != 0 goto label052;
+
+        $r12 = staticinvoke <android.preference.PreferenceManager: android.content.SharedPreferences getDefaultSharedPreferences(android.content.Context)>(r0);
+
+        $r10 = interfaceinvoke $r12.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("accountEmail", "");
+
+        $r10 = virtualinvoke $r10.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("(", "\\(");
+
+        $r10 = virtualinvoke $r10.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(")", "\\)");
+
+        $r13 = interfaceinvoke $r12.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("accountPolicyNo", "");
+
+        $r13 = virtualinvoke $r13.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("(", "\\(");
+
+        $r13 = virtualinvoke $r13.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(")", "\\)");
+
+        $r14 = interfaceinvoke $r12.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("accountPhone", "");
+
+        $r14 = virtualinvoke $r14.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("(", "\\(");
+
+        $r14 = virtualinvoke $r14.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(")", "\\)");
+
+        $r15 = interfaceinvoke $r12.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("accountUserName", "");
+
+        $r15 = virtualinvoke $r15.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("(", "\\(");
+
+        $r15 = virtualinvoke $r15.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(")", "\\)");
+
+        $r16 = interfaceinvoke $r12.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("accountStreetAddress", "");
+
+        $r16 = virtualinvoke $r16.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("(", "\\(");
+
+        $r16 = virtualinvoke $r16.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(")", "\\)");
+
+        $r17 = interfaceinvoke $r12.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("accountCity", "");
+
+        $r17 = virtualinvoke $r17.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("(", "\\(");
+
+        $r17 = virtualinvoke $r17.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(")", "\\)");
+
+        $r18 = interfaceinvoke $r12.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("accountState", "");
+
+        $r18 = virtualinvoke $r18.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("(", "\\(");
+
+        $r18 = virtualinvoke $r18.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(")", "\\)");
+
+        $r19 = virtualinvoke r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.content.Context getApplicationContext()>();
+
+        $r20 = virtualinvoke $r19.<android.content.Context: android.content.res.Resources getResources()>();
+
+        $i1 = <com.popculturesoft.agencyapp.R$drawable: int logo_report>;
+
+     label008:
+        $r21 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: org.json.JSONObject _customizationObject>;
+
+        $r21 = virtualinvoke $r21.<org.json.JSONObject: org.json.JSONObject getJSONObject(java.lang.String)>("companyInfo");
+
+        $z0 = virtualinvoke $r21.<org.json.JSONObject: boolean has(java.lang.String)>("version");
+
+     label009:
+        if $z0 == 0 goto label012;
+
+     label010:
+        $r21 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: org.json.JSONObject _customizationObject>;
+
+        $r21 = virtualinvoke $r21.<org.json.JSONObject: org.json.JSONObject getJSONObject(java.lang.String)>("companyInfo");
+
+        $r22 = virtualinvoke $r21.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("version");
+
+        $z0 = virtualinvoke $r22.<java.lang.String: boolean equals(java.lang.Object)>("Lite");
+
+     label011:
+        if $z0 == 0 goto label012;
+
+        $i1 = <com.popculturesoft.agencyapp.R$drawable: int lite_app_logo_report>;
+
+     label012:
+        r46 = new android.graphics.BitmapFactory$Options;
+
+        r2 = r46;
+
+        specialinvoke r46.<android.graphics.BitmapFactory$Options: void <init>()>();
+
+        r46.<android.graphics.BitmapFactory$Options: int inSampleSize> = 1;
+
+        $r23 = staticinvoke <android.graphics.BitmapFactory: android.graphics.Bitmap decodeResource(android.content.res.Resources,int,android.graphics.BitmapFactory$Options)>($r20, $i1, r46);
+
+        $r62 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r62.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r24 = <android.graphics.Bitmap$CompressFormat: android.graphics.Bitmap$CompressFormat JPEG>;
+
+        virtualinvoke $r23.<android.graphics.Bitmap: boolean compress(android.graphics.Bitmap$CompressFormat,int,java.io.OutputStream)>($r24, 100, $r62);
+
+        $r25 = virtualinvoke $r62.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $r7 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: com.popculturesoft.agencyapp.AccidentDatabaseHelper db>;
+
+        $r8 = virtualinvoke $r7.<com.popculturesoft.agencyapp.AccidentDatabaseHelper: android.database.sqlite.SQLiteDatabase getWritableDatabase()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>("select timestamp, streetAddress, city, state, accidentDescription, injuries from accidents where _id = ");
+
+        $r22 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: java.lang.String accident_id>;
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r22);
+
+        $r22 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r11 = virtualinvoke $r8.<android.database.sqlite.SQLiteDatabase: android.database.Cursor rawQuery(java.lang.String,java.lang.String[])>($r22, null);
+
+        r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor> = $r11;
+
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        interfaceinvoke $r11.<android.database.Cursor: boolean moveToFirst()>();
+
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $r26 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(1);
+
+        $r22 = $r26;
+
+        if $r26 == null goto label013;
+
+        $r22 = virtualinvoke $r26.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("(", "\\(");
+
+        $r22 = virtualinvoke $r22.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(")", "\\)");
+
+     label013:
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $r27 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(2);
+
+        $r26 = $r27;
+
+        if $r27 == null goto label014;
+
+        $r26 = virtualinvoke $r27.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("(", "\\(");
+
+        $r26 = virtualinvoke $r26.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(")", "\\)");
+
+     label014:
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $r28 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(3);
+
+        $r27 = $r28;
+
+        if $r28 == null goto label015;
+
+        $r27 = virtualinvoke $r28.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("(", "\\(");
+
+        $r27 = virtualinvoke $r27.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(")", "\\)");
+
+     label015:
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $r29 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(4);
+
+        $r28 = $r29;
+
+        if $r29 == null goto label016;
+
+        $r28 = virtualinvoke $r29.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("(", "\\(");
+
+        $r28 = virtualinvoke $r28.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(")", "\\)");
+
+     label016:
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $r30 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(5);
+
+        $r29 = $r30;
+
+        if $r30 == null goto label017;
+
+        $r29 = virtualinvoke $r30.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("(", "\\(");
+
+        $r29 = virtualinvoke $r29.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(")", "\\)");
+
+     label017:
+        $r31 = new java.lang.StringBuilder;
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>("%PDF-1.1\n%\ufffd\ufffd\ufffd\n\n1 0 obj\n  << /Type /Catalog\n     /Pages 2 0 R\n  >>\nendobj\n\n2 0 obj\n  << /Type /Pages\n     /Kids [");
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r3);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("] \n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("     /Count ");
+
+        r3 = staticinvoke <java.lang.String: java.lang.String valueOf(int)>(i0);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r3);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  >>\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("endobj\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("3 0 obj\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  <<  /Type /Page\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("      /Parent 2 0 R\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("      /Resources\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("       << /Font\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("           << /F1\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("               << ");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t\t\t\t/Type /Font\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("                  /Subtype /Type1\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("                  /BaseFont /Helvetica\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("               >>\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t\t\t/F2\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t\t\t<<\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t\t\t\t/Type /Font\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t\t\t\t/Subtype /Type1\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t\t\t\t/BaseFont /Helvetica-Bold\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t\t\t>>\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("          >>\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t\t/XObject << /MAP 1000 0 R /LOGO 1001 0 R>>\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("       >>\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("      /Contents 4 0 R\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  >>\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("endobj\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("4 0 obj\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  << /Length 55 >>\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("stream\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\tBT\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t/F2 25 Tf\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t400 752 Td\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t(Accident Report) Tj\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t/F2 14 Tf\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t1 0 0 1 139 715 Tm\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t21 TL\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t(Policy Number:) Tj\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t(Phone:) \'\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t(Email:) \'\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t/F1 14 Tf\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t1 0 0 1 250 715 Tm\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t(");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(") Tj\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t1 0 0 1 190 694 Tm\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t(");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r14);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(") Tj\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t(");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(") \'\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t1 0 0 1 400 715 Tm\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t(");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r15);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(") Tj\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t(");
+
+        r3 = virtualinvoke $r16.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("(", "\\(");
+
+        r3 = virtualinvoke r3.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(")", "\\)");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r3);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(") \'\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t(");
+
+        r3 = virtualinvoke $r17.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("(", "\\(");
+
+        r3 = virtualinvoke r3.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(")", "\\)");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r3);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", ");
+
+        r3 = virtualinvoke $r18.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("(", "\\(");
+
+        r3 = virtualinvoke r3.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(")", "\\)");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r3);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(") \'\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t/F2 14 Tf\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t1 0 0 1 20 629 Tm\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t(Date & Time:) Tj\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t(Location:) \'\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t0 -48 Td\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t(Description) Tj\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t/F1 14 Tf\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t21 TL\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t1 0 0 1 111 629 Tm\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t(");
+
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        r3 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(0);
+
+        r3 = virtualinvoke r3.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("(", "\\(");
+
+        r3 = virtualinvoke r3.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(")", "\\)");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r3);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(") Tj\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t(");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r22);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(") \'\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t(");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r26);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", ");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r27);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(") \'\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t1 0 0 1 20 555 Tm\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t() Tj\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t(");
+
+        $r63 = new java.lang.StringBuilder;
+
+        specialinvoke $r63.<java.lang.StringBuilder: void <init>(java.lang.String)>("     ");
+
+        $r31 = virtualinvoke $r63.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r28);
+
+        r3 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r3 = virtualinvoke r0.<com.popculturesoft.agencyapp.AccidentReportActivity: java.lang.String addLinebreaks(java.lang.String,int,int)>(r3, 50, 4);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r3);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t1 0 0 1 20 450 Tm\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t() Tj\n");
+
+        r3 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>("(INJURIES:) \' (");
+
+        $r10 = virtualinvoke r0.<com.popculturesoft.agencyapp.AccidentReportActivity: java.lang.String addLinebreaks(java.lang.String,int,int)>($r29, 80, 100);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" () \'");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("(VEHICLES INVOLVED:) \' \n");
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r7 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: com.popculturesoft.agencyapp.AccidentDatabaseHelper db>;
+
+        virtualinvoke $r7.<com.popculturesoft.agencyapp.AccidentDatabaseHelper: void close()>();
+
+        $r7 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: com.popculturesoft.agencyapp.AccidentDatabaseHelper db>;
+
+        $r8 = virtualinvoke $r7.<com.popculturesoft.agencyapp.AccidentDatabaseHelper: android.database.sqlite.SQLiteDatabase getWritableDatabase()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>("select vehicleYear, make, model, plate, state, driverName, driverPhone, driverInsuranceCompany, driverInsurancePolicy, damageDescription from vehicles where accident_id = ");
+
+        $r13 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: java.lang.String accident_id>;
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r13 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r11 = virtualinvoke $r8.<android.database.sqlite.SQLiteDatabase: android.database.Cursor rawQuery(java.lang.String,java.lang.String[])>($r13, null);
+
+        r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor> = $r11;
+
+     label018:
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $z0 = interfaceinvoke $r11.<android.database.Cursor: boolean moveToNext()>();
+
+        if $z0 != 0 goto label062;
+
+        $r7 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: com.popculturesoft.agencyapp.AccidentDatabaseHelper db>;
+
+        virtualinvoke $r7.<com.popculturesoft.agencyapp.AccidentDatabaseHelper: void close()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        $r10 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r10);
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>($r10);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" () \' \n (WITNESSES & POLICE:) \' \n");
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r7 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: com.popculturesoft.agencyapp.AccidentDatabaseHelper db>;
+
+        $r8 = virtualinvoke $r7.<com.popculturesoft.agencyapp.AccidentDatabaseHelper: android.database.sqlite.SQLiteDatabase getWritableDatabase()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>("select personName, address, phone, policeBadgeNumber from persons where accident_id = ");
+
+        $r13 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: java.lang.String accident_id>;
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r13 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r11 = virtualinvoke $r8.<android.database.sqlite.SQLiteDatabase: android.database.Cursor rawQuery(java.lang.String,java.lang.String[])>($r13, null);
+
+        r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor> = $r11;
+
+     label019:
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $z0 = interfaceinvoke $r11.<android.database.Cursor: boolean moveToNext()>();
+
+        if $z0 != 0 goto label063;
+
+        $r7 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: com.popculturesoft.agencyapp.AccidentDatabaseHelper db>;
+
+        virtualinvoke $r7.<com.popculturesoft.agencyapp.AccidentDatabaseHelper: void close()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        r3 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>(r3);
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>(r3);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\tET\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t20 659 m\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t592 659 l s\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t20 457 m\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t592 457 l s\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("q\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t180 0 0 180 400 470 cm /MAP Do\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Q\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("q\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t100 0 0 100 20 672 cm /LOGO Do\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Q\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("endstream\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("endobj\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r3 = "trailer\n  <<  /Root 1 0 R\n      /Size 50  >> \n\n%%EOF";
+
+     label020:
+        $r32 = virtualinvoke $r10.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke r4.<java.io.FileOutputStream: void write(byte[])>($r32);
+
+        $r32 = virtualinvoke r5.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke r4.<java.io.FileOutputStream: void write(byte[])>($r32);
+
+        $r32 = virtualinvoke r6.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke r4.<java.io.FileOutputStream: void write(byte[])>($r32);
+
+     label021:
+        $r7 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: com.popculturesoft.agencyapp.AccidentDatabaseHelper db>;
+
+        $r8 = virtualinvoke $r7.<com.popculturesoft.agencyapp.AccidentDatabaseHelper: android.database.sqlite.SQLiteDatabase getReadableDatabase()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>("select thumbnail, filename from scenePhotos where accident_id = ");
+
+        r5 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: java.lang.String accident_id>;
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r5);
+
+        r5 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r11 = virtualinvoke $r8.<android.database.sqlite.SQLiteDatabase: android.database.Cursor rawQuery(java.lang.String,java.lang.String[])>(r5, null);
+
+        i0 = 0;
+
+     label022:
+        $z0 = interfaceinvoke $r11.<android.database.Cursor: boolean moveToNext()>();
+
+        if $z0 != 0 goto label065;
+
+        $r33 = virtualinvoke $r61.<java.util.ArrayList: java.util.Iterator iterator()>();
+
+     label023:
+        $z0 = interfaceinvoke $r33.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 != 0 goto label086;
+
+        $r7 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: com.popculturesoft.agencyapp.AccidentDatabaseHelper db>;
+
+        $r8 = virtualinvoke $r7.<com.popculturesoft.agencyapp.AccidentDatabaseHelper: android.database.sqlite.SQLiteDatabase getReadableDatabase()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>("select _id, vehicleYear, make, model from vehicles where accident_id = ");
+
+        r5 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: java.lang.String accident_id>;
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r5);
+
+        r5 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r11 = virtualinvoke $r8.<android.database.sqlite.SQLiteDatabase: android.database.Cursor rawQuery(java.lang.String,java.lang.String[])>(r5, null);
+
+     label024:
+        $z0 = interfaceinvoke $r11.<android.database.Cursor: boolean moveToNext()>();
+
+        if $z0 != 0 goto label090;
+
+        $r7 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: com.popculturesoft.agencyapp.AccidentDatabaseHelper db>;
+
+        $r8 = virtualinvoke $r7.<com.popculturesoft.agencyapp.AccidentDatabaseHelper: android.database.sqlite.SQLiteDatabase getReadableDatabase()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>("select latitude, longitude from accidents where _id = ");
+
+        r5 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: java.lang.String accident_id>;
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r5);
+
+        r5 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r11 = virtualinvoke $r8.<android.database.sqlite.SQLiteDatabase: android.database.Cursor rawQuery(java.lang.String,java.lang.String[])>(r5, null);
+
+        r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor> = $r11;
+
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        interfaceinvoke $r11.<android.database.Cursor: boolean moveToFirst()>();
+
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $f0 = interfaceinvoke $r11.<android.database.Cursor: float getFloat(int)>(0);
+
+        $d0 = (double) $f0;
+
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $f0 = interfaceinvoke $r11.<android.database.Cursor: float getFloat(int)>(1);
+
+        $d1 = (double) $f0;
+
+        $r23 = specialinvoke r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.graphics.Bitmap getPNG(double,double)>($d0, $d1);
+
+        $r62 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r62.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r24 = <android.graphics.Bitmap$CompressFormat: android.graphics.Bitmap$CompressFormat JPEG>;
+
+        virtualinvoke $r23.<android.graphics.Bitmap: boolean compress(android.graphics.Bitmap$CompressFormat,int,java.io.OutputStream)>($r24, 100, $r62);
+
+        $r32 = virtualinvoke $r62.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+     label025:
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>("1000 0 obj\n<<\n\t/Type /XObject\n\t/Subtype /Image\n\t/Width ");
+
+        i0 = virtualinvoke $r23.<android.graphics.Bitmap: int getWidth()>();
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(i0);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/Height ");
+
+        i0 = virtualinvoke $r23.<android.graphics.Bitmap: int getHeight()>();
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(i0);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" \t/ColorSpace /DeviceRGB \n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/BitsPerComponent 8\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/Length ");
+
+     label026:
+        i0 = lengthof $r32;
+
+     label027:
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(i0);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/Filter /DCTDecode \n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(">>\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("stream\n");
+
+        r5 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r34 = virtualinvoke r5.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke r4.<java.io.FileOutputStream: void write(byte[])>($r34);
+
+        virtualinvoke r4.<java.io.FileOutputStream: void write(byte[])>($r32);
+
+     label028:
+        r5 = "\nendstream\nendobj\n\n";
+
+     label029:
+        $r32 = virtualinvoke r5.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke r4.<java.io.FileOutputStream: void write(byte[])>($r32);
+
+     label030:
+        $r31 = new java.lang.StringBuilder;
+
+     label031:
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>("1001 0 obj\n<<\n\t/Type /XObject\n\t/Subtype /Image\n\t/Width ");
+
+     label032:
+        i0 = r2.<android.graphics.BitmapFactory$Options: int outWidth>;
+
+     label033:
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(i0);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/Height ");
+
+     label034:
+        i0 = r2.<android.graphics.BitmapFactory$Options: int outHeight>;
+
+     label035:
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(i0);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" \t/ColorSpace /DeviceRGB \n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/BitsPerComponent 8\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/Length ");
+
+     label036:
+        i0 = lengthof $r25;
+
+     label037:
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(i0);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/Filter /DCTDecode \n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(">>\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("stream\n");
+
+        r5 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r32 = virtualinvoke r5.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke r4.<java.io.FileOutputStream: void write(byte[])>($r32);
+
+        virtualinvoke r4.<java.io.FileOutputStream: void write(byte[])>($r25);
+
+     label038:
+        r5 = "\nendstream\nendobj\n\n";
+
+     label039:
+        $r25 = virtualinvoke r5.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke r4.<java.io.FileOutputStream: void write(byte[])>($r25);
+
+     label040:
+        $r25 = virtualinvoke r3.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke r4.<java.io.FileOutputStream: void write(byte[])>($r25);
+
+     label041:
+        if r4 == null goto label118;
+
+     label042:
+        virtualinvoke r4.<java.io.FileOutputStream: void close()>();
+
+        $r35 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(1);
+
+     label043:
+        return $r35;
+
+     label044:
+        r36 := @caughtexception;
+
+        virtualinvoke r36.<java.lang.Exception: void printStackTrace()>();
+
+        goto label003;
+
+     label045:
+        r46 = new android.graphics.BitmapFactory$Options;
+
+        r2 = r46;
+
+        specialinvoke r46.<android.graphics.BitmapFactory$Options: void <init>()>();
+
+        r46.<android.graphics.BitmapFactory$Options: boolean inJustDecodeBounds> = 1;
+
+        r46.<android.graphics.BitmapFactory$Options: int inSampleSize> = 2;
+
+        r37 = null;
+
+        $r10 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(1);
+
+        staticinvoke <com.popculturesoft.agencyapp.AccidentReportActivity: void dLog(java.lang.String,java.lang.String)>("PCS", $r10);
+
+        $r10 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(1);
+
+        $r38 = staticinvoke <android.net.Uri: android.net.Uri parse(java.lang.String)>($r10);
+
+        $r31 = new java.lang.StringBuilder;
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>("imageUri = ");
+
+        $r10 = virtualinvoke $r38.<android.net.Uri: java.lang.String toString()>();
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.popculturesoft.agencyapp.AccidentReportActivity: void dLog(java.lang.String,java.lang.String)>("PCS", $r10);
+
+        $r64 = new java.io.FileInputStream;
+
+     label046:
+        $r10 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(1);
+
+        specialinvoke $r64.<java.io.FileInputStream: void <init>(java.lang.String)>($r10);
+
+     label047:
+        r37 = $r64;
+
+     label048:
+        staticinvoke <android.graphics.BitmapFactory: android.graphics.Bitmap decodeStream(java.io.InputStream,android.graphics.Rect,android.graphics.BitmapFactory$Options)>(r37, null, r2);
+
+        $i2 = r2.<android.graphics.BitmapFactory$Options: int outWidth>;
+
+        $i3 = r2.<android.graphics.BitmapFactory$Options: int outHeight>;
+
+        if $i2 <= $i3 goto label051;
+
+        $f0 = (float) $i2;
+
+        $f0 = 175.0F / $f0;
+
+     label049:
+        $r31 = new java.lang.StringBuilder;
+
+        r6 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>(r6);
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>(r6);
+
+        $r39 = newarray (java.lang.Object)[5];
+
+        $f1 = (float) $i2;
+
+        $f1 = $f1 * $f0;
+
+        $r40 = staticinvoke <java.lang.Float: java.lang.Float valueOf(float)>($f1);
+
+        $r39[0] = $r40;
+
+        $f1 = (float) $i3;
+
+        $f0 = $f1 * $f0;
+
+        $r40 = staticinvoke <java.lang.Float: java.lang.Float valueOf(float)>($f0);
+
+        $r39[1] = $r40;
+
+        $i2 = $i1 % 3;
+
+        $i2 = $i2 * 180;
+
+        $i2 = $i2 + 40;
+
+        $r41 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i2);
+
+        $r39[2] = $r41;
+
+        $i2 = $i1 / 3;
+
+        $i2 = $i2 * 180;
+
+        $i2 = 550 - $i2;
+
+        $r41 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i2);
+
+        $r39[3] = $r41;
+
+        $r41 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i1);
+
+        $r39[4] = $r41;
+
+        r6 = staticinvoke <java.lang.String: java.lang.String format(java.lang.String,java.lang.Object[])>("q\n\t%f 0 0 %f %d %d\tcm\n\t/SP%d Do\nQ\n", $r39);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r6);
+
+        r6 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        r5 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>(r5);
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>(r5);
+
+        $r39 = newarray (java.lang.Object)[2];
+
+        $r41 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i1);
+
+        $r39[0] = $r41;
+
+        $i2 = $i1 + 2000;
+
+        $r41 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i2);
+
+        $r39[1] = $r41;
+
+        r5 = staticinvoke <java.lang.String: java.lang.String format(java.lang.String,java.lang.Object[])>(" /SP%d %d 0 R\n", $r39);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r5);
+
+        r5 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $i1 = $i1 + 1;
+
+        if $i1 <= 12 goto label004;
+
+        goto label005;
+
+     label050:
+        r42 := @caughtexception;
+
+        virtualinvoke r42.<java.lang.Exception: void printStackTrace()>();
+
+        goto label048;
+
+     label051:
+        $f0 = (float) $i3;
+
+        $f0 = 175.0F / $f0;
+
+        goto label049;
+
+     label052:
+        $r10 = "";
+
+        $r13 = "";
+
+        $r7 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: com.popculturesoft.agencyapp.AccidentDatabaseHelper db>;
+
+        $r8 = virtualinvoke $r7.<com.popculturesoft.agencyapp.AccidentDatabaseHelper: android.database.sqlite.SQLiteDatabase getReadableDatabase()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>("select _id, filename from damagePhotos where vehicle_id = ");
+
+        $i1 = interfaceinvoke $r11.<android.database.Cursor: int getInt(int)>(0);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r14 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r43 = virtualinvoke $r8.<android.database.sqlite.SQLiteDatabase: android.database.Cursor rawQuery(java.lang.String,java.lang.String[])>($r14, null);
+
+        $i1 = interfaceinvoke $r43.<android.database.Cursor: int getCount()>();
+
+        if $i1 <= 0 goto label053;
+
+        i0 = i0 + 1;
+
+        $i1 = interfaceinvoke $r11.<android.database.Cursor: int getInt(int)>(0);
+
+        $r13 = staticinvoke <java.lang.String: java.lang.String valueOf(int)>($i1);
+
+        $r31 = new java.lang.StringBuilder;
+
+        r3 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>(r3);
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>(r3);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("0000 0 R ");
+
+        r3 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        $r10 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r13);
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>($r10);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("0001 0 obj\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<<\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/ProcSet [/PDF /ImageB]\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/Font\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("   \t\t<< /F1\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("       \t\t<< /Type /Font\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("           \t\t/Subtype /Type1\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("          \t\t/BaseFont /Helvetica\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("        \t>>\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t/F2\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t\t<<\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t\t\t/Type /Font\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t\t\t/Subtype /Type1\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t\t\t/BaseFont /Helvetica-Bold\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t\t>>\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("     \t>>\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t/XObject <<\n");
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        $r14 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r13);
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>($r14);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("0000 0 obj\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<<  /Type /Page\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/Parent 2 0 R\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/Resources ");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("0001 0 R\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/Contents ");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("0002 0 R\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(">>\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("endobj\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("0002 0 obj\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<< /Length 0 >>\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("stream\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\tBT\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t/F1 24 Tf\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t20 752 Td\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t\t(Vehicle Photos: ");
+
+        $r13 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(1);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $r13 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(2);
+
+        $r13 = virtualinvoke $r13.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("(", "\\(");
+
+        $r13 = virtualinvoke $r13.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(")", "\\)");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $r13 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(3);
+
+        $r13 = virtualinvoke $r13.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("(", "\\(");
+
+        $r13 = virtualinvoke $r13.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(")", "\\)");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(") Tj\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\tET\n");
+
+        $r13 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label053:
+        $i1 = 0;
+
+     label054:
+        $z0 = interfaceinvoke $r43.<android.database.Cursor: boolean moveToNext()>();
+
+        if $z0 != 0 goto label055;
+
+        $r31 = new java.lang.StringBuilder;
+
+        $r10 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r10);
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>($r10);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t>>\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(">>\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("endobj\n\n");
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        $r13 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r13);
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>($r13);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("endstream\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("endobj\n\n");
+
+        $r13 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        $r10 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r10);
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>($r10);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r61.<java.util.ArrayList: boolean add(java.lang.Object)>($r10);
+
+        goto label007;
+
+     label055:
+        r46 = new android.graphics.BitmapFactory$Options;
+
+        r2 = r46;
+
+        specialinvoke r46.<android.graphics.BitmapFactory$Options: void <init>()>();
+
+        r46.<android.graphics.BitmapFactory$Options: boolean inJustDecodeBounds> = 1;
+
+        r46.<android.graphics.BitmapFactory$Options: int inSampleSize> = 2;
+
+        r37 = null;
+
+        $r64 = new java.io.FileInputStream;
+
+     label056:
+        $r14 = interfaceinvoke $r43.<android.database.Cursor: java.lang.String getString(int)>(1);
+
+        specialinvoke $r64.<java.io.FileInputStream: void <init>(java.lang.String)>($r14);
+
+     label057:
+        r37 = $r64;
+
+     label058:
+        staticinvoke <android.graphics.BitmapFactory: android.graphics.Bitmap decodeStream(java.io.InputStream,android.graphics.Rect,android.graphics.BitmapFactory$Options)>(r37, null, r2);
+
+        $i2 = r2.<android.graphics.BitmapFactory$Options: int outWidth>;
+
+        $i3 = r2.<android.graphics.BitmapFactory$Options: int outHeight>;
+
+        if $i2 <= $i3 goto label061;
+
+        $f0 = (float) $i2;
+
+        $f0 = 175.0F / $f0;
+
+     label059:
+        $r31 = new java.lang.StringBuilder;
+
+        $r13 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r13);
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>($r13);
+
+        $r39 = newarray (java.lang.Object)[5];
+
+        $f1 = (float) $i2;
+
+        $f1 = $f1 * $f0;
+
+        $r40 = staticinvoke <java.lang.Float: java.lang.Float valueOf(float)>($f1);
+
+        $r39[0] = $r40;
+
+        $f1 = (float) $i3;
+
+        $f0 = $f1 * $f0;
+
+        $r40 = staticinvoke <java.lang.Float: java.lang.Float valueOf(float)>($f0);
+
+        $r39[1] = $r40;
+
+        $i2 = $i1 % 3;
+
+        $i2 = $i2 * 180;
+
+        $i2 = $i2 + 40;
+
+        $r41 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i2);
+
+        $r39[2] = $r41;
+
+        $i2 = $i1 / 3;
+
+        $i2 = $i2 * 180;
+
+        $i2 = 550 - $i2;
+
+        $r41 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i2);
+
+        $r39[3] = $r41;
+
+        $r41 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i1);
+
+        $r39[4] = $r41;
+
+        $r13 = staticinvoke <java.lang.String: java.lang.String format(java.lang.String,java.lang.Object[])>("q\n\t%f 0 0 %f %d %d\tcm\n\t/SP%d Do\nQ\n", $r39);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r13 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        $r10 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r10);
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>($r10);
+
+        $r39 = newarray (java.lang.Object)[2];
+
+        $r41 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i1);
+
+        $r39[0] = $r41;
+
+        $i2 = interfaceinvoke $r11.<android.database.Cursor: int getInt(int)>(0);
+
+        $i2 = $i2 * 100000;
+
+        $i2 = $i2 + $i1;
+
+        $r41 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i2);
+
+        $r39[1] = $r41;
+
+        $r10 = staticinvoke <java.lang.String: java.lang.String format(java.lang.String,java.lang.Object[])>(" /SP%d %d 0 R\n", $r39);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $i1 = $i1 + 1;
+
+        goto label054;
+
+     label060:
+        r44 := @caughtexception;
+
+        virtualinvoke r44.<java.lang.Exception: void printStackTrace()>();
+
+        goto label058;
+
+     label061:
+        $f0 = (float) $i3;
+
+        $f0 = 175.0F / $f0;
+
+        goto label059;
+
+     label062:
+        $r31 = new java.lang.StringBuilder;
+
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $r13 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(0);
+
+        $r13 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r13);
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>($r13);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $r13 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(1);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $r13 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(2);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", Plate:");
+
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $r13 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(3);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", State:");
+
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $r13 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(4);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", Driver:");
+
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $r13 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(5);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $r13 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(6);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", Insurance:");
+
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $r13 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(7);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $r13 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(8);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", Damage:");
+
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $r13 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(9);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r13 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        $r10 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r10);
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>($r10);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" (");
+
+        $r10 = virtualinvoke $r13.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("(", "\\(");
+
+        $r10 = virtualinvoke $r10.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(")", "\\)");
+
+        $r10 = virtualinvoke r0.<com.popculturesoft.agencyapp.AccidentReportActivity: java.lang.String addLinebreaks(java.lang.String,int,int)>($r10, 80, 100);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        goto label018;
+
+     label063:
+        $r31 = new java.lang.StringBuilder;
+
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $r13 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(0);
+
+        $r13 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r13);
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>($r13);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $r13 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(1);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $r13 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(2);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $r11 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: android.database.Cursor thisAccidentCursor>;
+
+        $r13 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(3);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r13 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        $r10 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r10);
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>($r10);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" (");
+
+        $r10 = virtualinvoke $r13.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("(", "\\(");
+
+        $r10 = virtualinvoke $r10.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(")", "\\)");
+
+        $r10 = virtualinvoke r0.<com.popculturesoft.agencyapp.AccidentReportActivity: java.lang.String addLinebreaks(java.lang.String,int,int)>($r10, 80, 100);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        goto label019;
+
+     label064:
+        r45 := @caughtexception;
+
+        virtualinvoke r45.<java.lang.Exception: void printStackTrace()>();
+
+        staticinvoke <com.popculturesoft.agencyapp.AccidentReportActivity: void dLog(java.lang.String,java.lang.String)>("PCS", "error writing pdf header");
+
+        goto label021;
+
+     label065:
+        $r65 = new android.graphics.BitmapFactory$Options;
+
+        r46 = $r65;
+
+        specialinvoke $r65.<android.graphics.BitmapFactory$Options: void <init>()>();
+
+        $r65.<android.graphics.BitmapFactory$Options: int inSampleSize> = 2;
+
+        r37 = null;
+
+        $r32 = newarray (byte)[0];
+
+        $r64 = new java.io.FileInputStream;
+
+     label066:
+        r5 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>(1);
+
+        specialinvoke $r64.<java.io.FileInputStream: void <init>(java.lang.String)>(r5);
+
+     label067:
+        r37 = $r64;
+
+     label068:
+        $r23 = staticinvoke <android.graphics.BitmapFactory: android.graphics.Bitmap decodeStream(java.io.InputStream,android.graphics.Rect,android.graphics.BitmapFactory$Options)>(r37, null, r46);
+
+     label069:
+        virtualinvoke r37.<java.io.InputStream: void close()>();
+
+     label070:
+        $r62 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r62.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r24 = <android.graphics.Bitmap$CompressFormat: android.graphics.Bitmap$CompressFormat JPEG>;
+
+        virtualinvoke $r23.<android.graphics.Bitmap: boolean compress(android.graphics.Bitmap$CompressFormat,int,java.io.OutputStream)>($r24, 50, $r62);
+
+        $r32 = virtualinvoke $r62.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        $r39 = newarray (java.lang.Object)[1];
+
+        $i1 = i0 + 2000;
+
+     label071:
+        $r41 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i1);
+
+     label072:
+        $r39[0] = $r41;
+
+     label073:
+        r5 = staticinvoke <java.lang.String: java.lang.String format(java.lang.String,java.lang.Object[])>("%d 0 obj\n", $r39);
+
+        r5 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>(r5);
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>(r5);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<<\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/Type /XObject\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/Subtype /Image\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/Width ");
+
+     label074:
+        $i1 = r46.<android.graphics.BitmapFactory$Options: int outWidth>;
+
+     label075:
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/Height ");
+
+     label076:
+        $i1 = r46.<android.graphics.BitmapFactory$Options: int outHeight>;
+
+     label077:
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" \t/ColorSpace /DeviceRGB \n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/BitsPerComponent 8\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/Length ");
+
+     label078:
+        $i1 = lengthof $r32;
+
+     label079:
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/Filter /DCTDecode \n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(">>\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("stream\n");
+
+        r5 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r34 = virtualinvoke r5.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke r4.<java.io.FileOutputStream: void write(byte[])>($r34);
+
+        virtualinvoke r4.<java.io.FileOutputStream: void write(byte[])>($r32);
+
+     label080:
+        r5 = "\nendstream\nendobj\n\n";
+
+     label081:
+        $r32 = virtualinvoke r5.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke r4.<java.io.FileOutputStream: void write(byte[])>($r32);
+
+     label082:
+        i0 = i0 + 1;
+
+        goto label022;
+
+     label083:
+        r47 := @caughtexception;
+
+        virtualinvoke r47.<java.lang.Exception: void printStackTrace()>();
+
+        staticinvoke <com.popculturesoft.agencyapp.AccidentReportActivity: void dLog(java.lang.String,java.lang.String)>("PCS", "INPUT STREAM ERROR");
+
+        goto label068;
+
+     label084:
+        r48 := @caughtexception;
+
+        $r66 = (java.io.IOException) r48;
+
+        virtualinvoke $r66.<java.io.IOException: void printStackTrace()>();
+
+        staticinvoke <com.popculturesoft.agencyapp.AccidentReportActivity: void dLog(java.lang.String,java.lang.String)>("PCS", "is.close() error");
+
+        goto label070;
+
+     label085:
+        r49 := @caughtexception;
+
+        $r66 = (java.io.IOException) r49;
+
+        virtualinvoke $r66.<java.io.IOException: void printStackTrace()>();
+
+        staticinvoke <com.popculturesoft.agencyapp.AccidentReportActivity: void dLog(java.lang.String,java.lang.String)>("PCS", "error writing bitmap blob");
+
+        goto label082;
+
+     label086:
+        $r50 = interfaceinvoke $r33.<java.util.Iterator: java.lang.Object next()>();
+
+        r5 = (java.lang.String) $r50;
+
+     label087:
+        $r32 = virtualinvoke r5.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke r4.<java.io.FileOutputStream: void write(byte[])>($r32);
+
+     label088:
+        goto label023;
+
+     label089:
+        r51 := @caughtexception;
+
+        $r66 = (java.io.IOException) r51;
+
+        virtualinvoke $r66.<java.io.IOException: void printStackTrace()>();
+
+        staticinvoke <com.popculturesoft.agencyapp.AccidentReportActivity: void dLog(java.lang.String,java.lang.String)>("PCS", "error writing vehiclePages");
+
+        goto label023;
+
+     label090:
+        $r7 = r0.<com.popculturesoft.agencyapp.AccidentReportActivity: com.popculturesoft.agencyapp.AccidentDatabaseHelper db>;
+
+        $r8 = virtualinvoke $r7.<com.popculturesoft.agencyapp.AccidentDatabaseHelper: android.database.sqlite.SQLiteDatabase getReadableDatabase()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>("select _id, filename from damagePhotos where vehicle_id = ");
+
+        i0 = interfaceinvoke $r11.<android.database.Cursor: int getInt(int)>(0);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(i0);
+
+        r5 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r43 = virtualinvoke $r8.<android.database.sqlite.SQLiteDatabase: android.database.Cursor rawQuery(java.lang.String,java.lang.String[])>(r5, null);
+
+        i0 = 0;
+
+     label091:
+        $z0 = interfaceinvoke $r43.<android.database.Cursor: boolean moveToNext()>();
+
+        if $z0 == 0 goto label024;
+
+        $r65 = new android.graphics.BitmapFactory$Options;
+
+        r46 = $r65;
+
+        specialinvoke $r65.<android.graphics.BitmapFactory$Options: void <init>()>();
+
+        $r65.<android.graphics.BitmapFactory$Options: int inSampleSize> = 2;
+
+        r37 = null;
+
+        $r32 = newarray (byte)[0];
+
+        $r64 = new java.io.FileInputStream;
+
+     label092:
+        r5 = interfaceinvoke $r43.<android.database.Cursor: java.lang.String getString(int)>(1);
+
+        specialinvoke $r64.<java.io.FileInputStream: void <init>(java.lang.String)>(r5);
+
+     label093:
+        r37 = $r64;
+
+     label094:
+        $r23 = staticinvoke <android.graphics.BitmapFactory: android.graphics.Bitmap decodeStream(java.io.InputStream,android.graphics.Rect,android.graphics.BitmapFactory$Options)>(r37, null, r46);
+
+     label095:
+        virtualinvoke r37.<java.io.InputStream: void close()>();
+
+     label096:
+        $r62 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r62.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r24 = <android.graphics.Bitmap$CompressFormat: android.graphics.Bitmap$CompressFormat JPEG>;
+
+        virtualinvoke $r23.<android.graphics.Bitmap: boolean compress(android.graphics.Bitmap$CompressFormat,int,java.io.OutputStream)>($r24, 50, $r62);
+
+        $r32 = virtualinvoke $r62.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $r31 = new java.lang.StringBuilder;
+
+        $r39 = newarray (java.lang.Object)[1];
+
+     label097:
+        $i1 = interfaceinvoke $r11.<android.database.Cursor: int getInt(int)>(0);
+
+     label098:
+        $i1 = $i1 * 100000;
+
+        $i1 = $i1 + i0;
+
+     label099:
+        $r41 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i1);
+
+     label100:
+        $r39[0] = $r41;
+
+     label101:
+        r5 = staticinvoke <java.lang.String: java.lang.String format(java.lang.String,java.lang.Object[])>("%d 0 obj\n", $r39);
+
+        r5 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>(r5);
+
+        specialinvoke $r31.<java.lang.StringBuilder: void <init>(java.lang.String)>(r5);
+
+        $r9 = virtualinvoke $r31.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<<\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/Type /XObject\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/Subtype /Image\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/Width ");
+
+     label102:
+        $i1 = r46.<android.graphics.BitmapFactory$Options: int outWidth>;
+
+     label103:
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/Height ");
+
+     label104:
+        $i1 = r46.<android.graphics.BitmapFactory$Options: int outHeight>;
+
+     label105:
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" \t/ColorSpace /DeviceRGB \n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/BitsPerComponent 8\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/Length ");
+
+     label106:
+        $i1 = lengthof $r32;
+
+     label107:
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\t/Filter /DCTDecode \n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(">>\n");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("stream\n");
+
+        r5 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r34 = virtualinvoke r5.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke r4.<java.io.FileOutputStream: void write(byte[])>($r34);
+
+        virtualinvoke r4.<java.io.FileOutputStream: void write(byte[])>($r32);
+
+     label108:
+        r5 = "\nendstream\nendobj\n\n";
+
+     label109:
+        $r32 = virtualinvoke r5.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke r4.<java.io.FileOutputStream: void write(byte[])>($r32);
+
+     label110:
+        i0 = i0 + 1;
+
+        goto label091;
+
+     label111:
+        r52 := @caughtexception;
+
+        virtualinvoke r52.<java.lang.Exception: void printStackTrace()>();
+
+        staticinvoke <com.popculturesoft.agencyapp.AccidentReportActivity: void dLog(java.lang.String,java.lang.String)>("PCS", "INPUT STREAM ERROR");
+
+        goto label094;
+
+     label112:
+        r53 := @caughtexception;
+
+        $r66 = (java.io.IOException) r53;
+
+        virtualinvoke $r66.<java.io.IOException: void printStackTrace()>();
+
+        goto label096;
+
+     label113:
+        r54 := @caughtexception;
+
+        $r66 = (java.io.IOException) r54;
+
+        virtualinvoke $r66.<java.io.IOException: void printStackTrace()>();
+
+        staticinvoke <com.popculturesoft.agencyapp.AccidentReportActivity: void dLog(java.lang.String,java.lang.String)>("PCS", "error writing vehicle image");
+
+        goto label110;
+
+     label114:
+        r55 := @caughtexception;
+
+        $r66 = (java.io.IOException) r55;
+
+        virtualinvoke $r66.<java.io.IOException: void printStackTrace()>();
+
+        staticinvoke <com.popculturesoft.agencyapp.AccidentReportActivity: void dLog(java.lang.String,java.lang.String)>("PCS", "error writing map");
+
+        goto label030;
+
+     label115:
+        r56 := @caughtexception;
+
+        $r66 = (java.io.IOException) r56;
+
+        virtualinvoke $r66.<java.io.IOException: void printStackTrace()>();
+
+        staticinvoke <com.popculturesoft.agencyapp.AccidentReportActivity: void dLog(java.lang.String,java.lang.String)>("PCS", "error writing logo");
+
+        goto label040;
+
+     label116:
+        r57 := @caughtexception;
+
+        $r66 = (java.io.IOException) r57;
+
+        virtualinvoke $r66.<java.io.IOException: void printStackTrace()>();
+
+        goto label041;
+
+     label117:
+        r58 := @caughtexception;
+
+        virtualinvoke r58.<java.lang.Exception: void printStackTrace()>();
+
+     label118:
+        $r35 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(0);
+
+        return $r35;
+
+     label119:
+        $r59 := @caughtexception;
+
+        goto label012;
+
+        catch java.lang.Exception from label001 to label002 with label044;
+        catch java.lang.Exception from label008 to label009 with label119;
+        catch java.lang.Exception from label010 to label011 with label119;
+        catch java.lang.Exception from label020 to label021 with label064;
+        catch java.io.IOException from label025 to label026 with label114;
+        catch java.io.IOException from label027 to label028 with label114;
+        catch java.io.IOException from label029 to label030 with label114;
+        catch java.io.IOException from label031 to label032 with label115;
+        catch java.io.IOException from label033 to label034 with label115;
+        catch java.io.IOException from label035 to label036 with label115;
+        catch java.io.IOException from label037 to label038 with label115;
+        catch java.io.IOException from label039 to label040 with label115;
+        catch java.io.IOException from label040 to label041 with label116;
+        catch java.lang.Exception from label042 to label043 with label117;
+        catch java.lang.Exception from label046 to label047 with label050;
+        catch java.lang.Exception from label056 to label057 with label060;
+        catch java.lang.Exception from label066 to label067 with label083;
+        catch java.io.IOException from label069 to label070 with label084;
+        catch java.io.IOException from label071 to label072 with label085;
+        catch java.io.IOException from label073 to label074 with label085;
+        catch java.io.IOException from label075 to label076 with label085;
+        catch java.io.IOException from label077 to label078 with label085;
+        catch java.io.IOException from label079 to label080 with label085;
+        catch java.io.IOException from label081 to label082 with label085;
+        catch java.io.IOException from label087 to label088 with label089;
+        catch java.lang.Exception from label092 to label093 with label111;
+        catch java.io.IOException from label095 to label096 with label112;
+        catch java.io.IOException from label097 to label098 with label113;
+        catch java.io.IOException from label099 to label100 with label113;
+        catch java.io.IOException from label101 to label102 with label113;
+        catch java.io.IOException from label103 to label104 with label113;
+        catch java.io.IOException from label105 to label106 with label113;
+        catch java.io.IOException from label107 to label108 with label113;
+        catch java.io.IOException from label109 to label110 with label113;
+    }

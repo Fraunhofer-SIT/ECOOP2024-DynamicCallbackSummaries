@@ -1,0 +1,115 @@
+    public org.json.JSONObject makePostRequest(java.lang.String, java.util.List, java.util.Map, boolean)
+    {
+        java.lang.Object[] $r12;
+        com.beetalk.sdk.networking.HttpParam $r11;
+        java.util.ArrayList r5;
+        org.json.JSONObject $r13;
+        java.util.Map r3;
+        java.lang.String $r1, r9, $r10;
+        com.beetalk.sdk.networking.SimpleNetworkClient r0;
+        boolean $z0, $z1;
+        java.util.Iterator $r7;
+        java.util.Set $r6;
+        java.lang.Exception r4;
+        java.util.List r2;
+        java.lang.Object $r8;
+
+        r0 := @this: com.beetalk.sdk.networking.SimpleNetworkClient;
+
+        $r1 := @parameter0: java.lang.String;
+
+        r2 := @parameter1: java.util.List;
+
+        r3 := @parameter2: java.util.Map;
+
+        $z0 := @parameter3: boolean;
+
+        r5 = new java.util.ArrayList;
+
+        specialinvoke r5.<java.util.ArrayList: void <init>()>();
+
+        if r3 == null goto label02;
+
+        $z1 = interfaceinvoke r3.<java.util.Map: boolean isEmpty()>();
+
+        if $z1 != 0 goto label02;
+
+        $r6 = interfaceinvoke r3.<java.util.Map: java.util.Set keySet()>();
+
+        $r7 = interfaceinvoke $r6.<java.util.Set: java.util.Iterator iterator()>();
+
+     label01:
+        $z1 = interfaceinvoke $r7.<java.util.Iterator: boolean hasNext()>();
+
+        if $z1 == 0 goto label02;
+
+        $r8 = interfaceinvoke $r7.<java.util.Iterator: java.lang.Object next()>();
+
+        r9 = (java.lang.String) $r8;
+
+        $r8 = interfaceinvoke r3.<java.util.Map: java.lang.Object get(java.lang.Object)>(r9);
+
+        $r10 = (java.lang.String) $r8;
+
+        $r10 = specialinvoke r0.<com.beetalk.sdk.networking.SimpleNetworkClient: java.lang.String sanitize(java.lang.String)>($r10);
+
+        $r11 = new com.beetalk.sdk.networking.HttpParam;
+
+        specialinvoke $r11.<com.beetalk.sdk.networking.HttpParam: void <init>(java.lang.String,java.lang.String)>(r9, $r10);
+
+        interfaceinvoke r5.<java.util.List: boolean add(java.lang.Object)>($r11);
+
+        goto label01;
+
+     label02:
+        r9 = staticinvoke <com.beetalk.sdk.helper.StringUtils: java.lang.String httpParamsToString(java.util.List)>(r5);
+
+     label03:
+        $r12 = newarray (java.lang.Object)[2];
+
+     label04:
+        $r12[0] = $r1;
+
+        $r12[1] = r9;
+
+        staticinvoke <com.beetalk.sdk.helper.BBLogger: void i(java.lang.String,java.lang.Object[])>("Making Request for url %s & params %s", $r12);
+
+     label05:
+        r5 = new java.util.ArrayList;
+
+     label06:
+        specialinvoke r5.<java.util.ArrayList: void <init>()>();
+
+     label07:
+        $r11 = new com.beetalk.sdk.networking.HttpParam;
+
+     label08:
+        specialinvoke $r11.<com.beetalk.sdk.networking.HttpParam: void <init>(java.lang.String,java.lang.String)>("Content-Type", "application/x-www-form-urlencoded");
+
+        interfaceinvoke r5.<java.util.List: boolean add(java.lang.Object)>($r11);
+
+     label09:
+        if r2 == null goto label11;
+
+     label10:
+        interfaceinvoke r5.<java.util.List: boolean addAll(java.util.Collection)>(r2);
+
+     label11:
+        $r13 = specialinvoke r0.<com.beetalk.sdk.networking.SimpleNetworkClient: org.json.JSONObject makePostRequest(java.lang.String,java.util.List,java.lang.String,boolean)>($r1, r5, r9, $z0);
+
+     label12:
+        return $r13;
+
+     label13:
+        r4 := @caughtexception;
+
+        staticinvoke <com.beetalk.sdk.helper.BBLogger: void e(java.lang.Exception)>(r4);
+
+        return null;
+
+        catch java.lang.Exception from label02 to label03 with label13;
+        catch java.lang.Exception from label04 to label05 with label13;
+        catch java.lang.Exception from label06 to label07 with label13;
+        catch java.lang.Exception from label08 to label09 with label13;
+        catch java.lang.Exception from label10 to label12 with label13;
+    }

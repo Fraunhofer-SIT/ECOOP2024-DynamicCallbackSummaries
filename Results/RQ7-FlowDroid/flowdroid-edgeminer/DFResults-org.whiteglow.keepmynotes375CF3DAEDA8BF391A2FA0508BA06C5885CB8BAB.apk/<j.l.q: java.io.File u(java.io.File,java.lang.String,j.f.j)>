@@ -1,0 +1,362 @@
+    public static java.io.File u(java.io.File, java.lang.String, j.f.j)
+    {
+        byte[] $r16, $r20, $r22;
+        java.io.BufferedInputStream $r9, $r30;
+        j.f.s $r18;
+        java.lang.Integer $r12;
+        java.security.SecureRandom $r8;
+        java.util.Locale $r10;
+        boolean $z0;
+        java.lang.Exception $r25;
+        j.f.j $r4;
+        java.lang.StringBuilder $r26;
+        j.f.c $r13;
+        javax.crypto.SecretKey $r17;
+        java.lang.Throwable $r24;
+        android.content.Context $r5;
+        java.lang.Object[] $r11;
+        long $l0;
+        javax.crypto.Cipher $r21;
+        java.io.BufferedOutputStream $r32;
+        java.nio.charset.Charset $r19;
+        javax.crypto.spec.IvParameterSpec $r28;
+        int $i1;
+        java.lang.String $r3, $r7;
+        javax.crypto.CipherOutputStream $r23, $r33;
+        java.util.Map$Entry $r14;
+        java.io.FileOutputStream $r31;
+        java.io.FileInputStream $r29;
+        java.lang.RuntimeException $r34;
+        java.io.File $r2, $r6, $r27;
+        com.kosprov.jargon2.spi.a $r1;
+        java.lang.Object $r15;
+        j.g.b $r0;
+
+        $r2 := @parameter0: java.io.File;
+
+        $r3 := @parameter1: java.lang.String;
+
+        $r4 := @parameter2: j.f.j;
+
+        $r27 = new java.io.File;
+
+        $r26 = new java.lang.StringBuilder;
+
+        specialinvoke $r26.<java.lang.StringBuilder: void <init>()>();
+
+        $r5 = staticinvoke <j.b.b: android.content.Context o()>();
+
+        $r6 = virtualinvoke $r5.<android.content.Context: java.io.File getCacheDir()>();
+
+        $r7 = virtualinvoke $r6.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/tmp_");
+
+        $r8 = <j.l.q: java.security.SecureRandom b>;
+
+        $l0 = virtualinvoke $r8.<java.security.SecureRandom: long nextLong()>();
+
+        virtualinvoke $r26.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+
+        $r7 = virtualinvoke $r26.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r27.<java.io.File: void <init>(java.lang.String)>($r7);
+
+        $r9 = null;
+
+     label01:
+        $r10 = <java.util.Locale: java.util.Locale ENGLISH>;
+
+        $r11 = newarray (java.lang.Object)[1];
+
+     label02:
+        $i1 = interfaceinvoke $r4.<j.f.j: int d()>();
+
+        $r12 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i1);
+
+     label03:
+        $r11[0] = $r12;
+
+     label04:
+        $r7 = staticinvoke <java.lang.String: java.lang.String format(java.util.Locale,java.lang.String,java.lang.Object[])>($r10, "%03d", $r11);
+
+     label05:
+        $z0 = $r4 instanceof j.f.c;
+
+     label06:
+        if $z0 == 0 goto label15;
+
+     label07:
+        $r13 = (j.f.c) $r4;
+
+     label08:
+        $r14 = staticinvoke <j.l.q: java.util.Map$Entry J(java.lang.String,j.f.c)>($r3, $r13);
+
+        $r15 = interfaceinvoke $r14.<java.util.Map$Entry: java.lang.Object getKey()>();
+
+     label09:
+        $r16 = (byte[]) $r15;
+
+     label10:
+        $r15 = interfaceinvoke $r14.<java.util.Map$Entry: java.lang.Object getValue()>();
+
+     label11:
+        $r17 = (javax.crypto.SecretKey) $r15;
+
+     label12:
+        goto label23;
+
+     label13:
+        $r13 = staticinvoke <j.l.q: j.f.c h(j.f.c)>($r13);
+
+        $r2 = staticinvoke <j.l.q: java.io.File u(java.io.File,java.lang.String,j.f.j)>($r2, $r3, $r13);
+
+     label14:
+        staticinvoke <j.l.r: void j(java.io.InputStream)>(null);
+
+        staticinvoke <j.l.r: void k(java.io.OutputStream)>(null);
+
+        return $r2;
+
+     label15:
+        $z0 = $r4 instanceof j.f.s;
+
+     label16:
+        if $z0 == 0 goto label22;
+
+     label17:
+        $i1 = interfaceinvoke $r4.<j.f.j: int c()>();
+
+     label18:
+        $r16 = newarray (byte)[$i1];
+
+     label19:
+        $r8 = <j.l.q: java.security.SecureRandom b>;
+
+     label20:
+        virtualinvoke $r8.<java.security.SecureRandom: void nextBytes(byte[])>($r16);
+
+        $r18 = (j.f.s) $r4;
+
+        $i1 = virtualinvoke $r18.<j.f.s: int e()>();
+
+        $r17 = staticinvoke <j.l.q: javax.crypto.SecretKey X(java.lang.String,byte[],int)>($r3, $r16, $i1);
+
+     label21:
+        goto label23;
+
+     label22:
+        $r17 = null;
+
+        $r16 = null;
+
+     label23:
+        $r19 = staticinvoke <java.nio.charset.Charset: java.nio.charset.Charset forName(java.lang.String)>("US-ASCII");
+
+        $r20 = virtualinvoke $r7.<java.lang.String: byte[] getBytes(java.nio.charset.Charset)>($r19);
+
+        $r21 = staticinvoke <javax.crypto.Cipher: javax.crypto.Cipher getInstance(java.lang.String)>("AES/CBC/PKCS5Padding");
+
+     label24:
+        $r22 = newarray (byte)[16];
+
+     label25:
+        $r8 = <j.l.q: java.security.SecureRandom b>;
+
+     label26:
+        virtualinvoke $r8.<java.security.SecureRandom: void nextBytes(byte[])>($r22);
+
+     label27:
+        $r28 = new javax.crypto.spec.IvParameterSpec;
+
+     label28:
+        specialinvoke $r28.<javax.crypto.spec.IvParameterSpec: void <init>(byte[])>($r22);
+
+        virtualinvoke $r21.<javax.crypto.Cipher: void init(int,java.security.Key,java.security.spec.AlgorithmParameterSpec)>(1, $r17, $r28);
+
+     label29:
+        $r30 = new java.io.BufferedInputStream;
+
+     label30:
+        $r29 = new java.io.FileInputStream;
+
+     label31:
+        specialinvoke $r29.<java.io.FileInputStream: void <init>(java.io.File)>($r2);
+
+        specialinvoke $r30.<java.io.BufferedInputStream: void <init>(java.io.InputStream,int)>($r29, 16384);
+
+     label32:
+        $r32 = new java.io.BufferedOutputStream;
+
+     label33:
+        $r31 = new java.io.FileOutputStream;
+
+     label34:
+        specialinvoke $r31.<java.io.FileOutputStream: void <init>(java.io.File)>($r27);
+
+        specialinvoke $r32.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream,int)>($r31, 16384);
+
+     label35:
+        $i1 = lengthof $r20;
+
+     label36:
+        virtualinvoke $r32.<java.io.BufferedOutputStream: void write(byte[],int,int)>($r20, 0, $i1);
+
+     label37:
+        $i1 = lengthof $r16;
+
+     label38:
+        virtualinvoke $r32.<java.io.BufferedOutputStream: void write(byte[],int,int)>($r16, 0, $i1);
+
+        virtualinvoke $r32.<java.io.BufferedOutputStream: void write(byte[],int,int)>($r22, 0, 16);
+
+     label39:
+        $r33 = new javax.crypto.CipherOutputStream;
+
+     label40:
+        $r23 = $r33;
+
+     label41:
+        specialinvoke $r33.<javax.crypto.CipherOutputStream: void <init>(java.io.OutputStream,javax.crypto.Cipher)>($r32, $r21);
+
+     label42:
+        $r16 = newarray (byte)[16384];
+
+     label43:
+        $i1 = virtualinvoke $r30.<java.io.BufferedInputStream: int read(byte[])>($r16);
+
+     label44:
+        if $i1 == -1 goto label47;
+
+     label45:
+        virtualinvoke $r33.<javax.crypto.CipherOutputStream: void write(byte[],int,int)>($r16, 0, $i1);
+
+     label46:
+        goto label43;
+
+     label47:
+        virtualinvoke $r33.<javax.crypto.CipherOutputStream: void flush()>();
+
+     label48:
+        staticinvoke <j.l.r: void j(java.io.InputStream)>($r30);
+
+        staticinvoke <j.l.r: void k(java.io.OutputStream)>($r33);
+
+        return $r27;
+
+     label49:
+        $r24 := @caughtexception;
+
+        goto label52;
+
+     label50:
+        $r25 := @caughtexception;
+
+        goto label54;
+
+     label51:
+        $r24 := @caughtexception;
+
+        $r23 = null;
+
+     label52:
+        $r9 = $r30;
+
+        goto label60;
+
+     label53:
+        $r25 := @caughtexception;
+
+        $r23 = null;
+
+     label54:
+        $r9 = $r30;
+
+        goto label57;
+
+     label55:
+        $r24 := @caughtexception;
+
+        $r23 = null;
+
+        goto label60;
+
+     label56:
+        $r25 := @caughtexception;
+
+        $r23 = null;
+
+     label57:
+        $r34 = new java.lang.RuntimeException;
+
+     label58:
+        specialinvoke $r34.<java.lang.RuntimeException: void <init>(java.lang.Throwable)>($r25);
+
+        throw $r34;
+
+     label59:
+        $r24 := @caughtexception;
+
+     label60:
+        staticinvoke <j.l.r: void j(java.io.InputStream)>($r9);
+
+        staticinvoke <j.l.r: void k(java.io.OutputStream)>($r23);
+
+        throw $r24;
+
+     label61:
+        $r0 := @caughtexception;
+
+        goto label13;
+
+     label62:
+        $r1 := @caughtexception;
+
+        goto label13;
+
+        catch java.lang.Exception from label02 to label05 with label56;
+        catch java.lang.Exception from label07 to label08 with label56;
+        catch java.lang.Throwable from label01 to label03 with label55;
+        catch java.lang.Throwable from label04 to label06 with label55;
+        catch java.lang.Throwable from label07 to label08 with label55;
+        catch j.g.b from label08 to label09 with label61;
+        catch j.g.b from label10 to label11 with label61;
+        catch com.kosprov.jargon2.spi.a from label08 to label09 with label62;
+        catch com.kosprov.jargon2.spi.a from label10 to label11 with label62;
+        catch java.lang.Exception from label08 to label12 with label56;
+        catch java.lang.Throwable from label08 to label12 with label55;
+        catch java.lang.Exception from label13 to label14 with label56;
+        catch java.lang.Throwable from label13 to label14 with label55;
+        catch java.lang.Exception from label17 to label19 with label56;
+        catch java.lang.Exception from label20 to label21 with label56;
+        catch java.lang.Exception from label23 to label24 with label56;
+        catch java.lang.Exception from label26 to label27 with label56;
+        catch java.lang.Exception from label28 to label29 with label56;
+        catch java.lang.Exception from label31 to label32 with label56;
+        catch java.lang.Throwable from label15 to label16 with label55;
+        catch java.lang.Throwable from label17 to label18 with label55;
+        catch java.lang.Throwable from label19 to label21 with label55;
+        catch java.lang.Throwable from label23 to label24 with label55;
+        catch java.lang.Throwable from label25 to label28 with label55;
+        catch java.lang.Throwable from label28 to label30 with label55;
+        catch java.lang.Throwable from label30 to label31 with label55;
+        catch java.lang.Throwable from label31 to label32 with label55;
+        catch java.lang.Exception from label34 to label39 with label53;
+        catch java.lang.Exception from label41 to label42 with label53;
+        catch java.lang.Throwable from label32 to label33 with label51;
+        catch java.lang.Throwable from label33 to label34 with label51;
+        catch java.lang.Throwable from label34 to label35 with label51;
+        catch java.lang.Throwable from label36 to label37 with label51;
+        catch java.lang.Throwable from label38 to label40 with label51;
+        catch java.lang.Throwable from label41 to label42 with label51;
+        catch java.lang.Exception from label43 to label44 with label50;
+        catch java.lang.Exception from label45 to label46 with label50;
+        catch java.lang.Exception from label47 to label48 with label50;
+        catch java.lang.Throwable from label43 to label44 with label49;
+        catch java.lang.Throwable from label45 to label46 with label49;
+        catch java.lang.Throwable from label47 to label48 with label49;
+        catch java.lang.Throwable from label57 to label58 with label59;
+        catch java.lang.Throwable from label58 to label59 with label59;
+    }

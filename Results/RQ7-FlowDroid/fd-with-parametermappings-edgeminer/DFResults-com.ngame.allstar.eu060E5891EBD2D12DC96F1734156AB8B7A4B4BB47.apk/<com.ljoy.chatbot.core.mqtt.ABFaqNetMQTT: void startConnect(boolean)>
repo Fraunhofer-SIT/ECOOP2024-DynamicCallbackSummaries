@@ -1,0 +1,109 @@
+    private void startConnect(boolean)
+    {
+        com.ljoy.chatbot.model.UserInfo $r5;
+        org.fusesource.mqtt.client.MQTT $r10;
+        com.ljoy.chatbot.model.ManufacturerInfo $r3;
+        org.fusesource.mqtt.client.CallbackConnection $r1;
+        java.lang.Exception $r11;
+        com.ljoy.chatbot.controller.ElvaServiceController $r2;
+        com.ljoy.chatbot.model.DeviceInfo $r8;
+        com.ljoy.chatbot.core.mqtt.ABFaqNetMQTT r0;
+        java.lang.String $r4, $r6, $r7;
+        com.ljoy.chatbot.core.mqtt.TopicInfo $r9;
+        boolean $z0, $z1;
+
+        r0 := @this: com.ljoy.chatbot.core.mqtt.ABFaqNetMQTT;
+
+        $z0 := @parameter0: boolean;
+
+        $z1 = r0.<com.ljoy.chatbot.core.mqtt.ABFaqNetMQTT: boolean connected>;
+
+        if $z1 == 0 goto label01;
+
+        $r1 = r0.<com.ljoy.chatbot.core.mqtt.ABFaqNetMQTT: org.fusesource.mqtt.client.CallbackConnection connection>;
+
+        if $r1 == null goto label01;
+
+        return;
+
+     label01:
+        $r2 = staticinvoke <com.ljoy.chatbot.controller.ElvaServiceController: com.ljoy.chatbot.controller.ElvaServiceController getInstance()>();
+
+        $r3 = virtualinvoke $r2.<com.ljoy.chatbot.controller.ElvaServiceController: com.ljoy.chatbot.model.ManufacturerInfo getManufacturerInfo()>();
+
+        $r4 = virtualinvoke $r3.<com.ljoy.chatbot.model.ManufacturerInfo: java.lang.String getAppId()>();
+
+        $r2 = staticinvoke <com.ljoy.chatbot.controller.ElvaServiceController: com.ljoy.chatbot.controller.ElvaServiceController getInstance()>();
+
+        $r5 = virtualinvoke $r2.<com.ljoy.chatbot.controller.ElvaServiceController: com.ljoy.chatbot.model.UserInfo getUserInfo()>();
+
+        $r6 = virtualinvoke $r5.<com.ljoy.chatbot.model.UserInfo: java.lang.String getUserId()>();
+
+        $r7 = $r6;
+
+        if $r6 == null goto label02;
+
+        $z1 = virtualinvoke $r6.<java.lang.String: boolean equals(java.lang.Object)>("");
+
+        if $z1 == 0 goto label03;
+
+     label02:
+        $r2 = staticinvoke <com.ljoy.chatbot.controller.ElvaServiceController: com.ljoy.chatbot.controller.ElvaServiceController getInstance()>();
+
+        $r8 = virtualinvoke $r2.<com.ljoy.chatbot.controller.ElvaServiceController: com.ljoy.chatbot.model.DeviceInfo getDeviceInfo()>();
+
+        $r7 = virtualinvoke $r8.<com.ljoy.chatbot.model.DeviceInfo: java.lang.String getDeviceId()>();
+
+     label03:
+        $r2 = staticinvoke <com.ljoy.chatbot.controller.ElvaServiceController: com.ljoy.chatbot.controller.ElvaServiceController getInstance()>();
+
+        $z1 = $r2.<com.ljoy.chatbot.controller.ElvaServiceController: boolean useDeviceId>;
+
+        if $z1 == 0 goto label04;
+
+        $r9 = new com.ljoy.chatbot.core.mqtt.TopicInfo;
+
+        $r2 = staticinvoke <com.ljoy.chatbot.controller.ElvaServiceController: com.ljoy.chatbot.controller.ElvaServiceController getInstance()>();
+
+        $r8 = virtualinvoke $r2.<com.ljoy.chatbot.controller.ElvaServiceController: com.ljoy.chatbot.model.DeviceInfo getDeviceInfo()>();
+
+        $r6 = virtualinvoke $r8.<com.ljoy.chatbot.model.DeviceInfo: java.lang.String getDeviceId()>();
+
+        specialinvoke $r9.<com.ljoy.chatbot.core.mqtt.TopicInfo: void <init>(java.lang.String,java.lang.String)>($r6, $r4);
+
+        r0.<com.ljoy.chatbot.core.mqtt.ABFaqNetMQTT: com.ljoy.chatbot.core.mqtt.TopicInfo topicInfo> = $r9;
+
+        goto label05;
+
+     label04:
+        $r9 = new com.ljoy.chatbot.core.mqtt.TopicInfo;
+
+        specialinvoke $r9.<com.ljoy.chatbot.core.mqtt.TopicInfo: void <init>(java.lang.String,java.lang.String)>($r7, $r4);
+
+        r0.<com.ljoy.chatbot.core.mqtt.ABFaqNetMQTT: com.ljoy.chatbot.core.mqtt.TopicInfo topicInfo> = $r9;
+
+     label05:
+        $r10 = staticinvoke <com.ljoy.chatbot.utils.ABMqttUtil: org.fusesource.mqtt.client.MQTT getCreateFaqMqtt(java.lang.String,java.lang.String)>($r4, $r7);
+
+     label06:
+        if $r10 == null goto label10;
+
+     label07:
+        specialinvoke r0.<com.ljoy.chatbot.core.mqtt.ABFaqNetMQTT: void mqttConnect(org.fusesource.mqtt.client.MQTT,boolean)>($r10, $z0);
+
+        specialinvoke r0.<com.ljoy.chatbot.core.mqtt.ABFaqNetMQTT: void mqttSubscribe()>();
+
+     label08:
+        return;
+
+     label09:
+        $r11 := @caughtexception;
+
+        virtualinvoke $r11.<java.lang.Exception: void printStackTrace()>();
+
+     label10:
+        return;
+
+        catch java.lang.Exception from label05 to label06 with label09;
+        catch java.lang.Exception from label07 to label08 with label09;
+    }

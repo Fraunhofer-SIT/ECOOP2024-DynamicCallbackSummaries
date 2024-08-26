@@ -1,0 +1,106 @@
+    static void onAppLostFocus(boolean)
+    {
+        android.content.Context $r1;
+        com.onesignal.OneSignal$LOG_LEVEL $r2;
+        long l0, $l2;
+        byte $b1;
+        int $i3;
+        com.onesignal.TrackAmazonPurchase $r0;
+        java.lang.String $r3;
+        boolean $z0, $z1;
+        double $d0;
+
+        $z0 := @parameter0: boolean;
+
+        <com.onesignal.OneSignal: boolean foreground> = 0;
+
+        $z1 = <com.onesignal.OneSignal: boolean initDone>;
+
+        if $z1 != 0 goto label1;
+
+        return;
+
+     label1:
+        $r0 = <com.onesignal.OneSignal: com.onesignal.TrackAmazonPurchase trackAmazonPurchase>;
+
+        if $r0 == null goto label2;
+
+        $r0 = <com.onesignal.OneSignal: com.onesignal.TrackAmazonPurchase trackAmazonPurchase>;
+
+        virtualinvoke $r0.<com.onesignal.TrackAmazonPurchase: void checkListener()>();
+
+     label2:
+        l0 = <com.onesignal.OneSignal: long lastTrackedTime>;
+
+        $b1 = l0 cmp -1L;
+
+        if $b1 == 0 goto label6;
+
+        l0 = staticinvoke <android.os.SystemClock: long elapsedRealtime()>();
+
+        $l2 = <com.onesignal.OneSignal: long lastTrackedTime>;
+
+        l0 = l0 - $l2;
+
+        $d0 = (double) l0;
+
+        $d0 = $d0 / 1000.0;
+
+        $d0 = $d0 + 0.5;
+
+        l0 = (long) $d0;
+
+        $l2 = staticinvoke <android.os.SystemClock: long elapsedRealtime()>();
+
+        <com.onesignal.OneSignal: long lastTrackedTime> = $l2;
+
+        $b1 = l0 cmp 0L;
+
+        $i3 = (int) $b1;
+
+        if $i3 < 0 goto label6;
+
+        $b1 = l0 cmp 604800L;
+
+        $i3 = (int) $b1;
+
+        if $i3 > 0 goto label6;
+
+        $r1 = <com.onesignal.OneSignal: android.content.Context appContext>;
+
+        if $r1 != null goto label3;
+
+        $r2 = <com.onesignal.OneSignal$LOG_LEVEL: com.onesignal.OneSignal$LOG_LEVEL ERROR>;
+
+        staticinvoke <com.onesignal.OneSignal: void Log(com.onesignal.OneSignal$LOG_LEVEL,java.lang.String)>($r2, "Android Context not found, please call OneSignal.init when your app starts.");
+
+        return;
+
+     label3:
+        $l2 = staticinvoke <com.onesignal.OneSignal: long GetUnsentActiveTime()>();
+
+        l0 = $l2 + l0;
+
+        if $z0 != 0 goto label4;
+
+        $b1 = l0 cmp 60L;
+
+        $i3 = (int) $b1;
+
+        if $i3 < 0 goto label4;
+
+        $r3 = staticinvoke <com.onesignal.OneSignal: java.lang.String getUserId()>();
+
+        if $r3 != null goto label5;
+
+     label4:
+        staticinvoke <com.onesignal.OneSignal: void SaveUnsentActiveTime(long)>(l0);
+
+        return;
+
+     label5:
+        staticinvoke <com.onesignal.OneSignal: void sendOnFocus(long,boolean)>(l0, 1);
+
+     label6:
+        return;
+    }

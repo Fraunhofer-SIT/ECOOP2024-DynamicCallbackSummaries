@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+   <extension
+         point="de.codeinspect.dynamicvalues.RuntimeValueProvider">
+      <RuntimeValueProvider
+      	class="reproduction.dynamiccallbackidentification.eclipseinterfaces.DCIDFactory">
+      </RuntimeValueProvider>
+   </extension>
+   <extension
+         name="SootProcessDirContributor"
+         point="de.codeinspect.soot.SootProcessDirContributorExtension">
+      <SootProcessDirContributor
+            class="reproduction.dynamiccallbackidentification.eclipseinterfaces.DCIDDefaultBinDirContributor">
+      </SootProcessDirContributor>
+   </extension>
+   <extension
+         point="de.codeinspect.dynamicvalues.RuntimeValueExtractionHandler">
+      <RuntimeValueExtractionHandler class="reproduction.dynamiccallbackidentification.logic.DCIDCallbackCalledExtractionHandler" />
+   </extension>
+   <extension
+         point="de.codeinspect.dynamicvalues.RuntimeValueExtractionHandlerData">
+         <RuntimeValueExtractionHandlerData class="reproduction.dynamiccallbackidentification.logic.DCIDCallbackExtractionData"/>
+   </extension>
+   <extension
+         point="de.codeinspect.serialization.SerializationRegistration">
+      <MultipleRegistration class="reproduction.dynamiccallbackidentification.util.SerializerConfig" />
+   </extension>
+   
+   <extension
+         point="de.codeinspect.platforms.soot.values.LoggingPoint">
+      <LoggingPoint
+            class="reproduction.dynamiccallbackidentification.loggingpoints.DCIDCallbackCalledLoggingPoint" />
+   </extension>
+
+   <extension
+         point="de.codeinspect.dynamicvalues.InstrumentationClassExclusion">
+      <InstrumentationClassExclusion prefix="reproduction.dynamiccallbackidentification." />
+   </extension>
+   <extension
+         point="de.codeinspect.dynamicvalues.DynamicCallGraphConfiguration">
+      <DynamicCallGraphConfiguration
+            class="reproduction.dynamiccallbackidentification.eclipseinterfaces.DynamicCallGraphConfiguration" />
+   </extension>
+</plugin>

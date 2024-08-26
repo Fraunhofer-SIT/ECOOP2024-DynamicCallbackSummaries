@@ -1,0 +1,137 @@
+    public static boolean installLib(android.content.Context)
+    {
+        android.content.Context $r0;
+        byte[] $r8;
+        java.io.FileOutputStream $r5;
+        java.io.File $r4;
+        java.lang.Exception $r9;
+        android.content.res.AssetManager $r6;
+        int $i0;
+        java.lang.StringBuilder $r3;
+        java.lang.String $r1, $r2;
+        boolean $z0;
+        java.io.InputStream $r7;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 = "armeabi";
+
+        $r2 = staticinvoke <java.lang.System: java.lang.String getProperty(java.lang.String)>("os.arch");
+
+        $z0 = virtualinvoke $r2.<java.lang.String: boolean contains(java.lang.CharSequence)>("v7");
+
+        if $z0 == 0 goto label01;
+
+        $r3 = new java.lang.StringBuilder;
+
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>()>();
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("armeabi");
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("-v7a");
+
+        $r1 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label01:
+        $r4 = new java.io.File;
+
+        $r2 = <com.crittercism.app.CrittercismNDK: java.lang.String LIBPATH>;
+
+     label02:
+        specialinvoke $r4.<java.io.File: void <init>(java.lang.String)>($r2);
+
+        virtualinvoke $r4.<java.io.File: boolean mkdirs()>();
+
+     label03:
+        $r4 = new java.io.File;
+
+        $r3 = new java.lang.StringBuilder;
+
+     label04:
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>()>();
+
+     label05:
+        $r2 = <com.crittercism.app.CrittercismNDK: java.lang.String LIBPATH>;
+
+     label06:
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("libcrittercism-ndk.so");
+
+        $r2 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r4.<java.io.File: void <init>(java.lang.String)>($r2);
+
+     label07:
+        $r5 = new java.io.FileOutputStream;
+
+     label08:
+        specialinvoke $r5.<java.io.FileOutputStream: void <init>(java.io.File)>($r4);
+
+        $r6 = virtualinvoke $r0.<android.content.Context: android.content.res.AssetManager getAssets()>();
+
+     label09:
+        $r3 = new java.lang.StringBuilder;
+
+     label10:
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>()>();
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/libcrittercism-ndk.so");
+
+        $r1 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r7 = virtualinvoke $r6.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>($r1);
+
+     label11:
+        $r8 = newarray (byte)[8192];
+
+     label12:
+        $i0 = virtualinvoke $r7.<java.io.InputStream: int read(byte[])>($r8);
+
+     label13:
+        if $i0 < 0 goto label17;
+
+     label14:
+        virtualinvoke $r5.<java.io.FileOutputStream: void write(byte[],int,int)>($r8, 0, $i0);
+
+     label15:
+        goto label12;
+
+     label16:
+        $r9 := @caughtexception;
+
+        return 0;
+
+     label17:
+        virtualinvoke $r7.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r5.<java.io.FileOutputStream: void close()>();
+
+     label18:
+        $r3 = new java.lang.StringBuilder;
+
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>()>();
+
+        $r1 = <com.crittercism.app.CrittercismNDK: java.lang.String LIBPATH>;
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("libcrittercism-ndk.so");
+
+        $r1 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <java.lang.System: void load(java.lang.String)>($r1);
+
+        return 1;
+
+        catch java.lang.Exception from label02 to label03 with label16;
+        catch java.lang.Exception from label04 to label05 with label16;
+        catch java.lang.Exception from label06 to label07 with label16;
+        catch java.lang.Exception from label08 to label09 with label16;
+        catch java.lang.Exception from label10 to label11 with label16;
+        catch java.lang.Exception from label12 to label13 with label16;
+        catch java.lang.Exception from label14 to label15 with label16;
+        catch java.lang.Exception from label17 to label18 with label16;
+    }

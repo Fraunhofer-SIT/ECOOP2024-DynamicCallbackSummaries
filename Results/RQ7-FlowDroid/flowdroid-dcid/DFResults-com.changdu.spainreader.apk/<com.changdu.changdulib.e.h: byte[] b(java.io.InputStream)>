@@ -1,0 +1,105 @@
+    public static byte[] b(java.io.InputStream)
+    {
+        java.lang.Throwable $r3, $r4, $r5, $r6, $r7;
+        byte[] $r2;
+        java.io.ByteArrayOutputStream $r8;
+        java.io.IOException $r9;
+        int $i0;
+        com.changdu.changdulib.e.b $r1;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $r8 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r8.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label01:
+        $r1 = staticinvoke <com.changdu.changdulib.e.b: com.changdu.changdulib.e.b a()>();
+
+        $r2 = virtualinvoke $r1.<com.changdu.changdulib.e.b: byte[] a(int)>(1024);
+
+     label02:
+        $i0 = virtualinvoke $r0.<java.io.InputStream: int read(byte[])>($r2);
+
+     label03:
+        if $i0 == -1 goto label06;
+
+     label04:
+        virtualinvoke $r8.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r2, 0, $i0);
+
+     label05:
+        goto label02;
+
+     label06:
+        $r1 = staticinvoke <com.changdu.changdulib.e.b: com.changdu.changdulib.e.b a()>();
+
+        virtualinvoke $r1.<com.changdu.changdulib.e.b: void a(byte[])>($r2);
+
+        $r2 = virtualinvoke $r8.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label07:
+        virtualinvoke $r8.<java.io.ByteArrayOutputStream: void close()>();
+
+     label08:
+        return $r2;
+
+     label09:
+        $r3 := @caughtexception;
+
+        virtualinvoke $r3.<java.lang.Throwable: void printStackTrace()>();
+
+        return $r2;
+
+     label10:
+        $r4 := @caughtexception;
+
+        goto label17;
+
+     label11:
+        $r5 := @caughtexception;
+
+     label12:
+        $r9 = (java.io.IOException) $r5;
+
+        virtualinvoke $r9.<java.io.IOException: void printStackTrace()>();
+
+     label13:
+        virtualinvoke $r8.<java.io.ByteArrayOutputStream: void close()>();
+
+     label14:
+        goto label16;
+
+     label15:
+        $r6 := @caughtexception;
+
+        virtualinvoke $r6.<java.lang.Throwable: void printStackTrace()>();
+
+     label16:
+        return null;
+
+     label17:
+        virtualinvoke $r8.<java.io.ByteArrayOutputStream: void close()>();
+
+     label18:
+        goto label20;
+
+     label19:
+        $r7 := @caughtexception;
+
+        virtualinvoke $r7.<java.lang.Throwable: void printStackTrace()>();
+
+     label20:
+        throw $r4;
+
+        catch java.io.IOException from label01 to label03 with label11;
+        catch java.io.IOException from label04 to label05 with label11;
+        catch java.io.IOException from label06 to label07 with label11;
+        catch java.lang.Throwable from label01 to label03 with label10;
+        catch java.lang.Throwable from label04 to label05 with label10;
+        catch java.lang.Throwable from label06 to label07 with label10;
+        catch java.lang.Throwable from label07 to label08 with label09;
+        catch java.lang.Throwable from label12 to label13 with label10;
+        catch java.lang.Throwable from label13 to label14 with label15;
+        catch java.lang.Throwable from label17 to label18 with label19;
+    }

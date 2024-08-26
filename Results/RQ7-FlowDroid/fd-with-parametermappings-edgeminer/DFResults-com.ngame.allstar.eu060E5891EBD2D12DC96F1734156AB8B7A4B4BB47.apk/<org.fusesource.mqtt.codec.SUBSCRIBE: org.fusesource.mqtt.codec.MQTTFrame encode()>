@@ -1,0 +1,101 @@
+    public org.fusesource.mqtt.codec.MQTTFrame encode()
+    {
+        java.lang.Throwable $r1;
+        org.fusesource.mqtt.client.Topic $r5;
+        org.fusesource.mqtt.client.QoS $r2, $r3;
+        org.fusesource.hawtbuf.Buffer $r8;
+        short $s0;
+        byte $b4;
+        int $i1, $i2, $i3;
+        org.fusesource.mqtt.codec.SUBSCRIBE r0;
+        org.fusesource.mqtt.codec.MQTTFrame $r7, $r10;
+        org.fusesource.hawtbuf.DataByteArrayOutputStream $r9;
+        java.lang.RuntimeException $r11;
+        org.fusesource.hawtbuf.UTF8Buffer $r6;
+        org.fusesource.mqtt.client.Topic[] $r4;
+
+        r0 := @this: org.fusesource.mqtt.codec.SUBSCRIBE;
+
+        $r9 = new org.fusesource.hawtbuf.DataByteArrayOutputStream;
+
+     label01:
+        specialinvoke $r9.<org.fusesource.hawtbuf.DataByteArrayOutputStream: void <init>()>();
+
+        $r2 = virtualinvoke r0.<org.fusesource.mqtt.codec.SUBSCRIBE: org.fusesource.mqtt.client.QoS qos()>();
+
+     label02:
+        $r3 = <org.fusesource.mqtt.client.QoS: org.fusesource.mqtt.client.QoS AT_MOST_ONCE>;
+
+        if $r2 == $r3 goto label04;
+
+        $s0 = r0.<org.fusesource.mqtt.codec.SUBSCRIBE: short messageId>;
+
+        $i1 = (int) $s0;
+
+     label03:
+        virtualinvoke $r9.<org.fusesource.hawtbuf.DataByteArrayOutputStream: void writeShort(int)>($i1);
+
+     label04:
+        $r4 = r0.<org.fusesource.mqtt.codec.SUBSCRIBE: org.fusesource.mqtt.client.Topic[] topics>;
+
+        $i1 = lengthof $r4;
+
+        $i2 = 0;
+
+     label05:
+        if $i2 >= $i1 goto label08;
+
+        $r5 = $r4[$i2];
+
+     label06:
+        $r6 = virtualinvoke $r5.<org.fusesource.mqtt.client.Topic: org.fusesource.hawtbuf.UTF8Buffer name()>();
+
+        staticinvoke <org.fusesource.mqtt.codec.MessageSupport: void writeUTF(org.fusesource.hawtbuf.DataByteArrayOutputStream,org.fusesource.hawtbuf.Buffer)>($r9, $r6);
+
+        $r2 = virtualinvoke $r5.<org.fusesource.mqtt.client.Topic: org.fusesource.mqtt.client.QoS qos()>();
+
+        $i3 = virtualinvoke $r2.<org.fusesource.mqtt.client.QoS: int ordinal()>();
+
+        virtualinvoke $r9.<org.fusesource.hawtbuf.DataByteArrayOutputStream: void writeByte(int)>($i3);
+
+     label07:
+        $i2 = $i2 + 1;
+
+        goto label05;
+
+     label08:
+        $r10 = new org.fusesource.mqtt.codec.MQTTFrame;
+
+     label09:
+        specialinvoke $r10.<org.fusesource.mqtt.codec.MQTTFrame: void <init>()>();
+
+        $b4 = virtualinvoke r0.<org.fusesource.mqtt.codec.SUBSCRIBE: byte header()>();
+
+        virtualinvoke $r10.<org.fusesource.mqtt.codec.MQTTFrame: org.fusesource.mqtt.codec.MQTTFrame header(byte)>($b4);
+
+        virtualinvoke $r10.<org.fusesource.mqtt.codec.MQTTFrame: org.fusesource.mqtt.codec.MQTTFrame commandType(int)>(8);
+
+        $r8 = virtualinvoke $r9.<org.fusesource.hawtbuf.DataByteArrayOutputStream: org.fusesource.hawtbuf.Buffer toBuffer()>();
+
+        $r7 = virtualinvoke $r10.<org.fusesource.mqtt.codec.MQTTFrame: org.fusesource.mqtt.codec.MQTTFrame buffer(org.fusesource.hawtbuf.Buffer)>($r8);
+
+     label10:
+        return $r7;
+
+     label11:
+        $r11 = new java.lang.RuntimeException;
+
+        specialinvoke $r11.<java.lang.RuntimeException: void <init>(java.lang.String)>("The impossible happened");
+
+        throw $r11;
+
+     label12:
+        $r1 := @caughtexception;
+
+        goto label11;
+
+        catch java.io.IOException from label01 to label02 with label12;
+        catch java.io.IOException from label03 to label04 with label12;
+        catch java.io.IOException from label06 to label07 with label12;
+        catch java.io.IOException from label09 to label10 with label12;
+    }

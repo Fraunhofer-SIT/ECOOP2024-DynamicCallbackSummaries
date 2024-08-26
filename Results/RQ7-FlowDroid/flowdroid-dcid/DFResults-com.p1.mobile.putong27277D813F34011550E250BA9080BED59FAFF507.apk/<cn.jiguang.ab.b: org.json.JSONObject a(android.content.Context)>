@@ -1,0 +1,993 @@
+    public static org.json.JSONObject a(android.content.Context)
+    {
+        java.net.HttpURLConnection $r10;
+        byte[] $r9;
+        javax.net.ssl.SSLContext $r15;
+        java.net.URL $r19;
+        cn.jiguang.net.SSLTrustManager $r45;
+        cn.jiguang.net.DefaultHostVerifier $r47;
+        java.security.SecureRandom $r46;
+        org.json.JSONException $r27, $r28, $r34;
+        org.json.JSONObject $r49;
+        byte $b1;
+        boolean $z0;
+        java.util.Set $r11;
+        java.lang.Exception $r23, $r24, $r37, $r38, $r39, $r40, $r42;
+        javax.net.ssl.SSLSocketFactory $r18;
+        java.lang.StringBuilder $r43;
+        java.io.UnsupportedEncodingException $r52;
+        java.lang.Throwable $r20, $r25, $r26, $r29, $r30, $r31, $r32, $r33, $r35, $r36, $r41;
+        android.content.Context $r0;
+        java.lang.Object[] $r16;
+        java.io.ByteArrayOutputStream $r48;
+        long $l0;
+        java.util.HashMap $r5, $r6, $r44;
+        int $i2;
+        java.lang.String $r1, $r2, $r3, $r4, $r7, $r8;
+        java.util.Map$Entry $r14;
+        javax.net.ssl.HttpsURLConnection $r17;
+        java.util.Iterator $r12;
+        java.io.IOException $r51;
+        javax.net.ssl.TrustManager[] $r50;
+        java.lang.Object $r13;
+        java.io.InputStream $r21, $r22;
+
+        $r0 := @parameter0: android.content.Context;
+
+     label001:
+        $z0 = staticinvoke <cn.jiguang.d.b: boolean a(android.content.Context)>($r0);
+
+     label002:
+        if $z0 != 0 goto label005;
+
+     label003:
+        staticinvoke <cn.jiguang.w.a: void d(java.lang.String,java.lang.String)>("JWakeConfigHelper", "request wakeConfig failed because is not validRegistered");
+
+     label004:
+        return null;
+
+     label005:
+        $r1 = staticinvoke <cn.jiguang.ac.a: java.lang.String a(android.content.Context)>($r0);
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r1);
+
+     label006:
+        if $z0 == 0 goto label009;
+
+     label007:
+        staticinvoke <cn.jiguang.w.a: void d(java.lang.String,java.lang.String)>("JWakeConfigHelper", "request wakeConfig failed because can\'t get appKey");
+
+     label008:
+        return null;
+
+     label009:
+        $l0 = staticinvoke <cn.jiguang.d.a: long d(android.content.Context)>($r0);
+
+     label010:
+        $b1 = $l0 cmp 0L;
+
+        if $b1 != 0 goto label013;
+
+     label011:
+        staticinvoke <cn.jiguang.w.a: void d(java.lang.String,java.lang.String)>("JWakeConfigHelper", "request wakeConfig failed because can\'t get uid");
+
+     label012:
+        return null;
+
+     label013:
+        $r2 = staticinvoke <cn.jiguang.d.a: java.lang.String f(android.content.Context)>($r0);
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r2);
+
+     label014:
+        if $z0 == 0 goto label017;
+
+     label015:
+        staticinvoke <cn.jiguang.w.a: void d(java.lang.String,java.lang.String)>("JWakeConfigHelper", "request wakeConfig failed because need register first");
+
+     label016:
+        return null;
+
+     label017:
+        staticinvoke <cn.jiguang.l.e: void c(android.content.Context,java.lang.String)>($r0, "JWakeConfigHelper");
+
+     label018:
+        $r3 = "https://bjuser.jpush.cn/v1/appawake/status";
+
+     label019:
+        $z0 = <cn.jiguang.l.g: boolean a>;
+
+     label020:
+        if $z0 == 0 goto label029;
+
+     label021:
+        $r4 = <cn.jiguang.ab.b: java.lang.String a>;
+
+     label022:
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r4);
+
+     label023:
+        if $z0 != 0 goto label029;
+
+     label024:
+        $r43 = new java.lang.StringBuilder;
+
+     label025:
+        specialinvoke $r43.<java.lang.StringBuilder: void <init>(java.lang.String)>("use test url:");
+
+     label026:
+        $r3 = <cn.jiguang.ab.b: java.lang.String a>;
+
+     label027:
+        virtualinvoke $r43.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r43.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cn.jiguang.w.a: void a(java.lang.String,java.lang.String)>("JWakeConfigHelper", $r3);
+
+     label028:
+        $r3 = <cn.jiguang.ab.b: java.lang.String a>;
+
+     label029:
+        $r6 = new java.util.HashMap;
+
+     label030:
+        $r5 = $r6;
+
+     label031:
+        specialinvoke $r6.<java.util.HashMap: void <init>()>();
+
+     label032:
+        $r44 = new java.util.HashMap;
+
+     label033:
+        specialinvoke $r44.<java.util.HashMap: void <init>()>();
+
+     label034:
+        $r4 = <android.os.Build: java.lang.String MANUFACTURER>;
+
+        $r7 = <android.os.Build: java.lang.String MODEL>;
+
+     label035:
+        virtualinvoke $r44.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>("appkey", $r1);
+
+        $r8 = staticinvoke <java.lang.String: java.lang.String valueOf(long)>($l0);
+
+        virtualinvoke $r44.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>("uid", $r8);
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r4);
+
+     label036:
+        if $z0 != 0 goto label038;
+
+     label037:
+        virtualinvoke $r44.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>("manufacturer", $r4);
+
+     label038:
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r7);
+
+     label039:
+        if $z0 != 0 goto label041;
+
+     label040:
+        virtualinvoke $r44.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>("model", $r7);
+
+     label041:
+        $r3 = staticinvoke <cn.jiguang.net.HttpUtils: java.lang.String getUrlWithValueEncodeParas(java.lang.String,java.util.Map)>($r3, $r44);
+
+     label042:
+        $r43 = new java.lang.StringBuilder;
+
+     label043:
+        specialinvoke $r43.<java.lang.StringBuilder: void <init>(java.lang.String)>("url:");
+
+        virtualinvoke $r43.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r4 = virtualinvoke $r43.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cn.jiguang.w.a: void a(java.lang.String,java.lang.String)>("JWakeConfigHelper", $r4);
+
+        interfaceinvoke $r5.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("Content-Type", "text/plain");
+
+        interfaceinvoke $r5.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("Accept", "application/json");
+
+        interfaceinvoke $r5.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("X-Http-Platform", "android");
+
+        interfaceinvoke $r5.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("X-Http-Appkey", $r1);
+
+     label044:
+        $r1 = "";
+
+     label045:
+        $r9 = virtualinvoke $r1.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8");
+
+        $r1 = staticinvoke <cn.jiguang.ab.b: java.lang.String a(byte[])>($r9);
+
+        $r2 = staticinvoke <cn.jiguang.f.i: java.lang.String e(java.lang.String)>($r2);
+
+     label046:
+        $r43 = new java.lang.StringBuilder;
+
+     label047:
+        specialinvoke $r43.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r43.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+
+        virtualinvoke $r43.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r43.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r2 = virtualinvoke $r43.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r2 = staticinvoke <cn.jiguang.f.i: java.lang.String e(java.lang.String)>($r2);
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r2);
+
+     label048:
+        if $z0 == 0 goto label049;
+
+        return null;
+
+     label049:
+        $r43 = new java.lang.StringBuilder;
+
+     label050:
+        specialinvoke $r43.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r43.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+
+        virtualinvoke $r43.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(":");
+
+        virtualinvoke $r43.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r43.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r9 = virtualinvoke $r2.<java.lang.String: byte[] getBytes()>();
+
+        $r2 = staticinvoke <android.util.Base64: java.lang.String encodeToString(byte[],int)>($r9, 10);
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r2);
+
+     label051:
+        if $z0 == 0 goto label052;
+
+        return null;
+
+     label052:
+        $r43 = new java.lang.StringBuilder;
+
+     label053:
+        specialinvoke $r43.<java.lang.StringBuilder: void <init>(java.lang.String)>("Basic ");
+
+        virtualinvoke $r43.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r43.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        interfaceinvoke $r5.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("Authorization", $r2);
+
+        interfaceinvoke $r5.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("Charset", "UTF-8");
+
+        $r10 = staticinvoke <cn.jiguang.net.HttpUtils: java.net.HttpURLConnection getHttpURLConnectionWithProxy(android.content.Context,java.lang.String)>($r0, $r3);
+
+     label054:
+        virtualinvoke $r10.<java.net.HttpURLConnection: void setConnectTimeout(int)>(30000);
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void setReadTimeout(int)>(30000);
+
+        $r11 = interfaceinvoke $r5.<java.util.Map: java.util.Set entrySet()>();
+
+        $r12 = interfaceinvoke $r11.<java.util.Set: java.util.Iterator iterator()>();
+
+     label055:
+        $z0 = interfaceinvoke $r12.<java.util.Iterator: boolean hasNext()>();
+
+     label056:
+        if $z0 == 0 goto label065;
+
+     label057:
+        $r13 = interfaceinvoke $r12.<java.util.Iterator: java.lang.Object next()>();
+
+     label058:
+        $r14 = (java.util.Map$Entry) $r13;
+
+     label059:
+        $r13 = interfaceinvoke $r14.<java.util.Map$Entry: java.lang.Object getKey()>();
+
+     label060:
+        $r2 = (java.lang.String) $r13;
+
+     label061:
+        $r13 = interfaceinvoke $r14.<java.util.Map$Entry: java.lang.Object getValue()>();
+
+     label062:
+        $r3 = (java.lang.String) $r13;
+
+     label063:
+        virtualinvoke $r10.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>($r2, $r3);
+
+     label064:
+        goto label055;
+
+     label065:
+        $z0 = $r10 instanceof javax.net.ssl.HttpsURLConnection;
+
+     label066:
+        if $z0 == 0 goto label075;
+
+     label067:
+        $r15 = staticinvoke <javax.net.ssl.SSLContext: javax.net.ssl.SSLContext getInstance(java.lang.String)>("TLS");
+
+        $r16 = newarray (javax.net.ssl.TrustManager)[1];
+
+        $r45 = new cn.jiguang.net.SSLTrustManager;
+
+     label068:
+        specialinvoke $r45.<cn.jiguang.net.SSLTrustManager: void <init>(java.lang.String)>("-----BEGIN CERTIFICATE-----\nMIIETzCCAzegAwIBAgIDAjpvMA0GCSqGSIb3DQEBCwUAMEIxCzAJBgNVBAYTAlVT\nMRYwFAYDVQQKEw1HZW9UcnVzdCBJbmMuMRswGQYDVQQDExJHZW9UcnVzdCBHbG9i\nYWwgQ0EwHhcNMTMxMTA1MjEzNjUwWhcNMjIwNTIwMjEzNjUwWjBEMQswCQYDVQQG\nEwJVUzEWMBQGA1UEChMNR2VvVHJ1c3QgSW5jLjEdMBsGA1UEAxMUR2VvVHJ1c3Qg\nU1NMIENBIC0gRzMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDjvn4K\nhqPPa209K6GXrUkkTdd3uTR5CKWeop7eRxKSPX7qGYax6E89X/fQp3eaWx8KA7UZ\nU9ulIZRpY51qTJEMEEe+EfpshiW3qwRoQjgJZfAU2hme+msLq2LvjafvY3AjqK+B\n89FuiGdT7BKkKXWKp/JXPaKDmJfyCn3U50NuMHhiIllZuHEnRaoPZsZVP/oyFysx\nj0ag+mkUfJ2fWuLrM04QprPtd2PYw5703d95mnrU7t7dmszDt6ldzBE6B7tvl6QB\nI0eVH6N3+liSxsfQvc+TGEK3fveeZerVO8rtrMVwof7UEJrwEgRErBpbeFBFV0xv\nvYDLgVwts7x2oR5lAgMBAAGjggFKMIIBRjAfBgNVHSMEGDAWgBTAephojYn7qwVk\nDBF9qn1luMrMTjAdBgNVHQ4EFgQU0m/3lvSFP3I8MH0j2oV4m6N8WnwwEgYDVR0T\nAQH/BAgwBgEB/wIBADAOBgNVHQ8BAf8EBAMCAQYwNgYDVR0fBC8wLTAroCmgJ4Yl\naHR0cDovL2cxLnN5bWNiLmNvbS9jcmxzL2d0Z2xvYmFsLmNybDAvBggrBgEFBQcB\nAQQjMCEwHwYIKwYBBQUHMAGGE2h0dHA6Ly9nMi5zeW1jYi5jb20wTAYDVR0gBEUw\nQzBBBgpghkgBhvhFAQc2MDMwMQYIKwYBBQUHAgEWJWh0dHA6Ly93d3cuZ2VvdHJ1\nc3QuY29tL3Jlc291cmNlcy9jcHMwKQYDVR0RBCIwIKQeMBwxGjAYBgNVBAMTEVN5\nbWFudGVjUEtJLTEtNTM5MA0GCSqGSIb3DQEBCwUAA4IBAQCg1Pcs+3QLf2TxzUNq\nn2JTHAJ8mJCi7k9o1CAacxI+d7NQ63K87oi+fxfqd4+DYZVPhKHLMk9sIb7SaZZ9\nY73cK6gf0BOEcP72NZWJ+aZ3sEbIu7cT9clgadZM/tKO79NgwYCA4ef7i28heUrg\n3Kkbwbf7w0lZXLV3B0TUl/xJAIlvBk4BcBmsLxHA4uYPL4ZLjXvDuacu9PGsFj45\nSVGeF0tPEDpbpaiSb/361gsDTUdWVxnzy2v189bPsPX1oxHSIFMTNDcFLENaY9+N\nQNaFHlHpURceA1bJ8TCt55sRornQMYGbaLHZ6PPmlH7HrhMvh+3QJbBo+d4IWvMp\nzNSS\n-----END CERTIFICATE-----");
+
+        $r16[0] = $r45;
+
+        $r46 = new java.security.SecureRandom;
+
+     label069:
+        specialinvoke $r46.<java.security.SecureRandom: void <init>()>();
+
+        $r50 = (javax.net.ssl.TrustManager[]) $r16;
+
+        virtualinvoke $r15.<javax.net.ssl.SSLContext: void init(javax.net.ssl.KeyManager[],javax.net.ssl.TrustManager[],java.security.SecureRandom)>(null, $r50, $r46);
+
+        $r17 = (javax.net.ssl.HttpsURLConnection) $r10;
+
+        $r18 = virtualinvoke $r15.<javax.net.ssl.SSLContext: javax.net.ssl.SSLSocketFactory getSocketFactory()>();
+
+        virtualinvoke $r17.<javax.net.ssl.HttpsURLConnection: void setSSLSocketFactory(javax.net.ssl.SSLSocketFactory)>($r18);
+
+        $r17 = (javax.net.ssl.HttpsURLConnection) $r10;
+
+        $r47 = new cn.jiguang.net.DefaultHostVerifier;
+
+     label070:
+        $r19 = virtualinvoke $r10.<java.net.HttpURLConnection: java.net.URL getURL()>();
+
+        $r2 = virtualinvoke $r19.<java.net.URL: java.lang.String getHost()>();
+
+        specialinvoke $r47.<cn.jiguang.net.DefaultHostVerifier: void <init>(java.lang.String)>($r2);
+
+        virtualinvoke $r17.<javax.net.ssl.HttpsURLConnection: void setHostnameVerifier(javax.net.ssl.HostnameVerifier)>($r47);
+
+     label071:
+        goto label075;
+
+     label072:
+        $r20 := @caughtexception;
+
+     label073:
+        $r43 = new java.lang.StringBuilder;
+
+     label074:
+        specialinvoke $r43.<java.lang.StringBuilder: void <init>(java.lang.String)>("set ssl config error:");
+
+        $r2 = virtualinvoke $r20.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        virtualinvoke $r43.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r43.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cn.jiguang.w.a: void d(java.lang.String,java.lang.String)>("JWakeConfigHelper", $r2);
+
+     label075:
+        $i2 = virtualinvoke $r10.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label076:
+        if $i2 != 200 goto label090;
+
+     label077:
+        $r21 = virtualinvoke $r10.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+     label078:
+        $r22 = $r21;
+
+     label079:
+        $r48 = new java.io.ByteArrayOutputStream;
+
+     label080:
+        specialinvoke $r48.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label081:
+        $r9 = newarray (byte)[1024];
+
+     label082:
+        $i2 = virtualinvoke $r21.<java.io.InputStream: int read(byte[])>($r9);
+
+     label083:
+        if $i2 == -1 goto label086;
+
+     label084:
+        virtualinvoke $r48.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r9, 0, $i2);
+
+     label085:
+        goto label082;
+
+     label086:
+        $r3 = new java.lang.String;
+
+     label087:
+        $r2 = $r3;
+
+     label088:
+        $r9 = virtualinvoke $r48.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        specialinvoke $r3.<java.lang.String: void <init>(byte[])>($r9);
+
+     label089:
+        goto label091;
+
+     label090:
+        $r22 = null;
+
+        $r2 = null;
+
+     label091:
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r2);
+
+     label092:
+        if $z0 != 0 goto label102;
+
+     label093:
+        $r43 = new java.lang.StringBuilder;
+
+     label094:
+        specialinvoke $r43.<java.lang.StringBuilder: void <init>(java.lang.String)>("request wakeConfig success,response body:");
+
+        virtualinvoke $r43.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r3 = virtualinvoke $r43.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cn.jiguang.w.a: void a(java.lang.String,java.lang.String)>("JWakeConfigHelper", $r3);
+
+     label095:
+        $r49 = new org.json.JSONObject;
+
+     label096:
+        specialinvoke $r49.<org.json.JSONObject: void <init>(java.lang.String)>($r2);
+
+     label097:
+        if $r22 == null goto label101;
+
+     label098:
+        virtualinvoke $r22.<java.io.InputStream: void close()>();
+
+     label099:
+        goto label101;
+
+     label100:
+        $r23 := @caughtexception;
+
+        $r43 = new java.lang.StringBuilder;
+
+        specialinvoke $r43.<java.lang.StringBuilder: void <init>(java.lang.String)>("request wakeConfig exception:");
+
+        $r2 = virtualinvoke $r23.<java.lang.Exception: java.lang.String getMessage()>();
+
+        virtualinvoke $r43.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r43.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cn.jiguang.w.a: void d(java.lang.String,java.lang.String)>("JWakeConfigHelper", $r2);
+
+     label101:
+        if $r10 == null goto label154;
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void disconnect()>();
+
+        return $r49;
+
+     label102:
+        if $r22 == null goto label106;
+
+     label103:
+        virtualinvoke $r22.<java.io.InputStream: void close()>();
+
+     label104:
+        goto label106;
+
+     label105:
+        $r24 := @caughtexception;
+
+        $r43 = new java.lang.StringBuilder;
+
+        specialinvoke $r43.<java.lang.StringBuilder: void <init>(java.lang.String)>("request wakeConfig exception:");
+
+        $r2 = virtualinvoke $r24.<java.lang.Exception: java.lang.String getMessage()>();
+
+        virtualinvoke $r43.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r43.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cn.jiguang.w.a: void d(java.lang.String,java.lang.String)>("JWakeConfigHelper", $r2);
+
+     label106:
+        if $r10 == null goto label155;
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void disconnect()>();
+
+        return null;
+
+     label107:
+        $r25 := @caughtexception;
+
+        $r26 = $r25;
+
+        goto label116;
+
+     label108:
+        $r27 := @caughtexception;
+
+        $r28 = $r27;
+
+        goto label124;
+
+     label109:
+        $r29 := @caughtexception;
+
+        $r30 = $r29;
+
+        goto label132;
+
+     label110:
+        $r31 := @caughtexception;
+
+        $r32 = $r31;
+
+        goto label140;
+
+     label111:
+        $r33 := @caughtexception;
+
+        $r26 = $r33;
+
+        $r22 = null;
+
+        goto label116;
+
+     label112:
+        $r34 := @caughtexception;
+
+        $r28 = $r34;
+
+        $r22 = null;
+
+        goto label124;
+
+     label113:
+        $r35 := @caughtexception;
+
+        $r30 = $r35;
+
+        $r22 = null;
+
+        goto label132;
+
+     label114:
+        $r36 := @caughtexception;
+
+        $r32 = $r36;
+
+        $r22 = null;
+
+        goto label140;
+
+     label115:
+        $r26 := @caughtexception;
+
+        $r22 = null;
+
+        $r10 = null;
+
+     label116:
+        $r43 = new java.lang.StringBuilder;
+
+     label117:
+        specialinvoke $r43.<java.lang.StringBuilder: void <init>(java.lang.String)>("request wakeConfig exception:");
+
+        $r2 = virtualinvoke $r26.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        virtualinvoke $r43.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r43.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cn.jiguang.w.a: void d(java.lang.String,java.lang.String)>("JWakeConfigHelper", $r2);
+
+     label118:
+        if $r22 == null goto label122;
+
+     label119:
+        virtualinvoke $r22.<java.io.InputStream: void close()>();
+
+     label120:
+        goto label122;
+
+     label121:
+        $r37 := @caughtexception;
+
+        $r43 = new java.lang.StringBuilder;
+
+        specialinvoke $r43.<java.lang.StringBuilder: void <init>(java.lang.String)>("request wakeConfig exception:");
+
+        $r2 = virtualinvoke $r37.<java.lang.Exception: java.lang.String getMessage()>();
+
+        virtualinvoke $r43.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r43.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cn.jiguang.w.a: void d(java.lang.String,java.lang.String)>("JWakeConfigHelper", $r2);
+
+     label122:
+        if $r10 == null goto label155;
+
+        goto label147;
+
+     label123:
+        $r28 := @caughtexception;
+
+        $r22 = null;
+
+        $r10 = null;
+
+     label124:
+        $r43 = new java.lang.StringBuilder;
+
+     label125:
+        specialinvoke $r43.<java.lang.StringBuilder: void <init>(java.lang.String)>("request wakeConfig exception:");
+
+        $r2 = virtualinvoke $r28.<org.json.JSONException: java.lang.String getMessage()>();
+
+        virtualinvoke $r43.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r43.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cn.jiguang.w.a: void d(java.lang.String,java.lang.String)>("JWakeConfigHelper", $r2);
+
+     label126:
+        if $r22 == null goto label130;
+
+     label127:
+        virtualinvoke $r22.<java.io.InputStream: void close()>();
+
+     label128:
+        goto label130;
+
+     label129:
+        $r38 := @caughtexception;
+
+        $r43 = new java.lang.StringBuilder;
+
+        specialinvoke $r43.<java.lang.StringBuilder: void <init>(java.lang.String)>("request wakeConfig exception:");
+
+        $r2 = virtualinvoke $r38.<java.lang.Exception: java.lang.String getMessage()>();
+
+        virtualinvoke $r43.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r43.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cn.jiguang.w.a: void d(java.lang.String,java.lang.String)>("JWakeConfigHelper", $r2);
+
+     label130:
+        if $r10 == null goto label155;
+
+        goto label147;
+
+     label131:
+        $r30 := @caughtexception;
+
+        $r22 = null;
+
+        $r10 = null;
+
+     label132:
+        $r43 = new java.lang.StringBuilder;
+
+     label133:
+        specialinvoke $r43.<java.lang.StringBuilder: void <init>(java.lang.String)>("request wakeConfig exception:");
+
+        $r51 = (java.io.IOException) $r30;
+
+        $r2 = virtualinvoke $r51.<java.io.IOException: java.lang.String getMessage()>();
+
+        virtualinvoke $r43.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r43.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cn.jiguang.w.a: void d(java.lang.String,java.lang.String)>("JWakeConfigHelper", $r2);
+
+     label134:
+        if $r22 == null goto label138;
+
+     label135:
+        virtualinvoke $r22.<java.io.InputStream: void close()>();
+
+     label136:
+        goto label138;
+
+     label137:
+        $r39 := @caughtexception;
+
+        $r43 = new java.lang.StringBuilder;
+
+        specialinvoke $r43.<java.lang.StringBuilder: void <init>(java.lang.String)>("request wakeConfig exception:");
+
+        $r2 = virtualinvoke $r39.<java.lang.Exception: java.lang.String getMessage()>();
+
+        virtualinvoke $r43.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r43.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cn.jiguang.w.a: void d(java.lang.String,java.lang.String)>("JWakeConfigHelper", $r2);
+
+     label138:
+        if $r10 == null goto label155;
+
+        goto label147;
+
+     label139:
+        $r32 := @caughtexception;
+
+        $r22 = null;
+
+        $r10 = null;
+
+     label140:
+        $r43 = new java.lang.StringBuilder;
+
+     label141:
+        specialinvoke $r43.<java.lang.StringBuilder: void <init>(java.lang.String)>("request wakeConfig exception:");
+
+        $r52 = (java.io.UnsupportedEncodingException) $r32;
+
+        $r2 = virtualinvoke $r52.<java.io.UnsupportedEncodingException: java.lang.String getMessage()>();
+
+        virtualinvoke $r43.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r43.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cn.jiguang.w.a: void d(java.lang.String,java.lang.String)>("JWakeConfigHelper", $r2);
+
+     label142:
+        if $r22 == null goto label146;
+
+     label143:
+        virtualinvoke $r22.<java.io.InputStream: void close()>();
+
+     label144:
+        goto label146;
+
+     label145:
+        $r40 := @caughtexception;
+
+        $r43 = new java.lang.StringBuilder;
+
+        specialinvoke $r43.<java.lang.StringBuilder: void <init>(java.lang.String)>("request wakeConfig exception:");
+
+        $r2 = virtualinvoke $r40.<java.lang.Exception: java.lang.String getMessage()>();
+
+        virtualinvoke $r43.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r43.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cn.jiguang.w.a: void d(java.lang.String,java.lang.String)>("JWakeConfigHelper", $r2);
+
+     label146:
+        if $r10 == null goto label155;
+
+     label147:
+        virtualinvoke $r10.<java.net.HttpURLConnection: void disconnect()>();
+
+        return null;
+
+     label148:
+        $r41 := @caughtexception;
+
+        if $r22 == null goto label152;
+
+     label149:
+        virtualinvoke $r22.<java.io.InputStream: void close()>();
+
+     label150:
+        goto label152;
+
+     label151:
+        $r42 := @caughtexception;
+
+        $r43 = new java.lang.StringBuilder;
+
+        specialinvoke $r43.<java.lang.StringBuilder: void <init>(java.lang.String)>("request wakeConfig exception:");
+
+        $r2 = virtualinvoke $r42.<java.lang.Exception: java.lang.String getMessage()>();
+
+        virtualinvoke $r43.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r43.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <cn.jiguang.w.a: void d(java.lang.String,java.lang.String)>("JWakeConfigHelper", $r2);
+
+     label152:
+        if $r10 == null goto label153;
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void disconnect()>();
+
+     label153:
+        throw $r41;
+
+     label154:
+        return $r49;
+
+     label155:
+        return null;
+
+        catch java.io.UnsupportedEncodingException from label001 to label002 with label139;
+        catch java.io.UnsupportedEncodingException from label003 to label004 with label139;
+        catch java.io.UnsupportedEncodingException from label005 to label006 with label139;
+        catch java.io.UnsupportedEncodingException from label007 to label008 with label139;
+        catch java.io.UnsupportedEncodingException from label009 to label010 with label139;
+        catch java.io.UnsupportedEncodingException from label011 to label012 with label139;
+        catch java.io.UnsupportedEncodingException from label013 to label014 with label139;
+        catch java.io.UnsupportedEncodingException from label015 to label016 with label139;
+        catch java.io.UnsupportedEncodingException from label017 to label018 with label139;
+        catch java.io.UnsupportedEncodingException from label022 to label023 with label139;
+        catch java.io.UnsupportedEncodingException from label025 to label026 with label139;
+        catch java.io.UnsupportedEncodingException from label027 to label028 with label139;
+        catch java.io.UnsupportedEncodingException from label031 to label032 with label139;
+        catch java.io.UnsupportedEncodingException from label033 to label034 with label139;
+        catch java.io.UnsupportedEncodingException from label035 to label036 with label139;
+        catch java.io.UnsupportedEncodingException from label037 to label039 with label139;
+        catch java.io.UnsupportedEncodingException from label040 to label042 with label139;
+        catch java.io.UnsupportedEncodingException from label043 to label044 with label139;
+        catch java.io.UnsupportedEncodingException from label045 to label046 with label139;
+        catch java.io.UnsupportedEncodingException from label047 to label048 with label139;
+        catch java.io.UnsupportedEncodingException from label050 to label051 with label139;
+        catch java.io.UnsupportedEncodingException from label053 to label054 with label139;
+        catch java.io.IOException from label001 to label002 with label131;
+        catch java.io.IOException from label003 to label004 with label131;
+        catch java.io.IOException from label005 to label006 with label131;
+        catch java.io.IOException from label007 to label008 with label131;
+        catch java.io.IOException from label009 to label010 with label131;
+        catch java.io.IOException from label011 to label012 with label131;
+        catch java.io.IOException from label013 to label014 with label131;
+        catch java.io.IOException from label015 to label016 with label131;
+        catch java.io.IOException from label017 to label018 with label131;
+        catch java.io.IOException from label022 to label023 with label131;
+        catch java.io.IOException from label025 to label026 with label131;
+        catch java.io.IOException from label027 to label028 with label131;
+        catch java.io.IOException from label031 to label032 with label131;
+        catch java.io.IOException from label033 to label034 with label131;
+        catch java.io.IOException from label035 to label036 with label131;
+        catch java.io.IOException from label037 to label039 with label131;
+        catch java.io.IOException from label040 to label042 with label131;
+        catch java.io.IOException from label043 to label044 with label131;
+        catch java.io.IOException from label045 to label046 with label131;
+        catch java.io.IOException from label047 to label048 with label131;
+        catch java.io.IOException from label050 to label051 with label131;
+        catch java.io.IOException from label053 to label054 with label131;
+        catch org.json.JSONException from label001 to label002 with label123;
+        catch org.json.JSONException from label003 to label004 with label123;
+        catch org.json.JSONException from label005 to label006 with label123;
+        catch org.json.JSONException from label007 to label008 with label123;
+        catch org.json.JSONException from label009 to label010 with label123;
+        catch org.json.JSONException from label011 to label012 with label123;
+        catch org.json.JSONException from label013 to label014 with label123;
+        catch org.json.JSONException from label015 to label016 with label123;
+        catch org.json.JSONException from label017 to label018 with label123;
+        catch org.json.JSONException from label022 to label023 with label123;
+        catch org.json.JSONException from label025 to label026 with label123;
+        catch org.json.JSONException from label027 to label028 with label123;
+        catch org.json.JSONException from label031 to label032 with label123;
+        catch org.json.JSONException from label033 to label034 with label123;
+        catch org.json.JSONException from label035 to label036 with label123;
+        catch org.json.JSONException from label037 to label039 with label123;
+        catch org.json.JSONException from label040 to label042 with label123;
+        catch org.json.JSONException from label043 to label044 with label123;
+        catch org.json.JSONException from label045 to label046 with label123;
+        catch org.json.JSONException from label047 to label048 with label123;
+        catch org.json.JSONException from label050 to label051 with label123;
+        catch org.json.JSONException from label053 to label054 with label123;
+        catch java.lang.Throwable from label001 to label002 with label115;
+        catch java.lang.Throwable from label003 to label004 with label115;
+        catch java.lang.Throwable from label005 to label006 with label115;
+        catch java.lang.Throwable from label007 to label008 with label115;
+        catch java.lang.Throwable from label009 to label010 with label115;
+        catch java.lang.Throwable from label011 to label012 with label115;
+        catch java.lang.Throwable from label013 to label014 with label115;
+        catch java.lang.Throwable from label015 to label016 with label115;
+        catch java.lang.Throwable from label017 to label018 with label115;
+        catch java.lang.Throwable from label019 to label020 with label115;
+        catch java.lang.Throwable from label021 to label023 with label115;
+        catch java.lang.Throwable from label024 to label025 with label115;
+        catch java.lang.Throwable from label025 to label030 with label115;
+        catch java.lang.Throwable from label031 to label033 with label115;
+        catch java.lang.Throwable from label033 to label036 with label115;
+        catch java.lang.Throwable from label037 to label039 with label115;
+        catch java.lang.Throwable from label040 to label043 with label115;
+        catch java.lang.Throwable from label043 to label044 with label115;
+        catch java.lang.Throwable from label045 to label047 with label115;
+        catch java.lang.Throwable from label047 to label048 with label115;
+        catch java.lang.Throwable from label049 to label050 with label115;
+        catch java.lang.Throwable from label050 to label051 with label115;
+        catch java.lang.Throwable from label052 to label053 with label115;
+        catch java.lang.Throwable from label053 to label054 with label115;
+        catch java.io.UnsupportedEncodingException from label054 to label056 with label114;
+        catch java.io.UnsupportedEncodingException from label057 to label058 with label114;
+        catch java.io.UnsupportedEncodingException from label059 to label060 with label114;
+        catch java.io.UnsupportedEncodingException from label061 to label062 with label114;
+        catch java.io.UnsupportedEncodingException from label063 to label064 with label114;
+        catch java.io.IOException from label054 to label056 with label113;
+        catch java.io.IOException from label057 to label058 with label113;
+        catch java.io.IOException from label059 to label060 with label113;
+        catch java.io.IOException from label061 to label062 with label113;
+        catch java.io.IOException from label063 to label064 with label113;
+        catch org.json.JSONException from label054 to label056 with label112;
+        catch org.json.JSONException from label057 to label058 with label112;
+        catch org.json.JSONException from label059 to label060 with label112;
+        catch org.json.JSONException from label061 to label062 with label112;
+        catch org.json.JSONException from label063 to label064 with label112;
+        catch java.lang.Throwable from label054 to label056 with label111;
+        catch java.lang.Throwable from label057 to label064 with label111;
+        catch java.lang.Throwable from label065 to label066 with label111;
+        catch java.lang.Throwable from label067 to label068 with label072;
+        catch java.lang.Throwable from label068 to label069 with label072;
+        catch java.lang.Throwable from label069 to label070 with label072;
+        catch java.lang.Throwable from label070 to label071 with label072;
+        catch java.io.UnsupportedEncodingException from label074 to label076 with label114;
+        catch java.io.UnsupportedEncodingException from label077 to label078 with label114;
+        catch java.io.IOException from label074 to label076 with label113;
+        catch java.io.IOException from label077 to label078 with label113;
+        catch org.json.JSONException from label074 to label076 with label112;
+        catch org.json.JSONException from label077 to label078 with label112;
+        catch java.lang.Throwable from label073 to label074 with label111;
+        catch java.lang.Throwable from label074 to label076 with label111;
+        catch java.lang.Throwable from label077 to label078 with label111;
+        catch java.io.UnsupportedEncodingException from label080 to label081 with label110;
+        catch java.io.UnsupportedEncodingException from label082 to label083 with label110;
+        catch java.io.UnsupportedEncodingException from label084 to label085 with label110;
+        catch java.io.UnsupportedEncodingException from label088 to label089 with label110;
+        catch java.io.UnsupportedEncodingException from label091 to label092 with label110;
+        catch java.io.UnsupportedEncodingException from label094 to label095 with label110;
+        catch java.io.UnsupportedEncodingException from label096 to label097 with label110;
+        catch java.io.IOException from label080 to label081 with label109;
+        catch java.io.IOException from label082 to label083 with label109;
+        catch java.io.IOException from label084 to label085 with label109;
+        catch java.io.IOException from label088 to label089 with label109;
+        catch java.io.IOException from label091 to label092 with label109;
+        catch java.io.IOException from label094 to label095 with label109;
+        catch java.io.IOException from label096 to label097 with label109;
+        catch org.json.JSONException from label080 to label081 with label108;
+        catch org.json.JSONException from label082 to label083 with label108;
+        catch org.json.JSONException from label084 to label085 with label108;
+        catch org.json.JSONException from label088 to label089 with label108;
+        catch org.json.JSONException from label091 to label092 with label108;
+        catch org.json.JSONException from label094 to label095 with label108;
+        catch org.json.JSONException from label096 to label097 with label108;
+        catch java.lang.Throwable from label079 to label080 with label107;
+        catch java.lang.Throwable from label080 to label081 with label107;
+        catch java.lang.Throwable from label082 to label083 with label107;
+        catch java.lang.Throwable from label084 to label085 with label107;
+        catch java.lang.Throwable from label086 to label087 with label107;
+        catch java.lang.Throwable from label088 to label089 with label107;
+        catch java.lang.Throwable from label091 to label092 with label107;
+        catch java.lang.Throwable from label093 to label094 with label107;
+        catch java.lang.Throwable from label094 to label096 with label107;
+        catch java.lang.Throwable from label096 to label097 with label107;
+        catch java.lang.Exception from label098 to label099 with label100;
+        catch java.lang.Exception from label103 to label104 with label105;
+        catch java.lang.Throwable from label116 to label117 with label148;
+        catch java.lang.Throwable from label117 to label118 with label148;
+        catch java.lang.Exception from label119 to label120 with label121;
+        catch java.lang.Throwable from label124 to label125 with label148;
+        catch java.lang.Throwable from label125 to label126 with label148;
+        catch java.lang.Exception from label127 to label128 with label129;
+        catch java.lang.Throwable from label132 to label133 with label148;
+        catch java.lang.Throwable from label133 to label134 with label148;
+        catch java.lang.Exception from label135 to label136 with label137;
+        catch java.lang.Throwable from label140 to label141 with label148;
+        catch java.lang.Throwable from label141 to label142 with label148;
+        catch java.lang.Exception from label143 to label144 with label145;
+        catch java.lang.Exception from label149 to label150 with label151;
+    }

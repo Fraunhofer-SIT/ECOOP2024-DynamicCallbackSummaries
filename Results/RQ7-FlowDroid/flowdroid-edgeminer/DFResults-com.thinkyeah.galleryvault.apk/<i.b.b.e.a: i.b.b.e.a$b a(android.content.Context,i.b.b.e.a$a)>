@@ -1,0 +1,529 @@
+    public static i.b.b.e.a$b a(android.content.Context, i.b.b.e.a$a)
+    {
+        java.net.HttpURLConnection $r17;
+        byte[] $r22;
+        java.io.BufferedInputStream $r31, $r39;
+        java.net.URL $r37;
+        java.net.HttpCookie $r35;
+        java.net.Proxy $r14;
+        i.b.b.e.a$b $r41;
+        i.b.b.e.a$a $r12;
+        java.util.Map $r23;
+        java.net.URI $r34;
+        boolean $z0;
+        java.net.CookieStore $r20;
+        java.util.Set $r24;
+        java.util.List $r21;
+        java.net.CookieManager $r19;
+        java.lang.StringBuilder $r36;
+        java.lang.Throwable $r0, $r1, $r2, $r3, $r4, $r5, $r6, $r7, $r8, $r9, $r10;
+        android.content.Context $r11;
+        java.io.ByteArrayOutputStream $r40;
+        java.lang.Iterable $r33;
+        java.io.BufferedOutputStream $r29, $r38;
+        java.net.URLConnection $r15;
+        int $i0;
+        java.lang.String $r13, $r27, $r28;
+        java.io.OutputStream $r30;
+        javax.net.ssl.HttpsURLConnection $r18;
+        java.util.Map$Entry $r26;
+        java.util.Iterator $r25;
+        java.lang.Object $r16;
+        java.io.InputStream $r32;
+
+        $r11 := @parameter0: android.content.Context;
+
+        $r12 := @parameter1: i.b.b.e.a$a;
+
+        if $r11 != null goto label01;
+
+        return null;
+
+     label01:
+        $r36 = new java.lang.StringBuilder;
+
+     label02:
+        specialinvoke $r36.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r36.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("config : ");
+
+        virtualinvoke $r36.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r12);
+
+        virtualinvoke $r36.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r37 = new java.net.URL;
+
+     label03:
+        $r13 = $r12.<i.b.b.e.a$a: java.lang.String a>;
+
+        specialinvoke $r37.<java.net.URL: void <init>(java.lang.String)>($r13);
+
+        $r14 = staticinvoke <i.b.b.e.a: java.net.Proxy b(android.content.Context)>($r11);
+
+        $r36 = new java.lang.StringBuilder;
+
+     label04:
+        specialinvoke $r36.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r36.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("proxy: ");
+
+        virtualinvoke $r36.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r14);
+
+        virtualinvoke $r36.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label05:
+        if $r14 == null goto label08;
+
+     label06:
+        $r15 = virtualinvoke $r37.<java.net.URL: java.net.URLConnection openConnection(java.net.Proxy)>($r14);
+
+        $r16 = staticinvoke <com.google.firebase.perf.network.FirebasePerfUrlConnection: java.lang.Object instrument(java.lang.Object)>($r15);
+
+        $r15 = (java.net.URLConnection) $r16;
+
+        $r17 = (java.net.HttpURLConnection) $r15;
+
+     label07:
+        goto label09;
+
+     label08:
+        $r15 = virtualinvoke $r37.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r16 = staticinvoke <com.google.firebase.perf.network.FirebasePerfUrlConnection: java.lang.Object instrument(java.lang.Object)>($r15);
+
+        $r15 = (java.net.URLConnection) $r16;
+
+        $r17 = (java.net.HttpURLConnection) $r15;
+
+     label09:
+        staticinvoke <java.lang.System: java.lang.String setProperty(java.lang.String,java.lang.String)>("http.keepAlive", "false");
+
+        $z0 = $r17 instanceof javax.net.ssl.HttpsURLConnection;
+
+     label10:
+        if $z0 == 0 goto label12;
+
+     label11:
+        $r18 = (javax.net.ssl.HttpsURLConnection) $r17;
+
+     label12:
+        $r19 = <i.b.b.e.a: java.net.CookieManager a>;
+
+        $r20 = virtualinvoke $r19.<java.net.CookieManager: java.net.CookieStore getCookieStore()>();
+
+        $r21 = interfaceinvoke $r20.<java.net.CookieStore: java.util.List getCookies()>();
+
+        $i0 = interfaceinvoke $r21.<java.util.List: int size()>();
+
+     label13:
+        if $i0 <= 0 goto label15;
+
+     label14:
+        $r19 = <i.b.b.e.a: java.net.CookieManager a>;
+
+        $r20 = virtualinvoke $r19.<java.net.CookieManager: java.net.CookieStore getCookieStore()>();
+
+        $r21 = interfaceinvoke $r20.<java.net.CookieStore: java.util.List getCookies()>();
+
+        $r13 = staticinvoke <android.text.TextUtils: java.lang.String join(java.lang.CharSequence,java.lang.Iterable)>(";", $r21);
+
+        virtualinvoke $r17.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Cookie", $r13);
+
+     label15:
+        virtualinvoke $r17.<java.net.HttpURLConnection: void setConnectTimeout(int)>(20000);
+
+        virtualinvoke $r17.<java.net.HttpURLConnection: void setReadTimeout(int)>(30000);
+
+        virtualinvoke $r17.<java.net.HttpURLConnection: void setInstanceFollowRedirects(boolean)>(1);
+
+        virtualinvoke $r17.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("User-Agent", "msp");
+
+        $r22 = $r12.<i.b.b.e.a$a: byte[] b>;
+
+     label16:
+        $r13 = "POST";
+
+        if $r22 == null goto label21;
+
+     label17:
+        $r22 = $r12.<i.b.b.e.a$a: byte[] b>;
+
+        $i0 = lengthof $r22;
+
+     label18:
+        if $i0 <= 0 goto label21;
+
+     label19:
+        virtualinvoke $r17.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+        virtualinvoke $r17.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Type", "application/octet-stream;binary/octet-stream");
+
+        virtualinvoke $r17.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Accept-Charset", "UTF-8");
+
+        virtualinvoke $r17.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Connection", "Keep-Alive");
+
+        virtualinvoke $r17.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Keep-Alive", "timeout=180, max=100");
+
+     label20:
+        goto label22;
+
+     label21:
+        virtualinvoke $r17.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("GET");
+
+     label22:
+        $r23 = $r12.<i.b.b.e.a$a: java.util.Map c>;
+
+     label23:
+        if $r23 == null goto label31;
+
+     label24:
+        $r23 = $r12.<i.b.b.e.a$a: java.util.Map c>;
+
+        $r24 = interfaceinvoke $r23.<java.util.Map: java.util.Set entrySet()>();
+
+        $r25 = interfaceinvoke $r24.<java.util.Set: java.util.Iterator iterator()>();
+
+     label25:
+        $z0 = interfaceinvoke $r25.<java.util.Iterator: boolean hasNext()>();
+
+     label26:
+        if $z0 == 0 goto label31;
+
+     label27:
+        $r16 = interfaceinvoke $r25.<java.util.Iterator: java.lang.Object next()>();
+
+        $r26 = (java.util.Map$Entry) $r16;
+
+        $r16 = interfaceinvoke $r26.<java.util.Map$Entry: java.lang.Object getKey()>();
+
+     label28:
+        if $r16 == null goto label25;
+
+     label29:
+        $r16 = interfaceinvoke $r26.<java.util.Map$Entry: java.lang.Object getKey()>();
+
+        $r27 = (java.lang.String) $r16;
+
+        $r16 = interfaceinvoke $r26.<java.util.Map$Entry: java.lang.Object getValue()>();
+
+        $r28 = (java.lang.String) $r16;
+
+        virtualinvoke $r17.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>($r27, $r28);
+
+     label30:
+        goto label25;
+
+     label31:
+        virtualinvoke $r17.<java.net.HttpURLConnection: void setDoInput(boolean)>(1);
+
+        $r27 = virtualinvoke $r17.<java.net.HttpURLConnection: java.lang.String getRequestMethod()>();
+
+        $z0 = virtualinvoke $r13.<java.lang.String: boolean equals(java.lang.Object)>($r27);
+
+     label32:
+        if $z0 == 0 goto label34;
+
+     label33:
+        virtualinvoke $r17.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+     label34:
+        $r27 = virtualinvoke $r17.<java.net.HttpURLConnection: java.lang.String getRequestMethod()>();
+
+        $z0 = virtualinvoke $r13.<java.lang.String: boolean equals(java.lang.Object)>($r27);
+
+     label35:
+        if $z0 == 0 goto label41;
+
+     label36:
+        $r38 = new java.io.BufferedOutputStream;
+
+     label37:
+        $r29 = $r38;
+
+     label38:
+        $r30 = staticinvoke <com.safedk.android.internal.partials.AlipayNetworkBridge: java.io.OutputStream urlConnectionGetOutputStream(java.net.URLConnection)>($r17);
+
+        specialinvoke $r38.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r30);
+
+     label39:
+        $r22 = $r12.<i.b.b.e.a$a: byte[] b>;
+
+        virtualinvoke $r38.<java.io.OutputStream: void write(byte[])>($r22);
+
+        virtualinvoke $r38.<java.io.OutputStream: void flush()>();
+
+     label40:
+        goto label42;
+
+     label41:
+        $r29 = null;
+
+     label42:
+        $r39 = new java.io.BufferedInputStream;
+
+     label43:
+        $r31 = $r39;
+
+     label44:
+        $r32 = staticinvoke <com.safedk.android.internal.partials.AlipayNetworkBridge: java.io.InputStream urlConnectionGetInputStream(java.net.URLConnection)>($r17);
+
+        specialinvoke $r39.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r32);
+
+     label45:
+        $r40 = new java.io.ByteArrayOutputStream;
+
+     label46:
+        specialinvoke $r40.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label47:
+        $r22 = newarray (byte)[1024];
+
+     label48:
+        $i0 = virtualinvoke $r39.<java.io.InputStream: int read(byte[],int,int)>($r22, 0, 1024);
+
+     label49:
+        if $i0 == -1 goto label52;
+
+     label50:
+        virtualinvoke $r40.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r22, 0, $i0);
+
+     label51:
+        goto label48;
+
+     label52:
+        virtualinvoke $r40.<java.io.ByteArrayOutputStream: void flush()>();
+
+        $r22 = virtualinvoke $r40.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $r23 = virtualinvoke $r17.<java.net.HttpURLConnection: java.util.Map getHeaderFields()>();
+
+     label53:
+        if $r23 == null goto label58;
+
+     label54:
+        $r16 = interfaceinvoke $r23.<java.util.Map: java.lang.Object get(java.lang.Object)>(null);
+
+     label55:
+        if $r16 == null goto label58;
+
+     label56:
+        $r16 = interfaceinvoke $r23.<java.util.Map: java.lang.Object get(java.lang.Object)>(null);
+
+        $r33 = (java.lang.Iterable) $r16;
+
+        $r13 = staticinvoke <android.text.TextUtils: java.lang.String join(java.lang.CharSequence,java.lang.Iterable)>(",", $r33);
+
+     label57:
+        goto label59;
+
+     label58:
+        $r13 = null;
+
+     label59:
+        $r16 = interfaceinvoke $r23.<java.util.Map: java.lang.Object get(java.lang.Object)>("Set-Cookie");
+
+        $r21 = (java.util.List) $r16;
+
+     label60:
+        if $r21 == null goto label70;
+
+     label61:
+        $r25 = interfaceinvoke $r21.<java.util.List: java.util.Iterator iterator()>();
+
+     label62:
+        $z0 = interfaceinvoke $r25.<java.util.Iterator: boolean hasNext()>();
+
+     label63:
+        if $z0 == 0 goto label70;
+
+     label64:
+        $r16 = interfaceinvoke $r25.<java.util.Iterator: java.lang.Object next()>();
+
+        $r27 = (java.lang.String) $r16;
+
+        $r21 = staticinvoke <java.net.HttpCookie: java.util.List parse(java.lang.String)>($r27);
+
+     label65:
+        if $r21 == null goto label62;
+
+     label66:
+        $z0 = interfaceinvoke $r21.<java.util.List: boolean isEmpty()>();
+
+     label67:
+        if $z0 != 0 goto label62;
+
+     label68:
+        $r19 = <i.b.b.e.a: java.net.CookieManager a>;
+
+        $r20 = virtualinvoke $r19.<java.net.CookieManager: java.net.CookieStore getCookieStore()>();
+
+        $r34 = virtualinvoke $r37.<java.net.URL: java.net.URI toURI()>();
+
+        $r16 = interfaceinvoke $r21.<java.util.List: java.lang.Object get(int)>(0);
+
+        $r35 = (java.net.HttpCookie) $r16;
+
+        interfaceinvoke $r20.<java.net.CookieStore: void add(java.net.URI,java.net.HttpCookie)>($r34, $r35);
+
+     label69:
+        goto label62;
+
+     label70:
+        $r41 = new i.b.b.e.a$b;
+
+     label71:
+        specialinvoke $r41.<i.b.b.e.a$b: void <init>(java.util.Map,java.lang.String,byte[])>($r23, $r13, $r22);
+
+     label72:
+        staticinvoke <com.safedk.android.internal.partials.AlipayNetworkBridge: void httpUrlConnectionDisconnect(java.net.HttpURLConnection)>($r17);
+
+     label73:
+        virtualinvoke $r39.<java.io.InputStream: void close()>();
+
+     label74:
+        if $r29 == null goto label98;
+
+     label75:
+        virtualinvoke $r29.<java.io.OutputStream: void close()>();
+
+     label76:
+        return $r41;
+
+     label77:
+        $r31 = null;
+
+        goto label80;
+
+     label78:
+        $r17 = null;
+
+     label79:
+        $r31 = null;
+
+        $r29 = null;
+
+     label80:
+        if $r17 == null goto label82;
+
+     label81:
+        staticinvoke <com.safedk.android.internal.partials.AlipayNetworkBridge: void httpUrlConnectionDisconnect(java.net.HttpURLConnection)>($r17);
+
+     label82:
+        if $r31 == null goto label84;
+
+     label83:
+        virtualinvoke $r31.<java.io.InputStream: void close()>();
+
+     label84:
+        if $r29 == null goto label99;
+
+     label85:
+        virtualinvoke $r29.<java.io.OutputStream: void close()>();
+
+     label86:
+        return null;
+
+     label87:
+        $r0 := @caughtexception;
+
+        goto label78;
+
+     label88:
+        $r1 := @caughtexception;
+
+        goto label79;
+
+     label89:
+        $r2 := @caughtexception;
+
+        goto label79;
+
+     label90:
+        $r3 := @caughtexception;
+
+        goto label77;
+
+     label91:
+        $r4 := @caughtexception;
+
+        goto label80;
+
+     label92:
+        $r5 := @caughtexception;
+
+        goto label73;
+
+     label93:
+        $r6 := @caughtexception;
+
+        goto label74;
+
+     label94:
+        $r7 := @caughtexception;
+
+        return $r41;
+
+     label95:
+        $r8 := @caughtexception;
+
+        goto label82;
+
+     label96:
+        $r9 := @caughtexception;
+
+        goto label84;
+
+     label97:
+        $r10 := @caughtexception;
+
+        return null;
+
+     label98:
+        return $r41;
+
+     label99:
+        return null;
+
+        catch java.lang.Throwable from label01 to label02 with label87;
+        catch java.lang.Throwable from label02 to label03 with label87;
+        catch java.lang.Throwable from label03 to label04 with label87;
+        catch java.lang.Throwable from label04 to label05 with label87;
+        catch java.lang.Throwable from label06 to label07 with label87;
+        catch java.lang.Throwable from label08 to label09 with label87;
+        catch java.lang.Throwable from label09 to label10 with label88;
+        catch java.lang.Throwable from label11 to label13 with label88;
+        catch java.lang.Throwable from label14 to label16 with label88;
+        catch java.lang.Throwable from label17 to label18 with label89;
+        catch java.lang.Throwable from label19 to label20 with label89;
+        catch java.lang.Throwable from label21 to label23 with label89;
+        catch java.lang.Throwable from label24 to label26 with label89;
+        catch java.lang.Throwable from label27 to label28 with label89;
+        catch java.lang.Throwable from label29 to label30 with label89;
+        catch java.lang.Throwable from label31 to label32 with label89;
+        catch java.lang.Throwable from label33 to label35 with label89;
+        catch java.lang.Throwable from label36 to label37 with label89;
+        catch java.lang.Throwable from label38 to label39 with label89;
+        catch java.lang.Throwable from label39 to label40 with label90;
+        catch java.lang.Throwable from label42 to label43 with label90;
+        catch java.lang.Throwable from label44 to label45 with label90;
+        catch java.lang.Throwable from label45 to label46 with label91;
+        catch java.lang.Throwable from label46 to label47 with label91;
+        catch java.lang.Throwable from label48 to label49 with label91;
+        catch java.lang.Throwable from label50 to label51 with label91;
+        catch java.lang.Throwable from label52 to label53 with label91;
+        catch java.lang.Throwable from label54 to label55 with label91;
+        catch java.lang.Throwable from label56 to label57 with label91;
+        catch java.lang.Throwable from label59 to label60 with label91;
+        catch java.lang.Throwable from label61 to label63 with label91;
+        catch java.lang.Throwable from label64 to label65 with label91;
+        catch java.lang.Throwable from label66 to label67 with label91;
+        catch java.lang.Throwable from label68 to label69 with label91;
+        catch java.lang.Throwable from label70 to label71 with label91;
+        catch java.lang.Throwable from label71 to label72 with label91;
+        catch java.lang.Throwable from label72 to label73 with label92;
+        catch java.lang.Throwable from label73 to label74 with label93;
+        catch java.lang.Throwable from label75 to label76 with label94;
+        catch java.lang.Throwable from label81 to label82 with label95;
+        catch java.lang.Throwable from label83 to label84 with label96;
+        catch java.lang.Throwable from label85 to label86 with label97;
+    }

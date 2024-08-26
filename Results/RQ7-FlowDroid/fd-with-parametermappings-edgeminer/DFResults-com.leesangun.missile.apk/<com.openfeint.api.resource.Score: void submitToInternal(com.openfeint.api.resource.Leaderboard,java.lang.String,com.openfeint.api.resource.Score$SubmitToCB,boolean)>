@@ -1,0 +1,141 @@
+    private void submitToInternal(com.openfeint.api.resource.Leaderboard, java.lang.String, com.openfeint.api.resource.Score$SubmitToCB, boolean)
+    {
+        byte[] $r11;
+        com.openfeint.internal.OpenFeintInternal $r7;
+        com.openfeint.api.resource.Score$SubmitToCB $r3;
+        long $l1;
+        com.openfeint.api.resource.Score$1 r4;
+        com.openfeint.internal.request.OrderedArgList r5;
+        java.lang.Long $r9;
+        int $i0;
+        java.lang.String $r2, $r6, $r10;
+        boolean $z0, z1, $z2;
+        com.openfeint.api.resource.Score r0;
+        com.openfeint.api.resource.Leaderboard $r1;
+        java.lang.StringBuilder $r8;
+
+        r0 := @this: com.openfeint.api.resource.Score;
+
+        $r1 := @parameter0: com.openfeint.api.resource.Leaderboard;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r3 := @parameter2: com.openfeint.api.resource.Score$SubmitToCB;
+
+        $z0 := @parameter3: boolean;
+
+        z1 = 0;
+
+        if $r1 == null goto label1;
+
+        $r6 = virtualinvoke $r1.<com.openfeint.api.resource.Leaderboard: java.lang.String resourceID()>();
+
+        if $r6 == null goto label1;
+
+        $r6 = virtualinvoke $r1.<com.openfeint.api.resource.Leaderboard: java.lang.String resourceID()>();
+
+        $i0 = virtualinvoke $r6.<java.lang.String: int length()>();
+
+        if $i0 != 0 goto label2;
+
+     label1:
+        if $r3 == null goto label9;
+
+        virtualinvoke $r3.<com.openfeint.api.resource.Score$SubmitToCB: void onFailure(java.lang.String)>("No leaderboard ID provided.  Please provide a leaderboard ID from the Dev Dashboard.");
+
+        return;
+
+     label2:
+        $r7 = staticinvoke <com.openfeint.internal.OpenFeintInternal: com.openfeint.internal.OpenFeintInternal getInstance()>();
+
+        $z2 = virtualinvoke $r7.<com.openfeint.internal.OpenFeintInternal: boolean isUserLoggedIn()>();
+
+        if $z2 != 0 goto label3;
+
+        staticinvoke <com.openfeint.internal.offline.OfflineSupport: void postOfflineScore(com.openfeint.api.resource.Score,com.openfeint.api.resource.Leaderboard)>(r0, $r1);
+
+        if $r3 == null goto label9;
+
+        virtualinvoke $r3.<com.openfeint.api.resource.Score$SubmitToCB: void onSuccess(boolean)>(0);
+
+        return;
+
+     label3:
+        $r8 = new java.lang.StringBuilder;
+
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>(java.lang.String)>("/xp/games/");
+
+        $r7 = staticinvoke <com.openfeint.internal.OpenFeintInternal: com.openfeint.internal.OpenFeintInternal getInstance()>();
+
+        $r6 = virtualinvoke $r7.<com.openfeint.internal.OpenFeintInternal: java.lang.String getAppID()>();
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/leaderboards/");
+
+        $r6 = virtualinvoke $r1.<com.openfeint.api.resource.Leaderboard: java.lang.String resourceID()>();
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/high_scores");
+
+        $r6 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r5 = new com.openfeint.internal.request.OrderedArgList;
+
+        specialinvoke r5.<com.openfeint.internal.request.OrderedArgList: void <init>()>();
+
+        $r9 = new java.lang.Long;
+
+        $l1 = r0.<com.openfeint.api.resource.Score: long score>;
+
+        specialinvoke $r9.<java.lang.Long: void <init>(long)>($l1);
+
+        $r10 = virtualinvoke $r9.<java.lang.Long: java.lang.String toString()>();
+
+        virtualinvoke r5.<com.openfeint.internal.request.OrderedArgList: void put(java.lang.String,java.lang.String)>("high_score[score]", $r10);
+
+        $r10 = r0.<com.openfeint.api.resource.Score: java.lang.String displayText>;
+
+        if $r10 == null goto label4;
+
+        $r10 = r0.<com.openfeint.api.resource.Score: java.lang.String displayText>;
+
+        virtualinvoke r5.<com.openfeint.internal.request.OrderedArgList: void put(java.lang.String,java.lang.String)>("high_score[display_text]", $r10);
+
+     label4:
+        $r11 = r0.<com.openfeint.api.resource.Score: byte[] blob>;
+
+        if $r11 == null goto label5;
+
+        z1 = 1;
+
+     label5:
+        if z1 == 0 goto label8;
+
+        $r10 = "1";
+
+     label6:
+        virtualinvoke r5.<com.openfeint.internal.request.OrderedArgList: void put(java.lang.String,java.lang.String)>("high_score[has_blob]", $r10);
+
+        if $r2 == null goto label7;
+
+        virtualinvoke r5.<com.openfeint.internal.request.OrderedArgList: void put(java.lang.String,java.lang.String)>("high_score[timestamp]", $r2);
+
+     label7:
+        r4 = new com.openfeint.api.resource.Score$1;
+
+        specialinvoke r4.<com.openfeint.api.resource.Score$1: void <init>(com.openfeint.api.resource.Score,com.openfeint.internal.request.OrderedArgList,java.lang.String,boolean,com.openfeint.api.resource.Score$SubmitToCB,boolean,com.openfeint.api.resource.Leaderboard)>(r0, r5, $r6, 1, $r3, z1, $r1);
+
+        virtualinvoke r4.<com.openfeint.internal.request.JSONRequest: void launch()>();
+
+        return;
+
+     label8:
+        $r10 = "0";
+
+        goto label6;
+
+     label9:
+        return;
+    }

@@ -1,0 +1,54 @@
+    private void gzip(byte[], java.io.File) throws java.io.IOException
+    {
+        java.lang.Throwable $r6;
+        byte[] $r1;
+        com.crashlytics.android.core.CrashlyticsController r0;
+        java.io.FileOutputStream $r5;
+        java.util.zip.GZIPOutputStream r3, r4;
+        java.io.File $r2;
+
+        r0 := @this: com.crashlytics.android.core.CrashlyticsController;
+
+        $r1 := @parameter0: byte[];
+
+        $r2 := @parameter1: java.io.File;
+
+        r4 = null;
+
+     label1:
+        r3 = new java.util.zip.GZIPOutputStream;
+
+        $r5 = new java.io.FileOutputStream;
+
+        specialinvoke $r5.<java.io.FileOutputStream: void <init>(java.io.File)>($r2);
+
+        specialinvoke r3.<java.util.zip.GZIPOutputStream: void <init>(java.io.OutputStream)>($r5);
+
+     label2:
+        virtualinvoke r3.<java.util.zip.GZIPOutputStream: void write(byte[])>($r1);
+
+        virtualinvoke r3.<java.util.zip.GZIPOutputStream: void finish()>();
+
+     label3:
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void closeQuietly(java.io.Closeable)>(r3);
+
+        return;
+
+     label4:
+        $r6 := @caughtexception;
+
+     label5:
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void closeQuietly(java.io.Closeable)>(r4);
+
+        throw $r6;
+
+     label6:
+        $r6 := @caughtexception;
+
+        r4 = r3;
+
+        goto label5;
+
+        catch java.lang.Throwable from label1 to label2 with label4;
+        catch java.lang.Throwable from label2 to label3 with label6;
+    }

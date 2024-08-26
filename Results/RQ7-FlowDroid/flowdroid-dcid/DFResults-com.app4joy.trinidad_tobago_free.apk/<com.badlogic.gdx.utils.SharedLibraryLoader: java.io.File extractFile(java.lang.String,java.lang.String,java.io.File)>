@@ -1,0 +1,123 @@
+    private java.io.File extractFile(java.lang.String, java.lang.String, java.io.File)
+    {
+        java.lang.Throwable $r2, $r9;
+        byte[] $r8;
+        com.badlogic.gdx.utils.GdxRuntimeException $r13;
+        int $i0;
+        java.lang.String $r3, $r4, $r5;
+        boolean $z0;
+        java.io.FileOutputStream $r11;
+        java.io.FileInputStream $r10;
+        java.io.File $r1, $r7;
+        com.badlogic.gdx.utils.SharedLibraryLoader r0;
+        java.lang.StringBuilder $r12;
+        java.io.InputStream $r6;
+
+        r0 := @this: com.badlogic.gdx.utils.SharedLibraryLoader;
+
+        $r3 := @parameter0: java.lang.String;
+
+        $r4 := @parameter1: java.lang.String;
+
+        $r1 := @parameter2: java.io.File;
+
+        $z0 = virtualinvoke $r1.<java.io.File: boolean exists()>();
+
+        if $z0 == 0 goto label03;
+
+        $r10 = new java.io.FileInputStream;
+
+     label01:
+        specialinvoke $r10.<java.io.FileInputStream: void <init>(java.io.File)>($r1);
+
+        $r5 = virtualinvoke r0.<com.badlogic.gdx.utils.SharedLibraryLoader: java.lang.String crc(java.io.InputStream)>($r10);
+
+     label02:
+        goto label04;
+
+     label03:
+        $r5 = null;
+
+     label04:
+        if $r5 == null goto label05;
+
+        $z0 = virtualinvoke $r5.<java.lang.String: boolean equals(java.lang.Object)>($r4);
+
+        if $z0 != 0 goto label17;
+
+     label05:
+        $r6 = specialinvoke r0.<com.badlogic.gdx.utils.SharedLibraryLoader: java.io.InputStream readFile(java.lang.String)>($r3);
+
+        $r7 = virtualinvoke $r1.<java.io.File: java.io.File getParentFile()>();
+
+        virtualinvoke $r7.<java.io.File: boolean mkdirs()>();
+
+     label06:
+        $r11 = new java.io.FileOutputStream;
+
+     label07:
+        specialinvoke $r11.<java.io.FileOutputStream: void <init>(java.io.File)>($r1);
+
+     label08:
+        $r8 = newarray (byte)[4096];
+
+     label09:
+        $i0 = virtualinvoke $r6.<java.io.InputStream: int read(byte[])>($r8);
+
+     label10:
+        if $i0 != -1 goto label13;
+
+     label11:
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r11.<java.io.FileOutputStream: void close()>();
+
+     label12:
+        return $r1;
+
+     label13:
+        virtualinvoke $r11.<java.io.FileOutputStream: void write(byte[],int,int)>($r8, 0, $i0);
+
+     label14:
+        goto label09;
+
+     label15:
+        $r9 := @caughtexception;
+
+        $r13 = new com.badlogic.gdx.utils.GdxRuntimeException;
+
+        $r12 = new java.lang.StringBuilder;
+
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Error extracting file: ");
+
+        virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\nTo: ");
+
+        $r3 = virtualinvoke $r1.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r13.<com.badlogic.gdx.utils.GdxRuntimeException: void <init>(java.lang.String,java.lang.Throwable)>($r3, $r9);
+
+        throw $r13;
+
+     label16:
+        $r2 := @caughtexception;
+
+        goto label03;
+
+     label17:
+        return $r1;
+
+        catch java.io.FileNotFoundException from label01 to label02 with label16;
+        catch java.io.IOException from label05 to label06 with label15;
+        catch java.io.IOException from label07 to label08 with label15;
+        catch java.io.IOException from label09 to label10 with label15;
+        catch java.io.IOException from label11 to label12 with label15;
+        catch java.io.IOException from label13 to label14 with label15;
+    }

@@ -1,0 +1,57 @@
+    public static java.net.URL toURL(java.lang.String)
+    {
+        java.lang.Throwable r0;
+        java.net.URL $r3;
+        java.lang.String $r1;
+        java.lang.RuntimeException $r4;
+        boolean $z0;
+        gnu.text.Path $r2;
+
+        $r1 := @parameter0: java.lang.String;
+
+     label01:
+        $z0 = staticinvoke <gnu.text.Path: boolean uriSchemeSpecified(java.lang.String)>($r1);
+
+     label02:
+        if $z0 != 0 goto label08;
+
+     label03:
+        $r2 = staticinvoke <gnu.text.Path: gnu.text.Path currentPath()>();
+
+        $r2 = virtualinvoke $r2.<gnu.text.Path: gnu.text.Path resolve(java.lang.String)>($r1);
+
+        $z0 = virtualinvoke $r2.<gnu.text.Path: boolean isAbsolute()>();
+
+     label04:
+        if $z0 == 0 goto label07;
+
+     label05:
+        $r3 = virtualinvoke $r2.<gnu.text.Path: java.net.URL toURL()>();
+
+     label06:
+        return $r3;
+
+     label07:
+        $r1 = virtualinvoke $r2.<java.lang.Object: java.lang.String toString()>();
+
+     label08:
+        $r3 = new java.net.URL;
+
+        specialinvoke $r3.<java.net.URL: void <init>(java.lang.String)>($r1);
+
+     label09:
+        return $r3;
+
+     label10:
+        r0 := @caughtexception;
+
+        $r4 = staticinvoke <gnu.mapping.WrappedException: java.lang.RuntimeException wrapIfNeeded(java.lang.Throwable)>(r0);
+
+        throw $r4;
+
+        catch java.lang.Throwable from label01 to label02 with label10;
+        catch java.lang.Throwable from label03 to label04 with label10;
+        catch java.lang.Throwable from label05 to label06 with label10;
+        catch java.lang.Throwable from label07 to label08 with label10;
+        catch java.lang.Throwable from label08 to label09 with label10;
+    }

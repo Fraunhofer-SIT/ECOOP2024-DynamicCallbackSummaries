@@ -1,0 +1,301 @@
+    public void save()
+    {
+        java.lang.Throwable $r1, $r2, $r3, $r4, $r5, $r16, $r17, $r18, $r19, $r20, $r22;
+        android.content.Context $r6;
+        java.lang.Object[] $r15;
+        java.io.ObjectOutputStream $r9, $r23;
+        java.lang.String $r13, $r14;
+        org.altbeacon.beacon.service.ScanState r0;
+        boolean $z0;
+        java.io.FileOutputStream $r7, $r8;
+        java.io.IOException $r26;
+        java.io.File $r10, $r11, $r12, $r24;
+        java.lang.StringBuilder $r25;
+        org.altbeacon.beacon.service.MonitoringStatus $r21;
+
+        r0 := @this: org.altbeacon.beacon.service.ScanState;
+
+        entermonitor class "Lorg/altbeacon/beacon/service/ScanState;";
+
+     label01:
+        $r6 = r0.<org.altbeacon.beacon.service.ScanState: android.content.Context mContext>;
+
+     label02:
+        $r7 = virtualinvoke $r6.<android.content.Context: java.io.FileOutputStream openFileOutput(java.lang.String,int)>("android-beacon-library-scan-state-temp", 0);
+
+     label03:
+        $r8 = $r7;
+
+     label04:
+        $r23 = new java.io.ObjectOutputStream;
+
+        $r9 = $r23;
+
+     label05:
+        specialinvoke $r23.<java.io.ObjectOutputStream: void <init>(java.io.OutputStream)>($r7);
+
+     label06:
+        virtualinvoke $r23.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>(r0);
+
+     label07:
+        $r12 = new java.io.File;
+
+        $r10 = $r12;
+
+        $r6 = r0.<org.altbeacon.beacon.service.ScanState: android.content.Context mContext>;
+
+     label08:
+        $r11 = virtualinvoke $r6.<android.content.Context: java.io.File getFilesDir()>();
+
+        specialinvoke $r12.<java.io.File: void <init>(java.io.File,java.lang.String)>($r11, "android-beacon-library-scan-state");
+
+     label09:
+        $r24 = new java.io.File;
+
+        $r6 = r0.<org.altbeacon.beacon.service.ScanState: android.content.Context mContext>;
+
+     label10:
+        $r12 = virtualinvoke $r6.<android.content.Context: java.io.File getFilesDir()>();
+
+        specialinvoke $r24.<java.io.File: void <init>(java.io.File,java.lang.String)>($r12, "android-beacon-library-scan-state-temp");
+
+     label11:
+        $r13 = <org.altbeacon.beacon.service.ScanState: java.lang.String TAG>;
+
+        $r25 = new java.lang.StringBuilder;
+
+     label12:
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Temp file is ");
+
+        $r14 = virtualinvoke $r24.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r14);
+
+        $r14 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label13:
+        $r15 = newarray (java.lang.Object)[0];
+
+     label14:
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>($r13, $r14, $r15);
+
+     label15:
+        $r13 = <org.altbeacon.beacon.service.ScanState: java.lang.String TAG>;
+
+        $r25 = new java.lang.StringBuilder;
+
+     label16:
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Perm file is ");
+
+        $r14 = virtualinvoke $r10.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r14);
+
+        $r14 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label17:
+        $r15 = newarray (java.lang.Object)[0];
+
+     label18:
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>($r13, $r14, $r15);
+
+        $z0 = virtualinvoke $r10.<java.io.File: boolean delete()>();
+
+     label19:
+        if $z0 != 0 goto label21;
+
+        $r13 = <org.altbeacon.beacon.service.ScanState: java.lang.String TAG>;
+
+        $r15 = newarray (java.lang.Object)[0];
+
+     label20:
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void e(java.lang.String,java.lang.String,java.lang.Object[])>($r13, "Error while saving scan status to file: Cannot delete existing file.", $r15);
+
+     label21:
+        $z0 = virtualinvoke $r24.<java.io.File: boolean renameTo(java.io.File)>($r10);
+
+     label22:
+        if $z0 != 0 goto label24;
+
+        $r13 = <org.altbeacon.beacon.service.ScanState: java.lang.String TAG>;
+
+        $r15 = newarray (java.lang.Object)[0];
+
+     label23:
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void e(java.lang.String,java.lang.String,java.lang.Object[])>($r13, "Error while saving scan status to file: Cannot rename temp file.", $r15);
+
+     label24:
+        if $r7 == null goto label26;
+
+     label25:
+        virtualinvoke $r7.<java.io.FileOutputStream: void close()>();
+
+     label26:
+        virtualinvoke $r9.<java.io.ObjectOutputStream: void close()>();
+
+     label27:
+        goto label38;
+
+     label28:
+        $r16 := @caughtexception;
+
+        goto label34;
+
+     label29:
+        $r17 := @caughtexception;
+
+        $r9 = null;
+
+        goto label32;
+
+     label30:
+        $r18 := @caughtexception;
+
+        $r9 = null;
+
+        $r16 = $r18;
+
+        goto label34;
+
+     label31:
+        $r17 := @caughtexception;
+
+        $r8 = null;
+
+        $r9 = null;
+
+     label32:
+        $r19 = $r17;
+
+        goto label41;
+
+     label33:
+        $r20 := @caughtexception;
+
+        $r9 = null;
+
+        $r16 = $r20;
+
+        $r8 = null;
+
+     label34:
+        $r13 = <org.altbeacon.beacon.service.ScanState: java.lang.String TAG>;
+
+        $r15 = newarray (java.lang.Object)[1];
+
+        $r26 = (java.io.IOException) $r16;
+
+        $r14 = virtualinvoke $r26.<java.io.IOException: java.lang.String getMessage()>();
+
+        $r15[0] = $r14;
+
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void e(java.lang.String,java.lang.String,java.lang.Object[])>($r13, "Error while saving scan status to file: ", $r15);
+
+     label35:
+        if $r8 == null goto label37;
+
+     label36:
+        virtualinvoke $r8.<java.io.FileOutputStream: void close()>();
+
+     label37:
+        if $r9 != null goto label26;
+
+     label38:
+        $r21 = r0.<org.altbeacon.beacon.service.ScanState: org.altbeacon.beacon.service.MonitoringStatus mMonitoringStatus>;
+
+        virtualinvoke $r21.<org.altbeacon.beacon.service.MonitoringStatus: void saveMonitoringStatusIfOn()>();
+
+        exitmonitor class "Lorg/altbeacon/beacon/service/ScanState;";
+
+     label39:
+        return;
+
+     label40:
+        $r19 := @caughtexception;
+
+     label41:
+        if $r8 == null goto label45;
+
+     label42:
+        virtualinvoke $r8.<java.io.FileOutputStream: void close()>();
+
+     label43:
+        goto label45;
+
+     label44:
+        $r22 := @caughtexception;
+
+        goto label48;
+
+     label45:
+        if $r9 == null goto label47;
+
+     label46:
+        virtualinvoke $r9.<java.io.ObjectOutputStream: void close()>();
+
+     label47:
+        throw $r19;
+
+     label48:
+        exitmonitor class "Lorg/altbeacon/beacon/service/ScanState;";
+
+     label49:
+        throw $r22;
+
+     label50:
+        $r1 := @caughtexception;
+
+        goto label26;
+
+     label51:
+        $r2 := @caughtexception;
+
+        goto label38;
+
+     label52:
+        $r3 := @caughtexception;
+
+        goto label37;
+
+     label53:
+        $r4 := @caughtexception;
+
+        goto label45;
+
+     label54:
+        $r5 := @caughtexception;
+
+        goto label47;
+
+        catch java.io.IOException from label02 to label03 with label33;
+        catch java.lang.Throwable from label01 to label04 with label31;
+        catch java.io.IOException from label05 to label06 with label30;
+        catch java.lang.Throwable from label04 to label06 with label29;
+        catch java.io.IOException from label06 to label07 with label28;
+        catch java.io.IOException from label08 to label09 with label28;
+        catch java.io.IOException from label10 to label11 with label28;
+        catch java.io.IOException from label12 to label13 with label28;
+        catch java.io.IOException from label14 to label15 with label28;
+        catch java.io.IOException from label16 to label17 with label28;
+        catch java.io.IOException from label18 to label19 with label28;
+        catch java.io.IOException from label20 to label22 with label28;
+        catch java.io.IOException from label23 to label24 with label28;
+        catch java.lang.Throwable from label06 to label24 with label40;
+        catch java.io.IOException from label25 to label26 with label50;
+        catch java.lang.Throwable from label25 to label26 with label44;
+        catch java.io.IOException from label26 to label27 with label51;
+        catch java.lang.Throwable from label26 to label27 with label44;
+        catch java.lang.Throwable from label34 to label35 with label40;
+        catch java.io.IOException from label36 to label37 with label52;
+        catch java.lang.Throwable from label36 to label37 with label44;
+        catch java.lang.Throwable from label38 to label39 with label44;
+        catch java.io.IOException from label42 to label43 with label53;
+        catch java.lang.Throwable from label42 to label43 with label44;
+        catch java.io.IOException from label46 to label47 with label54;
+        catch java.lang.Throwable from label46 to label47 with label44;
+        catch java.lang.Throwable from label47 to label49 with label44;
+    }

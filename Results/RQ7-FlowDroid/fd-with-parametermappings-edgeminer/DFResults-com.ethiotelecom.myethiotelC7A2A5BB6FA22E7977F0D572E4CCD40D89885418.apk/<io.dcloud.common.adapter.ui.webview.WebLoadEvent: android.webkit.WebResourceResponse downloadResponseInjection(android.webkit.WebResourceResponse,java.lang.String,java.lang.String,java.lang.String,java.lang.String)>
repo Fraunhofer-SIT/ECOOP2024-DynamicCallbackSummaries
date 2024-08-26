@@ -1,0 +1,739 @@
+    private android.webkit.WebResourceResponse downloadResponseInjection(android.webkit.WebResourceResponse, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+    {
+        byte[] $r16;
+        java.io.ByteArrayInputStream $r23, $r32;
+        android.webkit.WebView $r26;
+        boolean $z0;
+        io.dcloud.common.adapter.ui.webview.WebLoadEvent$CatchFile $r18;
+        io.dcloud.common.DHInterface.IApp $r14;
+        java.lang.Exception $r6, $r7, $r8, $r28;
+        android.view.ViewGroup $r25;
+        java.lang.StringBuilder $r30;
+        android.webkit.WebResourceResponse $r1, $r27, $r33;
+        java.lang.Throwable $r17, $r22;
+        java.io.ByteArrayOutputStream $r19, $r29;
+        long $l0, $l2;
+        int $i1;
+        io.dcloud.common.adapter.ui.AdaWebview $r10;
+        java.lang.String $r2, $r3, $r4, $r5, $r9, $r12;
+        io.dcloud.common.adapter.ui.AdaFrameView $r13;
+        java.io.IOException $r34;
+        java.io.FileInputStream $r20, $r31;
+        java.io.File $r21;
+        io.dcloud.common.adapter.ui.webview.DCWebView $r24;
+        io.dcloud.common.adapter.ui.webview.WebLoadEvent r0;
+        java.lang.Object $r11;
+        java.io.InputStream $r15;
+
+        r0 := @this: io.dcloud.common.adapter.ui.webview.WebLoadEvent;
+
+        $r1 := @parameter0: android.webkit.WebResourceResponse;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r3 := @parameter2: java.lang.String;
+
+        $r4 := @parameter3: java.lang.String;
+
+        $r5 := @parameter4: java.lang.String;
+
+        $l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $r9 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: java.lang.String TYPE_JS>;
+
+        $z0 = virtualinvoke $r5.<java.lang.String: boolean equals(java.lang.Object)>($r9);
+
+        if $z0 == 0 goto label087;
+
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $r9 = virtualinvoke $r10.<io.dcloud.common.adapter.ui.AdaWebview: java.lang.String getPreLoadJsString()>();
+
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $z0 = $r10.<io.dcloud.common.adapter.ui.AdaWebview: boolean mForceAHeadJsFileLoaded>;
+
+        $r11 = null;
+
+        if $z0 != 0 goto label006;
+
+        $r12 = $r10.<io.dcloud.common.adapter.ui.AdaWebview: java.lang.String mForceAHeadJsFile>;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r12);
+
+        if $z0 != 0 goto label006;
+
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $r12 = $r10.<io.dcloud.common.adapter.ui.AdaWebview: java.lang.String mForceAHeadJsFile>;
+
+        $r13 = $r10.<io.dcloud.common.adapter.ui.AdaWebview: io.dcloud.common.adapter.ui.AdaFrameView mFrameView>;
+
+     label001:
+        $r14 = virtualinvoke $r13.<io.dcloud.common.adapter.ui.AdaFrameView: io.dcloud.common.DHInterface.IApp obtainApp()>();
+
+        $r15 = staticinvoke <io.dcloud.common.adapter.ui.webview.WebResUtil: java.io.InputStream getEncryptionInputStream(java.lang.String,io.dcloud.common.DHInterface.IApp)>($r12, $r14);
+
+     label002:
+        if $r15 == null goto label006;
+
+     label003:
+        $r16 = staticinvoke <io.dcloud.common.util.IOUtil: byte[] getBytes(java.io.InputStream)>($r15);
+
+     label004:
+        goto label007;
+
+     label005:
+        $r17 := @caughtexception;
+
+        $r34 = (java.io.IOException) $r17;
+
+        $r12 = virtualinvoke $r34.<java.io.IOException: java.lang.String getMessage()>();
+
+        staticinvoke <io.dcloud.common.adapter.util.Logger: void e(java.lang.String,java.lang.String)>("Exception", $r12);
+
+     label006:
+        $r16 = null;
+
+     label007:
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r9);
+
+        if $z0 == 0 goto label008;
+
+        if $r16 != null goto label008;
+
+        $r12 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: java.lang.String mPlusJS>;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r12);
+
+        if $z0 == 0 goto label008;
+
+        return null;
+
+     label008:
+        $z0 = staticinvoke <android.webkit.URLUtil: boolean isNetworkUrl(java.lang.String)>($r2);
+
+     label009:
+        if $z0 == 0 goto label060;
+
+     label010:
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $z0 = $r10.<io.dcloud.common.adapter.ui.AdaWebview: boolean mNeedInjection>;
+
+     label011:
+        if $z0 != 0 goto label014;
+
+     label012:
+        $z0 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: boolean isInitAmapGEO>;
+
+     label013:
+        if $z0 != 0 goto label014;
+
+        if $r16 == null goto label060;
+
+     label014:
+        $r18 = specialinvoke r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.webview.WebLoadEvent$CatchFile getUrlFile(java.lang.String,java.lang.String)>($r2, $r5);
+
+     label015:
+        if $r18 == null goto label072;
+
+        $r29 = new java.io.ByteArrayOutputStream;
+
+        $r19 = $r29;
+
+     label016:
+        specialinvoke $r29.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label017:
+        if $r16 == null goto label019;
+
+     label018:
+        virtualinvoke $r29.<java.io.ByteArrayOutputStream: void write(byte[])>($r16);
+
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $r10.<io.dcloud.common.adapter.ui.AdaWebview: boolean mForceAHeadJsFileLoaded> = 1;
+
+     label019:
+        $r5 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: java.lang.String mPlusJS>;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r5);
+
+     label020:
+        if $z0 != 0 goto label024;
+
+     label021:
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $r5 = $r10.<io.dcloud.common.adapter.ui.AdaWebview: java.lang.String mPlusrequire>;
+
+        $z0 = virtualinvoke $r5.<java.lang.String: boolean equals(java.lang.Object)>("ahead");
+
+     label022:
+        if $z0 == 0 goto label024;
+
+     label023:
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $r10.<io.dcloud.common.adapter.ui.AdaWebview: java.lang.String mPlusInjectTag> = $r2;
+
+        $r10.<io.dcloud.common.adapter.ui.AdaWebview: boolean mPlusLoading> = 1;
+
+        $r5 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: java.lang.String mPlusJS>;
+
+        $r16 = virtualinvoke $r5.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke $r19.<java.io.ByteArrayOutputStream: void write(byte[])>($r16);
+
+     label024:
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r9);
+
+     label025:
+        if $z0 != 0 goto label029;
+
+     label026:
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $r5 = $r10.<io.dcloud.common.adapter.ui.AdaWebview: java.lang.String mPlusrequire>;
+
+        $z0 = virtualinvoke $r5.<java.lang.String: boolean equals(java.lang.Object)>("ahead");
+
+     label027:
+        if $z0 == 0 goto label029;
+
+        $r30 = new java.lang.StringBuilder;
+
+     label028:
+        specialinvoke $r30.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("mPlusrequire=ahead;this=");
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>(r0);
+
+        $r5 = virtualinvoke $r30.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <io.dcloud.common.adapter.util.Logger: void i(java.lang.String,java.lang.String)>("WebLoadEvent", $r5);
+
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $r10.<io.dcloud.common.adapter.ui.AdaWebview: boolean mPreloadJsLoading> = 1;
+
+        $r16 = virtualinvoke $r9.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke $r19.<java.io.ByteArrayOutputStream: void write(byte[])>($r16);
+
+     label029:
+        $z0 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: boolean isInitAmapGEO>;
+
+     label030:
+        if $z0 == 0 goto label036;
+
+     label031:
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $r5 = $r10.<io.dcloud.common.adapter.ui.AdaWebview: java.lang.String mInjectGEO>;
+
+        $z0 = staticinvoke <io.dcloud.common.util.DLGeolocation: boolean checkInjectGeo(java.lang.String)>($r5);
+
+     label032:
+        if $z0 == 0 goto label036;
+
+     label033:
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $r5 = $r10.<io.dcloud.common.adapter.ui.AdaWebview: java.lang.String mPlusrequire>;
+
+        $z0 = virtualinvoke $r5.<java.lang.String: boolean equals(java.lang.Object)>("ahead");
+
+     label034:
+        if $z0 != 0 goto label036;
+
+     label035:
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $r10.<io.dcloud.common.adapter.ui.AdaWebview: boolean mInjectGeoLoaded> = 1;
+
+        staticinvoke <FLOWDROID_EXCEPTIONS: void throw_java_io_IOException_0()>();
+
+        staticinvoke <FLOWDROID_EXCEPTIONS: void throw_java_lang_Exception_1()>();
+
+        $r5 = "!function(){function t(t,e){t?(this.coordsType=t.coordsType,this.address=t.address,this.addresses=t.addresses,this.coords=new a(t.latitude,t.longitude,t.altitude,t.accuracy,t.heading,t.velocity,t.altitudeAccuracy)):this.coords=new a,this.timestamp=void 0!==e?e:(new Date).getTime()}function a(t,a,e,i,n,o,s){this.latitude=t,this.longitude=a,this.accuracy=void 0!==i?i:null,this.altitude=void 0!==e?e:null,this.heading=void 0!==n?n:null,this.speed=void 0!==o?o:null,(0===this.speed||null===this.speed)&&(this.heading=0/0),this.altitudeAccuracy=void 0!==s?s:null}function e(t,a){if(o(t,a))return[t,a];var e=i(t-105,a-35),s=n(t-105,a-35),d=a/180*c,u=Math.sin(d);u=1-r*u*u;var h=Math.sqrt(u);return e=180*e/(l*(1-r)/(u*h)*c),s=180*s/(l/h*Math.cos(d)*c),mglat=a+e,mglng=t+s,[2*t-mglng,2*a-mglat]}function i(t,a){var e=-100+2*t+3*a+.2*a*a+.1*t*a+.2*Math.sqrt(Math.abs(t));return e+=2*(20*Math.sin(6*t*c)+20*Math.sin(2*t*c))/3,e+=2*(20*Math.sin(a*c)+40*Math.sin(a/3*c))/3,e+=2*(160*Math.sin(a/12*c)+320*Math.sin(a*c/30))/3}function n(t,a){var e=300+t+2*a+.1*t*t+.1*t*a+.1*Math.sqrt(Math.abs(t));return e+=2*(20*Math.sin(6*t*c)+20*Math.sin(2*t*c))/3,e+=2*(20*Math.sin(t*c)+40*Math.sin(t/3*c))/3,e+=2*(150*Math.sin(t/12*c)+300*Math.sin(t/30*c))/3}function o(t,a){return 72.004>t||t>137.8347||.8293>a||a>55.8271||!1}window.__geo__={};var s=__geo__;s.callbacks={},s.callbackId=function(t,a){var e=\"dlgeolocation\"+(new Date).valueOf();return s.callbacks[e]={s:t,e:a},e},s.callbackFromNative=function(a,i){var n=s.callbacks[a];if(n){if(1==i.status){if(n.s){var o=i.message,c=o.longitude,l=o.latitude;if(\"gcj02\"===o.coordsType){var r=e(o.longitude,o.latitude);c=r[0],l=r[1]}var d=new t({latitude:l,longitude:c,altitude:o.altitude,accuracy:o.accuracy,heading:o.heading,velocity:o.velocity,coordsType:\"WGS84\",address:o.address,addresses:o.addresses,altitudeAccuracy:o.altitudeAccuracy},void 0===o.timestamp?(new Date).getTime():o.timestamp instanceof Date?o.timestamp.getTime():o.timestamp);n.s(d)}}else n.e&&n.e(i.message);i.keepCallback||delete s.callbacks[a]}},navigator.geolocation.getCurrentPosition=function(t,a,e){console.log(\"DLGeolocation-------navigator.geolocation.getCurrentPosition\",e);var i=t,n=a||function(){},o=e||{},c=JSON.stringify(o);_dlGeolocation.exec(\"getCurrentPosition\",s.callbackId(function(t){console.log(\"success:\",t),i(t)},function(t){console.log(\"error:\",t),n(t)}),c)},navigator.geolocation.watchPosition=function(t,a,e){var i=t,n=a||function(){},o=e||{},c=JSON.stringify(o);c.id=\"dlwatchPosition\"+(new Date).valueOf(),_dlGeolocation.exec(\"watchPosition\",s.callbackId(i,n),c)},navigator.geolocation.clearwatch=function(t){_dlGeolocation.exec(\"clearwatch\",null,{id:t})};var c=3.141592653589793,l=6378245,r=.006693421622965943}();";
+
+        $r16 = virtualinvoke $r5.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke $r19.<java.io.ByteArrayOutputStream: void write(byte[])>($r16);
+
+     label036:
+        $z0 = $r18.<io.dcloud.common.adapter.ui.webview.WebLoadEvent$CatchFile: boolean mExist>;
+
+     label037:
+        if $z0 == 0 goto label049;
+
+        $r31 = new java.io.FileInputStream;
+
+        $r20 = $r31;
+
+     label038:
+        $r21 = $r18.<io.dcloud.common.adapter.ui.webview.WebLoadEvent$CatchFile: java.io.File mFile>;
+
+     label039:
+        specialinvoke $r31.<java.io.FileInputStream: void <init>(java.io.File)>($r21);
+
+     label040:
+        $r16 = newarray (byte)[4096];
+
+     label041:
+        $i1 = virtualinvoke $r20.<java.io.FileInputStream: int read(byte[])>($r16);
+
+     label042:
+        if $i1 <= 0 goto label045;
+
+     label043:
+        virtualinvoke $r19.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r16, 0, $i1);
+
+     label044:
+        goto label041;
+
+     label045:
+        virtualinvoke $r20.<java.io.FileInputStream: void close()>();
+
+     label046:
+        goto label049;
+
+     label047:
+        $r22 := @caughtexception;
+
+     label048:
+        $r34 = (java.io.IOException) $r22;
+
+        virtualinvoke $r34.<java.io.IOException: void printStackTrace()>();
+
+     label049:
+        $r5 = $r18.<io.dcloud.common.adapter.ui.webview.WebLoadEvent$CatchFile: java.lang.String mEncoding>;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r5);
+
+     label050:
+        if $z0 != 0 goto label052;
+
+     label051:
+        $r4 = $r18.<io.dcloud.common.adapter.ui.webview.WebLoadEvent$CatchFile: java.lang.String mEncoding>;
+
+     label052:
+        $r5 = $r18.<io.dcloud.common.adapter.ui.webview.WebLoadEvent$CatchFile: java.lang.String mContentType>;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r5);
+
+     label053:
+        if $z0 != 0 goto label055;
+
+     label054:
+        $r3 = $r18.<io.dcloud.common.adapter.ui.webview.WebLoadEvent$CatchFile: java.lang.String mContentType>;
+
+     label055:
+        $r32 = new java.io.ByteArrayInputStream;
+
+        $r23 = $r32;
+
+     label056:
+        $r16 = virtualinvoke $r19.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        specialinvoke $r32.<java.io.ByteArrayInputStream: void <init>(byte[])>($r16);
+
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $r5 = $r10.<io.dcloud.common.adapter.ui.AdaWebview: java.lang.String mPlusrequire>;
+
+        $z0 = virtualinvoke $r5.<java.lang.String: boolean equals(java.lang.Object)>("ahead");
+
+     label057:
+        if $z0 == 0 goto label059;
+
+     label058:
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $r24 = virtualinvoke $r10.<io.dcloud.common.adapter.ui.AdaWebview: io.dcloud.common.adapter.ui.webview.DCWebView getDCWebView()>();
+
+        $r25 = interfaceinvoke $r24.<io.dcloud.common.adapter.ui.webview.DCWebView: android.view.ViewGroup getWebView()>();
+
+        $r26 = (android.webkit.WebView) $r25;
+
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $r5 = virtualinvoke $r10.<io.dcloud.common.adapter.ui.AdaWebview: java.lang.String obtainFullUrl()>();
+
+        specialinvoke r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: void listenPlusInjectTimeout(android.webkit.WebView,java.lang.String,java.lang.String)>($r26, $r5, "inject_with_js");
+
+     label059:
+        $r11 = $r23;
+
+        goto label072;
+
+     label060:
+        $r5 = "html5plus://ready";
+
+     label061:
+        $z0 = virtualinvoke $r5.<java.lang.String: boolean equals(java.lang.Object)>($r2);
+
+     label062:
+        if $z0 == 0 goto label069;
+
+     label063:
+        $r5 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: java.lang.String mPlusJS>;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r5);
+
+     label064:
+        if $z0 != 0 goto label072;
+
+        $r30 = new java.lang.StringBuilder;
+
+     label065:
+        specialinvoke $r30.<java.lang.StringBuilder: void <init>()>();
+
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $r5 = virtualinvoke $r10.<io.dcloud.common.adapter.ui.AdaWebview: java.lang.String getOriginalUrl()>();
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(";url=");
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r5 = virtualinvoke $r30.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <io.dcloud.common.adapter.util.Logger: void i(java.lang.String,java.lang.String)>("PLUSREADY", $r5);
+
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $r10.<io.dcloud.common.adapter.ui.AdaWebview: boolean mPlusLoading> = 1;
+
+     label066:
+        $r23 = new java.io.ByteArrayInputStream;
+
+        $r11 = $r23;
+
+     label067:
+        $r5 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: java.lang.String mPlusJS>;
+
+        $r16 = virtualinvoke $r5.<java.lang.String: byte[] getBytes()>();
+
+        specialinvoke $r23.<java.io.ByteArrayInputStream: void <init>(byte[])>($r16);
+
+     label068:
+        goto label072;
+
+     label069:
+        $z0 = staticinvoke <io.dcloud.common.util.PdrUtil: boolean isDeviceRootDir(java.lang.String)>($r2);
+
+     label070:
+        if $z0 == 0 goto label072;
+
+        $r20 = new java.io.FileInputStream;
+
+        $r11 = $r20;
+
+     label071:
+        specialinvoke $r20.<java.io.FileInputStream: void <init>(java.lang.String)>($r2);
+
+     label072:
+        if $r11 == null goto label075;
+
+        $r33 = new android.webkit.WebResourceResponse;
+
+        $r27 = $r33;
+
+     label073:
+        $r15 = (java.io.InputStream) $r11;
+
+        specialinvoke $r33.<android.webkit.WebResourceResponse: void <init>(java.lang.String,java.lang.String,java.io.InputStream)>($r3, $r4, $r15);
+
+     label074:
+        goto label076;
+
+     label075:
+        $r27 = $r1;
+
+     label076:
+        if $r27 == null goto label086;
+
+     label077:
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $r10.<io.dcloud.common.adapter.ui.AdaWebview: java.lang.String mEncoding> = $r4;
+
+     label078:
+        $r30 = new java.lang.StringBuilder;
+
+     label079:
+        specialinvoke $r30.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\u63d0\u524d\u6ce8\u5165JS\u6210\u529f\u8017\u65f6\uff1a");
+
+        $l2 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+     label080:
+        $l0 = $l2 - $l0;
+
+     label081:
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $r3 = virtualinvoke $r10.<io.dcloud.common.adapter.ui.AdaWebview: java.lang.String getOriginalUrl()>();
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(";url=");
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r30.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <io.dcloud.common.adapter.util.Logger: void i(java.lang.String,java.lang.String)>("WebLoadEvent", $r2);
+
+     label082:
+        goto label086;
+
+     label083:
+        $r28 := @caughtexception;
+
+        goto label085;
+
+     label084:
+        $r28 := @caughtexception;
+
+        $r27 = $r1;
+
+     label085:
+        virtualinvoke $r28.<java.lang.Exception: void printStackTrace()>();
+
+     label086:
+        return $r27;
+
+     label087:
+        $r3 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: java.lang.String TYPE_CSS>;
+
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean equals(java.lang.Object)>($r5);
+
+        if $z0 == 0 goto label117;
+
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $r3 = virtualinvoke $r10.<io.dcloud.common.adapter.ui.AdaWebview: java.lang.String getCssString()>();
+
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $z0 = $r10.<io.dcloud.common.adapter.ui.AdaWebview: boolean mIsAdvanceCss>;
+
+        if $z0 != 0 goto label117;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r3);
+
+        if $z0 != 0 goto label117;
+
+        $r29 = new java.io.ByteArrayOutputStream;
+
+        $r19 = $r29;
+
+     label088:
+        specialinvoke $r29.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r18 = specialinvoke r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.webview.WebLoadEvent$CatchFile getUrlFile(java.lang.String,java.lang.String)>($r2, $r5);
+
+     label089:
+        if $r18 == null goto label100;
+
+     label090:
+        $z0 = $r18.<io.dcloud.common.adapter.ui.webview.WebLoadEvent$CatchFile: boolean mExist>;
+
+     label091:
+        if $z0 == 0 goto label099;
+
+        $r31 = new java.io.FileInputStream;
+
+        $r20 = $r31;
+
+     label092:
+        $r21 = $r18.<io.dcloud.common.adapter.ui.webview.WebLoadEvent$CatchFile: java.io.File mFile>;
+
+        specialinvoke $r31.<java.io.FileInputStream: void <init>(java.io.File)>($r21);
+
+     label093:
+        $r16 = newarray (byte)[4096];
+
+     label094:
+        $i1 = virtualinvoke $r20.<java.io.FileInputStream: int read(byte[])>($r16);
+
+     label095:
+        if $i1 <= 0 goto label098;
+
+     label096:
+        virtualinvoke $r19.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r16, 0, $i1);
+
+     label097:
+        goto label094;
+
+     label098:
+        virtualinvoke $r20.<java.io.FileInputStream: void close()>();
+
+     label099:
+        $r16 = virtualinvoke $r3.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke $r19.<java.io.ByteArrayOutputStream: void write(byte[])>($r16);
+
+     label100:
+        $r3 = $r18.<io.dcloud.common.adapter.ui.webview.WebLoadEvent$CatchFile: java.lang.String mEncoding>;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r3);
+
+     label101:
+        if $z0 != 0 goto label104;
+
+     label102:
+        $r3 = $r18.<io.dcloud.common.adapter.ui.webview.WebLoadEvent$CatchFile: java.lang.String mEncoding>;
+
+     label103:
+        goto label105;
+
+     label104:
+        $r3 = $r4;
+
+     label105:
+        $r32 = new java.io.ByteArrayInputStream;
+
+     label106:
+        $r16 = virtualinvoke $r19.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        specialinvoke $r32.<java.io.ByteArrayInputStream: void <init>(byte[])>($r16);
+
+     label107:
+        $r33 = new android.webkit.WebResourceResponse;
+
+        $r27 = $r33;
+
+     label108:
+        specialinvoke $r33.<android.webkit.WebResourceResponse: void <init>(java.lang.String,java.lang.String,java.io.InputStream)>("text/css", $r3, $r32);
+
+     label109:
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $r10.<io.dcloud.common.adapter.ui.AdaWebview: boolean mIsAdvanceCss> = 1;
+
+        $r10.<io.dcloud.common.adapter.ui.AdaWebview: java.lang.String mEncoding> = $r3;
+
+     label110:
+        $r30 = new java.lang.StringBuilder;
+
+     label111:
+        specialinvoke $r30.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\u63d0\u524d\u6ce8\u5165CSS\u6210\u529f\u8017\u65f6\uff1a");
+
+        $l2 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+     label112:
+        $l0 = $l2 - $l0;
+
+     label113:
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $r3 = virtualinvoke $r10.<io.dcloud.common.adapter.ui.AdaWebview: java.lang.String getOriginalUrl()>();
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(";url=");
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r30.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <io.dcloud.common.adapter.util.Logger: void i(java.lang.String,java.lang.String)>("WebLoadEvent", $r2);
+
+     label114:
+        return $r33;
+
+     label115:
+        $r27 = $r1;
+
+     label116:
+        $r10 = r0.<io.dcloud.common.adapter.ui.webview.WebLoadEvent: io.dcloud.common.adapter.ui.AdaWebview mAdaWebview>;
+
+        $r10.<io.dcloud.common.adapter.ui.AdaWebview: boolean mIsAdvanceCss> = 0;
+
+        return $r27;
+
+     label117:
+        return $r1;
+
+     label118:
+        $r6 := @caughtexception;
+
+        goto label115;
+
+     label119:
+        $r7 := @caughtexception;
+
+        goto label115;
+
+     label120:
+        $r8 := @caughtexception;
+
+        goto label116;
+
+        catch java.io.IOException from label001 to label002 with label005;
+        catch java.io.IOException from label003 to label004 with label005;
+        catch java.lang.Exception from label008 to label009 with label084;
+        catch java.lang.Exception from label010 to label011 with label084;
+        catch java.lang.Exception from label012 to label013 with label084;
+        catch java.lang.Exception from label014 to label015 with label084;
+        catch java.lang.Exception from label016 to label017 with label084;
+        catch java.lang.Exception from label018 to label020 with label084;
+        catch java.lang.Exception from label021 to label022 with label084;
+        catch java.lang.Exception from label023 to label025 with label084;
+        catch java.lang.Exception from label026 to label027 with label084;
+        catch java.lang.Exception from label028 to label030 with label084;
+        catch java.lang.Exception from label031 to label032 with label084;
+        catch java.lang.Exception from label033 to label034 with label084;
+        catch java.lang.Exception from label035 to label037 with label084;
+        catch java.io.IOException from label039 to label040 with label047;
+        catch java.io.IOException from label041 to label042 with label047;
+        catch java.io.IOException from label043 to label044 with label047;
+        catch java.io.IOException from label045 to label046 with label047;
+        catch java.lang.Exception from label038 to label040 with label084;
+        catch java.lang.Exception from label041 to label042 with label084;
+        catch java.lang.Exception from label043 to label044 with label084;
+        catch java.lang.Exception from label045 to label046 with label084;
+        catch java.lang.Exception from label048 to label050 with label084;
+        catch java.lang.Exception from label051 to label052 with label084;
+        catch java.lang.Exception from label052 to label053 with label084;
+        catch java.lang.Exception from label054 to label055 with label084;
+        catch java.lang.Exception from label056 to label057 with label084;
+        catch java.lang.Exception from label058 to label059 with label084;
+        catch java.lang.Exception from label061 to label062 with label084;
+        catch java.lang.Exception from label063 to label064 with label084;
+        catch java.lang.Exception from label065 to label066 with label084;
+        catch java.lang.Exception from label067 to label068 with label084;
+        catch java.lang.Exception from label069 to label070 with label084;
+        catch java.lang.Exception from label071 to label072 with label084;
+        catch java.lang.Exception from label073 to label074 with label084;
+        catch java.lang.Exception from label077 to label078 with label083;
+        catch java.lang.Exception from label079 to label080 with label083;
+        catch java.lang.Exception from label081 to label082 with label083;
+        catch java.lang.Exception from label088 to label089 with label118;
+        catch java.lang.Exception from label090 to label091 with label118;
+        catch java.lang.Exception from label092 to label093 with label118;
+        catch java.lang.Exception from label094 to label095 with label118;
+        catch java.lang.Exception from label096 to label097 with label118;
+        catch java.lang.Exception from label098 to label101 with label118;
+        catch java.lang.Exception from label102 to label103 with label118;
+        catch java.lang.Exception from label106 to label107 with label119;
+        catch java.lang.Exception from label108 to label109 with label119;
+        catch java.lang.Exception from label109 to label110 with label120;
+        catch java.lang.Exception from label111 to label112 with label120;
+        catch java.lang.Exception from label113 to label114 with label120;
+    }

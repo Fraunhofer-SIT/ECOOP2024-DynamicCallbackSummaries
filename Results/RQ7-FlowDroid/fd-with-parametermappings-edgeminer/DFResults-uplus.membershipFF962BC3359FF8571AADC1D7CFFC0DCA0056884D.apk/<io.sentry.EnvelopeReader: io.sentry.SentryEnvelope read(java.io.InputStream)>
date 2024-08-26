@@ -1,0 +1,350 @@
+    public io.sentry.SentryEnvelope read(java.io.InputStream) throws java.io.IOException
+    {
+        java.lang.Throwable $r1, $r8;
+        byte[] $r3, $r6;
+        java.io.ByteArrayOutputStream $r9;
+        java.util.ArrayList $r10;
+        byte $b0;
+        io.sentry.EnvelopeReader r0;
+        int $i1, $i2, $i3, $i4, $i5;
+        java.lang.String $r7;
+        io.sentry.SentryEnvelopeItem $r11;
+        java.lang.IllegalArgumentException $r13;
+        io.sentry.SentryEnvelopeItemHeader $r5;
+        io.sentry.SentryEnvelopeHeader $r4;
+        java.lang.StringBuilder $r14;
+        io.sentry.SentryEnvelope $r12;
+        java.io.InputStream $r2;
+
+        r0 := @this: io.sentry.EnvelopeReader;
+
+        $r2 := @parameter0: java.io.InputStream;
+
+        $r3 = newarray (byte)[1024];
+
+        $r9 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r9.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $i1 = -1;
+
+        $i2 = 0;
+
+     label01:
+        $i3 = virtualinvoke $r2.<java.io.InputStream: int read(byte[])>($r3);
+
+     label02:
+        if $i3 <= 0 goto label09;
+
+        $i4 = 0;
+
+     label03:
+        if $i1 != -1 goto label07;
+
+        if $i4 >= $i3 goto label07;
+
+     label04:
+        $b0 = $r3[$i4];
+
+     label05:
+        $i5 = (int) $b0;
+
+        if $i5 != 10 goto label06;
+
+        $i1 = $i2 + $i4;
+
+        goto label07;
+
+     label06:
+        $i4 = $i4 + 1;
+
+        goto label03;
+
+     label07:
+        virtualinvoke $r9.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r3, 0, $i3);
+
+     label08:
+        $i2 = $i2 + $i3;
+
+        goto label01;
+
+     label09:
+        $r3 = virtualinvoke $r9.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $i2 = lengthof $r3;
+
+     label10:
+        if $i2 == 0 goto label55;
+
+        if $i1 == -1 goto label53;
+
+     label11:
+        $r4 = specialinvoke r0.<io.sentry.EnvelopeReader: io.sentry.SentryEnvelopeHeader deserializeEnvelopeHeader(byte[],int,int)>($r3, 0, $i1);
+
+     label12:
+        if $r4 == null goto label51;
+
+        $i2 = $i1 + 1;
+
+     label13:
+        $r10 = new java.util.ArrayList;
+
+     label14:
+        specialinvoke $r10.<java.util.ArrayList: void <init>()>();
+
+     label15:
+        $i1 = $i2;
+
+     label16:
+        $i3 = lengthof $r3;
+
+     label17:
+        if $i1 >= $i3 goto label20;
+
+     label18:
+        $b0 = $r3[$i1];
+
+     label19:
+        $i3 = (int) $b0;
+
+        if $i3 == 10 goto label21;
+
+        $i1 = $i1 + 1;
+
+        goto label16;
+
+     label20:
+        $i1 = -1;
+
+     label21:
+        if $i1 == -1 goto label48;
+
+        $i3 = $i1 - $i2;
+
+     label22:
+        $r5 = specialinvoke r0.<io.sentry.EnvelopeReader: io.sentry.SentryEnvelopeItemHeader deserializeEnvelopeItemHeader(byte[],int,int)>($r3, $i2, $i3);
+
+     label23:
+        if $r5 == null goto label45;
+
+     label24:
+        $i2 = virtualinvoke $r5.<io.sentry.SentryEnvelopeItemHeader: int getLength()>();
+
+     label25:
+        if $i2 <= 0 goto label45;
+
+     label26:
+        $i2 = virtualinvoke $r5.<io.sentry.SentryEnvelopeItemHeader: int getLength()>();
+
+     label27:
+        $i2 = $i2 + $i1;
+
+        $i3 = $i2 + 1;
+
+     label28:
+        $i2 = lengthof $r3;
+
+     label29:
+        if $i3 > $i2 goto label42;
+
+        $i1 = $i1 + 1;
+
+     label30:
+        $r6 = staticinvoke <java.util.Arrays: byte[] copyOfRange(byte[],int,int)>($r3, $i1, $i3);
+
+        $r11 = new io.sentry.SentryEnvelopeItem;
+
+     label31:
+        specialinvoke $r11.<io.sentry.SentryEnvelopeItem: void <init>(io.sentry.SentryEnvelopeItemHeader,byte[])>($r5, $r6);
+
+        interfaceinvoke $r10.<java.util.List: boolean add(java.lang.Object)>($r11);
+
+        $i1 = lengthof $r3;
+
+     label32:
+        if $i3 == $i1 goto label37;
+
+        $i2 = $i3 + 1;
+
+     label33:
+        $i1 = lengthof $r3;
+
+     label34:
+        if $i2 != $i1 goto label15;
+
+     label35:
+        $b0 = $r3[$i3];
+
+     label36:
+        $i1 = (int) $b0;
+
+        if $i1 != 10 goto label40;
+
+     label37:
+        $r12 = new io.sentry.SentryEnvelope;
+
+     label38:
+        specialinvoke $r12.<io.sentry.SentryEnvelope: void <init>(io.sentry.SentryEnvelopeHeader,java.lang.Iterable)>($r4, $r10);
+
+     label39:
+        virtualinvoke $r9.<java.io.ByteArrayOutputStream: void close()>();
+
+        return $r12;
+
+     label40:
+        $r13 = new java.lang.IllegalArgumentException;
+
+     label41:
+        specialinvoke $r13.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>("Envelope has invalid data following an item.");
+
+        throw $r13;
+
+     label42:
+        $r13 = new java.lang.IllegalArgumentException;
+
+     label43:
+        $r14 = new java.lang.StringBuilder;
+
+     label44:
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Invalid length for item at index \'");
+
+        $i1 = interfaceinvoke $r10.<java.util.List: int size()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\'. Item is \'");
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i3);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\' bytes. There are \'");
+
+        $i1 = lengthof $r3;
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\' in the buffer.");
+
+        $r7 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r13.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>($r7);
+
+        throw $r13;
+
+     label45:
+        $r13 = new java.lang.IllegalArgumentException;
+
+     label46:
+        $r14 = new java.lang.StringBuilder;
+
+     label47:
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Item header at index \'");
+
+        $i1 = interfaceinvoke $r10.<java.util.List: int size()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\' is null or empty.");
+
+        $r7 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r13.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>($r7);
+
+        throw $r13;
+
+     label48:
+        $r13 = new java.lang.IllegalArgumentException;
+
+     label49:
+        $r14 = new java.lang.StringBuilder;
+
+     label50:
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Invalid envelope. Item at index \'");
+
+        $i1 = interfaceinvoke $r10.<java.util.List: int size()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\'. has no header delimiter.");
+
+        $r7 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r13.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>($r7);
+
+        throw $r13;
+
+     label51:
+        $r13 = new java.lang.IllegalArgumentException;
+
+     label52:
+        specialinvoke $r13.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>("Envelope header is null.");
+
+        throw $r13;
+
+     label53:
+        $r13 = new java.lang.IllegalArgumentException;
+
+     label54:
+        specialinvoke $r13.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>("Envelope contains no header.");
+
+        throw $r13;
+
+     label55:
+        $r13 = new java.lang.IllegalArgumentException;
+
+     label56:
+        specialinvoke $r13.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>("Empty stream.");
+
+        throw $r13;
+
+     label57:
+        $r8 := @caughtexception;
+
+     label58:
+        virtualinvoke $r9.<java.io.ByteArrayOutputStream: void close()>();
+
+     label59:
+        throw $r8;
+
+     label60:
+        $r1 := @caughtexception;
+
+        goto label59;
+
+        catch java.lang.Throwable from label01 to label02 with label57;
+        catch java.lang.Throwable from label04 to label05 with label57;
+        catch java.lang.Throwable from label07 to label08 with label57;
+        catch java.lang.Throwable from label09 to label10 with label57;
+        catch java.lang.Throwable from label11 to label12 with label57;
+        catch java.lang.Throwable from label13 to label14 with label57;
+        catch java.lang.Throwable from label14 to label15 with label57;
+        catch java.lang.Throwable from label16 to label17 with label57;
+        catch java.lang.Throwable from label18 to label19 with label57;
+        catch java.lang.Throwable from label22 to label23 with label57;
+        catch java.lang.Throwable from label24 to label25 with label57;
+        catch java.lang.Throwable from label26 to label27 with label57;
+        catch java.lang.Throwable from label28 to label29 with label57;
+        catch java.lang.Throwable from label30 to label31 with label57;
+        catch java.lang.Throwable from label31 to label32 with label57;
+        catch java.lang.Throwable from label33 to label34 with label57;
+        catch java.lang.Throwable from label35 to label36 with label57;
+        catch java.lang.Throwable from label37 to label38 with label57;
+        catch java.lang.Throwable from label38 to label39 with label57;
+        catch java.lang.Throwable from label40 to label41 with label57;
+        catch java.lang.Throwable from label41 to label43 with label57;
+        catch java.lang.Throwable from label43 to label44 with label57;
+        catch java.lang.Throwable from label44 to label46 with label57;
+        catch java.lang.Throwable from label46 to label47 with label57;
+        catch java.lang.Throwable from label47 to label49 with label57;
+        catch java.lang.Throwable from label49 to label50 with label57;
+        catch java.lang.Throwable from label50 to label52 with label57;
+        catch java.lang.Throwable from label52 to label54 with label57;
+        catch java.lang.Throwable from label54 to label56 with label57;
+        catch java.lang.Throwable from label56 to label57 with label57;
+        catch java.lang.Throwable from label58 to label59 with label60;
+    }

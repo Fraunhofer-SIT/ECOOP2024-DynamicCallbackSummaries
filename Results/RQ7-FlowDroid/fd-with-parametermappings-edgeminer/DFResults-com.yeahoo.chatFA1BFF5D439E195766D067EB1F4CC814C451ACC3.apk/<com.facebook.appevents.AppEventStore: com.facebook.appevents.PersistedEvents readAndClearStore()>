@@ -1,0 +1,188 @@
+    public static com.facebook.appevents.PersistedEvents readAndClearStore()
+    {
+        java.lang.Throwable $r1, $r3, $r16, $r17, $r18;
+        android.content.Context $r9;
+        java.io.BufferedInputStream $r0;
+        com.facebook.appevents.AppEventStore$MovedClassObjectInputStream $r12;
+        com.facebook.appevents.PersistedEvents $r10, $r14;
+        java.io.FileInputStream $r11;
+        java.lang.Exception $r2, $r4, $r5, $r6, $r7, $r8;
+        java.io.File $r15;
+        java.lang.Object $r13;
+
+        entermonitor class "Lcom/facebook/appevents/AppEventStore;";
+
+     label01:
+        staticinvoke <com.facebook.appevents.internal.AppEventUtility: void assertIsNotMainThread()>();
+
+        $r9 = staticinvoke <com.facebook.FacebookSdk: android.content.Context getApplicationContext()>();
+
+     label02:
+        $r10 = null;
+
+     label03:
+        $r11 = virtualinvoke $r9.<android.content.Context: java.io.FileInputStream openFileInput(java.lang.String)>("AppEventsLogger.persistedevents");
+
+     label04:
+        $r12 = new com.facebook.appevents.AppEventStore$MovedClassObjectInputStream;
+
+        $r0 = new java.io.BufferedInputStream;
+
+     label05:
+        specialinvoke $r0.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r11);
+
+        specialinvoke $r12.<com.facebook.appevents.AppEventStore$MovedClassObjectInputStream: void <init>(java.io.InputStream)>($r0);
+
+     label06:
+        $r13 = virtualinvoke $r12.<java.io.ObjectInputStream: java.lang.Object readObject()>();
+
+     label07:
+        $r14 = (com.facebook.appevents.PersistedEvents) $r13;
+
+     label08:
+        staticinvoke <com.facebook.internal.Utility: void closeQuietly(java.io.Closeable)>($r12);
+
+     label09:
+        $r15 = virtualinvoke $r9.<android.content.Context: java.io.File getFileStreamPath(java.lang.String)>("AppEventsLogger.persistedevents");
+
+        virtualinvoke $r15.<java.io.File: boolean delete()>();
+
+     label10:
+        $r10 = $r14;
+
+        goto label25;
+
+     label11:
+        $r16 := @caughtexception;
+
+        goto label13;
+
+     label12:
+        $r17 := @caughtexception;
+
+        $r12 = null;
+
+        $r16 = $r17;
+
+     label13:
+        staticinvoke <com.facebook.internal.Utility: void closeQuietly(java.io.Closeable)>($r12);
+
+     label14:
+        $r15 = virtualinvoke $r9.<android.content.Context: java.io.File getFileStreamPath(java.lang.String)>("AppEventsLogger.persistedevents");
+
+        virtualinvoke $r15.<java.io.File: boolean delete()>();
+
+     label15:
+        throw $r16;
+
+     label16:
+        $r12 = null;
+
+     label17:
+        staticinvoke <com.facebook.internal.Utility: void closeQuietly(java.io.Closeable)>($r12);
+
+     label18:
+        $r15 = virtualinvoke $r9.<android.content.Context: java.io.File getFileStreamPath(java.lang.String)>("AppEventsLogger.persistedevents");
+
+     label19:
+        virtualinvoke $r15.<java.io.File: boolean delete()>();
+
+     label20:
+        goto label25;
+
+     label21:
+        $r12 = null;
+
+     label22:
+        staticinvoke <com.facebook.internal.Utility: void closeQuietly(java.io.Closeable)>($r12);
+
+     label23:
+        $r15 = virtualinvoke $r9.<android.content.Context: java.io.File getFileStreamPath(java.lang.String)>("AppEventsLogger.persistedevents");
+
+     label24:
+        goto label19;
+
+     label25:
+        if $r10 != null goto label27;
+
+     label26:
+        $r10 = new com.facebook.appevents.PersistedEvents;
+
+        specialinvoke $r10.<com.facebook.appevents.PersistedEvents: void <init>()>();
+
+     label27:
+        exitmonitor class "Lcom/facebook/appevents/AppEventStore;";
+
+        return $r10;
+
+     label28:
+        $r18 := @caughtexception;
+
+        exitmonitor class "Lcom/facebook/appevents/AppEventStore;";
+
+        throw $r18;
+
+     label29:
+        $r1 := @caughtexception;
+
+        goto label21;
+
+     label30:
+        $r2 := @caughtexception;
+
+        goto label16;
+
+     label31:
+        $r3 := @caughtexception;
+
+        goto label22;
+
+     label32:
+        $r4 := @caughtexception;
+
+        goto label17;
+
+     label33:
+        $r5 := @caughtexception;
+
+        goto label10;
+
+     label34:
+        $r6 := @caughtexception;
+
+        goto label15;
+
+     label35:
+        $r7 := @caughtexception;
+
+        goto label25;
+
+     label36:
+        $r8 := @caughtexception;
+
+        goto label25;
+
+        catch java.lang.Throwable from label01 to label02 with label28;
+        catch java.io.FileNotFoundException from label03 to label04 with label29;
+        catch java.io.FileNotFoundException from label05 to label06 with label29;
+        catch java.lang.Exception from label03 to label04 with label30;
+        catch java.lang.Exception from label05 to label06 with label30;
+        catch java.lang.Throwable from label03 to label06 with label12;
+        catch java.io.FileNotFoundException from label06 to label07 with label31;
+        catch java.lang.Exception from label06 to label08 with label32;
+        catch java.lang.Throwable from label06 to label08 with label11;
+        catch java.lang.Throwable from label08 to label09 with label28;
+        catch java.lang.Exception from label09 to label10 with label33;
+        catch java.lang.Throwable from label09 to label10 with label28;
+        catch java.lang.Throwable from label13 to label14 with label28;
+        catch java.lang.Exception from label14 to label15 with label34;
+        catch java.lang.Throwable from label14 to label15 with label28;
+        catch java.lang.Throwable from label15 to label18 with label28;
+        catch java.lang.Exception from label18 to label19 with label35;
+        catch java.lang.Exception from label19 to label20 with label35;
+        catch java.lang.Throwable from label18 to label20 with label28;
+        catch java.lang.Throwable from label22 to label23 with label28;
+        catch java.lang.Exception from label23 to label24 with label36;
+        catch java.lang.Throwable from label23 to label24 with label28;
+        catch java.lang.Throwable from label26 to label27 with label28;
+    }

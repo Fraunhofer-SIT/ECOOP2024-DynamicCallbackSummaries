@@ -1,0 +1,66 @@
+    protected java.util.Hashtable a(java.lang.String, int) throws com.lumensoft.icrp.KSICRProtocolException
+    {
+        byte[] $r1, $r2, $r5, $r6;
+        com.lumensoft.ks.KSNative $r7;
+        com.lumensoft.icrp.KSICRProtocolException $r9;
+        int $i0, $i1;
+        com.lumensoft.icrp.a r0;
+        java.lang.String $r4, $r8;
+        java.util.Hashtable $r3;
+
+        r0 := @this: com.lumensoft.icrp.a;
+
+        $r4 := @parameter0: java.lang.String;
+
+        $i0 := @parameter1: int;
+
+        $i1 = virtualinvoke $r4.<java.lang.String: int length()>();
+
+        if $i1 != 12 goto label2;
+
+        $r5 = newarray (byte)[20];
+
+        $r1 = newarray (byte)[16];
+
+        $r2 = newarray (byte)[16];
+
+        $r3 = new java.util.Hashtable;
+
+        specialinvoke $r3.<java.util.Hashtable: void <init>()>();
+
+        $r6 = virtualinvoke $r4.<java.lang.String: byte[] getBytes()>();
+
+        $r4 = new java.lang.String;
+
+        specialinvoke $r4.<java.lang.String: void <init>(byte[],int,int)>($r6, 0, 12);
+
+        goto label1;
+
+     label1:
+        $r7 = staticinvoke <com.lumensoft.ks.KSNative: com.lumensoft.ks.KSNative getInstance()>();
+
+        $i0 = lengthof $r6;
+
+        virtualinvoke $r7.<com.lumensoft.ks.KSNative: int icrpcore(byte[],byte[],byte[],byte[],int)>($r5, $r2, $r1, $r6, $i0);
+
+        $r8 = staticinvoke <com.lumensoft.ks.KSHex: java.lang.String encodeLower(byte[])>($r5);
+
+        $r5 = virtualinvoke $r8.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke $r3.<java.util.Hashtable: java.lang.Object put(java.lang.Object,java.lang.Object)>("INDEX", $r5);
+
+        virtualinvoke $r3.<java.util.Hashtable: java.lang.Object put(java.lang.Object,java.lang.Object)>("USERRANDOMVALUE", $r4);
+
+        virtualinvoke $r3.<java.util.Hashtable: java.lang.Object put(java.lang.Object,java.lang.Object)>("SEED_SKEY", $r2);
+
+        virtualinvoke $r3.<java.util.Hashtable: java.lang.Object put(java.lang.Object,java.lang.Object)>("SEED_IV", $r1);
+
+        return $r3;
+
+     label2:
+        $r9 = new com.lumensoft.icrp.KSICRProtocolException;
+
+        specialinvoke $r9.<com.lumensoft.icrp.KSICRProtocolException: void <init>(java.lang.String)>("NL107");
+
+        throw $r9;
+    }

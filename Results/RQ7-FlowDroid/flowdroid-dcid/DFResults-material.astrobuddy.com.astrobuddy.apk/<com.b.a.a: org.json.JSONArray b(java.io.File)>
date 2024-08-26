@@ -1,0 +1,140 @@
+    private static org.json.JSONArray b(java.io.File)
+    {
+        java.lang.Throwable $r3, $r5, $r6, $r7;
+        byte[] $r1;
+        java.io.FileInputStream $r10;
+        java.io.File $r0;
+        org.json.JSONException $r8, $r9;
+        int $i0;
+        java.lang.StringBuilder $r11;
+        java.lang.String $r2, $r12;
+        org.json.JSONArray $r4, $r13;
+
+        $r0 := @parameter0: java.io.File;
+
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("Rollbar", "Loading items...");
+
+        $r10 = new java.io.FileInputStream;
+
+     label01:
+        specialinvoke $r10.<java.io.FileInputStream: void <init>(java.io.File)>($r0);
+
+     label02:
+        $r11 = new java.lang.StringBuilder;
+
+     label03:
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>()>();
+
+     label04:
+        $r1 = newarray (byte)[1024];
+
+     label05:
+        $i0 = virtualinvoke $r10.<java.io.FileInputStream: int read(byte[])>($r1);
+
+     label06:
+        if $i0 == -1 goto label11;
+
+        $r12 = new java.lang.String;
+
+     label07:
+        specialinvoke $r12.<java.lang.String: void <init>(byte[])>($r1);
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r12);
+
+     label08:
+        goto label05;
+
+     label09:
+        $r3 := @caughtexception;
+
+        $r4 = null;
+
+        $r5 = $r3;
+
+     label10:
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("Rollbar", "Unable to read item file.", $r5);
+
+        return $r4;
+
+     label11:
+        virtualinvoke $r10.<java.io.FileInputStream: void close()>();
+
+     label12:
+        $r13 = new org.json.JSONArray;
+
+        $r4 = $r13;
+
+     label13:
+        $r2 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r13.<org.json.JSONArray: void <init>(java.lang.String)>($r2);
+
+     label14:
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("Rollbar", "Items loaded.");
+
+     label15:
+        return $r13;
+
+     label16:
+        $r5 := @caughtexception;
+
+        goto label10;
+
+     label17:
+        $r6 := @caughtexception;
+
+        $r4 = null;
+
+        $r7 = $r6;
+
+     label18:
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("Rollbar", "Unable to read item file.", $r7);
+
+        return $r4;
+
+     label19:
+        $r8 := @caughtexception;
+
+        $r4 = null;
+
+        $r9 = $r8;
+
+     label20:
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("Rollbar", "Invalid item data. Deleting file.", $r9);
+
+        virtualinvoke $r0.<java.io.File: boolean delete()>();
+
+        return $r4;
+
+     label21:
+        $r9 := @caughtexception;
+
+        goto label20;
+
+     label22:
+        $r7 := @caughtexception;
+
+        goto label18;
+
+        catch java.io.FileNotFoundException from label01 to label02 with label09;
+        catch java.io.FileNotFoundException from label03 to label04 with label09;
+        catch java.io.FileNotFoundException from label05 to label06 with label09;
+        catch java.io.FileNotFoundException from label07 to label08 with label09;
+        catch java.io.IOException from label01 to label02 with label17;
+        catch java.io.IOException from label03 to label04 with label17;
+        catch java.io.IOException from label05 to label06 with label17;
+        catch java.io.IOException from label07 to label08 with label17;
+        catch org.json.JSONException from label01 to label02 with label19;
+        catch org.json.JSONException from label03 to label04 with label19;
+        catch org.json.JSONException from label05 to label06 with label19;
+        catch org.json.JSONException from label07 to label08 with label19;
+        catch java.io.FileNotFoundException from label11 to label12 with label09;
+        catch java.io.FileNotFoundException from label13 to label14 with label09;
+        catch java.io.IOException from label11 to label12 with label17;
+        catch java.io.IOException from label13 to label14 with label17;
+        catch org.json.JSONException from label11 to label12 with label19;
+        catch org.json.JSONException from label13 to label14 with label19;
+        catch java.io.FileNotFoundException from label14 to label15 with label16;
+        catch java.io.IOException from label14 to label15 with label22;
+        catch org.json.JSONException from label14 to label15 with label21;
+    }

@@ -1,0 +1,88 @@
+    public long read(com.squareup.okhttp.internal.okio.OkBuffer, long) throws java.io.IOException
+    {
+        byte[] $r7;
+        com.squareup.okhttp.internal.okio.Deadline $r4;
+        long $l0, $l3;
+        java.lang.IllegalArgumentException $r9;
+        com.squareup.okhttp.internal.okio.OkBuffer $r1;
+        int i1, $i4;
+        com.squareup.okhttp.internal.okio.Segment $r5;
+        java.lang.StringBuilder $r2, $r8;
+        java.lang.String $r3;
+        com.squareup.okhttp.internal.okio.Okio$2 r0;
+        java.io.InputStream $r6;
+
+        r0 := @this: com.squareup.okhttp.internal.okio.Okio$2;
+
+        $r1 := @parameter0: com.squareup.okhttp.internal.okio.OkBuffer;
+
+        $l0 := @parameter1: long;
+
+        i1 = (int) 1;
+
+        if i1 >= 0 goto label1;
+
+        $r9 = new java.lang.IllegalArgumentException;
+
+        $r8 = new java.lang.StringBuilder;
+
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        $r2 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("byteCount < 0: ");
+
+        $r2 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>(2048L);
+
+        $r3 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r9.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>($r3);
+
+        throw $r9;
+
+     label1:
+        $r4 = r0.<com.squareup.okhttp.internal.okio.Okio$2: com.squareup.okhttp.internal.okio.Deadline deadline>;
+
+        virtualinvoke $r4.<com.squareup.okhttp.internal.okio.Deadline: void throwIfReached()>();
+
+        $r5 = virtualinvoke $r1.<com.squareup.okhttp.internal.okio.OkBuffer: com.squareup.okhttp.internal.okio.Segment writableSegment(int)>(1);
+
+        i1 = $r5.<com.squareup.okhttp.internal.okio.Segment: int limit>;
+
+        i1 = 2048 - i1;
+
+        $l3 = (long) i1;
+
+        $l0 = staticinvoke <java.lang.Math: long min(long,long)>(2048L, $l3);
+
+        i1 = (int) $l0;
+
+        $r6 = r0.<com.squareup.okhttp.internal.okio.Okio$2: java.io.InputStream val$in>;
+
+        $r7 = $r5.<com.squareup.okhttp.internal.okio.Segment: byte[] data>;
+
+        $i4 = $r5.<com.squareup.okhttp.internal.okio.Segment: int limit>;
+
+        i1 = virtualinvoke $r6.<java.io.InputStream: int read(byte[],int,int)>($r7, $i4, i1);
+
+        if i1 != -1 goto label2;
+
+        return -1L;
+
+     label2:
+        $i4 = $r5.<com.squareup.okhttp.internal.okio.Segment: int limit>;
+
+        $i4 = $i4 + i1;
+
+        $r5.<com.squareup.okhttp.internal.okio.Segment: int limit> = $i4;
+
+        $l3 = $r1.<com.squareup.okhttp.internal.okio.OkBuffer: long size>;
+
+        $l0 = (long) i1;
+
+        $l0 = $l3 + $l0;
+
+        $r1.<com.squareup.okhttp.internal.okio.OkBuffer: long size> = $l0;
+
+        $l0 = (long) i1;
+
+        return $l0;
+    }

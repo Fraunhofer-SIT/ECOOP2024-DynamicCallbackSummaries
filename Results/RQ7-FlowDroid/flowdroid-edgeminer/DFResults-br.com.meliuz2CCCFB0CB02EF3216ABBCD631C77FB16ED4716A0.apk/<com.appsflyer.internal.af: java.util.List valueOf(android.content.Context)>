@@ -1,0 +1,88 @@
+    static java.util.List valueOf(android.content.Context)
+    {
+        android.content.Context $r1;
+        java.io.File $r2, $r3;
+        java.lang.Exception $r8;
+        java.util.ArrayList $r0;
+        int $i0, $i1;
+        java.lang.StringBuilder $r5;
+        com.appsflyer.internal.f $r7;
+        java.lang.String $r6;
+        java.io.File[] $r4;
+        boolean $z0;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $r0 = new java.util.ArrayList;
+
+        specialinvoke $r0.<java.util.ArrayList: void <init>()>();
+
+        $r2 = new java.io.File;
+
+     label01:
+        $r3 = virtualinvoke $r1.<android.content.Context: java.io.File getFilesDir()>();
+
+        specialinvoke $r2.<java.io.File: void <init>(java.io.File,java.lang.String)>($r3, "AFRequestCache");
+
+        $z0 = virtualinvoke $r2.<java.io.File: boolean exists()>();
+
+     label02:
+        if $z0 != 0 goto label05;
+
+     label03:
+        virtualinvoke $r2.<java.io.File: boolean mkdir()>();
+
+     label04:
+        return $r0;
+
+     label05:
+        $r4 = virtualinvoke $r2.<java.io.File: java.io.File[] listFiles()>();
+
+        $i0 = lengthof $r4;
+
+     label06:
+        $i1 = 0;
+
+     label07:
+        if $i1 >= $i0 goto label13;
+
+     label08:
+        $r2 = $r4[$i1];
+
+     label09:
+        $r5 = new java.lang.StringBuilder;
+
+     label10:
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>(java.lang.String)>("Found cached request");
+
+        $r6 = virtualinvoke $r2.<java.io.File: java.lang.String getName()>();
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r6 = virtualinvoke $r5.<java.lang.Object: java.lang.String toString()>();
+
+        staticinvoke <com.appsflyer.AFLogger: void valueOf(java.lang.String)>($r6);
+
+        $r7 = staticinvoke <com.appsflyer.internal.af: com.appsflyer.internal.f valueOf(java.io.File)>($r2);
+
+        interfaceinvoke $r0.<java.util.List: boolean add(java.lang.Object)>($r7);
+
+     label11:
+        $i1 = $i1 + 1;
+
+        goto label07;
+
+     label12:
+        $r8 := @caughtexception;
+
+        staticinvoke <com.appsflyer.AFLogger: void valueOf(java.lang.String,java.lang.Throwable)>("Could not cache request", $r8);
+
+     label13:
+        return $r0;
+
+        catch java.lang.Exception from label01 to label02 with label12;
+        catch java.lang.Exception from label03 to label04 with label12;
+        catch java.lang.Exception from label05 to label06 with label12;
+        catch java.lang.Exception from label08 to label09 with label12;
+        catch java.lang.Exception from label10 to label11 with label12;
+    }

@@ -1,0 +1,63 @@
+    public static java.lang.Object assoc(java.lang.Object, java.lang.Object, gnu.mapping.Procedure)
+    {
+        java.lang.ClassCastException $r8;
+        gnu.mapping.Procedure $r3;
+        gnu.lists.LList $r4;
+        gnu.mapping.WrongType $r9;
+        gnu.lists.Pair $r7;
+        java.lang.Boolean $r0;
+        java.lang.Object $r1, $r2, $r6;
+        gnu.expr.GenericProc $r5;
+
+        $r1 := @parameter0: java.lang.Object;
+
+        $r2 := @parameter1: java.lang.Object;
+
+        $r3 := @parameter2: gnu.mapping.Procedure;
+
+     label1:
+        $r4 = <gnu.lists.LList: gnu.lists.LList Empty>;
+
+        if $r2 != $r4 goto label2;
+
+        $r0 = <java.lang.Boolean: java.lang.Boolean FALSE>;
+
+        return $r0;
+
+     label2:
+        $r5 = <kawa.lib.lists: gnu.expr.GenericProc car>;
+
+        $r6 = virtualinvoke $r5.<gnu.mapping.Procedure: java.lang.Object apply1(java.lang.Object)>($r2);
+
+     label3:
+        $r7 = (gnu.lists.Pair) $r6;
+
+     label4:
+        $r6 = virtualinvoke $r7.<gnu.lists.Pair: java.lang.Object getCar()>();
+
+        $r6 = virtualinvoke $r3.<gnu.mapping.Procedure: java.lang.Object apply2(java.lang.Object,java.lang.Object)>($r6, $r1);
+
+        $r0 = <java.lang.Boolean: java.lang.Boolean FALSE>;
+
+        if $r6 == $r0 goto label5;
+
+        return $r7;
+
+     label5:
+        $r5 = <kawa.lib.lists: gnu.expr.GenericProc cdr>;
+
+        $r2 = virtualinvoke $r5.<gnu.mapping.Procedure: java.lang.Object apply1(java.lang.Object)>($r2);
+
+        goto label1;
+
+     label6:
+        $r8 := @caughtexception;
+
+        $r9 = new gnu.mapping.WrongType;
+
+        specialinvoke $r9.<gnu.mapping.WrongType: void <init>(java.lang.ClassCastException,java.lang.String,int,java.lang.Object)>($r8, "pair", -2, $r6);
+
+        throw $r9;
+
+        catch java.lang.ClassCastException from label3 to label4 with label6;
+    }

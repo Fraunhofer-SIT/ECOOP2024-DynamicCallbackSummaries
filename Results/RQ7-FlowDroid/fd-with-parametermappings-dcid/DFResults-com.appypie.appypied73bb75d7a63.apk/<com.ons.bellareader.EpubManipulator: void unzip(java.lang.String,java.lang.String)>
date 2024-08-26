@@ -1,0 +1,158 @@
+    public void unzip(java.lang.String, java.lang.String) throws java.io.IOException
+    {
+        byte[] r3;
+        java.io.BufferedInputStream $r16;
+        java.util.Enumeration $r6;
+        com.ons.bellareader.EpubManipulator r0;
+        java.util.ArrayList $r14;
+        java.io.BufferedOutputStream $r18;
+        int $i0;
+        java.util.zip.ZipFile $r15;
+        java.lang.String $r1, $r2, $r13;
+        java.util.zip.ZipEntry r8;
+        boolean $z0;
+        java.util.Iterator $r11;
+        java.io.FileOutputStream $r17;
+        char $c1;
+        java.io.File r4, r5, $r9;
+        java.lang.Object $r7;
+        java.lang.StringBuilder $r12, $r19;
+        java.io.InputStream $r10;
+
+        r0 := @this: com.ons.bellareader.EpubManipulator;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r14 = new java.util.ArrayList;
+
+        specialinvoke $r14.<java.util.ArrayList: void <init>()>();
+
+        r5 = new java.io.File;
+
+        r4 = r5;
+
+        specialinvoke r5.<java.io.File: void <init>(java.lang.String)>($r1);
+
+        $r9 = new java.io.File;
+
+        r5 = $r9;
+
+        specialinvoke $r9.<java.io.File: void <init>(java.lang.String)>($r2);
+
+        virtualinvoke $r9.<java.io.File: boolean mkdir()>();
+
+        $r15 = new java.util.zip.ZipFile;
+
+        specialinvoke $r15.<java.util.zip.ZipFile: void <init>(java.io.File,int)>(r4, 1);
+
+        $r6 = virtualinvoke $r15.<java.util.zip.ZipFile: java.util.Enumeration entries()>();
+
+     label1:
+        $z0 = interfaceinvoke $r6.<java.util.Enumeration: boolean hasMoreElements()>();
+
+        if $z0 == 0 goto label5;
+
+        $r7 = interfaceinvoke $r6.<java.util.Enumeration: java.lang.Object nextElement()>();
+
+        r8 = (java.util.zip.ZipEntry) $r7;
+
+        $r1 = virtualinvoke r8.<java.util.zip.ZipEntry: java.lang.String getName()>();
+
+        $r9 = new java.io.File;
+
+        r4 = $r9;
+
+        specialinvoke $r9.<java.io.File: void <init>(java.io.File,java.lang.String)>(r5, $r1);
+
+        $z0 = virtualinvoke $r1.<java.lang.String: boolean endsWith(java.lang.String)>(".zip");
+
+        if $z0 == 0 goto label2;
+
+        $r1 = virtualinvoke $r9.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        interfaceinvoke $r14.<java.util.List: boolean add(java.lang.Object)>($r1);
+
+     label2:
+        $r9 = virtualinvoke r4.<java.io.File: java.io.File getParentFile()>();
+
+        virtualinvoke $r9.<java.io.File: boolean mkdirs()>();
+
+        $z0 = virtualinvoke r8.<java.util.zip.ZipEntry: boolean isDirectory()>();
+
+        if $z0 != 0 goto label1;
+
+        $r16 = new java.io.BufferedInputStream;
+
+        $r10 = virtualinvoke $r15.<java.util.zip.ZipFile: java.io.InputStream getInputStream(java.util.zip.ZipEntry)>(r8);
+
+        specialinvoke $r16.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r10);
+
+        r3 = newarray (byte)[2048];
+
+        $r17 = new java.io.FileOutputStream;
+
+        specialinvoke $r17.<java.io.FileOutputStream: void <init>(java.io.File)>(r4);
+
+        $r18 = new java.io.BufferedOutputStream;
+
+        specialinvoke $r18.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream,int)>($r17, 2048);
+
+     label3:
+        $i0 = virtualinvoke $r16.<java.io.BufferedInputStream: int read(byte[],int,int)>(r3, 0, 2048);
+
+        if $i0 == -1 goto label4;
+
+        virtualinvoke $r18.<java.io.BufferedOutputStream: void write(byte[],int,int)>(r3, 0, $i0);
+
+        goto label3;
+
+     label4:
+        virtualinvoke $r18.<java.io.BufferedOutputStream: void flush()>();
+
+        virtualinvoke $r18.<java.io.BufferedOutputStream: void close()>();
+
+        virtualinvoke $r16.<java.io.BufferedInputStream: void close()>();
+
+        goto label1;
+
+     label5:
+        virtualinvoke $r15.<java.util.zip.ZipFile: void close()>();
+
+        $r11 = interfaceinvoke $r14.<java.util.List: java.util.Iterator iterator()>();
+
+     label6:
+        $z0 = interfaceinvoke $r11.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label7;
+
+        $r7 = interfaceinvoke $r11.<java.util.Iterator: java.lang.Object next()>();
+
+        $r1 = (java.lang.String) $r7;
+
+        $r19 = new java.lang.StringBuilder;
+
+        specialinvoke $r19.<java.lang.StringBuilder: void <init>()>();
+
+        $r12 = virtualinvoke $r19.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $c1 = <java.io.File: char separatorChar>;
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>($c1);
+
+        $i0 = virtualinvoke $r1.<java.lang.String: int lastIndexOf(java.lang.String)>(".zip");
+
+        $r13 = virtualinvoke $r1.<java.lang.String: java.lang.String substring(int,int)>(0, $i0);
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r13 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke r0.<com.ons.bellareader.EpubManipulator: void unzip(java.lang.String,java.lang.String)>($r1, $r13);
+
+        goto label6;
+
+     label7:
+        return;
+    }

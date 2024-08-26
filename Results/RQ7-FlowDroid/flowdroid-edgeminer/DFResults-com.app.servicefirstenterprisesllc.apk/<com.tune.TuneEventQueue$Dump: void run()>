@@ -1,0 +1,489 @@
+    public void run()
+    {
+        com.tune.TuneEventQueue$Dump r0;
+        com.tune.Tune $r12;
+        org.json.JSONException $r16, $r17;
+        org.json.JSONObject $r8, $r11;
+        byte $b7;
+        boolean $z0;
+        java.lang.StringBuilder $r20;
+        com.tune.TuneEventQueue $r4;
+        java.lang.Throwable $r1, $r2, $r3, $r15, $r18, $r19;
+        long $l6;
+        int $i0, $i1, $i2, $i3, $i4, $i5;
+        java.lang.String $r6, $r7, $r9, $r10;
+        java.util.concurrent.ExecutorService $r13, $r14;
+        double $d0, $d1;
+        java.util.concurrent.Semaphore $r5;
+        java.lang.InterruptedException $r21;
+
+        r0 := @this: com.tune.TuneEventQueue$Dump;
+
+        $r4 = r0.<com.tune.TuneEventQueue$Dump: com.tune.TuneEventQueue this$0>;
+
+        $i0 = virtualinvoke $r4.<com.tune.TuneEventQueue: int getQueueSize()>();
+
+        if $i0 != 0 goto label01;
+
+        return;
+
+     label01:
+        $r4 = r0.<com.tune.TuneEventQueue$Dump: com.tune.TuneEventQueue this$0>;
+
+     label02:
+        $r5 = staticinvoke <com.tune.TuneEventQueue: java.util.concurrent.Semaphore access$000(com.tune.TuneEventQueue)>($r4);
+
+        virtualinvoke $r5.<java.util.concurrent.Semaphore: void acquire()>();
+
+     label03:
+        if $i0 <= 50 goto label05;
+
+        $i1 = $i0 + -50;
+
+     label04:
+        $i1 = $i1 + 1;
+
+        goto label06;
+
+     label05:
+        $i1 = 1;
+
+     label06:
+        if $i1 > $i0 goto label90;
+
+     label07:
+        $r6 = staticinvoke <java.lang.Integer: java.lang.String toString(int)>($i1);
+
+     label08:
+        $r4 = r0.<com.tune.TuneEventQueue$Dump: com.tune.TuneEventQueue this$0>;
+
+     label09:
+        $r7 = virtualinvoke $r4.<com.tune.TuneEventQueue: java.lang.String getKeyFromQueue(java.lang.String)>($r6);
+
+     label10:
+        if $r7 == null goto label83;
+
+     label11:
+        $r11 = new org.json.JSONObject;
+
+     label12:
+        $r8 = $r11;
+
+     label13:
+        specialinvoke $r11.<org.json.JSONObject: void <init>(java.lang.String)>($r7);
+
+        $r9 = virtualinvoke $r11.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("link");
+
+        $r10 = virtualinvoke $r11.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("data");
+
+        $r11 = virtualinvoke $r11.<org.json.JSONObject: org.json.JSONObject getJSONObject(java.lang.String)>("post_body");
+
+        $z0 = virtualinvoke $r8.<org.json.JSONObject: boolean getBoolean(java.lang.String)>("first_session");
+
+     label14:
+        if $z0 == 0 goto label22;
+
+     label15:
+        $r4 = r0.<com.tune.TuneEventQueue$Dump: com.tune.TuneEventQueue this$0>;
+
+     label16:
+        $r12 = staticinvoke <com.tune.TuneEventQueue: com.tune.Tune access$100(com.tune.TuneEventQueue)>($r4);
+
+     label17:
+        $r13 = $r12.<com.tune.Tune: java.util.concurrent.ExecutorService pool>;
+
+        entermonitor $r13;
+
+     label18:
+        $r4 = r0.<com.tune.TuneEventQueue$Dump: com.tune.TuneEventQueue this$0>;
+
+        $r12 = staticinvoke <com.tune.TuneEventQueue: com.tune.Tune access$100(com.tune.TuneEventQueue)>($r4);
+
+        $r14 = $r12.<com.tune.Tune: java.util.concurrent.ExecutorService pool>;
+
+        virtualinvoke $r14.<java.lang.Object: void wait(long)>(60000L);
+
+        exitmonitor $r13;
+
+     label19:
+        goto label22;
+
+     label20:
+        $r15 := @caughtexception;
+
+        exitmonitor $r13;
+
+     label21:
+        throw $r15;
+
+     label22:
+        $r4 = r0.<com.tune.TuneEventQueue$Dump: com.tune.TuneEventQueue this$0>;
+
+     label23:
+        $r12 = staticinvoke <com.tune.TuneEventQueue: com.tune.Tune access$100(com.tune.TuneEventQueue)>($r4);
+
+     label24:
+        if $r12 == null goto label74;
+
+     label25:
+        $r4 = r0.<com.tune.TuneEventQueue$Dump: com.tune.TuneEventQueue this$0>;
+
+     label26:
+        $r12 = staticinvoke <com.tune.TuneEventQueue: com.tune.Tune access$100(com.tune.TuneEventQueue)>($r4);
+
+        $z0 = virtualinvoke $r12.<com.tune.Tune: boolean makeRequest(java.lang.String,java.lang.String,org.json.JSONObject)>($r9, $r10, $r11);
+
+     label27:
+        if $z0 == 0 goto label31;
+
+     label28:
+        $r4 = r0.<com.tune.TuneEventQueue$Dump: com.tune.TuneEventQueue this$0>;
+
+     label29:
+        virtualinvoke $r4.<com.tune.TuneEventQueue: void removeKeyFromQueue(java.lang.String)>($r6);
+
+        staticinvoke <com.tune.TuneEventQueue: long access$202(long)>(0L);
+
+     label30:
+        goto label04;
+
+     label31:
+        $i1 = $i1 + -1;
+
+     label32:
+        $i2 = virtualinvoke $r9.<java.lang.String: int indexOf(java.lang.String)>("&sdk_retry_attempt=");
+
+     label33:
+        if $i2 <= 0 goto label47;
+
+        $i2 = $i2 + 19;
+
+        $i3 = $i2 + 1;
+
+        $i4 = -1;
+
+     label34:
+        $r10 = virtualinvoke $r9.<java.lang.String: java.lang.String substring(int,int)>($i2, $i3);
+
+     label35:
+        $i5 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>($r10);
+
+     label36:
+        $i4 = $i5;
+
+        $i3 = $i3 + 1;
+
+        goto label34;
+
+     label37:
+        $i2 = $i4 + 1;
+
+     label38:
+        $r20 = new java.lang.StringBuilder;
+
+     label39:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("&sdk_retry_attempt=");
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i2);
+
+        $r10 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r9 = virtualinvoke $r9.<java.lang.String: java.lang.String replaceFirst(java.lang.String,java.lang.String)>("&sdk_retry_attempt=\\d+", $r10);
+
+     label40:
+        $r11 = new org.json.JSONObject;
+
+     label41:
+        specialinvoke $r11.<org.json.JSONObject: void <init>(java.lang.String)>($r7);
+
+        virtualinvoke $r11.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("link", $r9);
+
+     label42:
+        $r4 = r0.<com.tune.TuneEventQueue$Dump: com.tune.TuneEventQueue this$0>;
+
+     label43:
+        virtualinvoke $r4.<com.tune.TuneEventQueue: void setQueueItemForKey(org.json.JSONObject,java.lang.String)>($r11, $r6);
+
+     label44:
+        goto label47;
+
+     label45:
+        $r16 := @caughtexception;
+
+     label46:
+        virtualinvoke $r16.<org.json.JSONException: void printStackTrace()>();
+
+     label47:
+        $l6 = staticinvoke <com.tune.TuneEventQueue: long access$200()>();
+
+     label48:
+        $b7 = $l6 cmp 0L;
+
+        if $b7 != 0 goto label51;
+
+     label49:
+        staticinvoke <com.tune.TuneEventQueue: long access$202(long)>(30L);
+
+     label50:
+        goto label68;
+
+     label51:
+        $l6 = staticinvoke <com.tune.TuneEventQueue: long access$200()>();
+
+     label52:
+        $b7 = $l6 cmp 30L;
+
+        $i2 = (int) $b7;
+
+        if $i2 > 0 goto label55;
+
+     label53:
+        staticinvoke <com.tune.TuneEventQueue: long access$202(long)>(90L);
+
+     label54:
+        goto label68;
+
+     label55:
+        $l6 = staticinvoke <com.tune.TuneEventQueue: long access$200()>();
+
+     label56:
+        $b7 = $l6 cmp 90L;
+
+        $i2 = (int) $b7;
+
+        if $i2 > 0 goto label59;
+
+     label57:
+        staticinvoke <com.tune.TuneEventQueue: long access$202(long)>(600L);
+
+     label58:
+        goto label68;
+
+     label59:
+        $l6 = staticinvoke <com.tune.TuneEventQueue: long access$200()>();
+
+     label60:
+        $b7 = $l6 cmp 600L;
+
+        $i2 = (int) $b7;
+
+        if $i2 > 0 goto label63;
+
+     label61:
+        staticinvoke <com.tune.TuneEventQueue: long access$202(long)>(3600L);
+
+     label62:
+        goto label68;
+
+     label63:
+        $l6 = staticinvoke <com.tune.TuneEventQueue: long access$200()>();
+
+     label64:
+        $b7 = $l6 cmp 3600L;
+
+        $i2 = (int) $b7;
+
+        if $i2 > 0 goto label67;
+
+     label65:
+        staticinvoke <com.tune.TuneEventQueue: long access$202(long)>(21600L);
+
+     label66:
+        goto label68;
+
+     label67:
+        staticinvoke <com.tune.TuneEventQueue: long access$202(long)>(86400L);
+
+     label68:
+        $d0 = staticinvoke <java.lang.Math: double random()>();
+
+     label69:
+        $d0 = $d0 * 0.1;
+
+        $d0 = $d0 + 1.0;
+
+     label70:
+        $l6 = staticinvoke <com.tune.TuneEventQueue: long access$200()>();
+
+     label71:
+        $d1 = (double) $l6;
+
+        $d0 = $d0 * $d1;
+
+        $d0 = $d0 * 1000.0;
+
+        $l6 = (long) $d0;
+
+     label72:
+        staticinvoke <java.lang.Thread: void sleep(long)>($l6);
+
+     label73:
+        goto label04;
+
+     label74:
+        staticinvoke <com.tune.TuneUtils: void log(java.lang.String)>("Dropping queued request because no TUNE object was found");
+
+     label75:
+        $r4 = r0.<com.tune.TuneEventQueue$Dump: com.tune.TuneEventQueue this$0>;
+
+     label76:
+        virtualinvoke $r4.<com.tune.TuneEventQueue: void removeKeyFromQueue(java.lang.String)>($r6);
+
+     label77:
+        goto label04;
+
+     label78:
+        $r17 := @caughtexception;
+
+     label79:
+        virtualinvoke $r17.<org.json.JSONException: void printStackTrace()>();
+
+     label80:
+        $r4 = r0.<com.tune.TuneEventQueue$Dump: com.tune.TuneEventQueue this$0>;
+
+     label81:
+        virtualinvoke $r4.<com.tune.TuneEventQueue: void removeKeyFromQueue(java.lang.String)>($r6);
+
+     label82:
+        $r4 = r0.<com.tune.TuneEventQueue$Dump: com.tune.TuneEventQueue this$0>;
+
+        $r5 = staticinvoke <com.tune.TuneEventQueue: java.util.concurrent.Semaphore access$000(com.tune.TuneEventQueue)>($r4);
+
+        virtualinvoke $r5.<java.util.concurrent.Semaphore: void release()>();
+
+        return;
+
+     label83:
+        staticinvoke <com.tune.TuneUtils: void log(java.lang.String)>("Null request skipped from queue");
+
+     label84:
+        $r4 = r0.<com.tune.TuneEventQueue$Dump: com.tune.TuneEventQueue this$0>;
+
+     label85:
+        virtualinvoke $r4.<com.tune.TuneEventQueue: void removeKeyFromQueue(java.lang.String)>($r6);
+
+     label86:
+        goto label04;
+
+     label87:
+        $r18 := @caughtexception;
+
+        goto label91;
+
+     label88:
+        $r19 := @caughtexception;
+
+     label89:
+        $r21 = (java.lang.InterruptedException) $r19;
+
+        virtualinvoke $r21.<java.lang.InterruptedException: void printStackTrace()>();
+
+     label90:
+        $r4 = r0.<com.tune.TuneEventQueue$Dump: com.tune.TuneEventQueue this$0>;
+
+        $r5 = staticinvoke <com.tune.TuneEventQueue: java.util.concurrent.Semaphore access$000(com.tune.TuneEventQueue)>($r4);
+
+        virtualinvoke $r5.<java.util.concurrent.Semaphore: void release()>();
+
+        return;
+
+     label91:
+        $r4 = r0.<com.tune.TuneEventQueue$Dump: com.tune.TuneEventQueue this$0>;
+
+        $r5 = staticinvoke <com.tune.TuneEventQueue: java.util.concurrent.Semaphore access$000(com.tune.TuneEventQueue)>($r4);
+
+        virtualinvoke $r5.<java.util.concurrent.Semaphore: void release()>();
+
+        throw $r18;
+
+     label92:
+        $r1 := @caughtexception;
+
+        goto label37;
+
+     label93:
+        $r2 := @caughtexception;
+
+        goto label37;
+
+     label94:
+        $r3 := @caughtexception;
+
+        goto label04;
+
+        catch java.lang.InterruptedException from label02 to label03 with label88;
+        catch java.lang.InterruptedException from label07 to label08 with label88;
+        catch java.lang.InterruptedException from label09 to label10 with label88;
+        catch java.lang.Throwable from label01 to label03 with label87;
+        catch java.lang.Throwable from label07 to label10 with label87;
+        catch org.json.JSONException from label13 to label14 with label78;
+        catch java.lang.InterruptedException from label13 to label14 with label88;
+        catch java.lang.Throwable from label11 to label12 with label87;
+        catch java.lang.Throwable from label13 to label14 with label87;
+        catch java.lang.InterruptedException from label16 to label17 with label88;
+        catch java.lang.Throwable from label15 to label18 with label87;
+        catch java.lang.Throwable from label18 to label19 with label20;
+        catch java.lang.Throwable from label20 to label21 with label20;
+        catch java.lang.InterruptedException from label21 to label22 with label88;
+        catch java.lang.InterruptedException from label23 to label24 with label88;
+        catch java.lang.InterruptedException from label26 to label27 with label88;
+        catch java.lang.InterruptedException from label29 to label30 with label88;
+        catch java.lang.InterruptedException from label32 to label33 with label88;
+        catch java.lang.Throwable from label21 to label24 with label87;
+        catch java.lang.Throwable from label25 to label27 with label87;
+        catch java.lang.Throwable from label28 to label30 with label87;
+        catch java.lang.Throwable from label32 to label33 with label87;
+        catch java.lang.StringIndexOutOfBoundsException from label34 to label35 with label92;
+        catch java.lang.InterruptedException from label34 to label35 with label88;
+        catch java.lang.Throwable from label34 to label35 with label87;
+        catch java.lang.NumberFormatException from label35 to label36 with label93;
+        catch java.lang.InterruptedException from label35 to label36 with label88;
+        catch java.lang.Throwable from label35 to label36 with label87;
+        catch java.lang.InterruptedException from label39 to label40 with label88;
+        catch java.lang.Throwable from label38 to label39 with label87;
+        catch java.lang.Throwable from label39 to label40 with label87;
+        catch org.json.JSONException from label41 to label42 with label45;
+        catch org.json.JSONException from label43 to label44 with label45;
+        catch java.lang.InterruptedException from label41 to label42 with label88;
+        catch java.lang.InterruptedException from label43 to label44 with label88;
+        catch java.lang.Throwable from label40 to label41 with label87;
+        catch java.lang.Throwable from label41 to label44 with label87;
+        catch java.lang.InterruptedException from label46 to label48 with label88;
+        catch java.lang.InterruptedException from label49 to label50 with label88;
+        catch java.lang.InterruptedException from label51 to label52 with label88;
+        catch java.lang.InterruptedException from label53 to label54 with label88;
+        catch java.lang.InterruptedException from label55 to label56 with label88;
+        catch java.lang.InterruptedException from label57 to label58 with label88;
+        catch java.lang.InterruptedException from label59 to label60 with label88;
+        catch java.lang.InterruptedException from label61 to label62 with label88;
+        catch java.lang.InterruptedException from label63 to label64 with label88;
+        catch java.lang.InterruptedException from label65 to label66 with label88;
+        catch java.lang.InterruptedException from label67 to label69 with label88;
+        catch java.lang.InterruptedException from label70 to label71 with label88;
+        catch java.lang.Throwable from label46 to label48 with label87;
+        catch java.lang.Throwable from label49 to label50 with label87;
+        catch java.lang.Throwable from label51 to label52 with label87;
+        catch java.lang.Throwable from label53 to label54 with label87;
+        catch java.lang.Throwable from label55 to label56 with label87;
+        catch java.lang.Throwable from label57 to label58 with label87;
+        catch java.lang.Throwable from label59 to label60 with label87;
+        catch java.lang.Throwable from label61 to label62 with label87;
+        catch java.lang.Throwable from label63 to label64 with label87;
+        catch java.lang.Throwable from label65 to label66 with label87;
+        catch java.lang.Throwable from label67 to label69 with label87;
+        catch java.lang.Throwable from label70 to label71 with label87;
+        catch java.lang.InterruptedException from label72 to label73 with label94;
+        catch java.lang.Throwable from label72 to label73 with label87;
+        catch java.lang.InterruptedException from label74 to label75 with label88;
+        catch java.lang.InterruptedException from label76 to label77 with label88;
+        catch java.lang.InterruptedException from label79 to label80 with label88;
+        catch java.lang.InterruptedException from label81 to label82 with label88;
+        catch java.lang.Throwable from label74 to label77 with label87;
+        catch java.lang.Throwable from label79 to label82 with label87;
+        catch java.lang.InterruptedException from label83 to label84 with label88;
+        catch java.lang.InterruptedException from label85 to label86 with label88;
+        catch java.lang.Throwable from label83 to label86 with label87;
+        catch java.lang.Throwable from label89 to label90 with label87;
+    }

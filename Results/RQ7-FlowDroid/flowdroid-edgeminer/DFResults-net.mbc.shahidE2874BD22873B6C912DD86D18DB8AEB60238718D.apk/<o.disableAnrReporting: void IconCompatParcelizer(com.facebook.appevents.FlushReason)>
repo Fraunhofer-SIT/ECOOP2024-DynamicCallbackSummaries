@@ -1,0 +1,172 @@
+    public static final void IconCompatParcelizer(com.facebook.appevents.FlushReason)
+    {
+        java.lang.Throwable $r13, $r21;
+        java.lang.IllegalStateException $r11;
+        android.content.Context $r18;
+        android.content.Intent $r15;
+        com.facebook.appevents.FlushResult $r16;
+        o.readFile$AudioAttributesCompatParcelizer $r14;
+        int $i0;
+        java.lang.String $r12;
+        boolean $z0;
+        com.facebook.appevents.PersistedEvents $r1;
+        java.util.Iterator $r4, $r9;
+        com.facebook.appevents.FlushReason $r0;
+        java.util.Set $r3;
+        com.facebook.appevents.AppEvent $r10;
+        java.lang.Exception $r20;
+        java.io.Serializable $r17;
+        java.util.List $r8;
+        o.setUnwindFunction $r7;
+        o.readFile $r2;
+        com.facebook.appevents.AccessTokenAppIdPair $r6;
+        java.lang.Object $r5;
+        o.BackStackState $r19;
+
+        $r0 := @parameter0: com.facebook.appevents.FlushReason;
+
+        $z0 = staticinvoke <o.StorageModule$sharedPrefMigrator$2: boolean AudioAttributesCompatParcelizer(java.lang.Object)>(class "Lo/disableAnrReporting;");
+
+        if $z0 == 0 goto label01;
+
+        return;
+
+     label01:
+        staticinvoke <o.getMaxNumPictureInPictureActions: void RemoteActionCompatParcelizer(java.lang.Object,java.lang.String)>($r0, "reason");
+
+        $r1 = staticinvoke <o.initNativePlugin: com.facebook.appevents.PersistedEvents IconCompatParcelizer()>();
+
+        $r2 = <o.disableAnrReporting: o.readFile AudioAttributesCompatParcelizer>;
+
+        entermonitor $r2;
+
+        if $r1 != null goto label03;
+
+        exitmonitor $r2;
+
+     label02:
+        goto label08;
+
+     label03:
+        $r3 = virtualinvoke $r1.<com.facebook.appevents.PersistedEvents: java.util.Set RemoteActionCompatParcelizer()>();
+
+        $r4 = interfaceinvoke $r3.<java.util.Set: java.util.Iterator iterator()>();
+
+     label04:
+        $z0 = interfaceinvoke $r4.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label07;
+
+        $r5 = interfaceinvoke $r4.<java.util.Iterator: java.lang.Object next()>();
+
+        $r6 = (com.facebook.appevents.AccessTokenAppIdPair) $r5;
+
+        $r7 = virtualinvoke $r2.<o.readFile: o.setUnwindFunction IconCompatParcelizer(com.facebook.appevents.AccessTokenAppIdPair)>($r6);
+
+        if $r7 == null goto label04;
+
+        $r8 = virtualinvoke $r1.<com.facebook.appevents.PersistedEvents: java.util.List read(com.facebook.appevents.AccessTokenAppIdPair)>($r6);
+
+        if $r8 == null goto label06;
+
+        $r9 = interfaceinvoke $r8.<java.util.List: java.util.Iterator iterator()>();
+
+     label05:
+        $z0 = interfaceinvoke $r9.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label04;
+
+        $r5 = interfaceinvoke $r9.<java.util.Iterator: java.lang.Object next()>();
+
+        $r10 = (com.facebook.appevents.AppEvent) $r5;
+
+        virtualinvoke $r7.<o.setUnwindFunction: void write(com.facebook.appevents.AppEvent)>($r10);
+
+        goto label05;
+
+     label06:
+        $r11 = new java.lang.IllegalStateException;
+
+        $r12 = "Required value was null.";
+
+        $r12 = virtualinvoke $r12.<java.lang.Object: java.lang.String toString()>();
+
+        specialinvoke $r11.<java.lang.IllegalStateException: void <init>(java.lang.String)>($r12);
+
+        $r13 = (java.lang.Throwable) $r11;
+
+        throw $r13;
+
+     label07:
+        exitmonitor $r2;
+
+     label08:
+        $r2 = <o.disableAnrReporting: o.readFile AudioAttributesCompatParcelizer>;
+
+     label09:
+        $r14 = staticinvoke <o.disableAnrReporting: o.readFile$AudioAttributesCompatParcelizer AudioAttributesCompatParcelizer(com.facebook.appevents.FlushReason,o.readFile)>($r0, $r2);
+
+     label10:
+        if $r14 == null goto label18;
+
+     label11:
+        $r15 = new android.content.Intent;
+
+        specialinvoke $r15.<android.content.Intent: void <init>(java.lang.String)>("com.facebook.sdk.APP_EVENTS_FLUSHED");
+
+        $i0 = $r14.<o.readFile$AudioAttributesCompatParcelizer: int MediaBrowserCompat$MediaItem>;
+
+        virtualinvoke $r15.<android.content.Intent: android.content.Intent putExtra(java.lang.String,int)>("com.facebook.sdk.APP_EVENTS_NUM_EVENTS_FLUSHED", $i0);
+
+        $r16 = $r14.<o.readFile$AudioAttributesCompatParcelizer: com.facebook.appevents.FlushResult handleMediaPlayPauseIfPendingOnHandler>;
+
+        $r17 = (java.io.Serializable) $r16;
+
+        virtualinvoke $r15.<android.content.Intent: android.content.Intent putExtra(java.lang.String,java.io.Serializable)>("com.facebook.sdk.APP_EVENTS_FLUSH_RESULT", $r17);
+
+        $r18 = staticinvoke <o.setReferrerImageURL: android.content.Context write()>();
+
+        $r19 = staticinvoke <o.BackStackState: o.BackStackState write(android.content.Context)>($r18);
+
+        virtualinvoke $r19.<o.BackStackState: boolean AudioAttributesCompatParcelizer(android.content.Intent)>($r15);
+
+     label12:
+        return;
+
+     label13:
+        $r20 := @caughtexception;
+
+     label14:
+        $r12 = <o.disableAnrReporting: java.lang.String IconCompatParcelizer>;
+
+        $r13 = (java.lang.Throwable) $r20;
+
+        staticinvoke <android.util.Log: int w(java.lang.String,java.lang.String,java.lang.Throwable)>($r12, "Caught unexpected exception while flushing app events: ", $r13);
+
+     label15:
+        return;
+
+     label16:
+        $r13 := @caughtexception;
+
+        exitmonitor $r2;
+
+        throw $r13;
+
+     label17:
+        $r21 := @caughtexception;
+
+        staticinvoke <o.StorageModule$sharedPrefMigrator$2: void read(java.lang.Throwable,java.lang.Object)>($r21, class "Lo/disableAnrReporting;");
+
+     label18:
+        return;
+
+        catch java.lang.Throwable from label01 to label02 with label17;
+        catch java.lang.Throwable from label03 to label07 with label16;
+        catch java.lang.Throwable from label07 to label08 with label17;
+        catch java.lang.Exception from label09 to label10 with label13;
+        catch java.lang.Throwable from label08 to label10 with label17;
+        catch java.lang.Throwable from label11 to label12 with label17;
+        catch java.lang.Throwable from label14 to label15 with label17;
+        catch java.lang.Throwable from label16 to label17 with label17;
+    }

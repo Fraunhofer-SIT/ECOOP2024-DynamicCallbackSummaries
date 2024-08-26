@@ -1,0 +1,65 @@
+    public java.lang.Object applyN(java.lang.Object[]) throws java.lang.Throwable
+    {
+        java.lang.Object[] $r1;
+        gnu.mapping.MethodProc $r3;
+        gnu.mapping.WrongType $r6;
+        gnu.mapping.CallContext $r5;
+        int $i0, $i1;
+        gnu.mapping.MethodProc[] $r2;
+        java.lang.Object $r4;
+        gnu.expr.GenericProc r0;
+
+        r0 := @this: gnu.expr.GenericProc;
+
+        $r1 := @parameter0: java.lang.Object[];
+
+        $i0 = r0.<gnu.expr.GenericProc: int count>;
+
+        $i1 = 0;
+
+        if $i0 != 1 goto label1;
+
+        $r2 = r0.<gnu.expr.GenericProc: gnu.mapping.MethodProc[] methods>;
+
+        $r3 = $r2[0];
+
+        $r4 = virtualinvoke $r3.<gnu.mapping.MethodProc: java.lang.Object applyN(java.lang.Object[])>($r1);
+
+        return $r4;
+
+     label1:
+        $i0 = lengthof $r1;
+
+        staticinvoke <gnu.expr.GenericProc: void checkArgCount(gnu.mapping.Procedure,int)>(r0, $i0);
+
+        $r5 = staticinvoke <gnu.mapping.CallContext: gnu.mapping.CallContext getInstance()>();
+
+     label2:
+        $i0 = r0.<gnu.expr.GenericProc: int count>;
+
+        if $i1 >= $i0 goto label4;
+
+        $r2 = r0.<gnu.expr.GenericProc: gnu.mapping.MethodProc[] methods>;
+
+        $r3 = $r2[$i1];
+
+        $i0 = virtualinvoke $r3.<gnu.mapping.MethodProc: int matchN(java.lang.Object[],gnu.mapping.CallContext)>($r1, $r5);
+
+        if $i0 != 0 goto label3;
+
+        $r4 = virtualinvoke $r5.<gnu.mapping.CallContext: java.lang.Object runUntilValue()>();
+
+        return $r4;
+
+     label3:
+        $i1 = $i1 + 1;
+
+        goto label2;
+
+     label4:
+        $r6 = new gnu.mapping.WrongType;
+
+        specialinvoke $r6.<gnu.mapping.WrongType: void <init>(gnu.mapping.Procedure,int,java.lang.ClassCastException)>(r0, -1, null);
+
+        throw $r6;
+    }

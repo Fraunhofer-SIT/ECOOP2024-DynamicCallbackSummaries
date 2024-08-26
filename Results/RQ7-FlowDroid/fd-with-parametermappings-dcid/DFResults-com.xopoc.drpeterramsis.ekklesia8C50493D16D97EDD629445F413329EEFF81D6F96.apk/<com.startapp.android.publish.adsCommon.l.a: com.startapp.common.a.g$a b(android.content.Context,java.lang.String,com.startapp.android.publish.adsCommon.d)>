@@ -1,0 +1,141 @@
+    private static com.startapp.common.a.g$a b(android.content.Context, java.lang.String, com.startapp.android.publish.adsCommon.d)
+    {
+        java.lang.Throwable $r11;
+        android.content.Context $r0;
+        java.lang.Integer $r10;
+        com.startapp.common.a.g$a $r7;
+        int $i0, $i1;
+        java.lang.String $r1, $r3, $r5;
+        boolean $z0;
+        com.startapp.android.publish.common.metaData.e $r6;
+        java.util.Set $r9;
+        com.startapp.common.e $r8;
+        com.startapp.android.publish.adsCommon.d $r2;
+        java.lang.StringBuilder $r4, $r12;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r2 := @parameter2: com.startapp.android.publish.adsCommon.d;
+
+        $r3 = $r1;
+
+        if $r2 == null goto label01;
+
+        $r12 = new java.lang.StringBuilder;
+
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r3 = virtualinvoke $r2.<com.startapp.android.publish.adsCommon.d: java.lang.String getRequestString()>();
+
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label01:
+        staticinvoke <com.startapp.android.publish.adsCommon.l.a: java.util.Map a(android.content.Context)>($r0);
+
+        $i0 = 1;
+
+     label02:
+        if $r2 == null goto label07;
+
+        if $i0 <= 1 goto label07;
+
+        $i1 = $i0 + -1;
+
+     label03:
+        virtualinvoke $r2.<com.startapp.android.publish.adsCommon.d: void setRetry(int)>($i1);
+
+     label04:
+        $r12 = new java.lang.StringBuilder;
+
+     label05:
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r5 = virtualinvoke $r2.<com.startapp.android.publish.adsCommon.d: java.lang.String getRequestString()>();
+
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label06:
+        $r3 = $r5;
+
+     label07:
+        $r5 = staticinvoke <com.startapp.android.publish.adsCommon.k: java.lang.String a(android.content.Context,java.lang.String,java.lang.String)>($r0, "User-Agent", "-1");
+
+        $r6 = staticinvoke <com.startapp.android.publish.common.metaData.e: com.startapp.android.publish.common.metaData.e getInstance()>();
+
+        $z0 = virtualinvoke $r6.<com.startapp.android.publish.common.metaData.e: boolean isCompressionEnabled()>();
+
+        $r7 = staticinvoke <com.startapp.common.a.g: com.startapp.common.a.g$a a(java.lang.String,java.lang.String,boolean)>($r3, $r5, $z0);
+
+     label08:
+        return $r7;
+
+     label09:
+        $r8 := @caughtexception;
+
+        $z0 = virtualinvoke $r8.<com.startapp.common.e: boolean b()>();
+
+        if $z0 == 0 goto label15;
+
+        if $i0 >= 3 goto label15;
+
+        $i1 = virtualinvoke $r8.<com.startapp.common.e: int a()>();
+
+        if $i1 == 0 goto label13;
+
+        $r6 = staticinvoke <com.startapp.android.publish.common.metaData.e: com.startapp.android.publish.common.metaData.e getInstance()>();
+
+        $r9 = virtualinvoke $r6.<com.startapp.android.publish.common.metaData.e: java.util.Set getInvalidForRetry()>();
+
+        $i1 = virtualinvoke $r8.<com.startapp.common.e: int a()>();
+
+        $r10 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i1);
+
+        $z0 = interfaceinvoke $r9.<java.util.Set: boolean contains(java.lang.Object)>($r10);
+
+        if $z0 == 0 goto label13;
+
+        $z0 = 0;
+
+     label10:
+        if $z0 == 0 goto label15;
+
+        $i0 = $i0 + 1;
+
+        $i1 = (int) 0;
+
+        if $i1 <= 0 goto label02;
+
+     label11:
+        staticinvoke <java.lang.Thread: void sleep(long)>(0L);
+
+     label12:
+        goto label02;
+
+     label13:
+        $z0 = 1;
+
+        goto label10;
+
+     label14:
+        $r11 := @caughtexception;
+
+        goto label02;
+
+     label15:
+        throw $r8;
+
+        catch com.startapp.common.e from label03 to label04 with label09;
+        catch com.startapp.common.e from label05 to label06 with label09;
+        catch com.startapp.common.e from label07 to label08 with label09;
+        catch java.lang.InterruptedException from label11 to label12 with label14;
+    }

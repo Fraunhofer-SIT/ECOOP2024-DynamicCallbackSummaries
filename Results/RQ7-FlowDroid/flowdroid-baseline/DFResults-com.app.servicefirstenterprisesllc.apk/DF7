@@ -1,0 +1,42 @@
+Source: $i0 = virtualinvoke $r1.<java.io.Reader: int read()>()
+$i0 = virtualinvoke $r1.<java.io.Reader: int read()>() in <org.json.JSONTokener: char next()>
+Sink: virtualinvoke $r13.<java.io.FileOutputStream: void write(byte[])>($r6) in <com.tune.ma.utils.TuneFileUtils: void writeFile(java.lang.String,java.lang.String,java.lang.Object,android.content.Context)>
+
+<org.json.JSONTokener: char next()>: $i0 = virtualinvoke $r1.<java.io.Reader: int read()>()
+<org.json.JSONTokener: char next()>: $i2 = $i0
+<org.json.JSONTokener: char next()>: $c3 = (char) $i2
+<org.json.JSONTokener: char next()>: r0.<org.json.JSONTokener: char previous> = $c3
+<org.json.JSONTokener: char next()>: $c3 = r0.<org.json.JSONTokener: char previous>
+<org.json.JSONTokener: char next()>: return $c3
+<org.json.JSONTokener: java.lang.String next(int)>: $r1[$i1] = $c2
+<org.json.JSONTokener: java.lang.String next(int)>: specialinvoke $r3.<java.lang.String: void <init>(char[])>($r1)
+<org.json.JSONTokener: java.lang.String next(int)>: return $r3
+<org.json.JSONTokener: java.lang.String nextString(char)>: $i2 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String,int)>($r1, 16)
+<org.json.JSONTokener: java.lang.String nextString(char)>: $c1 = (char) $i2
+<org.json.JSONTokener: java.lang.String nextString(char)>: virtualinvoke $r3.<java.lang.StringBuffer: java.lang.StringBuffer append(char)>($c1)
+<org.json.JSONTokener: java.lang.String nextString(char)>: $r1 = virtualinvoke $r3.<java.lang.StringBuffer: java.lang.String toString()>()
+<org.json.JSONTokener: java.lang.String nextString(char)>: return $r1
+<org.json.JSONTokener: java.lang.Object nextValue()>: return $r1
+<org.json.JSONObject: void <init>(org.json.JSONTokener)>: virtualinvoke r0.<org.json.JSONObject: org.json.JSONObject putOnce(java.lang.String,java.lang.Object)>($r3, $r2)
+<org.json.JSONObject: void <init>(org.json.JSONTokener)>: return
+<org.json.JSONObject: void <init>(java.lang.String)>: return
+<com.tune.ma.utils.TuneFileUtils: org.json.JSONObject readJsonFile(java.lang.String,java.lang.Object,android.content.Context)>: return $r3
+<com.tune.ma.file.TuneFileManager: org.json.JSONObject readPlaylist()>: return $r2
+<com.tune.ma.playlist.TunePlaylistManager: boolean loadPlaylistFromDisk()>: specialinvoke $r1.<com.tune.ma.playlist.model.TunePlaylist: void <init>(org.json.JSONObject)>($r5)
+<com.tune.ma.playlist.model.TunePlaylist: void <init>(org.json.JSONObject)>: $r2 = staticinvoke <com.tune.ma.utils.TuneJsonUtils: java.lang.String getString(org.json.JSONObject,java.lang.String)>($r1, "schema_version")
+<com.tune.ma.utils.TuneJsonUtils: java.lang.String getString(org.json.JSONObject,java.lang.String)>: $r0 = virtualinvoke $r2.<org.json.JSONObject: java.lang.String getString(java.lang.String)>($r0)
+<com.tune.ma.utils.TuneJsonUtils: java.lang.String getString(org.json.JSONObject,java.lang.String)>: return $r0
+<com.tune.ma.playlist.model.TunePlaylist: void <init>(org.json.JSONObject)>: r0.<com.tune.ma.playlist.model.TunePlaylist: java.lang.String schemaVersion> = $r2
+<com.tune.ma.playlist.model.TunePlaylist: void <init>(org.json.JSONObject)>: return
+<com.tune.ma.playlist.TunePlaylistManager: boolean loadPlaylistFromDisk()>: virtualinvoke r0.<com.tune.ma.playlist.TunePlaylistManager: void setCurrentPlaylist(com.tune.ma.playlist.model.TunePlaylist)>($r1)
+<com.tune.ma.playlist.TunePlaylistManager: void setCurrentPlaylist(com.tune.ma.playlist.model.TunePlaylist)>: r0.<com.tune.ma.playlist.TunePlaylistManager: com.tune.ma.playlist.model.TunePlaylist currentPlaylist> = $r1
+<com.tune.ma.playlist.TunePlaylistManager: void setCurrentPlaylist(com.tune.ma.playlist.model.TunePlaylist)>: $r4 = r0.<com.tune.ma.playlist.TunePlaylistManager: com.tune.ma.playlist.model.TunePlaylist currentPlaylist>
+<com.tune.ma.playlist.TunePlaylistManager: void setCurrentPlaylist(com.tune.ma.playlist.model.TunePlaylist)>: $r6 = virtualinvoke $r4.<com.tune.ma.playlist.model.TunePlaylist: org.json.JSONObject toJson()>()
+<com.tune.ma.playlist.model.TunePlaylist: org.json.JSONObject toJson()>: $r2 = r0.<com.tune.ma.playlist.model.TunePlaylist: java.lang.String schemaVersion>
+<com.tune.ma.playlist.model.TunePlaylist: org.json.JSONObject toJson()>: virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("schema_version", $r2)
+<com.tune.ma.playlist.model.TunePlaylist: org.json.JSONObject toJson()>: return $r1
+<com.tune.ma.playlist.TunePlaylistManager: void setCurrentPlaylist(com.tune.ma.playlist.model.TunePlaylist)>: interfaceinvoke $r5.<com.tune.ma.file.FileManager: void writePlaylist(org.json.JSONObject)>($r6)
+<com.tune.ma.file.TuneFileManager: void writePlaylist(org.json.JSONObject)>: $r3 = virtualinvoke $r4.<org.json.JSONObject: java.lang.String toString()>()
+<com.tune.ma.file.TuneFileManager: void writePlaylist(org.json.JSONObject)>: staticinvoke <com.tune.ma.utils.TuneFileUtils: void writeFile(java.lang.String,java.lang.String,java.lang.Object,android.content.Context)>($r3, "tune_playlist.json", $r1, $r2)
+<com.tune.ma.utils.TuneFileUtils: void writeFile(java.lang.String,java.lang.String,java.lang.Object,android.content.Context)>: $r6 = virtualinvoke $r1.<java.lang.String: byte[] getBytes()>()
+<com.tune.ma.utils.TuneFileUtils: void writeFile(java.lang.String,java.lang.String,java.lang.Object,android.content.Context)>: virtualinvoke $r13.<java.io.FileOutputStream: void write(byte[])>($r6)

@@ -1,0 +1,114 @@
+    public static boolean write(java.io.File, java.io.InputStream)
+    {
+        java.lang.Throwable $r6, $r7;
+        byte[] $r5;
+        android.os.StrictMode$ThreadPolicy $r2;
+        java.io.FileOutputStream $r3, $r4, $r9;
+        java.io.File $r0;
+        int $i0;
+        java.lang.StringBuilder $r10;
+        java.lang.String $r8;
+        java.io.InputStream $r1;
+
+        $r0 := @parameter0: java.io.File;
+
+        $r1 := @parameter1: java.io.InputStream;
+
+        $r2 = staticinvoke <android.os.StrictMode: android.os.StrictMode$ThreadPolicy allowThreadDiskWrites()>();
+
+        $r3 = null;
+
+     label01:
+        $r9 = new java.io.FileOutputStream;
+
+     label02:
+        $r4 = $r9;
+
+     label03:
+        specialinvoke $r9.<java.io.FileOutputStream: void <init>(java.io.File,boolean)>($r0, 0);
+
+     label04:
+        $r5 = newarray (byte)[1024];
+
+     label05:
+        $i0 = virtualinvoke $r1.<java.io.InputStream: int read(byte[])>($r5);
+
+     label06:
+        if $i0 == -1 goto label09;
+
+     label07:
+        virtualinvoke $r9.<java.io.OutputStream: void write(byte[],int,int)>($r5, 0, $i0);
+
+     label08:
+        goto label05;
+
+     label09:
+        staticinvoke <o.og: void read(java.io.Closeable)>($r9);
+
+        staticinvoke <android.os.StrictMode: void setThreadPolicy(android.os.StrictMode$ThreadPolicy)>($r2);
+
+        return 1;
+
+     label10:
+        $r6 := @caughtexception;
+
+        goto label18;
+
+     label11:
+        $r7 := @caughtexception;
+
+        $r3 = $r9;
+
+        goto label14;
+
+     label12:
+        $r6 := @caughtexception;
+
+        goto label17;
+
+     label13:
+        $r7 := @caughtexception;
+
+     label14:
+        $r10 = new java.lang.StringBuilder;
+
+     label15:
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Error copying resource contents to temp file: ");
+
+        $r8 = virtualinvoke $r7.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r8 = virtualinvoke $r10.<java.lang.Object: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("TypefaceCompatUtil", $r8);
+
+     label16:
+        staticinvoke <o.og: void read(java.io.Closeable)>($r3);
+
+        staticinvoke <android.os.StrictMode: void setThreadPolicy(android.os.StrictMode$ThreadPolicy)>($r2);
+
+        return 0;
+
+     label17:
+        $r4 = $r3;
+
+     label18:
+        staticinvoke <o.og: void read(java.io.Closeable)>($r4);
+
+        staticinvoke <android.os.StrictMode: void setThreadPolicy(android.os.StrictMode$ThreadPolicy)>($r2);
+
+        throw $r6;
+
+        catch java.io.IOException from label03 to label04 with label13;
+        catch java.lang.Throwable from label01 to label02 with label12;
+        catch java.lang.Throwable from label03 to label04 with label12;
+        catch java.io.IOException from label05 to label06 with label11;
+        catch java.io.IOException from label07 to label08 with label11;
+        catch java.lang.Throwable from label05 to label06 with label10;
+        catch java.lang.Throwable from label07 to label08 with label10;
+        catch java.lang.Throwable from label14 to label15 with label12;
+        catch java.lang.Throwable from label15 to label16 with label12;
+    }

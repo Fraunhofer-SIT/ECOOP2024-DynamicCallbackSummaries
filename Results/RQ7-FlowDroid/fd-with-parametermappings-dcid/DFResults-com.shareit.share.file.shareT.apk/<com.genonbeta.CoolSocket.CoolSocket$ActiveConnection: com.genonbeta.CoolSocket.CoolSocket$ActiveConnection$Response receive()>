@@ -1,0 +1,162 @@
+    public com.genonbeta.CoolSocket.CoolSocket$ActiveConnection$Response receive() throws java.io.IOException, java.util.concurrent.TimeoutException, org.json.JSONException
+    {
+        byte[] $r2, $r9;
+        java.net.Socket $r3;
+        java.io.ByteArrayOutputStream $r1, $r5, $r10;
+        java.net.SocketAddress $r6;
+        java.util.concurrent.TimeoutException $r13;
+        com.genonbeta.CoolSocket.CoolSocket$ActiveConnection r0;
+        long $l1, $l2, $l5;
+        org.json.JSONObject $r12;
+        byte $b3;
+        int $i0, $i4;
+        java.lang.String $r7, $r8;
+        boolean $z0;
+        com.genonbeta.CoolSocket.CoolSocket$ActiveConnection$Response $r11;
+        java.io.InputStream $r4;
+
+        r0 := @this: com.genonbeta.CoolSocket.CoolSocket$ActiveConnection;
+
+        $r2 = newarray (byte)[8096];
+
+        $i0 = virtualinvoke r0.<com.genonbeta.CoolSocket.CoolSocket$ActiveConnection: int getTimeout()>();
+
+        if $i0 == -1 goto label1;
+
+        $l1 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $i0 = virtualinvoke r0.<com.genonbeta.CoolSocket.CoolSocket$ActiveConnection: int getTimeout()>();
+
+        $l2 = (long) $i0;
+
+        $l1 = $l1 + $l2;
+
+        goto label2;
+
+     label1:
+        $l1 = -1L;
+
+     label2:
+        $r3 = virtualinvoke r0.<com.genonbeta.CoolSocket.CoolSocket$ActiveConnection: java.net.Socket getSocket()>();
+
+        $r4 = virtualinvoke $r3.<java.net.Socket: java.io.InputStream getInputStream()>();
+
+        $r1 = new java.io.ByteArrayOutputStream;
+
+        $r5 = $r1;
+
+        specialinvoke $r1.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r10 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r10.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r11 = new com.genonbeta.CoolSocket.CoolSocket$ActiveConnection$Response;
+
+        specialinvoke $r11.<com.genonbeta.CoolSocket.CoolSocket$ActiveConnection$Response: void <init>(com.genonbeta.CoolSocket.CoolSocket$ActiveConnection)>(r0);
+
+        $r3 = virtualinvoke r0.<com.genonbeta.CoolSocket.CoolSocket$ActiveConnection: java.net.Socket getSocket()>();
+
+        $r6 = virtualinvoke $r3.<java.net.Socket: java.net.SocketAddress getRemoteSocketAddress()>();
+
+        $r11.<com.genonbeta.CoolSocket.CoolSocket$ActiveConnection$Response: java.net.SocketAddress remoteAddress> = $r6;
+
+     label3:
+        $i0 = virtualinvoke $r4.<java.io.InputStream: int read(byte[])>($r2);
+
+        if $i0 <= 0 goto label5;
+
+        $l2 = $r11.<com.genonbeta.CoolSocket.CoolSocket$ActiveConnection$Response: long totalLength>;
+
+        $b3 = $l2 cmp -1L;
+
+        if $b3 == 0 goto label4;
+
+        virtualinvoke $r10.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r2, 0, $i0);
+
+        virtualinvoke $r10.<java.io.ByteArrayOutputStream: void flush()>();
+
+        goto label5;
+
+     label4:
+        virtualinvoke $r5.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r2, 0, $i0);
+
+        virtualinvoke $r5.<java.io.ByteArrayOutputStream: void flush()>();
+
+        $r7 = virtualinvoke $r5.<java.io.ByteArrayOutputStream: java.lang.String toString()>();
+
+        $z0 = virtualinvoke $r7.<java.lang.String: boolean contains(java.lang.CharSequence)>("\nHEADER_END\n");
+
+        if $z0 == 0 goto label5;
+
+        $r7 = virtualinvoke $r5.<java.io.ByteArrayOutputStream: java.lang.String toString()>();
+
+        $i0 = virtualinvoke $r7.<java.lang.String: int indexOf(java.lang.String)>("\nHEADER_END\n");
+
+        $r12 = new org.json.JSONObject;
+
+        $r8 = virtualinvoke $r7.<java.lang.String: java.lang.String substring(int,int)>(0, $i0);
+
+        specialinvoke $r12.<org.json.JSONObject: void <init>(java.lang.String)>($r8);
+
+        $l2 = virtualinvoke $r12.<org.json.JSONObject: long getLong(java.lang.String)>("length");
+
+        $r11.<com.genonbeta.CoolSocket.CoolSocket$ActiveConnection$Response: long totalLength> = $l2;
+
+        $r11.<com.genonbeta.CoolSocket.CoolSocket$ActiveConnection$Response: org.json.JSONObject headerIndex> = $r12;
+
+        $i4 = virtualinvoke $r5.<java.io.ByteArrayOutputStream: int size()>();
+
+        if $i0 >= $i4 goto label5;
+
+        $i0 = $i0 + 12;
+
+        $r7 = virtualinvoke $r7.<java.lang.String: java.lang.String substring(int)>($i0);
+
+        $r9 = virtualinvoke $r7.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke $r10.<java.io.ByteArrayOutputStream: void write(byte[])>($r9);
+
+     label5:
+        $b3 = $l1 cmp -1L;
+
+        if $b3 == 0 goto label6;
+
+        $l2 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $b3 = $l2 cmp $l1;
+
+        $i0 = (int) $b3;
+
+        if $i0 <= 0 goto label6;
+
+        $r13 = new java.util.concurrent.TimeoutException;
+
+        specialinvoke $r13.<java.util.concurrent.TimeoutException: void <init>(java.lang.String)>("Read timed out!");
+
+        throw $r13;
+
+     label6:
+        $l2 = $r11.<com.genonbeta.CoolSocket.CoolSocket$ActiveConnection$Response: long totalLength>;
+
+        $i0 = virtualinvoke $r10.<java.io.ByteArrayOutputStream: int size()>();
+
+        $l5 = (long) $i0;
+
+        $b3 = $l2 cmp $l5;
+
+        if $b3 == 0 goto label7;
+
+        $l2 = $r11.<com.genonbeta.CoolSocket.CoolSocket$ActiveConnection$Response: long totalLength>;
+
+        $b3 = $l2 cmp 0L;
+
+        if $b3 != 0 goto label3;
+
+     label7:
+        $r7 = virtualinvoke $r10.<java.io.ByteArrayOutputStream: java.lang.String toString()>();
+
+        $r11.<com.genonbeta.CoolSocket.CoolSocket$ActiveConnection$Response: java.lang.String response> = $r7;
+
+        return $r11;
+    }

@@ -1,0 +1,26 @@
+    public static java.lang.String getPersistentUUID(android.content.Context)
+    {
+        android.content.SharedPreferences$Editor $r3;
+        android.content.Context $r0;
+        android.content.SharedPreferences $r1;
+        java.lang.String $r2;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 = staticinvoke <com.braintreepayments.api.internal.BraintreeSharedPreferences: android.content.SharedPreferences getSharedPreferences(android.content.Context)>($r0);
+
+        $r2 = interfaceinvoke $r1.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("braintreeUUID", null);
+
+        if $r2 != null goto label1;
+
+        $r2 = staticinvoke <com.braintreepayments.api.internal.UUIDHelper: java.lang.String getFormattedUUID()>();
+
+        $r3 = interfaceinvoke $r1.<android.content.SharedPreferences: android.content.SharedPreferences$Editor edit()>();
+
+        $r3 = interfaceinvoke $r3.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putString(java.lang.String,java.lang.String)>("braintreeUUID", $r2);
+
+        interfaceinvoke $r3.<android.content.SharedPreferences$Editor: void apply()>();
+
+     label1:
+        return $r2;
+    }

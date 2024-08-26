@@ -1,0 +1,125 @@
+    public java.util.Map b(java.lang.String, com.umeng.fb.model.Reply)
+    {
+        android.content.Context $r4;
+        com.umeng.fb.model.UserInfo $r8;
+        com.umeng.fb.model.Store $r7;
+        java.util.HashMap $r1;
+        long $l0;
+        com.umeng.fb.model.Reply $r3;
+        java.lang.Exception $r12;
+        org.json.JSONObject $r5, $r9;
+        java.lang.Long $r11;
+        com.umeng.fb.net.a r0;
+        java.lang.StringBuilder $r10;
+        java.lang.String $r2, $r6;
+
+        r0 := @this: com.umeng.fb.net.a;
+
+        $r2 := @parameter0: java.lang.String;
+
+        $r3 := @parameter1: com.umeng.fb.model.Reply;
+
+        $r1 = new java.util.HashMap;
+
+        specialinvoke $r1.<java.util.HashMap: void <init>()>();
+
+     label1:
+        $r4 = r0.<com.umeng.fb.net.a: android.content.Context i>;
+
+        $r5 = staticinvoke <com.umeng.fb.util.c: org.json.JSONObject a(android.content.Context)>($r4);
+
+        $r6 = $r3.<com.umeng.fb.model.Reply: java.lang.String content>;
+
+        virtualinvoke $r5.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("content", $r6);
+
+        $r4 = r0.<com.umeng.fb.net.a: android.content.Context i>;
+
+        $r7 = staticinvoke <com.umeng.fb.model.Store: com.umeng.fb.model.Store getInstance(android.content.Context)>($r4);
+
+        $r6 = virtualinvoke $r7.<com.umeng.fb.model.Store: java.lang.String getUid()>();
+
+        virtualinvoke $r5.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("uid", $r6);
+
+        $r4 = r0.<com.umeng.fb.net.a: android.content.Context i>;
+
+        $r7 = staticinvoke <com.umeng.fb.model.Store: com.umeng.fb.model.Store getInstance(android.content.Context)>($r4);
+
+        $r6 = virtualinvoke $r7.<com.umeng.fb.model.Store: java.lang.String getDeviceUUID()>();
+
+        virtualinvoke $r5.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("device_uuid", $r6);
+
+        virtualinvoke $r5.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("feedback_id", $r2);
+
+        $r4 = r0.<com.umeng.fb.net.a: android.content.Context i>;
+
+        $r7 = staticinvoke <com.umeng.fb.model.Store: com.umeng.fb.model.Store getInstance(android.content.Context)>($r4);
+
+        $r8 = virtualinvoke $r7.<com.umeng.fb.model.Store: com.umeng.fb.model.UserInfo getUserInfo()>();
+
+        $r9 = virtualinvoke $r8.<com.umeng.fb.model.UserInfo: org.json.JSONObject getRemarkJson()>();
+
+     label2:
+        if $r9 == null goto label4;
+
+     label3:
+        $r4 = r0.<com.umeng.fb.net.a: android.content.Context i>;
+
+        $r7 = staticinvoke <com.umeng.fb.model.Store: com.umeng.fb.model.Store getInstance(android.content.Context)>($r4);
+
+        $r8 = virtualinvoke $r7.<com.umeng.fb.model.Store: com.umeng.fb.model.UserInfo getUserInfo()>();
+
+        $r9 = virtualinvoke $r8.<com.umeng.fb.model.UserInfo: org.json.JSONObject getRemarkJson()>();
+
+        $r2 = virtualinvoke $r9.<org.json.JSONObject: java.lang.String toString()>();
+
+        virtualinvoke $r5.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("remark", $r2);
+
+     label4:
+        $r9 = staticinvoke <com.umeng.fb.net.a: org.json.JSONObject a(org.json.JSONObject,java.lang.String)>($r5, "http://fb.umeng.com/api/v2/feedback/new");
+
+     label5:
+        $r2 = <com.umeng.fb.net.a: java.lang.String h>;
+
+        $r10 = new java.lang.StringBuilder;
+
+     label6:
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("newFeedback request --");
+
+        $r6 = virtualinvoke $r5.<org.json.JSONObject: java.lang.String toString()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r6 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.umeng.fb.util.Log: void c(java.lang.String,java.lang.String)>($r2, $r6);
+
+        $r5 = virtualinvoke $r9.<org.json.JSONObject: org.json.JSONObject getJSONObject(java.lang.String)>("data");
+
+        $r2 = virtualinvoke $r5.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("feedback_id");
+
+        $r5 = virtualinvoke $r9.<org.json.JSONObject: org.json.JSONObject getJSONObject(java.lang.String)>("data");
+
+        $l0 = virtualinvoke $r5.<org.json.JSONObject: long getLong(java.lang.String)>("created_at");
+
+        interfaceinvoke $r1.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("feedback_id", $r2);
+
+        $r11 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>($l0);
+
+        interfaceinvoke $r1.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("created_at", $r11);
+
+     label7:
+        return $r1;
+
+     label8:
+        $r12 := @caughtexception;
+
+        virtualinvoke $r12.<java.lang.Exception: void printStackTrace()>();
+
+        return $r1;
+
+        catch java.lang.Exception from label1 to label2 with label8;
+        catch java.lang.Exception from label3 to label5 with label8;
+        catch java.lang.Exception from label6 to label7 with label8;
+    }

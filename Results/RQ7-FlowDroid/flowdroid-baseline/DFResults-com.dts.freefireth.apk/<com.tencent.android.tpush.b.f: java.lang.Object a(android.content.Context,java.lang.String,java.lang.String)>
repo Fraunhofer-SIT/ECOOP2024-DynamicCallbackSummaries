@@ -1,0 +1,46 @@
+    private java.lang.Object a(android.content.Context, java.lang.String, java.lang.String)
+    {
+        java.lang.Throwable $r6;
+        android.content.Context $r1;
+        com.tencent.android.tpush.b.f r0;
+        java.lang.StringBuilder $r4;
+        java.lang.Object $r5;
+        java.lang.String $r2, $r3;
+
+        r0 := @this: com.tencent.android.tpush.b.f;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r3 := @parameter2: java.lang.String;
+
+     label1:
+        $r4 = new java.lang.StringBuilder;
+
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".tpns.msg.id");
+
+        $r2 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r2 = staticinvoke <com.tencent.bigdata.baseapi.base.PushPreferences: java.lang.String getString(android.content.Context,java.lang.String,java.lang.String)>($r1, $r2, null);
+
+        $r2 = staticinvoke <com.tencent.android.tpush.encrypt.Rijndael: java.lang.String decrypt(java.lang.String)>($r2);
+
+        $r5 = staticinvoke <com.tencent.android.tpush.common.f: java.lang.Object b(java.lang.String)>($r2);
+
+     label2:
+        return $r5;
+
+     label3:
+        $r6 := @caughtexception;
+
+        staticinvoke <com.tencent.android.tpush.logging.TLogger: void e(java.lang.String,java.lang.String,java.lang.Throwable)>("MessageManager", "getSettings", $r6);
+
+        return null;
+
+        catch java.lang.Throwable from label1 to label2 with label3;
+    }

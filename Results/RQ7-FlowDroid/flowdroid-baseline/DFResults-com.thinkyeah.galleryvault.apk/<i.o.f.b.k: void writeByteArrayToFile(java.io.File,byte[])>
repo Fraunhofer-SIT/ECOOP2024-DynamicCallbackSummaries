@@ -1,0 +1,60 @@
+    public static void writeByteArrayToFile(java.io.File, byte[]) throws java.io.IOException
+    {
+        java.lang.Throwable $r1, $r2, $r6;
+        byte[] $r4;
+        java.io.FileOutputStream $r0, $r5;
+        java.io.File $r3;
+
+        $r3 := @parameter0: java.io.File;
+
+        $r4 := @parameter1: byte[];
+
+     label01:
+        $r0 = staticinvoke <i.o.f.b.k: java.io.FileOutputStream openOutputStream(java.io.File)>($r3);
+
+     label02:
+        $r5 = $r0;
+
+     label03:
+        virtualinvoke $r0.<java.io.OutputStream: void write(byte[])>($r4);
+
+     label04:
+        virtualinvoke $r0.<java.io.OutputStream: void close()>();
+
+     label05:
+        return;
+
+     label06:
+        $r6 := @caughtexception;
+
+        goto label08;
+
+     label07:
+        $r6 := @caughtexception;
+
+        $r5 = null;
+
+     label08:
+        if $r5 == null goto label10;
+
+     label09:
+        virtualinvoke $r5.<java.io.OutputStream: void close()>();
+
+     label10:
+        throw $r6;
+
+     label11:
+        $r1 := @caughtexception;
+
+        return;
+
+     label12:
+        $r2 := @caughtexception;
+
+        goto label10;
+
+        catch java.lang.Throwable from label01 to label02 with label07;
+        catch java.lang.Throwable from label03 to label04 with label06;
+        catch java.io.IOException from label04 to label05 with label11;
+        catch java.io.IOException from label09 to label10 with label12;
+    }

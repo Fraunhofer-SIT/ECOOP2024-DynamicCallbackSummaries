@@ -1,0 +1,173 @@
+    public void onResume()
+    {
+        android.content.Context $r15;
+        android.hardware.display.DisplayManager$DisplayListener $r4;
+        o.JobInfo$TriggerContentUri r0;
+        android.net.Uri $r13;
+        net.mbc.shahid.service.model.shahidmodel.ProductModel $r11;
+        long $l1;
+        com.google.android.gms.cast.framework.CastContext $r5;
+        android.content.ContentResolver $r12;
+        android.os.Handler $r2;
+        int $i0;
+        o.onKeyPreIme $r10;
+        boolean $z0;
+        net.mbc.shahid.enums.PlayerMode $r9;
+        o.onVisibilityAggregated $r8;
+        com.google.android.gms.cast.framework.CastSession $r7;
+        android.database.ContentObserver $r1;
+        com.google.android.gms.cast.framework.SessionManager $r6;
+        android.hardware.display.DisplayManager $r3;
+        android.view.OrientationEventListener $r14;
+        android.content.res.Resources $r16;
+
+        r0 := @this: o.JobInfo$TriggerContentUri;
+
+        specialinvoke r0.<o.ContentValues: void onResume()>();
+
+        $r2 = r0.<o.ContentValues: android.os.Handler getLifecycle>;
+
+        virtualinvoke $r2.<android.os.Handler: void removeMessages(int)>(12);
+
+        $r2 = r0.<o.ContentValues: android.os.Handler getLifecycle>;
+
+        $i0 = staticinvoke <o.JobInfo$TriggerContentUri: int onSetPlaybackSpeed()>();
+
+        $l1 = (long) $i0;
+
+        virtualinvoke $r2.<android.os.Handler: boolean sendEmptyMessageDelayed(int,long)>(12, $l1);
+
+        $r3 = r0.<o.ContentValues: android.hardware.display.DisplayManager onPrepareFromUri>;
+
+        if $r3 == null goto label1;
+
+        $r3 = r0.<o.ContentValues: android.hardware.display.DisplayManager onPrepareFromUri>;
+
+        $r4 = r0.<o.ContentValues: android.hardware.display.DisplayManager$DisplayListener MediaControllerCompat$MediaControllerImplApi21$ExtraBinderRequestResultReceiver>;
+
+        virtualinvoke $r3.<android.hardware.display.DisplayManager: void registerDisplayListener(android.hardware.display.DisplayManager$DisplayListener,android.os.Handler)>($r4, null);
+
+     label1:
+        $z0 = r0.<o.ContentValues: boolean onSkipToNext>;
+
+        if $z0 == 0 goto label2;
+
+        $r5 = r0.<o.ContentValues: com.google.android.gms.cast.framework.CastContext onRewind>;
+
+        virtualinvoke $r5.<com.google.android.gms.cast.framework.CastContext: void addCastStateListener(com.google.android.gms.cast.framework.CastStateListener)>(r0);
+
+        $r5 = r0.<o.ContentValues: com.google.android.gms.cast.framework.CastContext onRewind>;
+
+        $r6 = virtualinvoke $r5.<com.google.android.gms.cast.framework.CastContext: com.google.android.gms.cast.framework.SessionManager getSessionManager()>();
+
+        virtualinvoke $r6.<com.google.android.gms.cast.framework.SessionManager: void addSessionManagerListener(com.google.android.gms.cast.framework.SessionManagerListener,java.lang.Class)>(r0, class "Lcom/google/android/gms/cast/framework/CastSession;");
+
+        $r5 = r0.<o.ContentValues: com.google.android.gms.cast.framework.CastContext onRewind>;
+
+        $i0 = virtualinvoke $r5.<com.google.android.gms.cast.framework.CastContext: int getCastState()>();
+
+        virtualinvoke r0.<o.JobInfo$TriggerContentUri: void onCastStateChanged(int)>($i0);
+
+        $r7 = r0.<o.ContentValues: com.google.android.gms.cast.framework.CastSession onRemoveQueueItemAt>;
+
+        if $r7 != null goto label2;
+
+        $r5 = r0.<o.ContentValues: com.google.android.gms.cast.framework.CastContext onRewind>;
+
+        $r6 = virtualinvoke $r5.<com.google.android.gms.cast.framework.CastContext: com.google.android.gms.cast.framework.SessionManager getSessionManager()>();
+
+        $r7 = virtualinvoke $r6.<com.google.android.gms.cast.framework.SessionManager: com.google.android.gms.cast.framework.CastSession getCurrentCastSession()>();
+
+        r0.<o.ContentValues: com.google.android.gms.cast.framework.CastSession onRemoveQueueItemAt> = $r7;
+
+     label2:
+        $r8 = r0.<o.ContentValues: o.onVisibilityAggregated onSkipToPrevious>;
+
+        if $r8 == null goto label4;
+
+        $z0 = r0.<o.JobInfo$TriggerContentUri: boolean RemoteActionCompatParcelizer>;
+
+        if $z0 != 0 goto label3;
+
+        $r8 = r0.<o.ContentValues: o.onVisibilityAggregated onSkipToPrevious>;
+
+        virtualinvoke $r8.<o.onVisibilityAggregated: void AudioAttributesImplApi26Parcelizer()>();
+
+     label3:
+        $r9 = r0.<o.ContentValues: net.mbc.shahid.enums.PlayerMode ParcelableVolumeInfo>;
+
+        virtualinvoke r0.<o.JobInfo$TriggerContentUri: void RemoteActionCompatParcelizer(net.mbc.shahid.enums.PlayerMode)>($r9);
+
+     label4:
+        $z0 = r0.<o.JobInfo$TriggerContentUri: boolean RemoteActionCompatParcelizer>;
+
+        if $z0 == 0 goto label5;
+
+        $r10 = r0.<o.JobInfo$TriggerContentUri: o.onKeyPreIme setUiOptions>;
+
+        if $r10 == null goto label5;
+
+        $r11 = $r10.<o.onKeyPreIme: net.mbc.shahid.service.model.shahidmodel.ProductModel IconCompatParcelizer>;
+
+        if $r11 == null goto label5;
+
+        $r10 = r0.<o.JobInfo$TriggerContentUri: o.onKeyPreIme setUiOptions>;
+
+        $r11 = $r10.<o.onKeyPreIme: net.mbc.shahid.service.model.shahidmodel.ProductModel IconCompatParcelizer>;
+
+        specialinvoke r0.<o.JobInfo$TriggerContentUri: void AudioAttributesCompatParcelizer(net.mbc.shahid.service.model.shahidmodel.ProductModel)>($r11);
+
+     label5:
+        $r12 = virtualinvoke r0.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+        $r13 = staticinvoke <android.provider.Settings$System: android.net.Uri getUriFor(java.lang.String)>("accelerometer_rotation");
+
+        $r1 = r0.<o.JobInfo$TriggerContentUri: android.database.ContentObserver setOverflowReserved>;
+
+        $z0 = 1;
+
+        virtualinvoke $r12.<android.content.ContentResolver: void registerContentObserver(android.net.Uri,boolean,android.database.ContentObserver)>($r13, 1, $r1);
+
+        $r12 = virtualinvoke r0.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+        $i0 = staticinvoke <android.provider.Settings$System: int getInt(android.content.ContentResolver,java.lang.String,int)>($r12, "accelerometer_rotation", 0);
+
+        if $i0 == 1 goto label6;
+
+        $z0 = 0;
+
+     label6:
+        if $z0 == 0 goto label7;
+
+        $z0 = r0.<o.JobInfo$TriggerContentUri: boolean initDelegate>;
+
+        if $z0 == 0 goto label7;
+
+        $r14 = r0.<o.JobInfo$TriggerContentUri: android.view.OrientationEventListener setCustomView>;
+
+        if $r14 == null goto label8;
+
+        $r15 = staticinvoke <o.isFinishing: android.content.Context read()>();
+
+        $r16 = virtualinvoke $r15.<android.content.Context: android.content.res.Resources getResources()>();
+
+        $z0 = virtualinvoke $r16.<android.content.res.Resources: boolean getBoolean(int)>(2131034120);
+
+        if $z0 != 0 goto label8;
+
+        $r14 = r0.<o.JobInfo$TriggerContentUri: android.view.OrientationEventListener setCustomView>;
+
+        virtualinvoke $r14.<android.view.OrientationEventListener: void enable()>();
+
+        return;
+
+     label7:
+        $r14 = r0.<o.JobInfo$TriggerContentUri: android.view.OrientationEventListener setCustomView>;
+
+        if $r14 == null goto label8;
+
+        virtualinvoke $r14.<android.view.OrientationEventListener: void disable()>();
+
+     label8:
+        return;
+    }

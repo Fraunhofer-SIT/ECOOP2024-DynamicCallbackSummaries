@@ -1,0 +1,45 @@
+    public static java.lang.String a(byte[])
+    {
+        byte[] $r0;
+        java.util.zip.GZIPInputStream $r1;
+        java.io.ByteArrayInputStream $r2;
+        java.lang.String $r3;
+        com.facebook.ads.internal.k.b $r5;
+        java.lang.Exception $r4;
+
+        $r0 := @parameter0: byte[];
+
+        $r2 = new java.io.ByteArrayInputStream;
+
+     label1:
+        specialinvoke $r2.<java.io.ByteArrayInputStream: void <init>(byte[])>($r0);
+
+     label2:
+        $r1 = new java.util.zip.GZIPInputStream;
+
+     label3:
+        specialinvoke $r1.<java.util.zip.GZIPInputStream: void <init>(java.io.InputStream)>($r2);
+
+        $r3 = staticinvoke <com.facebook.ads.internal.k.h: java.lang.String a(java.io.InputStream)>($r1);
+
+        virtualinvoke $r1.<java.util.zip.GZIPInputStream: void close()>();
+
+        virtualinvoke $r2.<java.io.ByteArrayInputStream: void close()>();
+
+     label4:
+        return $r3;
+
+     label5:
+        $r4 := @caughtexception;
+
+        $r5 = staticinvoke <com.facebook.ads.internal.k.b: com.facebook.ads.internal.k.b a(java.lang.Throwable,java.lang.String)>($r4, "Error decompressing data");
+
+        staticinvoke <com.facebook.ads.internal.k.c: void a(com.facebook.ads.internal.k.b)>($r5);
+
+        virtualinvoke $r4.<java.lang.Exception: void printStackTrace()>();
+
+        return "";
+
+        catch java.lang.Exception from label1 to label2 with label5;
+        catch java.lang.Exception from label3 to label4 with label5;
+    }

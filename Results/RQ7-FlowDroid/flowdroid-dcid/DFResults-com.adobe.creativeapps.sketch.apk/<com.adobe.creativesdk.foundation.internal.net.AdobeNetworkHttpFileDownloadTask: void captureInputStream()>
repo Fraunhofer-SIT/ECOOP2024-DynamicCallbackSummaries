@@ -1,0 +1,408 @@
+    protected void captureInputStream()
+    {
+        java.net.HttpURLConnection $r5;
+        java.lang.Throwable r10, $r15;
+        byte[] r1;
+        com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTaskHandle $r8;
+        java.net.URL $r19;
+        java.lang.Integer $r9;
+        java.io.BufferedOutputStream r2, $r18;
+        com.adobe.creativesdk.foundation.internal.utils.logging.Level $r11;
+        java.util.Map $r12;
+        int $i0, i1, $i2;
+        java.lang.String $r7;
+        com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse $r4;
+        boolean $z0;
+        java.io.FileOutputStream $r17;
+        java.io.IOException $r20;
+        com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask r0;
+        java.io.File $r16;
+        java.util.List $r14;
+        float $f0, $f1;
+        java.lang.Object $r13;
+        java.io.InputStream r3, $r6;
+
+        r0 := @this: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask;
+
+        r2 = null;
+
+        r3 = null;
+
+     label01:
+        $r4 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse response>;
+
+     label02:
+        $i0 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse: int getStatusCode()>();
+
+     label03:
+        if $i0 != 200 goto label47;
+
+     label04:
+        $r5 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: java.net.HttpURLConnection urlConnection>;
+
+     label05:
+        $r6 = virtualinvoke $r5.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+     label06:
+        r3 = $r6;
+
+     label07:
+        $r5 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: java.net.HttpURLConnection urlConnection>;
+
+     label08:
+        $i0 = virtualinvoke $r5.<java.net.HttpURLConnection: int getContentLength()>();
+
+     label09:
+        $r16 = new java.io.File;
+
+     label10:
+        $r7 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: java.lang.String _destinationPath>;
+
+     label11:
+        specialinvoke $r16.<java.io.File: void <init>(java.lang.String)>($r7);
+
+        $z0 = virtualinvoke $r16.<java.io.File: boolean exists()>();
+
+     label12:
+        if $z0 != 0 goto label15;
+
+     label13:
+        $r7 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: java.lang.String _destinationPath>;
+
+     label14:
+        staticinvoke <com.adobe.creativesdk.foundation.internal.utils.AdobeNetworkFileUtils: boolean touch(java.lang.String)>($r7);
+
+     label15:
+        $r18 = new java.io.BufferedOutputStream;
+
+     label16:
+        $r17 = new java.io.FileOutputStream;
+
+     label17:
+        $r7 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: java.lang.String _destinationPath>;
+
+     label18:
+        specialinvoke $r17.<java.io.FileOutputStream: void <init>(java.lang.String)>($r7);
+
+     label19:
+        specialinvoke $r18.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream,int)>($r17, 32768);
+
+     label20:
+        i1 = 0;
+
+     label21:
+        r1 = newarray (byte)[32768];
+
+     label22:
+        $i2 = virtualinvoke $r6.<java.io.InputStream: int read(byte[])>(r1);
+
+     label23:
+        if $i2 == -1 goto label43;
+
+     label24:
+        $r8 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTaskHandle requestHandler>;
+
+     label25:
+        $z0 = virtualinvoke $r8.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTaskHandle: boolean isCancelled()>();
+
+     label26:
+        if $z0 == 0 goto label29;
+
+     label27:
+        staticinvoke <org.apache.commons.io.IOUtils: void closeQuietly(java.io.InputStream)>($r6);
+
+        staticinvoke <org.apache.commons.io.IOUtils: void closeQuietly(java.io.OutputStream)>($r18);
+
+     label28:
+        staticinvoke <org.apache.commons.io.IOUtils: void closeQuietly(java.io.InputStream)>($r6);
+
+        staticinvoke <org.apache.commons.io.IOUtils: void closeQuietly(java.io.OutputStream)>($r18);
+
+        return;
+
+     label29:
+        virtualinvoke $r18.<java.io.OutputStream: void write(byte[],int,int)>(r1, 0, $i2);
+
+     label30:
+        i1 = i1 + $i2;
+
+        $f0 = (float) i1;
+
+        $f1 = (float) $i0;
+
+        $f0 = $f0 / $f1;
+
+        $f0 = $f0 * 100.0F;
+
+        $i2 = (int) $f0;
+
+     label31:
+        $r9 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i2);
+
+        virtualinvoke r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: void onProgressUpdate(java.lang.Integer)>($r9);
+
+     label32:
+        goto label22;
+
+     label33:
+        r10 := @caughtexception;
+
+        r2 = $r18;
+
+     label34:
+        if r10 == null goto label80;
+
+     label35:
+        $r20 = (java.io.IOException) r10;
+
+        $r7 = virtualinvoke $r20.<java.io.IOException: java.lang.String getMessage()>();
+
+        $z0 = virtualinvoke $r7.<java.lang.String: boolean contains(java.lang.CharSequence)>("No space left on device");
+
+     label36:
+        if $z0 == 0 goto label80;
+
+     label37:
+        $r16 = new java.io.File;
+
+     label38:
+        $r7 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: java.lang.String _destinationPath>;
+
+        specialinvoke $r16.<java.io.File: void <init>(java.lang.String)>($r7);
+
+        $z0 = virtualinvoke $r16.<java.io.File: boolean exists()>();
+
+     label39:
+        if $z0 == 0 goto label41;
+
+     label40:
+        virtualinvoke $r16.<java.io.File: boolean delete()>();
+
+     label41:
+        $r4 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse response>;
+
+        virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse: void setNoStorageSpaceError(boolean)>(1);
+
+        $r11 = <com.adobe.creativesdk.foundation.internal.utils.logging.Level: com.adobe.creativesdk.foundation.internal.utils.logging.Level ERROR>;
+
+        $r7 = <com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: java.lang.String T>;
+
+        staticinvoke <com.adobe.creativesdk.foundation.internal.utils.logging.AdobeLogger: void log(com.adobe.creativesdk.foundation.internal.utils.logging.Level,java.lang.String,java.lang.String,java.lang.Throwable)>($r11, $r7, "No space left on device", r10);
+
+     label42:
+        staticinvoke <org.apache.commons.io.IOUtils: void closeQuietly(java.io.InputStream)>(r3);
+
+        staticinvoke <org.apache.commons.io.IOUtils: void closeQuietly(java.io.OutputStream)>(r2);
+
+        return;
+
+     label43:
+        $r4 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse response>;
+
+     label44:
+        virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse: void setBytesReceived(int)>(i1);
+
+     label45:
+        r2 = $r18;
+
+     label46:
+        staticinvoke <org.apache.commons.io.IOUtils: void closeQuietly(java.io.InputStream)>(r3);
+
+        staticinvoke <org.apache.commons.io.IOUtils: void closeQuietly(java.io.OutputStream)>(r2);
+
+        return;
+
+     label47:
+        $r4 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse response>;
+
+     label48:
+        $i0 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse: int getStatusCode()>();
+
+     label49:
+        if $i0 == 301 goto label59;
+
+     label50:
+        $r4 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse response>;
+
+     label51:
+        $i0 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse: int getStatusCode()>();
+
+     label52:
+        if $i0 == 302 goto label59;
+
+     label53:
+        $r4 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse response>;
+
+     label54:
+        $i0 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse: int getStatusCode()>();
+
+     label55:
+        if $i0 == 303 goto label59;
+
+     label56:
+        $r4 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse response>;
+
+     label57:
+        $i0 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse: int getStatusCode()>();
+
+     label58:
+        if $i0 != 307 goto label46;
+
+     label59:
+        $r4 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse response>;
+
+     label60:
+        $r12 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse: java.util.Map getHeaders()>();
+
+     label61:
+        if $r12 == null goto label46;
+
+     label62:
+        $r4 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse response>;
+
+     label63:
+        $r12 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse: java.util.Map getHeaders()>();
+
+        $r13 = interfaceinvoke $r12.<java.util.Map: java.lang.Object get(java.lang.Object)>("Location");
+
+     label64:
+        if $r13 == null goto label46;
+
+     label65:
+        $r4 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse response>;
+
+     label66:
+        $r12 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse: java.util.Map getHeaders()>();
+
+        $r13 = interfaceinvoke $r12.<java.util.Map: java.lang.Object get(java.lang.Object)>("Location");
+
+     label67:
+        $r14 = (java.util.List) $r13;
+
+     label68:
+        $i0 = interfaceinvoke $r14.<java.util.List: int size()>();
+
+     label69:
+        if $i0 <= 0 goto label46;
+
+     label70:
+        $r4 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse response>;
+
+     label71:
+        $r12 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse: java.util.Map getHeaders()>();
+
+        $r13 = interfaceinvoke $r12.<java.util.Map: java.lang.Object get(java.lang.Object)>("Location");
+
+     label72:
+        $r14 = (java.util.List) $r13;
+
+     label73:
+        $r13 = interfaceinvoke $r14.<java.util.List: java.lang.Object get(int)>(0);
+
+     label74:
+        $r7 = (java.lang.String) $r13;
+
+     label75:
+        if $r7 == null goto label46;
+
+     label76:
+        $r19 = new java.net.URL;
+
+     label77:
+        specialinvoke $r19.<java.net.URL: void <init>(java.lang.String)>($r7);
+
+        virtualinvoke r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: void handleRedirection(java.net.URL)>($r19);
+
+     label78:
+        goto label46;
+
+     label79:
+        r10 := @caughtexception;
+
+        goto label34;
+
+     label80:
+        $r4 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse response>;
+
+        virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse: void setHasFileError(boolean)>(1);
+
+        $r11 = <com.adobe.creativesdk.foundation.internal.utils.logging.Level: com.adobe.creativesdk.foundation.internal.utils.logging.Level ERROR>;
+
+        $r7 = <com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpFileDownloadTask: java.lang.String T>;
+
+        staticinvoke <com.adobe.creativesdk.foundation.internal.utils.logging.AdobeLogger: void log(com.adobe.creativesdk.foundation.internal.utils.logging.Level,java.lang.String,java.lang.String,java.lang.Throwable)>($r11, $r7, "Error during io operation", r10);
+
+     label81:
+        goto label42;
+
+     label82:
+        $r15 := @caughtexception;
+
+     label83:
+        staticinvoke <org.apache.commons.io.IOUtils: void closeQuietly(java.io.InputStream)>(r3);
+
+        staticinvoke <org.apache.commons.io.IOUtils: void closeQuietly(java.io.OutputStream)>(r2);
+
+        throw $r15;
+
+     label84:
+        $r15 := @caughtexception;
+
+        r2 = $r18;
+
+        goto label83;
+
+        catch java.io.IOException from label02 to label03 with label79;
+        catch java.io.IOException from label05 to label06 with label79;
+        catch java.io.IOException from label08 to label09 with label79;
+        catch java.io.IOException from label11 to label12 with label79;
+        catch java.io.IOException from label14 to label15 with label79;
+        catch java.io.IOException from label18 to label19 with label79;
+        catch java.io.IOException from label19 to label20 with label79;
+        catch java.lang.Throwable from label01 to label03 with label82;
+        catch java.lang.Throwable from label04 to label06 with label82;
+        catch java.lang.Throwable from label07 to label10 with label82;
+        catch java.lang.Throwable from label10 to label12 with label82;
+        catch java.lang.Throwable from label13 to label16 with label82;
+        catch java.lang.Throwable from label16 to label17 with label82;
+        catch java.lang.Throwable from label17 to label19 with label82;
+        catch java.lang.Throwable from label19 to label20 with label82;
+        catch java.io.IOException from label22 to label23 with label33;
+        catch java.io.IOException from label25 to label26 with label33;
+        catch java.io.IOException from label27 to label28 with label33;
+        catch java.lang.Throwable from label21 to label23 with label84;
+        catch java.lang.Throwable from label24 to label26 with label84;
+        catch java.lang.Throwable from label27 to label28 with label84;
+        catch java.io.IOException from label29 to label30 with label33;
+        catch java.io.IOException from label31 to label32 with label33;
+        catch java.lang.Throwable from label29 to label30 with label84;
+        catch java.lang.Throwable from label31 to label32 with label84;
+        catch java.lang.Throwable from label35 to label36 with label82;
+        catch java.lang.Throwable from label37 to label38 with label82;
+        catch java.lang.Throwable from label38 to label39 with label82;
+        catch java.lang.Throwable from label40 to label42 with label82;
+        catch java.io.IOException from label44 to label45 with label33;
+        catch java.lang.Throwable from label43 to label45 with label84;
+        catch java.io.IOException from label48 to label49 with label79;
+        catch java.io.IOException from label51 to label52 with label79;
+        catch java.io.IOException from label54 to label55 with label79;
+        catch java.io.IOException from label57 to label58 with label79;
+        catch java.io.IOException from label60 to label61 with label79;
+        catch java.io.IOException from label63 to label64 with label79;
+        catch java.io.IOException from label66 to label67 with label79;
+        catch java.io.IOException from label68 to label69 with label79;
+        catch java.io.IOException from label71 to label72 with label79;
+        catch java.io.IOException from label73 to label74 with label79;
+        catch java.io.IOException from label77 to label78 with label79;
+        catch java.lang.Throwable from label47 to label49 with label82;
+        catch java.lang.Throwable from label50 to label52 with label82;
+        catch java.lang.Throwable from label53 to label55 with label82;
+        catch java.lang.Throwable from label56 to label58 with label82;
+        catch java.lang.Throwable from label59 to label61 with label82;
+        catch java.lang.Throwable from label62 to label64 with label82;
+        catch java.lang.Throwable from label65 to label69 with label82;
+        catch java.lang.Throwable from label70 to label75 with label82;
+        catch java.lang.Throwable from label76 to label77 with label82;
+        catch java.lang.Throwable from label77 to label78 with label82;
+        catch java.lang.Throwable from label80 to label81 with label82;
+    }

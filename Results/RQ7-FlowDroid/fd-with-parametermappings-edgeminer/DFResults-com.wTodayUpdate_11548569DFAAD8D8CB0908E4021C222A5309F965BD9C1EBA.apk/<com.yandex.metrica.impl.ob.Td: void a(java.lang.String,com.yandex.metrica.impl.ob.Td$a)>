@@ -1,0 +1,148 @@
+    public void a(java.lang.String, com.yandex.metrica.impl.ob.Td$a)
+    {
+        java.lang.Throwable $r2, $r3, $r4, $r5, $r6;
+        byte[] $r15;
+        com.yandex.metrica.impl.ob.Td r0;
+        com.yandex.metrica.impl.ob.Td$b $r8;
+        com.yandex.metrica.impl.ob.Td$a $r1;
+        com.yandex.metrica.impl.ob.ce $r11;
+        com.yandex.metrica.impl.ob.P0 $r10;
+        int $i0;
+        java.lang.String $r7, $r9;
+        boolean $z0, $z1;
+        javax.net.ssl.HttpsURLConnection $r12, $r13;
+        java.io.InputStream $r14;
+
+        r0 := @this: com.yandex.metrica.impl.ob.Td;
+
+        $r7 := @parameter0: java.lang.String;
+
+        $r1 := @parameter1: com.yandex.metrica.impl.ob.Td$a;
+
+        $z0 = 1;
+
+     label01:
+        $r8 = r0.<com.yandex.metrica.impl.ob.Td: com.yandex.metrica.impl.ob.Td$b a>;
+
+        $r9 = interfaceinvoke $r1.<com.yandex.metrica.impl.ob.Td$a: java.lang.String b()>();
+
+        virtualinvoke $r8.<java.lang.Object: java.lang.Class getClass()>();
+
+     label02:
+        $r10 = staticinvoke <com.yandex.metrica.impl.ob.P0: com.yandex.metrica.impl.ob.P0 i()>();
+
+        $r11 = virtualinvoke $r10.<com.yandex.metrica.impl.ob.P0: com.yandex.metrica.impl.ob.ce x()>();
+
+        $r12 = virtualinvoke $r11.<com.yandex.metrica.impl.ob.ce: javax.net.ssl.HttpsURLConnection a(java.lang.String)>($r7);
+
+     label03:
+        $r13 = $r12;
+
+     label04:
+        $z1 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r9);
+
+     label05:
+        if $z1 != 0 goto label07;
+
+     label06:
+        virtualinvoke $r12.<javax.net.ssl.HttpsURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("If-None-Match", $r9);
+
+     label07:
+        virtualinvoke $r12.<javax.net.ssl.HttpsURLConnection: void setInstanceFollowRedirects(boolean)>(1);
+
+        virtualinvoke $r12.<javax.net.ssl.HttpsURLConnection: void setRequestMethod(java.lang.String)>("GET");
+
+        $i0 = <com.yandex.metrica.impl.ob.Yd$a: int a>;
+
+        virtualinvoke $r12.<javax.net.ssl.HttpsURLConnection: void setConnectTimeout(int)>($i0);
+
+        virtualinvoke $r12.<javax.net.ssl.HttpsURLConnection: void setReadTimeout(int)>($i0);
+
+        virtualinvoke $r12.<javax.net.ssl.HttpsURLConnection: void connect()>();
+
+     label08:
+        goto label10;
+
+     label09:
+        $r13 = null;
+
+     label10:
+        if $r13 == null goto label18;
+
+     label11:
+        $i0 = virtualinvoke $r13.<javax.net.ssl.HttpsURLConnection: int getResponseCode()>();
+
+     label12:
+        if $i0 == 200 goto label15;
+
+        if $i0 != 304 goto label18;
+
+     label13:
+        interfaceinvoke $r1.<com.yandex.metrica.impl.ob.Td$a: void a()>();
+
+     label14:
+        goto label19;
+
+     label15:
+        $r7 = virtualinvoke $r13.<javax.net.ssl.HttpsURLConnection: java.lang.String getHeaderField(java.lang.String)>("ETag");
+
+        $r7 = staticinvoke <com.yandex.metrica.impl.ob.O2: java.lang.String b(java.lang.String)>($r7);
+
+     label16:
+        $r14 = virtualinvoke $r13.<javax.net.ssl.HttpsURLConnection: java.io.InputStream getInputStream()>();
+
+        $r15 = staticinvoke <com.yandex.metrica.impl.ob.V0: byte[] a(java.io.InputStream,int)>($r14, 2147483647);
+
+        interfaceinvoke $r1.<com.yandex.metrica.impl.ob.Td$a: void a(java.lang.String,byte[])>($r7, $r15);
+
+     label17:
+        goto label19;
+
+     label18:
+        $z0 = 0;
+
+     label19:
+        if $z0 != 0 goto label25;
+
+        interfaceinvoke $r1.<com.yandex.metrica.impl.ob.Td$a: void c()>();
+
+        return;
+
+     label20:
+        $r2 := @caughtexception;
+
+        goto label18;
+
+     label21:
+        $r3 := @caughtexception;
+
+        goto label09;
+
+     label22:
+        $r4 := @caughtexception;
+
+        goto label18;
+
+     label23:
+        $r5 := @caughtexception;
+
+        goto label18;
+
+     label24:
+        $r6 := @caughtexception;
+
+        goto label18;
+
+     label25:
+        return;
+
+        catch java.lang.Throwable from label01 to label02 with label20;
+        catch java.lang.Throwable from label02 to label03 with label21;
+        catch java.lang.Throwable from label04 to label05 with label21;
+        catch java.lang.Throwable from label06 to label08 with label21;
+        catch java.lang.Throwable from label11 to label12 with label22;
+        catch java.lang.Throwable from label13 to label14 with label22;
+        catch java.lang.Throwable from label15 to label16 with label22;
+        catch java.io.IOException from label16 to label17 with label23;
+        catch java.lang.Throwable from label16 to label17 with label24;
+    }

@@ -1,0 +1,228 @@
+    protected static boolean a(java.lang.String, java.lang.String, java.lang.String)
+    {
+        java.lang.Throwable $r11, $r13, $r17, $r19, $r20, $r21, $r22;
+        byte[] $r10;
+        java.util.Enumeration $r5;
+        int $i0;
+        java.util.zip.ZipFile $r4;
+        java.lang.String $r0, $r1, $r2;
+        java.util.zip.ZipEntry $r7;
+        boolean $z0;
+        java.io.FileOutputStream $r3, $r9;
+        java.lang.Exception $r12, $r14, $r15, $r16, $r18;
+        java.lang.Object $r6;
+        java.io.InputStream $r8;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r2 := @parameter2: java.lang.String;
+
+        $r3 = null;
+
+     label01:
+        $r4 = new java.util.zip.ZipFile;
+
+     label02:
+        specialinvoke $r4.<java.util.zip.ZipFile: void <init>(java.lang.String)>($r0);
+
+     label03:
+        $r5 = virtualinvoke $r4.<java.util.zip.ZipFile: java.util.Enumeration entries()>();
+
+     label04:
+        $z0 = interfaceinvoke $r5.<java.util.Enumeration: boolean hasMoreElements()>();
+
+     label05:
+        if $z0 == 0 goto label45;
+
+     label06:
+        $r6 = interfaceinvoke $r5.<java.util.Enumeration: java.lang.Object nextElement()>();
+
+     label07:
+        $r7 = (java.util.zip.ZipEntry) $r6;
+
+     label08:
+        $z0 = virtualinvoke $r7.<java.util.zip.ZipEntry: boolean isDirectory()>();
+
+     label09:
+        if $z0 != 0 goto label04;
+
+     label10:
+        $r0 = virtualinvoke $r7.<java.util.zip.ZipEntry: java.lang.String getName()>();
+
+        $z0 = virtualinvoke $r0.<java.lang.String: boolean equals(java.lang.Object)>($r1);
+
+     label11:
+        if $z0 == 0 goto label04;
+
+     label12:
+        if $r7 == null goto label30;
+
+     label13:
+        $r8 = virtualinvoke $r4.<java.util.zip.ZipFile: java.io.InputStream getInputStream(java.util.zip.ZipEntry)>($r7);
+
+     label14:
+        $r9 = new java.io.FileOutputStream;
+
+     label15:
+        specialinvoke $r9.<java.io.FileOutputStream: void <init>(java.lang.String)>($r2);
+
+     label16:
+        $r10 = newarray (byte)[256];
+
+     label17:
+        $i0 = virtualinvoke $r8.<java.io.InputStream: int read(byte[])>($r10);
+
+     label18:
+        if $i0 <= 0 goto label25;
+
+     label19:
+        virtualinvoke $r9.<java.io.FileOutputStream: void write(byte[],int,int)>($r10, 0, $i0);
+
+     label20:
+        goto label17;
+
+     label21:
+        $r11 := @caughtexception;
+
+        $r3 = $r9;
+
+     label22:
+        virtualinvoke $r8.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r3.<java.io.FileOutputStream: void close()>();
+
+     label23:
+        virtualinvoke $r4.<java.util.zip.ZipFile: void close()>();
+
+     label24:
+        return 0;
+
+     label25:
+        virtualinvoke $r9.<java.io.FileOutputStream: void flush()>();
+
+     label26:
+        virtualinvoke $r8.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r9.<java.io.FileOutputStream: void close()>();
+
+     label27:
+        virtualinvoke $r4.<java.util.zip.ZipFile: void close()>();
+
+     label28:
+        return 1;
+
+     label29:
+        $r12 := @caughtexception;
+
+        return 1;
+
+     label30:
+        virtualinvoke $r4.<java.util.zip.ZipFile: void close()>();
+
+     label31:
+        return 0;
+
+     label32:
+        $r13 := @caughtexception;
+
+        $r4 = null;
+
+     label33:
+        virtualinvoke $r4.<java.util.zip.ZipFile: void close()>();
+
+     label34:
+        throw $r13;
+
+     label35:
+        $r14 := @caughtexception;
+
+        goto label31;
+
+     label36:
+        $r15 := @caughtexception;
+
+        goto label24;
+
+     label37:
+        $r16 := @caughtexception;
+
+        goto label34;
+
+     label38:
+        $r13 := @caughtexception;
+
+        goto label33;
+
+     label39:
+        $r17 := @caughtexception;
+
+        $r13 = $r17;
+
+        goto label33;
+
+     label40:
+        $r18 := @caughtexception;
+
+        goto label23;
+
+     label41:
+        $r19 := @caughtexception;
+
+        $r4 = null;
+
+        $r8 = null;
+
+        goto label22;
+
+     label42:
+        $r20 := @caughtexception;
+
+        $r8 = null;
+
+        goto label22;
+
+     label43:
+        $r21 := @caughtexception;
+
+        goto label22;
+
+     label44:
+        $r22 := @caughtexception;
+
+        goto label27;
+
+     label45:
+        $r7 = null;
+
+        goto label12;
+
+        catch java.io.IOException from label02 to label03 with label41;
+        catch java.lang.Throwable from label01 to label03 with label32;
+        catch java.io.IOException from label03 to label05 with label42;
+        catch java.io.IOException from label06 to label07 with label42;
+        catch java.io.IOException from label08 to label09 with label42;
+        catch java.io.IOException from label10 to label11 with label42;
+        catch java.io.IOException from label13 to label14 with label42;
+        catch java.lang.Throwable from label03 to label05 with label38;
+        catch java.lang.Throwable from label06 to label09 with label38;
+        catch java.lang.Throwable from label10 to label11 with label38;
+        catch java.lang.Throwable from label13 to label14 with label38;
+        catch java.io.IOException from label15 to label16 with label43;
+        catch java.lang.Throwable from label14 to label16 with label38;
+        catch java.io.IOException from label17 to label18 with label21;
+        catch java.io.IOException from label19 to label20 with label21;
+        catch java.lang.Throwable from label17 to label18 with label38;
+        catch java.lang.Throwable from label19 to label20 with label38;
+        catch java.lang.Exception from label22 to label23 with label40;
+        catch java.lang.Throwable from label22 to label23 with label39;
+        catch java.lang.Exception from label23 to label24 with label36;
+        catch java.io.IOException from label25 to label26 with label21;
+        catch java.lang.Throwable from label25 to label26 with label38;
+        catch java.io.IOException from label26 to label27 with label44;
+        catch java.lang.Throwable from label26 to label27 with label38;
+        catch java.lang.Exception from label27 to label28 with label29;
+        catch java.lang.Exception from label30 to label31 with label35;
+        catch java.lang.Exception from label33 to label34 with label37;
+    }

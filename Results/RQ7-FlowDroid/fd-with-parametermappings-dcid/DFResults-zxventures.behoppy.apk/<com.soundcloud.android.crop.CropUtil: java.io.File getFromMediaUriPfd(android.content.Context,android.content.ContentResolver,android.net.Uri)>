@@ -1,0 +1,146 @@
+    private static java.io.File getFromMediaUriPfd(android.content.Context, android.content.ContentResolver, android.net.Uri)
+    {
+        java.lang.Throwable $r9, $r10, $r11, $r12;
+        android.content.Context $r0;
+        byte[] r3;
+        android.os.ParcelFileDescriptor $r6;
+        android.net.Uri $r2;
+        android.content.ContentResolver $r1;
+        int $i0;
+        java.lang.String $r8;
+        java.io.FileOutputStream r5, $r14;
+        java.io.FileInputStream r4, $r13;
+        java.io.File $r15;
+        java.io.FileDescriptor $r7;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 := @parameter1: android.content.ContentResolver;
+
+        $r2 := @parameter2: android.net.Uri;
+
+        if $r2 != null goto label01;
+
+        return null;
+
+     label01:
+        r4 = null;
+
+        r5 = null;
+
+     label02:
+        $r6 = virtualinvoke $r1.<android.content.ContentResolver: android.os.ParcelFileDescriptor openFileDescriptor(android.net.Uri,java.lang.String)>($r2, "r");
+
+        $r7 = virtualinvoke $r6.<android.os.ParcelFileDescriptor: java.io.FileDescriptor getFileDescriptor()>();
+
+     label03:
+        $r13 = new java.io.FileInputStream;
+
+     label04:
+        specialinvoke $r13.<java.io.FileInputStream: void <init>(java.io.FileDescriptor)>($r7);
+
+     label05:
+        $r8 = staticinvoke <com.soundcloud.android.crop.CropUtil: java.lang.String getTempFilename(android.content.Context)>($r0);
+
+     label06:
+        $r14 = new java.io.FileOutputStream;
+
+     label07:
+        specialinvoke $r14.<java.io.FileOutputStream: void <init>(java.lang.String)>($r8);
+
+     label08:
+        r3 = newarray (byte)[4096];
+
+     label09:
+        $i0 = virtualinvoke $r13.<java.io.FileInputStream: int read(byte[])>(r3);
+
+     label10:
+        if $i0 == -1 goto label15;
+
+     label11:
+        virtualinvoke $r14.<java.io.FileOutputStream: void write(byte[],int,int)>(r3, 0, $i0);
+
+     label12:
+        goto label09;
+
+     label13:
+        $r9 := @caughtexception;
+
+        r5 = $r14;
+
+        r4 = $r13;
+
+     label14:
+        staticinvoke <com.soundcloud.android.crop.CropUtil: void closeSilently(java.io.Closeable)>(r4);
+
+        staticinvoke <com.soundcloud.android.crop.CropUtil: void closeSilently(java.io.Closeable)>(r5);
+
+        return null;
+
+     label15:
+        $r15 = new java.io.File;
+
+     label16:
+        specialinvoke $r15.<java.io.File: void <init>(java.lang.String)>($r8);
+
+     label17:
+        staticinvoke <com.soundcloud.android.crop.CropUtil: void closeSilently(java.io.Closeable)>($r13);
+
+        staticinvoke <com.soundcloud.android.crop.CropUtil: void closeSilently(java.io.Closeable)>($r14);
+
+        return $r15;
+
+     label18:
+        $r10 := @caughtexception;
+
+     label19:
+        staticinvoke <com.soundcloud.android.crop.CropUtil: void closeSilently(java.io.Closeable)>(r4);
+
+        staticinvoke <com.soundcloud.android.crop.CropUtil: void closeSilently(java.io.Closeable)>(r5);
+
+        throw $r10;
+
+     label20:
+        $r10 := @caughtexception;
+
+        r4 = $r13;
+
+        goto label19;
+
+     label21:
+        $r10 := @caughtexception;
+
+        r5 = $r14;
+
+        r4 = $r13;
+
+        goto label19;
+
+     label22:
+        $r11 := @caughtexception;
+
+        goto label14;
+
+     label23:
+        $r12 := @caughtexception;
+
+        r4 = $r13;
+
+        goto label14;
+
+        catch java.io.IOException from label02 to label03 with label22;
+        catch java.io.IOException from label04 to label05 with label22;
+        catch java.lang.Throwable from label02 to label04 with label18;
+        catch java.lang.Throwable from label04 to label05 with label18;
+        catch java.io.IOException from label05 to label06 with label23;
+        catch java.io.IOException from label07 to label08 with label23;
+        catch java.lang.Throwable from label05 to label07 with label20;
+        catch java.lang.Throwable from label07 to label08 with label20;
+        catch java.io.IOException from label09 to label10 with label13;
+        catch java.io.IOException from label11 to label12 with label13;
+        catch java.lang.Throwable from label09 to label10 with label21;
+        catch java.lang.Throwable from label11 to label12 with label21;
+        catch java.io.IOException from label16 to label17 with label13;
+        catch java.lang.Throwable from label15 to label16 with label21;
+        catch java.lang.Throwable from label16 to label17 with label21;
+    }

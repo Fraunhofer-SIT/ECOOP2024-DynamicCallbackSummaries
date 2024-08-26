@@ -1,0 +1,186 @@
+    private void a(int, java.util.List)
+    {
+        java.lang.Throwable $r10, $r11, $r12, $r13, $r15;
+        android.content.Context $r6;
+        java.lang.Object[] $r14;
+        int $i0;
+        java.io.ObjectOutputStream $r9, $r19;
+        java.lang.String $r8;
+        java.io.FileOutputStream $r18;
+        java.io.IOException $r20;
+        java.lang.Exception $r1, $r2, $r3, $r4;
+        java.io.File $r7, $r17;
+        java.util.List $r5;
+        com.tencent.bugly.proguard.n r0;
+        java.lang.StringBuilder $r16;
+
+        r0 := @this: com.tencent.bugly.proguard.n;
+
+        $i0 := @parameter0: int;
+
+        $r5 := @parameter1: java.util.List;
+
+        entermonitor r0;
+
+        if $r5 != null goto label01;
+
+        exitmonitor r0;
+
+        return;
+
+     label01:
+        $r17 = new java.io.File;
+
+     label02:
+        $r6 = r0.<com.tencent.bugly.proguard.n: android.content.Context c>;
+
+        $r7 = virtualinvoke $r6.<android.content.Context: java.io.File getDir(java.lang.String,int)>("crashrecord", 0);
+
+     label03:
+        $r16 = new java.lang.StringBuilder;
+
+     label04:
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r8 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r17.<java.io.File: void <init>(java.io.File,java.lang.String)>($r7, $r8);
+
+     label05:
+        $r9 = null;
+
+     label06:
+        $r19 = new java.io.ObjectOutputStream;
+
+        $r18 = new java.io.FileOutputStream;
+
+     label07:
+        specialinvoke $r18.<java.io.FileOutputStream: void <init>(java.io.File)>($r17);
+
+        specialinvoke $r19.<java.io.ObjectOutputStream: void <init>(java.io.OutputStream)>($r18);
+
+     label08:
+        virtualinvoke $r19.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>($r5);
+
+     label09:
+        virtualinvoke $r19.<java.io.ObjectOutputStream: void close()>();
+
+     label10:
+        goto label25;
+
+     label11:
+        $r10 := @caughtexception;
+
+        $r11 = $r10;
+
+        $r9 = $r19;
+
+        goto label20;
+
+     label12:
+        $r12 := @caughtexception;
+
+        $r13 = $r12;
+
+        $r9 = $r19;
+
+        goto label15;
+
+     label13:
+        $r11 := @caughtexception;
+
+        goto label20;
+
+     label14:
+        $r13 := @caughtexception;
+
+     label15:
+        $r20 = (java.io.IOException) $r13;
+
+        virtualinvoke $r20.<java.io.IOException: void printStackTrace()>();
+
+        $r14 = newarray (java.lang.Object)[0];
+
+        staticinvoke <com.tencent.bugly.proguard.x: boolean a(java.lang.String,java.lang.Object[])>("open record file error", $r14);
+
+     label16:
+        if $r9 == null goto label19;
+
+     label17:
+        virtualinvoke $r9.<java.io.ObjectOutputStream: void close()>();
+
+     label18:
+        goto label25;
+
+     label19:
+        exitmonitor r0;
+
+        return;
+
+     label20:
+        if $r9 == null goto label22;
+
+     label21:
+        virtualinvoke $r9.<java.io.ObjectOutputStream: void close()>();
+
+     label22:
+        throw $r11;
+
+     label23:
+        $r15 := @caughtexception;
+
+        goto label26;
+
+     label24:
+        $r14 = newarray (java.lang.Object)[0];
+
+        staticinvoke <com.tencent.bugly.proguard.x: boolean e(java.lang.String,java.lang.Object[])>("writeCrashRecord error", $r14);
+
+     label25:
+        exitmonitor r0;
+
+        return;
+
+     label26:
+        exitmonitor r0;
+
+        throw $r15;
+
+     label27:
+        $r1 := @caughtexception;
+
+        goto label24;
+
+     label28:
+        $r2 := @caughtexception;
+
+        goto label24;
+
+     label29:
+        $r3 := @caughtexception;
+
+        goto label24;
+
+     label30:
+        $r4 := @caughtexception;
+
+        goto label24;
+
+        catch java.lang.Exception from label02 to label03 with label27;
+        catch java.lang.Exception from label04 to label05 with label27;
+        catch java.lang.Throwable from label01 to label05 with label23;
+        catch java.io.IOException from label07 to label08 with label14;
+        catch java.lang.Throwable from label06 to label08 with label13;
+        catch java.io.IOException from label08 to label09 with label12;
+        catch java.lang.Throwable from label08 to label09 with label11;
+        catch java.lang.Exception from label09 to label10 with label28;
+        catch java.lang.Throwable from label09 to label10 with label23;
+        catch java.lang.Throwable from label15 to label16 with label13;
+        catch java.lang.Exception from label17 to label18 with label29;
+        catch java.lang.Throwable from label17 to label18 with label23;
+        catch java.lang.Exception from label21 to label23 with label30;
+        catch java.lang.Throwable from label21 to label23 with label23;
+        catch java.lang.Throwable from label24 to label25 with label23;
+    }

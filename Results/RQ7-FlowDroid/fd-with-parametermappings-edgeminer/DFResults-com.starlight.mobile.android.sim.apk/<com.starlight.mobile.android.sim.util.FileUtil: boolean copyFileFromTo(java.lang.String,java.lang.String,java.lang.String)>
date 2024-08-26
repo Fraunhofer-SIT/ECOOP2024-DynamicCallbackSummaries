@@ -1,0 +1,142 @@
+    public boolean copyFileFromTo(java.lang.String, java.lang.String, java.lang.String)
+    {
+        java.lang.Throwable r5;
+        byte[] r4;
+        int $i0;
+        java.lang.String $r1, $r2, $r3, $r7;
+        boolean $z0;
+        java.io.FileOutputStream $r12;
+        java.io.IOException $r13;
+        java.io.FileInputStream $r11;
+        com.starlight.mobile.android.sim.util.FileUtil r0;
+        java.io.File $r9;
+        java.lang.StringBuilder $r6, $r10;
+        java.lang.Class $r8;
+
+        r0 := @this: com.starlight.mobile.android.sim.util.FileUtil;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r3 := @parameter2: java.lang.String;
+
+        $r9 = new java.io.File;
+
+     label01:
+        specialinvoke $r9.<java.io.File: void <init>(java.lang.String)>($r2);
+
+        $z0 = virtualinvoke $r9.<java.io.File: boolean exists()>();
+
+     label02:
+        if $z0 != 0 goto label04;
+
+     label03:
+        virtualinvoke $r9.<java.io.File: boolean mkdir()>();
+
+     label04:
+        $r9 = new java.io.File;
+
+        $r10 = new java.lang.StringBuilder;
+
+     label05:
+        $r7 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r2);
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>(java.lang.String)>($r7);
+
+        $r6 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r9.<java.io.File: void <init>(java.lang.String)>($r7);
+
+        $z0 = virtualinvoke $r9.<java.io.File: boolean exists()>();
+
+     label06:
+        if $z0 == 0 goto label08;
+
+     label07:
+        virtualinvoke $r9.<java.io.File: boolean delete()>();
+
+     label08:
+        $r11 = new java.io.FileInputStream;
+
+     label09:
+        specialinvoke $r11.<java.io.FileInputStream: void <init>(java.lang.String)>($r1);
+
+     label10:
+        $r12 = new java.io.FileOutputStream;
+
+        $r10 = new java.lang.StringBuilder;
+
+     label11:
+        $r1 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r2);
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>(java.lang.String)>($r1);
+
+        $r6 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r1 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r12.<java.io.FileOutputStream: void <init>(java.lang.String)>($r1);
+
+     label12:
+        r4 = newarray (byte)[8192];
+
+     label13:
+        $i0 = virtualinvoke $r11.<java.io.InputStream: int read(byte[])>(r4);
+
+     label14:
+        if $i0 > 0 goto label17;
+
+     label15:
+        virtualinvoke $r12.<java.io.FileOutputStream: void close()>();
+
+        virtualinvoke $r11.<java.io.InputStream: void close()>();
+
+     label16:
+        return 1;
+
+     label17:
+        virtualinvoke $r12.<java.io.FileOutputStream: void write(byte[],int,int)>(r4, 0, $i0);
+
+     label18:
+        goto label13;
+
+     label19:
+        r5 := @caughtexception;
+
+        $r8 = virtualinvoke r0.<java.lang.Object: java.lang.Class getClass()>();
+
+        $r1 = virtualinvoke $r8.<java.lang.Class: java.lang.String getName()>();
+
+        $r10 = new java.lang.StringBuilder;
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>(java.lang.String)>("copyFileFromTo\uff1a");
+
+        $r13 = (java.io.IOException) r5;
+
+        $r2 = virtualinvoke $r13.<java.io.IOException: java.lang.String toString()>();
+
+        $r6 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.starlight.mobile.android.sim.util.CommonHelper: void log(java.lang.String,java.lang.String)>($r1, $r2);
+
+        return 0;
+
+        catch java.io.IOException from label01 to label02 with label19;
+        catch java.io.IOException from label03 to label04 with label19;
+        catch java.io.IOException from label05 to label06 with label19;
+        catch java.io.IOException from label07 to label08 with label19;
+        catch java.io.IOException from label09 to label10 with label19;
+        catch java.io.IOException from label11 to label12 with label19;
+        catch java.io.IOException from label13 to label14 with label19;
+        catch java.io.IOException from label15 to label16 with label19;
+        catch java.io.IOException from label17 to label18 with label19;
+    }

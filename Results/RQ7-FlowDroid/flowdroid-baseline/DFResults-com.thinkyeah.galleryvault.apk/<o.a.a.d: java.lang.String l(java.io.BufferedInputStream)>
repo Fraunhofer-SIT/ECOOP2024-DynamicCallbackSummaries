@@ -1,0 +1,75 @@
+    public final java.lang.String l(java.io.BufferedInputStream)
+    {
+        java.lang.Throwable $r1, $r4;
+        byte[] $r3;
+        java.io.BufferedInputStream $r2;
+        java.io.ByteArrayOutputStream $r6;
+        java.lang.Exception $r7;
+        o.a.a.d r0;
+        byte $b1;
+        int $i0;
+        java.lang.String $r5;
+
+        r0 := @this: o.a.a.d;
+
+        $r2 := @parameter0: java.io.BufferedInputStream;
+
+        $r6 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r6.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r3 = newarray (byte)[1];
+
+     label1:
+        $i0 = virtualinvoke $r2.<java.io.BufferedInputStream: int read(byte[])>($r3);
+
+     label2:
+        if $i0 <= 0 goto label7;
+
+        $b1 = $r3[0];
+
+        $i0 = (int) $b1;
+
+        if $i0 == 10 goto label7;
+
+        $b1 = $r3[0];
+
+        $i0 = (int) $b1;
+
+        if $i0 == 13 goto label4;
+
+        $b1 = $r3[0];
+
+        $i0 = (int) $b1;
+
+     label3:
+        virtualinvoke $r6.<java.io.ByteArrayOutputStream: void write(int)>($i0);
+
+     label4:
+        $i0 = virtualinvoke $r2.<java.io.BufferedInputStream: int read(byte[])>($r3);
+
+     label5:
+        goto label2;
+
+     label6:
+        $r4 := @caughtexception;
+
+        $r7 = (java.lang.Exception) $r4;
+
+        staticinvoke <o.a.e.a: void c(java.lang.Exception)>($r7);
+
+     label7:
+        $r5 = virtualinvoke $r6.<java.io.ByteArrayOutputStream: java.lang.String toString()>();
+
+        return $r5;
+
+     label8:
+        $r1 := @caughtexception;
+
+        goto label7;
+
+        catch java.io.InterruptedIOException from label1 to label2 with label8;
+        catch java.io.InterruptedIOException from label3 to label5 with label8;
+        catch java.io.IOException from label1 to label2 with label6;
+        catch java.io.IOException from label3 to label5 with label6;
+    }

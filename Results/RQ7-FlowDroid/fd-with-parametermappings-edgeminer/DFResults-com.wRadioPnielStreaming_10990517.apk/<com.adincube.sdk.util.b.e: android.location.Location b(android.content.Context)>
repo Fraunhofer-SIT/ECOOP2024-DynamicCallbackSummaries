@@ -1,0 +1,105 @@
+    private static android.location.Location b(android.content.Context)
+    {
+        java.lang.Throwable $r0, $r1, $r2;
+        android.content.Context $r3;
+        long $l1, $l2;
+        byte $b0;
+        int $i3;
+        java.lang.String $r9;
+        boolean $z0, $z1;
+        java.util.Iterator $r8;
+        java.util.List $r7;
+        java.lang.Object $r5;
+        android.location.Location $r4, $r10;
+        android.location.LocationManager $r6;
+
+        $r3 := @parameter0: android.content.Context;
+
+        $z0 = staticinvoke <com.adincube.sdk.util.b.f: boolean a(android.content.Context,java.lang.String)>($r3, "android.permission.ACCESS_COARSE_LOCATION");
+
+        $z1 = staticinvoke <com.adincube.sdk.util.b.f: boolean a(android.content.Context,java.lang.String)>($r3, "android.permission.ACCESS_FINE_LOCATION");
+
+        $r4 = null;
+
+        if $z0 != 0 goto label01;
+
+        if $z1 != 0 goto label01;
+
+        return null;
+
+     label01:
+        $r5 = virtualinvoke $r3.<android.content.Context: java.lang.Object getSystemService(java.lang.String)>("location");
+
+        $r6 = (android.location.LocationManager) $r5;
+
+        $r7 = virtualinvoke $r6.<android.location.LocationManager: java.util.List getAllProviders()>();
+
+     label02:
+        if $r7 == null goto label12;
+
+     label03:
+        $r8 = interfaceinvoke $r7.<java.util.List: java.util.Iterator iterator()>();
+
+     label04:
+        $z0 = interfaceinvoke $r8.<java.util.Iterator: boolean hasNext()>();
+
+     label05:
+        if $z0 == 0 goto label16;
+
+     label06:
+        $r5 = interfaceinvoke $r8.<java.util.Iterator: java.lang.Object next()>();
+
+        $r9 = (java.lang.String) $r5;
+
+     label07:
+        $r10 = virtualinvoke $r6.<android.location.LocationManager: android.location.Location getLastKnownLocation(java.lang.String)>($r9);
+
+     label08:
+        if $r10 == null goto label04;
+
+        if $r4 == null goto label11;
+
+     label09:
+        $l1 = virtualinvoke $r10.<android.location.Location: long getTime()>();
+
+        $l2 = virtualinvoke $r4.<android.location.Location: long getTime()>();
+
+     label10:
+        $b0 = $l1 cmp $l2;
+
+        $i3 = (int) $b0;
+
+        if $i3 <= 0 goto label04;
+
+     label11:
+        $r4 = $r10;
+
+        goto label04;
+
+     label12:
+        return null;
+
+     label13:
+        $r0 := @caughtexception;
+
+        return $r4;
+
+     label14:
+        $r1 := @caughtexception;
+
+        goto label04;
+
+     label15:
+        $r2 := @caughtexception;
+
+     label16:
+        return $r4;
+
+        catch java.lang.Throwable from label01 to label02 with label13;
+        catch java.lang.Throwable from label03 to label05 with label13;
+        catch java.lang.Throwable from label06 to label07 with label13;
+        catch java.lang.SecurityException from label07 to label08 with label14;
+        catch java.lang.SecurityException from label09 to label10 with label14;
+        catch java.lang.Throwable from label07 to label08 with label15;
+        catch java.lang.Throwable from label09 to label10 with label15;
+    }

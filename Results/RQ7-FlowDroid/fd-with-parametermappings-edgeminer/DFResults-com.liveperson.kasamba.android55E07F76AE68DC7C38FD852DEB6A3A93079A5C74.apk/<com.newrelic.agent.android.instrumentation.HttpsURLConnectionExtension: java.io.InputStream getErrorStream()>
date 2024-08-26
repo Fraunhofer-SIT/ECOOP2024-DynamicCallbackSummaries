@@ -1,0 +1,96 @@
+    public java.io.InputStream getErrorStream()
+    {
+        javax.net.ssl.HttpsURLConnection $r2;
+        com.newrelic.agent.android.instrumentation.io.CountingInputStream $r1;
+        java.lang.Exception $r5;
+        com.newrelic.agent.android.logging.AgentLog $r4;
+        com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension r0;
+        int $i0;
+        java.lang.StringBuilder $r6;
+        java.lang.String $r7;
+        java.io.InputStream $r3;
+
+        r0 := @this: com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension;
+
+        specialinvoke r0.<com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension: com.newrelic.agent.android.instrumentation.TransactionState getTransactionState()>();
+
+     label01:
+        $r1 = r0.<com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension: com.newrelic.agent.android.instrumentation.io.CountingInputStream errorStream>;
+
+     label02:
+        if $r1 == null goto label05;
+
+     label03:
+        $i0 = virtualinvoke $r1.<com.newrelic.agent.android.instrumentation.io.CountingInputStream: int available()>();
+
+     label04:
+        if $i0 != 0 goto label08;
+
+     label05:
+        $r2 = r0.<com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension: javax.net.ssl.HttpsURLConnection impl>;
+
+        $r3 = virtualinvoke $r2.<javax.net.ssl.HttpsURLConnection: java.io.InputStream getErrorStream()>();
+
+     label06:
+        if $r3 == null goto label09;
+
+        $r1 = new com.newrelic.agent.android.instrumentation.io.CountingInputStream;
+
+     label07:
+        $r2 = r0.<com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension: javax.net.ssl.HttpsURLConnection impl>;
+
+        $r3 = virtualinvoke $r2.<javax.net.ssl.HttpsURLConnection: java.io.InputStream getErrorStream()>();
+
+        specialinvoke $r1.<com.newrelic.agent.android.instrumentation.io.CountingInputStream: void <init>(java.io.InputStream,boolean)>($r3, 1);
+
+        r0.<com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension: com.newrelic.agent.android.instrumentation.io.CountingInputStream errorStream> = $r1;
+
+     label08:
+        $r1 = r0.<com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension: com.newrelic.agent.android.instrumentation.io.CountingInputStream errorStream>;
+
+        return $r1;
+
+     label09:
+        $r4 = <com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension: com.newrelic.agent.android.logging.AgentLog log>;
+
+     label10:
+        interfaceinvoke $r4.<com.newrelic.agent.android.logging.AgentLog: void debug(java.lang.String)>("HttpsURLConnectionExtension: error stream implementation is null");
+
+        $r2 = r0.<com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension: javax.net.ssl.HttpsURLConnection impl>;
+
+        $r3 = virtualinvoke $r2.<javax.net.ssl.HttpsURLConnection: java.io.InputStream getErrorStream()>();
+
+     label11:
+        return $r3;
+
+     label12:
+        $r5 := @caughtexception;
+
+        $r4 = <com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension: com.newrelic.agent.android.logging.AgentLog log>;
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("HttpsURLConnectionExtension: ");
+
+        $r7 = virtualinvoke $r5.<java.lang.Exception: java.lang.String toString()>();
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        interfaceinvoke $r4.<com.newrelic.agent.android.logging.AgentLog: void error(java.lang.String)>($r7);
+
+        $r2 = r0.<com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension: javax.net.ssl.HttpsURLConnection impl>;
+
+        $r3 = virtualinvoke $r2.<javax.net.ssl.HttpsURLConnection: java.io.InputStream getErrorStream()>();
+
+        return $r3;
+
+        catch java.lang.Exception from label01 to label02 with label12;
+        catch java.lang.Exception from label03 to label04 with label12;
+        catch java.lang.Exception from label05 to label06 with label12;
+        catch java.lang.Exception from label07 to label08 with label12;
+        catch java.lang.Exception from label10 to label11 with label12;
+    }

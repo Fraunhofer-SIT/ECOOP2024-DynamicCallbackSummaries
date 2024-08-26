@@ -1,0 +1,217 @@
+    public static void writeFile(byte[], int, java.lang.String)
+    {
+        java.lang.Throwable $r4, $r5, $r6, $r8, $r9, $r10, $r11, $r12;
+        byte[] $r0;
+        java.io.RandomAccessFile $r14;
+        long $l2;
+        int $i0, $i1;
+        java.lang.String $r1;
+        boolean $z0;
+        java.io.FileOutputStream $r7, $r15;
+        java.io.IOException $r16;
+        java.io.File $r2, $r3;
+        java.io.FileNotFoundException $r17;
+        java.lang.StringBuilder $r13;
+
+        $r0 := @parameter0: byte[];
+
+        $i0 := @parameter1: int;
+
+        $r1 := @parameter2: java.lang.String;
+
+        $r3 = new java.io.File;
+
+        $r2 = $r3;
+
+        specialinvoke $r3.<java.io.File: void <init>(java.lang.String)>($r1);
+
+        $r3 = virtualinvoke $r3.<java.io.File: java.io.File getParentFile()>();
+
+        $z0 = virtualinvoke $r3.<java.io.File: boolean exists()>();
+
+        if $z0 != 0 goto label01;
+
+        $z0 = virtualinvoke $r3.<java.io.File: boolean mkdirs()>();
+
+        if $z0 != 0 goto label01;
+
+        $r13 = new java.lang.StringBuilder;
+
+        specialinvoke $r13.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("cannot create!");
+
+        $r1 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <io.dcloud.common.adapter.util.Logger: void i(java.lang.String)>($r1);
+
+        return;
+
+     label01:
+        $z0 = virtualinvoke $r2.<java.io.File: boolean exists()>();
+
+        if $z0 == 0 goto label10;
+
+        $r14 = new java.io.RandomAccessFile;
+
+     label02:
+        specialinvoke $r14.<java.io.RandomAccessFile: void <init>(java.io.File,java.lang.String)>($r2, "rws");
+
+     label03:
+        $i1 = lengthof $r0;
+
+        $i1 = $i1 + 0;
+
+        $l2 = (long) $i1;
+
+     label04:
+        virtualinvoke $r14.<java.io.RandomAccessFile: void setLength(long)>($l2);
+
+     label05:
+        $l2 = (long) 0;
+
+     label06:
+        virtualinvoke $r14.<java.io.RandomAccessFile: void seek(long)>($l2);
+
+        virtualinvoke $r14.<java.io.RandomAccessFile: void write(byte[])>($r0);
+
+        virtualinvoke $r14.<java.io.RandomAccessFile: void close()>();
+
+     label07:
+        return;
+
+     label08:
+        $r4 := @caughtexception;
+
+        $r16 = (java.io.IOException) $r4;
+
+        virtualinvoke $r16.<java.io.IOException: void printStackTrace()>();
+
+        return;
+
+     label09:
+        $r5 := @caughtexception;
+
+        $r17 = (java.io.FileNotFoundException) $r5;
+
+        virtualinvoke $r17.<java.io.FileNotFoundException: void printStackTrace()>();
+
+        return;
+
+     label10:
+        virtualinvoke $r2.<java.io.File: boolean createNewFile()>();
+
+     label11:
+        goto label13;
+
+     label12:
+        $r6 := @caughtexception;
+
+        $r16 = (java.io.IOException) $r6;
+
+        virtualinvoke $r16.<java.io.IOException: void printStackTrace()>();
+
+     label13:
+        $r7 = null;
+
+        $r15 = new java.io.FileOutputStream;
+
+     label14:
+        specialinvoke $r15.<java.io.FileOutputStream: void <init>(java.io.File)>($r2);
+
+     label15:
+        $r7 = $r15;
+
+        goto label17;
+
+     label16:
+        $r8 := @caughtexception;
+
+        $r17 = (java.io.FileNotFoundException) $r8;
+
+        virtualinvoke $r17.<java.io.FileNotFoundException: void printStackTrace()>();
+
+     label17:
+        if $r7 == null goto label33;
+
+        if $r0 == null goto label30;
+
+     label18:
+        $i0 = lengthof $r0;
+
+     label19:
+        virtualinvoke $r7.<java.io.FileOutputStream: void write(byte[],int,int)>($r0, 0, $i0);
+
+        virtualinvoke $r7.<java.io.FileOutputStream: void flush()>();
+
+     label20:
+        goto label30;
+
+     label21:
+        $r9 := @caughtexception;
+
+        goto label26;
+
+     label22:
+        $r10 := @caughtexception;
+
+     label23:
+        $r16 = (java.io.IOException) $r10;
+
+        virtualinvoke $r16.<java.io.IOException: void printStackTrace()>();
+
+     label24:
+        virtualinvoke $r7.<java.io.FileOutputStream: void close()>();
+
+     label25:
+        return;
+
+     label26:
+        virtualinvoke $r7.<java.io.FileOutputStream: void close()>();
+
+     label27:
+        goto label29;
+
+     label28:
+        $r11 := @caughtexception;
+
+        $r16 = (java.io.IOException) $r11;
+
+        virtualinvoke $r16.<java.io.IOException: void printStackTrace()>();
+
+     label29:
+        throw $r9;
+
+     label30:
+        virtualinvoke $r7.<java.io.FileOutputStream: void close()>();
+
+     label31:
+        return;
+
+     label32:
+        $r12 := @caughtexception;
+
+        $r16 = (java.io.IOException) $r12;
+
+        virtualinvoke $r16.<java.io.IOException: void printStackTrace()>();
+
+     label33:
+        return;
+
+        catch java.io.FileNotFoundException from label02 to label03 with label09;
+        catch java.io.FileNotFoundException from label04 to label05 with label09;
+        catch java.io.FileNotFoundException from label06 to label07 with label09;
+        catch java.io.IOException from label02 to label03 with label08;
+        catch java.io.IOException from label04 to label05 with label08;
+        catch java.io.IOException from label06 to label07 with label08;
+        catch java.io.IOException from label10 to label11 with label12;
+        catch java.io.FileNotFoundException from label14 to label15 with label16;
+        catch java.io.IOException from label19 to label20 with label22;
+        catch java.lang.Throwable from label18 to label20 with label21;
+        catch java.lang.Throwable from label23 to label24 with label21;
+        catch java.io.IOException from label24 to label25 with label32;
+        catch java.io.IOException from label26 to label27 with label28;
+        catch java.io.IOException from label30 to label31 with label32;
+    }

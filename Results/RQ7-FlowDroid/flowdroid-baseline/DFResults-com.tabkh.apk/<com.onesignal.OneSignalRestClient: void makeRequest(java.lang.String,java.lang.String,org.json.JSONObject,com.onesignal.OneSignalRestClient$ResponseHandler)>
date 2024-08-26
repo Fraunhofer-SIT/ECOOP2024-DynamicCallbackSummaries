@@ -1,0 +1,404 @@
+    private static void makeRequest(java.lang.String, java.lang.String, org.json.JSONObject, com.onesignal.OneSignalRestClient$ResponseHandler)
+    {
+        java.lang.Throwable r4, $r19;
+        java.net.HttpURLConnection r5, $r11;
+        byte[] $r12;
+        com.onesignal.OneSignal$LOG_LEVEL $r7;
+        java.net.URL $r21;
+        java.util.Scanner r15, $r16;
+        org.json.JSONObject $r2;
+        java.net.URLConnection $r10;
+        int i0, $i1;
+        java.lang.String $r0, $r1, r6, $r9;
+        boolean $z0;
+        java.io.OutputStream $r13;
+        com.onesignal.OneSignalRestClient$ResponseHandler $r3;
+        java.lang.StringBuilder $r8, $r20;
+        java.lang.Class $r18;
+        java.io.InputStream $r14, r17;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r2 := @parameter2: org.json.JSONObject;
+
+        $r3 := @parameter3: com.onesignal.OneSignalRestClient$ResponseHandler;
+
+        r5 = null;
+
+        i0 = -1;
+
+        r6 = null;
+
+     label01:
+        $r7 = <com.onesignal.OneSignal$LOG_LEVEL: com.onesignal.OneSignal$LOG_LEVEL DEBUG>;
+
+        $r20 = new java.lang.StringBuilder;
+
+     label02:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r8 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("https://onesignal.com/api/v1/");
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r9 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.onesignal.OneSignal: void Log(com.onesignal.OneSignal$LOG_LEVEL,java.lang.String)>($r7, $r9);
+
+        $r21 = new java.net.URL;
+
+     label03:
+        $r20 = new java.lang.StringBuilder;
+
+     label04:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r8 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("https://onesignal.com/api/v1/");
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r0 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r21.<java.net.URL: void <init>(java.lang.String)>($r0);
+
+        $r10 = virtualinvoke $r21.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r11 = (java.net.HttpURLConnection) $r10;
+
+     label05:
+        r5 = $r11;
+
+     label06:
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setUseCaches(boolean)>(0);
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setConnectTimeout(int)>(120000);
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setReadTimeout(int)>(120000);
+
+     label07:
+        if $r2 == null goto label09;
+
+     label08:
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setDoInput(boolean)>(1);
+
+     label09:
+        if $r1 == null goto label11;
+
+     label10:
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Type", "application/json; charset=UTF-8");
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>($r1);
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+     label11:
+        if $r2 == null goto label14;
+
+     label12:
+        $r0 = virtualinvoke $r2.<org.json.JSONObject: java.lang.String toString()>();
+
+        $r7 = <com.onesignal.OneSignal$LOG_LEVEL: com.onesignal.OneSignal$LOG_LEVEL DEBUG>;
+
+        $r20 = new java.lang.StringBuilder;
+
+     label13:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r8 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" SEND JSON: ");
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r9 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.onesignal.OneSignal: void Log(com.onesignal.OneSignal$LOG_LEVEL,java.lang.String)>($r7, $r9);
+
+        $r12 = virtualinvoke $r0.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8");
+
+        $i1 = lengthof $r12;
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void setFixedLengthStreamingMode(int)>($i1);
+
+        $r13 = virtualinvoke $r11.<java.net.HttpURLConnection: java.io.OutputStream getOutputStream()>();
+
+        virtualinvoke $r13.<java.io.OutputStream: void write(byte[])>($r12);
+
+     label14:
+        $i1 = virtualinvoke $r11.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label15:
+        i0 = $i1;
+
+        if $i1 != 200 goto label27;
+
+     label16:
+        $r14 = virtualinvoke $r11.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+        $r16 = new java.util.Scanner;
+
+     label17:
+        r15 = $r16;
+
+     label18:
+        specialinvoke $r16.<java.util.Scanner: void <init>(java.io.InputStream,java.lang.String)>($r14, "UTF-8");
+
+        $r16 = virtualinvoke $r16.<java.util.Scanner: java.util.Scanner useDelimiter(java.lang.String)>("\\A");
+
+        $z0 = virtualinvoke $r16.<java.util.Scanner: boolean hasNext()>();
+
+     label19:
+        if $z0 == 0 goto label26;
+
+     label20:
+        $r0 = virtualinvoke r15.<java.util.Scanner: java.lang.String next()>();
+
+     label21:
+        virtualinvoke r15.<java.util.Scanner: void close()>();
+
+        $r7 = <com.onesignal.OneSignal$LOG_LEVEL: com.onesignal.OneSignal$LOG_LEVEL DEBUG>;
+
+        $r20 = new java.lang.StringBuilder;
+
+     label22:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r8 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" RECEIVED JSON: ");
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        r6 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.onesignal.OneSignal: void Log(com.onesignal.OneSignal$LOG_LEVEL,java.lang.String)>($r7, r6);
+
+     label23:
+        if $r3 == null goto label25;
+
+     label24:
+        virtualinvoke $r3.<com.onesignal.OneSignalRestClient$ResponseHandler: void onSuccess(java.lang.String)>($r0);
+
+     label25:
+        if $r11 == null goto label62;
+
+        virtualinvoke $r11.<java.net.HttpURLConnection: void disconnect()>();
+
+        return;
+
+     label26:
+        $r0 = "";
+
+        goto label21;
+
+     label27:
+        $r14 = virtualinvoke $r11.<java.net.HttpURLConnection: java.io.InputStream getErrorStream()>();
+
+     label28:
+        r17 = $r14;
+
+        if $r14 != null goto label31;
+
+     label29:
+        $r14 = virtualinvoke $r11.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+     label30:
+        r17 = $r14;
+
+     label31:
+        if r17 == null goto label54;
+
+     label32:
+        $r16 = new java.util.Scanner;
+
+     label33:
+        r15 = $r16;
+
+     label34:
+        specialinvoke $r16.<java.util.Scanner: void <init>(java.io.InputStream,java.lang.String)>(r17, "UTF-8");
+
+        $r16 = virtualinvoke $r16.<java.util.Scanner: java.util.Scanner useDelimiter(java.lang.String)>("\\A");
+
+        $z0 = virtualinvoke $r16.<java.util.Scanner: boolean hasNext()>();
+
+     label35:
+        if $z0 == 0 goto label53;
+
+     label36:
+        $r0 = virtualinvoke r15.<java.util.Scanner: java.lang.String next()>();
+
+     label37:
+        r6 = $r0;
+
+     label38:
+        virtualinvoke r15.<java.util.Scanner: void close()>();
+
+        $r7 = <com.onesignal.OneSignal$LOG_LEVEL: com.onesignal.OneSignal$LOG_LEVEL WARN>;
+
+        $r20 = new java.lang.StringBuilder;
+
+     label39:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r8 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" RECEIVED JSON: ");
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r6);
+
+        $r0 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.onesignal.OneSignal: void Log(com.onesignal.OneSignal$LOG_LEVEL,java.lang.String)>($r7, $r0);
+
+     label40:
+        if $r3 == null goto label25;
+
+     label41:
+        virtualinvoke $r3.<com.onesignal.OneSignalRestClient$ResponseHandler: void onFailure(int,java.lang.String,java.lang.Throwable)>($i1, r6, null);
+
+     label42:
+        goto label25;
+
+     label43:
+        r4 := @caughtexception;
+
+     label44:
+        $z0 = r4 instanceof java.net.ConnectException;
+
+     label45:
+        if $z0 != 0 goto label48;
+
+     label46:
+        $z0 = r4 instanceof java.net.UnknownHostException;
+
+     label47:
+        if $z0 == 0 goto label59;
+
+     label48:
+        $r7 = <com.onesignal.OneSignal$LOG_LEVEL: com.onesignal.OneSignal$LOG_LEVEL INFO>;
+
+        $r20 = new java.lang.StringBuilder;
+
+     label49:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r8 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Could not send last request, device is offline. Throwable: ");
+
+        $r18 = virtualinvoke r4.<java.lang.Object: java.lang.Class getClass()>();
+
+        $r0 = virtualinvoke $r18.<java.lang.Class: java.lang.String getName()>();
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r0 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.onesignal.OneSignal: void Log(com.onesignal.OneSignal$LOG_LEVEL,java.lang.String)>($r7, $r0);
+
+     label50:
+        if $r3 == null goto label52;
+
+     label51:
+        virtualinvoke $r3.<com.onesignal.OneSignalRestClient$ResponseHandler: void onFailure(int,java.lang.String,java.lang.Throwable)>(i0, null, r4);
+
+     label52:
+        if r5 == null goto label62;
+
+        virtualinvoke r5.<java.net.HttpURLConnection: void disconnect()>();
+
+        return;
+
+     label53:
+        r6 = "";
+
+        goto label38;
+
+     label54:
+        $r7 = <com.onesignal.OneSignal$LOG_LEVEL: com.onesignal.OneSignal$LOG_LEVEL WARN>;
+
+        $r20 = new java.lang.StringBuilder;
+
+     label55:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r8 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" HTTP Code: ");
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" No response body!");
+
+        $r0 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.onesignal.OneSignal: void Log(com.onesignal.OneSignal$LOG_LEVEL,java.lang.String)>($r7, $r0);
+
+     label56:
+        goto label40;
+
+     label57:
+        $r19 := @caughtexception;
+
+        if r5 == null goto label58;
+
+        virtualinvoke r5.<java.net.HttpURLConnection: void disconnect()>();
+
+     label58:
+        throw $r19;
+
+     label59:
+        $r7 = <com.onesignal.OneSignal$LOG_LEVEL: com.onesignal.OneSignal$LOG_LEVEL WARN>;
+
+        $r20 = new java.lang.StringBuilder;
+
+     label60:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r8 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" Error thrown from network stack. ");
+
+        $r0 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.onesignal.OneSignal: void Log(com.onesignal.OneSignal$LOG_LEVEL,java.lang.String,java.lang.Throwable)>($r7, $r0, r4);
+
+     label61:
+        goto label50;
+
+     label62:
+        return;
+
+        catch java.lang.Throwable from label01 to label02 with label43;
+        catch java.lang.Throwable from label02 to label03 with label43;
+        catch java.lang.Throwable from label03 to label04 with label43;
+        catch java.lang.Throwable from label04 to label05 with label43;
+        catch java.lang.Throwable from label06 to label07 with label43;
+        catch java.lang.Throwable from label08 to label09 with label43;
+        catch java.lang.Throwable from label10 to label11 with label43;
+        catch java.lang.Throwable from label12 to label13 with label43;
+        catch java.lang.Throwable from label13 to label15 with label43;
+        catch java.lang.Throwable from label16 to label17 with label43;
+        catch java.lang.Throwable from label18 to label19 with label43;
+        catch java.lang.Throwable from label20 to label21 with label43;
+        catch java.lang.Throwable from label21 to label22 with label43;
+        catch java.lang.Throwable from label22 to label23 with label43;
+        catch java.lang.Throwable from label24 to label25 with label43;
+        catch java.lang.Throwable from label27 to label28 with label43;
+        catch java.lang.Throwable from label29 to label30 with label43;
+        catch java.lang.Throwable from label32 to label33 with label43;
+        catch java.lang.Throwable from label34 to label35 with label43;
+        catch java.lang.Throwable from label36 to label37 with label43;
+        catch java.lang.Throwable from label38 to label39 with label43;
+        catch java.lang.Throwable from label39 to label40 with label43;
+        catch java.lang.Throwable from label41 to label42 with label43;
+        catch java.lang.Throwable from label44 to label45 with label57;
+        catch java.lang.Throwable from label46 to label47 with label57;
+        catch java.lang.Throwable from label48 to label49 with label57;
+        catch java.lang.Throwable from label49 to label50 with label57;
+        catch java.lang.Throwable from label51 to label52 with label57;
+        catch java.lang.Throwable from label54 to label55 with label43;
+        catch java.lang.Throwable from label55 to label56 with label43;
+        catch java.lang.Throwable from label59 to label60 with label57;
+        catch java.lang.Throwable from label60 to label61 with label57;
+    }

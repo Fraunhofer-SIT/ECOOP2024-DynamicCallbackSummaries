@@ -1,0 +1,92 @@
+    private void write(java.lang.String, java.lang.Runnable)
+    {
+        java.lang.Throwable $r6;
+        long $l0, $l2;
+        o.ai$1 $r5;
+        java.lang.Runnable $r2;
+        o.ai r0;
+        byte $b1;
+        java.lang.Thread $r3;
+        int $i3;
+        com.clevertap.android.sdk.CleverTapInstanceConfig $r7;
+        java.lang.String $r1;
+        java.util.concurrent.ExecutorService $r4;
+        boolean $z0;
+        com.facebook.GraphRequest$ParcelableResourceWithMimeType$AudioAttributesCompatParcelizer $r8;
+
+        r0 := @this: o.ai;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: java.lang.Runnable;
+
+     label01:
+        $r3 = staticinvoke <java.lang.Thread: java.lang.Thread currentThread()>();
+
+        $l2 = virtualinvoke $r3.<java.lang.Thread: long getId()>();
+
+        $l0 = <o.ai: long RemoteActionCompatParcelizer>;
+
+     label02:
+        $b1 = $l2 cmp $l0;
+
+        if $b1 != 0 goto label03;
+
+        $z0 = 1;
+
+        goto label04;
+
+     label03:
+        $z0 = 0;
+
+     label04:
+        if $z0 == 0 goto label07;
+
+     label05:
+        interfaceinvoke $r2.<java.lang.Runnable: void run()>();
+
+     label06:
+        return;
+
+     label07:
+        $r4 = r0.<o.ai: java.util.concurrent.ExecutorService MediaBrowserCompat$CustomActionResultReceiver>;
+
+        $r5 = new o.ai$1;
+
+        specialinvoke $r5.<o.ai$1: void <init>(o.ai,java.lang.String,java.lang.Runnable)>(r0, $r1, $r2);
+
+        interfaceinvoke $r4.<java.util.concurrent.ExecutorService: java.util.concurrent.Future submit(java.lang.Runnable)>($r5);
+
+     label08:
+        return;
+
+     label09:
+        $r6 := @caughtexception;
+
+        $r7 = r0.<o.ai: com.clevertap.android.sdk.CleverTapInstanceConfig read>;
+
+        $r8 = $r7.<com.clevertap.android.sdk.CleverTapInstanceConfig: com.facebook.GraphRequest$ParcelableResourceWithMimeType$AudioAttributesCompatParcelizer RatingCompat>;
+
+        if $r8 != null goto label10;
+
+        $r8 = new com.facebook.GraphRequest$ParcelableResourceWithMimeType$AudioAttributesCompatParcelizer;
+
+        $i3 = $r7.<com.clevertap.android.sdk.CleverTapInstanceConfig: int AudioAttributesImplBaseParcelizer>;
+
+        specialinvoke $r8.<com.facebook.GraphRequest$ParcelableResourceWithMimeType$AudioAttributesCompatParcelizer: void <init>(int)>($i3);
+
+        $r7.<com.clevertap.android.sdk.CleverTapInstanceConfig: com.facebook.GraphRequest$ParcelableResourceWithMimeType$AudioAttributesCompatParcelizer RatingCompat> = $r8;
+
+     label10:
+        $r7 = r0.<o.ai: com.clevertap.android.sdk.CleverTapInstanceConfig read>;
+
+        $r1 = $r7.<com.clevertap.android.sdk.CleverTapInstanceConfig: java.lang.String IconCompatParcelizer>;
+
+        staticinvoke <com.facebook.GraphRequest$ParcelableResourceWithMimeType$AudioAttributesCompatParcelizer: void read(java.lang.String,java.lang.String,java.lang.Throwable)>($r1, "Failed to submit task to the executor service", $r6);
+
+        return;
+
+        catch java.lang.Throwable from label01 to label02 with label09;
+        catch java.lang.Throwable from label05 to label06 with label09;
+        catch java.lang.Throwable from label07 to label08 with label09;
+    }

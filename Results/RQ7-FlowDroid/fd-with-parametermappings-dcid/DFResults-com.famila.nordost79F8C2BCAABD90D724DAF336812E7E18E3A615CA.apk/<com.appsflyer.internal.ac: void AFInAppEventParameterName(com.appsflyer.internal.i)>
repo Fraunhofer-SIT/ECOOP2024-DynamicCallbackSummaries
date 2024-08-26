@@ -1,0 +1,163 @@
+    private void AFInAppEventParameterName(com.appsflyer.internal.i) throws java.io.IOException
+    {
+        java.lang.Throwable $r10;
+        byte[] $r8;
+        com.appsflyer.internal.ac r0;
+        com.appsflyer.AppsFlyerProperties $r11;
+        com.appsflyer.internal.ak $r9;
+        org.json.JSONObject $r4;
+        java.util.Map $r5;
+        int $i0;
+        java.lang.StringBuilder $r2;
+        java.lang.String $r3, $r6, $r7;
+        com.appsflyer.internal.i $r1;
+        boolean $z0, $z1;
+
+        r0 := @this: com.appsflyer.internal.ac;
+
+        $r1 := @parameter0: com.appsflyer.internal.i;
+
+        $r2 = new java.lang.StringBuilder;
+
+        specialinvoke $r2.<java.lang.StringBuilder: void <init>(java.lang.String)>("url: ");
+
+        $r3 = $r1.<com.appsflyer.internal.i: java.lang.String onDeepLinkingNative>;
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r2.<java.lang.Object: java.lang.String toString()>();
+
+        staticinvoke <com.appsflyer.AFLogger: void values(java.lang.String)>($r3);
+
+        $r3 = $r1.<com.appsflyer.internal.i: java.lang.String init>;
+
+        $z0 = 1;
+
+        if $r3 == null goto label01;
+
+        $z1 = 1;
+
+        goto label02;
+
+     label01:
+        $z1 = 0;
+
+     label02:
+        if $z1 == 1 goto label05;
+
+        $r4 = new org.json.JSONObject;
+
+        $r5 = virtualinvoke $r1.<com.appsflyer.internal.i: java.util.Map values()>();
+
+        specialinvoke $r4.<org.json.JSONObject: void <init>(java.util.Map)>($r5);
+
+        $r6 = virtualinvoke $r4.<org.json.JSONObject: java.lang.String toString()>();
+
+        $r3 = $r6;
+
+        $r7 = virtualinvoke $r6.<java.lang.String: java.lang.String replaceAll(java.lang.String,java.lang.String)>("\\p{C}", "*Non-printing character*");
+
+        $z1 = virtualinvoke $r7.<java.lang.Object: boolean equals(java.lang.Object)>($r6);
+
+        if $z1 == 0 goto label03;
+
+        $z0 = 0;
+
+     label03:
+        if $z0 == 0 goto label04;
+
+        $i0 = <com.appsflyer.internal.ac: int waitForCustomerUserId>;
+
+        $i0 = $i0 + 65;
+
+        $i0 = $i0 % 128;
+
+        <com.appsflyer.internal.ac: int setCustomerIdAndLogSession> = $i0;
+
+        staticinvoke <com.appsflyer.AFLogger: void AppsFlyer2dXConversionCallback(java.lang.String)>("Payload contains non-printing characters");
+
+        $r3 = $r7;
+
+     label04:
+        $r6 = "data: ";
+
+        $r6 = virtualinvoke $r6.<java.lang.String: java.lang.String concat(java.lang.String)>($r3);
+
+        staticinvoke <com.appsflyer.internal.ai: void AFKeystoreWrapper(java.lang.String)>($r6);
+
+        $i0 = <com.appsflyer.internal.ac: int setCustomerIdAndLogSession>;
+
+        $i0 = $i0 + 47;
+
+        $i0 = $i0 % 128;
+
+        <com.appsflyer.internal.ac: int waitForCustomerUserId> = $i0;
+
+        goto label06;
+
+     label05:
+        $r8 = virtualinvoke $r1.<com.appsflyer.internal.i: byte[] AFInAppEventParameterName()>();
+
+        $r6 = staticinvoke <android.util.Base64: java.lang.String encodeToString(byte[],int)>($r8, 2);
+
+        $r3 = $r6;
+
+        $r6 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r6);
+
+        $r7 = "cached data: ";
+
+        $r6 = virtualinvoke $r7.<java.lang.String: java.lang.String concat(java.lang.String)>($r6);
+
+        staticinvoke <com.appsflyer.AFLogger: void values(java.lang.String)>($r6);
+
+     label06:
+        $r9 = staticinvoke <com.appsflyer.internal.ak: com.appsflyer.internal.ak AFInAppEventType()>();
+
+        $r6 = $r1.<com.appsflyer.internal.i: java.lang.String onDeepLinkingNative>;
+
+        virtualinvoke $r9.<com.appsflyer.internal.ak: void AFInAppEventType(java.lang.String,java.lang.String)>($r6, $r3);
+
+     label07:
+        specialinvoke r0.<com.appsflyer.internal.ac: void init(com.appsflyer.internal.i)>($r1);
+
+     label08:
+        return;
+
+     label09:
+        $r10 := @caughtexception;
+
+        staticinvoke <com.appsflyer.AFLogger: void valueOf(java.lang.String,java.lang.Throwable)>("Exception in sendRequestToServer. ", $r10);
+
+        $r11 = staticinvoke <com.appsflyer.AppsFlyerProperties: com.appsflyer.AppsFlyerProperties getInstance()>();
+
+        $z0 = virtualinvoke $r11.<com.appsflyer.AppsFlyerProperties: boolean getBoolean(java.lang.String,boolean)>("useHttpFallback", 0);
+
+        if $z0 == 0 goto label10;
+
+        $r3 = $r1.<com.appsflyer.internal.i: java.lang.String onDeepLinkingNative>;
+
+        $r3 = virtualinvoke $r3.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("https:", "http:");
+
+        $r1 = virtualinvoke $r1.<com.appsflyer.internal.i: com.appsflyer.internal.i AFInAppEventType(java.lang.String)>($r3);
+
+        specialinvoke r0.<com.appsflyer.internal.ac: void init(com.appsflyer.internal.i)>($r1);
+
+        return;
+
+     label10:
+        $r2 = new java.lang.StringBuilder;
+
+        specialinvoke $r2.<java.lang.StringBuilder: void <init>(java.lang.String)>("failed to send request to server. ");
+
+        $r3 = virtualinvoke $r10.<java.lang.Throwable: java.lang.String getLocalizedMessage()>();
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r2.<java.lang.Object: java.lang.String toString()>();
+
+        staticinvoke <com.appsflyer.AFLogger: void values(java.lang.String)>($r3);
+
+        throw $r10;
+
+        catch java.io.IOException from label07 to label08 with label09;
+    }

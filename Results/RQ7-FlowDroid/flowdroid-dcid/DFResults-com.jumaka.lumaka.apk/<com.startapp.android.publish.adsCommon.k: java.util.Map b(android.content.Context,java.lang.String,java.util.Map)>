@@ -1,0 +1,85 @@
+    public static java.util.Map b(android.content.Context, java.lang.String, java.util.Map)
+    {
+        java.lang.Throwable $r1, $r2;
+        android.content.Context $r3;
+        java.util.Iterator $r7;
+        org.json.JSONException $r10;
+        org.json.JSONObject $r6;
+        android.content.SharedPreferences $r5;
+        java.util.Map $r0;
+        java.lang.Object $r8;
+        java.lang.String $r4, $r9;
+        boolean $z0;
+
+        $r3 := @parameter0: android.content.Context;
+
+        $r4 := @parameter1: java.lang.String;
+
+        $r0 := @parameter2: java.util.Map;
+
+        $r5 = staticinvoke <com.startapp.android.publish.adsCommon.k: android.content.SharedPreferences a(android.content.Context)>($r3);
+
+        $r4 = interfaceinvoke $r5.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("sharedPrefsWrappers", null);
+
+     label01:
+        $r6 = new org.json.JSONObject;
+
+     label02:
+        specialinvoke $r6.<org.json.JSONObject: void <init>(java.lang.String)>($r4);
+
+        $r7 = virtualinvoke $r6.<org.json.JSONObject: java.util.Iterator keys()>();
+
+     label03:
+        $z0 = interfaceinvoke $r7.<java.util.Iterator: boolean hasNext()>();
+
+     label04:
+        if $z0 == 0 goto label11;
+
+     label05:
+        $r8 = interfaceinvoke $r7.<java.util.Iterator: java.lang.Object next()>();
+
+     label06:
+        $r4 = (java.lang.String) $r8;
+
+     label07:
+        $r8 = virtualinvoke $r6.<org.json.JSONObject: java.lang.Object get(java.lang.String)>($r4);
+
+     label08:
+        $r9 = (java.lang.String) $r8;
+
+     label09:
+        interfaceinvoke $r0.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($r4, $r9);
+
+     label10:
+        goto label03;
+
+     label11:
+        return $r0;
+
+     label12:
+        $r10 := @caughtexception;
+
+     label13:
+        virtualinvoke $r10.<org.json.JSONException: void printStackTrace()>();
+
+     label14:
+        return $r0;
+
+     label15:
+        $r1 := @caughtexception;
+
+        return $r0;
+
+     label16:
+        $r2 := @caughtexception;
+
+        return $r0;
+
+        catch org.json.JSONException from label02 to label04 with label12;
+        catch org.json.JSONException from label05 to label06 with label12;
+        catch org.json.JSONException from label07 to label08 with label12;
+        catch org.json.JSONException from label09 to label10 with label12;
+        catch java.lang.Throwable from label01 to label04 with label15;
+        catch java.lang.Throwable from label05 to label10 with label15;
+        catch java.lang.Throwable from label13 to label14 with label16;
+    }

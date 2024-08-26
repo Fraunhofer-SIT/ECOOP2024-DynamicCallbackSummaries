@@ -1,0 +1,216 @@
+    protected boolean deferScanIfNeeded()
+    {
+        java.lang.Object[] $r2;
+        org.altbeacon.beacon.service.scanner.CycledLeScanCallback $r4;
+        long $l0, $l1, $l3;
+        byte $b2;
+        java.lang.Long $r3;
+        android.os.Handler $r5;
+        int $i4;
+        org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop$1 $r6;
+        org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop r0;
+        org.altbeacon.beacon.service.DetectionTracker $r1;
+        boolean $z0, $z1, $z2;
+
+        r0 := @this: org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop;
+
+        $l0 = r0.<org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop: long mNextScanCycleStartTime>;
+
+        $l1 = staticinvoke <android.os.SystemClock: long elapsedRealtime()>();
+
+        $l0 = $l0 - $l1;
+
+        $b2 = $l0 cmp 0L;
+
+        $i4 = (int) $b2;
+
+        if $i4 <= 0 goto label01;
+
+        $z0 = 1;
+
+        goto label02;
+
+     label01:
+        $z0 = 0;
+
+     label02:
+        $z1 = r0.<org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop: boolean mMainScanCycleActive>;
+
+        $z2 = $z0 ^ 1;
+
+        r0.<org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop: boolean mMainScanCycleActive> = $z2;
+
+        if $z0 == 0 goto label11;
+
+        $l1 = staticinvoke <android.os.SystemClock: long elapsedRealtime()>();
+
+        $r1 = staticinvoke <org.altbeacon.beacon.service.DetectionTracker: org.altbeacon.beacon.service.DetectionTracker getInstance()>();
+
+        $l3 = virtualinvoke $r1.<org.altbeacon.beacon.service.DetectionTracker: long getLastDetectionTime()>();
+
+        $l1 = $l1 - $l3;
+
+        if $z1 == 0 goto label05;
+
+        $b2 = $l1 cmp 10000L;
+
+        $i4 = (int) $b2;
+
+        if $i4 <= 0 goto label04;
+
+        $l1 = staticinvoke <android.os.SystemClock: long elapsedRealtime()>();
+
+        r0.<org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop: long mBackgroundLScanStartTime> = $l1;
+
+        r0.<org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop: long mBackgroundLScanFirstDetectionTime> = 0L;
+
+        $r2 = newarray (java.lang.Object)[0];
+
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>("CycledLeScannerForLollipop", "This is Android L. Preparing to do a filtered scan for the background.", $r2);
+
+        $l1 = r0.<org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop: long mBetweenScanPeriod>;
+
+        $b2 = $l1 cmp 6000L;
+
+        $i4 = (int) $b2;
+
+        if $i4 <= 0 goto label03;
+
+        virtualinvoke r0.<org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop: void startScan()>();
+
+        goto label05;
+
+     label03:
+        $r2 = newarray (java.lang.Object)[0];
+
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>("CycledLeScannerForLollipop", "Suppressing scan between cycles because the between scan cycle is too short.", $r2);
+
+        goto label05;
+
+     label04:
+        $r2 = newarray (java.lang.Object)[1];
+
+        $r3 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>($l1);
+
+        $r2[0] = $r3;
+
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>("CycledLeScannerForLollipop", "This is Android L, but we last saw a beacon only %s ago, so we will not keep scanning in background.", $r2);
+
+     label05:
+        $l1 = r0.<org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop: long mBackgroundLScanStartTime>;
+
+        $b2 = $l1 cmp 0L;
+
+        $i4 = (int) $b2;
+
+        if $i4 <= 0 goto label08;
+
+        $r1 = staticinvoke <org.altbeacon.beacon.service.DetectionTracker: org.altbeacon.beacon.service.DetectionTracker getInstance()>();
+
+        $l1 = virtualinvoke $r1.<org.altbeacon.beacon.service.DetectionTracker: long getLastDetectionTime()>();
+
+        $l3 = r0.<org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop: long mBackgroundLScanStartTime>;
+
+        $b2 = $l1 cmp $l3;
+
+        $i4 = (int) $b2;
+
+        if $i4 <= 0 goto label08;
+
+        $l1 = r0.<org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop: long mBackgroundLScanFirstDetectionTime>;
+
+        $b2 = $l1 cmp 0L;
+
+        if $b2 != 0 goto label06;
+
+        $r1 = staticinvoke <org.altbeacon.beacon.service.DetectionTracker: org.altbeacon.beacon.service.DetectionTracker getInstance()>();
+
+        $l1 = virtualinvoke $r1.<org.altbeacon.beacon.service.DetectionTracker: long getLastDetectionTime()>();
+
+        r0.<org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop: long mBackgroundLScanFirstDetectionTime> = $l1;
+
+     label06:
+        $l1 = staticinvoke <android.os.SystemClock: long elapsedRealtime()>();
+
+        $l3 = r0.<org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop: long mBackgroundLScanFirstDetectionTime>;
+
+        $l1 = $l1 - $l3;
+
+        $b2 = $l1 cmp 10000L;
+
+        $i4 = (int) $b2;
+
+        if $i4 < 0 goto label07;
+
+        $r2 = newarray (java.lang.Object)[0];
+
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>("CycledLeScannerForLollipop", "We\'ve been detecting for a bit.  Stopping Android L background scanning", $r2);
+
+        virtualinvoke r0.<org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop: void stopScan()>();
+
+        r0.<org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop: long mBackgroundLScanStartTime> = 0L;
+
+        goto label08;
+
+     label07:
+        $r2 = newarray (java.lang.Object)[0];
+
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>("CycledLeScannerForLollipop", "Delivering Android L background scanning results", $r2);
+
+        $r4 = r0.<org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop: org.altbeacon.beacon.service.scanner.CycledLeScanCallback mCycledLeScanCallback>;
+
+        interfaceinvoke $r4.<org.altbeacon.beacon.service.scanner.CycledLeScanCallback: void onCycleEnd()>();
+
+     label08:
+        $r2 = newarray (java.lang.Object)[1];
+
+        $r3 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>($l0);
+
+        $r2[0] = $r3;
+
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>("CycledLeScannerForLollipop", "Waiting to start full Bluetooth scan for another %s milliseconds", $r2);
+
+        if $z1 == 0 goto label09;
+
+        $z1 = r0.<org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop: boolean mBackgroundFlag>;
+
+        if $z1 == 0 goto label09;
+
+        virtualinvoke r0.<org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop: void setWakeUpAlarm()>();
+
+     label09:
+        $r5 = r0.<org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop: android.os.Handler mHandler>;
+
+        $r6 = new org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop$1;
+
+        specialinvoke $r6.<org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop$1: void <init>(org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop)>(r0);
+
+        $b2 = $l0 cmp 1000L;
+
+        $i4 = (int) $b2;
+
+        if $i4 <= 0 goto label10;
+
+        $l0 = 1000L;
+
+     label10:
+        virtualinvoke $r5.<android.os.Handler: boolean postDelayed(java.lang.Runnable,long)>($r6, $l0);
+
+        return $z0;
+
+     label11:
+        $l0 = r0.<org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop: long mBackgroundLScanStartTime>;
+
+        $b2 = $l0 cmp 0L;
+
+        $i4 = (int) $b2;
+
+        if $i4 <= 0 goto label12;
+
+        virtualinvoke r0.<org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop: void stopScan()>();
+
+        r0.<org.altbeacon.beacon.service.scanner.CycledLeScannerForLollipop: long mBackgroundLScanStartTime> = 0L;
+
+     label12:
+        return $z0;
+    }

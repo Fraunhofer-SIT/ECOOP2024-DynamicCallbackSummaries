@@ -1,0 +1,67 @@
+    private void saveStateToDisk()
+    {
+        java.lang.Throwable $r3, $r6;
+        com.parse.PushRouter r0;
+        java.io.File $r1;
+        org.json.JSONException $r7;
+        org.json.JSONObject $r2;
+        java.lang.StringBuilder $r4;
+        java.lang.String $r5;
+
+        r0 := @this: com.parse.PushRouter;
+
+        entermonitor r0;
+
+     label1:
+        $r1 = r0.<com.parse.PushRouter: java.io.File diskState>;
+
+     label2:
+        $r2 = virtualinvoke r0.<com.parse.PushRouter: org.json.JSONObject toJSON()>();
+
+        staticinvoke <com.parse.ParseFileUtils: void writeJSONObjectToFile(java.io.File,org.json.JSONObject)>($r1, $r2);
+
+     label3:
+        exitmonitor r0;
+
+        return;
+
+     label4:
+        $r3 := @caughtexception;
+
+     label5:
+        $r4 = new java.lang.StringBuilder;
+
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Unexpected error when serializing push state to ");
+
+        $r1 = r0.<com.parse.PushRouter: java.io.File diskState>;
+
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r1);
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.parse.PLog: void e(java.lang.String,java.lang.String,java.lang.Throwable)>("com.parse.ParsePushRouter", $r5, $r3);
+
+     label6:
+        goto label3;
+
+     label7:
+        $r6 := @caughtexception;
+
+        exitmonitor r0;
+
+        throw $r6;
+
+     label8:
+        $r7 := @caughtexception;
+
+        $r3 = $r7;
+
+        goto label5;
+
+        catch java.io.IOException from label2 to label3 with label4;
+        catch org.json.JSONException from label2 to label3 with label8;
+        catch java.lang.Throwable from label1 to label3 with label7;
+        catch java.lang.Throwable from label5 to label6 with label7;
+    }

@@ -1,0 +1,151 @@
+    private void G()
+    {
+        java.lang.Throwable $r2, $r9;
+        android.content.Context $r3;
+        com.cubemst.placetime.PlaceTimeService r0;
+        android.content.Intent $r1;
+        java.lang.String[] $r4;
+        android.app.PendingIntent $r8;
+        int $i0;
+        java.lang.StringBuilder $r6;
+        java.lang.String $r5, $r7;
+        boolean $z0;
+
+        r0 := @this: com.cubemst.placetime.PlaceTimeService;
+
+        $r3 = virtualinvoke r0.<com.cubemst.placetime.PlaceTimeService: android.content.Context getApplicationContext()>();
+
+        $r4 = staticinvoke <com.cubemst.placetime.utils.k: java.lang.String[] B(android.content.Context)>($r3);
+
+        $r1 = new android.content.Intent;
+
+        specialinvoke $r1.<android.content.Intent: void <init>()>();
+
+        $r5 = $r4[4];
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        $r7 = $r4[4];
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".");
+
+        $r7 = $r4[5];
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r1.<android.content.Intent: android.content.Intent setClassName(java.lang.String,java.lang.String)>($r5, $r7);
+
+        virtualinvoke $r1.<android.content.Intent: android.content.Intent setFlags(int)>(268435456);
+
+        virtualinvoke $r1.<android.content.Intent: android.content.Intent setAction(java.lang.String)>("com.cubemst.placetime.action.REQUEST_INFO");
+
+        $z0 = staticinvoke <com.cubemst.placetime.utils.j: boolean J(android.content.Context)>($r3);
+
+        if $z0 == 0 goto label01;
+
+        $r5 = $r4[0];
+
+        virtualinvoke $r1.<android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)>("placetime.code.key", $r5);
+
+        $r5 = $r4[1];
+
+        $r7 = "none";
+
+        $z0 = virtualinvoke $r7.<java.lang.String: boolean equals(java.lang.Object)>($r5);
+
+        if $z0 != 0 goto label01;
+
+        $r5 = $r4[1];
+
+        virtualinvoke $r1.<android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)>("placetime.name.key", $r5);
+
+     label01:
+        staticinvoke <com.cubemst.placetime.utils.k: void a(android.content.Context,java.lang.String[])>($r3, $r4);
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("BROADCAST [ ACTION : com.cubemst.placetime.action.REQUEST_INFO ] TO [ ");
+
+        $r5 = $r4[4];
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".");
+
+        $r5 = $r4[5];
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ]");
+
+        $r5 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.cubemst.placetime.utils.e: void a(java.lang.String)>($r5);
+
+        $r8 = staticinvoke <android.app.PendingIntent: android.app.PendingIntent getBroadcast(android.content.Context,int,android.content.Intent,int)>($r3, 0, $r1, 134217728);
+
+     label02:
+        virtualinvoke $r8.<android.app.PendingIntent: void send()>();
+
+     label03:
+        goto label08;
+
+     label04:
+        $i0 = staticinvoke <com.cubemst.placetime.utils.k: int F(android.content.Context)>($r3);
+
+     label05:
+        if $i0 >= 0 goto label07;
+
+     label06:
+        staticinvoke <com.cubemst.placetime.utils.k: void e(android.content.Context,boolean)>($r3, 1);
+
+     label07:
+        $i0 = staticinvoke <com.cubemst.placetime.utils.k: int F(android.content.Context)>($r3);
+
+        if $i0 >= 0 goto label13;
+
+        goto label09;
+
+     label08:
+        $i0 = staticinvoke <com.cubemst.placetime.utils.k: int F(android.content.Context)>($r3);
+
+        if $i0 >= 0 goto label13;
+
+     label09:
+        staticinvoke <com.cubemst.placetime.utils.k: void e(android.content.Context,boolean)>($r3, 0);
+
+        return;
+
+     label10:
+        $r9 := @caughtexception;
+
+        $i0 = staticinvoke <com.cubemst.placetime.utils.k: int F(android.content.Context)>($r3);
+
+        if $i0 >= 0 goto label11;
+
+        staticinvoke <com.cubemst.placetime.utils.k: void e(android.content.Context,boolean)>($r3, 0);
+
+     label11:
+        throw $r9;
+
+     label12:
+        $r2 := @caughtexception;
+
+        goto label04;
+
+     label13:
+        return;
+
+        catch android.app.PendingIntent$CanceledException from label02 to label03 with label12;
+        catch java.lang.Throwable from label02 to label03 with label10;
+        catch java.lang.Throwable from label04 to label05 with label10;
+        catch java.lang.Throwable from label06 to label07 with label10;
+    }

@@ -1,0 +1,149 @@
+    public com.biznessapps.utils.google.caching.DiskLruCache$Snapshot get(java.lang.String) throws java.io.IOException
+    {
+        java.lang.Throwable r3, $r14;
+        java.lang.Object[] r2;
+        com.biznessapps.utils.google.caching.DiskLruCache$Entry r7;
+        java.util.concurrent.Callable $r13;
+        long $l2;
+        java.util.LinkedHashMap $r5;
+        java.io.InputStream[] $r18;
+        int $i0, $i1;
+        java.lang.String $r1, $r11;
+        com.biznessapps.utils.google.caching.DiskLruCache r0;
+        java.util.concurrent.ExecutorService $r12;
+        boolean $z0;
+        java.io.FileInputStream $r15;
+        java.io.File $r8;
+        com.biznessapps.utils.google.caching.DiskLruCache$Snapshot $r4, $r17;
+        java.io.Writer $r9;
+        java.lang.Object $r6;
+        java.lang.StringBuilder $r10, $r16;
+
+        r0 := @this: com.biznessapps.utils.google.caching.DiskLruCache;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r4 = null;
+
+        entermonitor r0;
+
+     label01:
+        specialinvoke r0.<com.biznessapps.utils.google.caching.DiskLruCache: void checkNotClosed()>();
+
+        specialinvoke r0.<com.biznessapps.utils.google.caching.DiskLruCache: void validateKey(java.lang.String)>($r1);
+
+        $r5 = r0.<com.biznessapps.utils.google.caching.DiskLruCache: java.util.LinkedHashMap lruEntries>;
+
+        $r6 = virtualinvoke $r5.<java.util.LinkedHashMap: java.lang.Object get(java.lang.Object)>($r1);
+
+        r7 = (com.biznessapps.utils.google.caching.DiskLruCache$Entry) $r6;
+
+     label02:
+        if r7 != null goto label04;
+
+     label03:
+        exitmonitor r0;
+
+        return $r4;
+
+     label04:
+        $z0 = staticinvoke <com.biznessapps.utils.google.caching.DiskLruCache$Entry: boolean access$600(com.biznessapps.utils.google.caching.DiskLruCache$Entry)>(r7);
+
+        if $z0 == 0 goto label03;
+
+        $i0 = r0.<com.biznessapps.utils.google.caching.DiskLruCache: int valueCount>;
+
+        r2 = newarray (java.io.InputStream)[$i0];
+
+     label05:
+        $i0 = 0;
+
+     label06:
+        $i1 = r0.<com.biznessapps.utils.google.caching.DiskLruCache: int valueCount>;
+
+        if $i0 >= $i1 goto label11;
+
+        $r15 = new java.io.FileInputStream;
+
+     label07:
+        $r8 = virtualinvoke r7.<com.biznessapps.utils.google.caching.DiskLruCache$Entry: java.io.File getCleanFile(int)>($i0);
+
+        specialinvoke $r15.<java.io.FileInputStream: void <init>(java.io.File)>($r8);
+
+     label08:
+        r2[$i0] = $r15;
+
+     label09:
+        $i0 = $i0 + 1;
+
+        goto label06;
+
+     label10:
+        r3 := @caughtexception;
+
+        goto label03;
+
+     label11:
+        $i0 = r0.<com.biznessapps.utils.google.caching.DiskLruCache: int redundantOpCount>;
+
+        $i0 = $i0 + 1;
+
+        r0.<com.biznessapps.utils.google.caching.DiskLruCache: int redundantOpCount> = $i0;
+
+        $r9 = r0.<com.biznessapps.utils.google.caching.DiskLruCache: java.io.Writer journalWriter>;
+
+        $r16 = new java.lang.StringBuilder;
+
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+        $r10 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("READ ");
+
+        $r10 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r10 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(10);
+
+        $r11 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r9.<java.io.Writer: java.io.Writer append(java.lang.CharSequence)>($r11);
+
+        $r9 = r0.<com.biznessapps.utils.google.caching.DiskLruCache: java.io.Writer journalWriter>;
+
+        virtualinvoke $r9.<java.io.Writer: void flush()>();
+
+        $z0 = specialinvoke r0.<com.biznessapps.utils.google.caching.DiskLruCache: boolean journalRebuildRequired()>();
+
+        if $z0 == 0 goto label12;
+
+        $r12 = r0.<com.biznessapps.utils.google.caching.DiskLruCache: java.util.concurrent.ExecutorService executorService>;
+
+        $r13 = r0.<com.biznessapps.utils.google.caching.DiskLruCache: java.util.concurrent.Callable cleanupCallable>;
+
+        interfaceinvoke $r12.<java.util.concurrent.ExecutorService: java.util.concurrent.Future submit(java.util.concurrent.Callable)>($r13);
+
+     label12:
+        $r17 = new com.biznessapps.utils.google.caching.DiskLruCache$Snapshot;
+
+        $r4 = $r17;
+
+        $l2 = staticinvoke <com.biznessapps.utils.google.caching.DiskLruCache$Entry: long access$1200(com.biznessapps.utils.google.caching.DiskLruCache$Entry)>(r7);
+
+        $r18 = (java.io.InputStream[]) r2;
+
+        specialinvoke $r17.<com.biznessapps.utils.google.caching.DiskLruCache$Snapshot: void <init>(com.biznessapps.utils.google.caching.DiskLruCache,java.lang.String,long,java.io.InputStream[],com.biznessapps.utils.google.caching.DiskLruCache$1)>(r0, $r1, $l2, $r18, null);
+
+     label13:
+        goto label03;
+
+     label14:
+        $r14 := @caughtexception;
+
+        exitmonitor r0;
+
+        throw $r14;
+
+        catch java.lang.Throwable from label01 to label02 with label14;
+        catch java.lang.Throwable from label04 to label05 with label14;
+        catch java.io.FileNotFoundException from label07 to label08 with label10;
+        catch java.lang.Throwable from label06 to label09 with label14;
+        catch java.lang.Throwable from label11 to label13 with label14;
+    }

@@ -1,0 +1,531 @@
+    private void startOpenVPN()
+    {
+        byte[] $r19;
+        android.net.LocalServerSocket $r39;
+        com.free.vpn.core.OpenVPNService r0;
+        f.c.b.i $r4;
+        java.util.Vector $r32;
+        android.os.Looper $r27;
+        java.lang.Thread $r40;
+        android.os.Handler $r42;
+        boolean $z0, $z1;
+        android.net.LocalSocketAddress $r38;
+        f.c.b.l.r $r36;
+        f.c.b.l.q $r41;
+        java.lang.Exception $r46;
+        android.app.Application $r7;
+        java.lang.StringBuilder $r17, $r34;
+        android.content.pm.ApplicationInfo $r6;
+        f.c.b.l.y$b $r30;
+        java.lang.Throwable $r1, $r2, $r3, $r10, $r20, $r25, $r28, $r29;
+        java.lang.Object[] $r14;
+        java.lang.String[] $r12;
+        android.net.LocalSocket $r22, $r37;
+        android.content.res.AssetManager $r16;
+        android.net.LocalSocketAddress$Namespace $r23;
+        int $i0, $i1, $i2;
+        java.lang.String $r5, $r9, $r11, $r13;
+        java.io.FileWriter $r31;
+        java.io.FileOutputStream $r35;
+        java.io.IOException $r45;
+        java.lang.RuntimeException $r44;
+        java.io.File $r8, $r15, $r33;
+        android.content.SharedPreferences $r21;
+        java.io.FileDescriptor $r24;
+        java.lang.Object $r26;
+        com.free.vpn.core.OpenVPNService$d $r43;
+        java.io.InputStream $r18;
+
+        r0 := @this: com.free.vpn.core.OpenVPNService;
+
+        $z0 = staticinvoke <d.b0.s: boolean g()>();
+
+        if $z0 == 0 goto label01;
+
+        return;
+
+     label01:
+        $r4 = r0.<com.free.vpn.core.OpenVPNService: f.c.b.i mProfile>;
+
+     label02:
+        staticinvoke <java.util.Objects: java.lang.Object requireNonNull(java.lang.Object)>($r4);
+
+     label03:
+        $r31 = new java.io.FileWriter;
+
+     label04:
+        $r5 = staticinvoke <d.b0.s: java.lang.String x(android.content.Context)>(r0);
+
+        specialinvoke $r31.<java.io.FileWriter: void <init>(java.lang.String)>($r5);
+
+     label05:
+        $z0 = 0;
+
+     label06:
+        $r5 = virtualinvoke $r4.<f.c.b.i: java.lang.String f(android.content.Context,boolean)>(r0, 0);
+
+        virtualinvoke $r31.<java.io.FileWriter: void write(java.lang.String)>($r5);
+
+        virtualinvoke $r31.<java.io.FileWriter: void flush()>();
+
+        virtualinvoke $r31.<java.io.FileWriter: void close()>();
+
+     label07:
+        $r6 = virtualinvoke r0.<android.net.VpnService: android.content.pm.ApplicationInfo getApplicationInfo()>();
+
+        $r5 = $r6.<android.content.pm.ApplicationInfo: java.lang.String nativeLibraryDir>;
+
+     label08:
+        $r7 = virtualinvoke r0.<android.net.VpnService: android.app.Application getApplication()>();
+
+        $r8 = virtualinvoke $r7.<android.app.Application: java.io.File getCacheDir()>();
+
+        $r9 = virtualinvoke $r8.<java.io.File: java.lang.String getCanonicalPath()>();
+
+     label09:
+        goto label11;
+
+     label10:
+        $r10 := @caughtexception;
+
+        $r45 = (java.io.IOException) $r10;
+
+        virtualinvoke $r45.<java.io.IOException: void printStackTrace()>();
+
+        $r9 = "/tmp";
+
+     label11:
+        $z1 = staticinvoke <d.b0.s: boolean e()>();
+
+        if $z1 != 0 goto label12;
+
+        return;
+
+     label12:
+        $r32 = new java.util.Vector;
+
+        specialinvoke $r32.<java.util.Vector: void <init>()>();
+
+        $r11 = staticinvoke <com.free.vpn.core.NativeUtils: java.lang.String a()>();
+
+        $i0 = <android.os.Build$VERSION: int SDK_INT>;
+
+        if $i0 < 28 goto label13;
+
+        $r15 = new java.io.File;
+
+        $r6 = virtualinvoke r0.<android.content.Context: android.content.pm.ApplicationInfo getApplicationInfo()>();
+
+        $r11 = $r6.<android.content.pm.ApplicationInfo: java.lang.String nativeLibraryDir>;
+
+        specialinvoke $r15.<java.io.File: void <init>(java.lang.String,java.lang.String)>($r11, "libovpnexec.so");
+
+        $r11 = virtualinvoke $r15.<java.io.File: java.lang.String getPath()>();
+
+        goto label38;
+
+     label13:
+        $r12 = <android.os.Build: java.lang.String[] SUPPORTED_ABIS>;
+
+        $r13 = $r12[0];
+
+        $z1 = virtualinvoke $r11.<java.lang.String: boolean equals(java.lang.Object)>($r13);
+
+        if $z1 != 0 goto label14;
+
+        $i0 = <com.free.vpn.R$string: int abi_mismatch>;
+
+        $r14 = newarray (java.lang.Object)[2];
+
+        $r13 = staticinvoke <java.util.Arrays: java.lang.String toString(java.lang.Object[])>($r12);
+
+        $r14[0] = $r13;
+
+        $r14[1] = $r11;
+
+        staticinvoke <f.c.b.l.y: void s(int,java.lang.Object[])>($i0, $r14);
+
+        $r12 = newarray (java.lang.String)[1];
+
+        $r12[0] = $r11;
+
+     label14:
+        $i0 = lengthof $r12;
+
+        $i1 = 0;
+
+     label15:
+        if $i1 >= $i0 goto label59;
+
+        $r11 = $r12[$i1];
+
+        $r33 = new java.io.File;
+
+        $r15 = virtualinvoke r0.<android.content.Context: java.io.File getCacheDir()>();
+
+        $r13 = staticinvoke <f.a.b.a.a: java.lang.String k(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>("c_", "pie_openvpn", ".", $r11);
+
+        specialinvoke $r33.<java.io.File: void <init>(java.io.File,java.lang.String)>($r15, $r13);
+
+        $z1 = virtualinvoke $r33.<java.io.File: boolean exists()>();
+
+        if $z1 == 0 goto label16;
+
+        $z1 = virtualinvoke $r33.<java.io.File: boolean canExecute()>();
+
+        if $z1 != 0 goto label37;
+
+     label16:
+        $r16 = virtualinvoke r0.<android.content.Context: android.content.res.AssetManager getAssets()>();
+
+     label17:
+        $r34 = new java.lang.StringBuilder;
+
+     label18:
+        specialinvoke $r34.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r34.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("pie_openvpn");
+
+        virtualinvoke $r34.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".");
+
+        virtualinvoke $r34.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r11);
+
+        $r13 = virtualinvoke $r34.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r18 = virtualinvoke $r16.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>($r13);
+
+     label19:
+        $r35 = new java.io.FileOutputStream;
+
+     label20:
+        specialinvoke $r35.<java.io.FileOutputStream: void <init>(java.io.File)>($r33);
+
+     label21:
+        $r19 = newarray (byte)[4096];
+
+     label22:
+        $i2 = virtualinvoke $r18.<java.io.InputStream: int read(byte[])>($r19);
+
+     label23:
+        if $i2 <= 0 goto label26;
+
+     label24:
+        virtualinvoke $r35.<java.io.FileOutputStream: void write(byte[],int,int)>($r19, 0, $i2);
+
+     label25:
+        goto label22;
+
+     label26:
+        virtualinvoke $r35.<java.io.FileOutputStream: void close()>();
+
+        $z1 = virtualinvoke $r33.<java.io.File: boolean setExecutable(boolean)>(1);
+
+     label27:
+        if $z1 != 0 goto label30;
+
+     label28:
+        staticinvoke <f.c.b.l.y: void l(java.lang.String)>("Failed to make OpenVPN executable");
+
+     label29:
+        goto label35;
+
+     label30:
+        $z1 = 1;
+
+        goto label36;
+
+     label31:
+        $r34 = new java.lang.StringBuilder;
+
+     label32:
+        specialinvoke $r34.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r34.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Failed getting assets for archicture ");
+
+        virtualinvoke $r34.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r11);
+
+        $r11 = virtualinvoke $r34.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <f.c.b.l.y: void p(java.lang.String)>($r11);
+
+     label33:
+        goto label35;
+
+     label34:
+        $r20 := @caughtexception;
+
+        $r46 = (java.lang.Exception) $r20;
+
+        staticinvoke <f.c.b.l.y: void n(java.lang.Exception)>($r46);
+
+     label35:
+        $z1 = 0;
+
+     label36:
+        if $z1 == 0 goto label58;
+
+     label37:
+        $r11 = virtualinvoke $r33.<java.io.File: java.lang.String getPath()>();
+
+     label38:
+        if $r11 != null goto label39;
+
+        staticinvoke <f.c.b.l.y: void l(java.lang.String)>("Error writing minivpn binary");
+
+        $r12 = null;
+
+        goto label40;
+
+     label39:
+        virtualinvoke $r32.<java.util.Vector: boolean add(java.lang.Object)>($r11);
+
+        virtualinvoke $r32.<java.util.Vector: boolean add(java.lang.Object)>("--config");
+
+        $r11 = staticinvoke <d.b0.s: java.lang.String x(android.content.Context)>(r0);
+
+        virtualinvoke $r32.<java.util.Vector: boolean add(java.lang.Object)>($r11);
+
+        $i0 = virtualinvoke $r32.<java.util.Vector: int size()>();
+
+        $r12 = newarray (java.lang.String)[$i0];
+
+        $r14 = virtualinvoke $r32.<java.util.Vector: java.lang.Object[] toArray(java.lang.Object[])>($r12);
+
+        $r12 = (java.lang.String[]) $r14;
+
+     label40:
+        r0.<com.free.vpn.core.OpenVPNService: boolean mStarting> = 1;
+
+        specialinvoke r0.<com.free.vpn.core.OpenVPNService: void stopOldOpenVPNProcess()>();
+
+        r0.<com.free.vpn.core.OpenVPNService: boolean mStarting> = 0;
+
+        $r21 = staticinvoke <d.b0.s: android.content.SharedPreferences y(android.content.Context)>(r0);
+
+        interfaceinvoke $r21.<android.content.SharedPreferences: boolean getBoolean(java.lang.String,boolean)>("ovpn3", 0);
+
+        $r36 = new f.c.b.l.r;
+
+        $r4 = r0.<com.free.vpn.core.OpenVPNService: f.c.b.i mProfile>;
+
+        specialinvoke $r36.<f.c.b.l.r: void <init>(f.c.b.i,com.free.vpn.core.OpenVPNService)>($r4, r0);
+
+        $r34 = new java.lang.StringBuilder;
+
+        specialinvoke $r34.<java.lang.StringBuilder: void <init>()>();
+
+        $r8 = virtualinvoke r0.<android.content.Context: java.io.File getCacheDir()>();
+
+        $r11 = virtualinvoke $r8.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r34.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r11);
+
+        virtualinvoke $r34.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/mgmtsocket");
+
+        $r11 = virtualinvoke $r34.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r37 = new android.net.LocalSocket;
+
+        specialinvoke $r37.<android.net.LocalSocket: void <init>()>();
+
+        $r36.<f.c.b.l.r: android.net.LocalSocket m> = $r37;
+
+        $i0 = 8;
+
+     label41:
+        if $i0 <= 0 goto label46;
+
+        $r22 = $r36.<f.c.b.l.r: android.net.LocalSocket m>;
+
+        $z1 = virtualinvoke $r22.<android.net.LocalSocket: boolean isBound()>();
+
+        if $z1 != 0 goto label46;
+
+        $r22 = $r36.<f.c.b.l.r: android.net.LocalSocket m>;
+
+        $r38 = new android.net.LocalSocketAddress;
+
+        $r23 = <android.net.LocalSocketAddress$Namespace: android.net.LocalSocketAddress$Namespace FILESYSTEM>;
+
+     label42:
+        specialinvoke $r38.<android.net.LocalSocketAddress: void <init>(java.lang.String,android.net.LocalSocketAddress$Namespace)>($r11, $r23);
+
+        virtualinvoke $r22.<android.net.LocalSocket: void bind(android.net.LocalSocketAddress)>($r38);
+
+     label43:
+        goto label45;
+
+     label44:
+        staticinvoke <java.lang.Thread: void sleep(long)>(300L);
+
+     label45:
+        $i0 = $i0 + -1;
+
+        goto label41;
+
+     label46:
+        $r39 = new android.net.LocalServerSocket;
+
+        $r22 = $r36.<f.c.b.l.r: android.net.LocalSocket m>;
+
+     label47:
+        $r24 = virtualinvoke $r22.<android.net.LocalSocket: java.io.FileDescriptor getFileDescriptor()>();
+
+        specialinvoke $r39.<android.net.LocalServerSocket: void <init>(java.io.FileDescriptor)>($r24);
+
+     label48:
+        $r36.<f.c.b.l.r: android.net.LocalServerSocket g> = $r39;
+
+        $z0 = 1;
+
+        goto label50;
+
+     label49:
+        $r25 := @caughtexception;
+
+        $r46 = (java.lang.Exception) $r25;
+
+        staticinvoke <f.c.b.l.y: void n(java.lang.Exception)>($r46);
+
+     label50:
+        if $z0 == 0 goto label57;
+
+        $r40 = new java.lang.Thread;
+
+        specialinvoke $r40.<java.lang.Thread: void <init>(java.lang.Runnable,java.lang.String)>($r36, "OpenVPNManagementThread");
+
+        virtualinvoke $r40.<java.lang.Thread: void start()>();
+
+        r0.<com.free.vpn.core.OpenVPNService: f.c.b.l.p mManagement> = $r36;
+
+        staticinvoke <f.c.b.l.y: void p(java.lang.String)>("started Socket Thread");
+
+        $i0 = staticinvoke <d.b0.s: int d()>();
+
+        if $i0 == 1 goto label56;
+
+        $i0 = staticinvoke <d.b0.s: int f()>();
+
+        if $i0 == 1 goto label56;
+
+        $r41 = new f.c.b.l.q;
+
+        specialinvoke $r41.<f.c.b.l.q: void <init>(com.free.vpn.core.OpenVPNService,java.lang.String[],java.lang.String,java.lang.String)>(r0, $r12, $r5, $r9);
+
+        r0.<com.free.vpn.core.OpenVPNService: java.lang.Runnable mOpenVPNThread> = $r41;
+
+        $r26 = r0.<com.free.vpn.core.OpenVPNService: java.lang.Object mProcessLock>;
+
+        entermonitor $r26;
+
+     label51:
+        $r40 = new java.lang.Thread;
+
+        specialinvoke $r40.<java.lang.Thread: void <init>(java.lang.Runnable,java.lang.String)>($r41, "OpenVPNProcessThread");
+
+        r0.<com.free.vpn.core.OpenVPNService: java.lang.Thread mProcessThread> = $r40;
+
+        virtualinvoke $r40.<java.lang.Thread: void start()>();
+
+        exitmonitor $r26;
+
+     label52:
+        $r42 = new android.os.Handler;
+
+        $r27 = virtualinvoke r0.<android.net.VpnService: android.os.Looper getMainLooper()>();
+
+        specialinvoke $r42.<android.os.Handler: void <init>(android.os.Looper)>($r27);
+
+        $r43 = new com.free.vpn.core.OpenVPNService$d;
+
+        specialinvoke $r43.<com.free.vpn.core.OpenVPNService$d: void <init>(com.free.vpn.core.OpenVPNService)>(r0);
+
+        virtualinvoke $r42.<android.os.Handler: boolean post(java.lang.Runnable)>($r43);
+
+        return;
+
+     label53:
+        $r28 := @caughtexception;
+
+     label54:
+        exitmonitor $r26;
+
+     label55:
+        throw $r28;
+
+     label56:
+        specialinvoke r0.<com.free.vpn.core.OpenVPNService: void endVpnService()>();
+
+        return;
+
+     label57:
+        specialinvoke r0.<com.free.vpn.core.OpenVPNService: void endVpnService()>();
+
+        return;
+
+     label58:
+        $i1 = $i1 + 1;
+
+        goto label15;
+
+     label59:
+        $r44 = new java.lang.RuntimeException;
+
+        $r17 = staticinvoke <f.a.b.a.a: java.lang.StringBuilder t(java.lang.String)>("Cannot find any execulte for this device\'s ABIs ");
+
+        $r5 = virtualinvoke $r12.<java.lang.Object: java.lang.String toString()>();
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r44.<java.lang.RuntimeException: void <init>(java.lang.String)>($r5);
+
+        throw $r44;
+
+     label60:
+        $r29 := @caughtexception;
+
+        $r30 = <f.c.b.l.y$b: f.c.b.l.y$b d>;
+
+        $r46 = (java.lang.Exception) $r29;
+
+        staticinvoke <f.c.b.l.y: void m(f.c.b.l.y$b,java.lang.String,java.lang.Exception)>($r30, "Error writing config file", $r46);
+
+        specialinvoke r0.<com.free.vpn.core.OpenVPNService: void endVpnService()>();
+
+        return;
+
+     label61:
+        $r1 := @caughtexception;
+
+        goto label31;
+
+     label62:
+        $r2 := @caughtexception;
+
+        goto label44;
+
+     label63:
+        $r3 := @caughtexception;
+
+        goto label45;
+
+        catch java.io.IOException from label02 to label03 with label60;
+        catch java.io.IOException from label04 to label05 with label60;
+        catch java.io.IOException from label06 to label07 with label60;
+        catch java.io.IOException from label08 to label09 with label10;
+        catch java.io.IOException from label16 to label17 with label61;
+        catch java.io.IOException from label18 to label19 with label61;
+        catch java.io.IOException from label20 to label21 with label34;
+        catch java.io.IOException from label22 to label23 with label34;
+        catch java.io.IOException from label24 to label25 with label34;
+        catch java.io.IOException from label26 to label27 with label34;
+        catch java.io.IOException from label28 to label29 with label34;
+        catch java.io.IOException from label32 to label33 with label34;
+        catch java.io.IOException from label42 to label43 with label62;
+        catch java.lang.InterruptedException from label44 to label45 with label63;
+        catch java.io.IOException from label47 to label48 with label49;
+        catch java.lang.Throwable from label51 to label52 with label53;
+        catch java.lang.Throwable from label54 to label55 with label53;
+    }

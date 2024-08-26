@@ -1,0 +1,79 @@
+    private void matchViews()
+    {
+        java.lang.Throwable $r11;
+        java.util.Iterator $r5;
+        java.util.Set $r4;
+        java.util.HashSet $r3;
+        com.facebook.appevents.codeless.CodelessMatcher r0;
+        android.os.Handler $r2;
+        android.view.View $r8;
+        java.lang.Object $r6;
+        java.lang.Class $r9;
+        java.lang.String $r10;
+        com.facebook.appevents.codeless.CodelessMatcher$ViewMatcher $r1;
+        android.app.Activity $r7;
+        boolean $z0;
+
+        r0 := @this: com.facebook.appevents.codeless.CodelessMatcher;
+
+        $z0 = staticinvoke <com.facebook.internal.instrument.crashshield.CrashShieldHandler: boolean isObjectCrashing(java.lang.Object)>(r0);
+
+        if $z0 == 0 goto label1;
+
+        return;
+
+     label1:
+        $r4 = r0.<com.facebook.appevents.codeless.CodelessMatcher: java.util.Set activitiesSet>;
+
+        $r5 = interfaceinvoke $r4.<java.util.Set: java.util.Iterator iterator()>();
+
+     label2:
+        $z0 = interfaceinvoke $r5.<java.util.Iterator: boolean hasNext()>();
+
+     label3:
+        if $z0 == 0 goto label8;
+
+     label4:
+        $r6 = interfaceinvoke $r5.<java.util.Iterator: java.lang.Object next()>();
+
+        $r7 = (android.app.Activity) $r6;
+
+     label5:
+        if $r7 == null goto label2;
+
+     label6:
+        $r8 = staticinvoke <com.facebook.appevents.internal.AppEventUtility: android.view.View getRootView(android.app.Activity)>($r7);
+
+        $r9 = virtualinvoke $r7.<java.lang.Object: java.lang.Class getClass()>();
+
+        $r10 = virtualinvoke $r9.<java.lang.Class: java.lang.String getSimpleName()>();
+
+        $r1 = new com.facebook.appevents.codeless.CodelessMatcher$ViewMatcher;
+
+        $r2 = r0.<com.facebook.appevents.codeless.CodelessMatcher: android.os.Handler uiThreadHandler>;
+
+        $r3 = r0.<com.facebook.appevents.codeless.CodelessMatcher: java.util.HashSet listenerSet>;
+
+        specialinvoke $r1.<com.facebook.appevents.codeless.CodelessMatcher$ViewMatcher: void <init>(android.view.View,android.os.Handler,java.util.HashSet,java.lang.String)>($r8, $r2, $r3, $r10);
+
+        $r4 = r0.<com.facebook.appevents.codeless.CodelessMatcher: java.util.Set viewMatchers>;
+
+        interfaceinvoke $r4.<java.util.Set: boolean add(java.lang.Object)>($r1);
+
+     label7:
+        goto label2;
+
+     label8:
+        return;
+
+     label9:
+        $r11 := @caughtexception;
+
+        staticinvoke <com.facebook.internal.instrument.crashshield.CrashShieldHandler: void handleThrowable(java.lang.Throwable,java.lang.Object)>($r11, r0);
+
+        return;
+
+        catch java.lang.Throwable from label1 to label3 with label9;
+        catch java.lang.Throwable from label4 to label5 with label9;
+        catch java.lang.Throwable from label6 to label7 with label9;
+    }

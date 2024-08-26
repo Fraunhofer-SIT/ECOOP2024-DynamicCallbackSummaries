@@ -1,0 +1,85 @@
+    public java.io.File u(byte[], int, int, boolean) throws com.handcent.sms.d0.g
+    {
+        java.lang.Throwable $r5, $r6;
+        byte[] $r3;
+        com.handcent.sms.f0.f r0;
+        com.handcent.sms.d0.g $r7;
+        java.io.FileOutputStream $r1, $r4;
+        java.io.File $r2;
+        int $i0, $i1;
+        boolean $z0;
+
+        r0 := @this: com.handcent.sms.f0.f;
+
+        $r3 := @parameter0: byte[];
+
+        $i1 := @parameter1: int;
+
+        $i0 := @parameter2: int;
+
+        $z0 := @parameter3: boolean;
+
+        $r4 = null;
+
+     label01:
+        $r1 = new java.io.FileOutputStream;
+
+        $r2 = r0.<com.handcent.sms.f0.e: java.io.File c>;
+
+     label02:
+        $r2 = staticinvoke <com.handcent.sms.d0.f: java.io.File w2(java.io.File)>($r2);
+
+        specialinvoke $r1.<java.io.FileOutputStream: void <init>(java.io.File,boolean)>($r2, 0);
+
+     label03:
+        virtualinvoke $r1.<java.io.FileOutputStream: void write(byte[],int,int)>($r3, 0, $i0);
+
+        virtualinvoke $r1.<java.io.FileOutputStream: void flush()>();
+
+     label04:
+        staticinvoke <com.handcent.sms.d0.h: void c(java.io.Closeable)>($r1);
+
+        $r2 = r0.<com.handcent.sms.f0.e: java.io.File c>;
+
+        return $r2;
+
+     label05:
+        $r5 := @caughtexception;
+
+        $r4 = $r1;
+
+        goto label10;
+
+     label06:
+        $r6 := @caughtexception;
+
+        $r4 = $r1;
+
+        goto label09;
+
+     label07:
+        $r5 := @caughtexception;
+
+        goto label10;
+
+     label08:
+        $r6 := @caughtexception;
+
+     label09:
+        $r7 = new com.handcent.sms.d0.g;
+
+        specialinvoke $r7.<com.handcent.sms.d0.g: void <init>(java.lang.Throwable)>($r6);
+
+        throw $r7;
+
+     label10:
+        staticinvoke <com.handcent.sms.d0.h: void c(java.io.Closeable)>($r4);
+
+        throw $r5;
+
+        catch java.io.IOException from label02 to label03 with label08;
+        catch java.lang.Throwable from label01 to label03 with label07;
+        catch java.io.IOException from label03 to label04 with label06;
+        catch java.lang.Throwable from label03 to label04 with label05;
+        catch java.lang.Throwable from label09 to label10 with label07;
+    }

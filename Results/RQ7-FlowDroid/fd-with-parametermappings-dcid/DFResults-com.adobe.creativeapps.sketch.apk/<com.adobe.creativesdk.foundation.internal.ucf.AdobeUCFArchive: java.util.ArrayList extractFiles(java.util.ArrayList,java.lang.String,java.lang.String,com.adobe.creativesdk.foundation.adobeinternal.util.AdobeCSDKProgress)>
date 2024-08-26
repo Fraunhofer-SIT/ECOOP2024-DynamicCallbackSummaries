@@ -1,0 +1,673 @@
+    public static java.util.ArrayList extractFiles(java.util.ArrayList, java.lang.String, java.lang.String, com.adobe.creativesdk.foundation.adobeinternal.util.AdobeCSDKProgress) throws com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException
+    {
+        byte[] r4;
+        com.adobe.creativesdk.foundation.adobeinternal.util.AdobeCSDKProgress $r3;
+        java.util.zip.ZipFile $r30;
+        java.util.zip.ZipEntry $r9;
+        boolean $z0;
+        com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode $r10;
+        java.lang.Exception $r36;
+        com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFException $r12;
+        java.lang.StringBuilder $r15, $r34;
+        java.lang.Throwable r11, r13, r16, r17, r19, r21, r22, $r23, r24, r25, r26, r27, r28, r29;
+        java.util.zip.ZipInputStream r7, $r33;
+        long $l1;
+        java.util.ArrayList r0, $r31;
+        int $i0;
+        java.lang.String $r1, $r2;
+        java.io.FileOutputStream r18, $r35;
+        java.io.FileInputStream r6, $r32;
+        java.io.File r5, $r14;
+        com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException r8, r20;
+
+        r0 := @parameter0: java.util.ArrayList;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r2 := @parameter2: java.lang.String;
+
+        $r3 := @parameter3: com.adobe.creativesdk.foundation.adobeinternal.util.AdobeCSDKProgress;
+
+        $r30 = new java.util.zip.ZipFile;
+
+        $r14 = new java.io.File;
+
+     label001:
+        specialinvoke $r14.<java.io.File: void <init>(java.lang.String)>($r1);
+
+        specialinvoke $r30.<java.util.zip.ZipFile: void <init>(java.io.File)>($r14);
+
+     label002:
+        goto label027;
+
+     label003:
+        $r31 = new java.util.ArrayList;
+
+        specialinvoke $r31.<java.util.ArrayList: void <init>(int)>($i0);
+
+        if $r3 == null goto label004;
+
+        $l1 = (long) $i0;
+
+        virtualinvoke $r3.<com.adobe.creativesdk.foundation.adobeinternal.util.AdobeCSDKProgress: void updateTotalUnitCount(long)>($l1);
+
+     label004:
+        r6 = null;
+
+        r7 = null;
+
+        r8 = null;
+
+     label005:
+        $r32 = new java.io.FileInputStream;
+
+     label006:
+        $r14 = new java.io.File;
+
+     label007:
+        specialinvoke $r14.<java.io.File: void <init>(java.lang.String)>($r1);
+
+        specialinvoke $r32.<java.io.FileInputStream: void <init>(java.io.File)>($r14);
+
+     label008:
+        $r33 = new java.util.zip.ZipInputStream;
+
+     label009:
+        specialinvoke $r33.<java.util.zip.ZipInputStream: void <init>(java.io.InputStream)>($r32);
+
+     label010:
+        $r9 = virtualinvoke $r33.<java.util.zip.ZipInputStream: java.util.zip.ZipEntry getNextEntry()>();
+
+     label011:
+        if $r9 == null goto label098;
+
+        if $r3 == null goto label016;
+
+     label012:
+        $z0 = virtualinvoke $r3.<com.adobe.creativesdk.foundation.adobeinternal.util.AdobeCSDKProgress: boolean isCancelled()>();
+
+     label013:
+        if $z0 == 0 goto label016;
+
+     label014:
+        $r10 = <com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode AdobeUCFErrorOperationCancelled>;
+
+     label015:
+        staticinvoke <com.adobe.creativesdk.foundation.internal.storage.model.util.AdobeStorageErrorUtils: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFException createUCFError(com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode,java.lang.String)>($r10, null);
+
+     label016:
+        $r1 = virtualinvoke $r9.<java.util.zip.ZipEntry: java.lang.String getName()>();
+
+     label017:
+        goto label028;
+
+     label018:
+        r11 := @caughtexception;
+
+        r7 = $r33;
+
+        r6 = $r32;
+
+     label019:
+        $r10 = <com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode AdobeUCFErrorArchiveInvalid>;
+
+        $r12 = staticinvoke <com.adobe.creativesdk.foundation.internal.storage.model.util.AdobeStorageErrorUtils: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFException createUCFError(com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode,java.lang.String)>($r10, "Unable to open archive file for extraction.");
+
+     label020:
+        r8 = $r12;
+
+        if r7 == null goto label022;
+
+     label021:
+        virtualinvoke r7.<java.util.zip.ZipInputStream: void close()>();
+
+     label022:
+        if r6 == null goto label024;
+
+     label023:
+        virtualinvoke r6.<java.io.FileInputStream: void close()>();
+
+     label024:
+        virtualinvoke $r30.<java.util.zip.ZipFile: void close()>();
+
+     label025:
+        if r8 == null goto label107;
+
+        throw r8;
+
+     label026:
+        r13 := @caughtexception;
+
+        $r10 = <com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode AdobeUCFErrorArchiveInvalid>;
+
+        $r12 = staticinvoke <com.adobe.creativesdk.foundation.internal.storage.model.util.AdobeStorageErrorUtils: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFException createUCFError(com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode,java.lang.String)>($r10, "Unable to open archive file for extraction.");
+
+        throw $r12;
+
+     label027:
+        $i0 = virtualinvoke $r30.<java.util.zip.ZipFile: int size()>();
+
+        goto label003;
+
+     label028:
+        $r1 = staticinvoke <com.adobe.creativesdk.foundation.adobeinternal.storage.dcx.AdobeDCXUtils: java.lang.String stringByAppendingLastPathComponent(java.lang.String,java.lang.String)>($r2, $r1);
+
+     label029:
+        $r14 = new java.io.File;
+
+     label030:
+        r5 = $r14;
+
+     label031:
+        specialinvoke $r14.<java.io.File: void <init>(java.lang.String)>($r1);
+
+        $z0 = virtualinvoke $r14.<java.io.File: boolean exists()>();
+
+     label032:
+        if $z0 != 0 goto label055;
+
+     label033:
+        $r14 = virtualinvoke $r14.<java.io.File: java.io.File getParentFile()>();
+
+     label034:
+        if $r14 == null goto label052;
+
+     label035:
+        $z0 = virtualinvoke $r14.<java.io.File: boolean mkdirs()>();
+
+     label036:
+        if $z0 != 0 goto label052;
+
+     label037:
+        $z0 = virtualinvoke $r14.<java.io.File: boolean isDirectory()>();
+
+     label038:
+        if $z0 != 0 goto label052;
+
+        if $r3 == null goto label040;
+
+     label039:
+        virtualinvoke $r3.<com.adobe.creativesdk.foundation.adobeinternal.util.AdobeCSDKProgress: void updateCompletedUnitCount(long)>(1L);
+
+     label040:
+        $r10 = <com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode AdobeUCFErrorArchiveWriteFailed>;
+
+        $r34 = new java.lang.StringBuilder;
+
+     label041:
+        specialinvoke $r34.<java.lang.StringBuilder: void <init>()>();
+
+        $r15 = virtualinvoke $r34.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("An error occured while creating parent directory at path ");
+
+        $r15 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r14);
+
+        $r1 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r12 = staticinvoke <com.adobe.creativesdk.foundation.internal.storage.model.util.AdobeStorageErrorUtils: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFException createUCFError(com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode,java.lang.String)>($r10, $r1);
+
+     label042:
+        throw $r12;
+
+     label043:
+        r16 := @caughtexception;
+
+        r7 = $r33;
+
+        r6 = $r32;
+
+     label044:
+        $r10 = <com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode AdobeUCFErrorArchiveReadFailed>;
+
+        $r36 = (java.lang.Exception) r16;
+
+        $r12 = staticinvoke <com.adobe.creativesdk.foundation.internal.storage.model.util.AdobeStorageErrorUtils: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFException createUCFError(com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode,java.lang.String,java.lang.Exception)>($r10, null, $r36);
+
+     label045:
+        r8 = $r12;
+
+        if r7 == null goto label047;
+
+     label046:
+        virtualinvoke r7.<java.util.zip.ZipInputStream: void close()>();
+
+     label047:
+        if r6 == null goto label049;
+
+     label048:
+        virtualinvoke r6.<java.io.FileInputStream: void close()>();
+
+     label049:
+        virtualinvoke $r30.<java.util.zip.ZipFile: void close()>();
+
+     label050:
+        goto label025;
+
+     label051:
+        r17 := @caughtexception;
+
+        $r10 = <com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode AdobeUCFErrorArchiveReadFailed>;
+
+        $r36 = (java.lang.Exception) r17;
+
+        r8 = staticinvoke <com.adobe.creativesdk.foundation.internal.storage.model.util.AdobeStorageErrorUtils: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFException createUCFError(com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode,java.lang.String,java.lang.Exception)>($r10, null, $r36);
+
+        goto label025;
+
+     label052:
+        $r35 = new java.io.FileOutputStream;
+
+     label053:
+        specialinvoke $r35.<java.io.FileOutputStream: void <init>(java.io.File,boolean)>(r5, 0);
+
+     label054:
+        virtualinvoke $r35.<java.io.OutputStream: void close()>();
+
+     label055:
+        $r35 = new java.io.FileOutputStream;
+
+     label056:
+        r18 = $r35;
+
+     label057:
+        specialinvoke $r35.<java.io.FileOutputStream: void <init>(java.io.File)>(r5);
+
+     label058:
+        r4 = newarray (byte)[4096];
+
+     label059:
+        $i0 = virtualinvoke $r33.<java.util.zip.ZipInputStream: int read(byte[])>(r4);
+
+     label060:
+        if $i0 == -1 goto label088;
+
+     label061:
+        virtualinvoke r18.<java.io.OutputStream: void write(byte[],int,int)>(r4, 0, $i0);
+
+     label062:
+        goto label059;
+
+     label063:
+        r19 := @caughtexception;
+
+        if $r3 == null goto label065;
+
+     label064:
+        virtualinvoke $r3.<com.adobe.creativesdk.foundation.adobeinternal.util.AdobeCSDKProgress: void updateCompletedUnitCount(long)>(1L);
+
+     label065:
+        $r10 = <com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode AdobeUCFErrorArchiveWriteFailed>;
+
+        $r34 = new java.lang.StringBuilder;
+
+     label066:
+        specialinvoke $r34.<java.lang.StringBuilder: void <init>()>();
+
+        $r15 = virtualinvoke $r34.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("An error occured while attempting to write to  ");
+
+        $r15 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>(r5);
+
+        $r1 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r12 = staticinvoke <com.adobe.creativesdk.foundation.internal.storage.model.util.AdobeStorageErrorUtils: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFException createUCFError(com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode,java.lang.String)>($r10, $r1);
+
+     label067:
+        throw $r12;
+
+     label068:
+        r20 := @caughtexception;
+
+        r7 = $r33;
+
+        r6 = $r32;
+
+     label069:
+        r8 = r20;
+
+        if r7 == null goto label071;
+
+     label070:
+        virtualinvoke r7.<java.util.zip.ZipInputStream: void close()>();
+
+     label071:
+        if r6 == null goto label073;
+
+     label072:
+        virtualinvoke r6.<java.io.FileInputStream: void close()>();
+
+     label073:
+        virtualinvoke $r30.<java.util.zip.ZipFile: void close()>();
+
+     label074:
+        goto label025;
+
+     label075:
+        r21 := @caughtexception;
+
+        $r10 = <com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode AdobeUCFErrorArchiveReadFailed>;
+
+        $r36 = (java.lang.Exception) r21;
+
+        r8 = staticinvoke <com.adobe.creativesdk.foundation.internal.storage.model.util.AdobeStorageErrorUtils: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFException createUCFError(com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode,java.lang.String,java.lang.Exception)>($r10, null, $r36);
+
+        goto label025;
+
+     label076:
+        r22 := @caughtexception;
+
+        if $r3 == null goto label078;
+
+     label077:
+        virtualinvoke $r3.<com.adobe.creativesdk.foundation.adobeinternal.util.AdobeCSDKProgress: void updateCompletedUnitCount(long)>(1L);
+
+     label078:
+        $r10 = <com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode AdobeUCFErrorArchiveWriteFailed>;
+
+        $r34 = new java.lang.StringBuilder;
+
+     label079:
+        specialinvoke $r34.<java.lang.StringBuilder: void <init>()>();
+
+        $r15 = virtualinvoke $r34.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("An error occured while closing the file at path ");
+
+        $r15 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>(r5);
+
+        $r1 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r12 = staticinvoke <com.adobe.creativesdk.foundation.internal.storage.model.util.AdobeStorageErrorUtils: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFException createUCFError(com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode,java.lang.String)>($r10, $r1);
+
+     label080:
+        throw $r12;
+
+     label081:
+        $r23 := @caughtexception;
+
+        r7 = $r33;
+
+        r6 = $r32;
+
+     label082:
+        if r7 == null goto label084;
+
+     label083:
+        virtualinvoke r7.<java.util.zip.ZipInputStream: void close()>();
+
+     label084:
+        if r6 == null goto label086;
+
+     label085:
+        virtualinvoke r6.<java.io.FileInputStream: void close()>();
+
+     label086:
+        virtualinvoke $r30.<java.util.zip.ZipFile: void close()>();
+
+     label087:
+        throw $r23;
+
+     label088:
+        virtualinvoke r18.<java.io.OutputStream: void close()>();
+
+     label089:
+        virtualinvoke $r31.<java.util.ArrayList: boolean add(java.lang.Object)>($r1);
+
+        $l1 = virtualinvoke $r9.<java.util.zip.ZipEntry: long getTime()>();
+
+        virtualinvoke r5.<java.io.File: boolean setLastModified(long)>($l1);
+
+     label090:
+        if $r3 == null goto label010;
+
+     label091:
+        virtualinvoke $r3.<com.adobe.creativesdk.foundation.adobeinternal.util.AdobeCSDKProgress: void updateCompletedUnitCount(long)>(1L);
+
+     label092:
+        goto label010;
+
+     label093:
+        r24 := @caughtexception;
+
+        if $r3 == null goto label095;
+
+     label094:
+        virtualinvoke $r3.<com.adobe.creativesdk.foundation.adobeinternal.util.AdobeCSDKProgress: void updateCompletedUnitCount(long)>(1L);
+
+     label095:
+        $r10 = <com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode AdobeUCFErrorArchiveWriteFailed>;
+
+        $r34 = new java.lang.StringBuilder;
+
+     label096:
+        specialinvoke $r34.<java.lang.StringBuilder: void <init>()>();
+
+        $r15 = virtualinvoke $r34.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("An error occured while closing the file at path ");
+
+        $r15 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>(r5);
+
+        $r1 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r12 = staticinvoke <com.adobe.creativesdk.foundation.internal.storage.model.util.AdobeStorageErrorUtils: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFException createUCFError(com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode,java.lang.String)>($r10, $r1);
+
+     label097:
+        throw $r12;
+
+     label098:
+        if $r33 == null goto label100;
+
+     label099:
+        virtualinvoke $r33.<java.util.zip.ZipInputStream: void close()>();
+
+     label100:
+        if $r32 == null goto label102;
+
+     label101:
+        virtualinvoke $r32.<java.io.FileInputStream: void close()>();
+
+     label102:
+        virtualinvoke $r30.<java.util.zip.ZipFile: void close()>();
+
+     label103:
+        goto label025;
+
+     label104:
+        r25 := @caughtexception;
+
+        $r10 = <com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode AdobeUCFErrorArchiveReadFailed>;
+
+        $r36 = (java.lang.Exception) r25;
+
+        r8 = staticinvoke <com.adobe.creativesdk.foundation.internal.storage.model.util.AdobeStorageErrorUtils: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFException createUCFError(com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode,java.lang.String,java.lang.Exception)>($r10, null, $r36);
+
+        goto label025;
+
+     label105:
+        r26 := @caughtexception;
+
+        $r10 = <com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode AdobeUCFErrorArchiveReadFailed>;
+
+        $r36 = (java.lang.Exception) r26;
+
+        r8 = staticinvoke <com.adobe.creativesdk.foundation.internal.storage.model.util.AdobeStorageErrorUtils: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFException createUCFError(com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode,java.lang.String,java.lang.Exception)>($r10, null, $r36);
+
+        goto label025;
+
+     label106:
+        r27 := @caughtexception;
+
+        $r10 = <com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode AdobeUCFErrorArchiveReadFailed>;
+
+        $r36 = (java.lang.Exception) r27;
+
+        staticinvoke <com.adobe.creativesdk.foundation.internal.storage.model.util.AdobeStorageErrorUtils: com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFException createUCFError(com.adobe.creativesdk.foundation.internal.ucf.AdobeUCFErrorCode,java.lang.String,java.lang.Exception)>($r10, null, $r36);
+
+        goto label087;
+
+     label107:
+        return $r31;
+
+     label108:
+        $r23 := @caughtexception;
+
+        goto label082;
+
+     label109:
+        $r23 := @caughtexception;
+
+        r6 = $r32;
+
+        goto label082;
+
+     label110:
+        r20 := @caughtexception;
+
+        goto label069;
+
+     label111:
+        r20 := @caughtexception;
+
+        r6 = $r32;
+
+        goto label069;
+
+     label112:
+        r16 := @caughtexception;
+
+        goto label044;
+
+     label113:
+        r16 := @caughtexception;
+
+        r6 = $r32;
+
+        goto label044;
+
+     label114:
+        r28 := @caughtexception;
+
+        goto label019;
+
+     label115:
+        r29 := @caughtexception;
+
+        r6 = $r32;
+
+        goto label019;
+
+        catch java.io.IOException from label001 to label002 with label026;
+        catch java.io.FileNotFoundException from label007 to label008 with label114;
+        catch java.io.IOException from label007 to label008 with label112;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label007 to label008 with label110;
+        catch java.lang.Throwable from label005 to label006 with label108;
+        catch java.lang.Throwable from label006 to label007 with label108;
+        catch java.lang.Throwable from label007 to label008 with label108;
+        catch java.io.FileNotFoundException from label009 to label010 with label115;
+        catch java.io.IOException from label009 to label010 with label113;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label009 to label010 with label111;
+        catch java.lang.Throwable from label008 to label009 with label109;
+        catch java.lang.Throwable from label009 to label010 with label109;
+        catch java.io.FileNotFoundException from label010 to label011 with label018;
+        catch java.io.FileNotFoundException from label012 to label013 with label018;
+        catch java.io.FileNotFoundException from label015 to label017 with label018;
+        catch java.io.IOException from label010 to label011 with label043;
+        catch java.io.IOException from label012 to label013 with label043;
+        catch java.io.IOException from label015 to label017 with label043;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label010 to label011 with label068;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label012 to label013 with label068;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label015 to label017 with label068;
+        catch java.lang.Throwable from label010 to label011 with label081;
+        catch java.lang.Throwable from label012 to label013 with label081;
+        catch java.lang.Throwable from label014 to label017 with label081;
+        catch java.lang.Throwable from label019 to label020 with label108;
+        catch java.io.IOException from label021 to label022 with label105;
+        catch java.io.IOException from label023 to label025 with label105;
+        catch java.io.FileNotFoundException from label028 to label029 with label018;
+        catch java.io.FileNotFoundException from label031 to label032 with label018;
+        catch java.io.FileNotFoundException from label033 to label034 with label018;
+        catch java.io.FileNotFoundException from label035 to label036 with label018;
+        catch java.io.FileNotFoundException from label037 to label038 with label018;
+        catch java.io.FileNotFoundException from label039 to label040 with label018;
+        catch java.io.FileNotFoundException from label041 to label042 with label018;
+        catch java.io.IOException from label028 to label029 with label043;
+        catch java.io.IOException from label031 to label032 with label043;
+        catch java.io.IOException from label033 to label034 with label043;
+        catch java.io.IOException from label035 to label036 with label043;
+        catch java.io.IOException from label037 to label038 with label043;
+        catch java.io.IOException from label039 to label040 with label043;
+        catch java.io.IOException from label041 to label042 with label043;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label028 to label029 with label068;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label031 to label032 with label068;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label033 to label034 with label068;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label035 to label036 with label068;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label037 to label038 with label068;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label039 to label040 with label068;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label041 to label043 with label068;
+        catch java.lang.Throwable from label028 to label030 with label081;
+        catch java.lang.Throwable from label031 to label032 with label081;
+        catch java.lang.Throwable from label033 to label034 with label081;
+        catch java.lang.Throwable from label035 to label036 with label081;
+        catch java.lang.Throwable from label037 to label038 with label081;
+        catch java.lang.Throwable from label039 to label041 with label081;
+        catch java.lang.Throwable from label041 to label043 with label081;
+        catch java.lang.Throwable from label044 to label045 with label108;
+        catch java.io.IOException from label046 to label047 with label051;
+        catch java.io.IOException from label048 to label050 with label051;
+        catch java.io.FileNotFoundException from label053 to label054 with label018;
+        catch java.io.IOException from label053 to label054 with label043;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label053 to label054 with label068;
+        catch java.lang.Throwable from label052 to label053 with label081;
+        catch java.lang.Throwable from label053 to label054 with label081;
+        catch java.io.IOException from label054 to label055 with label076;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label054 to label055 with label068;
+        catch java.lang.Throwable from label054 to label055 with label081;
+        catch java.io.FileNotFoundException from label057 to label058 with label018;
+        catch java.io.FileNotFoundException from label059 to label060 with label018;
+        catch java.io.IOException from label057 to label058 with label043;
+        catch java.io.IOException from label059 to label060 with label043;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label057 to label058 with label068;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label059 to label060 with label068;
+        catch java.lang.Throwable from label055 to label056 with label081;
+        catch java.lang.Throwable from label057 to label058 with label081;
+        catch java.lang.Throwable from label059 to label060 with label081;
+        catch java.io.IOException from label061 to label062 with label063;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label061 to label062 with label068;
+        catch java.lang.Throwable from label061 to label062 with label081;
+        catch java.io.FileNotFoundException from label064 to label065 with label018;
+        catch java.io.FileNotFoundException from label066 to label067 with label018;
+        catch java.io.IOException from label064 to label065 with label043;
+        catch java.io.IOException from label066 to label067 with label043;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label064 to label065 with label068;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label066 to label068 with label068;
+        catch java.lang.Throwable from label064 to label066 with label081;
+        catch java.lang.Throwable from label066 to label068 with label081;
+        catch java.io.IOException from label070 to label071 with label075;
+        catch java.io.IOException from label072 to label074 with label075;
+        catch java.io.FileNotFoundException from label077 to label078 with label018;
+        catch java.io.FileNotFoundException from label079 to label080 with label018;
+        catch java.io.IOException from label077 to label078 with label043;
+        catch java.io.IOException from label079 to label080 with label043;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label077 to label078 with label068;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label079 to label081 with label068;
+        catch java.lang.Throwable from label077 to label079 with label081;
+        catch java.lang.Throwable from label079 to label081 with label081;
+        catch java.io.IOException from label083 to label084 with label106;
+        catch java.io.IOException from label085 to label087 with label106;
+        catch java.io.IOException from label088 to label089 with label093;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label088 to label089 with label068;
+        catch java.lang.Throwable from label088 to label089 with label081;
+        catch java.io.FileNotFoundException from label089 to label090 with label018;
+        catch java.io.FileNotFoundException from label091 to label092 with label018;
+        catch java.io.FileNotFoundException from label094 to label095 with label018;
+        catch java.io.FileNotFoundException from label096 to label097 with label018;
+        catch java.io.IOException from label089 to label090 with label043;
+        catch java.io.IOException from label091 to label092 with label043;
+        catch java.io.IOException from label094 to label095 with label043;
+        catch java.io.IOException from label096 to label097 with label043;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label089 to label090 with label068;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label091 to label092 with label068;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label094 to label095 with label068;
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label096 to label098 with label068;
+        catch java.lang.Throwable from label089 to label090 with label081;
+        catch java.lang.Throwable from label091 to label092 with label081;
+        catch java.lang.Throwable from label094 to label096 with label081;
+        catch java.lang.Throwable from label096 to label098 with label081;
+        catch java.io.IOException from label099 to label100 with label104;
+        catch java.io.IOException from label101 to label103 with label104;
+    }

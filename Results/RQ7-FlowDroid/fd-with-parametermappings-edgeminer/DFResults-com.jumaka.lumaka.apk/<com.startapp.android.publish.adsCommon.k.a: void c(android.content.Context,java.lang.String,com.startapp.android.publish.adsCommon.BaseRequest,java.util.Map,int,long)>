@@ -1,0 +1,174 @@
+    private static void c(android.content.Context, java.lang.String, com.startapp.android.publish.adsCommon.BaseRequest, java.util.Map, int, long)
+    {
+        java.lang.Throwable $r4, $r11, $r12;
+        android.content.Context $r0;
+        byte[] $r7, $r8;
+        long $l1;
+        byte $b3;
+        com.startapp.android.publish.adsCommon.Utils.e $r5;
+        java.util.Map $r3;
+        int $i0, $i2, $i4;
+        java.lang.String $r1, $r6;
+        com.startapp.android.publish.common.metaData.MetaData $r9;
+        boolean $z0, $z1;
+        com.startapp.android.publish.adsCommon.BaseRequest $r2;
+        com.startapp.common.e $r10;
+        java.lang.StringBuilder $r13;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r2 := @parameter2: com.startapp.android.publish.adsCommon.BaseRequest;
+
+        $r3 := @parameter3: java.util.Map;
+
+        $i0 := @parameter4: int;
+
+        $l1 := @parameter5: long;
+
+        if $r2 == null goto label01;
+
+        $r5 = virtualinvoke $r2.<com.startapp.android.publish.adsCommon.BaseRequest: com.startapp.android.publish.adsCommon.Utils.e getNameValueJson()>();
+
+        goto label02;
+
+     label01:
+        $r5 = null;
+
+     label02:
+        $r13 = new java.lang.StringBuilder;
+
+        specialinvoke $r13.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Sending post to URL: ");
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r6 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.startapp.common.a.g: void a(java.lang.String,int,java.lang.String)>("Transport", 3, $r6);
+
+        $r3 = staticinvoke <com.startapp.android.publish.adsCommon.k.a: java.util.Map a(android.content.Context,java.util.Map)>($r0, null);
+
+        $r7 = null;
+
+        $z0 = 0;
+
+        $i2 = 1;
+
+     label03:
+        if $z0 != 0 goto label21;
+
+        if $r5 == null goto label11;
+
+     label04:
+        $r6 = virtualinvoke $r5.<java.lang.Object: java.lang.String toString()>();
+
+        $r8 = virtualinvoke $r6.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8");
+
+     label05:
+        $r7 = $r8;
+
+     label06:
+        $r9 = staticinvoke <com.startapp.android.publish.common.metaData.MetaData: com.startapp.android.publish.common.metaData.MetaData getInstance()>();
+
+        $z1 = virtualinvoke $r9.<com.startapp.android.publish.common.metaData.MetaData: boolean isCompressionEnabled()>();
+
+     label07:
+        if $z1 == 0 goto label11;
+
+     label08:
+        $r8 = staticinvoke <com.startapp.android.publish.adsCommon.k.a: byte[] a(byte[])>($r8);
+
+     label09:
+        $r7 = $r8;
+
+        goto label11;
+
+     label10:
+        $r10 := @caughtexception;
+
+        goto label16;
+
+     label11:
+        $r6 = staticinvoke <com.startapp.android.publish.adsCommon.k: java.lang.String a(android.content.Context,java.lang.String,java.lang.String)>($r0, "User-Agent", "-1");
+
+        $r9 = staticinvoke <com.startapp.android.publish.common.metaData.MetaData: com.startapp.android.publish.common.metaData.MetaData getInstance()>();
+
+        $z1 = virtualinvoke $r9.<com.startapp.android.publish.common.metaData.MetaData: boolean isCompressionEnabled()>();
+
+        staticinvoke <com.startapp.common.a.h: java.lang.String a(android.content.Context,java.lang.String,byte[],java.util.Map,java.lang.String,boolean)>($r0, $r1, $r7, $r3, $r6, $z1);
+
+     label12:
+        $z0 = 1;
+
+        goto label03;
+
+     label13:
+        $r11 := @caughtexception;
+
+        $r10 = new com.startapp.common.e;
+
+        specialinvoke $r10.<com.startapp.common.e: void <init>(java.lang.String,java.lang.Throwable)>("failed compressing json to gzip", $r11);
+
+        throw $r10;
+
+     label14:
+        $r12 := @caughtexception;
+
+        $r10 = new com.startapp.common.e;
+
+        specialinvoke $r10.<com.startapp.common.e: void <init>(java.lang.String,java.lang.Throwable)>("failed encoding json to UTF-8", $r12);
+
+        throw $r10;
+
+     label15:
+        $r10 := @caughtexception;
+
+     label16:
+        $z1 = virtualinvoke $r10.<com.startapp.common.e: boolean b()>();
+
+        if $z1 == 0 goto label19;
+
+        if $i2 >= $i0 goto label19;
+
+        $i2 = $i2 + 1;
+
+        $b3 = $l1 cmp 0L;
+
+        $i4 = (int) $b3;
+
+        if $i4 <= 0 goto label03;
+
+     label17:
+        staticinvoke <java.lang.Thread: void sleep(long)>($l1);
+
+     label18:
+        goto label03;
+
+     label19:
+        throw $r10;
+
+     label20:
+        $r4 := @caughtexception;
+
+        goto label03;
+
+     label21:
+        return;
+
+        catch com.startapp.common.e from label04 to label05 with label10;
+        catch com.startapp.common.e from label06 to label07 with label10;
+        catch com.startapp.common.e from label08 to label09 with label10;
+        catch java.io.UnsupportedEncodingException from label04 to label05 with label14;
+        catch java.io.UnsupportedEncodingException from label06 to label07 with label14;
+        catch java.io.UnsupportedEncodingException from label08 to label09 with label14;
+        catch java.io.IOException from label04 to label05 with label13;
+        catch java.io.IOException from label06 to label07 with label13;
+        catch java.io.IOException from label08 to label09 with label13;
+        catch com.startapp.common.e from label11 to label12 with label15;
+        catch java.io.UnsupportedEncodingException from label11 to label12 with label14;
+        catch java.io.IOException from label11 to label12 with label13;
+        catch java.lang.InterruptedException from label17 to label18 with label20;
+    }

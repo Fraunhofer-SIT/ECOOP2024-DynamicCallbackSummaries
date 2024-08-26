@@ -1,0 +1,60 @@
+    public java.io.InputStream getErrorStream()
+    {
+        java.lang.Throwable $r3;
+        java.net.HttpURLConnection $r4;
+        com.google.firebase.perf.logging.AndroidLogger $r5;
+        com.google.firebase.perf.util.Timer $r2;
+        com.google.firebase.perf.metrics.NetworkRequestMetricBuilder $r1;
+        com.google.firebase.perf.network.InstrHttpInputStream $r7;
+        int $i0;
+        com.google.firebase.perf.network.InstrURLConnectionBase r0;
+        java.io.InputStream $r6;
+
+        r0 := @this: com.google.firebase.perf.network.InstrURLConnectionBase;
+
+        specialinvoke r0.<com.google.firebase.perf.network.InstrURLConnectionBase: void updateRequestInfo()>();
+
+        $r1 = r0.<com.google.firebase.perf.network.InstrURLConnectionBase: com.google.firebase.perf.metrics.NetworkRequestMetricBuilder networkMetricBuilder>;
+
+        $r4 = r0.<com.google.firebase.perf.network.InstrURLConnectionBase: java.net.HttpURLConnection httpUrlConnection>;
+
+     label1:
+        $i0 = virtualinvoke $r4.<java.net.HttpURLConnection: int getResponseCode()>();
+
+        virtualinvoke $r1.<com.google.firebase.perf.metrics.NetworkRequestMetricBuilder: com.google.firebase.perf.metrics.NetworkRequestMetricBuilder setHttpResponseCode(int)>($i0);
+
+     label2:
+        goto label4;
+
+     label3:
+        $r5 = <com.google.firebase.perf.network.InstrURLConnectionBase: com.google.firebase.perf.logging.AndroidLogger logger>;
+
+        virtualinvoke $r5.<com.google.firebase.perf.logging.AndroidLogger: void debug(java.lang.String)>("IOException thrown trying to obtain the response code");
+
+     label4:
+        $r4 = r0.<com.google.firebase.perf.network.InstrURLConnectionBase: java.net.HttpURLConnection httpUrlConnection>;
+
+        $r6 = virtualinvoke $r4.<java.net.HttpURLConnection: java.io.InputStream getErrorStream()>();
+
+        if $r6 == null goto label5;
+
+        $r7 = new com.google.firebase.perf.network.InstrHttpInputStream;
+
+        $r1 = r0.<com.google.firebase.perf.network.InstrURLConnectionBase: com.google.firebase.perf.metrics.NetworkRequestMetricBuilder networkMetricBuilder>;
+
+        $r2 = r0.<com.google.firebase.perf.network.InstrURLConnectionBase: com.google.firebase.perf.util.Timer timer>;
+
+        specialinvoke $r7.<com.google.firebase.perf.network.InstrHttpInputStream: void <init>(java.io.InputStream,com.google.firebase.perf.metrics.NetworkRequestMetricBuilder,com.google.firebase.perf.util.Timer)>($r6, $r1, $r2);
+
+        return $r7;
+
+     label5:
+        return $r6;
+
+     label6:
+        $r3 := @caughtexception;
+
+        goto label3;
+
+        catch java.io.IOException from label1 to label2 with label6;
+    }

@@ -1,0 +1,107 @@
+    public int getWidth(java.lang.String)
+    {
+        byte[] $r4;
+        com.itextpdf.text.pdf.BaseFont r0;
+        char $c3;
+        com.itextpdf.text.pdf.IntHashtable $r3;
+        short $s6;
+        byte $b5;
+        int[] $r2;
+        int i0, $i1, i2, $i4;
+        java.lang.String $r1;
+        boolean z0;
+
+        r0 := @this: com.itextpdf.text.pdf.BaseFont;
+
+        $r1 := @parameter0: java.lang.String;
+
+        i0 = 0;
+
+        z0 = r0.<com.itextpdf.text.pdf.BaseFont: boolean fastWinansi>;
+
+        if z0 == 0 goto label6;
+
+        $i1 = virtualinvoke $r1.<java.lang.String: int length()>();
+
+        i2 = 0;
+
+     label1:
+        if i2 >= $i1 goto label5;
+
+        $c3 = virtualinvoke $r1.<java.lang.String: char charAt(int)>(i2);
+
+        $i4 = (int) $c3;
+
+        if $i4 < 128 goto label3;
+
+        $i4 = (int) $c3;
+
+        if $i4 < 160 goto label2;
+
+        $i4 = (int) $c3;
+
+        if $i4 <= 255 goto label3;
+
+     label2:
+        $r2 = r0.<com.itextpdf.text.pdf.BaseFont: int[] widths>;
+
+        $r3 = <com.itextpdf.text.pdf.PdfEncodings: com.itextpdf.text.pdf.IntHashtable winansi>;
+
+        $i4 = (int) $c3;
+
+        $i4 = virtualinvoke $r3.<com.itextpdf.text.pdf.IntHashtable: int get(int)>($i4);
+
+        $i4 = $r2[$i4];
+
+        i0 = i0 + $i4;
+
+        goto label4;
+
+     label3:
+        $r2 = r0.<com.itextpdf.text.pdf.BaseFont: int[] widths>;
+
+        $i4 = (int) $c3;
+
+        $i4 = $r2[$i4];
+
+        i0 = i0 + $i4;
+
+     label4:
+        i2 = i2 + 1;
+
+        goto label1;
+
+     label5:
+        return i0;
+
+     label6:
+        $r4 = virtualinvoke r0.<com.itextpdf.text.pdf.BaseFont: byte[] convertToBytes(java.lang.String)>($r1);
+
+        $i1 = 0;
+
+     label7:
+        i2 = lengthof $r4;
+
+        if $i1 >= i2 goto label8;
+
+        $r2 = r0.<com.itextpdf.text.pdf.BaseFont: int[] widths>;
+
+        $b5 = $r4[$i1];
+
+        $s6 = (short) $b5;
+
+        $s6 = $s6 & 255;
+
+        i2 = (int) $s6;
+
+        i2 = $r2[i2];
+
+        i0 = i0 + i2;
+
+        $i1 = $i1 + 1;
+
+        goto label7;
+
+     label8:
+        return i0;
+    }

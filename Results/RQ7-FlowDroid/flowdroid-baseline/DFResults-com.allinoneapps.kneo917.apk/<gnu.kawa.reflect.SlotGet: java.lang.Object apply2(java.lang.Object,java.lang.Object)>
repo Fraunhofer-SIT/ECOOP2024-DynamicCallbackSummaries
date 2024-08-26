@@ -1,0 +1,118 @@
+    public java.lang.Object apply2(java.lang.Object, java.lang.Object)
+    {
+        gnu.kawa.reflect.SlotGet r0;
+        gnu.expr.Language $r9;
+        gnu.mapping.WrongType $r11;
+        java.lang.Object $r1, $r2;
+        java.lang.String r3, r4, $r6, r7, $r8;
+        gnu.bytecode.Method $r10;
+        gnu.bytecode.Field $r5;
+        boolean $z0;
+
+        r0 := @this: gnu.kawa.reflect.SlotGet;
+
+        $r1 := @parameter0: java.lang.Object;
+
+        $r2 := @parameter1: java.lang.Object;
+
+        r3 = null;
+
+        r4 = null;
+
+        $z0 = $r2 instanceof gnu.bytecode.Field;
+
+        if $z0 == 0 goto label3;
+
+        $r5 = (gnu.bytecode.Field) $r2;
+
+        $r6 = virtualinvoke $r5.<gnu.bytecode.Field: java.lang.String getName()>();
+
+        r7 = $r6;
+
+        $r6 = staticinvoke <gnu.expr.Compilation: java.lang.String demangleName(java.lang.String,boolean)>($r6, 1);
+
+     label1:
+        $r8 = "class";
+
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean equals(java.lang.Object)>(r7);
+
+        if $z0 == 0 goto label9;
+
+        r7 = "class";
+
+     label2:
+        $z0 = r0.<gnu.kawa.reflect.SlotGet: boolean isStatic>;
+
+        $r9 = staticinvoke <gnu.expr.Language: gnu.expr.Language getDefaultLanguage()>();
+
+        $r1 = staticinvoke <gnu.kawa.reflect.SlotGet: java.lang.Object getSlotValue(boolean,java.lang.Object,java.lang.String,java.lang.String,java.lang.String,java.lang.String,gnu.expr.Language)>($z0, $r1, $r6, r7, r3, r4, $r9);
+
+        return $r1;
+
+     label3:
+        $z0 = $r2 instanceof gnu.bytecode.Method;
+
+        if $z0 == 0 goto label6;
+
+        $r10 = (gnu.bytecode.Method) $r2;
+
+        r7 = virtualinvoke $r10.<gnu.bytecode.Method: java.lang.String getName()>();
+
+        $r6 = staticinvoke <gnu.expr.Compilation: java.lang.String demangleName(java.lang.String,boolean)>(r7, 0);
+
+        $z0 = virtualinvoke r7.<java.lang.String: boolean startsWith(java.lang.String)>("get");
+
+        if $z0 == 0 goto label5;
+
+        r3 = r7;
+
+     label4:
+        r7 = null;
+
+        goto label1;
+
+     label5:
+        $z0 = virtualinvoke r7.<java.lang.String: boolean startsWith(java.lang.String)>("is");
+
+        if $z0 == 0 goto label4;
+
+        r4 = r7;
+
+        goto label4;
+
+     label6:
+        $z0 = $r2 instanceof gnu.mapping.SimpleSymbol;
+
+        if $z0 != 0 goto label7;
+
+        $z0 = $r2 instanceof java.lang.CharSequence;
+
+        if $z0 == 0 goto label8;
+
+     label7:
+        r7 = virtualinvoke $r2.<java.lang.Object: java.lang.String toString()>();
+
+        $r6 = r7;
+
+        r7 = staticinvoke <gnu.expr.Compilation: java.lang.String mangleNameIfNeeded(java.lang.String)>(r7);
+
+        goto label1;
+
+     label8:
+        $r11 = new gnu.mapping.WrongType;
+
+        specialinvoke $r11.<gnu.mapping.WrongType: void <init>(gnu.mapping.Procedure,int,java.lang.Object,java.lang.String)>(r0, 2, $r2, "string");
+
+        throw $r11;
+
+     label9:
+        $r8 = "length";
+
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean equals(java.lang.Object)>(r7);
+
+        if $z0 == 0 goto label2;
+
+        r7 = "length";
+
+        goto label2;
+    }

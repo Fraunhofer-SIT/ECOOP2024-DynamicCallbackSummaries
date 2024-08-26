@@ -1,0 +1,65 @@
+    public static void update(android.content.Context, java.lang.Class, java.io.Serializable)
+    {
+        java.lang.Throwable $r4;
+        android.content.Context $r0;
+        java.lang.Object[] $r6;
+        java.lang.Class $r1;
+        java.lang.String $r3;
+        java.lang.RuntimeException $r5;
+        java.io.Serializable $r2;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 := @parameter1: java.lang.Class;
+
+        $r2 := @parameter2: java.io.Serializable;
+
+        entermonitor class "Lcom/jumio/persistence/DataAccess;";
+
+        if $r2 != null goto label1;
+
+        exitmonitor class "Lcom/jumio/persistence/DataAccess;";
+
+        return;
+
+     label1:
+        $r3 = staticinvoke <com.jumio.persistence.DataAccess: java.lang.String checkAnnotated(java.lang.Class)>($r1);
+
+        staticinvoke <com.jumio.persistence.DataAccess: void update(android.content.Context,java.lang.String,java.io.Serializable)>($r0, $r3, $r2);
+
+     label2:
+        goto label6;
+
+     label3:
+        $r4 := @caughtexception;
+
+        goto label7;
+
+     label4:
+        $r5 := @caughtexception;
+
+     label5:
+        $r6 = newarray (java.lang.Object)[1];
+
+        $r3 = virtualinvoke $r1.<java.lang.Class: java.lang.String getName()>();
+
+        $r6[0] = $r3;
+
+        $r3 = staticinvoke <java.lang.String: java.lang.String format(java.lang.String,java.lang.Object[])>("Error persisting %s", $r6);
+
+        staticinvoke <com.jumio.commons.log.Log: void w(java.lang.String,java.lang.String,java.lang.Throwable)>("DataAccess", $r3, $r5);
+
+     label6:
+        exitmonitor class "Lcom/jumio/persistence/DataAccess;";
+
+        return;
+
+     label7:
+        exitmonitor class "Lcom/jumio/persistence/DataAccess;";
+
+        throw $r4;
+
+        catch java.lang.RuntimeException from label1 to label2 with label4;
+        catch java.lang.Throwable from label1 to label2 with label3;
+        catch java.lang.Throwable from label5 to label6 with label3;
+    }

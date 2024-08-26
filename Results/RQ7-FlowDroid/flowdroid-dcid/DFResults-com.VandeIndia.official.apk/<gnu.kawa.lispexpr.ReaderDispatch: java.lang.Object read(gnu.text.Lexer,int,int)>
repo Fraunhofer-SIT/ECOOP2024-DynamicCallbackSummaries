@@ -1,0 +1,119 @@
+    public java.lang.Object read(gnu.text.Lexer, int, int) throws java.io.IOException, gnu.text.SyntaxException
+    {
+        gnu.kawa.util.RangeTable $r4;
+        gnu.mapping.Values $r8;
+        char $c3;
+        gnu.kawa.lispexpr.ReaderDispatch r0;
+        int $i0, $i1, $i2;
+        gnu.kawa.lispexpr.ReadTableEntry $r6;
+        java.lang.StringBuilder $r2, $r9;
+        java.lang.Object $r5;
+        java.lang.String $r3, $r7;
+        gnu.text.Lexer $r1;
+
+        r0 := @this: gnu.kawa.lispexpr.ReaderDispatch;
+
+        $r1 := @parameter0: gnu.text.Lexer;
+
+        $i0 := @parameter1: int;
+
+        $i1 := @parameter2: int;
+
+        $i1 = -1;
+
+     label1:
+        $i2 = virtualinvoke $r1.<gnu.text.Lexer: int read()>();
+
+        $i0 = $i2;
+
+        if $i2 >= 0 goto label2;
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        $r2 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("unexpected EOF after ");
+
+        $c3 = (char) $i2;
+
+        $r2 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>($c3);
+
+        $r3 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r1.<gnu.text.Lexer: void eofError(java.lang.String)>($r3);
+
+     label2:
+        if $i2 <= 65536 goto label4;
+
+     label3:
+        $r4 = r0.<gnu.kawa.lispexpr.ReaderDispatch: gnu.kawa.util.RangeTable table>;
+
+        $r5 = virtualinvoke $r4.<gnu.kawa.util.RangeTable: java.lang.Object lookup(int,java.lang.Object)>($i0, null);
+
+        $r6 = (gnu.kawa.lispexpr.ReadTableEntry) $r5;
+
+        if $r6 != null goto label8;
+
+        $r3 = virtualinvoke $r1.<gnu.text.Lexer: java.lang.String getName()>();
+
+        $i1 = virtualinvoke $r1.<gnu.text.Lexer: int getLineNumber()>();
+
+        $i1 = $i1 + 1;
+
+        $i2 = virtualinvoke $r1.<gnu.text.Lexer: int getColumnNumber()>();
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        $r2 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("invalid dispatch character \'");
+
+        $c3 = (char) $i0;
+
+        $r2 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>($c3);
+
+        $r2 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(39);
+
+        $r7 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r1.<gnu.text.Lexer: void error(char,java.lang.String,int,int,java.lang.String)>(101, $r3, $i1, $i2, $r7);
+
+        $r8 = <gnu.mapping.Values: gnu.mapping.Values empty>;
+
+        return $r8;
+
+     label4:
+        $c3 = (char) $i2;
+
+        $i0 = staticinvoke <java.lang.Character: int digit(char,int)>($c3, 10);
+
+        if $i0 >= 0 goto label5;
+
+        $c3 = (char) $i2;
+
+        $c3 = staticinvoke <java.lang.Character: char toUpperCase(char)>($c3);
+
+        $i0 = (int) $c3;
+
+        goto label3;
+
+     label5:
+        if $i1 >= 0 goto label7;
+
+     label6:
+        $i1 = $i0;
+
+        goto label1;
+
+     label7:
+        $i1 = $i1 * 10;
+
+        $i0 = $i1 + $i0;
+
+        goto label6;
+
+     label8:
+        $r5 = virtualinvoke $r6.<gnu.kawa.lispexpr.ReadTableEntry: java.lang.Object read(gnu.text.Lexer,int,int)>($r1, $i0, $i1);
+
+        return $r5;
+    }

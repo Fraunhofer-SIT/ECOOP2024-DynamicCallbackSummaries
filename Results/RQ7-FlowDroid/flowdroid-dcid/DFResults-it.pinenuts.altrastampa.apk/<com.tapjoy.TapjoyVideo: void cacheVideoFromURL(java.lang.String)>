@@ -1,0 +1,488 @@
+    private void cacheVideoFromURL(java.lang.String)
+    {
+        byte[] r2;
+        java.io.BufferedInputStream r6, $r22;
+        java.net.URL $r21;
+        com.tapjoy.TapjoyVideo r0;
+        java.util.Vector $r13;
+        byte $b3;
+        com.tapjoy.TapjoyVideoObject r16;
+        boolean z0, z1, $z2;
+        java.lang.Exception r17, r18, $r19;
+        java.lang.StringBuilder $r4, $r20;
+        java.lang.Throwable r12;
+        long $l0, $l2;
+        java.net.URLConnection $r9;
+        java.net.SocketTimeoutException $r25;
+        int $i1;
+        java.lang.String $r1, $r5, $r11;
+        java.util.Hashtable $r15;
+        java.io.FileOutputStream r7, $r24;
+        java.io.File r3, r8, $r23;
+        java.lang.Object $r14;
+        java.io.InputStream $r10;
+
+        r0 := @this: com.tapjoy.TapjoyVideo;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r20 = new java.lang.StringBuilder;
+
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("download and cache video from: ");
+
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.tapjoy.TapjoyLog: void i(java.lang.String,java.lang.String)>("TapjoyVideo", $r5);
+
+        $l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        z0 = 0;
+
+        z1 = 0;
+
+        r6 = null;
+
+        r7 = null;
+
+        r8 = null;
+
+        $r21 = new java.net.URL;
+
+     label01:
+        specialinvoke $r21.<java.net.URL: void <init>(java.lang.String)>($r1);
+
+        $r9 = virtualinvoke $r21.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        virtualinvoke $r9.<java.net.URLConnection: void setConnectTimeout(int)>(15000);
+
+        virtualinvoke $r9.<java.net.URLConnection: void setReadTimeout(int)>(30000);
+
+        virtualinvoke $r9.<java.net.URLConnection: void connect()>();
+
+     label02:
+        $r22 = new java.io.BufferedInputStream;
+
+     label03:
+        $r10 = virtualinvoke $r9.<java.net.URLConnection: java.io.InputStream getInputStream()>();
+
+        specialinvoke $r22.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r10);
+
+     label04:
+        $r23 = new java.io.File;
+
+     label05:
+        $r5 = r0.<com.tapjoy.TapjoyVideo: java.lang.String videoCacheDir>;
+
+     label06:
+        specialinvoke $r23.<java.io.File: void <init>(java.lang.String)>($r5);
+
+        $i1 = virtualinvoke $r1.<java.lang.String: int lastIndexOf(java.lang.String)>("/");
+
+     label07:
+        $i1 = $i1 + 1;
+
+     label08:
+        $r5 = virtualinvoke $r1.<java.lang.String: java.lang.String substring(int,int)>(0, $i1);
+
+        $i1 = virtualinvoke $r1.<java.lang.String: int lastIndexOf(java.lang.String)>("/");
+
+     label09:
+        $i1 = $i1 + 1;
+
+     label10:
+        $r1 = virtualinvoke $r1.<java.lang.String: java.lang.String substring(int)>($i1);
+
+        $i1 = virtualinvoke $r1.<java.lang.String: int indexOf(int)>(46);
+
+        $r1 = virtualinvoke $r1.<java.lang.String: java.lang.String substring(int,int)>(0, $i1);
+
+     label11:
+        $r20 = new java.lang.StringBuilder;
+
+     label12:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("fileDir: ");
+
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r23);
+
+        $r11 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.tapjoy.TapjoyLog: void i(java.lang.String,java.lang.String)>("TapjoyVideo", $r11);
+
+     label13:
+        $r20 = new java.lang.StringBuilder;
+
+     label14:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("path: ");
+
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.tapjoy.TapjoyLog: void i(java.lang.String,java.lang.String)>("TapjoyVideo", $r5);
+
+     label15:
+        $r20 = new java.lang.StringBuilder;
+
+     label16:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("file name: ");
+
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.tapjoy.TapjoyLog: void i(java.lang.String,java.lang.String)>("TapjoyVideo", $r5);
+
+        $z2 = virtualinvoke $r23.<java.io.File: boolean mkdirs()>();
+
+     label17:
+        if $z2 == 0 goto label19;
+
+        $r20 = new java.lang.StringBuilder;
+
+     label18:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("created directory at: ");
+
+        $r5 = virtualinvoke $r23.<java.io.File: java.lang.String getPath()>();
+
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.tapjoy.TapjoyLog: void i(java.lang.String,java.lang.String)>("TapjoyVideo", $r5);
+
+     label19:
+        $r23 = new java.io.File;
+
+        r3 = $r23;
+
+     label20:
+        $r5 = r0.<com.tapjoy.TapjoyVideo: java.lang.String videoCacheDir>;
+
+     label21:
+        specialinvoke $r23.<java.io.File: void <init>(java.lang.String,java.lang.String)>($r5, $r1);
+
+     label22:
+        $r24 = new java.io.FileOutputStream;
+
+     label23:
+        specialinvoke $r24.<java.io.FileOutputStream: void <init>(java.io.File)>($r23);
+
+     label24:
+        $r20 = new java.lang.StringBuilder;
+
+     label25:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("downloading video file to: ");
+
+        $r1 = virtualinvoke $r23.<java.io.File: java.lang.String toString()>();
+
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.tapjoy.TapjoyLog: void i(java.lang.String,java.lang.String)>("TapjoyVideo", $r1);
+
+     label26:
+        r2 = newarray (byte)[1024];
+
+     label27:
+        $i1 = virtualinvoke $r22.<java.io.BufferedInputStream: int read(byte[])>(r2);
+
+     label28:
+        if $i1 == -1 goto label42;
+
+     label29:
+        virtualinvoke $r24.<java.io.OutputStream: void write(byte[],int,int)>(r2, 0, $i1);
+
+     label30:
+        goto label27;
+
+     label31:
+        r12 := @caughtexception;
+
+        r8 = r3;
+
+        r7 = $r24;
+
+        r6 = $r22;
+
+     label32:
+        $r20 = new java.lang.StringBuilder;
+
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Network timeout: ");
+
+        $r25 = (java.net.SocketTimeoutException) r12;
+
+        $r1 = virtualinvoke $r25.<java.net.SocketTimeoutException: java.lang.String toString()>();
+
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.tapjoy.TapjoyLog: void e(java.lang.String,java.lang.String)>("TapjoyVideo", $r1);
+
+        z0 = 1;
+
+        z1 = 1;
+
+     label33:
+        if z0 != 1 goto label35;
+
+        staticinvoke <com.tapjoy.TapjoyLog: void i(java.lang.String,java.lang.String)>("TapjoyVideo", "Network timeout");
+
+     label34:
+        virtualinvoke r6.<java.io.BufferedInputStream: void close()>();
+
+        virtualinvoke r7.<java.io.OutputStream: void close()>();
+
+     label35:
+        if z0 != 0 goto label50;
+
+        if z1 != 0 goto label50;
+
+     label36:
+        $r13 = r0.<com.tapjoy.TapjoyVideo: java.util.Vector videoQueue>;
+
+        $r14 = virtualinvoke $r13.<java.util.Vector: java.lang.Object elementAt(int)>(0);
+
+        $r1 = (java.lang.String) $r14;
+
+        $r15 = r0.<com.tapjoy.TapjoyVideo: java.util.Hashtable uncachedVideos>;
+
+        $r14 = virtualinvoke $r15.<java.util.Hashtable: java.lang.Object get(java.lang.Object)>($r1);
+
+        r16 = (com.tapjoy.TapjoyVideoObject) $r14;
+
+        $r5 = virtualinvoke r8.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        r16.<com.tapjoy.TapjoyVideoObject: java.lang.String dataLocation> = $r5;
+
+        $r15 = r0.<com.tapjoy.TapjoyVideo: java.util.Hashtable cachedVideos>;
+
+        virtualinvoke $r15.<java.util.Hashtable: java.lang.Object put(java.lang.Object,java.lang.Object)>($r1, r16);
+
+        $r15 = r0.<com.tapjoy.TapjoyVideo: java.util.Hashtable uncachedVideos>;
+
+        virtualinvoke $r15.<java.util.Hashtable: java.lang.Object remove(java.lang.Object)>($r1);
+
+        $r13 = r0.<com.tapjoy.TapjoyVideo: java.util.Vector videoQueue>;
+
+        virtualinvoke $r13.<java.util.Vector: void removeElementAt(int)>(0);
+
+        specialinvoke r0.<com.tapjoy.TapjoyVideo: void setVideoIDs()>();
+
+     label37:
+        $r20 = new java.lang.StringBuilder;
+
+     label38:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("video cached in: ");
+
+        $l2 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+     label39:
+        $l0 = $l2 - $l0;
+
+     label40:
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("ms");
+
+        $r1 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.tapjoy.TapjoyLog: void i(java.lang.String,java.lang.String)>("TapjoyVideo", $r1);
+
+     label41:
+        return;
+
+     label42:
+        virtualinvoke $r24.<java.io.OutputStream: void close()>();
+
+        virtualinvoke $r22.<java.io.BufferedInputStream: void close()>();
+
+     label43:
+        $r20 = new java.lang.StringBuilder;
+
+     label44:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("FILE SIZE: ");
+
+        $l2 = virtualinvoke r3.<java.io.File: long length()>();
+
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l2);
+
+        $r1 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.tapjoy.TapjoyLog: void i(java.lang.String,java.lang.String)>("TapjoyVideo", $r1);
+
+        $l2 = virtualinvoke r3.<java.io.File: long length()>();
+
+     label45:
+        $b3 = $l2 cmp 0L;
+
+        if $b3 != 0 goto label46;
+
+        z0 = 1;
+
+     label46:
+        r8 = r3;
+
+        r7 = $r24;
+
+        r6 = $r22;
+
+        goto label33;
+
+     label47:
+        r17 := @caughtexception;
+
+     label48:
+        $r20 = new java.lang.StringBuilder;
+
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Error caching video file: ");
+
+        $r1 = virtualinvoke r17.<java.lang.Exception: java.lang.String toString()>();
+
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.tapjoy.TapjoyLog: void e(java.lang.String,java.lang.String)>("TapjoyVideo", $r1);
+
+        z1 = 1;
+
+        goto label33;
+
+     label49:
+        r18 := @caughtexception;
+
+        $r20 = new java.lang.StringBuilder;
+
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("error caching video ???: ");
+
+        $r1 = virtualinvoke r18.<java.lang.Exception: java.lang.String toString()>();
+
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.tapjoy.TapjoyLog: void e(java.lang.String,java.lang.String)>("TapjoyVideo", $r1);
+
+        return;
+
+     label50:
+        staticinvoke <com.tapjoy.TapjoyVideo: void videoNotifierError(int)>(2);
+
+        return;
+
+     label51:
+        $r19 := @caughtexception;
+
+        goto label35;
+
+     label52:
+        r17 := @caughtexception;
+
+        r6 = $r22;
+
+        goto label48;
+
+     label53:
+        r17 := @caughtexception;
+
+        r8 = r3;
+
+        r6 = $r22;
+
+        goto label48;
+
+     label54:
+        r17 := @caughtexception;
+
+        r8 = r3;
+
+        r7 = $r24;
+
+        r6 = $r22;
+
+        goto label48;
+
+     label55:
+        r12 := @caughtexception;
+
+        goto label32;
+
+     label56:
+        r12 := @caughtexception;
+
+        r6 = $r22;
+
+        goto label32;
+
+     label57:
+        r12 := @caughtexception;
+
+        r8 = r3;
+
+        r6 = $r22;
+
+        goto label32;
+
+        catch java.net.SocketTimeoutException from label01 to label02 with label55;
+        catch java.net.SocketTimeoutException from label03 to label04 with label55;
+        catch java.lang.Exception from label01 to label02 with label47;
+        catch java.lang.Exception from label03 to label04 with label47;
+        catch java.net.SocketTimeoutException from label06 to label07 with label56;
+        catch java.net.SocketTimeoutException from label08 to label09 with label56;
+        catch java.net.SocketTimeoutException from label10 to label11 with label56;
+        catch java.net.SocketTimeoutException from label12 to label13 with label56;
+        catch java.net.SocketTimeoutException from label14 to label15 with label56;
+        catch java.net.SocketTimeoutException from label16 to label17 with label56;
+        catch java.net.SocketTimeoutException from label18 to label19 with label56;
+        catch java.net.SocketTimeoutException from label21 to label22 with label56;
+        catch java.lang.Exception from label05 to label07 with label52;
+        catch java.lang.Exception from label08 to label09 with label52;
+        catch java.lang.Exception from label10 to label11 with label52;
+        catch java.lang.Exception from label12 to label13 with label52;
+        catch java.lang.Exception from label14 to label15 with label52;
+        catch java.lang.Exception from label16 to label17 with label52;
+        catch java.lang.Exception from label18 to label19 with label52;
+        catch java.lang.Exception from label20 to label22 with label52;
+        catch java.net.SocketTimeoutException from label23 to label24 with label57;
+        catch java.lang.Exception from label23 to label24 with label53;
+        catch java.net.SocketTimeoutException from label25 to label26 with label31;
+        catch java.net.SocketTimeoutException from label27 to label28 with label31;
+        catch java.net.SocketTimeoutException from label29 to label30 with label31;
+        catch java.lang.Exception from label25 to label26 with label54;
+        catch java.lang.Exception from label27 to label28 with label54;
+        catch java.lang.Exception from label29 to label30 with label54;
+        catch java.lang.Exception from label34 to label35 with label51;
+        catch java.lang.Exception from label36 to label37 with label49;
+        catch java.lang.Exception from label38 to label39 with label49;
+        catch java.lang.Exception from label40 to label41 with label49;
+        catch java.net.SocketTimeoutException from label42 to label43 with label31;
+        catch java.net.SocketTimeoutException from label44 to label45 with label31;
+        catch java.lang.Exception from label42 to label43 with label54;
+        catch java.lang.Exception from label44 to label45 with label54;
+    }

@@ -1,0 +1,139 @@
+    public static java.lang.String getDeviceInfo(android.content.Context)
+    {
+        android.content.Context $r0;
+        int $i0;
+        java.lang.StringBuilder $r2;
+        java.lang.String[] $r3;
+        java.lang.String $r1;
+        boolean $z0;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $z0 = <com.centauri.oversea.comm.GDPR: boolean ifCollect>;
+
+        if $z0 != 0 goto label1;
+
+        return "";
+
+     label1:
+        $r1 = <com.centauri.oversea.comm.GDPR: java.lang.String deviceInfo>;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r1);
+
+        if $z0 != 0 goto label2;
+
+        $r1 = <com.centauri.oversea.comm.GDPR: java.lang.String deviceInfo>;
+
+        return $r1;
+
+     label2:
+        $r2 = new java.lang.StringBuilder;
+
+        specialinvoke $r2.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("&androidId=");
+
+        $r1 = staticinvoke <com.centauri.oversea.comm.GDPR: java.lang.String getAndroidId(android.content.Context)>($r0);
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("&psuedoId=");
+
+        $r1 = staticinvoke <com.centauri.oversea.comm.GDPR: java.lang.String getPsuedoId()>();
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("&androidSdkVersion=");
+
+        $i0 = <android.os.Build$VERSION: int SDK_INT>;
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r1 = <android.os.Build: java.lang.String DEVICE>;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r1);
+
+        if $z0 != 0 goto label3;
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("&device=");
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+     label3:
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("&manufacturer=");
+
+        $r1 = <android.os.Build: java.lang.String MANUFACTURER>;
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("&sdkVersion=");
+
+        $r1 = <android.os.Build$VERSION: java.lang.String RELEASE>;
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("&showModel=");
+
+        $r1 = <android.os.Build: java.lang.String MODEL>;
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("&phoneIp=");
+
+        $r1 = staticinvoke <com.centauri.oversea.comm.GDPR: java.lang.String getLocalIp()>();
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("&oper=");
+
+        $r1 = staticinvoke <com.centauri.oversea.comm.GDPR: java.lang.String getOperator(android.content.Context)>($r0);
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = staticinvoke <com.centauri.oversea.comm.GDPR: java.lang.String getAvailMemory2(android.content.Context)>($r0);
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r1);
+
+        if $z0 != 0 goto label4;
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("&availableMemory=");
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+     label4:
+        $r1 = staticinvoke <com.centauri.oversea.comm.GDPR: java.lang.String getTotalMemory(android.content.Context)>($r0);
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r1);
+
+        if $z0 != 0 goto label5;
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("&totalMemory=");
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+     label5:
+        $r3 = staticinvoke <com.centauri.oversea.comm.GDPR: java.lang.String[] getCpuInfo()>();
+
+        $i0 = lengthof $r3;
+
+        if $i0 != 2 goto label6;
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("&cup=");
+
+        $r1 = $r3[0];
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("&cupFrequency=");
+
+        $r1 = $r3[1];
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+     label6:
+        $r1 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        <com.centauri.oversea.comm.GDPR: java.lang.String deviceInfo> = $r1;
+
+        return $r1;
+    }

@@ -1,0 +1,311 @@
+    static void \u02cb(android.content.Context, java.util.Map)
+    {
+        java.lang.Throwable $r4, $r10, $r11, $r15;
+        android.content.Context $r1;
+        com.google.android.gms.ads.identifier.AdvertisingIdClient$Info $r7;
+        com.appsflyer.AppsFlyerProperties $r13;
+        com.appsflyer.g$d $r14;
+        java.util.Map $r0;
+        int $i0, $i1;
+        java.lang.String $r5, $r6, $r8, $r9;
+        boolean $z0, $z1, $z2;
+        com.appsflyer.n$d $r17;
+        java.lang.StringBuilder $r2, $r16, $r18;
+        java.lang.Class $r12;
+        com.google.android.gms.common.GoogleApiAvailability $r3;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $r0 := @parameter1: java.util.Map;
+
+        staticinvoke <com.appsflyer.AFLogger: void afInfoLog(java.lang.String)>("Trying to fetch GAID..");
+
+        $r16 = new java.lang.StringBuilder;
+
+        $r2 = $r16;
+
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+     label01:
+        $r3 = staticinvoke <com.google.android.gms.common.GoogleApiAvailability: com.google.android.gms.common.GoogleApiAvailability getInstance()>();
+
+        $i0 = virtualinvoke $r3.<com.google.android.gms.common.GoogleApiAvailability: int isGooglePlayServicesAvailable(android.content.Context)>($r1);
+
+     label02:
+        goto label04;
+
+     label03:
+        $r4 := @caughtexception;
+
+        $r5 = virtualinvoke $r4.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        staticinvoke <com.appsflyer.AFLogger: void afErrorLog(java.lang.String,java.lang.Throwable)>($r5, $r4);
+
+        $i0 = -1;
+
+     label04:
+        $r6 = null;
+
+        $z0 = 0;
+
+        $z1 = 1;
+
+     label05:
+        staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>("com.google.android.gms.ads.identifier.AdvertisingIdClient");
+
+        $r7 = staticinvoke <com.google.android.gms.ads.identifier.AdvertisingIdClient: com.google.android.gms.ads.identifier.AdvertisingIdClient$Info getAdvertisingIdInfo(android.content.Context)>($r1);
+
+     label06:
+        if $r7 == null goto label21;
+
+     label07:
+        $r8 = virtualinvoke $r7.<com.google.android.gms.ads.identifier.AdvertisingIdClient$Info: java.lang.String getId()>();
+
+     label08:
+        $r5 = $r8;
+
+     label09:
+        $z2 = virtualinvoke $r7.<com.google.android.gms.ads.identifier.AdvertisingIdClient$Info: boolean isLimitAdTrackingEnabled()>();
+
+     label10:
+        if $z2 != 0 goto label11;
+
+        $z2 = 1;
+
+        goto label12;
+
+     label11:
+        $z2 = 0;
+
+     label12:
+        $r9 = staticinvoke <java.lang.Boolean: java.lang.String toString(boolean)>($z2);
+
+     label13:
+        $r6 = $r9;
+
+        if $r8 == null goto label16;
+
+     label14:
+        $i1 = virtualinvoke $r8.<java.lang.String: int length()>();
+
+     label15:
+        if $i1 != 0 goto label36;
+
+     label16:
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("emptyOrNull |");
+
+     label17:
+        goto label36;
+
+     label18:
+        $r10 := @caughtexception;
+
+        $z1 = 1;
+
+        goto label20;
+
+     label19:
+        $r10 := @caughtexception;
+
+        $z1 = 0;
+
+     label20:
+        $r9 = $r6;
+
+        $r6 = $r8;
+
+        $r4 = $r10;
+
+        goto label24;
+
+     label21:
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("gpsAdInfo-null |");
+
+        $r17 = new com.appsflyer.n$d;
+
+     label22:
+        specialinvoke $r17.<com.appsflyer.n$d: void <init>(java.lang.String)>("GpsAdIndo is null");
+
+        throw $r17;
+
+     label23:
+        $r11 := @caughtexception;
+
+        $z1 = 0;
+
+        $r4 = $r11;
+
+        $r9 = null;
+
+     label24:
+        $r5 = virtualinvoke $r4.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        staticinvoke <com.appsflyer.AFLogger: void afErrorLog(java.lang.String,java.lang.Throwable)>($r5, $r4);
+
+        $r12 = virtualinvoke $r4.<java.lang.Object: java.lang.Class getClass()>();
+
+        $r5 = virtualinvoke $r12.<java.lang.Class: java.lang.String getSimpleName()>();
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" |");
+
+        staticinvoke <com.appsflyer.AFLogger: void afInfoLog(java.lang.String)>("WARNING: Google Play Services is missing.");
+
+        $r13 = staticinvoke <com.appsflyer.AppsFlyerProperties: com.appsflyer.AppsFlyerProperties getInstance()>();
+
+        $z2 = virtualinvoke $r13.<com.appsflyer.AppsFlyerProperties: boolean getBoolean(java.lang.String,boolean)>("enableGpsFallback", 1);
+
+        if $z2 == 0 goto label35;
+
+     label25:
+        $r14 = staticinvoke <com.appsflyer.g: com.appsflyer.g$d \u02cb(android.content.Context)>($r1);
+
+        $r5 = virtualinvoke $r14.<com.appsflyer.g$d: java.lang.String \u02ca()>();
+
+        $z2 = virtualinvoke $r14.<com.appsflyer.g$d: boolean \u0971()>();
+
+     label26:
+        if $z2 != 0 goto label27;
+
+        $z0 = 1;
+
+     label27:
+        $r6 = staticinvoke <java.lang.Boolean: java.lang.String toString(boolean)>($z0);
+
+     label28:
+        if $r5 == null goto label31;
+
+     label29:
+        $i1 = virtualinvoke $r5.<java.lang.String: int length()>();
+
+     label30:
+        if $i1 != 0 goto label36;
+
+     label31:
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("emptyOrNull (bypass) |");
+
+     label32:
+        goto label36;
+
+     label33:
+        $r15 := @caughtexception;
+
+        $r5 = virtualinvoke $r15.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        staticinvoke <com.appsflyer.AFLogger: void afErrorLog(java.lang.String,java.lang.Throwable)>($r5, $r15);
+
+        $r12 = virtualinvoke $r15.<java.lang.Object: java.lang.Class getClass()>();
+
+        $r5 = virtualinvoke $r12.<java.lang.Class: java.lang.String getSimpleName()>();
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" |");
+
+        $r13 = staticinvoke <com.appsflyer.AppsFlyerProperties: com.appsflyer.AppsFlyerProperties getInstance()>();
+
+        $r5 = virtualinvoke $r13.<com.appsflyer.AppsFlyerProperties: java.lang.String getString(java.lang.String)>("advertiserId");
+
+        $r13 = staticinvoke <com.appsflyer.AppsFlyerProperties: com.appsflyer.AppsFlyerProperties getInstance()>();
+
+        $r6 = virtualinvoke $r13.<com.appsflyer.AppsFlyerProperties: java.lang.String getString(java.lang.String)>("advertiserIdEnabled");
+
+        $r9 = virtualinvoke $r15.<java.lang.Throwable: java.lang.String getLocalizedMessage()>();
+
+        if $r9 == null goto label34;
+
+        $r9 = virtualinvoke $r15.<java.lang.Throwable: java.lang.String getLocalizedMessage()>();
+
+        staticinvoke <com.appsflyer.AFLogger: void afInfoLog(java.lang.String)>($r9);
+
+        goto label36;
+
+     label34:
+        $r9 = virtualinvoke $r15.<java.lang.Object: java.lang.String toString()>();
+
+        staticinvoke <com.appsflyer.AFLogger: void afInfoLog(java.lang.String)>($r9);
+
+        goto label36;
+
+     label35:
+        $r5 = $r6;
+
+        $r6 = $r9;
+
+     label36:
+        $r12 = virtualinvoke $r1.<java.lang.Object: java.lang.Class getClass()>();
+
+        $r9 = virtualinvoke $r12.<java.lang.Class: java.lang.String getName()>();
+
+        $z0 = virtualinvoke $r9.<java.lang.Object: boolean equals(java.lang.Object)>("android.app.ReceiverRestrictedContext");
+
+        if $z0 == 0 goto label37;
+
+        $r13 = staticinvoke <com.appsflyer.AppsFlyerProperties: com.appsflyer.AppsFlyerProperties getInstance()>();
+
+        $r5 = virtualinvoke $r13.<com.appsflyer.AppsFlyerProperties: java.lang.String getString(java.lang.String)>("advertiserId");
+
+        $r13 = staticinvoke <com.appsflyer.AppsFlyerProperties: com.appsflyer.AppsFlyerProperties getInstance()>();
+
+        $r6 = virtualinvoke $r13.<com.appsflyer.AppsFlyerProperties: java.lang.String getString(java.lang.String)>("advertiserIdEnabled");
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("context = android.app.ReceiverRestrictedContext |");
+
+     label37:
+        $i1 = virtualinvoke $r2.<java.lang.StringBuilder: int length()>();
+
+        if $i1 <= 0 goto label38;
+
+        $r18 = new java.lang.StringBuilder;
+
+        specialinvoke $r18.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r18.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        virtualinvoke $r18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(": ");
+
+        virtualinvoke $r18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r2);
+
+        $r9 = virtualinvoke $r18.<java.lang.Object: java.lang.String toString()>();
+
+        interfaceinvoke $r0.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("gaidError", $r9);
+
+     label38:
+        if $r5 == null goto label39;
+
+        if $r6 == null goto label39;
+
+        interfaceinvoke $r0.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("advertiserId", $r5);
+
+        interfaceinvoke $r0.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("advertiserIdEnabled", $r6);
+
+        $r13 = staticinvoke <com.appsflyer.AppsFlyerProperties: com.appsflyer.AppsFlyerProperties getInstance()>();
+
+        virtualinvoke $r13.<com.appsflyer.AppsFlyerProperties: void set(java.lang.String,java.lang.String)>("advertiserId", $r5);
+
+        $r13 = staticinvoke <com.appsflyer.AppsFlyerProperties: com.appsflyer.AppsFlyerProperties getInstance()>();
+
+        virtualinvoke $r13.<com.appsflyer.AppsFlyerProperties: void set(java.lang.String,java.lang.String)>("advertiserIdEnabled", $r6);
+
+        $r5 = staticinvoke <java.lang.String: java.lang.String valueOf(boolean)>($z1);
+
+        interfaceinvoke $r0.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("isGaidWithGps", $r5);
+
+     label39:
+        return;
+
+        catch java.lang.Throwable from label01 to label02 with label03;
+        catch java.lang.Throwable from label05 to label06 with label23;
+        catch java.lang.Throwable from label07 to label08 with label23;
+        catch java.lang.Throwable from label09 to label10 with label19;
+        catch java.lang.Throwable from label12 to label13 with label19;
+        catch java.lang.Throwable from label14 to label15 with label18;
+        catch java.lang.Throwable from label16 to label17 with label18;
+        catch java.lang.Throwable from label21 to label22 with label23;
+        catch java.lang.Throwable from label22 to label23 with label23;
+        catch java.lang.Throwable from label25 to label26 with label33;
+        catch java.lang.Throwable from label27 to label28 with label33;
+        catch java.lang.Throwable from label29 to label30 with label33;
+        catch java.lang.Throwable from label31 to label32 with label33;
+    }

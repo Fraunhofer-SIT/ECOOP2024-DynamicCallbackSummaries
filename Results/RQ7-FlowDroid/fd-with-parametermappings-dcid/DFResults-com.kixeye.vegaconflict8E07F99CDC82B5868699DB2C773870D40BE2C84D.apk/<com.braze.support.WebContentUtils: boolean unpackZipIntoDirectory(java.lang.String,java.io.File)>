@@ -1,0 +1,434 @@
+    public static boolean unpackZipIntoDirectory(java.lang.String, java.io.File)
+    {
+        java.lang.Throwable $r10, $r11, $r12, $r13, $r14, $r15, $r16, $r17, $r18;
+        byte[] $r5;
+        java.util.zip.ZipInputStream $r4, $r22;
+        java.io.BufferedInputStream $r21;
+        java.io.BufferedOutputStream $r3, $r25;
+        java.util.Locale $r8;
+        int $i0;
+        java.lang.String $r0, $r7, $r9;
+        java.util.zip.ZipEntry $r6;
+        boolean $z0;
+        java.io.FileOutputStream $r24;
+        java.io.FileInputStream $r20;
+        java.io.File $r1, $r2, $r19;
+        java.lang.StringBuilder $r23;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r1 := @parameter1: java.io.File;
+
+        $z0 = staticinvoke <com.appboy.support.StringUtils: boolean isNullOrBlank(java.lang.String)>($r0);
+
+        if $z0 == 0 goto label01;
+
+        $r0 = <com.braze.support.WebContentUtils: java.lang.String TAG>;
+
+        staticinvoke <com.appboy.support.AppboyLogger: int i(java.lang.String,java.lang.String)>($r0, "Unpack directory null or blank. Zip file not unpacked.");
+
+        return 0;
+
+     label01:
+        if $r1 != null goto label02;
+
+        $r0 = <com.braze.support.WebContentUtils: java.lang.String TAG>;
+
+        staticinvoke <com.appboy.support.AppboyLogger: int i(java.lang.String,java.lang.String)>($r0, "Zip file is null. Zip file not unpacked.");
+
+        return 0;
+
+     label02:
+        $r19 = new java.io.File;
+
+        specialinvoke $r19.<java.io.File: void <init>(java.lang.String)>($r0);
+
+        virtualinvoke $r19.<java.io.File: boolean mkdirs()>();
+
+        $r3 = null;
+
+     label03:
+        $r20 = new java.io.FileInputStream;
+
+     label04:
+        specialinvoke $r20.<java.io.FileInputStream: void <init>(java.io.File)>($r1);
+
+     label05:
+        $r21 = new java.io.BufferedInputStream;
+
+     label06:
+        specialinvoke $r21.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r20);
+
+     label07:
+        $r22 = new java.util.zip.ZipInputStream;
+
+     label08:
+        $r4 = $r22;
+
+     label09:
+        specialinvoke $r22.<java.util.zip.ZipInputStream: void <init>(java.io.InputStream)>($r21);
+
+     label10:
+        $r5 = newarray (byte)[8192];
+
+     label11:
+        $r6 = virtualinvoke $r22.<java.util.zip.ZipInputStream: java.util.zip.ZipEntry getNextEntry()>();
+
+     label12:
+        if $r6 == null goto label35;
+
+     label13:
+        $r7 = virtualinvoke $r6.<java.util.zip.ZipEntry: java.lang.String getName()>();
+
+     label14:
+        $r8 = <java.util.Locale: java.util.Locale US>;
+
+     label15:
+        $r9 = virtualinvoke $r7.<java.lang.String: java.lang.String toLowerCase(java.util.Locale)>($r8);
+
+        $z0 = virtualinvoke $r9.<java.lang.String: boolean startsWith(java.lang.String)>("__macosx");
+
+     label16:
+        if $z0 != 0 goto label11;
+
+     label17:
+        $r23 = new java.lang.StringBuilder;
+
+     label18:
+        specialinvoke $r23.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r23.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        virtualinvoke $r23.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        virtualinvoke $r23.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r7 = virtualinvoke $r23.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r7 = staticinvoke <com.braze.support.WebContentUtils: java.lang.String validateChildFileExistsUnderParent(java.lang.String,java.lang.String)>($r0, $r7);
+
+        $z0 = virtualinvoke $r6.<java.util.zip.ZipEntry: boolean isDirectory()>();
+
+     label19:
+        if $z0 == 0 goto label23;
+
+     label20:
+        $r2 = new java.io.File;
+
+     label21:
+        specialinvoke $r2.<java.io.File: void <init>(java.lang.String)>($r7);
+
+        virtualinvoke $r2.<java.io.File: boolean mkdirs()>();
+
+     label22:
+        goto label11;
+
+     label23:
+        $r25 = new java.io.BufferedOutputStream;
+
+     label24:
+        $r24 = new java.io.FileOutputStream;
+
+     label25:
+        specialinvoke $r24.<java.io.FileOutputStream: void <init>(java.lang.String)>($r7);
+
+        specialinvoke $r25.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r24);
+
+     label26:
+        $i0 = virtualinvoke $r22.<java.util.zip.ZipInputStream: int read(byte[])>($r5);
+
+     label27:
+        if $i0 == -1 goto label30;
+
+     label28:
+        virtualinvoke $r25.<java.io.BufferedOutputStream: void write(byte[],int,int)>($r5, 0, $i0);
+
+     label29:
+        goto label26;
+
+     label30:
+        virtualinvoke $r25.<java.io.BufferedOutputStream: void close()>();
+
+        virtualinvoke $r22.<java.util.zip.ZipInputStream: void closeEntry()>();
+
+     label31:
+        $r3 = $r25;
+
+        goto label11;
+
+     label32:
+        $r10 := @caughtexception;
+
+        $r3 = $r25;
+
+        goto label45;
+
+     label33:
+        $r11 := @caughtexception;
+
+        $r3 = $r25;
+
+        goto label55;
+
+     label34:
+        $r12 := @caughtexception;
+
+        $r3 = $r25;
+
+        goto label65;
+
+     label35:
+        virtualinvoke $r22.<java.util.zip.ZipInputStream: void close()>();
+
+     label36:
+        virtualinvoke $r22.<java.util.zip.ZipInputStream: void close()>();
+
+     label37:
+        if $r3 == null goto label83;
+
+     label38:
+        virtualinvoke $r3.<java.io.BufferedOutputStream: void close()>();
+
+     label39:
+        return 1;
+
+     label40:
+        $r13 := @caughtexception;
+
+        $r0 = <com.braze.support.WebContentUtils: java.lang.String TAG>;
+
+        staticinvoke <com.appboy.support.AppboyLogger: int e(java.lang.String,java.lang.String,java.lang.Throwable)>($r0, "IOException during closing of zip file unpacking streams.", $r13);
+
+        return 1;
+
+     label41:
+        $r10 := @caughtexception;
+
+        goto label45;
+
+     label42:
+        $r11 := @caughtexception;
+
+        goto label55;
+
+     label43:
+        $r12 := @caughtexception;
+
+        goto label65;
+
+     label44:
+        $r10 := @caughtexception;
+
+        $r4 = null;
+
+     label45:
+        $r0 = <com.braze.support.WebContentUtils: java.lang.String TAG>;
+
+        staticinvoke <com.appboy.support.AppboyLogger: int e(java.lang.String,java.lang.String,java.lang.Throwable)>($r0, "Error during unpack of zip file.", $r10);
+
+     label46:
+        if $r4 == null goto label50;
+
+     label47:
+        virtualinvoke $r4.<java.util.zip.ZipInputStream: void close()>();
+
+     label48:
+        goto label50;
+
+     label49:
+        $r14 := @caughtexception;
+
+        goto label53;
+
+     label50:
+        if $r3 == null goto label84;
+
+     label51:
+        virtualinvoke $r3.<java.io.BufferedOutputStream: void close()>();
+
+     label52:
+        return 0;
+
+     label53:
+        $r0 = <com.braze.support.WebContentUtils: java.lang.String TAG>;
+
+        staticinvoke <com.appboy.support.AppboyLogger: int e(java.lang.String,java.lang.String,java.lang.Throwable)>($r0, "IOException during closing of zip file unpacking streams.", $r14);
+
+        return 0;
+
+     label54:
+        $r11 := @caughtexception;
+
+        $r4 = null;
+
+     label55:
+        $r0 = <com.braze.support.WebContentUtils: java.lang.String TAG>;
+
+        staticinvoke <com.appboy.support.AppboyLogger: int e(java.lang.String,java.lang.String,java.lang.Throwable)>($r0, "IOException during unpack of zip file.", $r11);
+
+     label56:
+        if $r4 == null goto label60;
+
+     label57:
+        virtualinvoke $r4.<java.util.zip.ZipInputStream: void close()>();
+
+     label58:
+        goto label60;
+
+     label59:
+        $r15 := @caughtexception;
+
+        goto label63;
+
+     label60:
+        if $r3 == null goto label84;
+
+     label61:
+        virtualinvoke $r3.<java.io.BufferedOutputStream: void close()>();
+
+     label62:
+        return 0;
+
+     label63:
+        $r0 = <com.braze.support.WebContentUtils: java.lang.String TAG>;
+
+        staticinvoke <com.appboy.support.AppboyLogger: int e(java.lang.String,java.lang.String,java.lang.Throwable)>($r0, "IOException during closing of zip file unpacking streams.", $r15);
+
+        return 0;
+
+     label64:
+        $r12 := @caughtexception;
+
+        $r4 = null;
+
+     label65:
+        $r0 = <com.braze.support.WebContentUtils: java.lang.String TAG>;
+
+        staticinvoke <com.appboy.support.AppboyLogger: int e(java.lang.String,java.lang.String,java.lang.Throwable)>($r0, "FileNotFoundException during unpack of zip file.", $r12);
+
+     label66:
+        if $r4 == null goto label70;
+
+     label67:
+        virtualinvoke $r4.<java.util.zip.ZipInputStream: void close()>();
+
+     label68:
+        goto label70;
+
+     label69:
+        $r16 := @caughtexception;
+
+        goto label73;
+
+     label70:
+        if $r3 == null goto label84;
+
+     label71:
+        virtualinvoke $r3.<java.io.BufferedOutputStream: void close()>();
+
+     label72:
+        return 0;
+
+     label73:
+        $r0 = <com.braze.support.WebContentUtils: java.lang.String TAG>;
+
+        staticinvoke <com.appboy.support.AppboyLogger: int e(java.lang.String,java.lang.String,java.lang.Throwable)>($r0, "IOException during closing of zip file unpacking streams.", $r16);
+
+        return 0;
+
+     label74:
+        $r17 := @caughtexception;
+
+        if $r4 == null goto label78;
+
+     label75:
+        virtualinvoke $r4.<java.util.zip.ZipInputStream: void close()>();
+
+     label76:
+        goto label78;
+
+     label77:
+        $r18 := @caughtexception;
+
+        goto label81;
+
+     label78:
+        if $r3 == null goto label82;
+
+     label79:
+        virtualinvoke $r3.<java.io.BufferedOutputStream: void close()>();
+
+     label80:
+        goto label82;
+
+     label81:
+        $r0 = <com.braze.support.WebContentUtils: java.lang.String TAG>;
+
+        staticinvoke <com.appboy.support.AppboyLogger: int e(java.lang.String,java.lang.String,java.lang.Throwable)>($r0, "IOException during closing of zip file unpacking streams.", $r18);
+
+     label82:
+        throw $r17;
+
+     label83:
+        return 1;
+
+     label84:
+        return 0;
+
+        catch java.io.FileNotFoundException from label04 to label05 with label64;
+        catch java.io.FileNotFoundException from label06 to label07 with label64;
+        catch java.io.FileNotFoundException from label09 to label10 with label64;
+        catch java.io.IOException from label04 to label05 with label54;
+        catch java.io.IOException from label06 to label07 with label54;
+        catch java.io.IOException from label09 to label10 with label54;
+        catch java.lang.Throwable from label03 to label04 with label44;
+        catch java.lang.Throwable from label04 to label06 with label44;
+        catch java.lang.Throwable from label06 to label08 with label44;
+        catch java.lang.Throwable from label09 to label10 with label44;
+        catch java.io.FileNotFoundException from label11 to label12 with label43;
+        catch java.io.FileNotFoundException from label13 to label14 with label43;
+        catch java.io.FileNotFoundException from label15 to label16 with label43;
+        catch java.io.FileNotFoundException from label18 to label19 with label43;
+        catch java.io.FileNotFoundException from label21 to label22 with label43;
+        catch java.io.FileNotFoundException from label25 to label26 with label43;
+        catch java.io.IOException from label11 to label12 with label42;
+        catch java.io.IOException from label13 to label14 with label42;
+        catch java.io.IOException from label15 to label16 with label42;
+        catch java.io.IOException from label18 to label19 with label42;
+        catch java.io.IOException from label21 to label22 with label42;
+        catch java.io.IOException from label25 to label26 with label42;
+        catch java.lang.Throwable from label11 to label12 with label41;
+        catch java.lang.Throwable from label13 to label16 with label41;
+        catch java.lang.Throwable from label17 to label18 with label41;
+        catch java.lang.Throwable from label18 to label19 with label41;
+        catch java.lang.Throwable from label20 to label21 with label41;
+        catch java.lang.Throwable from label21 to label22 with label41;
+        catch java.lang.Throwable from label23 to label24 with label41;
+        catch java.lang.Throwable from label24 to label25 with label41;
+        catch java.lang.Throwable from label25 to label26 with label41;
+        catch java.io.FileNotFoundException from label26 to label27 with label34;
+        catch java.io.FileNotFoundException from label28 to label29 with label34;
+        catch java.io.FileNotFoundException from label30 to label31 with label34;
+        catch java.io.IOException from label26 to label27 with label33;
+        catch java.io.IOException from label28 to label29 with label33;
+        catch java.io.IOException from label30 to label31 with label33;
+        catch java.lang.Throwable from label26 to label27 with label32;
+        catch java.lang.Throwable from label28 to label29 with label32;
+        catch java.lang.Throwable from label30 to label31 with label32;
+        catch java.io.FileNotFoundException from label35 to label36 with label43;
+        catch java.io.IOException from label35 to label36 with label42;
+        catch java.lang.Throwable from label35 to label36 with label41;
+        catch java.io.IOException from label36 to label37 with label40;
+        catch java.io.IOException from label38 to label39 with label40;
+        catch java.lang.Throwable from label45 to label46 with label74;
+        catch java.io.IOException from label47 to label48 with label49;
+        catch java.io.IOException from label51 to label52 with label49;
+        catch java.lang.Throwable from label55 to label56 with label74;
+        catch java.io.IOException from label57 to label58 with label59;
+        catch java.io.IOException from label61 to label62 with label59;
+        catch java.lang.Throwable from label65 to label66 with label74;
+        catch java.io.IOException from label67 to label68 with label69;
+        catch java.io.IOException from label71 to label72 with label69;
+        catch java.io.IOException from label75 to label76 with label77;
+        catch java.io.IOException from label79 to label80 with label77;
+    }

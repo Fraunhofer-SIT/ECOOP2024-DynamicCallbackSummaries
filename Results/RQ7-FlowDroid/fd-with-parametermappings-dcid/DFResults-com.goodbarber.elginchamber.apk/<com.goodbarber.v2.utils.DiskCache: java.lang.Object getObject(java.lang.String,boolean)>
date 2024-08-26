@@ -1,0 +1,137 @@
+    public java.lang.Object getObject(java.lang.String, boolean)
+    {
+        java.lang.Throwable $r9, $r13;
+        java.io.BufferedInputStream $r6;
+        java.io.ObjectInputStream r2, r5;
+        java.lang.String $r1, $r11;
+        boolean $z0;
+        java.io.FileInputStream $r7;
+        java.io.File $r3;
+        java.lang.Exception r10, r14;
+        java.lang.Object r4, $r8;
+        java.lang.StringBuilder $r12;
+        com.goodbarber.v2.utils.DiskCache r0;
+
+        r0 := @this: com.goodbarber.v2.utils.DiskCache;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $z0 := @parameter1: boolean;
+
+        entermonitor r0;
+
+     label01:
+        $r3 = virtualinvoke r0.<com.goodbarber.v2.utils.DiskCache: java.io.File getFile(java.lang.String,boolean,boolean)>($r1, 0, 1);
+
+        r4 = null;
+
+        $z0 = virtualinvoke $r3.<java.io.File: boolean exists()>();
+
+     label02:
+        if $z0 == 0 goto label14;
+
+        r5 = null;
+
+     label03:
+        r2 = new java.io.ObjectInputStream;
+
+        $r6 = new java.io.BufferedInputStream;
+
+        $r7 = new java.io.FileInputStream;
+
+        specialinvoke $r7.<java.io.FileInputStream: void <init>(java.io.File)>($r3);
+
+        specialinvoke $r6.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r7);
+
+        specialinvoke r2.<java.io.ObjectInputStream: void <init>(java.io.InputStream)>($r6);
+
+     label04:
+        $r8 = virtualinvoke r2.<java.io.ObjectInputStream: java.lang.Object readObject()>();
+
+     label05:
+        r4 = $r8;
+
+     label06:
+        virtualinvoke r2.<java.io.ObjectInputStream: void close()>();
+
+     label07:
+        exitmonitor r0;
+
+        return r4;
+
+     label08:
+        $r9 := @caughtexception;
+
+     label09:
+        virtualinvoke r5.<java.io.ObjectInputStream: void close()>();
+
+        throw $r9;
+
+     label10:
+        r10 := @caughtexception;
+
+     label11:
+        $r11 = <com.goodbarber.v2.utils.DiskCache: java.lang.String TAG>;
+
+        $r12 = new java.lang.StringBuilder;
+
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>()>();
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Error while opening to open object in cache :");
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.goodbarber.v2.utils.GBLog: void e(java.lang.String,java.lang.String)>($r11, $r1);
+
+     label12:
+        goto label07;
+
+     label13:
+        $r13 := @caughtexception;
+
+        exitmonitor r0;
+
+        throw $r13;
+
+     label14:
+        $r11 = <com.goodbarber.v2.utils.DiskCache: java.lang.String TAG>;
+
+        $r12 = new java.lang.StringBuilder;
+
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>()>();
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Object does not exist in cache :");
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.goodbarber.v2.utils.GBLog: void e(java.lang.String,java.lang.String)>($r11, $r1);
+
+     label15:
+        goto label07;
+
+     label16:
+        r14 := @caughtexception;
+
+        goto label11;
+
+     label17:
+        $r9 := @caughtexception;
+
+        r5 = r2;
+
+        goto label09;
+
+        catch java.lang.Throwable from label01 to label02 with label13;
+        catch java.lang.Throwable from label03 to label04 with label08;
+        catch java.lang.Throwable from label04 to label05 with label17;
+        catch java.lang.Exception from label06 to label07 with label16;
+        catch java.lang.Throwable from label06 to label07 with label13;
+        catch java.lang.Exception from label09 to label10 with label10;
+        catch java.lang.Throwable from label09 to label10 with label13;
+        catch java.lang.Throwable from label11 to label12 with label13;
+        catch java.lang.Throwable from label14 to label15 with label13;
+    }

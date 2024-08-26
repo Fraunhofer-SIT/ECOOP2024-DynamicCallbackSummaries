@@ -1,0 +1,80 @@
+    public static int copyAndCloseInputStream(java.io.InputStream, java.io.OutputStream)
+    {
+        java.io.OutputStream $r1;
+        java.lang.Throwable $r4;
+        byte[] $r3;
+        java.io.BufferedInputStream $r2, $r5;
+        int $i0, $i1;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $r1 := @parameter1: java.io.OutputStream;
+
+        $r2 = null;
+
+     label01:
+        $r5 = new java.io.BufferedInputStream;
+
+     label02:
+        specialinvoke $r5.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r0);
+
+     label03:
+        $r3 = newarray (byte)[8192];
+
+        $i1 = 0;
+
+     label04:
+        $i0 = virtualinvoke $r5.<java.io.BufferedInputStream: int read(byte[])>($r3);
+
+     label05:
+        if $i0 == -1 goto label08;
+
+     label06:
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[],int,int)>($r3, 0, $i0);
+
+     label07:
+        $i1 = $i1 + $i0;
+
+        goto label04;
+
+     label08:
+        virtualinvoke $r5.<java.io.BufferedInputStream: void close()>();
+
+        if $r0 == null goto label14;
+
+        virtualinvoke $r0.<java.io.InputStream: void close()>();
+
+        return $i1;
+
+     label09:
+        $r4 := @caughtexception;
+
+        $r2 = $r5;
+
+        goto label11;
+
+     label10:
+        $r4 := @caughtexception;
+
+     label11:
+        if $r2 == null goto label12;
+
+        virtualinvoke $r2.<java.io.BufferedInputStream: void close()>();
+
+     label12:
+        if $r0 == null goto label13;
+
+        virtualinvoke $r0.<java.io.InputStream: void close()>();
+
+     label13:
+        throw $r4;
+
+     label14:
+        return $i1;
+
+        catch java.lang.Throwable from label01 to label02 with label10;
+        catch java.lang.Throwable from label02 to label03 with label10;
+        catch java.lang.Throwable from label04 to label05 with label09;
+        catch java.lang.Throwable from label06 to label07 with label09;
+    }

@@ -1,0 +1,667 @@
+    public void run()
+    {
+        org.json.JSONException r2;
+        org.json.JSONObject r16, $r19;
+        java.util.Map $r24;
+        com.goodbarber.v2.data.IDataManager$ItemsContainer r7, $r28;
+        boolean $z0;
+        java.util.Collection $r31;
+        java.util.Set $r25;
+        java.lang.Exception r21, r23;
+        com.goodbarber.v2.utils.network.HttpClient2 $r11;
+        java.util.List $r9;
+        java.lang.StringBuilder $r5, $r27;
+        com.goodbarber.v2.utils.DiskCache $r13;
+        com.goodbarber.v2.models.GBItem $r20;
+        com.goodbarber.v2.data.DataManager $r8;
+        java.util.ArrayList r1, r3, $r30;
+        int $i0, $i1;
+        java.lang.String $r4, $r6;
+        java.util.LinkedList $r29;
+        java.util.Map$Entry r26;
+        java.util.Iterator $r22;
+        com.goodbarber.v2.models.GBPageinfos $r10;
+        com.goodbarber.v2.utils.network.HttpResult $r12;
+        java.io.File $r14;
+        com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable r0;
+        java.lang.Object r15;
+        org.json.JSONArray $r18;
+        java.io.InputStream $r17;
+
+        r0 := @this: com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable;
+
+        $r4 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: java.lang.String mUrl>;
+
+        if $r4 != null goto label01;
+
+        $r4 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: java.lang.String TAG>;
+
+        $r27 = new java.lang.StringBuilder;
+
+        specialinvoke $r27.<java.lang.StringBuilder: void <init>()>();
+
+        $r5 = virtualinvoke $r27.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("No items to download for section ");
+
+        $i0 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: int mSectionIndex>;
+
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" and subsection ");
+
+        $i0 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: int mSubsectionIndex>;
+
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.goodbarber.v2.utils.GBLog: void w(java.lang.String,java.lang.String)>($r4, $r6);
+
+        return;
+
+     label01:
+        $z0 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: boolean useCache>;
+
+        if $z0 == 0 goto label02;
+
+        $r28 = new com.goodbarber.v2.data.IDataManager$ItemsContainer;
+
+        specialinvoke $r28.<com.goodbarber.v2.data.IDataManager$ItemsContainer: void <init>()>();
+
+        $r8 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: com.goodbarber.v2.data.DataManager this$0>;
+
+        $i0 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: int mSectionIndex>;
+
+        $i1 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: int mSubsectionIndex>;
+
+        $r9 = staticinvoke <com.goodbarber.v2.data.DataManager: java.util.List access$000(com.goodbarber.v2.data.DataManager,int,int)>($r8, $i0, $i1);
+
+        $r28.<com.goodbarber.v2.data.IDataManager$ItemsContainer: java.util.List items> = $r9;
+
+        $r8 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: com.goodbarber.v2.data.DataManager this$0>;
+
+        $i0 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: int mSectionIndex>;
+
+        $i1 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: int mSubsectionIndex>;
+
+        $r10 = staticinvoke <com.goodbarber.v2.data.DataManager: com.goodbarber.v2.models.GBPageinfos access$100(com.goodbarber.v2.data.DataManager,int,int)>($r8, $i0, $i1);
+
+        $r28.<com.goodbarber.v2.data.IDataManager$ItemsContainer: com.goodbarber.v2.models.GBPageinfos infos> = $r10;
+
+        $r9 = $r28.<com.goodbarber.v2.data.IDataManager$ItemsContainer: java.util.List items>;
+
+        if $r9 == null goto label02;
+
+        $r9 = $r28.<com.goodbarber.v2.data.IDataManager$ItemsContainer: java.util.List items>;
+
+        $z0 = interfaceinvoke $r9.<java.util.List: boolean isEmpty()>();
+
+        if $z0 != 0 goto label02;
+
+        $r4 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: java.lang.String TAG>;
+
+        $r27 = new java.lang.StringBuilder;
+
+        specialinvoke $r27.<java.lang.StringBuilder: void <init>()>();
+
+        $r9 = $r28.<com.goodbarber.v2.data.IDataManager$ItemsContainer: java.util.List items>;
+
+        $i0 = interfaceinvoke $r9.<java.util.List: int size()>();
+
+        $r5 = virtualinvoke $r27.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" items retrieved from cache");
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.goodbarber.v2.utils.GBLog: void d(java.lang.String,java.lang.String)>($r4, $r6);
+
+        $z0 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: boolean isRTLM>;
+
+        $r28.<com.goodbarber.v2.data.IDataManager$ItemsContainer: boolean isRTLM> = $z0;
+
+        specialinvoke r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: void notifyItemsRetrieved(com.goodbarber.v2.data.IDataManager$ItemsContainer)>($r28);
+
+     label02:
+        $r4 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: java.lang.String TAG>;
+
+        staticinvoke <com.goodbarber.v2.utils.GBLog: void d(java.lang.String,java.lang.String)>($r4, "Refreshing items");
+
+        $r11 = staticinvoke <com.goodbarber.v2.utils.network.HttpClient2: com.goodbarber.v2.utils.network.HttpClient2 instance()>();
+
+        $r4 = virtualinvoke r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: java.lang.String getUrl()>();
+
+        $r12 = virtualinvoke $r11.<com.goodbarber.v2.utils.network.HttpClient2: com.goodbarber.v2.utils.network.HttpResult get(java.lang.String,java.util.Map)>($r4, null);
+
+        $z0 = virtualinvoke $r12.<com.goodbarber.v2.utils.network.HttpResult: boolean is2XX()>();
+
+        if $z0 != 0 goto label04;
+
+        $r4 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: java.lang.String TAG>;
+
+        $r27 = new java.lang.StringBuilder;
+
+        specialinvoke $r27.<java.lang.StringBuilder: void <init>()>();
+
+        $r5 = virtualinvoke $r27.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Items download went wrong, HTTP code ");
+
+        $i0 = virtualinvoke $r12.<com.goodbarber.v2.utils.network.HttpResult: int getHTTPCode()>();
+
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.goodbarber.v2.utils.GBLog: void e(java.lang.String,java.lang.String)>($r4, $r6);
+
+        $i0 = virtualinvoke $r12.<com.goodbarber.v2.utils.network.HttpResult: int getHTTPCode()>();
+
+        if $i0 != 410 goto label03;
+
+        $r8 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: com.goodbarber.v2.data.DataManager this$0>;
+
+        staticinvoke <com.goodbarber.v2.data.DataManager: boolean access$202(com.goodbarber.v2.data.DataManager,boolean)>($r8, 1);
+
+     label03:
+        specialinvoke r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: void notifyItemsNotRetrieved()>();
+
+        return;
+
+     label04:
+        $r8 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: com.goodbarber.v2.data.DataManager this$0>;
+
+        $i0 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: int mSectionIndex>;
+
+        $i1 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: int mSubsectionIndex>;
+
+        $r4 = staticinvoke <com.goodbarber.v2.data.DataManager: java.lang.String access$300(com.goodbarber.v2.data.DataManager,int,int)>($r8, $i0, $i1);
+
+        $r8 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: com.goodbarber.v2.data.DataManager this$0>;
+
+        $r13 = staticinvoke <com.goodbarber.v2.data.DataManager: com.goodbarber.v2.utils.DiskCache access$400(com.goodbarber.v2.data.DataManager)>($r8);
+
+        $r14 = virtualinvoke $r13.<com.goodbarber.v2.utils.DiskCache: java.io.File getFile(java.lang.String,boolean)>($r4, 0);
+
+        $z0 = virtualinvoke $r14.<java.io.File: boolean exists()>();
+
+        if $z0 != 0 goto label26;
+
+        r3 = new java.util.ArrayList;
+
+        r15 = r3;
+
+        specialinvoke r3.<java.util.ArrayList: void <init>()>();
+
+     label05:
+        r1 = new java.util.ArrayList;
+
+        $r9 = (java.util.List) r15;
+
+        $i0 = interfaceinvoke $r9.<java.util.List: int size()>();
+
+        specialinvoke r1.<java.util.ArrayList: void <init>(int)>($i0);
+
+        $r31 = (java.util.Collection) r15;
+
+        interfaceinvoke r1.<java.util.List: boolean addAll(java.util.Collection)>($r31);
+
+        $r19 = new org.json.JSONObject;
+
+        r16 = $r19;
+
+     label06:
+        $r17 = virtualinvoke $r12.<com.goodbarber.v2.utils.network.HttpResult: java.io.InputStream getDownloadStream()>();
+
+        $r4 = staticinvoke <com.goodbarber.v2.utils.Utils: java.lang.String getTextFromStream(java.io.InputStream)>($r17);
+
+        specialinvoke $r19.<org.json.JSONObject: void <init>(java.lang.String)>($r4);
+
+     label07:
+        $r4 = virtualinvoke r16.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("stat");
+
+     label08:
+        $r6 = "ok";
+
+     label09:
+        $z0 = virtualinvoke $r6.<java.lang.String: boolean equals(java.lang.Object)>($r4);
+
+     label10:
+        if $z0 == 0 goto label97;
+
+        $r28 = new com.goodbarber.v2.data.IDataManager$ItemsContainer;
+
+        r7 = $r28;
+
+     label11:
+        specialinvoke $r28.<com.goodbarber.v2.data.IDataManager$ItemsContainer: void <init>()>();
+
+        $z0 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: boolean isRTLM>;
+
+        $r28.<com.goodbarber.v2.data.IDataManager$ItemsContainer: boolean isRTLM> = $z0;
+
+        $r18 = virtualinvoke r16.<org.json.JSONObject: org.json.JSONArray getJSONArray(java.lang.String)>("items");
+
+     label12:
+        $r29 = new java.util.LinkedList;
+
+     label13:
+        specialinvoke $r29.<java.util.LinkedList: void <init>()>();
+
+        $z0 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: boolean isRTLM>;
+
+     label14:
+        if $z0 != 0 goto label17;
+
+        $r30 = new java.util.ArrayList;
+
+     label15:
+        specialinvoke $r30.<java.util.ArrayList: void <init>()>();
+
+     label16:
+        r15 = $r30;
+
+     label17:
+        $i0 = 0;
+
+     label18:
+        $i1 = virtualinvoke $r18.<org.json.JSONArray: int length()>();
+
+     label19:
+        if $i0 >= $i1 goto label30;
+
+     label20:
+        $r19 = virtualinvoke $r18.<org.json.JSONArray: org.json.JSONObject getJSONObject(int)>($i0);
+
+        $r20 = staticinvoke <com.goodbarber.v2.models.GBItemFactory: com.goodbarber.v2.models.GBItem createItem(org.json.JSONObject)>($r19);
+
+     label21:
+        if $r20 == null goto label25;
+
+     label22:
+        $r4 = virtualinvoke $r20.<com.goodbarber.v2.models.GBItem: java.lang.String getId()>();
+
+        $r9 = (java.util.List) r15;
+
+        interfaceinvoke $r9.<java.util.List: boolean add(java.lang.Object)>($r4);
+
+        interfaceinvoke $r29.<java.util.List: boolean add(java.lang.Object)>($r20);
+
+        $r8 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: com.goodbarber.v2.data.DataManager this$0>;
+
+        $r13 = staticinvoke <com.goodbarber.v2.data.DataManager: com.goodbarber.v2.utils.DiskCache access$400(com.goodbarber.v2.data.DataManager)>($r8);
+
+     label23:
+        $r27 = new java.lang.StringBuilder;
+
+     label24:
+        specialinvoke $r27.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke $r20.<com.goodbarber.v2.models.GBItem: java.lang.String getId()>();
+
+        $r5 = virtualinvoke $r27.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".item");
+
+        $r4 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r13.<com.goodbarber.v2.utils.DiskCache: boolean saveObject(java.lang.Object,java.lang.String)>($r20, $r4);
+
+     label25:
+        $i0 = $i0 + 1;
+
+        goto label18;
+
+     label26:
+        $r8 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: com.goodbarber.v2.data.DataManager this$0>;
+
+        $r13 = staticinvoke <com.goodbarber.v2.data.DataManager: com.goodbarber.v2.utils.DiskCache access$400(com.goodbarber.v2.data.DataManager)>($r8);
+
+        r15 = virtualinvoke $r13.<com.goodbarber.v2.utils.DiskCache: java.lang.Object getObject(java.lang.String)>($r4);
+
+        r15 = (java.util.List) r15;
+
+        goto label05;
+
+     label27:
+        r21 := @caughtexception;
+
+        $r19 = new org.json.JSONObject;
+
+        r16 = $r19;
+
+     label28:
+        specialinvoke $r19.<org.json.JSONObject: void <init>(java.lang.String)>("{\"stat\" : \"ko\"}");
+
+     label29:
+        goto label07;
+
+     label30:
+        $z0 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: boolean saveCorrespondancyList>;
+
+     label31:
+        if $z0 == 0 goto label33;
+
+     label32:
+        $r8 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: com.goodbarber.v2.data.DataManager this$0>;
+
+        $r13 = staticinvoke <com.goodbarber.v2.data.DataManager: com.goodbarber.v2.utils.DiskCache access$400(com.goodbarber.v2.data.DataManager)>($r8);
+
+        $r8 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: com.goodbarber.v2.data.DataManager this$0>;
+
+        $i0 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: int mSectionIndex>;
+
+        $i1 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: int mSubsectionIndex>;
+
+        $r4 = staticinvoke <com.goodbarber.v2.data.DataManager: java.lang.String access$300(com.goodbarber.v2.data.DataManager,int,int)>($r8, $i0, $i1);
+
+        virtualinvoke $r13.<com.goodbarber.v2.utils.DiskCache: boolean saveObject(java.lang.Object,java.lang.String)>(r15, $r4);
+
+     label33:
+        r7.<com.goodbarber.v2.data.IDataManager$ItemsContainer: java.util.List items> = $r29;
+
+        $z0 = virtualinvoke r16.<org.json.JSONObject: boolean has(java.lang.String)>("next_page");
+
+     label34:
+        if $z0 == 0 goto label44;
+
+     label35:
+        $r4 = virtualinvoke r16.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("next_page");
+
+        $r4 = virtualinvoke $r4.<java.lang.String: java.lang.String toLowerCase()>();
+
+        $z0 = virtualinvoke $r4.<java.lang.String: boolean equals(java.lang.Object)>("null");
+
+     label36:
+        if $z0 != 0 goto label44;
+
+     label37:
+        $z0 = virtualinvoke $r4.<java.lang.String: boolean equals(java.lang.Object)>("false");
+
+     label38:
+        if $z0 != 0 goto label44;
+
+     label39:
+        $z0 = virtualinvoke $r4.<java.lang.String: boolean equals(java.lang.Object)>("no");
+
+     label40:
+        if $z0 != 0 goto label44;
+
+     label41:
+        $i0 = interfaceinvoke $r29.<java.util.List: int size()>();
+
+     label42:
+        if $i0 == 0 goto label44;
+
+     label43:
+        $r4 = virtualinvoke r16.<org.json.JSONObject: java.lang.String getString(java.lang.String)>("next_page");
+
+        r7.<com.goodbarber.v2.data.IDataManager$ItemsContainer: java.lang.String nextPage> = $r4;
+
+     label44:
+        $z0 = virtualinvoke r16.<org.json.JSONObject: boolean has(java.lang.String)>("page_info");
+
+     label45:
+        if $z0 == 0 goto label69;
+
+     label46:
+        r16 = virtualinvoke r16.<org.json.JSONObject: org.json.JSONObject getJSONObject(java.lang.String)>("page_info");
+
+        $r10 = staticinvoke <com.goodbarber.v2.models.GBPageInfosFactory: com.goodbarber.v2.models.GBPageinfos createItem(org.json.JSONObject)>(r16);
+
+     label47:
+        if $r10 == null goto label52;
+
+     label48:
+        $r8 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: com.goodbarber.v2.data.DataManager this$0>;
+
+     label49:
+        $r13 = staticinvoke <com.goodbarber.v2.data.DataManager: com.goodbarber.v2.utils.DiskCache access$400(com.goodbarber.v2.data.DataManager)>($r8);
+
+     label50:
+        $r8 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: com.goodbarber.v2.data.DataManager this$0>;
+
+        $i0 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: int mSectionIndex>;
+
+        $i1 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: int mSubsectionIndex>;
+
+     label51:
+        $r4 = staticinvoke <com.goodbarber.v2.data.DataManager: java.lang.String access$500(com.goodbarber.v2.data.DataManager,int,int)>($r8, $i0, $i1);
+
+        virtualinvoke $r13.<com.goodbarber.v2.utils.DiskCache: boolean saveObject(java.lang.Object,java.lang.String)>($r10, $r4);
+
+     label52:
+        r7.<com.goodbarber.v2.data.IDataManager$ItemsContainer: com.goodbarber.v2.models.GBPageinfos infos> = $r10;
+
+     label53:
+        $r4 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: java.lang.String TAG>;
+
+        staticinvoke <com.goodbarber.v2.utils.GBLog: void i(java.lang.String,java.lang.String)>($r4, "Flush cache START");
+
+        $z0 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: boolean isRTLM>;
+
+     label54:
+        if $z0 != 0 goto label95;
+
+     label55:
+        $z0 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: boolean saveCorrespondancyList>;
+
+     label56:
+        if $z0 == 0 goto label95;
+
+     label57:
+        $r9 = (java.util.List) r15;
+
+        $i0 = interfaceinvoke $r9.<java.util.List: int size()>();
+
+     label58:
+        if $i0 == 0 goto label95;
+
+     label59:
+        $i0 = interfaceinvoke r1.<java.util.List: int size()>();
+
+     label60:
+        if $i0 == 0 goto label95;
+
+     label61:
+        $r9 = (java.util.List) r15;
+
+        $r22 = interfaceinvoke $r9.<java.util.List: java.util.Iterator iterator()>();
+
+     label62:
+        $z0 = interfaceinvoke $r22.<java.util.Iterator: boolean hasNext()>();
+
+     label63:
+        if $z0 == 0 goto label85;
+
+     label64:
+        r15 = interfaceinvoke $r22.<java.util.Iterator: java.lang.Object next()>();
+
+        $r4 = (java.lang.String) r15;
+
+        $z0 = interfaceinvoke r1.<java.util.List: boolean contains(java.lang.Object)>($r4);
+
+     label65:
+        if $z0 == 0 goto label62;
+
+     label66:
+        interfaceinvoke r1.<java.util.List: boolean remove(java.lang.Object)>($r4);
+
+     label67:
+        goto label62;
+
+     label68:
+        r23 := @caughtexception;
+
+        $r4 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: java.lang.String TAG>;
+
+        staticinvoke <com.goodbarber.v2.utils.GBLog: void e(java.lang.String,java.lang.String,java.lang.Throwable)>($r4, "Problem downloading items", r23);
+
+        specialinvoke r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: void notifyItemsNotRetrieved()>();
+
+        return;
+
+     label69:
+        $z0 = virtualinvoke r16.<org.json.JSONObject: boolean has(java.lang.String)>("account_info");
+
+     label70:
+        if $z0 == 0 goto label82;
+
+     label71:
+        r16 = virtualinvoke r16.<org.json.JSONObject: org.json.JSONObject getJSONObject(java.lang.String)>("account_info");
+
+        $r10 = staticinvoke <com.goodbarber.v2.models.GBPageInfosFactory: com.goodbarber.v2.models.GBPageinfos createItem(org.json.JSONObject)>(r16);
+
+     label72:
+        if $r10 == null goto label77;
+
+     label73:
+        $r8 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: com.goodbarber.v2.data.DataManager this$0>;
+
+     label74:
+        $r13 = staticinvoke <com.goodbarber.v2.data.DataManager: com.goodbarber.v2.utils.DiskCache access$400(com.goodbarber.v2.data.DataManager)>($r8);
+
+     label75:
+        $r8 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: com.goodbarber.v2.data.DataManager this$0>;
+
+        $i0 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: int mSectionIndex>;
+
+        $i1 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: int mSubsectionIndex>;
+
+     label76:
+        $r4 = staticinvoke <com.goodbarber.v2.data.DataManager: java.lang.String access$500(com.goodbarber.v2.data.DataManager,int,int)>($r8, $i0, $i1);
+
+        virtualinvoke $r13.<com.goodbarber.v2.utils.DiskCache: boolean saveObject(java.lang.Object,java.lang.String)>($r10, $r4);
+
+     label77:
+        r7.<com.goodbarber.v2.data.IDataManager$ItemsContainer: com.goodbarber.v2.models.GBPageinfos infos> = $r10;
+
+     label78:
+        goto label53;
+
+     label79:
+        r2 := @caughtexception;
+
+     label80:
+        $r4 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: java.lang.String TAG>;
+
+        staticinvoke <com.goodbarber.v2.utils.GBLog: void e(java.lang.String,java.lang.String,java.lang.Throwable)>($r4, "Error retrieving page infos for these items", r2);
+
+     label81:
+        goto label53;
+
+     label82:
+        $r4 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: java.lang.String TAG>;
+
+     label83:
+        staticinvoke <com.goodbarber.v2.utils.GBLog: void i(java.lang.String,java.lang.String)>($r4, "No page infos for these items");
+
+     label84:
+        goto label53;
+
+     label85:
+        $r8 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: com.goodbarber.v2.data.DataManager this$0>;
+
+        $r24 = staticinvoke <com.goodbarber.v2.data.DataManager: java.util.Map access$600(com.goodbarber.v2.data.DataManager)>($r8);
+
+        $r25 = interfaceinvoke $r24.<java.util.Map: java.util.Set entrySet()>();
+
+        $r22 = interfaceinvoke $r25.<java.util.Set: java.util.Iterator iterator()>();
+
+     label86:
+        $z0 = interfaceinvoke $r22.<java.util.Iterator: boolean hasNext()>();
+
+     label87:
+        if $z0 == 0 goto label92;
+
+     label88:
+        r15 = interfaceinvoke $r22.<java.util.Iterator: java.lang.Object next()>();
+
+        r26 = (java.util.Map$Entry) r15;
+
+        r15 = interfaceinvoke r26.<java.util.Map$Entry: java.lang.Object getKey()>();
+
+        $z0 = interfaceinvoke r1.<java.util.List: boolean contains(java.lang.Object)>(r15);
+
+     label89:
+        if $z0 == 0 goto label86;
+
+     label90:
+        r15 = interfaceinvoke r26.<java.util.Map$Entry: java.lang.Object getKey()>();
+
+        interfaceinvoke r1.<java.util.List: boolean remove(java.lang.Object)>(r15);
+
+     label91:
+        goto label86;
+
+     label92:
+        $i0 = interfaceinvoke r1.<java.util.List: int size()>();
+
+     label93:
+        if $i0 == 0 goto label95;
+
+     label94:
+        specialinvoke r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: void removeOldItemsFromCacheWithList(java.util.List)>(r1);
+
+     label95:
+        $r4 = r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: java.lang.String TAG>;
+
+        staticinvoke <com.goodbarber.v2.utils.GBLog: void i(java.lang.String,java.lang.String)>($r4, "Flush cache END");
+
+        specialinvoke r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: void notifyItemsRetrieved(com.goodbarber.v2.data.IDataManager$ItemsContainer)>(r7);
+
+     label96:
+        return;
+
+     label97:
+        specialinvoke r0.<com.goodbarber.v2.data.DataManager$ItemsDownloadRunnable: void notifyItemsNotRetrieved()>();
+
+     label98:
+        return;
+
+        catch java.lang.Exception from label06 to label07 with label27;
+        catch java.lang.Exception from label07 to label08 with label68;
+        catch java.lang.Exception from label09 to label10 with label68;
+        catch java.lang.Exception from label11 to label12 with label68;
+        catch java.lang.Exception from label13 to label14 with label68;
+        catch java.lang.Exception from label15 to label16 with label68;
+        catch java.lang.Exception from label18 to label19 with label68;
+        catch java.lang.Exception from label20 to label21 with label68;
+        catch java.lang.Exception from label22 to label23 with label68;
+        catch java.lang.Exception from label24 to label25 with label68;
+        catch java.lang.Exception from label28 to label29 with label68;
+        catch java.lang.Exception from label30 to label31 with label68;
+        catch java.lang.Exception from label32 to label34 with label68;
+        catch java.lang.Exception from label35 to label36 with label68;
+        catch java.lang.Exception from label37 to label38 with label68;
+        catch java.lang.Exception from label39 to label40 with label68;
+        catch java.lang.Exception from label41 to label42 with label68;
+        catch java.lang.Exception from label43 to label44 with label68;
+        catch org.json.JSONException from label44 to label45 with label79;
+        catch org.json.JSONException from label46 to label47 with label79;
+        catch org.json.JSONException from label49 to label50 with label79;
+        catch org.json.JSONException from label51 to label52 with label79;
+        catch java.lang.Exception from label44 to label45 with label68;
+        catch java.lang.Exception from label46 to label47 with label68;
+        catch java.lang.Exception from label48 to label53 with label68;
+        catch java.lang.Exception from label53 to label54 with label68;
+        catch java.lang.Exception from label55 to label56 with label68;
+        catch java.lang.Exception from label57 to label58 with label68;
+        catch java.lang.Exception from label59 to label60 with label68;
+        catch java.lang.Exception from label61 to label63 with label68;
+        catch java.lang.Exception from label64 to label65 with label68;
+        catch java.lang.Exception from label66 to label67 with label68;
+        catch org.json.JSONException from label69 to label70 with label79;
+        catch org.json.JSONException from label71 to label72 with label79;
+        catch org.json.JSONException from label74 to label75 with label79;
+        catch org.json.JSONException from label76 to label77 with label79;
+        catch java.lang.Exception from label69 to label70 with label68;
+        catch java.lang.Exception from label71 to label72 with label68;
+        catch java.lang.Exception from label73 to label78 with label68;
+        catch java.lang.Exception from label80 to label81 with label68;
+        catch org.json.JSONException from label83 to label84 with label79;
+        catch java.lang.Exception from label82 to label84 with label68;
+        catch java.lang.Exception from label85 to label87 with label68;
+        catch java.lang.Exception from label88 to label89 with label68;
+        catch java.lang.Exception from label90 to label91 with label68;
+        catch java.lang.Exception from label92 to label93 with label68;
+        catch java.lang.Exception from label94 to label96 with label68;
+        catch java.lang.Exception from label97 to label98 with label68;
+    }

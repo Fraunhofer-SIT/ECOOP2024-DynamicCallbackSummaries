@@ -1,0 +1,370 @@
+    public final e.a.o.d z(e.a.o.b, java.util.List, java.util.List, java.util.List)
+    {
+        o.b.a.c $r17;
+        e.a.i.c $r16;
+        java.util.Random $r5;
+        e.a.o.b $r1;
+        e.a.o.a r0;
+        app.todolist.bean.TaskCategory $r13, $r15;
+        e.a.o.d $r21;
+        java.util.ArrayList $r10, $r18, $r24;
+        int $i0, $i1, $i2, $i3;
+        app.todolist.drivesync.RemoteTaskPack $r20;
+        com.google.api.services.drive.model.File $r19;
+        java.lang.String $r6, $r7;
+        boolean $z0, $z1;
+        java.util.Iterator $r11, $r14;
+        app.todolist.drivesync.SyncConfig $r8, $r9;
+        java.util.List $r2, $r3, $r4;
+        e.a.h.a.a $r23;
+        java.lang.Object $r12;
+        java.lang.StringBuilder $r22;
+
+        r0 := @this: e.a.o.a;
+
+        $r1 := @parameter0: e.a.o.b;
+
+        $r2 := @parameter1: java.util.List;
+
+        $r3 := @parameter2: java.util.List;
+
+        $r4 := @parameter3: java.util.List;
+
+        $r21 = new e.a.o.d;
+
+        specialinvoke $r21.<e.a.o.d: void <init>()>();
+
+        r0.<e.a.o.a: float d> = 0.0F;
+
+        $r5 = r0.<e.a.o.a: java.util.Random g>;
+
+        $i0 = virtualinvoke $r5.<java.util.Random: int nextInt(int)>(10);
+
+        $i0 = 30 - $i0;
+
+        virtualinvoke r0.<e.a.o.a: void M(int,e.a.o.b)>($i0, $r1);
+
+        $r6 = staticinvoke <e.a.o.a: java.lang.String P(e.a.o.d)>($r21);
+
+        $r22 = new java.lang.StringBuilder;
+
+        specialinvoke $r22.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("configFileDriveId = ");
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r7 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <f.c.a.k.c: void c(java.lang.String,java.lang.String,java.lang.Object)>("SyncHelper", "executeSync", $r7);
+
+        $z0 = virtualinvoke $r21.<e.a.o.d: boolean e()>();
+
+        if $z0 == 0 goto label01;
+
+        virtualinvoke r0.<e.a.o.a: void T()>();
+
+        return $r21;
+
+     label01:
+        $r8 = virtualinvoke r0.<e.a.o.a: app.todolist.drivesync.SyncConfig Q(java.lang.String,e.a.o.d)>($r6, $r21);
+
+        $r9 = $r8;
+
+        virtualinvoke r0.<e.a.o.a: void T()>();
+
+        $z0 = virtualinvoke $r21.<e.a.o.d: boolean f()>();
+
+        if $z0 == 0 goto label02;
+
+        return $r21;
+
+     label02:
+        if $r8 != null goto label03;
+
+        $r8 = new app.todolist.drivesync.SyncConfig;
+
+        $r9 = $r8;
+
+        specialinvoke $r8.<app.todolist.drivesync.SyncConfig: void <init>()>();
+
+     label03:
+        $r2 = virtualinvoke r0.<e.a.o.a: java.util.List n(app.todolist.drivesync.SyncConfig,java.util.List,java.util.List)>($r9, $r2, $r4);
+
+        $i1 = interfaceinvoke $r2.<java.util.List: int size()>();
+
+        $r18 = new java.util.ArrayList;
+
+        $r10 = $r18;
+
+        specialinvoke $r18.<java.util.ArrayList: void <init>(java.util.Collection)>($r3);
+
+        $r4 = virtualinvoke $r9.<app.todolist.drivesync.SyncConfig: java.util.List getTaskCategories()>();
+
+        if $r4 == null goto label09;
+
+        $r11 = interfaceinvoke $r4.<java.util.List: java.util.Iterator iterator()>();
+
+        $z0 = 0;
+
+     label04:
+        $z1 = interfaceinvoke $r11.<java.util.Iterator: boolean hasNext()>();
+
+        if $z1 == 0 goto label08;
+
+        $r12 = interfaceinvoke $r11.<java.util.Iterator: java.lang.Object next()>();
+
+        $r13 = (app.todolist.bean.TaskCategory) $r12;
+
+        $r14 = interfaceinvoke $r3.<java.util.List: java.util.Iterator iterator()>();
+
+     label05:
+        $z1 = interfaceinvoke $r14.<java.util.Iterator: boolean hasNext()>();
+
+        if $z1 == 0 goto label06;
+
+        $r12 = interfaceinvoke $r14.<java.util.Iterator: java.lang.Object next()>();
+
+        $r15 = (app.todolist.bean.TaskCategory) $r12;
+
+        $r6 = virtualinvoke $r15.<app.todolist.bean.TaskCategory: java.lang.String getCategoryName()>();
+
+        $r7 = virtualinvoke $r13.<app.todolist.bean.TaskCategory: java.lang.String getCategoryName()>();
+
+        $z1 = staticinvoke <f.c.a.k.i: boolean b(java.lang.String,java.lang.String)>($r6, $r7);
+
+        if $z1 == 0 goto label05;
+
+        $z1 = 1;
+
+        goto label07;
+
+     label06:
+        $z1 = 0;
+
+     label07:
+        if $z1 != 0 goto label04;
+
+        interfaceinvoke $r10.<java.util.List: boolean add(java.lang.Object)>($r13);
+
+        $r16 = staticinvoke <e.a.i.c: e.a.i.c P()>();
+
+        virtualinvoke $r16.<e.a.i.c: app.todolist.bean.TaskCategory G0(app.todolist.bean.TaskCategory,int,boolean)>($r13, -1, 0);
+
+        $z0 = 1;
+
+        goto label04;
+
+     label08:
+        $i0 = 0;
+
+        goto label10;
+
+     label09:
+        $i0 = 0;
+
+        $z0 = 0;
+
+     label10:
+        virtualinvoke $r9.<app.todolist.drivesync.SyncConfig: void setTaskCategories(java.util.List)>($r10);
+
+        $i2 = staticinvoke <e.a.y.o: int w0()>();
+
+        $i3 = $i2;
+
+        if $i2 != 0 goto label11;
+
+        $i2 = virtualinvoke $r9.<app.todolist.drivesync.SyncConfig: int getSortType()>();
+
+        if $i2 == 0 goto label11;
+
+        $i3 = virtualinvoke $r9.<app.todolist.drivesync.SyncConfig: int getSortType()>();
+
+        $i2 = virtualinvoke $r9.<app.todolist.drivesync.SyncConfig: int getSortType()>();
+
+        staticinvoke <e.a.y.o: void E2(int)>($i2);
+
+     label11:
+        virtualinvoke $r9.<app.todolist.drivesync.SyncConfig: void setSortType(int)>($i3);
+
+        if $z0 == 0 goto label12;
+
+        $r17 = staticinvoke <o.b.a.c: o.b.a.c c()>();
+
+        $r23 = new e.a.h.a.a;
+
+        specialinvoke $r23.<e.a.h.a.a: void <init>(int)>(1006);
+
+        virtualinvoke $r17.<o.b.a.c: void k(java.lang.Object)>($r23);
+
+     label12:
+        $i3 = interfaceinvoke $r2.<java.util.List: int size()>();
+
+        if $i3 <= 0 goto label18;
+
+        virtualinvoke r0.<e.a.o.a: void B(java.util.List,java.util.List,e.a.o.b)>($r2, $r3, $r1);
+
+        $i3 = virtualinvoke r0.<e.a.o.a: int F(java.util.List)>($r2);
+
+        $i2 = $i3;
+
+        $r18 = new java.util.ArrayList;
+
+        $r10 = $r18;
+
+        specialinvoke $r18.<java.util.ArrayList: void <init>()>();
+
+        $r24 = new java.util.ArrayList;
+
+        specialinvoke $r24.<java.util.ArrayList: void <init>()>();
+
+        $r2 = virtualinvoke r0.<e.a.o.a: java.util.List V(java.util.List,java.util.List,java.util.List)>($r2, $r10, $r24);
+
+        virtualinvoke $r9.<app.todolist.drivesync.SyncConfig: void setPackList(java.util.List)>($r2);
+
+        $r22 = new java.lang.StringBuilder;
+
+        specialinvoke $r22.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("missionFailCount = ");
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i3);
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" missionSize = ");
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r6 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <f.c.a.k.c: void c(java.lang.String,java.lang.String,java.lang.Object)>("SyncHelper", "executeSync", $r6);
+
+        if $i3 >= $i1 goto label13;
+
+        $z0 = 1;
+
+        goto label14;
+
+     label13:
+        $z0 = 0;
+
+     label14:
+        if $z0 == 0 goto label17;
+
+        virtualinvoke r0.<e.a.o.a: void L(e.a.o.b)>($r1);
+
+        $r19 = virtualinvoke r0.<e.a.o.a: com.google.api.services.drive.model.File Z(app.todolist.drivesync.SyncConfig)>($r9);
+
+        if $r19 == null goto label15;
+
+        staticinvoke <e.a.o.a: void v(java.util.List)>($r24);
+
+        goto label16;
+
+     label15:
+        staticinvoke <e.a.o.a: void v(java.util.List)>($r10);
+
+     label16:
+        virtualinvoke r0.<e.a.o.a: void m()>();
+
+        virtualinvoke r0.<e.a.o.a: void S()>();
+
+        goto label20;
+
+     label17:
+        virtualinvoke $r21.<e.a.o.d: e.a.o.d i(int)>(1005);
+
+        staticinvoke <e.a.o.a: void v(java.util.List)>($r10);
+
+        virtualinvoke r0.<e.a.o.a: void m()>();
+
+        goto label20;
+
+     label18:
+        if $z0 == 0 goto label19;
+
+        virtualinvoke r0.<e.a.o.a: void L(e.a.o.b)>($r1);
+
+        virtualinvoke r0.<e.a.o.a: com.google.api.services.drive.model.File Z(app.todolist.drivesync.SyncConfig)>($r9);
+
+        virtualinvoke r0.<e.a.o.a: void S()>();
+
+     label19:
+        $i2 = $i1;
+
+     label20:
+        virtualinvoke r0.<e.a.o.a: void N(e.a.o.b)>($r1);
+
+        if $i2 != 0 goto label21;
+
+        virtualinvoke r0.<e.a.o.a: void I(e.a.o.b,float)>($r1, 100.0F);
+
+     label21:
+        staticinvoke <f.c.a.k.c: void c(java.lang.String,java.lang.String,java.lang.Object)>("SyncHelper", "executeSync", "end syncConfig = ");
+
+        virtualinvoke $r21.<e.a.o.d: e.a.o.d i(int)>(1001);
+
+        virtualinvoke $r21.<e.a.o.d: e.a.o.d h(int)>($i2);
+
+        virtualinvoke $r21.<e.a.o.d: e.a.o.d j(int)>($i1);
+
+        $r2 = virtualinvoke $r9.<app.todolist.drivesync.SyncConfig: java.util.List getPackList()>();
+
+        if $r2 == null goto label25;
+
+        $r11 = interfaceinvoke $r2.<java.util.List: java.util.Iterator iterator()>();
+
+        $i0 = 0;
+
+        $i1 = 0;
+
+     label22:
+        $z0 = interfaceinvoke $r11.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label26;
+
+        $r12 = interfaceinvoke $r11.<java.util.Iterator: java.lang.Object next()>();
+
+        $r20 = (app.todolist.drivesync.RemoteTaskPack) $r12;
+
+        $r2 = virtualinvoke $r20.<app.todolist.drivesync.RemoteTaskPack: java.util.List getTaskInfoList()>();
+
+        if $r2 == null goto label23;
+
+        $i3 = interfaceinvoke $r2.<java.util.List: int size()>();
+
+        goto label24;
+
+     label23:
+        $i3 = 0;
+
+     label24:
+        $i2 = virtualinvoke $r20.<app.todolist.drivesync.RemoteTaskPack: int getFinishedCount()>();
+
+        $i2 = staticinvoke <java.lang.Math: int min(int,int)>($i2, $i3);
+
+        $i1 = $i1 + $i2;
+
+        $i0 = $i0 + $i3;
+
+        goto label22;
+
+     label25:
+        $i1 = 0;
+
+     label26:
+        $i3 = staticinvoke <e.a.y.o: int B0()>();
+
+        if $i3 >= $i1 goto label27;
+
+        staticinvoke <e.a.y.o: void J2(int)>($i1);
+
+     label27:
+        $i1 = staticinvoke <e.a.y.o: int A0()>();
+
+        if $i1 >= $i0 goto label28;
+
+        staticinvoke <e.a.y.o: void I2(int)>($i0);
+
+     label28:
+        return $r21;
+    }

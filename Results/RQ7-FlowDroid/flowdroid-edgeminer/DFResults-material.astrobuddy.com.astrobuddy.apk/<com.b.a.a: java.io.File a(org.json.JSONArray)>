@@ -1,0 +1,78 @@
+    public final java.io.File a(org.json.JSONArray)
+    {
+        java.lang.Throwable $r7;
+        com.b.a.a r0;
+        java.io.FileWriter $r6;
+        long $l2;
+        java.io.File $r4, $r5;
+        int $i0, $i1;
+        java.lang.StringBuilder $r2;
+        java.lang.String $r3;
+        org.json.JSONArray $r1;
+
+        r0 := @this: com.b.a.a;
+
+        $r1 := @parameter0: org.json.JSONArray;
+
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("Rollbar", "Writing items...");
+
+        $r2 = new java.lang.StringBuilder;
+
+     label1:
+        specialinvoke $r2.<java.lang.StringBuilder: void <init>()>();
+
+     label2:
+        $i0 = <com.b.a.a: int a>;
+
+        $i1 = $i0 + 1;
+
+        <com.b.a.a: int a> = $i1;
+
+     label3:
+        $r2 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r2 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".");
+
+        $l2 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $r2 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l2);
+
+        $r3 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label4:
+        $r4 = new java.io.File;
+
+        $r5 = r0.<com.b.a.a: java.io.File o>;
+
+     label5:
+        specialinvoke $r4.<java.io.File: void <init>(java.io.File,java.lang.String)>($r5, $r3);
+
+     label6:
+        $r6 = new java.io.FileWriter;
+
+     label7:
+        specialinvoke $r6.<java.io.FileWriter: void <init>(java.io.File)>($r4);
+
+        $r3 = virtualinvoke $r1.<org.json.JSONArray: java.lang.String toString()>();
+
+        virtualinvoke $r6.<java.io.FileWriter: void write(java.lang.String)>($r3);
+
+        virtualinvoke $r6.<java.io.FileWriter: void close()>();
+
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("Rollbar", "Items written");
+
+     label8:
+        return $r4;
+
+     label9:
+        $r7 := @caughtexception;
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("Rollbar", "Unable to write items.", $r7);
+
+        return null;
+
+        catch java.io.IOException from label1 to label2 with label9;
+        catch java.io.IOException from label3 to label4 with label9;
+        catch java.io.IOException from label5 to label6 with label9;
+        catch java.io.IOException from label7 to label8 with label9;
+    }

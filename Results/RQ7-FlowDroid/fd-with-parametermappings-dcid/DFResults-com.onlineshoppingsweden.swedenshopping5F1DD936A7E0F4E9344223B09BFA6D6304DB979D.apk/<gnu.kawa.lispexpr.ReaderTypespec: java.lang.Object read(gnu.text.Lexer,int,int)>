@@ -1,0 +1,193 @@
+    public java.lang.Object read(gnu.text.Lexer, int, int) throws java.io.IOException, gnu.text.SyntaxException
+    {
+        java.lang.Throwable $r9;
+        gnu.kawa.lispexpr.ReadTable $r3;
+        gnu.kawa.lispexpr.ReaderTypespec r0;
+        int $i0, $i1, $i4, $i5;
+        gnu.text.LineBufferedReader $r2;
+        gnu.kawa.lispexpr.ReadTableEntry $r7;
+        java.lang.String $r8;
+        boolean $z0, $z1, $z2;
+        gnu.mapping.InPort $r4;
+        char $c2, $c3;
+        gnu.kawa.lispexpr.LispReader $r6;
+        char[] $r5;
+        gnu.text.Lexer $r1;
+
+        r0 := @this: gnu.kawa.lispexpr.ReaderTypespec;
+
+        $r1 := @parameter0: gnu.text.Lexer;
+
+        $i0 := @parameter1: int;
+
+        $i1 := @parameter2: int;
+
+        $i1 = $r1.<gnu.text.Lexer: int tokenBufferLength>;
+
+        $r2 = virtualinvoke $r1.<gnu.text.Lexer: gnu.text.LineBufferedReader getPort()>();
+
+        $r3 = staticinvoke <gnu.kawa.lispexpr.ReadTable: gnu.kawa.lispexpr.ReadTable getCurrent()>();
+
+        virtualinvoke $r1.<gnu.text.Lexer: void tokenBufferAppend(int)>($i0);
+
+        $z0 = $r2 instanceof gnu.mapping.InPort;
+
+        if $z0 == 0 goto label01;
+
+        $r4 = (gnu.mapping.InPort) $r2;
+
+        $c2 = $r4.<gnu.mapping.InPort: char readState>;
+
+        $c3 = (char) $i0;
+
+        $r4.<gnu.mapping.InPort: char readState> = $c3;
+
+        goto label02;
+
+     label01:
+        $c2 = 0;
+
+     label02:
+        $z1 = 0;
+
+     label03:
+        $i4 = $r2.<gnu.text.LineBufferedReader: int pos>;
+
+        $i5 = $r2.<gnu.text.LineBufferedReader: int limit>;
+
+     label04:
+        if $i4 >= $i5 goto label09;
+
+        if $i0 == 10 goto label09;
+
+     label05:
+        $r5 = $r2.<gnu.text.LineBufferedReader: char[] buffer>;
+
+        $i0 = $r2.<gnu.text.LineBufferedReader: int pos>;
+
+     label06:
+        $i4 = $i0 + 1;
+
+     label07:
+        $r2.<gnu.text.LineBufferedReader: int pos> = $i4;
+
+        $i0 = $r5[$i0];
+
+     label08:
+        goto label10;
+
+     label09:
+        $i0 = virtualinvoke $r2.<gnu.text.LineBufferedReader: int read()>();
+
+     label10:
+        if $i0 != 92 goto label17;
+
+     label11:
+        $z2 = $r1 instanceof gnu.kawa.lispexpr.LispReader;
+
+     label12:
+        if $z2 == 0 goto label15;
+
+     label13:
+        $r6 = (gnu.kawa.lispexpr.LispReader) $r1;
+
+        $i0 = virtualinvoke $r6.<gnu.kawa.lispexpr.LispReader: int readEscape()>();
+
+     label14:
+        goto label03;
+
+     label15:
+        $i0 = virtualinvoke $r2.<gnu.text.LineBufferedReader: int read()>();
+
+     label16:
+        goto label03;
+
+     label17:
+        if $z1 != 0 goto label18;
+
+        if $i0 != 91 goto label18;
+
+        $z1 = 1;
+
+        goto label21;
+
+     label18:
+        if $z1 == 0 goto label19;
+
+        if $i0 != 93 goto label19;
+
+        $z1 = 0;
+
+        goto label21;
+
+     label19:
+        $r7 = virtualinvoke $r3.<gnu.kawa.lispexpr.ReadTable: gnu.kawa.lispexpr.ReadTableEntry lookup(int)>($i0);
+
+        $i4 = virtualinvoke $r7.<gnu.kawa.lispexpr.ReadTableEntry: int getKind()>();
+
+     label20:
+        if $i4 != 2 goto label23;
+
+     label21:
+        virtualinvoke $r1.<gnu.text.Lexer: void tokenBufferAppend(int)>($i0);
+
+     label22:
+        goto label03;
+
+     label23:
+        virtualinvoke $r1.<gnu.text.Lexer: void unread(int)>($i0);
+
+        $r8 = new java.lang.String;
+
+        $r5 = $r1.<gnu.text.Lexer: char[] tokenBuffer>;
+
+        $i0 = $r1.<gnu.text.Lexer: int tokenBufferLength>;
+
+     label24:
+        $i0 = $i0 - $i1;
+
+     label25:
+        specialinvoke $r8.<java.lang.String: void <init>(char[],int,int)>($r5, $i1, $i0);
+
+        $r8 = virtualinvoke $r8.<java.lang.String: java.lang.String intern()>();
+
+     label26:
+        $r1.<gnu.text.Lexer: int tokenBufferLength> = $i1;
+
+        if $z0 == 0 goto label29;
+
+        $r4 = (gnu.mapping.InPort) $r2;
+
+        $r4.<gnu.mapping.InPort: char readState> = $c2;
+
+        return $r8;
+
+     label27:
+        $r9 := @caughtexception;
+
+        $r1.<gnu.text.Lexer: int tokenBufferLength> = $i1;
+
+        if $z0 == 0 goto label28;
+
+        $r4 = (gnu.mapping.InPort) $r2;
+
+        $r4.<gnu.mapping.InPort: char readState> = $c2;
+
+     label28:
+        throw $r9;
+
+     label29:
+        return $r8;
+
+        catch java.lang.Throwable from label03 to label04 with label27;
+        catch java.lang.Throwable from label05 to label06 with label27;
+        catch java.lang.Throwable from label07 to label08 with label27;
+        catch java.lang.Throwable from label09 to label10 with label27;
+        catch java.lang.Throwable from label11 to label12 with label27;
+        catch java.lang.Throwable from label13 to label14 with label27;
+        catch java.lang.Throwable from label15 to label16 with label27;
+        catch java.lang.Throwable from label19 to label20 with label27;
+        catch java.lang.Throwable from label21 to label22 with label27;
+        catch java.lang.Throwable from label23 to label24 with label27;
+        catch java.lang.Throwable from label25 to label26 with label27;
+    }

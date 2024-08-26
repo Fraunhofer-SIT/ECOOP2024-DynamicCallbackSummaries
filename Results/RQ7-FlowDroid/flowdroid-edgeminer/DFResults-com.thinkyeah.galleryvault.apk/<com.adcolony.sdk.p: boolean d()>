@@ -1,0 +1,158 @@
+    private boolean d() throws java.lang.Exception
+    {
+        java.net.HttpURLConnection $r5;
+        java.io.OutputStream $r9;
+        java.io.ByteArrayOutputStream $r7;
+        java.io.File $r8;
+        com.adcolony.sdk.p r0;
+        java.util.Map $r6;
+        int $i0;
+        com.adcolony.sdk.d0 $r1;
+        java.lang.Object $r4;
+        java.lang.String $r2;
+        java.io.InputStream $r3;
+        boolean $z0;
+
+        r0 := @this: com.adcolony.sdk.p;
+
+        $r1 = r0.<com.adcolony.sdk.p: com.adcolony.sdk.d0 f>;
+
+        $r2 = virtualinvoke $r1.<com.adcolony.sdk.d0: java.lang.String c()>();
+
+        $r3 = r0.<com.adcolony.sdk.p: java.io.InputStream e>;
+
+        if $r3 == null goto label2;
+
+        $r2 = r0.<com.adcolony.sdk.p: java.lang.String l>;
+
+        $i0 = virtualinvoke $r2.<java.lang.String: int length()>();
+
+        if $i0 != 0 goto label1;
+
+        $r7 = new java.io.ByteArrayOutputStream;
+
+        $r4 = $r7;
+
+        specialinvoke $r7.<java.io.ByteArrayOutputStream: void <init>(int)>(4096);
+
+        goto label8;
+
+     label1:
+        $r8 = new java.io.File;
+
+        $r2 = r0.<com.adcolony.sdk.p: java.lang.String l>;
+
+        specialinvoke $r8.<java.io.File: void <init>(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r8.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $r4 = staticinvoke <com.safedk.android.internal.partials.AdColonyFilesBridge: java.io.FileOutputStream fileOutputStreamCtor(java.lang.String)>($r2);
+
+        goto label8;
+
+     label2:
+        $z0 = virtualinvoke $r2.<java.lang.String: boolean equals(java.lang.Object)>("WebServices.download");
+
+        if $z0 == 0 goto label3;
+
+        $r5 = r0.<com.adcolony.sdk.p: java.net.HttpURLConnection d>;
+
+        $r3 = staticinvoke <com.safedk.android.internal.partials.AdColonyNetworkBridge: java.io.InputStream urlConnectionGetInputStream(java.net.URLConnection)>($r5);
+
+        r0.<com.adcolony.sdk.p: java.io.InputStream e> = $r3;
+
+        $r2 = r0.<com.adcolony.sdk.p: java.lang.String m>;
+
+        $r4 = staticinvoke <com.safedk.android.internal.partials.AdColonyFilesBridge: java.io.FileOutputStream fileOutputStreamCtor(java.lang.String)>($r2);
+
+        goto label8;
+
+     label3:
+        $z0 = virtualinvoke $r2.<java.lang.String: boolean equals(java.lang.Object)>("WebServices.get");
+
+        if $z0 == 0 goto label4;
+
+        $r5 = r0.<com.adcolony.sdk.p: java.net.HttpURLConnection d>;
+
+        $r3 = staticinvoke <com.safedk.android.internal.partials.AdColonyNetworkBridge: java.io.InputStream urlConnectionGetInputStream(java.net.URLConnection)>($r5);
+
+        r0.<com.adcolony.sdk.p: java.io.InputStream e> = $r3;
+
+        $r7 = new java.io.ByteArrayOutputStream;
+
+        $r4 = $r7;
+
+        specialinvoke $r7.<java.io.ByteArrayOutputStream: void <init>(int)>(4096);
+
+        goto label8;
+
+     label4:
+        $z0 = virtualinvoke $r2.<java.lang.String: boolean equals(java.lang.Object)>("WebServices.post");
+
+        if $z0 == 0 goto label7;
+
+        $r5 = r0.<com.adcolony.sdk.p: java.net.HttpURLConnection d>;
+
+        virtualinvoke $r5.<java.net.HttpURLConnection: void connect()>();
+
+        $r5 = r0.<com.adcolony.sdk.p: java.net.HttpURLConnection d>;
+
+        $i0 = staticinvoke <com.safedk.android.internal.partials.AdColonyNetworkBridge: int httpUrlConnectionGetResponseCode(java.net.HttpURLConnection)>($r5);
+
+        if $i0 < 200 goto label5;
+
+        $r5 = r0.<com.adcolony.sdk.p: java.net.HttpURLConnection d>;
+
+        $i0 = staticinvoke <com.safedk.android.internal.partials.AdColonyNetworkBridge: int httpUrlConnectionGetResponseCode(java.net.HttpURLConnection)>($r5);
+
+        if $i0 > 299 goto label5;
+
+        $r5 = r0.<com.adcolony.sdk.p: java.net.HttpURLConnection d>;
+
+        $r3 = staticinvoke <com.safedk.android.internal.partials.AdColonyNetworkBridge: java.io.InputStream urlConnectionGetInputStream(java.net.URLConnection)>($r5);
+
+        goto label6;
+
+     label5:
+        $r5 = r0.<com.adcolony.sdk.p: java.net.HttpURLConnection d>;
+
+        $r3 = virtualinvoke $r5.<java.net.HttpURLConnection: java.io.InputStream getErrorStream()>();
+
+     label6:
+        r0.<com.adcolony.sdk.p: java.io.InputStream e> = $r3;
+
+        $r7 = new java.io.ByteArrayOutputStream;
+
+        $r4 = $r7;
+
+        specialinvoke $r7.<java.io.ByteArrayOutputStream: void <init>(int)>(4096);
+
+        goto label8;
+
+     label7:
+        $r4 = null;
+
+     label8:
+        $r5 = r0.<com.adcolony.sdk.p: java.net.HttpURLConnection d>;
+
+        if $r5 == null goto label9;
+
+        $i0 = staticinvoke <com.safedk.android.internal.partials.AdColonyNetworkBridge: int httpUrlConnectionGetResponseCode(java.net.HttpURLConnection)>($r5);
+
+        r0.<com.adcolony.sdk.p: int r> = $i0;
+
+        $r5 = r0.<com.adcolony.sdk.p: java.net.HttpURLConnection d>;
+
+        $r6 = virtualinvoke $r5.<java.net.HttpURLConnection: java.util.Map getHeaderFields()>();
+
+        r0.<com.adcolony.sdk.p: java.util.Map k> = $r6;
+
+     label9:
+        $r3 = r0.<com.adcolony.sdk.p: java.io.InputStream e>;
+
+        $r9 = (java.io.OutputStream) $r4;
+
+        $z0 = specialinvoke r0.<com.adcolony.sdk.p: boolean a(java.io.InputStream,java.io.OutputStream)>($r3, $r9);
+
+        return $z0;
+    }

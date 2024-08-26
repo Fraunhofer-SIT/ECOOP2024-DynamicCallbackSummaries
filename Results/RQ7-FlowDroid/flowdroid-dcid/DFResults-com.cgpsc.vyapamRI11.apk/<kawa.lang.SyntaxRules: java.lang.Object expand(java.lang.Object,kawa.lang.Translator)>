@@ -1,0 +1,101 @@
+    public java.lang.Object expand(java.lang.Object, kawa.lang.Translator)
+    {
+        kawa.lang.SyntaxRule $r7;
+        java.lang.Object[] $r3;
+        kawa.lang.Syntax $r4;
+        gnu.expr.ErrorExp $r8;
+        kawa.lang.Translator $r2;
+        kawa.lang.SyntaxRule[] $r6;
+        int $i0, $i1;
+        java.lang.String $r10;
+        boolean $z0;
+        gnu.expr.Expression $r13;
+        kawa.lang.SyntaxRules r0;
+        kawa.lang.SyntaxPattern $r11;
+        kawa.lang.TemplateScope $r12;
+        java.lang.Object $r1;
+        java.lang.StringBuilder $r9;
+        kawa.lang.Macro $r5;
+
+        r0 := @this: kawa.lang.SyntaxRules;
+
+        $r1 := @parameter0: java.lang.Object;
+
+        $r2 := @parameter1: kawa.lang.Translator;
+
+        $i0 = r0.<kawa.lang.SyntaxRules: int maxVars>;
+
+        $r3 = newarray (java.lang.Object)[$i0];
+
+        $r4 = virtualinvoke $r2.<kawa.lang.Translator: kawa.lang.Syntax getCurrentSyntax()>();
+
+        $r5 = (kawa.lang.Macro) $r4;
+
+        $i0 = 0;
+
+     label1:
+        $r6 = r0.<kawa.lang.SyntaxRules: kawa.lang.SyntaxRule[] rules>;
+
+        $i1 = lengthof $r6;
+
+        if $i0 >= $i1 goto label4;
+
+        $r6 = r0.<kawa.lang.SyntaxRules: kawa.lang.SyntaxRule[] rules>;
+
+        $r7 = $r6[$i0];
+
+        if $r7 != null goto label2;
+
+        $r8 = new gnu.expr.ErrorExp;
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("error defining ");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r5);
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r8.<gnu.expr.ErrorExp: void <init>(java.lang.String)>($r10);
+
+        return $r8;
+
+     label2:
+        $r11 = $r7.<kawa.lang.SyntaxRule: kawa.lang.SyntaxPattern pattern>;
+
+        $z0 = virtualinvoke $r11.<kawa.lang.Pattern: boolean match(java.lang.Object,java.lang.Object[],int)>($r1, $r3, 0);
+
+        if $z0 == 0 goto label3;
+
+        $r12 = staticinvoke <kawa.lang.TemplateScope: kawa.lang.TemplateScope make(kawa.lang.Translator)>($r2);
+
+        $r1 = virtualinvoke $r7.<kawa.lang.SyntaxRule: java.lang.Object execute(java.lang.Object[],kawa.lang.Translator,kawa.lang.TemplateScope)>($r3, $r2, $r12);
+
+        return $r1;
+
+     label3:
+        $i0 = $i0 + 1;
+
+        goto label1;
+
+     label4:
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("no matching syntax-rule for ");
+
+        $r3 = r0.<kawa.lang.SyntaxRules: java.lang.Object[] literal_identifiers>;
+
+        $r1 = $r3[0];
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r1);
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r13 = virtualinvoke $r2.<kawa.lang.Translator: gnu.expr.Expression syntaxError(java.lang.String)>($r10);
+
+        return $r13;
+    }

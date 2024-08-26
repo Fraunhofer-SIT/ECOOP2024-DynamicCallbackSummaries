@@ -1,0 +1,187 @@
+    public static java.lang.String a(android.content.Context, boolean, java.lang.String, java.lang.String, com.cubemst.placetime.utils.g)
+    {
+        java.net.HttpURLConnection $r6;
+        java.lang.Throwable $r10;
+        android.content.Context $r0;
+        java.net.URL $r4, $r11;
+        java.net.URLConnection $r5;
+        java.net.SocketTimeoutException $r16;
+        java.io.OutputStreamWriter $r12;
+        java.lang.String $r1, $r2;
+        boolean $z0;
+        java.io.OutputStream $r7;
+        java.io.InputStreamReader $r13;
+        java.lang.Exception $r9;
+        com.cubemst.placetime.utils.g $r3;
+        java.lang.StringBuilder $r15;
+        java.io.BufferedReader $r14;
+        java.io.InputStream $r8;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $z0 := @parameter1: boolean;
+
+        $r1 := @parameter2: java.lang.String;
+
+        $r2 := @parameter3: java.lang.String;
+
+        $r3 := @parameter4: com.cubemst.placetime.utils.g;
+
+     label01:
+        $r1 = staticinvoke <com.cubemst.placetime.utils.c: java.lang.String a(android.content.Context,java.lang.String,java.lang.String,com.cubemst.placetime.utils.g)>($r0, $r1, $r2, $r3);
+
+     label02:
+        if $r1 == null goto label20;
+
+        if $z0 != 0 goto label05;
+
+        $r11 = new java.net.URL;
+
+        $r4 = $r11;
+
+     label03:
+        specialinvoke $r11.<java.net.URL: void <init>(java.lang.String)>("https://rok.i-popcorn.co.kr/popcorn.php");
+
+     label04:
+        goto label07;
+
+     label05:
+        $r11 = new java.net.URL;
+
+        $r4 = $r11;
+
+     label06:
+        specialinvoke $r11.<java.net.URL: void <init>(java.lang.String)>("http://rok.dev-popcorn.co.kr/popcorn.php");
+
+     label07:
+        $r5 = virtualinvoke $r4.<java.net.URL: java.net.URLConnection openConnection()>();
+
+     label08:
+        $r6 = (java.net.HttpURLConnection) $r5;
+
+     label09:
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setDoInput(boolean)>(1);
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setConnectTimeout(int)>(10000);
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setReadTimeout(int)>(10000);
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Type", "application/json");
+
+     label10:
+        $r12 = new java.io.OutputStreamWriter;
+
+     label11:
+        $r7 = virtualinvoke $r5.<java.net.URLConnection: java.io.OutputStream getOutputStream()>();
+
+        specialinvoke $r12.<java.io.OutputStreamWriter: void <init>(java.io.OutputStream,java.lang.String)>($r7, "UTF-8");
+
+        virtualinvoke $r12.<java.io.OutputStreamWriter: void write(java.lang.String)>($r1);
+
+        virtualinvoke $r12.<java.io.OutputStreamWriter: void flush()>();
+
+        virtualinvoke $r12.<java.io.OutputStreamWriter: void close()>();
+
+     label12:
+        $r1 = "";
+
+        $r14 = new java.io.BufferedReader;
+
+        $r13 = new java.io.InputStreamReader;
+
+     label13:
+        $r8 = virtualinvoke $r5.<java.net.URLConnection: java.io.InputStream getInputStream()>();
+
+        specialinvoke $r13.<java.io.InputStreamReader: void <init>(java.io.InputStream,java.lang.String)>($r8, "UTF-8");
+
+        specialinvoke $r14.<java.io.BufferedReader: void <init>(java.io.Reader)>($r13);
+
+     label14:
+        $r2 = virtualinvoke $r14.<java.io.BufferedReader: java.lang.String readLine()>();
+
+     label15:
+        if $r2 == null goto label18;
+
+        $r15 = new java.lang.StringBuilder;
+
+     label16:
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r1 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label17:
+        goto label14;
+
+     label18:
+        virtualinvoke $r14.<java.io.BufferedReader: void close()>();
+
+     label19:
+        return $r1;
+
+     label20:
+        return null;
+
+     label21:
+        $r9 := @caughtexception;
+
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("LMS EXCEPTION : ");
+
+        $r1 = virtualinvoke $r9.<java.lang.Exception: java.lang.String toString()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.cubemst.placetime.utils.e: void a(java.lang.String)>($r1);
+
+        return null;
+
+     label22:
+        $r10 := @caughtexception;
+
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("LMS SOCKET TIMEOUT EXCEPTION : ");
+
+        $r16 = (java.net.SocketTimeoutException) $r10;
+
+        $r1 = virtualinvoke $r16.<java.net.SocketTimeoutException: java.lang.String toString()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.cubemst.placetime.utils.e: void a(java.lang.String)>($r1);
+
+        return null;
+
+        catch java.net.SocketTimeoutException from label01 to label02 with label22;
+        catch java.net.SocketTimeoutException from label03 to label04 with label22;
+        catch java.net.SocketTimeoutException from label06 to label08 with label22;
+        catch java.net.SocketTimeoutException from label09 to label10 with label22;
+        catch java.net.SocketTimeoutException from label11 to label12 with label22;
+        catch java.net.SocketTimeoutException from label13 to label15 with label22;
+        catch java.net.SocketTimeoutException from label16 to label17 with label22;
+        catch java.net.SocketTimeoutException from label18 to label19 with label22;
+        catch java.lang.Exception from label01 to label02 with label21;
+        catch java.lang.Exception from label03 to label04 with label21;
+        catch java.lang.Exception from label06 to label10 with label21;
+        catch java.lang.Exception from label11 to label12 with label21;
+        catch java.lang.Exception from label13 to label15 with label21;
+        catch java.lang.Exception from label16 to label17 with label21;
+        catch java.lang.Exception from label18 to label19 with label21;
+    }

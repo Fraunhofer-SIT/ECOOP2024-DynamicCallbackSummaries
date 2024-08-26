@@ -1,0 +1,147 @@
+    public static boolean a(android.content.Context, java.lang.String, com.startapp.android.publish.adsCommon.d, int, long)
+    {
+        java.lang.Throwable $r9, $r10, $r11;
+        android.content.Context $r0;
+        byte[] $r4, $r6;
+        long $l1;
+        byte $b3;
+        int $i0, $i2, $i4;
+        com.startapp.android.publish.adsCommon.a.f $r3;
+        java.lang.String $r1, $r5;
+        boolean $z0, $z1;
+        com.startapp.android.publish.common.metaData.e $r7;
+        com.startapp.common.e $r8, $r12;
+        com.startapp.android.publish.adsCommon.d $r2;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r2 := @parameter2: com.startapp.android.publish.adsCommon.d;
+
+        $i0 := @parameter3: int;
+
+        $l1 := @parameter4: long;
+
+        $r3 = null;
+
+        $r4 = null;
+
+        if $r2 == null goto label01;
+
+        $r3 = virtualinvoke $r2.<com.startapp.android.publish.adsCommon.d: com.startapp.android.publish.adsCommon.a.f getNameValueJson()>();
+
+     label01:
+        staticinvoke <com.startapp.android.publish.adsCommon.l.a: java.util.Map a(android.content.Context)>($r0);
+
+        $z0 = 0;
+
+        $i2 = 1;
+
+     label02:
+        if $z0 != 0 goto label18;
+
+        if $r3 == null goto label09;
+
+     label03:
+        $r5 = virtualinvoke $r3.<java.lang.Object: java.lang.String toString()>();
+
+        $r6 = virtualinvoke $r5.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8");
+
+     label04:
+        $r4 = $r6;
+
+     label05:
+        $r7 = staticinvoke <com.startapp.android.publish.common.metaData.e: com.startapp.android.publish.common.metaData.e getInstance()>();
+
+        $z1 = virtualinvoke $r7.<com.startapp.android.publish.common.metaData.e: boolean isCompressionEnabled()>();
+
+     label06:
+        if $z1 == 0 goto label09;
+
+     label07:
+        $r6 = staticinvoke <com.startapp.android.publish.adsCommon.l.a: byte[] a(byte[])>($r6);
+
+     label08:
+        $r4 = $r6;
+
+     label09:
+        $r5 = staticinvoke <com.startapp.android.publish.adsCommon.k: java.lang.String a(android.content.Context,java.lang.String,java.lang.String)>($r0, "User-Agent", "-1");
+
+        $r7 = staticinvoke <com.startapp.android.publish.common.metaData.e: com.startapp.android.publish.common.metaData.e getInstance()>();
+
+        $z1 = virtualinvoke $r7.<com.startapp.android.publish.common.metaData.e: boolean isCompressionEnabled()>();
+
+        staticinvoke <com.startapp.common.a.g: java.lang.String a(java.lang.String,byte[],java.lang.String,boolean)>($r1, $r4, $r5, $z1);
+
+     label10:
+        $z0 = 1;
+
+        goto label02;
+
+     label11:
+        $r8 := @caughtexception;
+
+        $z1 = virtualinvoke $r8.<com.startapp.common.e: boolean b()>();
+
+        if $z1 == 0 goto label15;
+
+        if $i2 >= $i0 goto label15;
+
+        $i2 = $i2 + 1;
+
+        $b3 = $l1 cmp 0L;
+
+        $i4 = (int) $b3;
+
+        if $i4 <= 0 goto label02;
+
+     label12:
+        staticinvoke <java.lang.Thread: void sleep(long)>($l1);
+
+     label13:
+        goto label02;
+
+     label14:
+        $r9 := @caughtexception;
+
+        goto label02;
+
+     label15:
+        throw $r8;
+
+     label16:
+        $r10 := @caughtexception;
+
+        $r12 = new com.startapp.common.e;
+
+        specialinvoke $r12.<com.startapp.common.e: void <init>(java.lang.String,java.lang.Throwable)>("failed encoding json to UTF-8", $r10);
+
+        throw $r12;
+
+     label17:
+        $r11 := @caughtexception;
+
+        $r12 = new com.startapp.common.e;
+
+        specialinvoke $r12.<com.startapp.common.e: void <init>(java.lang.String,java.lang.Throwable)>("failed compressing json to gzip", $r11);
+
+        throw $r12;
+
+     label18:
+        return 1;
+
+        catch com.startapp.common.e from label03 to label04 with label11;
+        catch com.startapp.common.e from label05 to label06 with label11;
+        catch com.startapp.common.e from label07 to label08 with label11;
+        catch com.startapp.common.e from label09 to label10 with label11;
+        catch java.io.UnsupportedEncodingException from label03 to label04 with label16;
+        catch java.io.UnsupportedEncodingException from label05 to label06 with label16;
+        catch java.io.UnsupportedEncodingException from label07 to label08 with label16;
+        catch java.io.UnsupportedEncodingException from label09 to label10 with label16;
+        catch java.io.IOException from label03 to label04 with label17;
+        catch java.io.IOException from label05 to label06 with label17;
+        catch java.io.IOException from label07 to label08 with label17;
+        catch java.io.IOException from label09 to label10 with label17;
+        catch java.lang.InterruptedException from label12 to label13 with label14;
+    }

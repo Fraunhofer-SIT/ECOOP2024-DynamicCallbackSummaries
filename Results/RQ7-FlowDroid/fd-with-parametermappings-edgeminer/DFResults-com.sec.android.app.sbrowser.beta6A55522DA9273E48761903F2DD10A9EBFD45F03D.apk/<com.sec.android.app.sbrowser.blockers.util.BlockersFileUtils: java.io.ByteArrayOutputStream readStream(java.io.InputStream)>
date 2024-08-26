@@ -1,0 +1,58 @@
+    public static java.io.ByteArrayOutputStream readStream(java.io.InputStream)
+    {
+        java.lang.Throwable $r2;
+        byte[] $r1;
+        java.io.ByteArrayOutputStream $r4;
+        java.lang.Exception $r6;
+        int $i0;
+        java.lang.StringBuilder $r5;
+        java.lang.String $r3;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $r4 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r4.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r1 = newarray (byte)[1024];
+
+     label1:
+        $i0 = virtualinvoke $r0.<java.io.InputStream: int read(byte[])>($r1);
+
+     label2:
+        if $i0 == -1 goto label6;
+
+     label3:
+        virtualinvoke $r4.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r1, 0, $i0);
+
+     label4:
+        goto label1;
+
+     label5:
+        $r2 := @caughtexception;
+
+        $r5 = new java.lang.StringBuilder;
+
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("readStream Exception: ");
+
+        $r6 = (java.lang.Exception) $r2;
+
+        $r3 = virtualinvoke $r6.<java.lang.Exception: java.lang.String toString()>();
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("BlockersFileUtils", $r3);
+
+     label6:
+        return $r4;
+
+        catch java.io.IOException from label1 to label2 with label5;
+        catch java.io.IOException from label3 to label4 with label5;
+        catch java.lang.NullPointerException from label1 to label2 with label5;
+        catch java.lang.NullPointerException from label3 to label4 with label5;
+    }

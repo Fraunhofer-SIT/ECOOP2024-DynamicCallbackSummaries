@@ -1,0 +1,72 @@
+    public static byte[] a(java.lang.String, java.lang.String) throws java.io.IOException
+    {
+        java.lang.Throwable $r7;
+        byte[] $r2;
+        java.io.ByteArrayOutputStream $r4;
+        java.io.BufferedOutputStream $r6;
+        java.lang.Object $r3;
+        java.util.zip.GZIPOutputStream $r5;
+        java.lang.String $r0, $r1;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r1 := @parameter1: java.lang.String;
+
+     label01:
+        $r4 = new java.io.ByteArrayOutputStream;
+
+     label02:
+        specialinvoke $r4.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label03:
+        $r5 = new java.util.zip.GZIPOutputStream;
+
+     label04:
+        specialinvoke $r5.<java.util.zip.GZIPOutputStream: void <init>(java.io.OutputStream)>($r4);
+
+     label05:
+        $r6 = new java.io.BufferedOutputStream;
+
+     label06:
+        specialinvoke $r6.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r5);
+
+        $r2 = virtualinvoke $r0.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8");
+
+        virtualinvoke $r6.<java.io.BufferedOutputStream: void write(byte[])>($r2);
+
+        virtualinvoke $r6.<java.io.BufferedOutputStream: void close()>();
+
+        virtualinvoke $r5.<java.util.zip.GZIPOutputStream: void close()>();
+
+        virtualinvoke $r4.<java.io.ByteArrayOutputStream: void close()>();
+
+        $r2 = virtualinvoke $r4.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label07:
+        return $r2;
+
+     label08:
+        $r3 := @caughtexception;
+
+        goto label10;
+
+     label09:
+        $r3 := @caughtexception;
+
+     label10:
+        $r7 = (java.lang.Throwable) $r3;
+
+        $r0 = virtualinvoke $r7.<java.lang.Throwable: java.lang.String toString()>();
+
+        staticinvoke <com.tms.sdk.common.util.CLog: void e(java.lang.String)>($r0);
+
+        return null;
+
+        catch java.lang.OutOfMemoryError from label01 to label02 with label08;
+        catch java.lang.OutOfMemoryError from label02 to label04 with label08;
+        catch java.lang.OutOfMemoryError from label04 to label06 with label08;
+        catch java.lang.OutOfMemoryError from label06 to label07 with label08;
+        catch java.io.IOException from label02 to label03 with label09;
+        catch java.io.IOException from label04 to label05 with label09;
+        catch java.io.IOException from label06 to label07 with label09;
+    }

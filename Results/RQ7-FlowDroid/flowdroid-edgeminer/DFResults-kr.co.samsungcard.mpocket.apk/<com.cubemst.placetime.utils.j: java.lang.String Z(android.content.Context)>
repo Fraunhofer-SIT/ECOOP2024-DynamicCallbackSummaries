@@ -1,0 +1,245 @@
+    public static java.lang.String Z(android.content.Context)
+    {
+        java.lang.Throwable $r1, $r4, $r6;
+        java.net.HttpURLConnection $r15;
+        android.content.Context $r0;
+        java.net.URL $r13;
+        org.json.JSONObject $r9, $r10;
+        java.net.URLConnection $r14;
+        int $i0;
+        java.io.OutputStreamWriter $r16;
+        java.lang.String $r8, $r11, $r12;
+        boolean $z0;
+        java.io.OutputStream $r17;
+        java.io.InputStreamReader $r19;
+        java.lang.Exception $r2, $r5, $r7;
+        java.lang.ClassNotFoundException $r3;
+        java.lang.StringBuilder $r21;
+        java.io.BufferedReader $r18;
+        java.io.InputStream $r20;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r8 = "";
+
+        $r9 = new org.json.JSONObject;
+
+     label01:
+        specialinvoke $r9.<org.json.JSONObject: void <init>()>();
+
+     label02:
+        $r10 = new org.json.JSONObject;
+
+     label03:
+        specialinvoke $r10.<org.json.JSONObject: void <init>()>();
+
+     label04:
+        $z0 = <com.cubemst.placetime.utils.e: boolean A>;
+
+        if $z0 == 0 goto label07;
+
+     label05:
+        $r11 = staticinvoke <com.cubemst.placetime.utils.f: java.lang.String a(android.content.Context)>($r0);
+
+     label06:
+        goto label08;
+
+     label07:
+        $r11 = "";
+
+     label08:
+        $r12 = <com.cubemst.placetime.utils.e: java.lang.String e>;
+
+     label09:
+        virtualinvoke $r10.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("libCd", $r12);
+
+        virtualinvoke $r10.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("os", "1");
+
+        $r12 = staticinvoke <com.cubemst.placetime.utils.j: java.lang.String e(android.content.Context)>($r0);
+
+        virtualinvoke $r10.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("libConfVer", $r12);
+
+        virtualinvoke $r10.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("ifGaID", $r11);
+
+        $r11 = staticinvoke <com.cubemst.placetime.utils.k: java.lang.String s(android.content.Context)>($r0);
+
+        virtualinvoke $r10.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("ifUval", $r11);
+
+     label10:
+        $r11 = <android.os.Build: java.lang.String MANUFACTURER>;
+
+     label11:
+        virtualinvoke $r10.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("ifPmf", $r11);
+
+     label12:
+        $r11 = <android.os.Build: java.lang.String MODEL>;
+
+     label13:
+        virtualinvoke $r10.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("ifPmd", $r11);
+
+     label14:
+        $i0 = <android.os.Build$VERSION: int SDK_INT>;
+
+     label15:
+        virtualinvoke $r10.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,int)>("osVer", $i0);
+
+        virtualinvoke $r9.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("header", $r10);
+
+        $r11 = virtualinvoke $r9.<org.json.JSONObject: java.lang.String toString()>();
+
+        $z0 = staticinvoke <com.cubemst.placetime.utils.k: boolean e(android.content.Context)>($r0);
+
+     label16:
+        if $z0 == 0 goto label29;
+
+        $r13 = new java.net.URL;
+
+     label17:
+        specialinvoke $r13.<java.net.URL: void <init>(java.lang.String)>("http://rok.dev-popcorn.co.kr/libconfigupdate.php");
+
+     label18:
+        $r14 = virtualinvoke $r13.<java.net.URL: java.net.URLConnection openConnection()>();
+
+     label19:
+        $r15 = (java.net.HttpURLConnection) $r14;
+
+     label20:
+        virtualinvoke $r15.<java.net.HttpURLConnection: void setConnectTimeout(int)>(10000);
+
+        virtualinvoke $r15.<java.net.HttpURLConnection: void setReadTimeout(int)>(10000);
+
+        virtualinvoke $r15.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+        virtualinvoke $r15.<java.net.HttpURLConnection: void setDoInput(boolean)>(1);
+
+        virtualinvoke $r15.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+        virtualinvoke $r15.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Type", "application/json");
+
+     label21:
+        $r16 = new java.io.OutputStreamWriter;
+
+     label22:
+        $r17 = virtualinvoke $r14.<java.net.URLConnection: java.io.OutputStream getOutputStream()>();
+
+        specialinvoke $r16.<java.io.OutputStreamWriter: void <init>(java.io.OutputStream,java.lang.String)>($r17, "UTF-8");
+
+        virtualinvoke $r16.<java.io.OutputStreamWriter: void write(java.lang.String)>($r11);
+
+        virtualinvoke $r16.<java.io.OutputStreamWriter: void flush()>();
+
+        virtualinvoke $r16.<java.io.OutputStreamWriter: void close()>();
+
+     label23:
+        $r18 = new java.io.BufferedReader;
+
+        $r19 = new java.io.InputStreamReader;
+
+     label24:
+        $r20 = virtualinvoke $r14.<java.net.URLConnection: java.io.InputStream getInputStream()>();
+
+        specialinvoke $r19.<java.io.InputStreamReader: void <init>(java.io.InputStream,java.lang.String)>($r20, "UTF-8");
+
+        specialinvoke $r18.<java.io.BufferedReader: void <init>(java.io.Reader)>($r19);
+
+     label25:
+        $r11 = virtualinvoke $r18.<java.io.BufferedReader: java.lang.String readLine()>();
+
+     label26:
+        if $r11 == null goto label32;
+
+        $r21 = new java.lang.StringBuilder;
+
+     label27:
+        specialinvoke $r21.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r11);
+
+        $r11 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label28:
+        $r8 = $r11;
+
+        goto label25;
+
+     label29:
+        $r13 = new java.net.URL;
+
+     label30:
+        specialinvoke $r13.<java.net.URL: void <init>(java.lang.String)>("https://rok.i-popcorn.co.kr/libconfigupdate.php");
+
+     label31:
+        goto label18;
+
+     label32:
+        virtualinvoke $r18.<java.io.BufferedReader: void close()>();
+
+     label33:
+        return $r8;
+
+     label34:
+        $r1 := @caughtexception;
+
+        return "";
+
+     label35:
+        $r2 := @caughtexception;
+
+        return "";
+
+     label36:
+        $r3 := @caughtexception;
+
+        goto label07;
+
+     label37:
+        $r4 := @caughtexception;
+
+        return "";
+
+     label38:
+        $r5 := @caughtexception;
+
+        return "";
+
+     label39:
+        $r6 := @caughtexception;
+
+        return $r8;
+
+     label40:
+        $r7 := @caughtexception;
+
+        return $r8;
+
+        catch java.net.SocketTimeoutException from label01 to label02 with label34;
+        catch java.net.SocketTimeoutException from label03 to label04 with label34;
+        catch java.lang.Exception from label01 to label02 with label35;
+        catch java.lang.Exception from label03 to label04 with label35;
+        catch java.lang.ClassNotFoundException from label05 to label06 with label36;
+        catch java.net.SocketTimeoutException from label05 to label06 with label37;
+        catch java.lang.Exception from label05 to label06 with label38;
+        catch java.net.SocketTimeoutException from label09 to label10 with label39;
+        catch java.net.SocketTimeoutException from label11 to label12 with label39;
+        catch java.net.SocketTimeoutException from label13 to label14 with label39;
+        catch java.net.SocketTimeoutException from label15 to label16 with label39;
+        catch java.net.SocketTimeoutException from label17 to label19 with label39;
+        catch java.net.SocketTimeoutException from label20 to label21 with label39;
+        catch java.net.SocketTimeoutException from label22 to label23 with label39;
+        catch java.net.SocketTimeoutException from label24 to label26 with label39;
+        catch java.net.SocketTimeoutException from label27 to label28 with label39;
+        catch java.net.SocketTimeoutException from label30 to label31 with label39;
+        catch java.net.SocketTimeoutException from label32 to label33 with label39;
+        catch java.lang.Exception from label09 to label10 with label40;
+        catch java.lang.Exception from label11 to label12 with label40;
+        catch java.lang.Exception from label13 to label14 with label40;
+        catch java.lang.Exception from label15 to label16 with label40;
+        catch java.lang.Exception from label17 to label21 with label40;
+        catch java.lang.Exception from label22 to label23 with label40;
+        catch java.lang.Exception from label24 to label26 with label40;
+        catch java.lang.Exception from label27 to label28 with label40;
+        catch java.lang.Exception from label30 to label31 with label40;
+        catch java.lang.Exception from label32 to label33 with label40;
+    }

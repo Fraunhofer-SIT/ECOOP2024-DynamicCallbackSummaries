@@ -1,0 +1,552 @@
+    private void persistData(com.handcent.mms.pdu.k, android.net.Uri, java.lang.String, java.util.HashMap) throws com.handcent.sms.xe.i
+    {
+        java.lang.Throwable $r14, $r15, $r17, $r18, $r19, $r20, $r21, $r22, $r23, $r24;
+        byte[] $r6, $r7;
+        android.net.Uri $r2, $r11;
+        java.util.HashMap $r4;
+        java.lang.NullPointerException $r16;
+        android.content.ContentResolver $r9;
+        com.handcent.mms.pdu.PduPersister r0;
+        int $i0;
+        java.lang.String $r3, $r8;
+        boolean $z0;
+        java.io.OutputStream $r10;
+        com.handcent.mms.pdu.k $r1;
+        com.handcent.sms.xe.i $r28;
+        com.handcent.sms.xe.e $r27;
+        java.lang.Object $r5, $r12;
+        java.lang.StringBuilder $r25;
+        android.content.ContentValues $r26;
+        java.io.InputStream $r13;
+
+        r0 := @this: com.handcent.mms.pdu.PduPersister;
+
+        $r1 := @parameter0: com.handcent.mms.pdu.k;
+
+        $r2 := @parameter1: android.net.Uri;
+
+        $r3 := @parameter2: java.lang.String;
+
+        $r4 := @parameter3: java.util.HashMap;
+
+        $r5 = null;
+
+     label01:
+        $r6 = virtualinvoke $r1.<com.handcent.mms.pdu.k: byte[] h()>();
+
+     label02:
+        $r7 = $r6;
+
+        $r8 = "text/plain";
+
+     label03:
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean equals(java.lang.Object)>($r3);
+
+     label04:
+        if $z0 != 0 goto label35;
+
+        $r8 = "application/smil";
+
+     label05:
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean equals(java.lang.Object)>($r3);
+
+     label06:
+        if $z0 != 0 goto label35;
+
+        $r8 = "text/html";
+
+     label07:
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean equals(java.lang.Object)>($r3);
+
+     label08:
+        if $z0 != 0 goto label35;
+
+     label09:
+        $r9 = r0.<com.handcent.mms.pdu.PduPersister: android.content.ContentResolver mContentResolver>;
+
+     label10:
+        $r10 = virtualinvoke $r9.<android.content.ContentResolver: java.io.OutputStream openOutputStream(android.net.Uri)>($r2);
+
+     label11:
+        if $r6 != null goto label33;
+
+     label12:
+        $r11 = virtualinvoke $r1.<com.handcent.mms.pdu.k: android.net.Uri j()>();
+
+     label13:
+        if $r11 == null goto label24;
+
+        if $r11 == $r2 goto label24;
+
+        goto label14;
+
+     label14:
+        if $r5 != null goto label18;
+
+     label15:
+        $r9 = r0.<com.handcent.mms.pdu.PduPersister: android.content.ContentResolver mContentResolver>;
+
+     label16:
+        $r13 = virtualinvoke $r9.<android.content.ContentResolver: java.io.InputStream openInputStream(android.net.Uri)>($r11);
+
+     label17:
+        $r5 = $r13;
+
+     label18:
+        $r6 = newarray (byte)[8192];
+
+     label19:
+        $r13 = (java.io.InputStream) $r5;
+
+     label20:
+        $i0 = virtualinvoke $r13.<java.io.InputStream: int read(byte[])>($r6);
+
+     label21:
+        if $i0 == -1 goto label34;
+
+     label22:
+        virtualinvoke $r10.<java.io.OutputStream: void write(byte[],int,int)>($r6, 0, $i0);
+
+     label23:
+        goto label19;
+
+     label24:
+        staticinvoke <com.handcent.sms.yc.r1: void w(java.lang.String,java.lang.String)>("PduPersister", "Can\'t find data for this part.");
+
+     label25:
+        if $r10 == null goto label85;
+
+     label26:
+        virtualinvoke $r10.<java.io.OutputStream: void close()>();
+
+     label27:
+        return;
+
+     label28:
+        $r14 := @caughtexception;
+
+        $r25 = new java.lang.StringBuilder;
+
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("IOException while closing: ");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r10);
+
+        $r3 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.handcent.sms.yc.r1: int d(java.lang.String,java.lang.String,java.lang.Throwable)>("PduPersister", $r3, $r14);
+
+        return;
+
+     label29:
+        $r15 := @caughtexception;
+
+        $r12 = $r5;
+
+        $r5 = $r10;
+
+        goto label76;
+
+     label30:
+        $r16 := @caughtexception;
+
+        $r12 = $r5;
+
+        $r5 = $r10;
+
+        goto label59;
+
+     label31:
+        $r17 := @caughtexception;
+
+        $r12 = $r5;
+
+        $r5 = $r10;
+
+        goto label70;
+
+     label32:
+        $r18 := @caughtexception;
+
+        $r12 = $r5;
+
+        $r5 = $r10;
+
+        goto label73;
+
+     label33:
+        virtualinvoke $r10.<java.io.OutputStream: void write(byte[])>($r6);
+
+     label34:
+        $r12 = $r5;
+
+        $r5 = $r10;
+
+        goto label49;
+
+     label35:
+        $r26 = new android.content.ContentValues;
+
+     label36:
+        specialinvoke $r26.<android.content.ContentValues: void <init>()>();
+
+     label37:
+        if $r6 != null goto label41;
+
+     label38:
+        $r8 = new java.lang.String;
+
+     label39:
+        specialinvoke $r8.<java.lang.String: void <init>(java.lang.String)>("");
+
+        $r6 = virtualinvoke $r8.<java.lang.String: byte[] getBytes(java.lang.String)>("utf-8");
+
+     label40:
+        $r7 = $r6;
+
+     label41:
+        $r27 = new com.handcent.sms.xe.e;
+
+     label42:
+        specialinvoke $r27.<com.handcent.sms.xe.e: void <init>(byte[])>($r7);
+
+        $r3 = virtualinvoke $r27.<com.handcent.sms.xe.e: java.lang.String g()>();
+
+        virtualinvoke $r26.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("text", $r3);
+
+     label43:
+        $r9 = r0.<com.handcent.mms.pdu.PduPersister: android.content.ContentResolver mContentResolver>;
+
+     label44:
+        $i0 = virtualinvoke $r9.<android.content.ContentResolver: int update(android.net.Uri,android.content.ContentValues,java.lang.String,java.lang.String[])>($r2, $r26, null, null);
+
+     label45:
+        if $i0 == 1 goto label48;
+
+     label46:
+        $r25 = new java.lang.StringBuilder;
+
+     label47:
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("update mms title exception");
+
+        $r3 = virtualinvoke $r2.<android.net.Uri: java.lang.String toString()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.handcent.sms.yc.r1: void c(java.lang.String,java.lang.String)>("", $r3);
+
+     label48:
+        $r12 = null;
+
+     label49:
+        if $r5 == null goto label53;
+
+        $r10 = (java.io.OutputStream) $r5;
+
+     label50:
+        virtualinvoke $r10.<java.io.OutputStream: void close()>();
+
+     label51:
+        goto label53;
+
+     label52:
+        $r19 := @caughtexception;
+
+        $r25 = new java.lang.StringBuilder;
+
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("IOException while closing: ");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r5);
+
+        $r3 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.handcent.sms.yc.r1: int d(java.lang.String,java.lang.String,java.lang.Throwable)>("PduPersister", $r3, $r19);
+
+     label53:
+        if $r12 == null goto label85;
+
+        $r13 = (java.io.InputStream) $r12;
+
+     label54:
+        virtualinvoke $r13.<java.io.InputStream: void close()>();
+
+     label55:
+        return;
+
+     label56:
+        $r20 := @caughtexception;
+
+        $r25 = new java.lang.StringBuilder;
+
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("IOException while closing: ");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r12);
+
+        $r3 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.handcent.sms.yc.r1: int d(java.lang.String,java.lang.String,java.lang.Throwable)>("PduPersister", $r3, $r20);
+
+        return;
+
+     label57:
+        $r15 := @caughtexception;
+
+        $r12 = null;
+
+        goto label76;
+
+     label58:
+        $r16 := @caughtexception;
+
+        $r12 = null;
+
+     label59:
+        $r25 = new java.lang.StringBuilder;
+
+     label60:
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("null exception=");
+
+        $r3 = staticinvoke <com.handcent.sms.kf.g: java.lang.String K(java.lang.Exception)>($r16);
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.handcent.sms.yc.r1: void c(java.lang.String,java.lang.String)>("", $r3);
+
+     label61:
+        if $r5 == null goto label65;
+
+        $r10 = (java.io.OutputStream) $r5;
+
+     label62:
+        virtualinvoke $r10.<java.io.OutputStream: void close()>();
+
+     label63:
+        goto label65;
+
+     label64:
+        $r21 := @caughtexception;
+
+        $r25 = new java.lang.StringBuilder;
+
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("IOException while closing: ");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r5);
+
+        $r3 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.handcent.sms.yc.r1: int d(java.lang.String,java.lang.String,java.lang.Throwable)>("PduPersister", $r3, $r21);
+
+     label65:
+        if $r12 == null goto label85;
+
+        $r13 = (java.io.InputStream) $r12;
+
+     label66:
+        virtualinvoke $r13.<java.io.InputStream: void close()>();
+
+     label67:
+        return;
+
+     label68:
+        $r22 := @caughtexception;
+
+        $r25 = new java.lang.StringBuilder;
+
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("IOException while closing: ");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r12);
+
+        $r3 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.handcent.sms.yc.r1: int d(java.lang.String,java.lang.String,java.lang.Throwable)>("PduPersister", $r3, $r22);
+
+        return;
+
+     label69:
+        $r17 := @caughtexception;
+
+        $r12 = null;
+
+     label70:
+        staticinvoke <com.handcent.sms.yc.r1: int d(java.lang.String,java.lang.String,java.lang.Throwable)>("PduPersister", "Failed to read/write data.", $r17);
+
+        $r28 = new com.handcent.sms.xe.i;
+
+     label71:
+        specialinvoke $r28.<com.handcent.sms.xe.i: void <init>(java.lang.Throwable)>($r17);
+
+        throw $r28;
+
+     label72:
+        $r18 := @caughtexception;
+
+        $r12 = null;
+
+     label73:
+        staticinvoke <com.handcent.sms.yc.r1: int d(java.lang.String,java.lang.String,java.lang.Throwable)>("PduPersister", "Failed to open Input/Output stream.", $r18);
+
+        $r28 = new com.handcent.sms.xe.i;
+
+     label74:
+        specialinvoke $r28.<com.handcent.sms.xe.i: void <init>(java.lang.Throwable)>($r18);
+
+        throw $r28;
+
+     label75:
+        $r15 := @caughtexception;
+
+     label76:
+        if $r5 == null goto label80;
+
+        $r10 = (java.io.OutputStream) $r5;
+
+     label77:
+        virtualinvoke $r10.<java.io.OutputStream: void close()>();
+
+     label78:
+        goto label80;
+
+     label79:
+        $r23 := @caughtexception;
+
+        $r25 = new java.lang.StringBuilder;
+
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("IOException while closing: ");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r5);
+
+        $r3 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.handcent.sms.yc.r1: int d(java.lang.String,java.lang.String,java.lang.Throwable)>("PduPersister", $r3, $r23);
+
+     label80:
+        if $r12 == null goto label84;
+
+        $r13 = (java.io.InputStream) $r12;
+
+     label81:
+        virtualinvoke $r13.<java.io.InputStream: void close()>();
+
+     label82:
+        goto label84;
+
+     label83:
+        $r24 := @caughtexception;
+
+        $r25 = new java.lang.StringBuilder;
+
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("IOException while closing: ");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r12);
+
+        $r3 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.handcent.sms.yc.r1: int d(java.lang.String,java.lang.String,java.lang.Throwable)>("PduPersister", $r3, $r24);
+
+     label84:
+        throw $r15;
+
+     label85:
+        return;
+
+        catch java.io.FileNotFoundException from label01 to label02 with label72;
+        catch java.io.FileNotFoundException from label03 to label04 with label72;
+        catch java.io.FileNotFoundException from label05 to label06 with label72;
+        catch java.io.FileNotFoundException from label07 to label08 with label72;
+        catch java.io.FileNotFoundException from label10 to label11 with label72;
+        catch java.io.IOException from label01 to label02 with label69;
+        catch java.io.IOException from label03 to label04 with label69;
+        catch java.io.IOException from label05 to label06 with label69;
+        catch java.io.IOException from label07 to label08 with label69;
+        catch java.io.IOException from label10 to label11 with label69;
+        catch java.lang.NullPointerException from label01 to label02 with label58;
+        catch java.lang.NullPointerException from label03 to label04 with label58;
+        catch java.lang.NullPointerException from label05 to label06 with label58;
+        catch java.lang.NullPointerException from label07 to label08 with label58;
+        catch java.lang.NullPointerException from label09 to label11 with label58;
+        catch java.lang.Throwable from label01 to label02 with label57;
+        catch java.lang.Throwable from label03 to label04 with label57;
+        catch java.lang.Throwable from label05 to label06 with label57;
+        catch java.lang.Throwable from label07 to label08 with label57;
+        catch java.lang.Throwable from label09 to label11 with label57;
+        catch java.io.FileNotFoundException from label12 to label13 with label32;
+        catch java.io.FileNotFoundException from label16 to label17 with label32;
+        catch java.io.FileNotFoundException from label20 to label21 with label32;
+        catch java.io.FileNotFoundException from label22 to label23 with label32;
+        catch java.io.FileNotFoundException from label24 to label25 with label32;
+        catch java.io.IOException from label12 to label13 with label31;
+        catch java.io.IOException from label16 to label17 with label31;
+        catch java.io.IOException from label20 to label21 with label31;
+        catch java.io.IOException from label22 to label23 with label31;
+        catch java.io.IOException from label24 to label25 with label31;
+        catch java.lang.NullPointerException from label12 to label13 with label30;
+        catch java.lang.NullPointerException from label15 to label17 with label30;
+        catch java.lang.NullPointerException from label20 to label21 with label30;
+        catch java.lang.NullPointerException from label22 to label23 with label30;
+        catch java.lang.NullPointerException from label24 to label25 with label30;
+        catch java.lang.Throwable from label12 to label13 with label29;
+        catch java.lang.Throwable from label15 to label17 with label29;
+        catch java.lang.Throwable from label19 to label21 with label29;
+        catch java.lang.Throwable from label22 to label23 with label29;
+        catch java.lang.Throwable from label24 to label25 with label29;
+        catch java.io.IOException from label26 to label27 with label28;
+        catch java.io.FileNotFoundException from label33 to label34 with label32;
+        catch java.io.IOException from label33 to label34 with label31;
+        catch java.lang.NullPointerException from label33 to label34 with label30;
+        catch java.lang.Throwable from label33 to label34 with label29;
+        catch java.io.FileNotFoundException from label36 to label37 with label72;
+        catch java.io.FileNotFoundException from label39 to label40 with label72;
+        catch java.io.FileNotFoundException from label42 to label43 with label72;
+        catch java.io.FileNotFoundException from label44 to label45 with label72;
+        catch java.io.FileNotFoundException from label47 to label48 with label72;
+        catch java.io.IOException from label36 to label37 with label69;
+        catch java.io.IOException from label39 to label40 with label69;
+        catch java.io.IOException from label42 to label43 with label69;
+        catch java.io.IOException from label44 to label45 with label69;
+        catch java.io.IOException from label47 to label48 with label69;
+        catch java.lang.NullPointerException from label36 to label37 with label58;
+        catch java.lang.NullPointerException from label39 to label40 with label58;
+        catch java.lang.NullPointerException from label42 to label45 with label58;
+        catch java.lang.NullPointerException from label47 to label48 with label58;
+        catch java.lang.Throwable from label35 to label36 with label57;
+        catch java.lang.Throwable from label36 to label37 with label57;
+        catch java.lang.Throwable from label38 to label39 with label57;
+        catch java.lang.Throwable from label39 to label40 with label57;
+        catch java.lang.Throwable from label41 to label42 with label57;
+        catch java.lang.Throwable from label42 to label45 with label57;
+        catch java.lang.Throwable from label46 to label47 with label57;
+        catch java.lang.Throwable from label47 to label48 with label57;
+        catch java.io.IOException from label50 to label51 with label52;
+        catch java.io.IOException from label54 to label55 with label56;
+        catch java.lang.Throwable from label59 to label60 with label75;
+        catch java.lang.Throwable from label60 to label61 with label75;
+        catch java.io.IOException from label62 to label63 with label64;
+        catch java.io.IOException from label66 to label67 with label68;
+        catch java.lang.Throwable from label70 to label71 with label75;
+        catch java.lang.Throwable from label71 to label72 with label75;
+        catch java.lang.Throwable from label73 to label74 with label75;
+        catch java.lang.Throwable from label74 to label75 with label75;
+        catch java.io.IOException from label77 to label78 with label79;
+        catch java.io.IOException from label81 to label82 with label83;
+    }

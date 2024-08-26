@@ -1,0 +1,115 @@
+    public static java.lang.String a(java.lang.String, android.content.Context)
+    {
+        java.lang.Throwable $r0, $r8;
+        android.content.Context $r2;
+        byte[] $r6;
+        java.lang.Object[] $r9;
+        java.io.ByteArrayOutputStream $r10;
+        android.content.res.AssetManager $r4;
+        int $i0;
+        java.lang.String $r1, $r7, $r11;
+        boolean $z0;
+        java.io.InputStream $r3, $r5;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: android.content.Context;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r1);
+
+        if $z0 == 0 goto label01;
+
+        return "";
+
+     label01:
+        $r3 = null;
+
+        $r10 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r10.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label02:
+        $r4 = virtualinvoke $r2.<android.content.Context: android.content.res.AssetManager getAssets()>();
+
+        $r5 = virtualinvoke $r4.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>($r1);
+
+     label03:
+        $r3 = $r5;
+
+        $r6 = newarray (byte)[8192];
+
+     label04:
+        $i0 = virtualinvoke $r5.<java.io.InputStream: int read(byte[])>($r6);
+
+     label05:
+        if $i0 == -1 goto label08;
+
+     label06:
+        virtualinvoke $r10.<java.io.OutputStream: void write(byte[],int,int)>($r6, 0, $i0);
+
+     label07:
+        goto label04;
+
+     label08:
+        virtualinvoke $r10.<java.io.OutputStream: void flush()>();
+
+     label09:
+        $r11 = new java.lang.String;
+
+     label10:
+        $r6 = virtualinvoke $r10.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        specialinvoke $r11.<java.lang.String: void <init>(byte[],java.lang.String)>($r6, "UTF-8");
+
+     label11:
+        staticinvoke <com.huawei.hms.framework.network.grs.c.c: void a(java.io.OutputStream)>($r10);
+
+        staticinvoke <com.huawei.hms.framework.network.grs.c.c: void a(java.io.InputStream)>($r5);
+
+        return $r11;
+
+     label12:
+        $r8 := @caughtexception;
+
+        goto label15;
+
+     label13:
+        $r7 = <com.huawei.hms.framework.network.grs.c.c: java.lang.String a>;
+
+        $r9 = newarray (java.lang.Object)[1];
+
+        $r9[0] = $r1;
+
+        staticinvoke <com.huawei.hms.framework.common.Logger: void w(java.lang.String,java.lang.String,java.lang.Object[])>($r7, "local config file is not exist.filename is {%s}", $r9);
+
+     label14:
+        staticinvoke <com.huawei.hms.framework.network.grs.c.c: void a(java.io.OutputStream)>($r10);
+
+        staticinvoke <com.huawei.hms.framework.network.grs.c.c: void a(java.io.InputStream)>($r3);
+
+        return "";
+
+     label15:
+        staticinvoke <com.huawei.hms.framework.network.grs.c.c: void a(java.io.OutputStream)>($r10);
+
+        staticinvoke <com.huawei.hms.framework.network.grs.c.c: void a(java.io.InputStream)>($r3);
+
+        throw $r8;
+
+     label16:
+        $r0 := @caughtexception;
+
+        goto label13;
+
+        catch java.io.IOException from label02 to label03 with label16;
+        catch java.io.IOException from label04 to label05 with label16;
+        catch java.io.IOException from label06 to label07 with label16;
+        catch java.io.IOException from label08 to label09 with label16;
+        catch java.io.IOException from label10 to label11 with label16;
+        catch java.lang.Throwable from label02 to label03 with label12;
+        catch java.lang.Throwable from label04 to label05 with label12;
+        catch java.lang.Throwable from label06 to label07 with label12;
+        catch java.lang.Throwable from label08 to label10 with label12;
+        catch java.lang.Throwable from label10 to label11 with label12;
+        catch java.lang.Throwable from label13 to label14 with label12;
+    }

@@ -1,0 +1,165 @@
+    private void fillWifiDetails(android.content.Context, boolean)
+    {
+        android.content.Context $r2;
+        android.net.wifi.WifiInfo $r7;
+        com.startapp.android.publish.adsCommon.BaseRequest$a $r13;
+        java.util.ArrayList $r11;
+        int $i0, $i1;
+        java.lang.String $r6, $r8;
+        com.startapp.android.publish.common.metaData.MetaData $r3;
+        boolean $z0, $z1;
+        android.net.wifi.ScanResult $r12;
+        com.startapp.android.publish.adsCommon.BaseRequest r0;
+        java.lang.Exception $r1;
+        android.net.wifi.WifiManager $r5;
+        java.util.List $r9, $r10;
+        java.lang.Object $r4;
+
+        r0 := @this: com.startapp.android.publish.adsCommon.BaseRequest;
+
+        $r2 := @parameter0: android.content.Context;
+
+        $z0 := @parameter1: boolean;
+
+     label01:
+        $r3 = staticinvoke <com.startapp.android.publish.common.metaData.MetaData: com.startapp.android.publish.common.metaData.MetaData getInstance()>();
+
+        $z1 = virtualinvoke $r3.<com.startapp.android.publish.common.metaData.MetaData: boolean isWfScanEnabled()>();
+
+     label02:
+        if $z1 == 0 goto label32;
+
+     label03:
+        $r4 = virtualinvoke $r2.<android.content.Context: java.lang.Object getSystemService(java.lang.String)>("wifi");
+
+        $r5 = (android.net.wifi.WifiManager) $r4;
+
+     label04:
+        if $r5 == null goto label32;
+
+     label05:
+        $z1 = staticinvoke <com.startapp.common.a.c: boolean a(android.content.Context,java.lang.String)>($r2, "android.permission.ACCESS_WIFI_STATE");
+
+     label06:
+        if $z1 == 0 goto label32;
+
+     label07:
+        $r6 = virtualinvoke r0.<com.startapp.android.publish.adsCommon.BaseRequest: java.lang.String getNetworkType()>();
+
+        $z1 = virtualinvoke $r6.<java.lang.String: boolean equals(java.lang.Object)>("WIFI");
+
+     label08:
+        if $z1 == 0 goto label16;
+
+     label09:
+        $r7 = virtualinvoke $r5.<android.net.wifi.WifiManager: android.net.wifi.WifiInfo getConnectionInfo()>();
+
+     label10:
+        if $r7 == null goto label16;
+
+     label11:
+        virtualinvoke r0.<com.startapp.android.publish.adsCommon.BaseRequest: void setDeviceIP(android.net.wifi.WifiInfo)>($r7);
+
+        $r8 = virtualinvoke $r7.<android.net.wifi.WifiInfo: java.lang.String getSSID()>();
+
+        $r6 = virtualinvoke $r7.<android.net.wifi.WifiInfo: java.lang.String getBSSID()>();
+
+     label12:
+        if $r8 == null goto label14;
+
+     label13:
+        $r8 = staticinvoke <com.startapp.common.a.a: java.lang.String c(java.lang.String)>($r8);
+
+        virtualinvoke r0.<com.startapp.android.publish.adsCommon.BaseRequest: void setSsid(java.lang.String)>($r8);
+
+     label14:
+        if $r6 == null goto label16;
+
+     label15:
+        $r6 = staticinvoke <com.startapp.common.a.a: java.lang.String c(java.lang.String)>($r6);
+
+        virtualinvoke r0.<com.startapp.android.publish.adsCommon.BaseRequest: void setBssid(java.lang.String)>($r6);
+
+     label16:
+        if $z0 == 0 goto label32;
+
+     label17:
+        $r9 = staticinvoke <com.startapp.common.a.c: java.util.List a(android.content.Context,android.net.wifi.WifiManager)>($r2, $r5);
+
+     label18:
+        if $r9 == null goto label32;
+
+        $r10 = <java.util.Collections: java.util.List EMPTY_LIST>;
+
+     label19:
+        $z0 = interfaceinvoke $r9.<java.util.List: boolean equals(java.lang.Object)>($r10);
+
+     label20:
+        if $z0 != 0 goto label32;
+
+        $r11 = new java.util.ArrayList;
+
+     label21:
+        specialinvoke $r11.<java.util.ArrayList: void <init>()>();
+
+     label22:
+        $i0 = 0;
+
+     label23:
+        $i1 = interfaceinvoke $r9.<java.util.List: int size()>();
+
+        $i1 = staticinvoke <java.lang.Math: int min(int,int)>(5, $i1);
+
+     label24:
+        if $i0 >= $i1 goto label29;
+
+     label25:
+        $r4 = interfaceinvoke $r9.<java.util.List: java.lang.Object get(int)>($i0);
+
+        $r12 = (android.net.wifi.ScanResult) $r4;
+
+     label26:
+        $r13 = new com.startapp.android.publish.adsCommon.BaseRequest$a;
+
+     label27:
+        specialinvoke $r13.<com.startapp.android.publish.adsCommon.BaseRequest$a: void <init>(android.net.wifi.ScanResult)>($r12);
+
+        virtualinvoke $r11.<java.util.ArrayList: boolean add(java.lang.Object)>($r13);
+
+     label28:
+        $i0 = $i0 + 1;
+
+        goto label23;
+
+     label29:
+        $r6 = staticinvoke <android.text.TextUtils: java.lang.String join(java.lang.CharSequence,java.lang.Iterable)>(";", $r11);
+
+        $r6 = staticinvoke <com.startapp.common.a.a: java.lang.String c(java.lang.String)>($r6);
+
+        virtualinvoke r0.<com.startapp.android.publish.adsCommon.BaseRequest: void setWfScanRes(java.lang.String)>($r6);
+
+     label30:
+        return;
+
+     label31:
+        $r1 := @caughtexception;
+
+     label32:
+        return;
+
+        catch java.lang.Exception from label01 to label02 with label31;
+        catch java.lang.Exception from label03 to label04 with label31;
+        catch java.lang.Exception from label05 to label06 with label31;
+        catch java.lang.Exception from label07 to label08 with label31;
+        catch java.lang.Exception from label09 to label10 with label31;
+        catch java.lang.Exception from label11 to label12 with label31;
+        catch java.lang.Exception from label13 to label14 with label31;
+        catch java.lang.Exception from label15 to label16 with label31;
+        catch java.lang.Exception from label17 to label18 with label31;
+        catch java.lang.Exception from label19 to label20 with label31;
+        catch java.lang.Exception from label21 to label22 with label31;
+        catch java.lang.Exception from label23 to label24 with label31;
+        catch java.lang.Exception from label25 to label26 with label31;
+        catch java.lang.Exception from label27 to label28 with label31;
+        catch java.lang.Exception from label29 to label30 with label31;
+    }

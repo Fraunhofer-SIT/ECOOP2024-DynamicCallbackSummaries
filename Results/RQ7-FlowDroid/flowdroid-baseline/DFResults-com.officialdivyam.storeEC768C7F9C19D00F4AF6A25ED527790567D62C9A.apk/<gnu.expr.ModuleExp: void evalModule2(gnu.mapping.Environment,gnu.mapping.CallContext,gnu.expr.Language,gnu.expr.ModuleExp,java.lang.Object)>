@@ -1,0 +1,317 @@
+    public static final void evalModule2(gnu.mapping.Environment, gnu.mapping.CallContext, gnu.expr.Language, gnu.expr.ModuleExp, java.lang.Object) throws java.lang.Throwable
+    {
+        java.lang.Throwable $r14;
+        gnu.mapping.Environment $r0, $r7;
+        gnu.mapping.Symbol r5, $r17;
+        gnu.expr.Language $r2;
+        java.lang.Runnable $r13;
+        gnu.bytecode.ClassType $r25;
+        gnu.expr.Declaration $r15;
+        int $i0;
+        java.lang.Boolean $r8;
+        gnu.expr.QuoteExp $r19;
+        gnu.expr.ModuleExp $r3;
+        java.lang.String $r21;
+        gnu.bytecode.Field $r16, $r18;
+        boolean $z0;
+        gnu.expr.Expression $r9;
+        gnu.expr.ModuleBody $r12;
+        gnu.expr.ModuleContext $r10;
+        java.lang.reflect.Field $r22;
+        gnu.mapping.Location $r20;
+        gnu.mapping.CallContext $r1;
+        java.lang.Object $r4, r6, $r23;
+        java.lang.Class $r11;
+        gnu.kawa.reflect.StaticFieldLocation $r24;
+
+        $r0 := @parameter0: gnu.mapping.Environment;
+
+        $r1 := @parameter1: gnu.mapping.CallContext;
+
+        $r2 := @parameter2: gnu.expr.Language;
+
+        $r3 := @parameter3: gnu.expr.ModuleExp;
+
+        $r4 := @parameter4: java.lang.Object;
+
+        r6 = $r4;
+
+        $r7 = staticinvoke <gnu.mapping.Environment: gnu.mapping.Environment setSaveCurrent(gnu.mapping.Environment)>($r0);
+
+     label01:
+        $r8 = <java.lang.Boolean: java.lang.Boolean TRUE>;
+
+     label02:
+        if $r4 != $r8 goto label06;
+
+     label03:
+        $r9 = $r3.<gnu.expr.ModuleExp: gnu.expr.Expression body>;
+
+        virtualinvoke $r9.<gnu.expr.Expression: void apply(gnu.mapping.CallContext)>($r1);
+
+     label04:
+        virtualinvoke $r1.<gnu.mapping.CallContext: void runUntilDone()>();
+
+     label05:
+        staticinvoke <gnu.mapping.Environment: void restoreCurrent(gnu.mapping.Environment)>($r7);
+
+        goto label62;
+
+     label06:
+        $z0 = $r4 instanceof java.lang.Class;
+
+     label07:
+        if $z0 == 0 goto label10;
+
+     label08:
+        $r10 = staticinvoke <gnu.expr.ModuleContext: gnu.expr.ModuleContext getContext()>();
+
+        $r11 = (java.lang.Class) $r4;
+
+        $r4 = virtualinvoke $r10.<gnu.expr.ModuleContext: java.lang.Object findInstance(java.lang.Class)>($r11);
+
+     label09:
+        r6 = $r4;
+
+     label10:
+        $z0 = r6 instanceof java.lang.Runnable;
+
+     label11:
+        if $z0 == 0 goto label17;
+
+     label12:
+        $z0 = r6 instanceof gnu.expr.ModuleBody;
+
+     label13:
+        if $z0 == 0 goto label20;
+
+     label14:
+        $r12 = (gnu.expr.ModuleBody) r6;
+
+        $z0 = $r12.<gnu.expr.ModuleBody: boolean runDone>;
+
+     label15:
+        if $z0 != 0 goto label17;
+
+     label16:
+        $r12.<gnu.expr.ModuleBody: boolean runDone> = 1;
+
+        virtualinvoke $r12.<gnu.expr.ModuleBody: void run(gnu.mapping.CallContext)>($r1);
+
+     label17:
+        if $r3 != null goto label23;
+
+     label18:
+        staticinvoke <gnu.kawa.reflect.ClassMemberLocation: void defineAll(java.lang.Object,gnu.expr.Language,gnu.mapping.Environment)>(r6, $r2, $r0);
+
+     label19:
+        goto label04;
+
+     label20:
+        $r13 = (java.lang.Runnable) r6;
+
+        interfaceinvoke $r13.<java.lang.Runnable: void run()>();
+
+     label21:
+        goto label17;
+
+     label22:
+        $r14 := @caughtexception;
+
+        staticinvoke <gnu.mapping.Environment: void restoreCurrent(gnu.mapping.Environment)>($r7);
+
+        throw $r14;
+
+     label23:
+        $r15 = virtualinvoke $r3.<gnu.expr.ModuleExp: gnu.expr.Declaration firstDecl()>();
+
+     label24:
+        if $r15 == null goto label04;
+
+     label25:
+        $r4 = virtualinvoke $r15.<gnu.expr.Declaration: java.lang.Object getSymbol()>();
+
+        $z0 = virtualinvoke $r15.<gnu.expr.Declaration: boolean isPrivate()>();
+
+     label26:
+        if $z0 != 0 goto label27;
+
+        if $r4 != null goto label29;
+
+     label27:
+        $r15 = virtualinvoke $r15.<gnu.expr.Declaration: gnu.expr.Declaration nextDecl()>();
+
+     label28:
+        goto label24;
+
+     label29:
+        $r16 = $r15.<gnu.expr.Declaration: gnu.bytecode.Field field>;
+
+        $z0 = $r4 instanceof gnu.mapping.Symbol;
+
+     label30:
+        if $z0 == 0 goto label44;
+
+     label31:
+        $r17 = (gnu.mapping.Symbol) $r4;
+
+     label32:
+        r5 = $r17;
+
+     label33:
+        $r4 = virtualinvoke $r2.<gnu.expr.Language: java.lang.Object getEnvPropertyFor(gnu.expr.Declaration)>($r15);
+
+        $r9 = virtualinvoke $r15.<gnu.expr.Declaration: gnu.expr.Expression getValue()>();
+
+        $r18 = $r15.<gnu.expr.Declaration: gnu.bytecode.Field field>;
+
+        $i0 = virtualinvoke $r18.<gnu.bytecode.Field: int getModifiers()>();
+
+     label34:
+        $i0 = $i0 & 16;
+
+        if $i0 == 0 goto label60;
+
+     label35:
+        $z0 = $r9 instanceof gnu.expr.QuoteExp;
+
+     label36:
+        if $z0 == 0 goto label46;
+
+     label37:
+        $r19 = <gnu.expr.QuoteExp: gnu.expr.QuoteExp undefined_exp>;
+
+     label38:
+        if $r9 == $r19 goto label46;
+
+     label39:
+        $r19 = (gnu.expr.QuoteExp) $r9;
+
+        r6 = virtualinvoke $r19.<gnu.expr.QuoteExp: java.lang.Object getValue()>();
+
+     label40:
+        $z0 = virtualinvoke $r15.<gnu.expr.Declaration: boolean isIndirectBinding()>();
+
+     label41:
+        if $z0 == 0 goto label58;
+
+     label42:
+        $r20 = (gnu.mapping.Location) r6;
+
+        virtualinvoke $r0.<gnu.mapping.Environment: gnu.mapping.NamedLocation addLocation(gnu.mapping.Symbol,java.lang.Object,gnu.mapping.Location)>(r5, $r4, $r20);
+
+     label43:
+        goto label27;
+
+     label44:
+        $r21 = virtualinvoke $r4.<java.lang.Object: java.lang.String toString()>();
+
+        $r21 = virtualinvoke $r21.<java.lang.String: java.lang.String intern()>();
+
+        r5 = staticinvoke <gnu.mapping.Symbol: gnu.mapping.Symbol make(java.lang.Object,java.lang.String)>("", $r21);
+
+     label45:
+        $r17 = r5;
+
+        goto label32;
+
+     label46:
+        $r16 = $r15.<gnu.expr.Declaration: gnu.bytecode.Field field>;
+
+        $r22 = virtualinvoke $r16.<gnu.bytecode.Field: java.lang.reflect.Field getReflectField()>();
+
+        $r23 = virtualinvoke $r22.<java.lang.reflect.Field: java.lang.Object get(java.lang.Object)>(null);
+
+     label47:
+        r6 = $r23;
+
+     label48:
+        $z0 = virtualinvoke $r15.<gnu.expr.Declaration: boolean isIndirectBinding()>();
+
+     label49:
+        if $z0 != 0 goto label52;
+
+     label50:
+        $r19 = staticinvoke <gnu.expr.QuoteExp: gnu.expr.QuoteExp getInstance(java.lang.Object)>($r23);
+
+        virtualinvoke $r15.<gnu.expr.Declaration: void setValue(gnu.expr.Expression)>($r19);
+
+     label51:
+        goto label40;
+
+     label52:
+        $z0 = virtualinvoke $r15.<gnu.expr.Declaration: boolean isAlias()>();
+
+     label53:
+        if $z0 == 0 goto label56;
+
+     label54:
+        $z0 = $r9 instanceof gnu.expr.ReferenceExp;
+
+     label55:
+        if $z0 != 0 goto label40;
+
+     label56:
+        virtualinvoke $r15.<gnu.expr.Declaration: void setValue(gnu.expr.Expression)>(null);
+
+     label57:
+        goto label40;
+
+     label58:
+        virtualinvoke $r0.<gnu.mapping.Environment: void define(gnu.mapping.Symbol,java.lang.Object,java.lang.Object)>(r5, $r4, r6);
+
+     label59:
+        goto label27;
+
+     label60:
+        $r24 = new gnu.kawa.reflect.StaticFieldLocation;
+
+        $r25 = virtualinvoke $r16.<gnu.bytecode.Field: gnu.bytecode.ClassType getDeclaringClass()>();
+
+        $r21 = virtualinvoke $r16.<gnu.bytecode.Field: java.lang.String getName()>();
+
+        specialinvoke $r24.<gnu.kawa.reflect.StaticFieldLocation: void <init>(gnu.bytecode.ClassType,java.lang.String)>($r25, $r21);
+
+        virtualinvoke $r24.<gnu.kawa.reflect.StaticFieldLocation: void setDeclaration(gnu.expr.Declaration)>($r15);
+
+        virtualinvoke $r0.<gnu.mapping.Environment: gnu.mapping.NamedLocation addLocation(gnu.mapping.Symbol,java.lang.Object,gnu.mapping.Location)>($r17, $r4, $r24);
+
+        virtualinvoke $r15.<gnu.expr.Declaration: void setValue(gnu.expr.Expression)>(null);
+
+     label61:
+        goto label27;
+
+     label62:
+        return;
+
+        catch java.lang.Throwable from label01 to label02 with label22;
+        catch java.lang.Throwable from label03 to label05 with label22;
+        catch java.lang.Throwable from label06 to label07 with label22;
+        catch java.lang.Throwable from label08 to label09 with label22;
+        catch java.lang.Throwable from label10 to label11 with label22;
+        catch java.lang.Throwable from label12 to label13 with label22;
+        catch java.lang.Throwable from label14 to label15 with label22;
+        catch java.lang.Throwable from label16 to label17 with label22;
+        catch java.lang.Throwable from label18 to label19 with label22;
+        catch java.lang.Throwable from label20 to label21 with label22;
+        catch java.lang.Throwable from label23 to label24 with label22;
+        catch java.lang.Throwable from label25 to label26 with label22;
+        catch java.lang.Throwable from label27 to label28 with label22;
+        catch java.lang.Throwable from label29 to label30 with label22;
+        catch java.lang.Throwable from label31 to label32 with label22;
+        catch java.lang.Throwable from label33 to label34 with label22;
+        catch java.lang.Throwable from label35 to label36 with label22;
+        catch java.lang.Throwable from label37 to label38 with label22;
+        catch java.lang.Throwable from label39 to label40 with label22;
+        catch java.lang.Throwable from label40 to label41 with label22;
+        catch java.lang.Throwable from label42 to label43 with label22;
+        catch java.lang.Throwable from label44 to label45 with label22;
+        catch java.lang.Throwable from label46 to label47 with label22;
+        catch java.lang.Throwable from label48 to label49 with label22;
+        catch java.lang.Throwable from label50 to label51 with label22;
+        catch java.lang.Throwable from label52 to label53 with label22;
+        catch java.lang.Throwable from label54 to label55 with label22;
+        catch java.lang.Throwable from label56 to label57 with label22;
+        catch java.lang.Throwable from label58 to label59 with label22;
+        catch java.lang.Throwable from label60 to label61 with label22;
+    }

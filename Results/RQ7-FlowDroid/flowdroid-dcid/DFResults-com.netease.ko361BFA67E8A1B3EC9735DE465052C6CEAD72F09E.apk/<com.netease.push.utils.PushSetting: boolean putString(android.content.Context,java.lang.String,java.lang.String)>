@@ -1,0 +1,43 @@
+    private static boolean putString(android.content.Context, java.lang.String, java.lang.String)
+    {
+        android.content.Context $r2;
+        android.content.ContentResolver $r6;
+        java.lang.StringBuilder $r4;
+        java.lang.String $r0, $r1, $r3, $r5;
+        boolean $z0;
+
+        $r2 := @parameter0: android.content.Context;
+
+        $r0 := @parameter1: java.lang.String;
+
+        $r1 := @parameter2: java.lang.String;
+
+        staticinvoke <com.netease.push.utils.PushSetting: void checkPermission(android.content.Context)>($r2);
+
+        $z0 = <com.netease.push.utils.PushSetting: boolean write_setting>;
+
+        if $z0 == 0 goto label1;
+
+        $r3 = <com.netease.push.utils.PushSetting: java.lang.String TAG>;
+
+        $r4 = new java.lang.StringBuilder;
+
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Settings.System.putString:");
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.push.utils.PushLog: void d(java.lang.String,java.lang.String)>($r3, $r5);
+
+        $r6 = virtualinvoke $r2.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+        staticinvoke <android.provider.Settings$System: boolean putString(android.content.ContentResolver,java.lang.String,java.lang.String)>($r6, $r0, $r1);
+
+     label1:
+        $z0 = staticinvoke <com.netease.push.utils.FileUtils: boolean write(android.content.Context,java.lang.String,java.lang.String)>($r2, $r0, $r1);
+
+        return $z0;
+    }

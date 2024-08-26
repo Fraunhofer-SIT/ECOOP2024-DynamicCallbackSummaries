@@ -1,0 +1,75 @@
+    private static dalvik.system.DexClassLoader makeLegacyAdsSdkClassLoader(android.content.Context) throws java.lang.Exception
+    {
+        android.content.Context $r0;
+        byte[] $r7;
+        java.io.FileOutputStream $r6;
+        java.io.File $r2;
+        android.content.res.AssetManager $r4;
+        int $i0;
+        java.lang.StringBuilder $r1;
+        java.lang.Class $r10;
+        java.lang.String $r3, $r9;
+        java.lang.ClassLoader $r11;
+        dalvik.system.DexClassLoader $r8;
+        java.io.InputStream $r5;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 = new java.lang.StringBuilder;
+
+        specialinvoke $r1.<java.lang.StringBuilder: void <init>()>();
+
+        $r2 = virtualinvoke $r0.<android.content.Context: java.io.File getFilesDir()>();
+
+        $r3 = virtualinvoke $r2.<java.io.File: java.lang.String getPath()>();
+
+        virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = <java.io.File: java.lang.String separator>;
+
+        virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("audience_network.dex");
+
+        $r3 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r4 = virtualinvoke $r0.<android.content.Context: android.content.res.AssetManager getAssets()>();
+
+        $r5 = virtualinvoke $r4.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>("audience_network.dex");
+
+        $r6 = new java.io.FileOutputStream;
+
+        specialinvoke $r6.<java.io.FileOutputStream: void <init>(java.lang.String)>($r3);
+
+        $r7 = newarray (byte)[1024];
+
+     label1:
+        $i0 = virtualinvoke $r5.<java.io.InputStream: int read(byte[])>($r7);
+
+        if $i0 <= 0 goto label2;
+
+        virtualinvoke $r6.<java.io.OutputStream: void write(byte[],int,int)>($r7, 0, $i0);
+
+        goto label1;
+
+     label2:
+        virtualinvoke $r5.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r6.<java.io.OutputStream: void flush()>();
+
+        virtualinvoke $r6.<java.io.OutputStream: void close()>();
+
+        $r2 = virtualinvoke $r0.<android.content.Context: java.io.File getDir(java.lang.String,int)>("optimized", 0);
+
+        $r8 = new dalvik.system.DexClassLoader;
+
+        $r9 = virtualinvoke $r2.<java.io.File: java.lang.String getPath()>();
+
+        $r10 = class "Lcom/facebook/ads/internal/dynamicloading/DynamicLoaderFactory;";
+
+        $r11 = virtualinvoke $r10.<java.lang.Class: java.lang.ClassLoader getClassLoader()>();
+
+        specialinvoke $r8.<dalvik.system.DexClassLoader: void <init>(java.lang.String,java.lang.String,java.lang.String,java.lang.ClassLoader)>($r3, $r9, null, $r11);
+
+        return $r8;
+    }

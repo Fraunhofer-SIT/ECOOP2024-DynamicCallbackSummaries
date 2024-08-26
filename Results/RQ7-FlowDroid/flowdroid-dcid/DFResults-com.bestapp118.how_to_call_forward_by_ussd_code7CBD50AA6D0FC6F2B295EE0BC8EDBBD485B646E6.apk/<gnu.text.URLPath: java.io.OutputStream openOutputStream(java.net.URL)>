@@ -1,0 +1,54 @@
+    public static java.io.OutputStream openOutputStream(java.net.URL) throws java.io.IOException
+    {
+        java.lang.Throwable $r2;
+        java.io.OutputStream $r7;
+        java.net.URL $r3;
+        java.io.FileOutputStream $r5;
+        java.io.File $r0;
+        java.net.URLConnection $r6;
+        java.net.URI $r1;
+        java.lang.String $r4;
+        boolean $z0;
+
+        $r3 := @parameter0: java.net.URL;
+
+        $r4 = virtualinvoke $r3.<java.net.URL: java.lang.String toString()>();
+
+        $z0 = virtualinvoke $r4.<java.lang.String: boolean startsWith(java.lang.String)>("file:");
+
+        if $z0 == 0 goto label3;
+
+     label1:
+        $r5 = new java.io.FileOutputStream;
+
+        $r0 = new java.io.File;
+
+        $r1 = new java.net.URI;
+
+        specialinvoke $r1.<java.net.URI: void <init>(java.lang.String)>($r4);
+
+        specialinvoke $r0.<java.io.File: void <init>(java.net.URI)>($r1);
+
+        specialinvoke $r5.<java.io.FileOutputStream: void <init>(java.io.File)>($r0);
+
+     label2:
+        return $r5;
+
+     label3:
+        $r6 = virtualinvoke $r3.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        virtualinvoke $r6.<java.net.URLConnection: void setDoInput(boolean)>(0);
+
+        virtualinvoke $r6.<java.net.URLConnection: void setDoOutput(boolean)>(1);
+
+        $r7 = virtualinvoke $r6.<java.net.URLConnection: java.io.OutputStream getOutputStream()>();
+
+        return $r7;
+
+     label4:
+        $r2 := @caughtexception;
+
+        goto label3;
+
+        catch java.lang.Throwable from label1 to label2 with label4;
+    }

@@ -1,0 +1,231 @@
+    private void a(int, int)
+    {
+        java.lang.Throwable $r10, $r11, $r12, $r13;
+        byte[] $r8;
+        java.lang.Object[] $r1;
+        long $l2;
+        java.lang.Integer $r2;
+        java.nio.ByteBuffer $r7;
+        int $i0, $i1, $i3, $i4, $i5, $i6;
+        java.io.OutputStream $r9;
+        com.fyber.inneractive.sdk.player.a.a $r3;
+        java.io.FileInputStream $r14;
+        java.io.File $r5;
+        java.lang.Object $r4;
+        com.fyber.inneractive.sdk.util.c $r6;
+        com.fyber.inneractive.sdk.player.a.i r0;
+
+        r0 := @this: com.fyber.inneractive.sdk.player.a.i;
+
+        $i1 := @parameter0: int;
+
+        $i0 := @parameter1: int;
+
+        $r1 = newarray (java.lang.Object)[2];
+
+        $r2 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i1);
+
+        $r1[0] = $r2;
+
+        $r2 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+        $r1[1] = $r2;
+
+        staticinvoke <com.fyber.inneractive.sdk.util.IAlog: void a(java.lang.String,java.lang.Object[])>("StreamingHandler serveContent from %d to %d", $r1);
+
+        $r3 = r0.<com.fyber.inneractive.sdk.player.a.i: com.fyber.inneractive.sdk.player.a.a f>;
+
+        $r4 = $r3.<com.fyber.inneractive.sdk.player.a.a: java.lang.Object e>;
+
+        entermonitor $r4;
+
+     label01:
+        $r14 = new java.io.FileInputStream;
+
+        $r3 = r0.<com.fyber.inneractive.sdk.player.a.i: com.fyber.inneractive.sdk.player.a.a f>;
+
+        $r5 = virtualinvoke $r3.<com.fyber.inneractive.sdk.player.a.a: java.io.File a()>();
+
+        specialinvoke $r14.<java.io.FileInputStream: void <init>(java.io.File)>($r5);
+
+        $r6 = staticinvoke <com.fyber.inneractive.sdk.util.c: com.fyber.inneractive.sdk.util.c a()>();
+
+        $r7 = virtualinvoke $r6.<com.fyber.inneractive.sdk.util.c: java.nio.ByteBuffer b()>();
+
+     label02:
+        staticinvoke <com.fyber.inneractive.sdk.util.c: com.fyber.inneractive.sdk.util.c a()>();
+
+        $r8 = staticinvoke <com.fyber.inneractive.sdk.util.c: byte[] b(java.nio.ByteBuffer)>($r7);
+
+     label03:
+        if $i1 <= 0 goto label05;
+
+        $l2 = (long) $i1;
+
+     label04:
+        virtualinvoke $r14.<java.io.FileInputStream: long skip(long)>($l2);
+
+     label05:
+        $i3 = $i0 - $i1;
+
+        $i4 = lengthof $r8;
+
+     label06:
+        $i4 = staticinvoke <java.lang.Math: int min(int,int)>($i4, $i3);
+
+     label07:
+        $i5 = $i4;
+
+        $i4 = 0;
+
+     label08:
+        $i5 = virtualinvoke $r14.<java.io.FileInputStream: int read(byte[],int,int)>($r8, 0, $i5);
+
+     label09:
+        if $i5 == -1 goto label14;
+
+        $r9 = r0.<com.fyber.inneractive.sdk.player.a.i: java.io.OutputStream e>;
+
+     label10:
+        virtualinvoke $r9.<java.io.OutputStream: void write(byte[],int,int)>($r8, 0, $i5);
+
+     label11:
+        $i4 = $i4 + $i5;
+
+        $i3 = $i3 - $i5;
+
+        $i5 = lengthof $r8;
+
+     label12:
+        $i6 = staticinvoke <java.lang.Math: int min(int,int)>($i5, $i3);
+
+     label13:
+        $i5 = $i6;
+
+        if $i6 != 0 goto label08;
+
+     label14:
+        $r1 = newarray (java.lang.Object)[1];
+
+     label15:
+        $r2 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i4);
+
+     label16:
+        $r1[0] = $r2;
+
+     label17:
+        staticinvoke <com.fyber.inneractive.sdk.util.IAlog: void a(java.lang.String,java.lang.Object[])>("StreamingHandler wrote %d to socket", $r1);
+
+     label18:
+        $r6 = staticinvoke <com.fyber.inneractive.sdk.util.c: com.fyber.inneractive.sdk.util.c a()>();
+
+        virtualinvoke $r6.<com.fyber.inneractive.sdk.util.c: void a(java.nio.ByteBuffer)>($r7);
+
+        staticinvoke <com.fyber.inneractive.sdk.player.a.k: void a(java.io.Closeable)>($r14);
+
+        $r1 = newarray (java.lang.Object)[2];
+
+        $r2 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i1);
+
+        $r1[0] = $r2;
+
+        $r2 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+        $r1[1] = $r2;
+
+     label19:
+        staticinvoke <com.fyber.inneractive.sdk.util.IAlog: void a(java.lang.String,java.lang.Object[])>("StreamingHandler servedContent from %d to %d", $r1);
+
+     label20:
+        goto label25;
+
+     label21:
+        $r10 := @caughtexception;
+
+        goto label29;
+
+     label22:
+        $r11 := @caughtexception;
+
+     label23:
+        $r1 = newarray (java.lang.Object)[0];
+
+        staticinvoke <com.fyber.inneractive.sdk.util.IAlog: void a(java.lang.String,java.lang.Throwable,java.lang.Object[])>("StreamingHandler Failed writing to socket file contents", $r11, $r1);
+
+     label24:
+        $r6 = staticinvoke <com.fyber.inneractive.sdk.util.c: com.fyber.inneractive.sdk.util.c a()>();
+
+        virtualinvoke $r6.<com.fyber.inneractive.sdk.util.c: void a(java.nio.ByteBuffer)>($r7);
+
+        staticinvoke <com.fyber.inneractive.sdk.player.a.k: void a(java.io.Closeable)>($r14);
+
+        $r1 = newarray (java.lang.Object)[2];
+
+        $r2 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i1);
+
+        $r1[0] = $r2;
+
+        $r2 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+        $r1[1] = $r2;
+
+        goto label19;
+
+     label25:
+        exitmonitor $r4;
+
+     label26:
+        return;
+
+     label27:
+        $r12 := @caughtexception;
+
+     label28:
+        throw $r12;
+
+     label29:
+        $r6 = staticinvoke <com.fyber.inneractive.sdk.util.c: com.fyber.inneractive.sdk.util.c a()>();
+
+        virtualinvoke $r6.<com.fyber.inneractive.sdk.util.c: void a(java.nio.ByteBuffer)>($r7);
+
+        staticinvoke <com.fyber.inneractive.sdk.player.a.k: void a(java.io.Closeable)>($r14);
+
+        $r1 = newarray (java.lang.Object)[2];
+
+        $r2 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i1);
+
+        $r1[0] = $r2;
+
+        $r2 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+        $r1[1] = $r2;
+
+        staticinvoke <com.fyber.inneractive.sdk.util.IAlog: void a(java.lang.String,java.lang.Object[])>("StreamingHandler servedContent from %d to %d", $r1);
+
+        throw $r10;
+
+     label30:
+        $r13 := @caughtexception;
+
+        exitmonitor $r4;
+
+     label31:
+        throw $r13;
+
+        catch java.lang.Throwable from label01 to label02 with label30;
+        catch java.net.SocketException from label02 to label03 with label27;
+        catch java.net.SocketException from label04 to label05 with label27;
+        catch java.net.SocketException from label06 to label07 with label27;
+        catch java.net.SocketException from label08 to label09 with label27;
+        catch java.net.SocketException from label10 to label11 with label27;
+        catch java.net.SocketException from label12 to label13 with label27;
+        catch java.net.SocketException from label15 to label16 with label27;
+        catch java.net.SocketException from label17 to label18 with label27;
+        catch java.lang.Throwable from label02 to label18 with label22;
+        catch java.lang.Throwable from label02 to label18 with label21;
+        catch java.lang.Throwable from label18 to label20 with label30;
+        catch java.lang.Throwable from label23 to label24 with label21;
+        catch java.lang.Throwable from label24 to label26 with label30;
+        catch java.lang.Throwable from label28 to label29 with label21;
+        catch java.lang.Throwable from label29 to label31 with label30;
+    }

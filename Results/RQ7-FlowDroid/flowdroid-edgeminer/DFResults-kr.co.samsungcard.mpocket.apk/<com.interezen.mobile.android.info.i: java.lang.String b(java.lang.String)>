@@ -1,0 +1,68 @@
+    public static java.lang.String b(java.lang.String)
+    {
+        java.lang.Throwable $r3;
+        java.lang.Exception $r2;
+        java.lang.StringBuffer $r4;
+        int $i0;
+        char[] $r1;
+        java.lang.String $r0;
+        java.io.FileReader $r5;
+        java.io.BufferedReader $r6;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r4 = new java.lang.StringBuffer;
+
+     label01:
+        specialinvoke $r4.<java.lang.StringBuffer: void <init>(int)>(1000);
+
+     label02:
+        $r6 = new java.io.BufferedReader;
+
+        $r5 = new java.io.FileReader;
+
+     label03:
+        specialinvoke $r5.<java.io.FileReader: void <init>(java.lang.String)>($r0);
+
+        specialinvoke $r6.<java.io.BufferedReader: void <init>(java.io.Reader)>($r5);
+
+     label04:
+        $r1 = newarray (char)[1024];
+
+     label05:
+        $i0 = virtualinvoke $r6.<java.io.BufferedReader: int read(char[])>($r1);
+
+     label06:
+        if $i0 == -1 goto label09;
+
+     label07:
+        $r0 = staticinvoke <java.lang.String: java.lang.String valueOf(char[],int,int)>($r1, 0, $i0);
+
+        virtualinvoke $r4.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r0);
+
+     label08:
+        goto label05;
+
+     label09:
+        virtualinvoke $r6.<java.io.BufferedReader: void close()>();
+
+        $r0 = virtualinvoke $r4.<java.lang.StringBuffer: java.lang.String toString()>();
+
+     label10:
+        return $r0;
+
+     label11:
+        $r2 := @caughtexception;
+
+        $r3 = virtualinvoke $r2.<java.lang.Exception: java.lang.Throwable fillInStackTrace()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("I3GWifiInfo", "loadFileAsString Error", $r3);
+
+        return "";
+
+        catch java.lang.Exception from label01 to label02 with label11;
+        catch java.lang.Exception from label03 to label04 with label11;
+        catch java.lang.Exception from label05 to label06 with label11;
+        catch java.lang.Exception from label07 to label08 with label11;
+        catch java.lang.Exception from label09 to label10 with label11;
+    }

@@ -1,0 +1,53 @@
+    public static java.lang.Object read(gnu.mapping.InPort)
+    {
+        gnu.mapping.InPort $r0;
+        java.lang.Throwable $r5;
+        gnu.text.SyntaxException $r3;
+        gnu.kawa.lispexpr.LispReader r1;
+        java.lang.Object $r2;
+        gnu.text.SourceMessages $r4;
+        boolean $z0;
+
+        $r0 := @parameter0: gnu.mapping.InPort;
+
+        r1 = new gnu.kawa.lispexpr.LispReader;
+
+        specialinvoke r1.<gnu.kawa.lispexpr.LispReader: void <init>(gnu.text.LineBufferedReader)>($r0);
+
+     label1:
+        $r2 = virtualinvoke r1.<gnu.kawa.lispexpr.LispReader: java.lang.Object readObject()>();
+
+        $z0 = virtualinvoke r1.<gnu.kawa.lispexpr.LispReader: boolean seenErrors()>();
+
+     label2:
+        if $z0 == 0 goto label7;
+
+        $r3 = new gnu.text.SyntaxException;
+
+     label3:
+        $r4 = virtualinvoke r1.<gnu.kawa.lispexpr.LispReader: gnu.text.SourceMessages getMessages()>();
+
+        specialinvoke $r3.<gnu.text.SyntaxException: void <init>(gnu.text.SourceMessages)>($r4);
+
+     label4:
+        $r5 = (java.lang.Throwable) $r3;
+
+     label5:
+        throw $r5;
+
+     label6:
+        $r3 := @caughtexception;
+
+        virtualinvoke $r3.<gnu.text.SyntaxException: void setHeader(java.lang.String)>("syntax error in read:");
+
+        $r5 = (java.lang.Throwable) $r3;
+
+        throw $r5;
+
+     label7:
+        return $r2;
+
+        catch gnu.text.SyntaxException from label1 to label2 with label6;
+        catch gnu.text.SyntaxException from label3 to label4 with label6;
+        catch gnu.text.SyntaxException from label5 to label6 with label6;
+    }

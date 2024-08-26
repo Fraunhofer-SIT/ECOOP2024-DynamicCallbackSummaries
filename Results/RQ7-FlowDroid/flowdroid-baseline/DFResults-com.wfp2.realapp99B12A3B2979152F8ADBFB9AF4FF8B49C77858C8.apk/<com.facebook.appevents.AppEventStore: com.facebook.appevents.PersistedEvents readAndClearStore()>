@@ -1,0 +1,255 @@
+    public static final com.facebook.appevents.PersistedEvents readAndClearStore()
+    {
+        java.lang.Throwable $r0, $r1, $r2, $r14, $r17, $r18;
+        android.content.Context $r3;
+        com.facebook.appevents.AppEventStore$MovedClassObjectInputStream $r5;
+        java.io.BufferedInputStream $r6;
+        java.lang.NullPointerException $r12;
+        java.lang.String $r11;
+        boolean $z0;
+        com.facebook.appevents.PersistedEvents $r8;
+        java.io.FileInputStream $r4;
+        java.io.File $r9;
+        java.lang.Exception $r10, $r13, $r15, $r16;
+        java.lang.Object $r7;
+
+        entermonitor class "Lcom/facebook/appevents/AppEventStore;";
+
+     label01:
+        $z0 = staticinvoke <com.facebook.internal.instrument.crashshield.CrashShieldHandler: boolean isObjectCrashing(java.lang.Object)>(class "Lcom/facebook/appevents/AppEventStore;");
+
+     label02:
+        if $z0 == 0 goto label03;
+
+        exitmonitor class "Lcom/facebook/appevents/AppEventStore;";
+
+        return null;
+
+     label03:
+        staticinvoke <com.facebook.appevents.internal.AppEventUtility: void assertIsNotMainThread()>();
+
+        $r3 = staticinvoke <com.facebook.FacebookSdk: android.content.Context getApplicationContext()>();
+
+     label04:
+        $r4 = virtualinvoke $r3.<android.content.Context: java.io.FileInputStream openFileInput(java.lang.String)>("AppEventsLogger.persistedevents");
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkNotNullExpressionValue(java.lang.Object,java.lang.String)>($r4, "context.openFileInput(PERSISTED_EVENTS_FILENAME)");
+
+     label05:
+        $r5 = new com.facebook.appevents.AppEventStore$MovedClassObjectInputStream;
+
+        $r6 = new java.io.BufferedInputStream;
+
+     label06:
+        specialinvoke $r6.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r4);
+
+        specialinvoke $r5.<com.facebook.appevents.AppEventStore$MovedClassObjectInputStream: void <init>(java.io.BufferedInputStream)>($r6);
+
+     label07:
+        $r7 = virtualinvoke $r5.<java.io.ObjectInputStream: java.lang.Object readObject()>();
+
+     label08:
+        if $r7 == null goto label16;
+
+     label09:
+        $r8 = (com.facebook.appevents.PersistedEvents) $r7;
+
+     label10:
+        staticinvoke <com.facebook.internal.Utility: void closeQuietly(java.io.Closeable)>($r5);
+
+     label11:
+        $r9 = virtualinvoke $r3.<android.content.Context: java.io.File getFileStreamPath(java.lang.String)>("AppEventsLogger.persistedevents");
+
+        virtualinvoke $r9.<java.io.File: boolean delete()>();
+
+     label12:
+        goto label43;
+
+     label13:
+        $r10 := @caughtexception;
+
+     label14:
+        $r11 = <com.facebook.appevents.AppEventStore: java.lang.String TAG>;
+
+        staticinvoke <android.util.Log: int w(java.lang.String,java.lang.String,java.lang.Throwable)>($r11, "Got unexpected exception when removing events file: ", $r10);
+
+     label15:
+        goto label43;
+
+     label16:
+        $r12 = new java.lang.NullPointerException;
+
+     label17:
+        specialinvoke $r12.<java.lang.NullPointerException: void <init>(java.lang.String)>("null cannot be cast to non-null type com.facebook.appevents.PersistedEvents");
+
+     label18:
+        throw $r12;
+
+     label19:
+        $r13 := @caughtexception;
+
+        goto label22;
+
+     label20:
+        $r14 := @caughtexception;
+
+        $r5 = null;
+
+        goto label29;
+
+     label21:
+        $r13 := @caughtexception;
+
+        $r5 = null;
+
+     label22:
+        $r11 = <com.facebook.appevents.AppEventStore: java.lang.String TAG>;
+
+        staticinvoke <android.util.Log: int w(java.lang.String,java.lang.String,java.lang.Throwable)>($r11, "Got unexpected exception while reading events: ", $r13);
+
+     label23:
+        staticinvoke <com.facebook.internal.Utility: void closeQuietly(java.io.Closeable)>($r5);
+
+     label24:
+        $r9 = virtualinvoke $r3.<android.content.Context: java.io.File getFileStreamPath(java.lang.String)>("AppEventsLogger.persistedevents");
+
+        virtualinvoke $r9.<java.io.File: boolean delete()>();
+
+     label25:
+        goto label42;
+
+     label26:
+        $r15 := @caughtexception;
+
+     label27:
+        $r11 = <com.facebook.appevents.AppEventStore: java.lang.String TAG>;
+
+        goto label41;
+
+     label28:
+        $r14 := @caughtexception;
+
+     label29:
+        staticinvoke <com.facebook.internal.Utility: void closeQuietly(java.io.Closeable)>($r5);
+
+     label30:
+        $r9 = virtualinvoke $r3.<android.content.Context: java.io.File getFileStreamPath(java.lang.String)>("AppEventsLogger.persistedevents");
+
+        virtualinvoke $r9.<java.io.File: boolean delete()>();
+
+     label31:
+        goto label34;
+
+     label32:
+        $r16 := @caughtexception;
+
+     label33:
+        $r11 = <com.facebook.appevents.AppEventStore: java.lang.String TAG>;
+
+        staticinvoke <android.util.Log: int w(java.lang.String,java.lang.String,java.lang.Throwable)>($r11, "Got unexpected exception when removing events file: ", $r16);
+
+     label34:
+        throw $r14;
+
+     label35:
+        $r5 = null;
+
+     label36:
+        staticinvoke <com.facebook.internal.Utility: void closeQuietly(java.io.Closeable)>($r5);
+
+     label37:
+        $r9 = virtualinvoke $r3.<android.content.Context: java.io.File getFileStreamPath(java.lang.String)>("AppEventsLogger.persistedevents");
+
+        virtualinvoke $r9.<java.io.File: boolean delete()>();
+
+     label38:
+        goto label42;
+
+     label39:
+        $r15 := @caughtexception;
+
+     label40:
+        $r11 = <com.facebook.appevents.AppEventStore: java.lang.String TAG>;
+
+     label41:
+        staticinvoke <android.util.Log: int w(java.lang.String,java.lang.String,java.lang.Throwable)>($r11, "Got unexpected exception when removing events file: ", $r15);
+
+     label42:
+        $r8 = null;
+
+     label43:
+        if $r8 != null goto label44;
+
+        $r8 = new com.facebook.appevents.PersistedEvents;
+
+        specialinvoke $r8.<com.facebook.appevents.PersistedEvents: void <init>()>();
+
+     label44:
+        exitmonitor class "Lcom/facebook/appevents/AppEventStore;";
+
+        return $r8;
+
+     label45:
+        $r17 := @caughtexception;
+
+     label46:
+        staticinvoke <com.facebook.internal.instrument.crashshield.CrashShieldHandler: void handleThrowable(java.lang.Throwable,java.lang.Object)>($r17, class "Lcom/facebook/appevents/AppEventStore;");
+
+     label47:
+        exitmonitor class "Lcom/facebook/appevents/AppEventStore;";
+
+        return null;
+
+     label48:
+        $r18 := @caughtexception;
+
+        exitmonitor class "Lcom/facebook/appevents/AppEventStore;";
+
+        throw $r18;
+
+     label49:
+        $r0 := @caughtexception;
+
+        goto label35;
+
+     label50:
+        $r1 := @caughtexception;
+
+        goto label36;
+
+     label51:
+        $r2 := @caughtexception;
+
+        goto label36;
+
+        catch java.lang.Throwable from label01 to label02 with label48;
+        catch java.lang.Throwable from label03 to label04 with label45;
+        catch java.io.FileNotFoundException from label04 to label05 with label49;
+        catch java.io.FileNotFoundException from label06 to label07 with label49;
+        catch java.lang.Exception from label04 to label05 with label21;
+        catch java.lang.Exception from label06 to label07 with label21;
+        catch java.lang.Throwable from label04 to label07 with label20;
+        catch java.io.FileNotFoundException from label07 to label08 with label50;
+        catch java.lang.Exception from label07 to label08 with label19;
+        catch java.lang.Exception from label09 to label10 with label19;
+        catch java.lang.Throwable from label07 to label10 with label28;
+        catch java.lang.Throwable from label10 to label11 with label45;
+        catch java.lang.Exception from label11 to label12 with label13;
+        catch java.lang.Throwable from label11 to label12 with label45;
+        catch java.lang.Throwable from label14 to label15 with label45;
+        catch java.io.FileNotFoundException from label17 to label18 with label51;
+        catch java.lang.Exception from label17 to label19 with label19;
+        catch java.lang.Throwable from label16 to label19 with label28;
+        catch java.lang.Throwable from label22 to label23 with label28;
+        catch java.lang.Throwable from label23 to label24 with label45;
+        catch java.lang.Exception from label24 to label25 with label26;
+        catch java.lang.Throwable from label24 to label25 with label45;
+        catch java.lang.Throwable from label27 to label30 with label45;
+        catch java.lang.Exception from label30 to label31 with label32;
+        catch java.lang.Throwable from label30 to label31 with label45;
+        catch java.lang.Throwable from label33 to label37 with label45;
+        catch java.lang.Exception from label37 to label38 with label39;
+        catch java.lang.Throwable from label37 to label38 with label45;
+        catch java.lang.Throwable from label40 to label44 with label45;
+        catch java.lang.Throwable from label46 to label47 with label48;
+    }

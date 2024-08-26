@@ -1,0 +1,166 @@
+    private static java.lang.Object get(java.lang.String, java.lang.String, java.lang.Class, java.lang.Object)
+    {
+        java.lang.Throwable $r11;
+        java.util.Set $r10;
+        java.util.HashMap $r4;
+        long $l1;
+        java.lang.Integer $r8;
+        android.content.SharedPreferences $r7;
+        java.lang.Long $r9;
+        int $i0;
+        java.lang.Boolean $r6;
+        java.lang.Class $r2;
+        java.lang.Object $r3, $r5;
+        java.lang.String $r0, $r1;
+        boolean $z0;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r0 := @parameter1: java.lang.String;
+
+        $r2 := @parameter2: java.lang.Class;
+
+        $r3 := @parameter3: java.lang.Object;
+
+        $r4 = <com.onesignal.OneSignalPrefs: java.util.HashMap prefsToApply>;
+
+        $r5 = virtualinvoke $r4.<java.util.HashMap: java.lang.Object get(java.lang.Object)>($r1);
+
+        $r4 = (java.util.HashMap) $r5;
+
+        entermonitor $r4;
+
+     label01:
+        $z0 = virtualinvoke $r2.<java.lang.Object: boolean equals(java.lang.Object)>(class "Ljava/lang/Object;");
+
+        if $z0 == 0 goto label03;
+
+        $z0 = virtualinvoke $r4.<java.util.HashMap: boolean containsKey(java.lang.Object)>($r0);
+
+        if $z0 == 0 goto label03;
+
+        $r6 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(1);
+
+        exitmonitor $r4;
+
+     label02:
+        return $r6;
+
+     label03:
+        $r5 = virtualinvoke $r4.<java.util.HashMap: java.lang.Object get(java.lang.Object)>($r0);
+
+        if $r5 != null goto label12;
+
+        $z0 = virtualinvoke $r4.<java.util.HashMap: boolean containsKey(java.lang.Object)>($r0);
+
+        if $z0 != 0 goto label12;
+
+        exitmonitor $r4;
+
+     label04:
+        $r7 = staticinvoke <com.onesignal.OneSignalPrefs: android.content.SharedPreferences getSharedPrefsByName(java.lang.String)>($r1);
+
+        if $r7 == null goto label11;
+
+        $z0 = virtualinvoke $r2.<java.lang.Object: boolean equals(java.lang.Object)>(class "Ljava/lang/String;");
+
+        if $z0 == 0 goto label05;
+
+        $r1 = (java.lang.String) $r3;
+
+        $r1 = interfaceinvoke $r7.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>($r0, $r1);
+
+        return $r1;
+
+     label05:
+        $z0 = virtualinvoke $r2.<java.lang.Object: boolean equals(java.lang.Object)>(class "Ljava/lang/Boolean;");
+
+        if $z0 == 0 goto label06;
+
+        $r6 = (java.lang.Boolean) $r3;
+
+        $z0 = virtualinvoke $r6.<java.lang.Boolean: boolean booleanValue()>();
+
+        $z0 = interfaceinvoke $r7.<android.content.SharedPreferences: boolean getBoolean(java.lang.String,boolean)>($r0, $z0);
+
+        $r6 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>($z0);
+
+        return $r6;
+
+     label06:
+        $z0 = virtualinvoke $r2.<java.lang.Object: boolean equals(java.lang.Object)>(class "Ljava/lang/Integer;");
+
+        if $z0 == 0 goto label07;
+
+        $r8 = (java.lang.Integer) $r3;
+
+        $i0 = virtualinvoke $r8.<java.lang.Integer: int intValue()>();
+
+        $i0 = interfaceinvoke $r7.<android.content.SharedPreferences: int getInt(java.lang.String,int)>($r0, $i0);
+
+        $r8 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+        return $r8;
+
+     label07:
+        $z0 = virtualinvoke $r2.<java.lang.Object: boolean equals(java.lang.Object)>(class "Ljava/lang/Long;");
+
+        if $z0 == 0 goto label08;
+
+        $r9 = (java.lang.Long) $r3;
+
+        $l1 = virtualinvoke $r9.<java.lang.Long: long longValue()>();
+
+        $l1 = interfaceinvoke $r7.<android.content.SharedPreferences: long getLong(java.lang.String,long)>($r0, $l1);
+
+        $r9 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>($l1);
+
+        return $r9;
+
+     label08:
+        $z0 = virtualinvoke $r2.<java.lang.Object: boolean equals(java.lang.Object)>(class "Ljava/util/Set;");
+
+        if $z0 == 0 goto label09;
+
+        $r10 = (java.util.Set) $r3;
+
+        $r10 = interfaceinvoke $r7.<android.content.SharedPreferences: java.util.Set getStringSet(java.lang.String,java.util.Set)>($r0, $r10);
+
+        return $r10;
+
+     label09:
+        $z0 = virtualinvoke $r2.<java.lang.Object: boolean equals(java.lang.Object)>(class "Ljava/lang/Object;");
+
+        if $z0 == 0 goto label10;
+
+        $z0 = interfaceinvoke $r7.<android.content.SharedPreferences: boolean contains(java.lang.String)>($r0);
+
+        $r6 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>($z0);
+
+        return $r6;
+
+     label10:
+        return null;
+
+     label11:
+        return $r3;
+
+     label12:
+        exitmonitor $r4;
+
+     label13:
+        return $r5;
+
+     label14:
+        $r11 := @caughtexception;
+
+        exitmonitor $r4;
+
+     label15:
+        throw $r11;
+
+        catch java.lang.Throwable from label01 to label02 with label14;
+        catch java.lang.Throwable from label03 to label04 with label14;
+        catch java.lang.Throwable from label12 to label13 with label14;
+        catch java.lang.Throwable from label14 to label15 with label14;
+    }

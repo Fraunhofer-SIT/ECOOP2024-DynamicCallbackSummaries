@@ -1,0 +1,41 @@
+    private java.lang.Object readObject()
+    {
+        java.lang.Throwable $r3;
+        org.bouncycastle.asn1.ASN1Primitive $r5;
+        org.bouncycastle.asn1.LazyConstructionEnumeration r0;
+        org.bouncycastle.asn1.ASN1ParsingException $r2;
+        java.lang.StringBuilder $r1;
+        java.lang.String $r6;
+        org.bouncycastle.asn1.ASN1InputStream $r4;
+
+        r0 := @this: org.bouncycastle.asn1.LazyConstructionEnumeration;
+
+        $r4 = r0.<org.bouncycastle.asn1.LazyConstructionEnumeration: org.bouncycastle.asn1.ASN1InputStream aIn>;
+
+     label1:
+        $r5 = virtualinvoke $r4.<org.bouncycastle.asn1.ASN1InputStream: org.bouncycastle.asn1.ASN1Primitive readObject()>();
+
+     label2:
+        return $r5;
+
+     label3:
+        $r3 := @caughtexception;
+
+        $r2 = new org.bouncycastle.asn1.ASN1ParsingException;
+
+        $r1 = new java.lang.StringBuilder;
+
+        specialinvoke $r1.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("malformed DER construction: ");
+
+        virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r3);
+
+        $r6 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r2.<org.bouncycastle.asn1.ASN1ParsingException: void <init>(java.lang.String,java.lang.Throwable)>($r6, $r3);
+
+        throw $r2;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }

@@ -1,0 +1,126 @@
+    public void a(java.io.File) throws java.io.IOException
+    {
+        java.lang.Throwable $r7, $r8;
+        c.b.a.n0 r0;
+        long $l0;
+        java.io.FileInputStream $r9;
+        java.io.InputStreamReader $r10;
+        java.lang.Exception $r1, $r2;
+        java.io.File $r3;
+        byte $b1;
+        java.io.Writer $r5;
+        int $i2;
+        char[] $r6;
+        java.io.BufferedReader $r4, $r11;
+
+        r0 := @this: c.b.a.n0;
+
+        $r3 := @parameter0: java.io.File;
+
+        if $r3 == null goto label21;
+
+        $l0 = virtualinvoke $r3.<java.io.File: long length()>();
+
+        $b1 = $l0 cmp 0L;
+
+        $i2 = (int) $b1;
+
+        if $i2 > 0 goto label01;
+
+        return;
+
+     label01:
+        specialinvoke r0.<c.b.a.o0: void flush()>();
+
+        virtualinvoke r0.<c.b.a.o0: void a()>();
+
+        $r4 = null;
+
+     label02:
+        $r9 = new java.io.FileInputStream;
+
+     label03:
+        specialinvoke $r9.<java.io.FileInputStream: void <init>(java.io.File)>($r3);
+
+        $r11 = new java.io.BufferedReader;
+
+     label04:
+        $r10 = new java.io.InputStreamReader;
+
+     label05:
+        specialinvoke $r10.<java.io.InputStreamReader: void <init>(java.io.InputStream,java.lang.String)>($r9, "UTF-8");
+
+        specialinvoke $r11.<java.io.BufferedReader: void <init>(java.io.Reader)>($r10);
+
+     label06:
+        $r5 = r0.<c.b.a.n0: java.io.Writer m>;
+
+     label07:
+        $r6 = newarray (char)[4096];
+
+     label08:
+        $i2 = virtualinvoke $r11.<java.io.Reader: int read(char[])>($r6);
+
+     label09:
+        if -1 == $i2 goto label12;
+
+     label10:
+        virtualinvoke $r5.<java.io.Writer: void write(char[],int,int)>($r6, 0, $i2);
+
+     label11:
+        goto label08;
+
+     label12:
+        interfaceinvoke $r11.<java.io.Closeable: void close()>();
+
+     label13:
+        $r5 = r0.<c.b.a.n0: java.io.Writer m>;
+
+        virtualinvoke $r5.<java.io.Writer: void flush()>();
+
+        return;
+
+     label14:
+        $r7 := @caughtexception;
+
+        $r4 = $r11;
+
+        $r8 = $r7;
+
+        goto label16;
+
+     label15:
+        $r8 := @caughtexception;
+
+     label16:
+        if $r4 == null goto label18;
+
+     label17:
+        interfaceinvoke $r4.<java.io.Closeable: void close()>();
+
+     label18:
+        throw $r8;
+
+     label19:
+        $r1 := @caughtexception;
+
+        goto label13;
+
+     label20:
+        $r2 := @caughtexception;
+
+        goto label18;
+
+     label21:
+        return;
+
+        catch java.lang.Throwable from label02 to label03 with label15;
+        catch java.lang.Throwable from label03 to label04 with label15;
+        catch java.lang.Throwable from label04 to label05 with label15;
+        catch java.lang.Throwable from label05 to label06 with label15;
+        catch java.lang.Throwable from label06 to label07 with label14;
+        catch java.lang.Throwable from label08 to label09 with label14;
+        catch java.lang.Throwable from label10 to label11 with label14;
+        catch java.lang.Exception from label12 to label13 with label19;
+        catch java.lang.Exception from label17 to label18 with label20;
+    }

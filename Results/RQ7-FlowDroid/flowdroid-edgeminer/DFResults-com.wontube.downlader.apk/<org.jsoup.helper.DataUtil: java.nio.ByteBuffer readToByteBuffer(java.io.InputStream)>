@@ -1,0 +1,32 @@
+    static java.nio.ByteBuffer readToByteBuffer(java.io.InputStream) throws java.io.IOException
+    {
+        byte[] r1;
+        java.io.ByteArrayOutputStream $r3;
+        int $i0;
+        java.nio.ByteBuffer $r2;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        r1 = newarray (byte)[131072];
+
+        $r3 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r3.<java.io.ByteArrayOutputStream: void <init>(int)>(131072);
+
+     label1:
+        $i0 = virtualinvoke $r0.<java.io.InputStream: int read(byte[])>(r1);
+
+        if $i0 != -1 goto label2;
+
+        r1 = virtualinvoke $r3.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $r2 = staticinvoke <java.nio.ByteBuffer: java.nio.ByteBuffer wrap(byte[])>(r1);
+
+        return $r2;
+
+     label2:
+        virtualinvoke $r3.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>(r1, 0, $i0);
+
+        goto label1;
+    }

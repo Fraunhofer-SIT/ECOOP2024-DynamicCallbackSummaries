@@ -1,0 +1,143 @@
+    private boolean b(java.io.ByteArrayOutputStream, java.io.File)
+    {
+        java.lang.Throwable $r10, $r11, $r12, $r13;
+        java.io.ByteArrayOutputStream $r1;
+        java.io.FileOutputStream $r7, $r8;
+        java.io.File $r2;
+        com.applovin.impl.sdk.v $r3;
+        com.applovin.impl.sdk.r r0;
+        java.lang.StringBuilder $r4;
+        java.lang.Object $r6;
+        java.lang.String $r5;
+        com.applovin.impl.sdk.m $r9;
+        boolean $z0;
+
+        r0 := @this: com.applovin.impl.sdk.r;
+
+        $r1 := @parameter0: java.io.ByteArrayOutputStream;
+
+        $r2 := @parameter1: java.io.File;
+
+        $r3 = r0.<com.applovin.impl.sdk.r: com.applovin.impl.sdk.v c>;
+
+        $r4 = new java.lang.StringBuilder;
+
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Writing resource to filesystem: ");
+
+        $r5 = virtualinvoke $r2.<java.io.File: java.lang.String getName()>();
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r3.<com.applovin.impl.sdk.v: void b(java.lang.String,java.lang.String)>("FileManager", $r5);
+
+        $r6 = r0.<com.applovin.impl.sdk.r: java.lang.Object d>;
+
+        entermonitor $r6;
+
+        $r7 = null;
+
+     label01:
+        $r8 = staticinvoke <com.safedk.android.internal.partials.AppLovinFilesBridge: java.io.FileOutputStream fileOutputStreamCtor(java.io.File)>($r2);
+
+     label02:
+        virtualinvoke $r1.<java.io.ByteArrayOutputStream: void writeTo(java.io.OutputStream)>($r8);
+
+     label03:
+        $z0 = 1;
+
+     label04:
+        $r9 = r0.<com.applovin.impl.sdk.r: com.applovin.impl.sdk.m b>;
+
+        staticinvoke <com.applovin.impl.sdk.utils.Utils: void close(java.io.Closeable,com.applovin.impl.sdk.m)>($r8, $r9);
+
+     label05:
+        goto label18;
+
+     label06:
+        $r10 := @caughtexception;
+
+        goto label21;
+
+     label07:
+        $r11 := @caughtexception;
+
+        $r7 = $r8;
+
+        goto label10;
+
+     label08:
+        $r12 := @caughtexception;
+
+        $r7 = $r8;
+
+        goto label15;
+
+     label09:
+        $r11 := @caughtexception;
+
+     label10:
+        $r3 = r0.<com.applovin.impl.sdk.r: com.applovin.impl.sdk.v c>;
+
+        virtualinvoke $r3.<com.applovin.impl.sdk.v: void b(java.lang.String,java.lang.String,java.lang.Throwable)>("FileManager", "Unknown failure to write file.", $r11);
+
+     label11:
+        $r9 = r0.<com.applovin.impl.sdk.r: com.applovin.impl.sdk.m b>;
+
+     label12:
+        staticinvoke <com.applovin.impl.sdk.utils.Utils: void close(java.io.Closeable,com.applovin.impl.sdk.m)>($r7, $r9);
+
+     label13:
+        goto label17;
+
+     label14:
+        $r12 := @caughtexception;
+
+     label15:
+        $r3 = r0.<com.applovin.impl.sdk.r: com.applovin.impl.sdk.v c>;
+
+        virtualinvoke $r3.<com.applovin.impl.sdk.v: void b(java.lang.String,java.lang.String,java.lang.Throwable)>("FileManager", "Unable to write data to file.", $r12);
+
+     label16:
+        $r9 = r0.<com.applovin.impl.sdk.r: com.applovin.impl.sdk.m b>;
+
+        goto label12;
+
+     label17:
+        $z0 = 0;
+
+     label18:
+        exitmonitor $r6;
+
+     label19:
+        return $z0;
+
+     label20:
+        $r13 := @caughtexception;
+
+        $r9 = r0.<com.applovin.impl.sdk.r: com.applovin.impl.sdk.m b>;
+
+        staticinvoke <com.applovin.impl.sdk.utils.Utils: void close(java.io.Closeable,com.applovin.impl.sdk.m)>($r7, $r9);
+
+        throw $r13;
+
+     label21:
+        exitmonitor $r6;
+
+     label22:
+        throw $r10;
+
+        catch java.io.IOException from label01 to label02 with label14;
+        catch java.lang.Throwable from label01 to label02 with label09;
+        catch java.io.IOException from label02 to label03 with label08;
+        catch java.lang.Throwable from label02 to label03 with label07;
+        catch java.lang.Throwable from label04 to label05 with label06;
+        catch java.lang.Throwable from label10 to label11 with label20;
+        catch java.lang.Throwable from label11 to label13 with label06;
+        catch java.lang.Throwable from label15 to label16 with label20;
+        catch java.lang.Throwable from label16 to label19 with label06;
+        catch java.lang.Throwable from label20 to label22 with label06;
+    }

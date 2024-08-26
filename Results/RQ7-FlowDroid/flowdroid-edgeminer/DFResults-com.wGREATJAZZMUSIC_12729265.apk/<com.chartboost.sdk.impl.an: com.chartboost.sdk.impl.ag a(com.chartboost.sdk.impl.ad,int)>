@@ -1,0 +1,593 @@
+    private com.chartboost.sdk.impl.ag a(com.chartboost.sdk.impl.ad, int) throws java.io.IOException
+    {
+        java.net.HttpURLConnection $r14;
+        byte[] $r20;
+        java.io.BufferedInputStream $r40;
+        java.io.DataOutputStream $r21, $r36;
+        java.util.Map $r12;
+        boolean $z0;
+        java.util.Set $r15;
+        java.lang.StringBuilder $r37;
+        java.lang.Throwable $r1, $r2, $r3, $r4, $r5, $r6, $r7, $r8, $r9, $r23, $r31, $r32, $r33, $r34, $r35;
+        long $l1, $l2;
+        int $i0;
+        java.lang.String $r18, $r19;
+        java.io.OutputStream $r22;
+        java.util.Iterator $r16;
+        java.io.FileOutputStream $r29, $r38;
+        java.io.IOException $r39;
+        java.io.File $r25, $r26, $r27, $r30;
+        com.chartboost.sdk.impl.ag $r41;
+        com.chartboost.sdk.impl.ad $r10;
+        com.chartboost.sdk.impl.ae $r11;
+        com.chartboost.sdk.impl.ao $r13;
+        java.lang.Object $r17;
+        com.chartboost.sdk.Libraries.i $r24;
+        com.chartboost.sdk.impl.an r0;
+        java.io.InputStream $r28;
+
+        r0 := @this: com.chartboost.sdk.impl.an;
+
+        $r10 := @parameter0: com.chartboost.sdk.impl.ad;
+
+        $i0 := @parameter1: int;
+
+        $r11 = virtualinvoke $r10.<com.chartboost.sdk.impl.ad: com.chartboost.sdk.impl.ae a()>();
+
+        $r12 = $r11.<com.chartboost.sdk.impl.ae: java.util.Map a>;
+
+        $r13 = r0.<com.chartboost.sdk.impl.an: com.chartboost.sdk.impl.ao c>;
+
+        $r14 = virtualinvoke $r13.<com.chartboost.sdk.impl.ao: java.net.HttpURLConnection a(com.chartboost.sdk.impl.ad)>($r10);
+
+        virtualinvoke $r14.<java.net.HttpURLConnection: void setConnectTimeout(int)>($i0);
+
+        virtualinvoke $r14.<java.net.HttpURLConnection: void setReadTimeout(int)>($i0);
+
+        virtualinvoke $r14.<java.net.HttpURLConnection: void setUseCaches(boolean)>(0);
+
+        virtualinvoke $r14.<java.net.HttpURLConnection: void setDoInput(boolean)>(1);
+
+        if $r12 == null goto label006;
+
+     label001:
+        $r15 = interfaceinvoke $r12.<java.util.Map: java.util.Set keySet()>();
+
+        $r16 = interfaceinvoke $r15.<java.util.Set: java.util.Iterator iterator()>();
+
+     label002:
+        $z0 = interfaceinvoke $r16.<java.util.Iterator: boolean hasNext()>();
+
+     label003:
+        if $z0 == 0 goto label006;
+
+     label004:
+        $r17 = interfaceinvoke $r16.<java.util.Iterator: java.lang.Object next()>();
+
+        $r18 = (java.lang.String) $r17;
+
+        $r17 = interfaceinvoke $r12.<java.util.Map: java.lang.Object get(java.lang.Object)>($r18);
+
+        $r19 = (java.lang.String) $r17;
+
+        virtualinvoke $r14.<java.net.HttpURLConnection: void addRequestProperty(java.lang.String,java.lang.String)>($r18, $r19);
+
+     label005:
+        goto label002;
+
+     label006:
+        $r18 = $r10.<com.chartboost.sdk.impl.ad: java.lang.String b>;
+
+        virtualinvoke $r14.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>($r18);
+
+        $r18 = $r10.<com.chartboost.sdk.impl.ad: java.lang.String b>;
+
+        $z0 = virtualinvoke $r18.<java.lang.String: boolean equals(java.lang.Object)>("POST");
+
+     label007:
+        $r17 = null;
+
+        if $z0 == 0 goto label024;
+
+     label008:
+        $r20 = $r11.<com.chartboost.sdk.impl.ae: byte[] b>;
+
+     label009:
+        if $r20 == null goto label024;
+
+     label010:
+        virtualinvoke $r14.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+        $r20 = $r11.<com.chartboost.sdk.impl.ae: byte[] b>;
+
+        $i0 = lengthof $r20;
+
+        virtualinvoke $r14.<java.net.HttpURLConnection: void setFixedLengthStreamingMode(int)>($i0);
+
+        $r18 = $r11.<com.chartboost.sdk.impl.ae: java.lang.String c>;
+
+     label011:
+        if $r18 == null goto label013;
+
+     label012:
+        $r18 = $r11.<com.chartboost.sdk.impl.ae: java.lang.String c>;
+
+        virtualinvoke $r14.<java.net.HttpURLConnection: void addRequestProperty(java.lang.String,java.lang.String)>("Content-Type", $r18);
+
+     label013:
+        $r36 = new java.io.DataOutputStream;
+
+     label014:
+        $r22 = virtualinvoke $r14.<java.net.HttpURLConnection: java.io.OutputStream getOutputStream()>();
+
+        specialinvoke $r36.<java.io.DataOutputStream: void <init>(java.io.OutputStream)>($r22);
+
+     label015:
+        $r20 = $r11.<com.chartboost.sdk.impl.ae: byte[] b>;
+
+        virtualinvoke $r36.<java.io.DataOutputStream: void write(byte[])>($r20);
+
+     label016:
+        virtualinvoke $r36.<java.io.DataOutputStream: void close()>();
+
+     label017:
+        goto label024;
+
+     label018:
+        $r23 := @caughtexception;
+
+        $r17 = $r36;
+
+        goto label020;
+
+     label019:
+        $r23 := @caughtexception;
+
+     label020:
+        if $r17 == null goto label023;
+
+     label021:
+        $r21 = (java.io.DataOutputStream) $r17;
+
+     label022:
+        virtualinvoke $r21.<java.io.DataOutputStream: void close()>();
+
+     label023:
+        throw $r23;
+
+     label024:
+        $r24 = r0.<com.chartboost.sdk.impl.an: com.chartboost.sdk.Libraries.i e>;
+
+        $l1 = virtualinvoke $r24.<com.chartboost.sdk.Libraries.i: long b()>();
+
+     label025:
+        $i0 = virtualinvoke $r14.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label026:
+        $r24 = r0.<com.chartboost.sdk.impl.an: com.chartboost.sdk.Libraries.i e>;
+
+        $l2 = virtualinvoke $r24.<com.chartboost.sdk.Libraries.i: long b()>();
+
+     label027:
+        $l1 = $l2 - $l1;
+
+     label028:
+        $r10.<com.chartboost.sdk.impl.ad: long h> = $l1;
+
+     label029:
+        if $i0 == -1 goto label095;
+
+     label030:
+        $z0 = staticinvoke <com.chartboost.sdk.impl.an: boolean a(int)>($i0);
+
+     label031:
+        if $z0 == 0 goto label085;
+
+     label032:
+        $r25 = $r10.<com.chartboost.sdk.impl.ad: java.io.File f>;
+
+     label033:
+        if $r25 == null goto label067;
+
+     label034:
+        $r30 = new java.io.File;
+
+     label035:
+        $r25 = $r30;
+
+     label036:
+        $r26 = $r10.<com.chartboost.sdk.impl.ad: java.io.File f>;
+
+        $r26 = virtualinvoke $r26.<java.io.File: java.io.File getParentFile()>();
+
+        $r37 = new java.lang.StringBuilder;
+
+     label037:
+        specialinvoke $r37.<java.lang.StringBuilder: void <init>()>();
+
+        $r27 = $r10.<com.chartboost.sdk.impl.ad: java.io.File f>;
+
+        $r18 = virtualinvoke $r27.<java.io.File: java.lang.String getName()>();
+
+        virtualinvoke $r37.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r18);
+
+        virtualinvoke $r37.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".tmp");
+
+        $r18 = virtualinvoke $r37.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r30.<java.io.File: void <init>(java.io.File,java.lang.String)>($r26, $r18);
+
+     label038:
+        $r20 = newarray (byte)[0];
+
+     label039:
+        $r28 = virtualinvoke $r14.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+     label040:
+        $r38 = new java.io.FileOutputStream;
+
+     label041:
+        $r29 = $r38;
+
+     label042:
+        specialinvoke $r38.<java.io.FileOutputStream: void <init>(java.io.File)>($r30);
+
+     label043:
+        staticinvoke <com.chartboost.sdk.impl.bi: int a(java.io.InputStream,java.io.OutputStream)>($r28, $r38);
+
+     label044:
+        if $r28 == null goto label046;
+
+     label045:
+        virtualinvoke $r28.<java.io.InputStream: void close()>();
+
+     label046:
+        virtualinvoke $r38.<java.io.FileOutputStream: void close()>();
+
+     label047:
+        $r30 = $r10.<com.chartboost.sdk.impl.ad: java.io.File f>;
+
+        $z0 = virtualinvoke $r25.<java.io.File: boolean renameTo(java.io.File)>($r30);
+
+     label048:
+        if $z0 != 0 goto label086;
+
+     label049:
+        $z0 = virtualinvoke $r25.<java.io.File: boolean delete()>();
+
+     label050:
+        if $z0 != 0 goto label054;
+
+     label051:
+        $r39 = new java.io.IOException;
+
+     label052:
+        $r37 = new java.lang.StringBuilder;
+
+     label053:
+        specialinvoke $r37.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r37.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Unable to delete ");
+
+        $r18 = virtualinvoke $r25.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r37.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r18);
+
+        virtualinvoke $r37.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" after failing to rename to ");
+
+        $r25 = $r10.<com.chartboost.sdk.impl.ad: java.io.File f>;
+
+        $r18 = virtualinvoke $r25.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r37.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r18);
+
+        $r18 = virtualinvoke $r37.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r39.<java.io.IOException: void <init>(java.lang.String)>($r18);
+
+        throw $r39;
+
+     label054:
+        $r39 = new java.io.IOException;
+
+     label055:
+        $r37 = new java.lang.StringBuilder;
+
+     label056:
+        specialinvoke $r37.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r37.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Unable to move ");
+
+        $r18 = virtualinvoke $r25.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r37.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r18);
+
+        virtualinvoke $r37.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" to ");
+
+        $r25 = $r10.<com.chartboost.sdk.impl.ad: java.io.File f>;
+
+        $r18 = virtualinvoke $r25.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r37.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r18);
+
+        $r18 = virtualinvoke $r37.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r39.<java.io.IOException: void <init>(java.lang.String)>($r18);
+
+        throw $r39;
+
+     label057:
+        $r31 := @caughtexception;
+
+        goto label059;
+
+     label058:
+        $r31 := @caughtexception;
+
+        $r29 = null;
+
+     label059:
+        $r17 = $r28;
+
+        goto label061;
+
+     label060:
+        $r31 := @caughtexception;
+
+        $r29 = null;
+
+     label061:
+        if $r17 == null goto label064;
+
+     label062:
+        $r28 = (java.io.InputStream) $r17;
+
+     label063:
+        virtualinvoke $r28.<java.io.InputStream: void close()>();
+
+     label064:
+        if $r29 == null goto label066;
+
+     label065:
+        virtualinvoke $r29.<java.io.FileOutputStream: void close()>();
+
+     label066:
+        throw $r31;
+
+     label067:
+        $r28 = virtualinvoke $r14.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+     label068:
+        $r17 = $r28;
+
+        goto label072;
+
+     label069:
+        $r32 := @caughtexception;
+
+        goto label081;
+
+     label070:
+        $r28 = virtualinvoke $r14.<java.net.HttpURLConnection: java.io.InputStream getErrorStream()>();
+
+     label071:
+        goto label068;
+
+     label072:
+        if $r28 == null goto label076;
+
+     label073:
+        $r40 = new java.io.BufferedInputStream;
+
+     label074:
+        specialinvoke $r40.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r28);
+
+        $r20 = staticinvoke <com.chartboost.sdk.impl.bi: byte[] b(java.io.InputStream)>($r40);
+
+     label075:
+        goto label077;
+
+     label076:
+        $r20 = newarray (byte)[0];
+
+     label077:
+        if $r17 == null goto label086;
+
+     label078:
+        $r28 = (java.io.InputStream) $r17;
+
+     label079:
+        virtualinvoke $r28.<java.io.InputStream: void close()>();
+
+     label080:
+        goto label086;
+
+     label081:
+        if $r17 == null goto label084;
+
+     label082:
+        $r28 = (java.io.InputStream) $r17;
+
+     label083:
+        virtualinvoke $r28.<java.io.InputStream: void close()>();
+
+     label084:
+        throw $r32;
+
+     label085:
+        $r20 = newarray (byte)[0];
+
+     label086:
+        $r24 = r0.<com.chartboost.sdk.impl.an: com.chartboost.sdk.Libraries.i e>;
+
+        $l1 = virtualinvoke $r24.<com.chartboost.sdk.Libraries.i: long b()>();
+
+     label087:
+        $l2 = $l1 - $l2;
+
+     label088:
+        $r10.<com.chartboost.sdk.impl.ad: long i> = $l2;
+
+        $r41 = new com.chartboost.sdk.impl.ag;
+
+     label089:
+        specialinvoke $r41.<com.chartboost.sdk.impl.ag: void <init>(int,byte[])>($i0, $r20);
+
+     label090:
+        virtualinvoke $r14.<java.net.HttpURLConnection: void disconnect()>();
+
+        return $r41;
+
+     label091:
+        $r33 := @caughtexception;
+
+     label092:
+        $r24 = r0.<com.chartboost.sdk.impl.an: com.chartboost.sdk.Libraries.i e>;
+
+        $l1 = virtualinvoke $r24.<com.chartboost.sdk.Libraries.i: long b()>();
+
+     label093:
+        $l2 = $l1 - $l2;
+
+     label094:
+        $r10.<com.chartboost.sdk.impl.ad: long i> = $l2;
+
+        throw $r33;
+
+     label095:
+        $r39 = new java.io.IOException;
+
+     label096:
+        specialinvoke $r39.<java.io.IOException: void <init>(java.lang.String)>("Could not retrieve response code from HttpUrlConnection.");
+
+        throw $r39;
+
+     label097:
+        $r34 := @caughtexception;
+
+     label098:
+        $r24 = r0.<com.chartboost.sdk.impl.an: com.chartboost.sdk.Libraries.i e>;
+
+        $l2 = virtualinvoke $r24.<com.chartboost.sdk.Libraries.i: long b()>();
+
+     label099:
+        $l2 = $l2 - $l1;
+
+     label100:
+        $r10.<com.chartboost.sdk.impl.ad: long h> = $l2;
+
+        throw $r34;
+
+     label101:
+        $r35 := @caughtexception;
+
+        virtualinvoke $r14.<java.net.HttpURLConnection: void disconnect()>();
+
+        throw $r35;
+
+     label102:
+        $r1 := @caughtexception;
+
+        goto label024;
+
+     label103:
+        $r2 := @caughtexception;
+
+        goto label023;
+
+     label104:
+        $r3 := @caughtexception;
+
+        goto label046;
+
+     label105:
+        $r4 := @caughtexception;
+
+        goto label047;
+
+     label106:
+        $r5 := @caughtexception;
+
+        goto label064;
+
+     label107:
+        $r6 := @caughtexception;
+
+        goto label066;
+
+     label108:
+        $r7 := @caughtexception;
+
+        goto label070;
+
+     label109:
+        $r8 := @caughtexception;
+
+        goto label086;
+
+     label110:
+        $r9 := @caughtexception;
+
+        goto label084;
+
+        catch java.lang.Throwable from label001 to label003 with label101;
+        catch java.lang.Throwable from label004 to label005 with label101;
+        catch java.lang.Throwable from label006 to label007 with label101;
+        catch java.lang.Throwable from label008 to label009 with label101;
+        catch java.lang.Throwable from label010 to label011 with label101;
+        catch java.lang.Throwable from label012 to label013 with label101;
+        catch java.lang.Throwable from label013 to label014 with label019;
+        catch java.lang.Throwable from label014 to label015 with label019;
+        catch java.lang.Throwable from label015 to label016 with label018;
+        catch java.io.IOException from label016 to label017 with label102;
+        catch java.lang.Throwable from label016 to label017 with label101;
+        catch java.io.IOException from label022 to label023 with label103;
+        catch java.lang.Throwable from label021 to label023 with label101;
+        catch java.lang.Throwable from label023 to label025 with label101;
+        catch java.lang.Throwable from label025 to label026 with label097;
+        catch java.lang.Throwable from label026 to label027 with label101;
+        catch java.lang.Throwable from label028 to label029 with label101;
+        catch java.lang.Throwable from label030 to label031 with label091;
+        catch java.lang.Throwable from label032 to label033 with label091;
+        catch java.lang.Throwable from label034 to label035 with label091;
+        catch java.lang.Throwable from label036 to label037 with label091;
+        catch java.lang.Throwable from label037 to label038 with label091;
+        catch java.lang.Throwable from label039 to label040 with label060;
+        catch java.lang.Throwable from label040 to label041 with label058;
+        catch java.lang.Throwable from label042 to label043 with label058;
+        catch java.lang.Throwable from label043 to label044 with label057;
+        catch java.io.IOException from label045 to label046 with label104;
+        catch java.lang.Throwable from label045 to label046 with label091;
+        catch java.io.IOException from label046 to label047 with label105;
+        catch java.lang.Throwable from label046 to label047 with label091;
+        catch java.lang.Throwable from label047 to label048 with label091;
+        catch java.lang.Throwable from label049 to label050 with label091;
+        catch java.lang.Throwable from label051 to label052 with label091;
+        catch java.lang.Throwable from label052 to label053 with label091;
+        catch java.lang.Throwable from label053 to label055 with label091;
+        catch java.lang.Throwable from label055 to label056 with label091;
+        catch java.lang.Throwable from label056 to label057 with label091;
+        catch java.io.IOException from label063 to label064 with label106;
+        catch java.lang.Throwable from label062 to label064 with label091;
+        catch java.io.IOException from label065 to label066 with label107;
+        catch java.lang.Throwable from label065 to label066 with label091;
+        catch java.lang.Throwable from label066 to label067 with label091;
+        catch java.io.IOException from label067 to label068 with label108;
+        catch java.lang.Throwable from label067 to label068 with label069;
+        catch java.lang.Throwable from label070 to label071 with label069;
+        catch java.lang.Throwable from label073 to label074 with label069;
+        catch java.lang.Throwable from label074 to label075 with label069;
+        catch java.io.IOException from label079 to label080 with label109;
+        catch java.lang.Throwable from label078 to label080 with label091;
+        catch java.io.IOException from label083 to label084 with label110;
+        catch java.lang.Throwable from label082 to label084 with label091;
+        catch java.lang.Throwable from label084 to label085 with label091;
+        catch java.lang.Throwable from label086 to label087 with label101;
+        catch java.lang.Throwable from label088 to label089 with label101;
+        catch java.lang.Throwable from label089 to label090 with label101;
+        catch java.lang.Throwable from label092 to label093 with label101;
+        catch java.lang.Throwable from label094 to label096 with label101;
+        catch java.lang.Throwable from label096 to label097 with label101;
+        catch java.lang.Throwable from label098 to label099 with label101;
+        catch java.lang.Throwable from label100 to label101 with label101;
+    }

@@ -1,0 +1,77 @@
+    public void run()
+    {
+        com.crashlytics.android.answers.AnswersFilesManagerProvider $r6;
+        android.content.Context $r10;
+        io.fabric.sdk.android.services.network.HttpRequestFactory $r11;
+        io.fabric.sdk.android.Kit $r8;
+        com.crashlytics.android.answers.SessionAnalyticsFilesManager $r7;
+        com.crashlytics.android.answers.AnswersEventsHandler$4 r0;
+        com.crashlytics.android.answers.SessionMetadataCollector $r4;
+        java.lang.Exception $r13;
+        com.crashlytics.android.answers.SessionEventMetadata $r5;
+        io.fabric.sdk.android.Logger $r14;
+        com.crashlytics.android.answers.FirebaseAnalyticsApiAdapter $r12;
+        java.util.concurrent.ScheduledExecutorService $r1;
+        com.crashlytics.android.answers.EnabledSessionAnalyticsManagerStrategy $r2;
+        com.crashlytics.android.answers.AnswersEventsHandler $r3, $r9;
+
+        r0 := @this: com.crashlytics.android.answers.AnswersEventsHandler$4;
+
+     label1:
+        $r3 = r0.<com.crashlytics.android.answers.AnswersEventsHandler$4: com.crashlytics.android.answers.AnswersEventsHandler this$0>;
+
+        $r4 = staticinvoke <com.crashlytics.android.answers.AnswersEventsHandler: com.crashlytics.android.answers.SessionMetadataCollector access$000(com.crashlytics.android.answers.AnswersEventsHandler)>($r3);
+
+        $r5 = virtualinvoke $r4.<com.crashlytics.android.answers.SessionMetadataCollector: com.crashlytics.android.answers.SessionEventMetadata getMetadata()>();
+
+        $r3 = r0.<com.crashlytics.android.answers.AnswersEventsHandler$4: com.crashlytics.android.answers.AnswersEventsHandler this$0>;
+
+        $r6 = staticinvoke <com.crashlytics.android.answers.AnswersEventsHandler: com.crashlytics.android.answers.AnswersFilesManagerProvider access$100(com.crashlytics.android.answers.AnswersEventsHandler)>($r3);
+
+        $r7 = virtualinvoke $r6.<com.crashlytics.android.answers.AnswersFilesManagerProvider: com.crashlytics.android.answers.SessionAnalyticsFilesManager getAnalyticsFilesManager()>();
+
+        $r3 = r0.<com.crashlytics.android.answers.AnswersEventsHandler$4: com.crashlytics.android.answers.AnswersEventsHandler this$0>;
+
+        virtualinvoke $r7.<io.fabric.sdk.android.services.events.EventsFilesManager: void registerRollOverListener(io.fabric.sdk.android.services.events.EventsStorageListener)>($r3);
+
+        $r3 = r0.<com.crashlytics.android.answers.AnswersEventsHandler$4: com.crashlytics.android.answers.AnswersEventsHandler this$0>;
+
+     label2:
+        $r2 = new com.crashlytics.android.answers.EnabledSessionAnalyticsManagerStrategy;
+
+     label3:
+        $r8 = staticinvoke <com.crashlytics.android.answers.AnswersEventsHandler: io.fabric.sdk.android.Kit access$200(com.crashlytics.android.answers.AnswersEventsHandler)>($r3);
+
+        $r9 = r0.<com.crashlytics.android.answers.AnswersEventsHandler$4: com.crashlytics.android.answers.AnswersEventsHandler this$0>;
+
+        $r10 = staticinvoke <com.crashlytics.android.answers.AnswersEventsHandler: android.content.Context access$300(com.crashlytics.android.answers.AnswersEventsHandler)>($r9);
+
+        $r9 = r0.<com.crashlytics.android.answers.AnswersEventsHandler$4: com.crashlytics.android.answers.AnswersEventsHandler this$0>;
+
+        $r1 = $r9.<com.crashlytics.android.answers.AnswersEventsHandler: java.util.concurrent.ScheduledExecutorService executor>;
+
+        $r11 = staticinvoke <com.crashlytics.android.answers.AnswersEventsHandler: io.fabric.sdk.android.services.network.HttpRequestFactory access$400(com.crashlytics.android.answers.AnswersEventsHandler)>($r9);
+
+        $r9 = r0.<com.crashlytics.android.answers.AnswersEventsHandler$4: com.crashlytics.android.answers.AnswersEventsHandler this$0>;
+
+        $r12 = staticinvoke <com.crashlytics.android.answers.AnswersEventsHandler: com.crashlytics.android.answers.FirebaseAnalyticsApiAdapter access$500(com.crashlytics.android.answers.AnswersEventsHandler)>($r9);
+
+        specialinvoke $r2.<com.crashlytics.android.answers.EnabledSessionAnalyticsManagerStrategy: void <init>(io.fabric.sdk.android.Kit,android.content.Context,java.util.concurrent.ScheduledExecutorService,com.crashlytics.android.answers.SessionAnalyticsFilesManager,io.fabric.sdk.android.services.network.HttpRequestFactory,com.crashlytics.android.answers.SessionEventMetadata,com.crashlytics.android.answers.FirebaseAnalyticsApiAdapter)>($r8, $r10, $r1, $r7, $r11, $r5, $r12);
+
+        $r3.<com.crashlytics.android.answers.AnswersEventsHandler: com.crashlytics.android.answers.SessionAnalyticsManagerStrategy strategy> = $r2;
+
+     label4:
+        return;
+
+     label5:
+        $r13 := @caughtexception;
+
+        $r14 = staticinvoke <io.fabric.sdk.android.Fabric: io.fabric.sdk.android.Logger getLogger()>();
+
+        interfaceinvoke $r14.<io.fabric.sdk.android.Logger: void e(java.lang.String,java.lang.String,java.lang.Throwable)>("Answers", "Failed to enable events", $r13);
+
+        return;
+
+        catch java.lang.Exception from label1 to label2 with label5;
+        catch java.lang.Exception from label3 to label4 with label5;
+    }

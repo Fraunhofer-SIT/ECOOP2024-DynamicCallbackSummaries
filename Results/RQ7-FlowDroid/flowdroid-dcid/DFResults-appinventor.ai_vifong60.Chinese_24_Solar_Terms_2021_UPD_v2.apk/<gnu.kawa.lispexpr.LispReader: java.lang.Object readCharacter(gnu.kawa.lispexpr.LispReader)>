@@ -1,0 +1,155 @@
+    public static java.lang.Object readCharacter(gnu.kawa.lispexpr.LispReader) throws java.io.IOException, gnu.text.SyntaxException
+    {
+        gnu.kawa.lispexpr.ReadTable $r3;
+        gnu.kawa.lispexpr.LispReader $r0;
+        char $c2, $c6;
+        gnu.text.Char $r4;
+        int i0, i1, $i3, i4, $i5;
+        char[] r2;
+        java.lang.StringBuilder $r5, $r7;
+        java.lang.String r1, $r6;
+
+        $r0 := @parameter0: gnu.kawa.lispexpr.LispReader;
+
+        i0 = virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: int read()>();
+
+        if i0 >= 0 goto label01;
+
+        virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: void eofError(java.lang.String)>("unexpected EOF in character literal");
+
+     label01:
+        i1 = $r0.<gnu.kawa.lispexpr.LispReader: int tokenBufferLength>;
+
+        virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: void tokenBufferAppend(int)>(i0);
+
+        i0 = virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: int read()>();
+
+        $r3 = staticinvoke <gnu.kawa.lispexpr.ReadTable: gnu.kawa.lispexpr.ReadTable getCurrent()>();
+
+        virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: void readToken(int,char,gnu.kawa.lispexpr.ReadTable)>(i0, 68, $r3);
+
+        r2 = $r0.<gnu.kawa.lispexpr.LispReader: char[] tokenBuffer>;
+
+        i0 = $r0.<gnu.kawa.lispexpr.LispReader: int tokenBufferLength>;
+
+        i0 = i0 - i1;
+
+        if i0 != 1 goto label02;
+
+        $c2 = r2[i1];
+
+        i1 = (int) $c2;
+
+        $r4 = staticinvoke <gnu.text.Char: gnu.text.Char make(int)>(i1);
+
+        return $r4;
+
+     label02:
+        $r6 = new java.lang.String;
+
+        specialinvoke $r6.<java.lang.String: void <init>(char[],int,int)>(r2, i1, i0);
+
+        $i3 = staticinvoke <gnu.text.Char: int nameToChar(java.lang.String)>($r6);
+
+        if $i3 < 0 goto label03;
+
+        $r4 = staticinvoke <gnu.text.Char: gnu.text.Char make(int)>($i3);
+
+        return $r4;
+
+     label03:
+        $c2 = r2[i1];
+
+        $i3 = (int) $c2;
+
+        if $i3 == 120 goto label04;
+
+        $i3 = (int) $c2;
+
+        if $i3 != 88 goto label07;
+
+     label04:
+        i4 = 0;
+
+        $i3 = 1;
+
+     label05:
+        if $i3 != i0 goto label06;
+
+        $r4 = staticinvoke <gnu.text.Char: gnu.text.Char make(int)>(i4);
+
+        return $r4;
+
+     label06:
+        $i5 = i1 + $i3;
+
+        $c6 = r2[$i5];
+
+        $i5 = staticinvoke <java.lang.Character: int digit(char,int)>($c6, 16);
+
+        if $i5 >= 0 goto label09;
+
+     label07:
+        $i3 = (int) $c2;
+
+        $i3 = staticinvoke <java.lang.Character: int digit(int,int)>($i3, 8);
+
+        if $i3 < 0 goto label11;
+
+        i4 = $i3;
+
+        $i3 = 1;
+
+     label08:
+        if $i3 != i0 goto label10;
+
+        $r4 = staticinvoke <gnu.text.Char: gnu.text.Char make(int)>(i4);
+
+        return $r4;
+
+     label09:
+        i4 = i4 * 16;
+
+        i4 = i4 + $i5;
+
+        if i4 > 1114111 goto label07;
+
+        $i3 = $i3 + 1;
+
+        goto label05;
+
+     label10:
+        $i5 = i1 + $i3;
+
+        $c2 = r2[$i5];
+
+        $i5 = staticinvoke <java.lang.Character: int digit(char,int)>($c2, 8);
+
+        if $i5 >= 0 goto label12;
+
+     label11:
+        $r7 = new java.lang.StringBuilder;
+
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>()>();
+
+        $r5 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("unknown character name: ");
+
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        r1 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: void error(java.lang.String)>(r1);
+
+        $r4 = staticinvoke <gnu.text.Char: gnu.text.Char make(int)>(63);
+
+        return $r4;
+
+     label12:
+        i4 = i4 * 8;
+
+        i4 = i4 + $i5;
+
+        $i3 = $i3 + 1;
+
+        goto label08;
+    }

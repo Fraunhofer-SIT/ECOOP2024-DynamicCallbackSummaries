@@ -1,0 +1,167 @@
+    private final void processRequest(com.facebook.GraphRequestBatch, com.facebook.internal.Logger, int, java.net.URL, java.io.OutputStream, boolean)
+    {
+        com.facebook.internal.Logger $r2;
+        java.lang.Throwable $r20;
+        android.os.Bundle $r9;
+        java.net.URL $r3;
+        java.util.HashMap $r7;
+        org.json.JSONObject $r15;
+        java.util.Map $r8;
+        int $i0;
+        com.facebook.GraphRequest$Companion r0;
+        java.lang.String $r13;
+        boolean $z0;
+        java.io.OutputStream $r4;
+        java.util.Iterator $r11;
+        com.facebook.GraphRequest$Attachment $r14;
+        java.lang.CharSequence $r17;
+        com.facebook.GraphRequestBatch $r1;
+        com.facebook.FacebookException $r19;
+        java.util.Collection $r18;
+        com.facebook.GraphRequest$Serializer $r5;
+        java.util.Set $r10;
+        com.facebook.GraphRequest$KeyValueSerializer $r16;
+        java.lang.Object $r12;
+        com.facebook.GraphRequest $r6;
+
+        r0 := @this: com.facebook.GraphRequest$Companion;
+
+        $r1 := @parameter0: com.facebook.GraphRequestBatch;
+
+        $r2 := @parameter1: com.facebook.internal.Logger;
+
+        $i0 := @parameter2: int;
+
+        $r3 := @parameter3: java.net.URL;
+
+        $r4 := @parameter4: java.io.OutputStream;
+
+        $z0 := @parameter5: boolean;
+
+        $r5 = new com.facebook.GraphRequest$Serializer;
+
+        specialinvoke $r5.<com.facebook.GraphRequest$Serializer: void <init>(java.io.OutputStream,com.facebook.internal.Logger,boolean)>($r4, $r2, $z0);
+
+        $z0 = 0;
+
+        if $i0 != 1 goto label5;
+
+        $r6 = virtualinvoke $r1.<com.facebook.GraphRequestBatch: com.facebook.GraphRequest get(int)>(0);
+
+        $r7 = new java.util.HashMap;
+
+        specialinvoke $r7.<java.util.HashMap: void <init>()>();
+
+        $r8 = (java.util.Map) $r7;
+
+        $r9 = virtualinvoke $r6.<com.facebook.GraphRequest: android.os.Bundle getParameters()>();
+
+        $r10 = virtualinvoke $r9.<android.os.Bundle: java.util.Set keySet()>();
+
+        $r11 = interfaceinvoke $r10.<java.util.Set: java.util.Iterator iterator()>();
+
+     label1:
+        $z0 = interfaceinvoke $r11.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label2;
+
+        $r12 = interfaceinvoke $r11.<java.util.Iterator: java.lang.Object next()>();
+
+        $r13 = (java.lang.String) $r12;
+
+        $r9 = virtualinvoke $r6.<com.facebook.GraphRequest: android.os.Bundle getParameters()>();
+
+        $r12 = virtualinvoke $r9.<android.os.Bundle: java.lang.Object get(java.lang.String)>($r13);
+
+        $z0 = specialinvoke r0.<com.facebook.GraphRequest$Companion: boolean isSupportedAttachmentType(java.lang.Object)>($r12);
+
+        if $z0 == 0 goto label1;
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkNotNullExpressionValue(java.lang.Object,java.lang.String)>($r13, "key");
+
+        $r14 = new com.facebook.GraphRequest$Attachment;
+
+        specialinvoke $r14.<com.facebook.GraphRequest$Attachment: void <init>(com.facebook.GraphRequest,java.lang.Object)>($r6, $r12);
+
+        interfaceinvoke $r8.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($r13, $r14);
+
+        goto label1;
+
+     label2:
+        if $r2 == null goto label3;
+
+        virtualinvoke $r2.<com.facebook.internal.Logger: void append(java.lang.String)>("  Parameters:\n");
+
+     label3:
+        $r9 = virtualinvoke $r6.<com.facebook.GraphRequest: android.os.Bundle getParameters()>();
+
+        specialinvoke r0.<com.facebook.GraphRequest$Companion: void serializeParameters(android.os.Bundle,com.facebook.GraphRequest$Serializer,com.facebook.GraphRequest)>($r9, $r5, $r6);
+
+        if $r2 == null goto label4;
+
+        virtualinvoke $r2.<com.facebook.internal.Logger: void append(java.lang.String)>("  Attachments:\n");
+
+     label4:
+        specialinvoke r0.<com.facebook.GraphRequest$Companion: void serializeAttachments(java.util.Map,com.facebook.GraphRequest$Serializer)>($r8, $r5);
+
+        $r15 = virtualinvoke $r6.<com.facebook.GraphRequest: org.json.JSONObject getGraphObject()>();
+
+        if $r15 == null goto label9;
+
+        $r13 = virtualinvoke $r3.<java.net.URL: java.lang.String getPath()>();
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkNotNullExpressionValue(java.lang.Object,java.lang.String)>($r13, "url.path");
+
+        $r16 = (com.facebook.GraphRequest$KeyValueSerializer) $r5;
+
+        specialinvoke r0.<com.facebook.GraphRequest$Companion: void processGraphObject(org.json.JSONObject,java.lang.String,com.facebook.GraphRequest$KeyValueSerializer)>($r15, $r13, $r16);
+
+        return;
+
+     label5:
+        $r13 = specialinvoke r0.<com.facebook.GraphRequest$Companion: java.lang.String getBatchAppId(com.facebook.GraphRequestBatch)>($r1);
+
+        $r17 = (java.lang.CharSequence) $r13;
+
+        $i0 = interfaceinvoke $r17.<java.lang.CharSequence: int length()>();
+
+        if $i0 != 0 goto label6;
+
+        $z0 = 1;
+
+     label6:
+        if $z0 != 0 goto label8;
+
+        virtualinvoke $r5.<com.facebook.GraphRequest$Serializer: void writeString(java.lang.String,java.lang.String)>("batch_app_id", $r13);
+
+        $r7 = new java.util.HashMap;
+
+        specialinvoke $r7.<java.util.HashMap: void <init>()>();
+
+        $r8 = (java.util.Map) $r7;
+
+        $r18 = (java.util.Collection) $r1;
+
+        specialinvoke r0.<com.facebook.GraphRequest$Companion: void serializeRequestsAsJSON(com.facebook.GraphRequest$Serializer,java.util.Collection,java.util.Map)>($r5, $r18, $r8);
+
+        if $r2 == null goto label7;
+
+        virtualinvoke $r2.<com.facebook.internal.Logger: void append(java.lang.String)>("  Attachments:\n");
+
+     label7:
+        specialinvoke r0.<com.facebook.GraphRequest$Companion: void serializeAttachments(java.util.Map,com.facebook.GraphRequest$Serializer)>($r8, $r5);
+
+        return;
+
+     label8:
+        $r19 = new com.facebook.FacebookException;
+
+        specialinvoke $r19.<com.facebook.FacebookException: void <init>(java.lang.String)>("App ID was not specified at the request or Settings.");
+
+        $r20 = (java.lang.Throwable) $r19;
+
+        throw $r20;
+
+     label9:
+        return;
+    }

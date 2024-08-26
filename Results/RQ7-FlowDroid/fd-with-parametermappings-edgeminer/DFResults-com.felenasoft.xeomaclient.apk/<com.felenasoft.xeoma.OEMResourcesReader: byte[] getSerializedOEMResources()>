@@ -1,0 +1,175 @@
+    byte[] getSerializedOEMResources()
+    {
+        java.lang.Throwable $r4, $r7, $r8, $r9;
+        byte[] $r6;
+        java.io.ByteArrayOutputStream $r3, $r10;
+        android.content.res.AssetManager $r1;
+        int $i0;
+        java.lang.String $r5;
+        boolean $z0, $z1;
+        com.felenasoft.xeoma.OEMResourcesReader r0;
+        java.io.IOException $r12;
+        java.lang.StringBuilder $r11;
+        java.io.InputStream $r2;
+
+        r0 := @this: com.felenasoft.xeoma.OEMResourcesReader;
+
+        $z0 = 1;
+
+        $r1 = r0.<com.felenasoft.xeoma.OEMResourcesReader: android.content.res.AssetManager assetManager>;
+
+     label01:
+        $r2 = virtualinvoke $r1.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>("resource.oem");
+
+     label02:
+        $r10 = new java.io.ByteArrayOutputStream;
+
+        $r3 = $r10;
+
+     label03:
+        specialinvoke $r10.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label04:
+        $z1 = 1;
+
+        goto label08;
+
+     label05:
+        $r4 := @caughtexception;
+
+        goto label07;
+
+     label06:
+        $r4 := @caughtexception;
+
+        $r2 = null;
+
+     label07:
+        $r11 = new java.lang.StringBuilder;
+
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Cannot create streams: ");
+
+        $r12 = (java.io.IOException) $r4;
+
+        $r5 = virtualinvoke $r12.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int w(java.lang.String,java.lang.String)>("OEMResourcesReader", $r5);
+
+        $r3 = null;
+
+        $z1 = 0;
+
+     label08:
+        if $z1 == 0 goto label22;
+
+     label09:
+        $r6 = r0.<com.felenasoft.xeoma.OEMResourcesReader: byte[] buffer>;
+
+     label10:
+        $i0 = virtualinvoke $r2.<java.io.InputStream: int read(byte[])>($r6);
+
+     label11:
+        if $i0 < 0 goto label15;
+
+        $r6 = r0.<com.felenasoft.xeoma.OEMResourcesReader: byte[] buffer>;
+
+     label12:
+        virtualinvoke $r3.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r6, 0, $i0);
+
+     label13:
+        goto label09;
+
+     label14:
+        $r7 := @caughtexception;
+
+        $r11 = new java.lang.StringBuilder;
+
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Error on reading/writing operations: ");
+
+        $r12 = (java.io.IOException) $r7;
+
+        $r5 = virtualinvoke $r12.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int w(java.lang.String,java.lang.String)>("OEMResourcesReader", $r5);
+
+        $z0 = 0;
+
+     label15:
+        virtualinvoke $r2.<java.io.InputStream: void close()>();
+
+     label16:
+        goto label18;
+
+     label17:
+        $r8 := @caughtexception;
+
+        $r11 = new java.lang.StringBuilder;
+
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Error closing input stream: ");
+
+        $r12 = (java.io.IOException) $r8;
+
+        $r5 = virtualinvoke $r12.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int w(java.lang.String,java.lang.String)>("OEMResourcesReader", $r5);
+
+     label18:
+        virtualinvoke $r3.<java.io.ByteArrayOutputStream: void close()>();
+
+     label19:
+        goto label21;
+
+     label20:
+        $r9 := @caughtexception;
+
+        $r11 = new java.lang.StringBuilder;
+
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Error closing output stream: ");
+
+        $r12 = (java.io.IOException) $r9;
+
+        $r5 = virtualinvoke $r12.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int w(java.lang.String,java.lang.String)>("OEMResourcesReader", $r5);
+
+     label21:
+        if $z0 == 0 goto label22;
+
+        $r6 = virtualinvoke $r3.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        return $r6;
+
+     label22:
+        return null;
+
+        catch java.io.IOException from label01 to label02 with label06;
+        catch java.io.IOException from label03 to label04 with label05;
+        catch java.io.IOException from label10 to label11 with label14;
+        catch java.io.IOException from label12 to label13 with label14;
+        catch java.io.IOException from label15 to label16 with label17;
+        catch java.io.IOException from label18 to label19 with label20;
+    }

@@ -1,0 +1,62 @@
+    public final java.nio.ByteBuffer fromStream(java.io.InputStream) throws java.io.IOException
+    {
+        byte[] $r5;
+        java.io.ByteArrayOutputStream $r1;
+        com.tantan.library.svga.data.util.ByteBufferUtil r0;
+        java.util.concurrent.atomic.AtomicReference $r3;
+        java.nio.ByteBuffer $r6;
+        int $i0;
+        java.lang.Object $r4;
+        java.io.InputStream $r2;
+
+        r0 := @this: com.tantan.library.svga.data.util.ByteBufferUtil;
+
+        $r2 := @parameter0: java.io.InputStream;
+
+        if $r2 != null goto label1;
+
+        return null;
+
+     label1:
+        $r1 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r1.<java.io.ByteArrayOutputStream: void <init>(int)>(4096);
+
+        $r3 = <com.tantan.library.svga.data.util.ByteBufferUtil: java.util.concurrent.atomic.AtomicReference BUFFER_REF>;
+
+        $r4 = virtualinvoke $r3.<java.util.concurrent.atomic.AtomicReference: java.lang.Object getAndSet(java.lang.Object)>(null);
+
+        $r5 = (byte[]) $r4;
+
+        if $r5 != null goto label2;
+
+        $r5 = newarray (byte)[4096];
+
+     label2:
+        $i0 = virtualinvoke $r2.<java.io.InputStream: int read(byte[])>($r5);
+
+        if $i0 < 0 goto label3;
+
+        virtualinvoke $r1.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r5, 0, $i0);
+
+        goto label2;
+
+     label3:
+        $r3 = <com.tantan.library.svga.data.util.ByteBufferUtil: java.util.concurrent.atomic.AtomicReference BUFFER_REF>;
+
+        virtualinvoke $r3.<java.util.concurrent.atomic.AtomicReference: void set(java.lang.Object)>($r5);
+
+        $r5 = virtualinvoke $r1.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $i0 = lengthof $r5;
+
+        $r6 = staticinvoke <java.nio.ByteBuffer: java.nio.ByteBuffer allocateDirect(int)>($i0);
+
+        $r6 = virtualinvoke $r6.<java.nio.ByteBuffer: java.nio.ByteBuffer put(byte[])>($r5);
+
+        staticinvoke <l.lzh: void a(java.lang.Object,java.lang.String)>($r6, "ByteBuffer.allocateDirect(bytes.size).put(bytes)");
+
+        $r6 = specialinvoke r0.<com.tantan.library.svga.data.util.ByteBufferUtil: java.nio.ByteBuffer rewind(java.nio.ByteBuffer)>($r6);
+
+        return $r6;
+    }

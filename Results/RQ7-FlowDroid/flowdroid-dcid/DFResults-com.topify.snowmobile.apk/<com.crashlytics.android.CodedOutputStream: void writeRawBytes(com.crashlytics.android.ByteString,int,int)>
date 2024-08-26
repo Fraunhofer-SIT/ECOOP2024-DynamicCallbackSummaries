@@ -1,0 +1,127 @@
+    public void writeRawBytes(com.crashlytics.android.ByteString, int, int) throws java.io.IOException
+    {
+        java.io.OutputStream $r5;
+        byte[] $r2;
+        java.lang.IllegalStateException $r4;
+        com.crashlytics.android.CodedOutputStream r0;
+        long $l4, $l5;
+        com.crashlytics.android.ByteString $r1;
+        byte $b6;
+        int i0, $i1, $i2, $i3;
+        java.io.InputStream $r3;
+
+        r0 := @this: com.crashlytics.android.CodedOutputStream;
+
+        $r1 := @parameter0: com.crashlytics.android.ByteString;
+
+        $i1 := @parameter1: int;
+
+        $i2 := @parameter2: int;
+
+        $i3 = r0.<com.crashlytics.android.CodedOutputStream: int limit>;
+
+        i0 = r0.<com.crashlytics.android.CodedOutputStream: int position>;
+
+        $i3 = $i3 - i0;
+
+        if $i3 < $i2 goto label1;
+
+        $r2 = r0.<com.crashlytics.android.CodedOutputStream: byte[] buffer>;
+
+        $i3 = r0.<com.crashlytics.android.CodedOutputStream: int position>;
+
+        virtualinvoke $r1.<com.crashlytics.android.ByteString: void copyTo(byte[],int,int,int)>($r2, 0, $i3, $i2);
+
+        $i1 = r0.<com.crashlytics.android.CodedOutputStream: int position>;
+
+        $i1 = $i1 + $i2;
+
+        r0.<com.crashlytics.android.CodedOutputStream: int position> = $i1;
+
+        return;
+
+     label1:
+        $i3 = r0.<com.crashlytics.android.CodedOutputStream: int limit>;
+
+        i0 = r0.<com.crashlytics.android.CodedOutputStream: int position>;
+
+        i0 = $i3 - i0;
+
+        $r2 = r0.<com.crashlytics.android.CodedOutputStream: byte[] buffer>;
+
+        $i3 = r0.<com.crashlytics.android.CodedOutputStream: int position>;
+
+        virtualinvoke $r1.<com.crashlytics.android.ByteString: void copyTo(byte[],int,int,int)>($r2, 0, $i3, i0);
+
+        $i3 = 0 + i0;
+
+        $i1 = $i2 - i0;
+
+        $i2 = r0.<com.crashlytics.android.CodedOutputStream: int limit>;
+
+        r0.<com.crashlytics.android.CodedOutputStream: int position> = $i2;
+
+        specialinvoke r0.<com.crashlytics.android.CodedOutputStream: void refreshBuffer()>();
+
+        $i2 = r0.<com.crashlytics.android.CodedOutputStream: int limit>;
+
+        if $i1 > $i2 goto label2;
+
+        $r2 = r0.<com.crashlytics.android.CodedOutputStream: byte[] buffer>;
+
+        virtualinvoke $r1.<com.crashlytics.android.ByteString: void copyTo(byte[],int,int,int)>($r2, $i3, 0, $i1);
+
+        r0.<com.crashlytics.android.CodedOutputStream: int position> = $i1;
+
+        return;
+
+     label2:
+        $r3 = virtualinvoke $r1.<com.crashlytics.android.ByteString: java.io.InputStream newInput()>();
+
+        $l4 = (long) $i3;
+
+        $l5 = (long) $i3;
+
+        $l5 = virtualinvoke $r3.<java.io.InputStream: long skip(long)>($l5);
+
+        $b6 = $l4 cmp $l5;
+
+        if $b6 == 0 goto label4;
+
+        $r4 = new java.lang.IllegalStateException;
+
+        specialinvoke $r4.<java.lang.IllegalStateException: void <init>(java.lang.String)>("Skip failed.");
+
+        throw $r4;
+
+     label3:
+        $r5 = r0.<com.crashlytics.android.CodedOutputStream: java.io.OutputStream output>;
+
+        $r2 = r0.<com.crashlytics.android.CodedOutputStream: byte[] buffer>;
+
+        virtualinvoke $r5.<java.io.OutputStream: void write(byte[],int,int)>($r2, 0, $i3);
+
+        $i1 = $i1 - $i3;
+
+     label4:
+        if $i1 <= 0 goto label5;
+
+        $i2 = r0.<com.crashlytics.android.CodedOutputStream: int limit>;
+
+        $i2 = staticinvoke <java.lang.Math: int min(int,int)>($i1, $i2);
+
+        $r2 = r0.<com.crashlytics.android.CodedOutputStream: byte[] buffer>;
+
+        $i3 = virtualinvoke $r3.<java.io.InputStream: int read(byte[],int,int)>($r2, 0, $i2);
+
+        if $i3 == $i2 goto label3;
+
+        $r4 = new java.lang.IllegalStateException;
+
+        specialinvoke $r4.<java.lang.IllegalStateException: void <init>(java.lang.String)>("Read failed.");
+
+        throw $r4;
+
+     label5:
+        return;
+    }

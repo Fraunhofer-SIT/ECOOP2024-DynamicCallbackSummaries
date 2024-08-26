@@ -1,0 +1,62 @@
+    public static gnu.mapping.OutPort openFile(java.lang.Object) throws java.io.IOException
+    {
+        java.io.OutputStream $r5;
+        gnu.mapping.OutPort $r9;
+        gnu.mapping.Environment $r1;
+        gnu.text.Path $r4;
+        java.io.BufferedOutputStream $r6;
+        java.lang.Boolean $r7;
+        java.io.OutputStreamWriter $r8;
+        java.lang.Object $r0, $r2, r3;
+        java.lang.String $r10;
+
+        $r0 := @parameter0: java.lang.Object;
+
+        $r1 = staticinvoke <gnu.mapping.Environment: gnu.mapping.Environment user()>();
+
+        $r2 = virtualinvoke $r1.<gnu.mapping.Environment: java.lang.Object get(java.lang.Object)>("port-char-encoding");
+
+        r3 = $r2;
+
+        $r4 = staticinvoke <gnu.text.Path: gnu.text.Path valueOf(java.lang.Object)>($r0);
+
+        $r5 = virtualinvoke $r4.<gnu.text.Path: java.io.OutputStream openOutputStream()>();
+
+        $r6 = new java.io.BufferedOutputStream;
+
+        specialinvoke $r6.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r5);
+
+        if $r2 == null goto label1;
+
+        $r7 = <java.lang.Boolean: java.lang.Boolean TRUE>;
+
+        if $r2 != $r7 goto label3;
+
+     label1:
+        $r8 = new java.io.OutputStreamWriter;
+
+        specialinvoke $r8.<java.io.OutputStreamWriter: void <init>(java.io.OutputStream)>($r6);
+
+     label2:
+        $r9 = new gnu.mapping.OutPort;
+
+        specialinvoke $r9.<gnu.mapping.OutPort: void <init>(java.io.Writer,gnu.text.Path)>($r8, $r4);
+
+        return $r9;
+
+     label3:
+        $r7 = <java.lang.Boolean: java.lang.Boolean FALSE>;
+
+        if $r2 != $r7 goto label4;
+
+        r3 = "8859_1";
+
+     label4:
+        $r8 = new java.io.OutputStreamWriter;
+
+        $r10 = virtualinvoke r3.<java.lang.Object: java.lang.String toString()>();
+
+        specialinvoke $r8.<java.io.OutputStreamWriter: void <init>(java.io.OutputStream,java.lang.String)>($r6, $r10);
+
+        goto label2;
+    }

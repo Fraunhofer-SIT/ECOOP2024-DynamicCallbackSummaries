@@ -1,0 +1,81 @@
+    public void \u2501(java.lang.String, java.lang.String)
+    {
+        java.lang.Throwable $r9, $r10;
+        byte[] $r8;
+        java.io.FileOutputStream $r4;
+        ntyqtdac.\u2232 r0;
+        int $i0;
+        java.util.zip.ZipFile $r3;
+        java.lang.String $r1, $r2, $r5;
+        java.util.zip.ZipEntry $r6;
+        java.io.InputStream $r7;
+
+        r0 := @this: ntyqtdac.\u2232;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r3 = new java.util.zip.ZipFile;
+
+        $r5 = r0.<ntyqtdac.\u2232: java.lang.String \u2500>;
+
+        specialinvoke $r3.<java.util.zip.ZipFile: void <init>(java.lang.String)>($r5);
+
+     label01:
+        $r6 = virtualinvoke $r3.<java.util.zip.ZipFile: java.util.zip.ZipEntry getEntry(java.lang.String)>($r1);
+
+        $r7 = virtualinvoke $r3.<java.util.zip.ZipFile: java.io.InputStream getInputStream(java.util.zip.ZipEntry)>($r6);
+
+        $r4 = new java.io.FileOutputStream;
+
+        specialinvoke $r4.<java.io.FileOutputStream: void <init>(java.lang.String)>($r2);
+
+     label02:
+        $r8 = newarray (byte)[16384];
+
+     label03:
+        $i0 = virtualinvoke $r7.<java.io.InputStream: int read(byte[])>($r8);
+
+     label04:
+        if $i0 >= 0 goto label07;
+
+     label05:
+        staticinvoke <ntyqtdac.\u2232: void \u2500(java.io.Closeable)>($r4);
+
+        staticinvoke <ntyqtdac.\u2232: void \u2500(java.io.Closeable)>($r7);
+
+     label06:
+        staticinvoke <ntyqtdac.\u2232: void \u2500(java.util.zip.ZipFile)>($r3);
+
+        return;
+
+     label07:
+        virtualinvoke $r4.<java.io.FileOutputStream: void write(byte[],int,int)>($r8, 0, $i0);
+
+     label08:
+        goto label03;
+
+     label09:
+        $r9 := @caughtexception;
+
+     label10:
+        staticinvoke <ntyqtdac.\u2232: void \u2500(java.io.Closeable)>($r4);
+
+        staticinvoke <ntyqtdac.\u2232: void \u2500(java.io.Closeable)>($r7);
+
+        throw $r9;
+
+     label11:
+        $r10 := @caughtexception;
+
+        staticinvoke <ntyqtdac.\u2232: void \u2500(java.util.zip.ZipFile)>($r3);
+
+        throw $r10;
+
+        catch java.lang.Throwable from label01 to label02 with label11;
+        catch java.lang.Throwable from label03 to label04 with label09;
+        catch java.lang.Throwable from label05 to label06 with label11;
+        catch java.lang.Throwable from label07 to label08 with label09;
+        catch java.lang.Throwable from label10 to label11 with label11;
+    }

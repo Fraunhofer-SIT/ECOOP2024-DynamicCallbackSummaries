@@ -1,0 +1,46 @@
+    public void writeTo(java.io.OutputStream) throws java.io.IOException
+    {
+        java.io.OutputStream $r1;
+        java.lang.Throwable $r4;
+        byte[] r2;
+        cz.msebera.android.httpclient.entity.BasicHttpEntity r0;
+        int $i0;
+        java.io.InputStream $r3;
+
+        r0 := @this: cz.msebera.android.httpclient.entity.BasicHttpEntity;
+
+        $r1 := @parameter0: java.io.OutputStream;
+
+        staticinvoke <cz.msebera.android.httpclient.util.Args: java.lang.Object notNull(java.lang.Object,java.lang.String)>($r1, "Output stream");
+
+        $r3 = virtualinvoke r0.<cz.msebera.android.httpclient.entity.BasicHttpEntity: java.io.InputStream getContent()>();
+
+        r2 = newarray (byte)[4096];
+
+     label1:
+        $i0 = virtualinvoke $r3.<java.io.InputStream: int read(byte[])>(r2);
+
+     label2:
+        if $i0 == -1 goto label6;
+
+     label3:
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[],int,int)>(r2, 0, $i0);
+
+     label4:
+        goto label1;
+
+     label5:
+        $r4 := @caughtexception;
+
+        virtualinvoke $r3.<java.io.InputStream: void close()>();
+
+        throw $r4;
+
+     label6:
+        virtualinvoke $r3.<java.io.InputStream: void close()>();
+
+        return;
+
+        catch java.lang.Throwable from label1 to label2 with label5;
+        catch java.lang.Throwable from label3 to label4 with label5;
+    }

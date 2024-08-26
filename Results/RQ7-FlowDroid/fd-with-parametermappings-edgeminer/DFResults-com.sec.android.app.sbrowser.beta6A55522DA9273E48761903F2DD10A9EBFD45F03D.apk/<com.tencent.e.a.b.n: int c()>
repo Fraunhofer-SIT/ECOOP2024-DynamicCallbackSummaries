@@ -1,0 +1,104 @@
+    static int c()
+    {
+        java.lang.Throwable $r6;
+        byte[] $r4;
+        java.lang.Process $r2;
+        java.lang.String[] $r1;
+        java.lang.Integer $r5;
+        com.tencent.e.a.b.b $r7;
+        int $i0, $i1;
+        java.lang.StringBuilder $r9;
+        java.lang.String $r0, $r10;
+        java.lang.ProcessBuilder $r8;
+        java.io.InputStream $r3;
+
+        $i0 = 0;
+
+        $r0 = "";
+
+     label01:
+        $r1 = newarray (java.lang.String)[2];
+
+        $r1[0] = "/system/bin/cat";
+
+        $r1[1] = "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq";
+
+        $r8 = new java.lang.ProcessBuilder;
+
+     label02:
+        specialinvoke $r8.<java.lang.ProcessBuilder: void <init>(java.lang.String[])>($r1);
+
+        $r2 = virtualinvoke $r8.<java.lang.ProcessBuilder: java.lang.Process start()>();
+
+        $r3 = virtualinvoke $r2.<java.lang.Process: java.io.InputStream getInputStream()>();
+
+     label03:
+        $r4 = newarray (byte)[24];
+
+     label04:
+        $i1 = virtualinvoke $r3.<java.io.InputStream: int read(byte[])>($r4);
+
+     label05:
+        if $i1 == -1 goto label10;
+
+     label06:
+        $r9 = new java.lang.StringBuilder;
+
+     label07:
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r10 = new java.lang.String;
+
+     label08:
+        specialinvoke $r10.<java.lang.String: void <init>(byte[])>($r4);
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r0 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label09:
+        goto label04;
+
+     label10:
+        virtualinvoke $r3.<java.io.InputStream: void close()>();
+
+        $r0 = virtualinvoke $r0.<java.lang.String: java.lang.String trim()>();
+
+        $i1 = virtualinvoke $r0.<java.lang.String: int length()>();
+
+     label11:
+        if $i1 <= 0 goto label15;
+
+     label12:
+        $r5 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(java.lang.String)>($r0);
+
+        $i1 = virtualinvoke $r5.<java.lang.Integer: int intValue()>();
+
+     label13:
+        $i0 = $i1;
+
+        goto label15;
+
+     label14:
+        $r6 := @caughtexception;
+
+        $r7 = staticinvoke <com.tencent.e.a.b.m: com.tencent.e.a.b.b f()>();
+
+        virtualinvoke $r7.<com.tencent.e.a.b.b: void b(java.lang.Throwable)>($r6);
+
+     label15:
+        $i0 = $i0 * 1000;
+
+        return $i0;
+
+        catch java.lang.Throwable from label01 to label02 with label14;
+        catch java.lang.Throwable from label02 to label03 with label14;
+        catch java.lang.Throwable from label04 to label05 with label14;
+        catch java.lang.Throwable from label06 to label07 with label14;
+        catch java.lang.Throwable from label07 to label08 with label14;
+        catch java.lang.Throwable from label08 to label09 with label14;
+        catch java.lang.Throwable from label10 to label11 with label14;
+        catch java.lang.Throwable from label12 to label13 with label14;
+    }

@@ -1,0 +1,150 @@
+    public final void AudioAttributesCompatParcelizer(android.content.Context, org.json.JSONObject)
+    {
+        java.lang.Throwable $r14;
+        android.content.Context $r1;
+        o.ah$5 r0;
+        java.lang.String[] $r12;
+        org.json.JSONObject $r2;
+        java.util.Map $r7;
+        int $i0, $i1;
+        java.lang.String $r3, $r11;
+        boolean $z0;
+        com.clevertap.android.sdk.CleverTapAPI$LogLevel $r15;
+        java.util.Iterator $r9;
+        java.util.Set $r8;
+        android.content.SharedPreferences $r6;
+        java.lang.StringBuilder $r4;
+        java.lang.Object $r10;
+        org.json.JSONArray $r5, $r13;
+
+        r0 := @this: o.ah$5;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $r2 := @parameter1: org.json.JSONObject;
+
+     label01:
+        $r3 = r0.<o.ah$5: java.lang.String IconCompatParcelizer>;
+
+        $r4 = new java.lang.StringBuilder;
+
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("istc_inapp");
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(":");
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r4.<java.lang.Object: java.lang.String toString()>();
+
+        $i0 = specialinvoke r0.<o.ah$5: int AudioAttributesCompatParcelizer(java.lang.String,int)>($r3, 0);
+
+        virtualinvoke $r2.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,int)>("imp", $i0);
+
+        $r5 = new org.json.JSONArray;
+
+        specialinvoke $r5.<org.json.JSONArray: void <init>()>();
+
+        $r3 = r0.<o.ah$5: java.lang.String IconCompatParcelizer>;
+
+        $r4 = new java.lang.StringBuilder;
+
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("counts_per_inapp");
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(":");
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r4.<java.lang.Object: java.lang.String toString()>();
+
+        $r6 = staticinvoke <o.supportRequestWindowFeature$read: android.content.SharedPreferences write(android.content.Context,java.lang.String)>($r1, $r3);
+
+        $r7 = interfaceinvoke $r6.<android.content.SharedPreferences: java.util.Map getAll()>();
+
+        $r8 = interfaceinvoke $r7.<java.util.Map: java.util.Set keySet()>();
+
+        $r9 = interfaceinvoke $r8.<java.util.Set: java.util.Iterator iterator()>();
+
+     label02:
+        $z0 = interfaceinvoke $r9.<java.util.Iterator: boolean hasNext()>();
+
+     label03:
+        if $z0 == 0 goto label10;
+
+     label04:
+        $r10 = interfaceinvoke $r9.<java.util.Iterator: java.lang.Object next()>();
+
+        $r3 = (java.lang.String) $r10;
+
+        $r10 = interfaceinvoke $r7.<java.util.Map: java.lang.Object get(java.lang.Object)>($r3);
+
+     label05:
+        $z0 = $r10 instanceof java.lang.String;
+
+        if $z0 == 0 goto label02;
+
+     label06:
+        $r11 = (java.lang.String) $r10;
+
+        $r12 = virtualinvoke $r11.<java.lang.String: java.lang.String[] split(java.lang.String)>(",");
+
+        $i0 = lengthof $r12;
+
+     label07:
+        if $i0 != 2 goto label02;
+
+     label08:
+        $r13 = new org.json.JSONArray;
+
+        specialinvoke $r13.<org.json.JSONArray: void <init>()>();
+
+        virtualinvoke $r13.<org.json.JSONArray: org.json.JSONArray put(int,java.lang.Object)>(0, $r3);
+
+        $r3 = $r12[0];
+
+        $i0 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>($r3);
+
+        virtualinvoke $r13.<org.json.JSONArray: org.json.JSONArray put(int,int)>(1, $i0);
+
+        $r3 = $r12[1];
+
+        $i0 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>($r3);
+
+        virtualinvoke $r13.<org.json.JSONArray: org.json.JSONArray put(int,int)>(2, $i0);
+
+        virtualinvoke $r5.<org.json.JSONArray: org.json.JSONArray put(java.lang.Object)>($r13);
+
+     label09:
+        goto label02;
+
+     label10:
+        virtualinvoke $r2.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("tlc", $r5);
+
+     label11:
+        return;
+
+     label12:
+        $r14 := @caughtexception;
+
+        $i0 = staticinvoke <com.clevertap.android.sdk.CleverTapAPI: int IconCompatParcelizer()>();
+
+        $r15 = <com.clevertap.android.sdk.CleverTapAPI$LogLevel: com.clevertap.android.sdk.CleverTapAPI$LogLevel DEBUG>;
+
+        $i1 = $r15.<com.clevertap.android.sdk.CleverTapAPI$LogLevel: int value>;
+
+        if $i0 <= $i1 goto label13;
+
+        staticinvoke <android.util.Log: int v(java.lang.String,java.lang.String,java.lang.Throwable)>("CleverTap", "Failed to attach FC to header", $r14);
+
+     label13:
+        return;
+
+        catch java.lang.Throwable from label01 to label03 with label12;
+        catch java.lang.Throwable from label04 to label05 with label12;
+        catch java.lang.Throwable from label06 to label07 with label12;
+        catch java.lang.Throwable from label08 to label09 with label12;
+        catch java.lang.Throwable from label10 to label11 with label12;
+    }

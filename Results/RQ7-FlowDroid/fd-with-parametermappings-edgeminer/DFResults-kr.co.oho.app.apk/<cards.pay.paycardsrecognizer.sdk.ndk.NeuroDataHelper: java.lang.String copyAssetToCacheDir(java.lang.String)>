@@ -1,0 +1,205 @@
+    private java.lang.String copyAssetToCacheDir(java.lang.String) throws java.io.IOException
+    {
+        java.lang.Throwable $r1, $r2, $r3, $r4, $r13, $r14;
+        byte[] $r12;
+        long $l0, $l2;
+        android.content.res.AssetManager $r8;
+        byte $b3;
+        int $i1;
+        java.lang.String $r5, $r9;
+        boolean $z0;
+        java.io.OutputStream $r17;
+        cards.pay.paycardsrecognizer.sdk.ndk.NeuroDataHelper r0;
+        java.io.FileOutputStream $r11, $r16;
+        java.io.File $r6;
+        java.lang.Object $r7;
+        java.lang.StringBuilder $r15;
+        java.io.InputStream $r10;
+
+        r0 := @this: cards.pay.paycardsrecognizer.sdk.ndk.NeuroDataHelper;
+
+        $r5 := @parameter0: java.lang.String;
+
+        $r6 = specialinvoke r0.<cards.pay.paycardsrecognizer.sdk.ndk.NeuroDataHelper: java.io.File getDstPath(java.lang.String)>($r5);
+
+        $r7 = null;
+
+     label01:
+        $r8 = r0.<cards.pay.paycardsrecognizer.sdk.ndk.NeuroDataHelper: android.content.res.AssetManager mAssetManager>;
+
+        $r15 = new java.lang.StringBuilder;
+
+     label02:
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("cardrecognizer/model");
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r9 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r10 = virtualinvoke $r8.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>($r9);
+
+     label03:
+        $i1 = virtualinvoke $r10.<java.io.InputStream: int available()>();
+
+        $l2 = virtualinvoke $r6.<java.io.File: long length()>();
+
+     label04:
+        $l0 = (long) $i1;
+
+        $b3 = $l2 cmp $l0;
+
+        if $b3 == 0 goto label19;
+
+     label05:
+        $z0 = <cards.pay.paycardsrecognizer.sdk.ndk.NeuroDataHelper: boolean DBG>;
+
+     label06:
+        if $z0 == 0 goto label09;
+
+     label07:
+        $r15 = new java.lang.StringBuilder;
+
+     label08:
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("copyAssetToCacheDir() rewrite file ");
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("RecognitionCore", $r5);
+
+     label09:
+        $r16 = new java.io.FileOutputStream;
+
+     label10:
+        $r11 = $r16;
+
+     label11:
+        specialinvoke $r16.<java.io.FileOutputStream: void <init>(java.io.File,boolean)>($r6, 0);
+
+     label12:
+        $r12 = newarray (byte)[1024];
+
+     label13:
+        $i1 = virtualinvoke $r10.<java.io.InputStream: int read(byte[])>($r12);
+
+     label14:
+        if $i1 <= 0 goto label17;
+
+     label15:
+        virtualinvoke $r16.<java.io.OutputStream: void write(byte[],int,int)>($r12, 0, $i1);
+
+     label16:
+        goto label13;
+
+     label17:
+        $r7 = $r16;
+
+        goto label19;
+
+     label18:
+        $r13 := @caughtexception;
+
+        $r7 = $r10;
+
+        $r14 = $r13;
+
+        goto label28;
+
+     label19:
+        if $r10 == null goto label21;
+
+     label20:
+        virtualinvoke $r10.<java.io.InputStream: void close()>();
+
+     label21:
+        if $r7 == null goto label25;
+
+        $r17 = (java.io.OutputStream) $r7;
+
+     label22:
+        virtualinvoke $r17.<java.io.OutputStream: void flush()>();
+
+     label23:
+        $r17 = (java.io.OutputStream) $r7;
+
+     label24:
+        virtualinvoke $r17.<java.io.OutputStream: void close()>();
+
+     label25:
+        $r5 = virtualinvoke $r6.<java.io.File: java.lang.String getPath()>();
+
+        return $r5;
+
+     label26:
+        $r14 := @caughtexception;
+
+        $r11 = null;
+
+        $r7 = $r10;
+
+        goto label28;
+
+     label27:
+        $r14 := @caughtexception;
+
+        $r11 = null;
+
+     label28:
+        if $r7 == null goto label30;
+
+        $r10 = (java.io.InputStream) $r7;
+
+     label29:
+        virtualinvoke $r10.<java.io.InputStream: void close()>();
+
+     label30:
+        if $r11 == null goto label32;
+
+     label31:
+        virtualinvoke $r11.<java.io.OutputStream: void flush()>();
+
+        virtualinvoke $r11.<java.io.OutputStream: void close()>();
+
+     label32:
+        throw $r14;
+
+     label33:
+        $r1 := @caughtexception;
+
+        goto label21;
+
+     label34:
+        $r2 := @caughtexception;
+
+        goto label25;
+
+     label35:
+        $r3 := @caughtexception;
+
+        goto label30;
+
+     label36:
+        $r4 := @caughtexception;
+
+        goto label32;
+
+        catch java.lang.Throwable from label01 to label02 with label27;
+        catch java.lang.Throwable from label02 to label03 with label27;
+        catch java.lang.Throwable from label03 to label04 with label26;
+        catch java.lang.Throwable from label05 to label06 with label26;
+        catch java.lang.Throwable from label07 to label08 with label26;
+        catch java.lang.Throwable from label08 to label10 with label26;
+        catch java.lang.Throwable from label11 to label12 with label26;
+        catch java.lang.Throwable from label13 to label14 with label18;
+        catch java.lang.Throwable from label15 to label16 with label18;
+        catch java.io.IOException from label20 to label21 with label33;
+        catch java.io.IOException from label22 to label23 with label34;
+        catch java.io.IOException from label24 to label25 with label34;
+        catch java.io.IOException from label29 to label30 with label35;
+        catch java.io.IOException from label31 to label32 with label36;
+    }

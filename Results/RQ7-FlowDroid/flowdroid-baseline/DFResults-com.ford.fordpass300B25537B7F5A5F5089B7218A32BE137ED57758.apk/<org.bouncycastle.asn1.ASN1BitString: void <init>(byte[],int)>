@@ -1,0 +1,50 @@
+    public void <init>(byte[], int)
+    {
+        org.bouncycastle.asn1.ASN1BitString r0;
+        byte[] $r1;
+        int $i0, $i1;
+        java.lang.IllegalArgumentException $r2;
+
+        r0 := @this: org.bouncycastle.asn1.ASN1BitString;
+
+        $r1 := @parameter0: byte[];
+
+        $i0 := @parameter1: int;
+
+        specialinvoke r0.<org.bouncycastle.asn1.ASN1Primitive: void <init>()>();
+
+        staticinvoke <java.util.Objects: java.lang.Object requireNonNull(java.lang.Object,java.lang.String)>($r1, "\'data\' cannot be null");
+
+        $i1 = lengthof $r1;
+
+        if $i1 != 0 goto label1;
+
+        if $i0 != 0 goto label3;
+
+     label1:
+        if $i0 > 7 goto label2;
+
+        if $i0 < 0 goto label2;
+
+        $r1 = staticinvoke <org.bouncycastle.util.Arrays: byte[] clone(byte[])>($r1);
+
+        r0.<org.bouncycastle.asn1.ASN1BitString: byte[] data> = $r1;
+
+        r0.<org.bouncycastle.asn1.ASN1BitString: int padBits> = $i0;
+
+        return;
+
+     label2:
+        $r2 = new java.lang.IllegalArgumentException;
+
+        specialinvoke $r2.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>("pad bits cannot be greater than 7 or less than 0");
+
+        throw $r2;
+
+     label3:
+        $r2 = new java.lang.IllegalArgumentException;
+
+        specialinvoke $r2.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>("zero length data with non-zero pad bits");
+
+        throw $r2;
+    }

@@ -1,0 +1,102 @@
+    public static final void RemoteActionCompatParcelizer(o.readFile)
+    {
+        java.lang.Throwable $r10, $r11;
+        java.lang.IllegalStateException $r8;
+        java.util.Iterator $r3;
+        java.util.Set $r2;
+        java.util.List $r7;
+        o.setUnwindFunction $r6;
+        o.readFile $r0;
+        com.facebook.appevents.AccessTokenAppIdPair $r5;
+        java.lang.Object $r4;
+        java.lang.String $r9;
+        boolean $z0;
+        com.facebook.appevents.PersistedEvents $r1;
+
+        $r0 := @parameter0: o.readFile;
+
+        entermonitor class "Lo/initNativePlugin;";
+
+     label01:
+        $z0 = staticinvoke <o.StorageModule$sharedPrefMigrator$2: boolean AudioAttributesCompatParcelizer(java.lang.Object)>(class "Lo/initNativePlugin;");
+
+     label02:
+        if $z0 == 0 goto label03;
+
+        exitmonitor class "Lo/initNativePlugin;";
+
+        return;
+
+     label03:
+        staticinvoke <o.getMaxNumPictureInPictureActions: void RemoteActionCompatParcelizer(java.lang.Object,java.lang.String)>($r0, "eventsToPersist");
+
+        staticinvoke <o.ErrorType: void write()>();
+
+        $r1 = staticinvoke <o.initNativePlugin: com.facebook.appevents.PersistedEvents IconCompatParcelizer()>();
+
+        $r2 = virtualinvoke $r0.<o.readFile: java.util.Set write()>();
+
+        $r3 = interfaceinvoke $r2.<java.util.Set: java.util.Iterator iterator()>();
+
+     label04:
+        $z0 = interfaceinvoke $r3.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label06;
+
+        $r4 = interfaceinvoke $r3.<java.util.Iterator: java.lang.Object next()>();
+
+        $r5 = (com.facebook.appevents.AccessTokenAppIdPair) $r4;
+
+        $r6 = virtualinvoke $r0.<o.readFile: o.setUnwindFunction read(com.facebook.appevents.AccessTokenAppIdPair)>($r5);
+
+        if $r6 == null goto label05;
+
+        $r7 = virtualinvoke $r6.<o.setUnwindFunction: java.util.List IconCompatParcelizer()>();
+
+        virtualinvoke $r1.<com.facebook.appevents.PersistedEvents: void IconCompatParcelizer(com.facebook.appevents.AccessTokenAppIdPair,java.util.List)>($r5, $r7);
+
+        goto label04;
+
+     label05:
+        $r8 = new java.lang.IllegalStateException;
+
+        $r9 = "Required value was null.";
+
+        $r9 = virtualinvoke $r9.<java.lang.Object: java.lang.String toString()>();
+
+        specialinvoke $r8.<java.lang.IllegalStateException: void <init>(java.lang.String)>($r9);
+
+        $r10 = (java.lang.Throwable) $r8;
+
+        throw $r10;
+
+     label06:
+        staticinvoke <o.initNativePlugin: void AudioAttributesCompatParcelizer(com.facebook.appevents.PersistedEvents)>($r1);
+
+     label07:
+        exitmonitor class "Lo/initNativePlugin;";
+
+        return;
+
+     label08:
+        $r10 := @caughtexception;
+
+     label09:
+        staticinvoke <o.StorageModule$sharedPrefMigrator$2: void read(java.lang.Throwable,java.lang.Object)>($r10, class "Lo/initNativePlugin;");
+
+     label10:
+        exitmonitor class "Lo/initNativePlugin;";
+
+        return;
+
+     label11:
+        $r11 := @caughtexception;
+
+        exitmonitor class "Lo/initNativePlugin;";
+
+        throw $r11;
+
+        catch java.lang.Throwable from label01 to label02 with label11;
+        catch java.lang.Throwable from label03 to label07 with label08;
+        catch java.lang.Throwable from label09 to label10 with label11;
+    }

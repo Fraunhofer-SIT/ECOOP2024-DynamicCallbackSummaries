@@ -1,0 +1,351 @@
+    public static void showNotification(air.com.iswfx.connect.Messages, android.content.res.Resources, android.content.Context, java.lang.Boolean, java.lang.Boolean)
+    {
+        android.content.Context $r2;
+        android.net.Uri $r18;
+        android.content.Intent $r20;
+        android.app.PendingIntent $r6, $r14;
+        java.util.ArrayList $r8;
+        android.support.v4.app.NotificationCompat$Builder $r21;
+        long[] $r15;
+        byte $b0;
+        android.support.v4.app.NotificationCompat$InboxStyle $r23;
+        int $i1, $i2, $i3;
+        java.lang.Boolean $r3, $r4, $r12;
+        java.lang.String $r7, $r9, $r11;
+        air.com.iswfx.connect.Messages $r0;
+        boolean $z0;
+        air.com.iswfx.connect.MessageIDs $r13;
+        air.com.iswfx.connect.Message $r17;
+        android.graphics.Bitmap $r10;
+        android.app.Notification $r19;
+        java.lang.Object $r16;
+        java.lang.StringBuilder $r22;
+        android.support.v4.app.NotificationManagerCompat $r5;
+        android.content.res.Resources $r1;
+
+        $r0 := @parameter0: air.com.iswfx.connect.Messages;
+
+        $r1 := @parameter1: android.content.res.Resources;
+
+        $r2 := @parameter2: android.content.Context;
+
+        $r3 := @parameter3: java.lang.Boolean;
+
+        $r4 := @parameter4: java.lang.Boolean;
+
+        $r5 = staticinvoke <android.support.v4.app.NotificationManagerCompat: android.support.v4.app.NotificationManagerCompat 'from'(android.content.Context)>($r2);
+
+        $r20 = new android.content.Intent;
+
+        specialinvoke $r20.<android.content.Intent: void <init>()>();
+
+        virtualinvoke $r20.<android.content.Intent: android.content.Intent setClassName(java.lang.String,java.lang.String)>("air.com.iswfx.connect", "com.dukascopy.dukascopyextension.activity.NotificationActivity");
+
+        virtualinvoke $r20.<android.content.Intent: android.content.Intent setAction(java.lang.String)>("android.intent.action.MAIN");
+
+        virtualinvoke $r20.<android.content.Intent: android.content.Intent addCategory(java.lang.String)>("android.intent.category.LAUNCHER");
+
+        virtualinvoke $r20.<android.content.Intent: android.content.Intent addFlags(int)>(268435456);
+
+        $r6 = staticinvoke <android.app.PendingIntent: android.app.PendingIntent getActivity(android.content.Context,int,android.content.Intent,int)>($r2, 0, $r20, 0);
+
+        $r7 = "Dukascopy";
+
+        $z0 = virtualinvoke $r3.<java.lang.Boolean: boolean booleanValue()>();
+
+        if $z0 != 0 goto label01;
+
+        $r7 = "Dukascopy_light";
+
+     label01:
+        $z0 = virtualinvoke $r4.<java.lang.Boolean: boolean booleanValue()>();
+
+        if $z0 == 0 goto label02;
+
+        $r7 = "Dukascopy_call";
+
+        $b0 = 2;
+
+        goto label03;
+
+     label02:
+        $b0 = 1;
+
+     label03:
+        $r21 = new android.support.v4.app.NotificationCompat$Builder;
+
+        specialinvoke $r21.<android.support.v4.app.NotificationCompat$Builder: void <init>(android.content.Context,java.lang.String)>($r2, $r7);
+
+        virtualinvoke $r21.<android.support.v4.app.NotificationCompat$Builder: android.support.v4.app.NotificationCompat$Builder setDefaults(int)>(-1);
+
+        $r22 = new java.lang.StringBuilder;
+
+        specialinvoke $r22.<java.lang.StringBuilder: void <init>()>();
+
+        $r8 = $r0.<air.com.iswfx.connect.Messages: java.util.ArrayList messages>;
+
+        $i1 = virtualinvoke $r8.<java.util.ArrayList: int size()>();
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" new messages");
+
+        $r9 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $i1 = <air.com.iswfx.connect.R$drawable: int ic_smallicon>;
+
+        $r10 = staticinvoke <android.graphics.BitmapFactory: android.graphics.Bitmap decodeResource(android.content.res.Resources,int)>($r1, $i1);
+
+        virtualinvoke $r21.<android.support.v4.app.NotificationCompat$Builder: android.support.v4.app.NotificationCompat$Builder setLargeIcon(android.graphics.Bitmap)>($r10);
+
+        $i1 = <android.os.Build$VERSION: int SDK_INT>;
+
+        if $i1 < 21 goto label04;
+
+        $i1 = <air.com.iswfx.connect.R$drawable: int ic_smallicon>;
+
+        virtualinvoke $r21.<android.support.v4.app.NotificationCompat$Builder: android.support.v4.app.NotificationCompat$Builder setSmallIcon(int)>($i1);
+
+        goto label05;
+
+     label04:
+        $i1 = <air.com.iswfx.connect.R$drawable: int ic_smallicon>;
+
+        virtualinvoke $r21.<android.support.v4.app.NotificationCompat$Builder: android.support.v4.app.NotificationCompat$Builder setSmallIcon(int)>($i1);
+
+     label05:
+        virtualinvoke $r21.<android.support.v4.app.NotificationCompat$Builder: android.support.v4.app.NotificationCompat$Builder setChannelId(java.lang.String)>($r7);
+
+        $r7 = staticinvoke <java.lang.Integer: java.lang.String toString(int)>($b0);
+
+        $r11 = <air.com.iswfx.connect.NotificationReceiver: java.lang.String NOTIFICATION_DELETED>;
+
+        $r12 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(0);
+
+        $r13 = staticinvoke <air.com.iswfx.connect.FirebaseService: air.com.iswfx.connect.MessageIDs createGroupID(air.com.iswfx.connect.Messages)>($r0);
+
+        $r14 = staticinvoke <air.com.iswfx.connect.FirebaseService: android.app.PendingIntent createIntent(android.content.Context,java.lang.String,java.lang.String,java.lang.Boolean,java.lang.String,air.com.iswfx.connect.MessageIDs)>($r2, $r7, $r11, $r12, "", $r13);
+
+        virtualinvoke $r21.<android.support.v4.app.NotificationCompat$Builder: android.support.v4.app.NotificationCompat$Builder setDeleteIntent(android.app.PendingIntent)>($r14);
+
+        virtualinvoke $r21.<android.support.v4.app.NotificationCompat$Builder: android.support.v4.app.NotificationCompat$Builder setContentTitle(java.lang.CharSequence)>("Dukascopy");
+
+        virtualinvoke $r21.<android.support.v4.app.NotificationCompat$Builder: android.support.v4.app.NotificationCompat$Builder setContentText(java.lang.CharSequence)>($r9);
+
+        virtualinvoke $r21.<android.support.v4.app.NotificationCompat$Builder: android.support.v4.app.NotificationCompat$Builder setContentIntent(android.app.PendingIntent)>($r6);
+
+        $i1 = <android.os.Build$VERSION: int SDK_INT>;
+
+        if $i1 >= 26 goto label07;
+
+        $z0 = virtualinvoke $r3.<java.lang.Boolean: boolean booleanValue()>();
+
+        if $z0 == 0 goto label06;
+
+        $r15 = newarray (long)[2];
+
+        $r15[0] = 400L;
+
+        $r15[1] = 400L;
+
+        virtualinvoke $r21.<android.support.v4.app.NotificationCompat$Builder: android.support.v4.app.NotificationCompat$Builder setVibrate(long[])>($r15);
+
+        goto label07;
+
+     label06:
+        $r15 = newarray (long)[1];
+
+        $r15[0] = 0L;
+
+        virtualinvoke $r21.<android.support.v4.app.NotificationCompat$Builder: android.support.v4.app.NotificationCompat$Builder setVibrate(long[])>($r15);
+
+     label07:
+        virtualinvoke $r21.<android.support.v4.app.NotificationCompat$Builder: android.support.v4.app.NotificationCompat$Builder setAutoCancel(boolean)>(0);
+
+        $r23 = new android.support.v4.app.NotificationCompat$InboxStyle;
+
+        specialinvoke $r23.<android.support.v4.app.NotificationCompat$InboxStyle: void <init>()>();
+
+        virtualinvoke $r23.<android.support.v4.app.NotificationCompat$InboxStyle: android.support.v4.app.NotificationCompat$InboxStyle setBigContentTitle(java.lang.CharSequence)>("Dukascopy");
+
+        $r8 = $r0.<air.com.iswfx.connect.Messages: java.util.ArrayList messages>;
+
+        $i1 = virtualinvoke $r8.<java.util.ArrayList: int size()>();
+
+        $i1 = $i1 - 1;
+
+     label08:
+        $r8 = $r0.<air.com.iswfx.connect.Messages: java.util.ArrayList messages>;
+
+        $i2 = virtualinvoke $r8.<java.util.ArrayList: int size()>();
+
+        $i2 = $i2 - 6;
+
+        $i2 = staticinvoke <java.lang.Math: int max(int,int)>(0, $i2);
+
+        if $i1 < $i2 goto label10;
+
+        $r8 = $r0.<air.com.iswfx.connect.Messages: java.util.ArrayList messages>;
+
+        $r16 = virtualinvoke $r8.<java.util.ArrayList: java.lang.Object get(int)>($i1);
+
+        $r17 = (air.com.iswfx.connect.Message) $r16;
+
+        $z0 = $r17.<air.com.iswfx.connect.Message: boolean display>;
+
+        if $z0 == 0 goto label09;
+
+        $r22 = new java.lang.StringBuilder;
+
+        specialinvoke $r22.<java.lang.StringBuilder: void <init>()>();
+
+        $r8 = $r0.<air.com.iswfx.connect.Messages: java.util.ArrayList messages>;
+
+        $r16 = virtualinvoke $r8.<java.util.ArrayList: java.lang.Object get(int)>($i1);
+
+        $r17 = (air.com.iswfx.connect.Message) $r16;
+
+        $r9 = $r17.<air.com.iswfx.connect.Message: java.lang.String messageFrom>;
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(": ");
+
+        $r8 = $r0.<air.com.iswfx.connect.Messages: java.util.ArrayList messages>;
+
+        $r16 = virtualinvoke $r8.<java.util.ArrayList: java.lang.Object get(int)>($i1);
+
+        $r17 = (air.com.iswfx.connect.Message) $r16;
+
+        $r9 = $r17.<air.com.iswfx.connect.Message: java.lang.String message>;
+
+        $r9 = staticinvoke <air.com.iswfx.connect.FirebaseService: java.lang.String filterMessage(java.lang.String)>($r9);
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        $r9 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r23.<android.support.v4.app.NotificationCompat$InboxStyle: android.support.v4.app.NotificationCompat$InboxStyle addLine(java.lang.CharSequence)>($r9);
+
+     label09:
+        $i1 = $i1 + -1;
+
+        goto label08;
+
+     label10:
+        $i2 = 0;
+
+        $i1 = 0;
+
+     label11:
+        $r8 = $r0.<air.com.iswfx.connect.Messages: java.util.ArrayList messages>;
+
+        $i3 = virtualinvoke $r8.<java.util.ArrayList: int size()>();
+
+        if $i2 >= $i3 goto label13;
+
+        $r8 = $r0.<air.com.iswfx.connect.Messages: java.util.ArrayList messages>;
+
+        $r16 = virtualinvoke $r8.<java.util.ArrayList: java.lang.Object get(int)>($i2);
+
+        $r17 = (air.com.iswfx.connect.Message) $r16;
+
+        $z0 = $r17.<air.com.iswfx.connect.Message: boolean display>;
+
+        if $z0 == 0 goto label12;
+
+        $i1 = $i1 + 1;
+
+     label12:
+        $i2 = $i2 + 1;
+
+        goto label11;
+
+     label13:
+        $r8 = $r0.<air.com.iswfx.connect.Messages: java.util.ArrayList messages>;
+
+        $i2 = virtualinvoke $r8.<java.util.ArrayList: int size()>();
+
+        virtualinvoke $r21.<android.support.v4.app.NotificationCompat$Builder: android.support.v4.app.NotificationCompat$Builder setNumber(int)>($i2);
+
+        if $i1 <= 0 goto label18;
+
+        if $i1 <= 6 goto label14;
+
+        $r22 = new java.lang.StringBuilder;
+
+        specialinvoke $r22.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("    +");
+
+        $i1 = $i1 - 6;
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r9 = staticinvoke <air.com.iswfx.connect.FirebaseService: java.lang.String getNewMessagesDescription(int,android.content.Context)>($i1, $r2);
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        $r9 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r23.<android.support.v4.app.NotificationCompat$InboxStyle: android.support.v4.app.NotificationCompat$InboxStyle addLine(java.lang.CharSequence)>($r9);
+
+     label14:
+        virtualinvoke $r21.<android.support.v4.app.NotificationCompat$Builder: android.support.v4.app.NotificationCompat$Builder setStyle(android.support.v4.app.NotificationCompat$Style)>($r23);
+
+        $z0 = virtualinvoke $r3.<java.lang.Boolean: boolean booleanValue()>();
+
+        if $z0 == 0 goto label15;
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("notification", "priority hight");
+
+        virtualinvoke $r21.<android.support.v4.app.NotificationCompat$Builder: android.support.v4.app.NotificationCompat$Builder setPriority(int)>(2);
+
+        goto label16;
+
+     label15:
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("notification", "priority low");
+
+        virtualinvoke $r21.<android.support.v4.app.NotificationCompat$Builder: android.support.v4.app.NotificationCompat$Builder setPriority(int)>(0);
+
+     label16:
+        $z0 = virtualinvoke $r4.<java.lang.Boolean: boolean booleanValue()>();
+
+        if $z0 == 0 goto label17;
+
+        $r22 = new java.lang.StringBuilder;
+
+        specialinvoke $r22.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("android.resource://");
+
+        $r9 = virtualinvoke $r2.<android.content.Context: java.lang.String getPackageName()>();
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        $i1 = <air.com.iswfx.connect.R$raw: int call_notification>;
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r9 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r18 = staticinvoke <android.net.Uri: android.net.Uri parse(java.lang.String)>($r9);
+
+        virtualinvoke $r21.<android.support.v4.app.NotificationCompat$Builder: android.support.v4.app.NotificationCompat$Builder setSound(android.net.Uri)>($r18);
+
+     label17:
+        virtualinvoke $r21.<android.support.v4.app.NotificationCompat$Builder: android.support.v4.app.NotificationCompat$Builder setVisibility(int)>(1);
+
+        $r19 = virtualinvoke $r21.<android.support.v4.app.NotificationCompat$Builder: android.app.Notification build()>();
+
+        virtualinvoke $r5.<android.support.v4.app.NotificationManagerCompat: void notify(int,android.app.Notification)>($b0, $r19);
+
+        return;
+
+     label18:
+        virtualinvoke $r5.<android.support.v4.app.NotificationManagerCompat: void cancelAll()>();
+
+        return;
+    }

@@ -1,0 +1,38 @@
+    public void run()
+    {
+        com.facebook.appevents.AppEventQueue$2 r0;
+        java.lang.Throwable $r2;
+        boolean $z0;
+        com.facebook.appevents.AppEventCollection $r1;
+
+        r0 := @this: com.facebook.appevents.AppEventQueue$2;
+
+        $z0 = staticinvoke <com.facebook.internal.instrument.crashshield.CrashShieldHandler: boolean isObjectCrashing(java.lang.Object)>(r0);
+
+        if $z0 == 0 goto label1;
+
+        return;
+
+     label1:
+        $r1 = staticinvoke <com.facebook.appevents.AppEventQueue: com.facebook.appevents.AppEventCollection access$100()>();
+
+        staticinvoke <com.facebook.appevents.AppEventStore: void persistEvents(com.facebook.appevents.AppEventCollection)>($r1);
+
+        $r1 = new com.facebook.appevents.AppEventCollection;
+
+        specialinvoke $r1.<com.facebook.appevents.AppEventCollection: void <init>()>();
+
+        staticinvoke <com.facebook.appevents.AppEventQueue: com.facebook.appevents.AppEventCollection access$102(com.facebook.appevents.AppEventCollection)>($r1);
+
+     label2:
+        return;
+
+     label3:
+        $r2 := @caughtexception;
+
+        staticinvoke <com.facebook.internal.instrument.crashshield.CrashShieldHandler: void handleThrowable(java.lang.Throwable,java.lang.Object)>($r2, r0);
+
+        return;
+
+        catch java.lang.Throwable from label1 to label2 with label3;
+    }

@@ -1,0 +1,221 @@
+    public final void run()
+    {
+        java.lang.Throwable $r16, $r17;
+        android.content.Context $r8;
+        byte[] $r14;
+        long $l0, $l1;
+        java.util.concurrent.ScheduledExecutorService $r19;
+        com.appsflyer.internal.f $r11;
+        java.lang.String $r5, $r12;
+        java.lang.ref.WeakReference $r4, $r6;
+        com.appsflyer.internal.model.event.CachedEvent $r2;
+        boolean $z0;
+        java.util.Iterator $r10;
+        java.lang.Exception $r15, $r18;
+        com.appsflyer.AppsFlyerLibCore $r1;
+        java.util.List $r9;
+        com.appsflyer.AppsFlyerLibCore$a r0;
+        java.lang.StringBuilder $r3;
+        java.lang.Object $r7;
+        com.appsflyer.AFEvent $r13;
+
+        r0 := @this: com.appsflyer.AppsFlyerLibCore$a;
+
+        $r1 = r0.<com.appsflyer.AppsFlyerLibCore$a: com.appsflyer.AppsFlyerLibCore \u03b9>;
+
+        $z0 = staticinvoke <com.appsflyer.AppsFlyerLibCore: boolean \u0279(com.appsflyer.AppsFlyerLibCore)>($r1);
+
+        if $z0 == 0 goto label01;
+
+        return;
+
+     label01:
+        $r1 = r0.<com.appsflyer.AppsFlyerLibCore$a: com.appsflyer.AppsFlyerLibCore \u03b9>;
+
+        $l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $r1.<com.appsflyer.AppsFlyerLibCore: long \u0456> = $l0;
+
+        $r4 = r0.<com.appsflyer.AppsFlyerLibCore$a: java.lang.ref.WeakReference \u0399>;
+
+        if $r4 != null goto label02;
+
+        return;
+
+     label02:
+        $r1 = r0.<com.appsflyer.AppsFlyerLibCore$a: com.appsflyer.AppsFlyerLibCore \u03b9>;
+
+        staticinvoke <com.appsflyer.AppsFlyerLibCore: boolean \u0131(com.appsflyer.AppsFlyerLibCore,boolean)>($r1, 1);
+
+     label03:
+        $r5 = staticinvoke <com.appsflyer.AppsFlyerLibCore: java.lang.String \u01c3(java.lang.String)>("AppsFlyerKey");
+
+        $r4 = r0.<com.appsflyer.AppsFlyerLibCore$a: java.lang.ref.WeakReference \u0399>;
+
+        entermonitor $r4;
+
+     label04:
+        staticinvoke <com.appsflyer.internal.ab: com.appsflyer.internal.ab \u0399()>();
+
+        $r6 = r0.<com.appsflyer.AppsFlyerLibCore$a: java.lang.ref.WeakReference \u0399>;
+
+        $r7 = virtualinvoke $r6.<java.lang.ref.Reference: java.lang.Object get()>();
+
+        $r8 = (android.content.Context) $r7;
+
+        $r9 = staticinvoke <com.appsflyer.internal.ab: java.util.List \u0399(android.content.Context)>($r8);
+
+        $r10 = interfaceinvoke $r9.<java.util.List: java.util.Iterator iterator()>();
+
+     label05:
+        $z0 = interfaceinvoke $r10.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label16;
+
+        $r7 = interfaceinvoke $r10.<java.util.Iterator: java.lang.Object next()>();
+
+        $r11 = (com.appsflyer.internal.f) $r7;
+
+        $r3 = new java.lang.StringBuilder;
+
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>(java.lang.String)>("resending request: ");
+
+        $r12 = $r11.<com.appsflyer.internal.f: java.lang.String \u01c3>;
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r12);
+
+        $r12 = virtualinvoke $r3.<java.lang.Object: java.lang.String toString()>();
+
+        staticinvoke <com.appsflyer.AFLogger: void afInfoLog(java.lang.String)>($r12);
+
+     label06:
+        $l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $r12 = $r11.<com.appsflyer.internal.f: java.lang.String \u03b9>;
+
+        $l1 = staticinvoke <java.lang.Long: long parseLong(java.lang.String,int)>($r12, 10);
+
+        $r1 = r0.<com.appsflyer.AppsFlyerLibCore$a: com.appsflyer.AppsFlyerLibCore \u03b9>;
+
+     label07:
+        $r2 = new com.appsflyer.internal.model.event.CachedEvent;
+
+     label08:
+        specialinvoke $r2.<com.appsflyer.internal.model.event.CachedEvent: void <init>()>();
+
+     label09:
+        $r3 = new java.lang.StringBuilder;
+
+     label10:
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>()>();
+
+        $r12 = $r11.<com.appsflyer.internal.f: java.lang.String \u01c3>;
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r12);
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("&isCachedRequest=true&timeincache=");
+
+     label11:
+        $l0 = $l0 - $l1;
+
+        $l0 = $l0 / 1000L;
+
+     label12:
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+
+        $r12 = virtualinvoke $r3.<java.lang.Object: java.lang.String toString()>();
+
+        $r13 = virtualinvoke $r2.<com.appsflyer.AFEvent: com.appsflyer.AFEvent urlString(java.lang.String)>($r12);
+
+        $r14 = virtualinvoke $r11.<com.appsflyer.internal.f: byte[] \u01c3()>();
+
+        $r13 = virtualinvoke $r13.<com.appsflyer.AFEvent: com.appsflyer.AFEvent post(byte[])>($r14);
+
+        $r13 = virtualinvoke $r13.<com.appsflyer.AFEvent: com.appsflyer.AFEvent key(java.lang.String)>($r5);
+
+        $r6 = r0.<com.appsflyer.AppsFlyerLibCore$a: java.lang.ref.WeakReference \u0399>;
+
+        $r13.<com.appsflyer.AFEvent: java.lang.ref.WeakReference \u0399> = $r6;
+
+        $r12 = $r11.<com.appsflyer.internal.f: java.lang.String \u03b9>;
+
+        $r13.<com.appsflyer.AFEvent: java.lang.String \u0279> = $r12;
+
+        $r13.<com.appsflyer.AFEvent: boolean \u0237> = 0;
+
+        staticinvoke <com.appsflyer.AppsFlyerLibCore: void \u0269(com.appsflyer.AppsFlyerLibCore,com.appsflyer.AFEvent)>($r1, $r13);
+
+     label13:
+        goto label05;
+
+     label14:
+        $r15 := @caughtexception;
+
+     label15:
+        staticinvoke <com.appsflyer.AFLogger: void afErrorLog(java.lang.String,java.lang.Throwable)>("Failed to resend cached request", $r15);
+
+        goto label05;
+
+     label16:
+        exitmonitor $r4;
+
+     label17:
+        goto label24;
+
+     label18:
+        $r16 := @caughtexception;
+
+     label19:
+        exitmonitor $r4;
+
+     label20:
+        throw $r16;
+
+     label21:
+        $r17 := @caughtexception;
+
+        goto label25;
+
+     label22:
+        $r18 := @caughtexception;
+
+     label23:
+        staticinvoke <com.appsflyer.AFLogger: void afErrorLog(java.lang.String,java.lang.Throwable)>("failed to check cache. ", $r18);
+
+     label24:
+        $r1 = r0.<com.appsflyer.AppsFlyerLibCore$a: com.appsflyer.AppsFlyerLibCore \u03b9>;
+
+        staticinvoke <com.appsflyer.AppsFlyerLibCore: boolean \u0131(com.appsflyer.AppsFlyerLibCore,boolean)>($r1, 0);
+
+        $r1 = r0.<com.appsflyer.AppsFlyerLibCore$a: com.appsflyer.AppsFlyerLibCore \u03b9>;
+
+        $r19 = staticinvoke <com.appsflyer.AppsFlyerLibCore: java.util.concurrent.ScheduledExecutorService \u0456(com.appsflyer.AppsFlyerLibCore)>($r1);
+
+        interfaceinvoke $r19.<java.util.concurrent.ScheduledExecutorService: void shutdown()>();
+
+        $r1 = r0.<com.appsflyer.AppsFlyerLibCore$a: com.appsflyer.AppsFlyerLibCore \u03b9>;
+
+        staticinvoke <com.appsflyer.AppsFlyerLibCore: java.util.concurrent.ScheduledExecutorService \u0406(com.appsflyer.AppsFlyerLibCore)>($r1);
+
+        return;
+
+     label25:
+        $r1 = r0.<com.appsflyer.AppsFlyerLibCore$a: com.appsflyer.AppsFlyerLibCore \u03b9>;
+
+        staticinvoke <com.appsflyer.AppsFlyerLibCore: boolean \u0131(com.appsflyer.AppsFlyerLibCore,boolean)>($r1, 0);
+
+        throw $r17;
+
+        catch java.lang.Exception from label03 to label04 with label22;
+        catch java.lang.Throwable from label03 to label04 with label21;
+        catch java.lang.Throwable from label04 to label06 with label18;
+        catch java.lang.Exception from label06 to label07 with label14;
+        catch java.lang.Exception from label08 to label09 with label14;
+        catch java.lang.Exception from label10 to label11 with label14;
+        catch java.lang.Exception from label12 to label13 with label14;
+        catch java.lang.Throwable from label06 to label13 with label18;
+        catch java.lang.Throwable from label15 to label17 with label18;
+        catch java.lang.Exception from label19 to label21 with label22;
+        catch java.lang.Throwable from label20 to label21 with label21;
+        catch java.lang.Throwable from label23 to label24 with label21;
+    }

@@ -1,0 +1,163 @@
+    private final void encryptAndSaveKey(java.lang.String)
+    {
+        java.lang.Throwable $r19;
+        byte[] $r13;
+        java.io.ByteArrayOutputStream $r9;
+        kotlin.TypeCastException $r15;
+        javax.crypto.Cipher $r5;
+        com.liveperson.infra.managers.PreferenceManager $r20;
+        java.nio.charset.Charset $r12;
+        com.liveperson.infra.controller.DBEncryptionService r0;
+        java.lang.String $r1, $r14;
+        javax.crypto.CipherOutputStream $r10;
+        boolean $z0;
+        java.io.OutputStream $r11;
+        com.liveperson.infra.log.LPLog $r17;
+        java.security.KeyStore $r2;
+        java.security.PublicKey $r7;
+        com.liveperson.infra.errors.ErrorCode $r18;
+        java.lang.Exception $r16;
+        java.security.Key $r8;
+        java.security.KeyStore$Entry $r3;
+        java.security.cert.Certificate $r6;
+        java.security.KeyStore$PrivateKeyEntry $r4;
+
+        r0 := @this: com.liveperson.infra.controller.DBEncryptionService;
+
+        $r1 := @parameter0: java.lang.String;
+
+        specialinvoke r0.<com.liveperson.infra.controller.DBEncryptionService: void generateKeyPairInStoreIfNotExists()>();
+
+        $z0 = 0;
+
+     label01:
+        $r2 = r0.<com.liveperson.infra.controller.DBEncryptionService: java.security.KeyStore androidKeyStore>;
+
+     label02:
+        if $r2 != null goto label04;
+
+     label03:
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void throwUninitializedPropertyAccessException(java.lang.String)>("androidKeyStore");
+
+     label04:
+        $r3 = virtualinvoke $r2.<java.security.KeyStore: java.security.KeyStore$Entry getEntry(java.lang.String,java.security.KeyStore$ProtectionParameter)>("androidInfraDbEncKey", null);
+
+     label05:
+        if $r3 == null goto label22;
+
+     label06:
+        $r4 = (java.security.KeyStore$PrivateKeyEntry) $r3;
+
+        $r5 = staticinvoke <javax.crypto.Cipher: javax.crypto.Cipher getInstance(java.lang.String)>("RSA/ECB/PKCS1Padding");
+
+        $r6 = virtualinvoke $r4.<java.security.KeyStore$PrivateKeyEntry: java.security.cert.Certificate getCertificate()>();
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkExpressionValueIsNotNull(java.lang.Object,java.lang.String)>($r6, "publicKeyEntry.certificate");
+
+        $r7 = virtualinvoke $r6.<java.security.cert.Certificate: java.security.PublicKey getPublicKey()>();
+
+     label07:
+        $r8 = (java.security.Key) $r7;
+
+     label08:
+        virtualinvoke $r5.<javax.crypto.Cipher: void init(int,java.security.Key)>(1, $r8);
+
+     label09:
+        $r9 = new java.io.ByteArrayOutputStream;
+
+     label10:
+        specialinvoke $r9.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label11:
+        $r10 = new javax.crypto.CipherOutputStream;
+
+        $r11 = (java.io.OutputStream) $r9;
+
+     label12:
+        specialinvoke $r10.<javax.crypto.CipherOutputStream: void <init>(java.io.OutputStream,javax.crypto.Cipher)>($r11, $r5);
+
+     label13:
+        if $r1 != null goto label15;
+
+     label14:
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void throwNpe()>();
+
+     label15:
+        $r12 = <java.nio.charset.StandardCharsets: java.nio.charset.Charset UTF_8>;
+
+     label16:
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkExpressionValueIsNotNull(java.lang.Object,java.lang.String)>($r12, "StandardCharsets.UTF_8");
+
+     label17:
+        if $r1 == null goto label20;
+
+     label18:
+        $r13 = virtualinvoke $r1.<java.lang.String: byte[] getBytes(java.nio.charset.Charset)>($r12);
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkExpressionValueIsNotNull(java.lang.Object,java.lang.String)>($r13, "(this as java.lang.String).getBytes(charset)");
+
+        virtualinvoke $r10.<javax.crypto.CipherOutputStream: void write(byte[])>($r13);
+
+        virtualinvoke $r10.<javax.crypto.CipherOutputStream: void close()>();
+
+        $r13 = virtualinvoke $r9.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $r14 = staticinvoke <android.util.Base64: java.lang.String encodeToString(byte[],int)>($r13, 0);
+
+     label19:
+        $r1 = $r14;
+
+        $z0 = 1;
+
+        goto label25;
+
+     label20:
+        $r15 = new kotlin.TypeCastException;
+
+     label21:
+        specialinvoke $r15.<kotlin.TypeCastException: void <init>(java.lang.String)>("null cannot be cast to non-null type java.lang.String");
+
+        throw $r15;
+
+     label22:
+        $r15 = new kotlin.TypeCastException;
+
+     label23:
+        specialinvoke $r15.<kotlin.TypeCastException: void <init>(java.lang.String)>("null cannot be cast to non-null type java.security.KeyStore.PrivateKeyEntry");
+
+        throw $r15;
+
+     label24:
+        $r16 := @caughtexception;
+
+        $r17 = <com.liveperson.infra.log.LPLog: com.liveperson.infra.log.LPLog INSTANCE>;
+
+        $r18 = <com.liveperson.infra.errors.ErrorCode: com.liveperson.infra.errors.ErrorCode ERR_00000036>;
+
+        $r19 = (java.lang.Throwable) $r16;
+
+        virtualinvoke $r17.<com.liveperson.infra.log.LPLog: void e(java.lang.String,com.liveperson.infra.errors.ErrorCode,java.lang.String,java.lang.Throwable)>("DBEncryptionService", $r18, "Exception while encrypting/saving key.", $r19);
+
+     label25:
+        $r20 = staticinvoke <com.liveperson.infra.managers.PreferenceManager: com.liveperson.infra.managers.PreferenceManager getInstance()>();
+
+        virtualinvoke $r20.<com.liveperson.infra.managers.PreferenceManager: void setStringValue(java.lang.String,java.lang.String,java.lang.String)>("dbEncryptionKey", "appLevelPreferences", $r1);
+
+        $r20 = staticinvoke <com.liveperson.infra.managers.PreferenceManager: com.liveperson.infra.managers.PreferenceManager getInstance()>();
+
+        virtualinvoke $r20.<com.liveperson.infra.managers.PreferenceManager: void setBooleanValue(java.lang.String,java.lang.String,boolean)>("dbEncryptionUsesKeyStore", "appLevelPreferences", $z0);
+
+        return;
+
+        catch java.lang.Exception from label01 to label02 with label24;
+        catch java.lang.Exception from label03 to label05 with label24;
+        catch java.lang.Exception from label06 to label07 with label24;
+        catch java.lang.Exception from label08 to label09 with label24;
+        catch java.lang.Exception from label10 to label11 with label24;
+        catch java.lang.Exception from label12 to label13 with label24;
+        catch java.lang.Exception from label14 to label15 with label24;
+        catch java.lang.Exception from label16 to label17 with label24;
+        catch java.lang.Exception from label18 to label19 with label24;
+        catch java.lang.Exception from label21 to label22 with label24;
+        catch java.lang.Exception from label23 to label24 with label24;
+    }

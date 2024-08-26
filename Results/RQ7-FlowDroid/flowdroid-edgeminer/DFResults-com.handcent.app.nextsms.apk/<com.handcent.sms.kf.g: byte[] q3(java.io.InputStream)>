@@ -1,0 +1,63 @@
+    public static byte[] q3(java.io.InputStream)
+    {
+        java.lang.Throwable $r2;
+        byte[] $r1;
+        java.io.ByteArrayOutputStream $r5;
+        int $i0;
+        java.lang.String $r4;
+        java.lang.Exception $r3;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $r5 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r5.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r1 = newarray (byte)[1024];
+
+     label01:
+        $i0 = virtualinvoke $r0.<java.io.InputStream: int read(byte[])>($r1);
+
+     label02:
+        if $i0 != -1 goto label05;
+
+     label03:
+        $r1 = virtualinvoke $r5.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label04:
+        return $r1;
+
+     label05:
+        virtualinvoke $r5.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r1, 0, $i0);
+
+     label06:
+        goto label01;
+
+     label07:
+        $r2 := @caughtexception;
+
+        goto label11;
+
+     label08:
+        $r3 := @caughtexception;
+
+     label09:
+        $r4 = virtualinvoke $r3.<java.lang.Exception: java.lang.String toString()>();
+
+        staticinvoke <com.handcent.sms.yc.r1: void c(java.lang.String,java.lang.String)>("", $r4);
+
+     label10:
+        return null;
+
+     label11:
+        throw $r2;
+
+        catch java.lang.Exception from label01 to label02 with label08;
+        catch java.lang.Exception from label03 to label04 with label08;
+        catch java.lang.Exception from label05 to label06 with label08;
+        catch java.lang.Throwable from label01 to label02 with label07;
+        catch java.lang.Throwable from label03 to label04 with label07;
+        catch java.lang.Throwable from label05 to label06 with label07;
+        catch java.lang.Throwable from label09 to label10 with label07;
+    }

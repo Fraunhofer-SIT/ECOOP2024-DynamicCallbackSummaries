@@ -1,0 +1,132 @@
+    private org.json.JSONArray e()
+    {
+        android.content.Context $r4;
+        android.net.wifi.WifiInfo $r7;
+        com.yandex.metrica.impl.ob.ch r0;
+        org.json.JSONObject $r13;
+        java.lang.Long $r14;
+        int $i0;
+        java.lang.String $r2, $r8, $r12;
+        boolean $z0;
+        android.net.wifi.ScanResult $r11;
+        java.util.Iterator $r9;
+        com.yandex.metrica.impl.ob.nr $r3;
+        java.util.List $r5;
+        com.yandex.metrica.impl.ob.nq $r6;
+        java.lang.Object $r10;
+        org.json.JSONArray $r1;
+
+        r0 := @this: com.yandex.metrica.impl.ob.ch;
+
+        $z0 = specialinvoke r0.<com.yandex.metrica.impl.ob.ch: boolean j()>();
+
+        $r2 = null;
+
+        if $z0 == 0 goto label01;
+
+        $r3 = r0.<com.yandex.metrica.impl.ob.ch: com.yandex.metrica.impl.ob.nr k>;
+
+        $r4 = r0.<com.yandex.metrica.impl.ob.ch: android.content.Context a>;
+
+        $z0 = interfaceinvoke $r3.<com.yandex.metrica.impl.ob.nr: boolean a(android.content.Context)>($r4);
+
+        if $z0 == 0 goto label01;
+
+        $r5 = specialinvoke r0.<com.yandex.metrica.impl.ob.ch: java.util.List c()>();
+
+        goto label02;
+
+     label01:
+        $r5 = null;
+
+     label02:
+        $z0 = specialinvoke r0.<com.yandex.metrica.impl.ob.ch: boolean i()>();
+
+        if $z0 == 0 goto label03;
+
+        $r6 = r0.<com.yandex.metrica.impl.ob.ch: com.yandex.metrica.impl.ob.nq c>;
+
+        $r4 = r0.<com.yandex.metrica.impl.ob.ch: android.content.Context a>;
+
+        $z0 = virtualinvoke $r6.<com.yandex.metrica.impl.ob.nq: boolean e(android.content.Context)>($r4);
+
+        if $z0 == 0 goto label03;
+
+        $r7 = specialinvoke r0.<com.yandex.metrica.impl.ob.ch: android.net.wifi.WifiInfo d()>();
+
+        goto label04;
+
+     label03:
+        $r7 = null;
+
+     label04:
+        if $r7 != null goto label05;
+
+        $r8 = null;
+
+        goto label06;
+
+     label05:
+        $r8 = virtualinvoke $r7.<android.net.wifi.WifiInfo: java.lang.String getBSSID()>();
+
+     label06:
+        $r1 = new org.json.JSONArray;
+
+        specialinvoke $r1.<org.json.JSONArray: void <init>()>();
+
+        if $r5 == null goto label08;
+
+        $r9 = interfaceinvoke $r5.<java.util.List: java.util.Iterator iterator()>();
+
+     label07:
+        $z0 = interfaceinvoke $r9.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label10;
+
+        $r10 = interfaceinvoke $r9.<java.util.Iterator: java.lang.Object next()>();
+
+        $r11 = (android.net.wifi.ScanResult) $r10;
+
+        if $r11 == null goto label07;
+
+        $r2 = $r11.<android.net.wifi.ScanResult: java.lang.String BSSID>;
+
+        $r12 = "02:00:00:00:00:00";
+
+        $z0 = virtualinvoke $r12.<java.lang.String: boolean equals(java.lang.Object)>($r2);
+
+        if $z0 != 0 goto label07;
+
+        $r13 = specialinvoke r0.<com.yandex.metrica.impl.ob.ch: org.json.JSONObject a(java.lang.String,android.net.wifi.ScanResult)>($r8, $r11);
+
+        if $r13 == null goto label07;
+
+        virtualinvoke $r1.<org.json.JSONArray: org.json.JSONArray put(java.lang.Object)>($r13);
+
+        goto label07;
+
+     label08:
+        if $r7 == null goto label10;
+
+        $r8 = specialinvoke r0.<com.yandex.metrica.impl.ob.ch: java.lang.String a(java.lang.String)>($r8);
+
+        $r12 = virtualinvoke $r7.<android.net.wifi.WifiInfo: java.lang.String getSSID()>();
+
+        if $r12 == null goto label09;
+
+        $r2 = specialinvoke r0.<com.yandex.metrica.impl.ob.ch: java.lang.String b(java.lang.String)>($r12);
+
+     label09:
+        $i0 = virtualinvoke $r7.<android.net.wifi.WifiInfo: int getRssi()>();
+
+        $r14 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>(0L);
+
+        $r13 = specialinvoke r0.<com.yandex.metrica.impl.ob.ch: org.json.JSONObject a(java.lang.String,java.lang.String,boolean,int,java.lang.Long)>($r8, $r2, 1, $i0, $r14);
+
+        if $r13 == null goto label10;
+
+        virtualinvoke $r1.<org.json.JSONArray: org.json.JSONArray put(java.lang.Object)>($r13);
+
+     label10:
+        return $r1;
+    }

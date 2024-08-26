@@ -1,0 +1,185 @@
+    private java.lang.Boolean a(java.lang.String, java.lang.String, int, int)
+    {
+        java.net.HttpURLConnection $r7;
+        byte[] $r3;
+        java.io.BufferedInputStream $r17;
+        java.net.URL $r16;
+        long $l4, $l5;
+        com.pandora.c.a$a $r12;
+        java.util.ArrayList $r10;
+        com.pandora.c.a r0;
+        byte $b6;
+        java.net.URLConnection $r6;
+        int $i0, $i1, $i2, $i3;
+        java.lang.Boolean $r5;
+        java.lang.String $r1, $r2, $r4;
+        boolean $z0;
+        java.io.FileOutputStream $r18;
+        java.lang.Exception $r9, $r13, $r14;
+        java.io.File $r15;
+        java.lang.Object $r11;
+        java.io.InputStream $r8;
+
+        r0 := @this: com.pandora.c.a;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $i0 := @parameter2: int;
+
+        $i1 := @parameter3: int;
+
+        $r15 = new java.io.File;
+
+        $r4 = staticinvoke <com.pandora.e.r: java.lang.String c(java.lang.String)>($r1);
+
+        $r4 = virtualinvoke r0.<com.pandora.c.a: java.lang.String a(java.lang.String,java.lang.String)>($r2, $r4);
+
+        specialinvoke $r15.<java.io.File: void <init>(java.lang.String)>($r4);
+
+        $r4 = staticinvoke <com.pandora.e.r: java.lang.String c(java.lang.String)>($r1);
+
+        $z0 = virtualinvoke $r4.<java.lang.String: boolean contains(java.lang.CharSequence)>("device.js");
+
+        if $z0 == 0 goto label01;
+
+        $z0 = virtualinvoke $r15.<java.io.File: boolean exists()>();
+
+        if $z0 == 0 goto label01;
+
+        $r5 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(1);
+
+        return $r5;
+
+     label01:
+        $z0 = virtualinvoke $r15.<java.io.File: boolean exists()>();
+
+        if $z0 == 0 goto label02;
+
+        $r4 = virtualinvoke $r15.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        staticinvoke <com.pandora.e.r: void g(java.lang.String)>($r4);
+
+     label02:
+        $r16 = new java.net.URL;
+
+     label03:
+        specialinvoke $r16.<java.net.URL: void <init>(java.lang.String)>($r1);
+
+        $r6 = virtualinvoke $r16.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r7 = (java.net.HttpURLConnection) $r6;
+
+        virtualinvoke $r7.<java.net.HttpURLConnection: void connect()>();
+
+        $i2 = virtualinvoke $r7.<java.net.HttpURLConnection: int getContentLength()>();
+
+     label04:
+        $r17 = new java.io.BufferedInputStream;
+
+     label05:
+        $r8 = virtualinvoke $r16.<java.net.URL: java.io.InputStream openStream()>();
+
+        specialinvoke $r17.<java.io.BufferedInputStream: void <init>(java.io.InputStream,int)>($r8, 10240);
+
+     label06:
+        $r18 = new java.io.FileOutputStream;
+
+     label07:
+        specialinvoke $r18.<java.io.FileOutputStream: void <init>(java.io.File)>($r15);
+
+     label08:
+        $r3 = newarray (byte)[1024];
+
+     label09:
+        $i3 = virtualinvoke $r17.<java.io.InputStream: int read(byte[])>($r3);
+
+     label10:
+        if $i3 == -1 goto label20;
+
+     label11:
+        virtualinvoke $r18.<java.io.FileOutputStream: void write(byte[],int,int)>($r3, 0, $i3);
+
+     label12:
+        goto label09;
+
+     label13:
+        $r9 := @caughtexception;
+
+     label14:
+        $r10 = r0.<com.pandora.c.a: java.util.ArrayList b>;
+
+        $r11 = virtualinvoke $r10.<java.util.ArrayList: java.lang.Object get(int)>($i1);
+
+        $r12 = (com.pandora.c.a$a) $r11;
+
+        $r5 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(1);
+
+        $r12.<com.pandora.c.a$a: java.lang.Boolean b> = $r5;
+
+     label15:
+        goto label09;
+
+     label16:
+        $r13 := @caughtexception;
+
+        $r9 = $r13;
+
+     label17:
+        staticinvoke <com.pandora.e.r: void a(java.lang.String,java.lang.Exception)>(" ", $r9);
+
+     label18:
+        $l4 = virtualinvoke $r15.<java.io.File: long length()>();
+
+        $l5 = (long) $i2;
+
+        $b6 = $l4 cmp $l5;
+
+        $i2 = (int) $b6;
+
+        if $i2 >= 0 goto label22;
+
+        $r4 = virtualinvoke $r15.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        staticinvoke <com.pandora.e.r: void g(java.lang.String)>($r4);
+
+        if $i0 <= 0 goto label19;
+
+        $i0 = $i0 + -1;
+
+        specialinvoke r0.<com.pandora.c.a: java.lang.Boolean a(java.lang.String,java.lang.String,int,int)>($r1, $r2, $i0, $i1);
+
+     label19:
+        $r5 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(0);
+
+        return $r5;
+
+     label20:
+        virtualinvoke $r18.<java.io.FileOutputStream: void close()>();
+
+     label21:
+        goto label18;
+
+     label22:
+        $r5 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(1);
+
+        return $r5;
+
+     label23:
+        $r14 := @caughtexception;
+
+        $r9 = $r14;
+
+        $i2 = 1;
+
+        goto label17;
+
+        catch java.lang.Exception from label03 to label04 with label23;
+        catch java.lang.Exception from label05 to label06 with label16;
+        catch java.lang.Exception from label07 to label08 with label16;
+        catch java.lang.Exception from label09 to label10 with label16;
+        catch java.lang.Exception from label11 to label12 with label13;
+        catch java.lang.Exception from label14 to label15 with label16;
+        catch java.lang.Exception from label20 to label21 with label16;
+    }

@@ -1,0 +1,453 @@
+    private static android.graphics.Bitmap b(android.content.Context, java.lang.String)
+    {
+        org.apache.http.impl.client.DefaultHttpClient $r37;
+        byte[] $r30;
+        android.net.http.AndroidHttpClient $r21;
+        java.io.BufferedInputStream $r40;
+        src.ad.imageloader.i$a $r42;
+        java.lang.Integer $r23;
+        org.apache.http.StatusLine $r25;
+        boolean $z0;
+        src.ad.imageloader.j $r31;
+        org.apache.http.HttpEntity $r26;
+        java.lang.Exception $r4, $r7, $r10, $r13, $r16, $r19;
+        org.apache.http.client.methods.HttpGet $r38;
+        float $f0, $f1;
+        java.lang.Throwable $r2, $r3, $r5, $r6, $r8, $r9, $r11, $r12, $r14, $r15, $r17, $r18, $r35, $r36;
+        android.content.Context $r0;
+        long $l1;
+        java.io.BufferedOutputStream $r41;
+        org.apache.http.client.HttpClient $r43;
+        int $i0, $i2;
+        java.lang.String $r1, $r32;
+        java.io.FileOutputStream $r39;
+        java.io.File $r28, $r29, $r34;
+        android.graphics.Bitmap $r33;
+        org.apache.http.params.HttpParams $r22;
+        org.apache.http.HttpResponse $r24;
+        java.lang.Object $r20;
+        java.io.InputStream $r27;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $i0 = <android.os.Build$VERSION: int SDK_INT>;
+
+        if $i0 >= 8 goto label01;
+
+        $r37 = new org.apache.http.impl.client.DefaultHttpClient;
+
+        $r20 = $r37;
+
+        specialinvoke $r37.<org.apache.http.impl.client.DefaultHttpClient: void <init>()>();
+
+        goto label02;
+
+     label01:
+        $r20 = staticinvoke <android.net.http.AndroidHttpClient: android.net.http.AndroidHttpClient newInstance(java.lang.String)>("Android");
+
+     label02:
+        $r38 = new org.apache.http.client.methods.HttpGet;
+
+        specialinvoke $r38.<org.apache.http.client.methods.HttpGet: void <init>(java.lang.String)>($r1);
+
+        $r43 = (org.apache.http.client.HttpClient) $r20;
+
+        $r22 = interfaceinvoke $r43.<org.apache.http.client.HttpClient: org.apache.http.params.HttpParams getParams()>();
+
+        $r23 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(20000);
+
+        interfaceinvoke $r22.<org.apache.http.params.HttpParams: org.apache.http.params.HttpParams setParameter(java.lang.String,java.lang.Object)>("http.connection.timeout", $r23);
+
+        $r43 = (org.apache.http.client.HttpClient) $r20;
+
+        $r22 = interfaceinvoke $r43.<org.apache.http.client.HttpClient: org.apache.http.params.HttpParams getParams()>();
+
+        $r23 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(20000);
+
+        interfaceinvoke $r22.<org.apache.http.params.HttpParams: org.apache.http.params.HttpParams setParameter(java.lang.String,java.lang.Object)>("http.socket.timeout", $r23);
+
+     label03:
+        $r43 = (org.apache.http.client.HttpClient) $r20;
+
+     label04:
+        $r24 = interfaceinvoke $r43.<org.apache.http.client.HttpClient: org.apache.http.HttpResponse execute(org.apache.http.client.methods.HttpUriRequest)>($r38);
+
+        $r25 = interfaceinvoke $r24.<org.apache.http.HttpResponse: org.apache.http.StatusLine getStatusLine()>();
+
+        $i0 = interfaceinvoke $r25.<org.apache.http.StatusLine: int getStatusCode()>();
+
+     label05:
+        if $i0 == 200 goto label06;
+
+        $z0 = $r20 instanceof android.net.http.AndroidHttpClient;
+
+        if $z0 == 0 goto label70;
+
+        $r21 = (android.net.http.AndroidHttpClient) $r20;
+
+        virtualinvoke $r21.<android.net.http.AndroidHttpClient: void close()>();
+
+        return null;
+
+     label06:
+        $r26 = interfaceinvoke $r24.<org.apache.http.HttpResponse: org.apache.http.HttpEntity getEntity()>();
+
+        $l1 = interfaceinvoke $r26.<org.apache.http.HttpEntity: long getContentLength()>();
+
+     label07:
+        if $r26 == null goto label41;
+
+     label08:
+        $r27 = interfaceinvoke $r26.<org.apache.http.HttpEntity: java.io.InputStream getContent()>();
+
+        $z0 = staticinvoke <src.ad.imageloader.c: boolean a()>();
+
+     label09:
+        if $z0 == 0 goto label33;
+
+     label10:
+        $r28 = staticinvoke <src.ad.imageloader.c: java.io.File a(android.content.Context)>($r0);
+
+     label11:
+        $r29 = $r28;
+
+        if $r28 == null goto label31;
+
+     label12:
+        $r39 = new java.io.FileOutputStream;
+
+     label13:
+        specialinvoke $r39.<java.io.FileOutputStream: void <init>(java.io.File)>($r28);
+
+        $r40 = new java.io.BufferedInputStream;
+
+     label14:
+        specialinvoke $r40.<java.io.BufferedInputStream: void <init>(java.io.InputStream,int)>($r27, 8192);
+
+        $r41 = new java.io.BufferedOutputStream;
+
+     label15:
+        specialinvoke $r41.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream,int)>($r39, 8192);
+
+     label16:
+        $r30 = newarray (byte)[8192];
+
+        $i0 = 0;
+
+     label17:
+        $i2 = virtualinvoke $r40.<java.io.BufferedInputStream: int read(byte[])>($r30);
+
+     label18:
+        if $i2 <= 0 goto label23;
+
+     label19:
+        virtualinvoke $r41.<java.io.BufferedOutputStream: void write(byte[],int,int)>($r30, 0, $i2);
+
+     label20:
+        $i0 = $i0 + $i2;
+
+        $f0 = (float) $i0;
+
+        $f0 = $f0 * 1.0F;
+
+        $f1 = (float) $l1;
+
+        $f0 = $f0 / $f1;
+
+     label21:
+        $r31 = staticinvoke <src.ad.imageloader.j: src.ad.imageloader.j a()>();
+
+        virtualinvoke $r31.<src.ad.imageloader.j: void a(java.lang.String,float)>($r1, $f0);
+
+     label22:
+        goto label17;
+
+     label23:
+        virtualinvoke $r41.<java.io.BufferedOutputStream: void flush()>();
+
+        virtualinvoke $r39.<java.io.FileOutputStream: void close()>();
+
+        virtualinvoke $r27.<java.io.InputStream: void close()>();
+
+        $r32 = virtualinvoke $r28.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $r33 = staticinvoke <src.ad.imageloader.b: android.graphics.Bitmap a(java.lang.String)>($r32);
+
+     label24:
+        if $r33 == null goto label26;
+
+     label25:
+        $r34 = staticinvoke <src.ad.imageloader.c: java.io.File a(android.content.Context,java.lang.String)>($r0, $r1);
+
+        virtualinvoke $r28.<java.io.File: boolean renameTo(java.io.File)>($r34);
+
+     label26:
+        if $r28 == null goto label28;
+
+     label27:
+        virtualinvoke $r28.<java.io.File: boolean delete()>();
+
+     label28:
+        interfaceinvoke $r26.<org.apache.http.HttpEntity: void consumeContent()>();
+
+     label29:
+        $z0 = $r20 instanceof android.net.http.AndroidHttpClient;
+
+        if $z0 == 0 goto label71;
+
+        $r21 = (android.net.http.AndroidHttpClient) $r20;
+
+        virtualinvoke $r21.<android.net.http.AndroidHttpClient: void close()>();
+
+        return $r33;
+
+     label30:
+        $r35 := @caughtexception;
+
+        goto label38;
+
+     label31:
+        interfaceinvoke $r26.<org.apache.http.HttpEntity: void consumeContent()>();
+
+     label32:
+        goto label41;
+
+     label33:
+        $r42 = new src.ad.imageloader.i$a;
+
+     label34:
+        specialinvoke $r42.<src.ad.imageloader.i$a: void <init>(java.io.InputStream)>($r27);
+
+        $r33 = staticinvoke <android.graphics.BitmapFactory: android.graphics.Bitmap decodeStream(java.io.InputStream)>($r42);
+
+     label35:
+        interfaceinvoke $r26.<org.apache.http.HttpEntity: void consumeContent()>();
+
+     label36:
+        $z0 = $r20 instanceof android.net.http.AndroidHttpClient;
+
+        if $z0 == 0 goto label71;
+
+        $r21 = (android.net.http.AndroidHttpClient) $r20;
+
+        virtualinvoke $r21.<android.net.http.AndroidHttpClient: void close()>();
+
+        return $r33;
+
+     label37:
+        $r35 := @caughtexception;
+
+        $r29 = null;
+
+     label38:
+        if $r29 == null goto label40;
+
+     label39:
+        virtualinvoke $r29.<java.io.File: boolean delete()>();
+
+     label40:
+        interfaceinvoke $r26.<org.apache.http.HttpEntity: void consumeContent()>();
+
+        throw $r35;
+
+     label41:
+        $z0 = $r20 instanceof android.net.http.AndroidHttpClient;
+
+        if $z0 == 0 goto label72;
+
+        goto label49;
+
+     label42:
+        $r36 := @caughtexception;
+
+        goto label50;
+
+     label43:
+        virtualinvoke $r38.<org.apache.http.client.methods.HttpGet: void abort()>();
+
+     label44:
+        $z0 = $r20 instanceof android.net.http.AndroidHttpClient;
+
+        if $z0 == 0 goto label72;
+
+        goto label49;
+
+     label45:
+        virtualinvoke $r38.<org.apache.http.client.methods.HttpGet: void abort()>();
+
+     label46:
+        $z0 = $r20 instanceof android.net.http.AndroidHttpClient;
+
+        if $z0 == 0 goto label72;
+
+        goto label49;
+
+     label47:
+        virtualinvoke $r38.<org.apache.http.client.methods.HttpGet: void abort()>();
+
+     label48:
+        $z0 = $r20 instanceof android.net.http.AndroidHttpClient;
+
+        if $z0 == 0 goto label72;
+
+     label49:
+        $r21 = (android.net.http.AndroidHttpClient) $r20;
+
+        virtualinvoke $r21.<android.net.http.AndroidHttpClient: void close()>();
+
+        return null;
+
+     label50:
+        $z0 = $r20 instanceof android.net.http.AndroidHttpClient;
+
+        if $z0 == 0 goto label51;
+
+        $r21 = (android.net.http.AndroidHttpClient) $r20;
+
+        virtualinvoke $r21.<android.net.http.AndroidHttpClient: void close()>();
+
+     label51:
+        throw $r36;
+
+     label52:
+        $r2 := @caughtexception;
+
+        goto label47;
+
+     label53:
+        $r3 := @caughtexception;
+
+        goto label45;
+
+     label54:
+        $r4 := @caughtexception;
+
+        goto label43;
+
+     label55:
+        $r5 := @caughtexception;
+
+        goto label47;
+
+     label56:
+        $r6 := @caughtexception;
+
+        goto label45;
+
+     label57:
+        $r7 := @caughtexception;
+
+        goto label43;
+
+     label58:
+        $r8 := @caughtexception;
+
+        goto label47;
+
+     label59:
+        $r9 := @caughtexception;
+
+        goto label45;
+
+     label60:
+        $r10 := @caughtexception;
+
+        goto label43;
+
+     label61:
+        $r11 := @caughtexception;
+
+        goto label47;
+
+     label62:
+        $r12 := @caughtexception;
+
+        goto label45;
+
+     label63:
+        $r13 := @caughtexception;
+
+        goto label43;
+
+     label64:
+        $r14 := @caughtexception;
+
+        goto label47;
+
+     label65:
+        $r15 := @caughtexception;
+
+        goto label45;
+
+     label66:
+        $r16 := @caughtexception;
+
+        goto label43;
+
+     label67:
+        $r17 := @caughtexception;
+
+        goto label47;
+
+     label68:
+        $r18 := @caughtexception;
+
+        goto label45;
+
+     label69:
+        $r19 := @caughtexception;
+
+        goto label43;
+
+     label70:
+        return null;
+
+     label71:
+        return $r33;
+
+     label72:
+        return null;
+
+        catch java.io.IOException from label04 to label05 with label52;
+        catch java.lang.IllegalStateException from label04 to label05 with label53;
+        catch java.lang.Exception from label03 to label05 with label54;
+        catch java.lang.Throwable from label03 to label05 with label42;
+        catch java.io.IOException from label06 to label07 with label55;
+        catch java.lang.IllegalStateException from label06 to label07 with label56;
+        catch java.lang.Exception from label06 to label07 with label57;
+        catch java.lang.Throwable from label06 to label07 with label42;
+        catch java.lang.Throwable from label08 to label09 with label37;
+        catch java.lang.Throwable from label10 to label11 with label37;
+        catch java.lang.Throwable from label12 to label13 with label30;
+        catch java.lang.Throwable from label13 to label14 with label30;
+        catch java.lang.Throwable from label14 to label15 with label30;
+        catch java.lang.Throwable from label15 to label16 with label30;
+        catch java.lang.Throwable from label17 to label18 with label30;
+        catch java.lang.Throwable from label19 to label20 with label30;
+        catch java.lang.Throwable from label21 to label22 with label30;
+        catch java.lang.Throwable from label23 to label24 with label30;
+        catch java.lang.Throwable from label25 to label26 with label30;
+        catch java.io.IOException from label27 to label29 with label58;
+        catch java.lang.IllegalStateException from label27 to label29 with label59;
+        catch java.lang.Exception from label27 to label29 with label60;
+        catch java.lang.Throwable from label27 to label29 with label42;
+        catch java.io.IOException from label31 to label32 with label61;
+        catch java.lang.IllegalStateException from label31 to label32 with label62;
+        catch java.lang.Exception from label31 to label32 with label63;
+        catch java.lang.Throwable from label31 to label32 with label42;
+        catch java.lang.Throwable from label33 to label34 with label37;
+        catch java.lang.Throwable from label34 to label35 with label37;
+        catch java.io.IOException from label35 to label36 with label64;
+        catch java.lang.IllegalStateException from label35 to label36 with label65;
+        catch java.lang.Exception from label35 to label36 with label66;
+        catch java.lang.Throwable from label35 to label36 with label42;
+        catch java.io.IOException from label39 to label41 with label67;
+        catch java.lang.IllegalStateException from label39 to label41 with label68;
+        catch java.lang.Exception from label39 to label41 with label69;
+        catch java.lang.Throwable from label39 to label41 with label42;
+        catch java.lang.Throwable from label43 to label44 with label42;
+        catch java.lang.Throwable from label45 to label46 with label42;
+        catch java.lang.Throwable from label47 to label48 with label42;
+    }

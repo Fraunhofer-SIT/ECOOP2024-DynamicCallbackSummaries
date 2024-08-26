@@ -1,0 +1,38 @@
+    public void onAddressAvailable(android.location.Address)
+    {
+        android.location.Address $r2;
+        android.content.Context $r3;
+        com.jumio.sdk.models.AddressModel $r4;
+        com.jumio.MobileController r0;
+        java.io.Serializable $r1;
+
+        r0 := @this: com.jumio.MobileController;
+
+        $r2 := @parameter0: android.location.Address;
+
+        if $r2 != null goto label1;
+
+        return;
+
+     label1:
+        $r3 = r0.<com.jumio.MobileController: android.content.Context context>;
+
+        $r1 = staticinvoke <com.jumio.persistence.DataAccess: java.io.Serializable load(android.content.Context,java.lang.Class)>($r3, class "Lcom/jumio/sdk/models/AddressModel;");
+
+        $r4 = (com.jumio.sdk.models.AddressModel) $r1;
+
+        if $r4 != null goto label2;
+
+        $r4 = new com.jumio.sdk.models.AddressModel;
+
+        specialinvoke $r4.<com.jumio.sdk.models.AddressModel: void <init>()>();
+
+     label2:
+        virtualinvoke $r4.<com.jumio.sdk.models.AddressModel: void setAddress(android.location.Address)>($r2);
+
+        $r3 = r0.<com.jumio.MobileController: android.content.Context context>;
+
+        staticinvoke <com.jumio.persistence.DataAccess: void update(android.content.Context,java.lang.Class,java.io.Serializable)>($r3, class "Lcom/jumio/sdk/models/AddressModel;", $r4);
+
+        return;
+    }

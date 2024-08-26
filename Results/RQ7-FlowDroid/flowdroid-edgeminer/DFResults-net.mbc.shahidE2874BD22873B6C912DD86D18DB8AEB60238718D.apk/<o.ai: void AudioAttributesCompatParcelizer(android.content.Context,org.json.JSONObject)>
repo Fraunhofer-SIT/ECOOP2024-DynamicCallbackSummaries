@@ -1,0 +1,324 @@
+    public final void AudioAttributesCompatParcelizer(android.content.Context, org.json.JSONObject)
+    {
+        java.lang.Throwable $r1, $r3, $r21;
+        android.content.SharedPreferences$Editor $r14;
+        android.content.Context $r4;
+        o.ah$6 $r18;
+        long $l1;
+        o.af$5$4 $r19;
+        org.json.JSONException $r2;
+        org.json.JSONObject $r5, $r7, $r8;
+        int $i0;
+        java.lang.Boolean $r15, $r16;
+        com.clevertap.android.sdk.CleverTapInstanceConfig $r22;
+        java.lang.String $r11;
+        o.onCustomAction$read $r6, $r20;
+        boolean $z0, $z1;
+        com.facebook.GraphRequest$ParcelableResourceWithMimeType$AudioAttributesCompatParcelizer $r23;
+        java.util.Iterator $r9;
+        o.ai r0;
+        android.content.SharedPreferences $r13;
+        com.clevertap.android.sdk.CleverTapAPI $r17;
+        java.lang.Object $r10;
+        org.json.JSONArray $r12;
+
+        r0 := @this: o.ai;
+
+        $r4 := @parameter0: android.content.Context;
+
+        $r5 := @parameter1: org.json.JSONObject;
+
+     label01:
+        $z0 = virtualinvoke $r5.<org.json.JSONObject: boolean has(java.lang.String)>("evpr");
+
+     label02:
+        if $z0 != 0 goto label03;
+
+        return;
+
+     label03:
+        $r5 = virtualinvoke $r5.<org.json.JSONObject: org.json.JSONObject getJSONObject(java.lang.String)>("evpr");
+
+        $z0 = virtualinvoke $r5.<org.json.JSONObject: boolean has(java.lang.String)>("profile");
+
+     label04:
+        $r6 = null;
+
+        if $z0 == 0 goto label21;
+
+     label05:
+        $r7 = virtualinvoke $r5.<org.json.JSONObject: org.json.JSONObject getJSONObject(java.lang.String)>("profile");
+
+        $z0 = virtualinvoke $r7.<org.json.JSONObject: boolean has(java.lang.String)>("_custom");
+
+     label06:
+        if $z0 == 0 goto label19;
+
+     label07:
+        $r8 = virtualinvoke $r7.<org.json.JSONObject: org.json.JSONObject getJSONObject(java.lang.String)>("_custom");
+
+        virtualinvoke $r7.<org.json.JSONObject: java.lang.Object remove(java.lang.String)>("_custom");
+
+        $r9 = virtualinvoke $r8.<org.json.JSONObject: java.util.Iterator keys()>();
+
+     label08:
+        $z0 = interfaceinvoke $r9.<java.util.Iterator: boolean hasNext()>();
+
+     label09:
+        if $z0 == 0 goto label19;
+
+     label10:
+        $r10 = interfaceinvoke $r9.<java.util.Iterator: java.lang.Object next()>();
+
+        $r11 = virtualinvoke $r10.<java.lang.Object: java.lang.String toString()>();
+
+     label11:
+        $r12 = virtualinvoke $r8.<org.json.JSONObject: org.json.JSONArray getJSONArray(java.lang.String)>($r11);
+
+     label12:
+        $r10 = $r12;
+
+        goto label16;
+
+     label13:
+        $r10 = virtualinvoke $r8.<org.json.JSONObject: java.lang.Object get(java.lang.String)>($r11);
+
+     label14:
+        goto label16;
+
+     label15:
+        $r10 = null;
+
+     label16:
+        if $r10 == null goto label08;
+
+     label17:
+        virtualinvoke $r7.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>($r11, $r10);
+
+     label18:
+        goto label08;
+
+     label19:
+        $r7 = specialinvoke r0.<o.ai: org.json.JSONObject read(org.json.JSONObject)>($r7);
+
+     label20:
+        goto label22;
+
+     label21:
+        $r7 = null;
+
+     label22:
+        $z0 = virtualinvoke $r5.<org.json.JSONObject: boolean has(java.lang.String)>("events");
+
+     label23:
+        if $z0 == 0 goto label26;
+
+     label24:
+        $r8 = virtualinvoke $r5.<org.json.JSONObject: org.json.JSONObject getJSONObject(java.lang.String)>("events");
+
+        $r8 = specialinvoke r0.<o.ai: org.json.JSONObject write(android.content.Context,org.json.JSONObject)>($r4, $r8);
+
+     label25:
+        goto label27;
+
+     label26:
+        $r8 = null;
+
+     label27:
+        $z0 = virtualinvoke $r5.<org.json.JSONObject: boolean has(java.lang.String)>("expires_in");
+
+     label28:
+        if $z0 == 0 goto label30;
+
+     label29:
+        $i0 = virtualinvoke $r5.<org.json.JSONObject: int getInt(java.lang.String)>("expires_in");
+
+        $r11 = virtualinvoke r0.<o.ai: java.lang.String AudioAttributesCompatParcelizer(java.lang.String)>("local_cache_expires_in");
+
+        $r13 = staticinvoke <o.supportRequestWindowFeature$read: android.content.SharedPreferences write(android.content.Context,java.lang.String)>($r4, null);
+
+        $r14 = interfaceinvoke $r13.<android.content.SharedPreferences: android.content.SharedPreferences$Editor edit()>();
+
+        $r14 = interfaceinvoke $r14.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putInt(java.lang.String,int)>($r11, $i0);
+
+        staticinvoke <o.supportRequestWindowFeature$read: void write(android.content.SharedPreferences$Editor)>($r14);
+
+     label30:
+        $r11 = virtualinvoke r0.<o.ai: java.lang.String AudioAttributesCompatParcelizer(java.lang.String)>("local_cache_last_update");
+
+        $l1 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+     label31:
+        $l1 = $l1 / 1000L;
+
+        $i0 = (int) $l1;
+
+     label32:
+        $r13 = staticinvoke <o.supportRequestWindowFeature$read: android.content.SharedPreferences write(android.content.Context,java.lang.String)>($r4, null);
+
+        $r14 = interfaceinvoke $r13.<android.content.SharedPreferences: android.content.SharedPreferences$Editor edit()>();
+
+        $r14 = interfaceinvoke $r14.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putInt(java.lang.String,int)>($r11, $i0);
+
+        staticinvoke <o.supportRequestWindowFeature$read: void write(android.content.SharedPreferences$Editor)>($r14);
+
+     label33:
+        $z0 = 1;
+
+        if $r7 == null goto label36;
+
+     label34:
+        $i0 = virtualinvoke $r7.<org.json.JSONObject: int length()>();
+
+     label35:
+        if $i0 <= 0 goto label36;
+
+        $z1 = 1;
+
+        goto label37;
+
+     label36:
+        $z1 = 0;
+
+     label37:
+        $r15 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>($z1);
+
+     label38:
+        if $r8 == null goto label41;
+
+     label39:
+        $i0 = virtualinvoke $r8.<org.json.JSONObject: int length()>();
+
+     label40:
+        if $i0 > 0 goto label42;
+
+     label41:
+        $z0 = 0;
+
+     label42:
+        $r16 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>($z0);
+
+        $z0 = virtualinvoke $r15.<java.lang.Boolean: boolean booleanValue()>();
+
+     label43:
+        if $z0 != 0 goto label46;
+
+     label44:
+        $z0 = virtualinvoke $r16.<java.lang.Boolean: boolean booleanValue()>();
+
+     label45:
+        if $z0 == 0 goto label62;
+
+     label46:
+        $r5 = new org.json.JSONObject;
+
+        specialinvoke $r5.<org.json.JSONObject: void <init>()>();
+
+        $z0 = virtualinvoke $r15.<java.lang.Boolean: boolean booleanValue()>();
+
+     label47:
+        if $z0 == 0 goto label49;
+
+     label48:
+        virtualinvoke $r5.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("profile", $r7);
+
+     label49:
+        $z0 = virtualinvoke $r16.<java.lang.Boolean: boolean booleanValue()>();
+
+     label50:
+        if $z0 == 0 goto label52;
+
+     label51:
+        virtualinvoke $r5.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("events", $r8);
+
+     label52:
+        $r17 = staticinvoke <com.clevertap.android.sdk.CleverTapAPI: com.clevertap.android.sdk.CleverTapAPI IconCompatParcelizer(android.content.Context)>($r4);
+
+     label53:
+        if $r17 == null goto label56;
+
+     label54:
+        $r18 = $r17.<com.clevertap.android.sdk.CleverTapAPI: o.ah$6 IconCompatParcelizer>;
+
+        $r19 = $r18.<o.ah$6: o.af$5$4 RemoteActionCompatParcelizer>;
+
+        $r20 = virtualinvoke $r19.<o.af$5$4: o.onCustomAction$read MediaBrowserCompat$SearchResultReceiver()>();
+
+     label55:
+        $r6 = $r20;
+
+     label56:
+        if $r6 == null goto label62;
+
+        return;
+
+     label57:
+        $r21 := @caughtexception;
+
+        $r22 = r0.<o.ai: com.clevertap.android.sdk.CleverTapInstanceConfig read>;
+
+        $r23 = $r22.<com.clevertap.android.sdk.CleverTapInstanceConfig: com.facebook.GraphRequest$ParcelableResourceWithMimeType$AudioAttributesCompatParcelizer RatingCompat>;
+
+        if $r23 != null goto label58;
+
+        $r23 = new com.facebook.GraphRequest$ParcelableResourceWithMimeType$AudioAttributesCompatParcelizer;
+
+        $i0 = $r22.<com.clevertap.android.sdk.CleverTapInstanceConfig: int AudioAttributesImplBaseParcelizer>;
+
+        specialinvoke $r23.<com.facebook.GraphRequest$ParcelableResourceWithMimeType$AudioAttributesCompatParcelizer: void <init>(int)>($i0);
+
+        $r22.<com.clevertap.android.sdk.CleverTapInstanceConfig: com.facebook.GraphRequest$ParcelableResourceWithMimeType$AudioAttributesCompatParcelizer RatingCompat> = $r23;
+
+     label58:
+        $r22 = r0.<o.ai: com.clevertap.android.sdk.CleverTapInstanceConfig read>;
+
+        $r11 = $r22.<com.clevertap.android.sdk.CleverTapInstanceConfig: java.lang.String IconCompatParcelizer>;
+
+        staticinvoke <com.facebook.GraphRequest$ParcelableResourceWithMimeType$AudioAttributesCompatParcelizer: void read(java.lang.String,java.lang.String,java.lang.Throwable)>($r11, "Failed to sync with upstream", $r21);
+
+        return;
+
+     label59:
+        $r1 := @caughtexception;
+
+        goto label13;
+
+     label60:
+        $r2 := @caughtexception;
+
+        goto label15;
+
+     label61:
+        $r3 := @caughtexception;
+
+        goto label56;
+
+     label62:
+        return;
+
+        catch java.lang.Throwable from label01 to label02 with label57;
+        catch java.lang.Throwable from label03 to label04 with label57;
+        catch java.lang.Throwable from label05 to label06 with label57;
+        catch java.lang.Throwable from label07 to label09 with label57;
+        catch java.lang.Throwable from label10 to label11 with label57;
+        catch java.lang.Throwable from label11 to label12 with label59;
+        catch org.json.JSONException from label13 to label14 with label60;
+        catch java.lang.Throwable from label13 to label14 with label57;
+        catch java.lang.Throwable from label17 to label18 with label57;
+        catch java.lang.Throwable from label19 to label20 with label57;
+        catch java.lang.Throwable from label22 to label23 with label57;
+        catch java.lang.Throwable from label24 to label25 with label57;
+        catch java.lang.Throwable from label27 to label28 with label57;
+        catch java.lang.Throwable from label29 to label31 with label57;
+        catch java.lang.Throwable from label32 to label33 with label57;
+        catch java.lang.Throwable from label34 to label35 with label57;
+        catch java.lang.Throwable from label37 to label38 with label57;
+        catch java.lang.Throwable from label39 to label40 with label57;
+        catch java.lang.Throwable from label42 to label43 with label57;
+        catch java.lang.Throwable from label44 to label45 with label57;
+        catch java.lang.Throwable from label46 to label47 with label57;
+        catch java.lang.Throwable from label48 to label50 with label57;
+        catch java.lang.Throwable from label51 to label52 with label57;
+        catch java.lang.Throwable from label52 to label53 with label61;
+        catch java.lang.Throwable from label54 to label55 with label61;
+    }

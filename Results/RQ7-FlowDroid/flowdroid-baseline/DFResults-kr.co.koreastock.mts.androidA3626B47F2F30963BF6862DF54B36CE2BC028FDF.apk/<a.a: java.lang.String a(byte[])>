@@ -1,0 +1,100 @@
+    public static java.lang.String a(byte[]) throws java.io.IOException
+    {
+        java.lang.Throwable $r7;
+        byte[] $r0;
+        java.util.zip.GZIPInputStream $r4;
+        java.io.BufferedInputStream $r5;
+        java.io.ByteArrayOutputStream $r6;
+        java.io.ByteArrayInputStream $r3;
+        int $i0;
+        java.lang.Object $r2;
+        java.lang.String $r1;
+
+        $r0 := @parameter0: byte[];
+
+     label01:
+        $r3 = new java.io.ByteArrayInputStream;
+
+     label02:
+        specialinvoke $r3.<java.io.ByteArrayInputStream: void <init>(byte[])>($r0);
+
+     label03:
+        $r4 = new java.util.zip.GZIPInputStream;
+
+     label04:
+        specialinvoke $r4.<java.util.zip.GZIPInputStream: void <init>(java.io.InputStream)>($r3);
+
+     label05:
+        $r5 = new java.io.BufferedInputStream;
+
+     label06:
+        specialinvoke $r5.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r4);
+
+     label07:
+        $r6 = new java.io.ByteArrayOutputStream;
+
+     label08:
+        specialinvoke $r6.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label09:
+        $r0 = newarray (byte)[100];
+
+     label10:
+        $i0 = virtualinvoke $r5.<java.io.BufferedInputStream: int read(byte[])>($r0);
+
+     label11:
+        if $i0 <= 0 goto label14;
+
+     label12:
+        virtualinvoke $r6.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r0, 0, $i0);
+
+     label13:
+        goto label10;
+
+     label14:
+        virtualinvoke $r5.<java.io.BufferedInputStream: void close()>();
+
+        virtualinvoke $r4.<java.util.zip.GZIPInputStream: void close()>();
+
+        virtualinvoke $r3.<java.io.ByteArrayInputStream: void close()>();
+
+        virtualinvoke $r6.<java.io.ByteArrayOutputStream: void close()>();
+
+        $r1 = virtualinvoke $r6.<java.io.ByteArrayOutputStream: java.lang.String toString()>();
+
+     label15:
+        return $r1;
+
+     label16:
+        $r2 := @caughtexception;
+
+        goto label18;
+
+     label17:
+        $r2 := @caughtexception;
+
+     label18:
+        $r7 = (java.lang.Throwable) $r2;
+
+        $r1 = virtualinvoke $r7.<java.lang.Throwable: java.lang.String toString()>();
+
+        staticinvoke <com.tms.sdk.common.util.CLog: void e(java.lang.String)>($r1);
+
+        return null;
+
+        catch java.lang.OutOfMemoryError from label01 to label02 with label17;
+        catch java.lang.OutOfMemoryError from label02 to label04 with label17;
+        catch java.lang.OutOfMemoryError from label04 to label06 with label17;
+        catch java.lang.OutOfMemoryError from label06 to label08 with label17;
+        catch java.lang.OutOfMemoryError from label08 to label09 with label17;
+        catch java.lang.OutOfMemoryError from label10 to label11 with label17;
+        catch java.lang.OutOfMemoryError from label12 to label13 with label17;
+        catch java.lang.OutOfMemoryError from label14 to label15 with label17;
+        catch java.io.IOException from label02 to label03 with label16;
+        catch java.io.IOException from label04 to label05 with label16;
+        catch java.io.IOException from label06 to label07 with label16;
+        catch java.io.IOException from label08 to label09 with label16;
+        catch java.io.IOException from label10 to label11 with label16;
+        catch java.io.IOException from label12 to label13 with label16;
+        catch java.io.IOException from label14 to label15 with label16;
+    }

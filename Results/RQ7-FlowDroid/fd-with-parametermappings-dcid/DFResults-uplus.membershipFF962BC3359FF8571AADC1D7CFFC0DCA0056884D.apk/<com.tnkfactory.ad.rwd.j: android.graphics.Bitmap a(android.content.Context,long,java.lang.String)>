@@ -1,0 +1,144 @@
+    public android.graphics.Bitmap a(android.content.Context, long, java.lang.String)
+    {
+        java.net.HttpURLConnection $r5;
+        android.content.Context $r2;
+        byte[] $r7;
+        java.net.URL $r13;
+        long $l0;
+        java.lang.AssertionError $r10;
+        java.net.URLConnection $r4;
+        int $i1;
+        java.lang.String $r1;
+        com.tnkfactory.ad.rwd.j r0;
+        java.io.File $r9;
+        java.lang.Exception $r12;
+        android.graphics.Bitmap $r3, $r8;
+        java.lang.StringBuilder $r11, $r14;
+        java.io.InputStream $r6;
+
+        r0 := @this: com.tnkfactory.ad.rwd.j;
+
+        $r2 := @parameter0: android.content.Context;
+
+        $l0 := @parameter1: long;
+
+        $r1 := @parameter2: java.lang.String;
+
+        $r3 = null;
+
+     label01:
+        $r13 = new java.net.URL;
+
+     label02:
+        specialinvoke $r13.<java.net.URL: void <init>(java.lang.String)>($r1);
+
+        $r4 = virtualinvoke $r13.<java.net.URL: java.net.URLConnection openConnection()>();
+
+     label03:
+        $r5 = (java.net.HttpURLConnection) $r4;
+
+     label04:
+        virtualinvoke $r5.<java.net.HttpURLConnection: void setConnectTimeout(int)>(5000);
+
+        virtualinvoke $r5.<java.net.HttpURLConnection: void setReadTimeout(int)>(5000);
+
+        $i1 = virtualinvoke $r5.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label05:
+        if $i1 != 200 goto label18;
+
+     label06:
+        $r6 = virtualinvoke $r5.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+        $r7 = staticinvoke <com.tnkfactory.ad.rwd.bc: byte[] a(java.io.InputStream)>($r6);
+
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+     label07:
+        $i1 = lengthof $r7;
+
+     label08:
+        $r8 = staticinvoke <android.graphics.BitmapFactory: android.graphics.Bitmap decodeByteArray(byte[],int,int)>($r7, 0, $i1);
+
+     label09:
+        $r3 = $r8;
+
+        $i1 = (int) 0;
+
+        if $i1 <= 0 goto label13;
+
+     label10:
+        specialinvoke r0.<com.tnkfactory.ad.rwd.j: void a(long,android.graphics.Bitmap)>(0L, $r8);
+
+        $r9 = specialinvoke r0.<com.tnkfactory.ad.rwd.j: java.io.File b(android.content.Context,long)>($r2, 0L);
+
+     label11:
+        staticinvoke <com.tnkfactory.ad.rwd.bc: void a(byte[],java.io.File)>($r7, $r9);
+
+     label12:
+        return $r8;
+
+     label13:
+        $r1 = staticinvoke <com.tnkfactory.ad.rwd.j: java.lang.String b(java.lang.String)>($r1);
+
+        specialinvoke r0.<com.tnkfactory.ad.rwd.j: void a(java.lang.String,android.graphics.Bitmap)>($r1, $r8);
+
+        $r9 = specialinvoke r0.<com.tnkfactory.ad.rwd.j: java.io.File b(android.content.Context,java.lang.String)>($r2, $r1);
+
+     label14:
+        goto label11;
+
+     label15:
+        $r10 := @caughtexception;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r11 = $r14;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("icon : error reading image ");
+
+        $r1 = virtualinvoke $r10.<java.lang.AssertionError: java.lang.String toString()>();
+
+        goto label17;
+
+     label16:
+        $r12 := @caughtexception;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r11 = $r14;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("icon : error reading image ");
+
+        $r1 = virtualinvoke $r12.<java.lang.Exception: java.lang.String toString()>();
+
+     label17:
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.tnkfactory.ad.Logger: void e(java.lang.String)>($r1);
+
+        return $r3;
+
+     label18:
+        return null;
+
+        catch java.lang.Exception from label02 to label05 with label16;
+        catch java.lang.Exception from label06 to label09 with label16;
+        catch java.lang.Exception from label10 to label11 with label16;
+        catch java.lang.Exception from label11 to label12 with label16;
+        catch java.lang.Exception from label13 to label14 with label16;
+        catch java.lang.AssertionError from label01 to label02 with label15;
+        catch java.lang.AssertionError from label02 to label03 with label15;
+        catch java.lang.AssertionError from label04 to label05 with label15;
+        catch java.lang.AssertionError from label06 to label07 with label15;
+        catch java.lang.AssertionError from label08 to label09 with label15;
+        catch java.lang.AssertionError from label10 to label11 with label15;
+        catch java.lang.AssertionError from label11 to label12 with label15;
+        catch java.lang.AssertionError from label13 to label14 with label15;
+    }

@@ -1,0 +1,235 @@
+    private static int writeSession(android.content.Context, int, java.lang.String)
+    {
+        java.lang.Throwable $r7, $r8, $r9, $r10, $r11, $r12, $r13, $r14, $r15;
+        android.content.Context $r0;
+        byte[] $r6;
+        android.content.pm.PackageManager $r2;
+        long $l1;
+        int $i0;
+        java.lang.String $r1;
+        boolean $z0;
+        java.io.OutputStream $r5;
+        java.io.FileInputStream $r18;
+        java.lang.Exception $r16;
+        java.io.File $r17;
+        android.content.pm.PackageInstaller $r3;
+        android.content.pm.PackageInstaller$Session $r4;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $i0 := @parameter1: int;
+
+        $r1 := @parameter2: java.lang.String;
+
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("Stub.ApkSilentInstaller", "writeSession");
+
+        $r17 = new java.io.File;
+
+        specialinvoke $r17.<java.io.File: void <init>(java.lang.String)>($r1);
+
+        $z0 = virtualinvoke $r17.<java.io.File: boolean isFile()>();
+
+        if $z0 == 0 goto label01;
+
+        $l1 = virtualinvoke $r17.<java.io.File: long length()>();
+
+        goto label02;
+
+     label01:
+        $l1 = -1L;
+
+     label02:
+        $r2 = virtualinvoke $r0.<android.content.Context: android.content.pm.PackageManager getPackageManager()>();
+
+        $r3 = virtualinvoke $r2.<android.content.pm.PackageManager: android.content.pm.PackageInstaller getPackageInstaller()>();
+
+        $r4 = virtualinvoke $r3.<android.content.pm.PackageInstaller: android.content.pm.PackageInstaller$Session openSession(int)>($i0);
+
+     label03:
+        $r5 = virtualinvoke $r4.<android.content.pm.PackageInstaller$Session: java.io.OutputStream openWrite(java.lang.String,long,long)>("Name", 0L, $l1);
+
+     label04:
+        $r18 = new java.io.FileInputStream;
+
+     label05:
+        specialinvoke $r18.<java.io.FileInputStream: void <init>(java.lang.String)>($r1);
+
+     label06:
+        $r6 = newarray (byte)[65536];
+
+     label07:
+        $i0 = virtualinvoke $r18.<java.io.InputStream: int read(byte[])>($r6);
+
+     label08:
+        if $i0 == -1 goto label11;
+
+     label09:
+        virtualinvoke $r5.<java.io.OutputStream: void write(byte[],int,int)>($r6, 0, $i0);
+
+     label10:
+        goto label07;
+
+     label11:
+        virtualinvoke $r4.<android.content.pm.PackageInstaller$Session: void fsync(java.io.OutputStream)>($r5);
+
+     label12:
+        if $r18 == null goto label14;
+
+     label13:
+        virtualinvoke $r18.<java.io.InputStream: void close()>();
+
+     label14:
+        if $r5 == null goto label16;
+
+     label15:
+        virtualinvoke $r5.<java.io.OutputStream: void close()>();
+
+     label16:
+        if $r4 == null goto label51;
+
+     label17:
+        virtualinvoke $r4.<android.content.pm.PackageInstaller$Session: void close()>();
+
+     label18:
+        return 0;
+
+     label19:
+        $r7 := @caughtexception;
+
+     label20:
+        throw $r7;
+
+     label21:
+        $r8 := @caughtexception;
+
+        if $r18 == null goto label28;
+
+        if $r7 == null goto label27;
+
+     label22:
+        virtualinvoke $r18.<java.io.InputStream: void close()>();
+
+     label23:
+        goto label28;
+
+     label24:
+        $r9 := @caughtexception;
+
+     label25:
+        virtualinvoke $r7.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r9);
+
+     label26:
+        goto label28;
+
+     label27:
+        virtualinvoke $r18.<java.io.InputStream: void close()>();
+
+     label28:
+        throw $r8;
+
+     label29:
+        $r10 := @caughtexception;
+
+     label30:
+        throw $r10;
+
+     label31:
+        $r11 := @caughtexception;
+
+        if $r5 == null goto label38;
+
+        if $r10 == null goto label37;
+
+     label32:
+        virtualinvoke $r5.<java.io.OutputStream: void close()>();
+
+     label33:
+        goto label38;
+
+     label34:
+        $r12 := @caughtexception;
+
+     label35:
+        virtualinvoke $r10.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r12);
+
+     label36:
+        goto label38;
+
+     label37:
+        virtualinvoke $r5.<java.io.OutputStream: void close()>();
+
+     label38:
+        throw $r11;
+
+     label39:
+        $r13 := @caughtexception;
+
+        goto label42;
+
+     label40:
+        $r14 := @caughtexception;
+
+     label41:
+        throw $r14;
+
+     label42:
+        if $r4 == null goto label49;
+
+        if $r14 == null goto label48;
+
+     label43:
+        virtualinvoke $r4.<android.content.pm.PackageInstaller$Session: void close()>();
+
+     label44:
+        goto label49;
+
+     label45:
+        $r15 := @caughtexception;
+
+     label46:
+        virtualinvoke $r14.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r15);
+
+     label47:
+        goto label49;
+
+     label48:
+        virtualinvoke $r4.<android.content.pm.PackageInstaller$Session: void close()>();
+
+     label49:
+        throw $r13;
+
+     label50:
+        $r16 := @caughtexception;
+
+        $r1 = virtualinvoke $r16.<java.lang.Exception: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("Stub.ApkSilentInstaller", $r1);
+
+        return -1;
+
+     label51:
+        return 0;
+
+        catch java.lang.Exception from label02 to label03 with label50;
+        catch java.lang.Throwable from label03 to label04 with label40;
+        catch java.lang.Throwable from label04 to label05 with label29;
+        catch java.lang.Throwable from label05 to label06 with label29;
+        catch java.lang.Throwable from label07 to label08 with label19;
+        catch java.lang.Throwable from label09 to label10 with label19;
+        catch java.lang.Throwable from label11 to label12 with label19;
+        catch java.lang.Throwable from label13 to label14 with label29;
+        catch java.lang.Throwable from label15 to label16 with label40;
+        catch java.lang.Exception from label17 to label18 with label50;
+        catch java.lang.Throwable from label20 to label21 with label21;
+        catch java.lang.Throwable from label22 to label23 with label24;
+        catch java.lang.Throwable from label25 to label26 with label29;
+        catch java.lang.Throwable from label27 to label29 with label29;
+        catch java.lang.Throwable from label30 to label31 with label31;
+        catch java.lang.Throwable from label32 to label33 with label34;
+        catch java.lang.Throwable from label35 to label36 with label40;
+        catch java.lang.Throwable from label37 to label39 with label40;
+        catch java.lang.Throwable from label41 to label42 with label39;
+        catch java.lang.Throwable from label43 to label44 with label45;
+        catch java.lang.Exception from label46 to label47 with label50;
+        catch java.lang.Exception from label48 to label50 with label50;
+    }

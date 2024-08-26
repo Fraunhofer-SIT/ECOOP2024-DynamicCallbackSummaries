@@ -1,0 +1,45 @@
+    static void onSuspend(android.content.Context, com.facebook.appevents.AppEventsLogger$AccessTokenAppIdPair, com.facebook.appevents.AppEventsLogger, long)
+    {
+        com.facebook.appevents.AppEventsLogger $r2;
+        java.lang.Throwable $r3;
+        android.content.Context $r0;
+        com.facebook.appevents.AppEventsLogger$AccessTokenAppIdPair $r1;
+        com.facebook.appevents.FacebookTimeSpentData $r5;
+        long $l0;
+        java.lang.Object $r4;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 := @parameter1: com.facebook.appevents.AppEventsLogger$AccessTokenAppIdPair;
+
+        $r2 := @parameter2: com.facebook.appevents.AppEventsLogger;
+
+        $l0 := @parameter3: long;
+
+        $r4 = <com.facebook.appevents.AppEventsLogger$PersistedAppSessionInfo: java.lang.Object staticLock>;
+
+        entermonitor $r4;
+
+     label1:
+        $r5 = staticinvoke <com.facebook.appevents.AppEventsLogger$PersistedAppSessionInfo: com.facebook.appevents.FacebookTimeSpentData getTimeSpentData(android.content.Context,com.facebook.appevents.AppEventsLogger$AccessTokenAppIdPair)>($r0, $r1);
+
+        virtualinvoke $r5.<com.facebook.appevents.FacebookTimeSpentData: void onSuspend(com.facebook.appevents.AppEventsLogger,long)>($r2, $l0);
+
+        staticinvoke <com.facebook.appevents.AppEventsLogger$PersistedAppSessionInfo: void onTimeSpentDataUpdate()>();
+
+        exitmonitor $r4;
+
+     label2:
+        return;
+
+     label3:
+        $r3 := @caughtexception;
+
+        exitmonitor $r4;
+
+     label4:
+        throw $r3;
+
+        catch java.lang.Throwable from label1 to label2 with label3;
+        catch java.lang.Throwable from label3 to label4 with label3;
+    }

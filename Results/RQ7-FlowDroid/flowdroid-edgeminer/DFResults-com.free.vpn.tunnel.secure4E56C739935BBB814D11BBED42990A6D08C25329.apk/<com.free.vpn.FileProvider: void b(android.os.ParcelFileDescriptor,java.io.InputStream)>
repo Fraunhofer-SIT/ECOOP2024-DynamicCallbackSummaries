@@ -1,0 +1,99 @@
+    public void b(android.os.ParcelFileDescriptor, java.io.InputStream)
+    {
+        java.lang.Throwable $r3, $r4, $r5, $r6, $r10, $r11;
+        com.free.vpn.FileProvider r0;
+        byte[] $r8;
+        android.os.ParcelFileDescriptor $r7;
+        java.io.FileOutputStream $r2;
+        java.io.FileDescriptor $r9;
+        int $i0;
+        java.io.InputStream $r1;
+
+        r0 := @this: com.free.vpn.FileProvider;
+
+        $r7 := @parameter0: android.os.ParcelFileDescriptor;
+
+        $r1 := @parameter1: java.io.InputStream;
+
+        $r8 = newarray (byte)[8192];
+
+        $r2 = new java.io.FileOutputStream;
+
+        $r9 = virtualinvoke $r7.<android.os.ParcelFileDescriptor: java.io.FileDescriptor getFileDescriptor()>();
+
+        specialinvoke $r2.<java.io.FileOutputStream: void <init>(java.io.FileDescriptor)>($r9);
+
+     label01:
+        $i0 = virtualinvoke $r1.<java.io.InputStream: int read(byte[])>($r8);
+
+     label02:
+        if $i0 < 0 goto label05;
+
+     label03:
+        virtualinvoke $r2.<java.io.FileOutputStream: void write(byte[],int,int)>($r8, 0, $i0);
+
+     label04:
+        goto label01;
+
+     label05:
+        virtualinvoke $r1.<java.io.InputStream: void close()>();
+
+     label06:
+        virtualinvoke $r2.<java.io.FileOutputStream: void close()>();
+
+     label07:
+        return;
+
+     label08:
+        $r10 := @caughtexception;
+
+        goto label12;
+
+     label09:
+        $r11 := @caughtexception;
+
+     label10:
+        staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String,java.lang.Throwable)>("OpenVPNFileProvider", "Failed transferring", $r11);
+
+     label11:
+        goto label05;
+
+     label12:
+        virtualinvoke $r1.<java.io.InputStream: void close()>();
+
+     label13:
+        virtualinvoke $r2.<java.io.FileOutputStream: void close()>();
+
+     label14:
+        throw $r10;
+
+     label15:
+        $r3 := @caughtexception;
+
+        goto label06;
+
+     label16:
+        $r4 := @caughtexception;
+
+        return;
+
+     label17:
+        $r5 := @caughtexception;
+
+        goto label13;
+
+     label18:
+        $r6 := @caughtexception;
+
+        goto label14;
+
+        catch java.io.IOException from label01 to label02 with label09;
+        catch java.io.IOException from label03 to label04 with label09;
+        catch java.lang.Throwable from label01 to label02 with label08;
+        catch java.lang.Throwable from label03 to label04 with label08;
+        catch java.io.IOException from label05 to label06 with label15;
+        catch java.io.IOException from label06 to label07 with label16;
+        catch java.lang.Throwable from label10 to label11 with label08;
+        catch java.io.IOException from label12 to label13 with label17;
+        catch java.io.IOException from label13 to label14 with label18;
+    }

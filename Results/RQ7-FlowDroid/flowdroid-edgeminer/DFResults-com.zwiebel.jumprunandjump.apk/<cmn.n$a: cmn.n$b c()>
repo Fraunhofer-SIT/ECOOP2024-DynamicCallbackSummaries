@@ -1,0 +1,198 @@
+    private transient cmn.n$b c()
+    {
+        org.apache.http.impl.client.DefaultHttpClient $r6;
+        java.lang.Throwable $r11, $r12;
+        byte[] $r5;
+        java.io.ByteArrayOutputStream $r19;
+        org.apache.http.StatusLine $r8;
+        int $i0, $i1;
+        java.lang.String $r3;
+        cmn.n $r1;
+        cmn.o $r15;
+        org.apache.http.HttpEntity $r9;
+        java.io.IOException $r16;
+        cmn.n$a r0;
+        cmn.r $r2;
+        cmn.n$b $r17;
+        org.apache.http.client.methods.HttpGet $r13;
+        org.apache.http.HttpResponse $r7;
+        java.lang.Object $r4;
+        org.apache.http.entity.BufferedHttpEntity $r18;
+        java.io.InputStream $r10;
+        java.util.concurrent.Exchanger $r14;
+
+        r0 := @this: cmn.n$a;
+
+        $r1 = r0.<cmn.n$a: cmn.n a>;
+
+        $r2 = staticinvoke <cmn.n: cmn.r a(cmn.n)>($r1);
+
+        $r13 = new org.apache.http.client.methods.HttpGet;
+
+        $r3 = r0.<cmn.n$a: java.lang.String b>;
+
+        specialinvoke $r13.<org.apache.http.client.methods.HttpGet: void <init>(java.lang.String)>($r3);
+
+        if $r2 == null goto label33;
+
+     label01:
+        $r14 = new java.util.concurrent.Exchanger;
+
+     label02:
+        specialinvoke $r14.<java.util.concurrent.Exchanger: void <init>()>();
+
+        $r3 = r0.<cmn.n$a: java.lang.String b>;
+
+        $r15 = new cmn.o;
+
+     label03:
+        specialinvoke $r15.<cmn.o: void <init>(cmn.n$a,java.util.concurrent.Exchanger)>(r0, $r14);
+
+        virtualinvoke $r2.<cmn.r: void a(java.lang.Object,cmn.p)>($r3, $r15);
+
+        $r4 = virtualinvoke $r14.<java.util.concurrent.Exchanger: java.lang.Object exchange(java.lang.Object)>(null);
+
+        $r5 = (byte[]) $r4;
+
+     label04:
+        if $r5 != null goto label30;
+
+     label05:
+        $r6 = staticinvoke <cmn.y: org.apache.http.impl.client.DefaultHttpClient a()>();
+
+        $r7 = virtualinvoke $r6.<org.apache.http.impl.client.DefaultHttpClient: org.apache.http.HttpResponse execute(org.apache.http.client.methods.HttpUriRequest)>($r13);
+
+     label06:
+        $r8 = interfaceinvoke $r7.<org.apache.http.HttpResponse: org.apache.http.StatusLine getStatusLine()>();
+
+        $i0 = interfaceinvoke $r8.<org.apache.http.StatusLine: int getStatusCode()>();
+
+     label07:
+        if $i0 != 404 goto label13;
+
+     label08:
+        $r17 = new cmn.n$b;
+
+     label09:
+        $r16 = new java.io.IOException;
+
+     label10:
+        specialinvoke $r16.<java.io.IOException: void <init>(java.lang.String)>("Http 404");
+
+        specialinvoke $r17.<cmn.n$b: void <init>(byte[],java.lang.Throwable)>(null, $r16);
+
+     label11:
+        staticinvoke <cmn.ab: void a(org.apache.http.HttpResponse)>($r7);
+
+     label12:
+        return $r17;
+
+     label13:
+        $r18 = new org.apache.http.entity.BufferedHttpEntity;
+
+     label14:
+        $r9 = interfaceinvoke $r7.<org.apache.http.HttpResponse: org.apache.http.HttpEntity getEntity()>();
+
+        specialinvoke $r18.<org.apache.http.entity.BufferedHttpEntity: void <init>(org.apache.http.HttpEntity)>($r9);
+
+        $r10 = virtualinvoke $r18.<org.apache.http.entity.BufferedHttpEntity: java.io.InputStream getContent()>();
+
+        $r19 = new java.io.ByteArrayOutputStream;
+
+     label15:
+        specialinvoke $r19.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label16:
+        $r5 = newarray (byte)[32768];
+
+     label17:
+        $i0 = virtualinvoke $r10.<java.io.InputStream: int available()>();
+
+     label18:
+        if $i0 <= 0 goto label24;
+
+     label19:
+        $i0 = virtualinvoke $r10.<java.io.InputStream: int read(byte[])>($r5);
+
+        virtualinvoke $r19.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r5, 0, $i0);
+
+     label20:
+        goto label17;
+
+     label21:
+        $r11 := @caughtexception;
+
+     label22:
+        staticinvoke <cmn.ab: void a(org.apache.http.HttpResponse)>($r7);
+
+        throw $r11;
+
+     label23:
+        $r12 := @caughtexception;
+
+        $r17 = new cmn.n$b;
+
+        specialinvoke $r17.<cmn.n$b: void <init>(byte[],java.lang.Throwable)>(null, $r12);
+
+        return $r17;
+
+     label24:
+        $r5 = virtualinvoke $r19.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label25:
+        if $r2 == null goto label29;
+
+     label26:
+        $i0 = virtualinvoke $r19.<java.io.ByteArrayOutputStream: int size()>();
+
+        $i1 = virtualinvoke $r2.<cmn.r: int a()>();
+
+     label27:
+        $i1 = $i1 / 2;
+
+        if $i0 >= $i1 goto label29;
+
+     label28:
+        $r3 = r0.<cmn.n$a: java.lang.String b>;
+
+        virtualinvoke $r2.<cmn.r: void a(java.lang.Object,java.lang.Object)>($r3, $r5);
+
+     label29:
+        staticinvoke <cmn.ab: void a(org.apache.http.HttpResponse)>($r7);
+
+     label30:
+        $r17 = new cmn.n$b;
+
+     label31:
+        specialinvoke $r17.<cmn.n$b: void <init>(byte[],java.lang.Throwable)>($r5, null);
+
+     label32:
+        return $r17;
+
+     label33:
+        $r5 = null;
+
+        goto label04;
+
+        catch java.lang.Throwable from label01 to label02 with label23;
+        catch java.lang.Throwable from label02 to label03 with label23;
+        catch java.lang.Throwable from label03 to label04 with label23;
+        catch java.lang.Throwable from label05 to label06 with label23;
+        catch java.lang.Throwable from label06 to label07 with label21;
+        catch java.lang.Throwable from label08 to label09 with label21;
+        catch java.lang.Throwable from label09 to label10 with label21;
+        catch java.lang.Throwable from label10 to label11 with label21;
+        catch java.lang.Throwable from label11 to label12 with label23;
+        catch java.lang.Throwable from label13 to label14 with label21;
+        catch java.lang.Throwable from label14 to label15 with label21;
+        catch java.lang.Throwable from label15 to label16 with label21;
+        catch java.lang.Throwable from label16 to label18 with label21;
+        catch java.lang.Throwable from label19 to label20 with label21;
+        catch java.lang.Throwable from label22 to label23 with label23;
+        catch java.lang.Throwable from label24 to label25 with label21;
+        catch java.lang.Throwable from label26 to label27 with label21;
+        catch java.lang.Throwable from label28 to label29 with label21;
+        catch java.lang.Throwable from label29 to label30 with label23;
+        catch java.lang.Throwable from label30 to label31 with label23;
+        catch java.lang.Throwable from label31 to label32 with label23;
+    }

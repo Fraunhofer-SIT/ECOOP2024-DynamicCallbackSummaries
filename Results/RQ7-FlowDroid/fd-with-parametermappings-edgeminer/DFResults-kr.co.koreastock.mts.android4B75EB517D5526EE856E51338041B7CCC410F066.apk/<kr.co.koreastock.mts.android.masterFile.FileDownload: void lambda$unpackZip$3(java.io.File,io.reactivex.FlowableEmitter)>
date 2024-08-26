@@ -1,0 +1,246 @@
+    static void lambda$unpackZip$3(java.io.File, io.reactivex.FlowableEmitter) throws java.lang.Exception
+    {
+        java.lang.Throwable $r7;
+        byte[] $r5;
+        java.lang.Object[] $r8;
+        java.io.BufferedInputStream $r10;
+        java.util.zip.ZipInputStream $r11;
+        byte $b0, $b3;
+        int $i1, $i2;
+        java.lang.String $r3, $r4;
+        java.util.zip.ZipEntry $r6;
+        boolean $z0;
+        io.reactivex.FlowableEmitter $r0;
+        java.io.FileOutputStream $r13;
+        java.io.FileInputStream $r9;
+        java.io.File $r1, $r2;
+        java.lang.StringBuilder $r12;
+
+        $r1 := @parameter0: java.io.File;
+
+        $r0 := @parameter1: io.reactivex.FlowableEmitter;
+
+        $b0 = 0;
+
+     label01:
+        $r2 = virtualinvoke $r1.<java.io.File: java.io.File getParentFile()>();
+
+        $r3 = virtualinvoke $r2.<java.io.File: java.lang.String getPath()>();
+
+     label02:
+        $r9 = new java.io.FileInputStream;
+
+     label03:
+        $r4 = virtualinvoke $r1.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        specialinvoke $r9.<java.io.FileInputStream: void <init>(java.lang.String)>($r4);
+
+     label04:
+        $r11 = new java.util.zip.ZipInputStream;
+
+        $r10 = new java.io.BufferedInputStream;
+
+     label05:
+        specialinvoke $r10.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r9);
+
+        specialinvoke $r11.<java.util.zip.ZipInputStream: void <init>(java.io.InputStream)>($r10);
+
+     label06:
+        $r5 = newarray (byte)[1024];
+
+     label07:
+        $r6 = virtualinvoke $r11.<java.util.zip.ZipInputStream: java.util.zip.ZipEntry getNextEntry()>();
+
+     label08:
+        if $r6 == null goto label27;
+
+     label09:
+        $r4 = virtualinvoke $r6.<java.util.zip.ZipEntry: java.lang.String getName()>();
+
+        $z0 = virtualinvoke $r6.<java.util.zip.ZipEntry: boolean isDirectory()>();
+
+     label10:
+        if $z0 == 0 goto label13;
+
+        $r2 = new java.io.File;
+
+        $r12 = new java.lang.StringBuilder;
+
+     label11:
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        $r4 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r2.<java.io.File: void <init>(java.lang.String)>($r4);
+
+        virtualinvoke $r2.<java.io.File: boolean mkdirs()>();
+
+     label12:
+        goto label07;
+
+     label13:
+        $r2 = new java.io.File;
+
+        $r1 = $r2;
+
+        $r12 = new java.lang.StringBuilder;
+
+     label14:
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        $r4 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r2.<java.io.File: void <init>(java.lang.String)>($r4);
+
+     label15:
+        $r13 = new java.io.FileOutputStream;
+
+     label16:
+        specialinvoke $r13.<java.io.FileOutputStream: void <init>(java.io.File)>($r2);
+
+     label17:
+        $i1 = virtualinvoke $r11.<java.util.zip.ZipInputStream: int read(byte[])>($r5);
+
+        $i2 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>("-1");
+
+     label18:
+        $b3 = -2;
+
+        if $i2 <= -2 goto label19;
+
+        $b3 = -1;
+
+     label19:
+        $i2 = (int) $b3;
+
+        if $i1 == $i2 goto label25;
+
+     label20:
+        $i2 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>("0");
+
+     label21:
+        if $i2 <= 1 goto label22;
+
+        $b3 = 1;
+
+        goto label23;
+
+     label22:
+        $b3 = 0;
+
+     label23:
+        virtualinvoke $r13.<java.io.FileOutputStream: void write(byte[],int,int)>($r5, $b3, $i1);
+
+     label24:
+        goto label17;
+
+     label25:
+        virtualinvoke $r13.<java.io.FileOutputStream: void close()>();
+
+        interfaceinvoke $r0.<io.reactivex.FlowableEmitter: void onNext(java.lang.Object)>($r1);
+
+        virtualinvoke $r11.<java.util.zip.ZipInputStream: void closeEntry()>();
+
+     label26:
+        goto label07;
+
+     label27:
+        virtualinvoke $r11.<java.util.zip.ZipInputStream: void close()>();
+
+     label28:
+        goto label36;
+
+     label29:
+        $r7 := @caughtexception;
+
+        $i1 = <aqo: int ate>;
+
+        $i2 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>("0");
+
+        if $i2 <= 1 goto label30;
+
+        $b3 = 1;
+
+        goto label31;
+
+     label30:
+        $b3 = 0;
+
+     label31:
+        $r8 = newarray (java.lang.Object)[$b3];
+
+        staticinvoke <aqo: java.lang.Object cz(java.lang.Object,int,java.lang.Object[])>($r7, $i1, $r8);
+
+        $i1 = <aiv: int anr>;
+
+        $i2 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>("1");
+
+        if $i2 <= 0 goto label32;
+
+        $b3 = 1;
+
+        goto label33;
+
+     label32:
+        $b3 = 0;
+
+     label33:
+        $r8 = newarray (java.lang.Object)[$b3];
+
+        $i2 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>("0");
+
+        if $i2 <= 1 goto label34;
+
+        $b3 = 1;
+
+        goto label35;
+
+     label34:
+        $b3 = 0;
+
+     label35:
+        $r8[$b3] = $r7;
+
+        staticinvoke <aiv: java.lang.Object cz(java.lang.Object,int,java.lang.Object[])>($r0, $i1, $r8);
+
+     label36:
+        $i1 = <aiv: int amg>;
+
+        $i2 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>("0");
+
+        if $i2 <= 1 goto label37;
+
+        $b0 = 1;
+
+     label37:
+        $r8 = newarray (java.lang.Object)[$b0];
+
+        staticinvoke <aiv: java.lang.Object cz(java.lang.Object,int,java.lang.Object[])>($r0, $i1, $r8);
+
+        return;
+
+        catch java.io.IOException from label01 to label02 with label29;
+        catch java.io.IOException from label03 to label04 with label29;
+        catch java.io.IOException from label05 to label06 with label29;
+        catch java.io.IOException from label07 to label08 with label29;
+        catch java.io.IOException from label09 to label10 with label29;
+        catch java.io.IOException from label11 to label12 with label29;
+        catch java.io.IOException from label14 to label15 with label29;
+        catch java.io.IOException from label16 to label18 with label29;
+        catch java.io.IOException from label20 to label21 with label29;
+        catch java.io.IOException from label23 to label24 with label29;
+        catch java.io.IOException from label25 to label26 with label29;
+        catch java.io.IOException from label27 to label28 with label29;
+    }

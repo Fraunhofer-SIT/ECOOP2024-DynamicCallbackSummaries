@@ -1,0 +1,123 @@
+    public static java.util.List q()
+    {
+        java.lang.Throwable $r6, $r7;
+        byte[] $r5;
+        java.io.ByteArrayOutputStream $r11;
+        java.io.IOException $r12;
+        java.lang.Exception $r9;
+        java.util.ArrayList $r10;
+        java.util.List $r8;
+        android.content.res.AssetManager $r3;
+        android.app.Application $r2;
+        int $i0;
+        java.lang.String $r0, $r1;
+        boolean $z0;
+        java.io.InputStream $r4;
+
+        $r10 = new java.util.ArrayList;
+
+        specialinvoke $r10.<java.util.ArrayList: void <init>()>();
+
+        $r0 = staticinvoke <f.c.b.o.c.e: java.lang.String s(java.lang.String)>("key_p2p_pkgs");
+
+        $r1 = $r0;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r0);
+
+        if $z0 == 0 goto label17;
+
+     label01:
+        $r2 = staticinvoke <f.c.b.o.c.m.i: android.app.Application b()>();
+
+        $r3 = virtualinvoke $r2.<android.app.Application: android.content.res.AssetManager getAssets()>();
+
+        $r4 = virtualinvoke $r3.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>("p2p.json");
+
+     label02:
+        $r11 = new java.io.ByteArrayOutputStream;
+
+     label03:
+        specialinvoke $r11.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label04:
+        $r5 = newarray (byte)[1024];
+
+     label05:
+        $i0 = virtualinvoke $r4.<java.io.InputStream: int read(byte[])>($r5);
+
+     label06:
+        if $i0 == -1 goto label09;
+
+     label07:
+        virtualinvoke $r11.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r5, 0, $i0);
+
+     label08:
+        goto label05;
+
+     label09:
+        $r1 = new java.lang.String;
+
+        $r0 = $r1;
+
+     label10:
+        $r5 = virtualinvoke $r11.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        specialinvoke $r1.<java.lang.String: void <init>(byte[])>($r5);
+
+     label11:
+        virtualinvoke $r4.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r11.<java.io.ByteArrayOutputStream: void close()>();
+
+     label12:
+        goto label16;
+
+     label13:
+        $r6 := @caughtexception;
+
+        goto label15;
+
+     label14:
+        $r7 := @caughtexception;
+
+        $r0 = null;
+
+        $r6 = $r7;
+
+     label15:
+        $r12 = (java.io.IOException) $r6;
+
+        virtualinvoke $r12.<java.io.IOException: void printStackTrace()>();
+
+     label16:
+        $r1 = $r0;
+
+     label17:
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r1);
+
+     label18:
+        if $z0 != 0 goto label22;
+
+     label19:
+        $r8 = staticinvoke <com.alibaba.fastjson.JSON: java.util.List parseArray(java.lang.String,java.lang.Class)>($r1, class "Ljava/lang/String;");
+
+     label20:
+        return $r8;
+
+     label21:
+        $r9 := @caughtexception;
+
+        virtualinvoke $r9.<java.lang.Exception: void printStackTrace()>();
+
+     label22:
+        return $r10;
+
+        catch java.io.IOException from label01 to label02 with label14;
+        catch java.io.IOException from label03 to label04 with label14;
+        catch java.io.IOException from label05 to label06 with label14;
+        catch java.io.IOException from label07 to label08 with label14;
+        catch java.io.IOException from label10 to label11 with label14;
+        catch java.io.IOException from label11 to label12 with label13;
+        catch java.lang.Exception from label17 to label18 with label21;
+        catch java.lang.Exception from label19 to label20 with label21;
+    }

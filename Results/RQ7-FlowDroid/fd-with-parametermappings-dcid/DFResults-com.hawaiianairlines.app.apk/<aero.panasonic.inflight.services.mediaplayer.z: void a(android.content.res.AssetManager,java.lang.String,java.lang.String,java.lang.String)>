@@ -1,0 +1,132 @@
+    private static void a(android.content.res.AssetManager, java.lang.String, java.lang.String, java.lang.String)
+    {
+        byte[] $r4;
+        java.io.FileOutputStream $r5, $r12;
+        java.lang.Exception $r6, $r9;
+        java.io.File $r11;
+        android.content.res.AssetManager $r0;
+        int $i0;
+        java.lang.StringBuilder $r10;
+        java.lang.String $r1, $r2, $r3, $r7;
+        java.io.InputStream $r8;
+
+        $r0 := @parameter0: android.content.res.AssetManager;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r2 := @parameter2: java.lang.String;
+
+        $r3 := @parameter3: java.lang.String;
+
+        $r4 = newarray (byte)[8192];
+
+        $r10 = new java.lang.StringBuilder;
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        $r2 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r11 = new java.io.File;
+
+        specialinvoke $r11.<java.io.File: void <init>(java.lang.String)>($r3);
+
+        $r12 = new java.io.FileOutputStream;
+
+        $r5 = $r12;
+
+     label01:
+        specialinvoke $r12.<java.io.FileOutputStream: void <init>(java.io.File)>($r11);
+
+     label02:
+        goto label04;
+
+     label03:
+        $r6 := @caughtexception;
+
+        $r3 = <aero.panasonic.inflight.services.mediaplayer.z: java.lang.String TAG>;
+
+        staticinvoke <aero.panasonic.inflight.services.utils.Log: void d(java.lang.String,java.lang.String)>($r3, " logerror");
+
+        $r3 = <aero.panasonic.inflight.services.mediaplayer.z: java.lang.String TAG>;
+
+        $r7 = virtualinvoke $r6.<java.lang.Exception: java.lang.String getMessage()>();
+
+        staticinvoke <aero.panasonic.inflight.services.utils.Log: void e(java.lang.String,java.lang.String)>($r3, $r7);
+
+        $r5 = null;
+
+     label04:
+        $r10 = new java.lang.StringBuilder;
+
+     label05:
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r8 = virtualinvoke $r0.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>($r1);
+
+     label06:
+        if $r8 == null goto label14;
+
+     label07:
+        $i0 = virtualinvoke $r8.<java.io.InputStream: int read(byte[])>($r4);
+
+     label08:
+        if $i0 == -1 goto label11;
+
+     label09:
+        virtualinvoke $r5.<java.io.FileOutputStream: void write(byte[],int,int)>($r4, 0, $i0);
+
+     label10:
+        goto label07;
+
+     label11:
+        virtualinvoke $r5.<java.io.FileOutputStream: void flush()>();
+
+        virtualinvoke $r8.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r5.<java.io.FileOutputStream: void close()>();
+
+     label12:
+        goto label14;
+
+     label13:
+        $r9 := @caughtexception;
+
+        $r1 = <aero.panasonic.inflight.services.mediaplayer.z: java.lang.String TAG>;
+
+        $r10 = new java.lang.StringBuilder;
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("");
+
+        $r2 = virtualinvoke $r9.<java.lang.Exception: java.lang.String getMessage()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <aero.panasonic.inflight.services.utils.Log: void e(java.lang.String,java.lang.String)>($r1, $r2);
+
+     label14:
+        $r1 = <aero.panasonic.inflight.services.mediaplayer.z: java.lang.String TAG>;
+
+        staticinvoke <aero.panasonic.inflight.services.utils.Log: void d(java.lang.String,java.lang.String)>($r1, "copyAPKEntry2Path end");
+
+        return;
+
+        catch java.lang.Exception from label01 to label02 with label03;
+        catch java.lang.Exception from label05 to label06 with label13;
+        catch java.lang.Exception from label07 to label08 with label13;
+        catch java.lang.Exception from label09 to label10 with label13;
+        catch java.lang.Exception from label11 to label12 with label13;
+    }

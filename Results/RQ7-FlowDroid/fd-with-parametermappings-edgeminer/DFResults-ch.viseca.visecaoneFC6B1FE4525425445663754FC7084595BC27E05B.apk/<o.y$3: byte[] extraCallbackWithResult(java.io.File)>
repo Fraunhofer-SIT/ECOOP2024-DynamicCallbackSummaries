@@ -1,0 +1,206 @@
+    public static final byte[] extraCallbackWithResult(java.io.File)
+    {
+        java.lang.Throwable $r9, $r10;
+        byte[] $r3, $r4, $r7;
+        long $l0;
+        byte $b1;
+        int $i2, $i3, $i4, $i5;
+        java.lang.String $r8;
+        java.io.OutputStream $r6;
+        java.io.FileInputStream $r1, $r11;
+        java.io.File $r0;
+        o.u$1 $r12;
+        java.io.Closeable $r2;
+        java.lang.StringBuilder $r13;
+        java.lang.OutOfMemoryError $r14;
+        java.io.InputStream $r5;
+
+        $r0 := @parameter0: java.io.File;
+
+        staticinvoke <o.removeAllUpdateListeners: void ICustomTabsCallback(java.lang.Object,java.lang.String)>($r0, "<this>");
+
+        $r11 = new java.io.FileInputStream;
+
+        specialinvoke $r11.<java.io.FileInputStream: void <init>(java.io.File)>($r0);
+
+        $r2 = (java.io.Closeable) $r11;
+
+     label01:
+        $r1 = (java.io.FileInputStream) $r2;
+
+        $l0 = virtualinvoke $r0.<java.io.File: long length()>();
+
+     label02:
+        $b1 = $l0 cmp 2147483647L;
+
+        $i2 = (int) $b1;
+
+        if $i2 > 0 goto label25;
+
+        $i2 = (int) $l0;
+
+     label03:
+        $r3 = newarray (byte)[$i2];
+
+     label04:
+        $i3 = $i2;
+
+        $i4 = 0;
+
+     label05:
+        if $i3 <= 0 goto label13;
+
+     label06:
+        $i5 = virtualinvoke $r1.<java.io.InputStream: int read(byte[],int,int)>($r3, $i4, $i3);
+
+     label07:
+        if $i5 < 0 goto label08;
+
+        $i3 = $i3 - $i5;
+
+        $i4 = $i4 + $i5;
+
+        goto label05;
+
+     label08:
+        if $i3 <= 0 goto label13;
+
+     label09:
+        $r4 = staticinvoke <java.util.Arrays: byte[] copyOf(byte[],int)>($r3, $i4);
+
+     label10:
+        $r3 = $r4;
+
+     label11:
+        staticinvoke <o.removeAllUpdateListeners: void onMessageChannelReady(java.lang.Object,java.lang.String)>($r4, "copyOf(this, newSize)");
+
+     label12:
+        goto label21;
+
+     label13:
+        $i3 = virtualinvoke $r1.<java.io.InputStream: int read()>();
+
+     label14:
+        if $i3 == -1 goto label21;
+
+     label15:
+        $r12 = new o.u$1;
+
+     label16:
+        specialinvoke $r12.<o.u$1: void <init>()>();
+
+        virtualinvoke $r12.<java.io.OutputStream: void write(int)>($i3);
+
+        $r5 = (java.io.InputStream) $r1;
+
+        $r6 = (java.io.OutputStream) $r12;
+
+        staticinvoke <o.p$a: long extraCallback(java.io.InputStream,java.io.OutputStream)>($r5, $r6);
+
+        $i3 = virtualinvoke $r12.<java.io.ByteArrayOutputStream: int size()>();
+
+     label17:
+        $i3 = $i3 + $i2;
+
+        if $i3 < 0 goto label22;
+
+     label18:
+        $r4 = virtualinvoke $r12.<o.u$1: byte[] ICustomTabsCallback()>();
+
+        $r7 = staticinvoke <java.util.Arrays: byte[] copyOf(byte[],int)>($r3, $i3);
+
+     label19:
+        $r3 = $r7;
+
+     label20:
+        staticinvoke <o.removeAllUpdateListeners: void onMessageChannelReady(java.lang.Object,java.lang.String)>($r7, "copyOf(this, newSize)");
+
+        $i3 = virtualinvoke $r12.<java.io.ByteArrayOutputStream: int size()>();
+
+        staticinvoke <o.removeAllUpdateListeners: void ICustomTabsCallback(java.lang.Object,java.lang.String)>($r4, "<this>");
+
+        staticinvoke <o.removeAllUpdateListeners: void ICustomTabsCallback(java.lang.Object,java.lang.String)>($r7, "destination");
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($r4, 0, $r7, $i2, $i3);
+
+     label21:
+        staticinvoke <o.u$2: void extraCallback(java.io.Closeable,java.lang.Throwable)>($r2, null);
+
+        return $r3;
+
+     label22:
+        $r14 = new java.lang.OutOfMemoryError;
+
+     label23:
+        $r13 = new java.lang.StringBuilder;
+
+     label24:
+        specialinvoke $r13.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("File ");
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r0);
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" is too big to fit in memory.");
+
+        $r8 = virtualinvoke $r13.<java.lang.Object: java.lang.String toString()>();
+
+        specialinvoke $r14.<java.lang.OutOfMemoryError: void <init>(java.lang.String)>($r8);
+
+        throw $r14;
+
+     label25:
+        $r14 = new java.lang.OutOfMemoryError;
+
+     label26:
+        $r13 = new java.lang.StringBuilder;
+
+     label27:
+        specialinvoke $r13.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("File ");
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r0);
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" is too big (");
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" bytes) to fit in memory.");
+
+        $r8 = virtualinvoke $r13.<java.lang.Object: java.lang.String toString()>();
+
+        specialinvoke $r14.<java.lang.OutOfMemoryError: void <init>(java.lang.String)>($r8);
+
+        throw $r14;
+
+     label28:
+        $r9 := @caughtexception;
+
+     label29:
+        throw $r9;
+
+     label30:
+        $r10 := @caughtexception;
+
+        staticinvoke <o.u$2: void extraCallback(java.io.Closeable,java.lang.Throwable)>($r2, $r9);
+
+        throw $r10;
+
+        catch java.lang.Throwable from label01 to label02 with label28;
+        catch java.lang.Throwable from label03 to label04 with label28;
+        catch java.lang.Throwable from label06 to label07 with label28;
+        catch java.lang.Throwable from label09 to label10 with label28;
+        catch java.lang.Throwable from label11 to label12 with label28;
+        catch java.lang.Throwable from label13 to label14 with label28;
+        catch java.lang.Throwable from label15 to label16 with label28;
+        catch java.lang.Throwable from label16 to label17 with label28;
+        catch java.lang.Throwable from label18 to label19 with label28;
+        catch java.lang.Throwable from label20 to label21 with label28;
+        catch java.lang.Throwable from label22 to label23 with label28;
+        catch java.lang.Throwable from label23 to label24 with label28;
+        catch java.lang.Throwable from label24 to label26 with label28;
+        catch java.lang.Throwable from label26 to label27 with label28;
+        catch java.lang.Throwable from label27 to label28 with label28;
+        catch java.lang.Throwable from label29 to label30 with label30;
+    }

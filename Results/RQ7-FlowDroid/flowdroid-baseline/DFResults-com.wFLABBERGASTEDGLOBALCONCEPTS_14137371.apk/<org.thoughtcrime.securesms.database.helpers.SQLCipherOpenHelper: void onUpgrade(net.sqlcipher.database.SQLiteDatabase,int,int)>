@@ -1,0 +1,4245 @@
+    public void onUpgrade(net.sqlcipher.database.SQLiteDatabase, int, int)
+    {
+        byte[] $r67;
+        java.lang.Integer $r42, $r96;
+        java.lang.Long $r92;
+        org.thoughtcrime.securesms.database.helpers.'-$$Lambda$SQLCipherOpenHelper$LaqcpnmrOeS8KsJo5XEWz_-5WkQ' $r53;
+        java.lang.CharSequence $r58;
+        org.thoughtcrime.securesms.groups.GroupId$V2 $r102;
+        org.thoughtcrime.securesms.groups.GroupId$V1 $r101;
+        java.lang.StringBuilder $r117;
+        java.lang.Object[] $r103;
+        com.annimon.stream.Stream $r52;
+        long $l2, $l3, $l4, $l5;
+        org.thoughtcrime.securesms.util.Triple $r127;
+        android.content.SharedPreferences $r66;
+        org.thoughtcrime.securesms.jobmanager.JobManager $r10;
+        java.io.ByteArrayInputStream $r76, $r124;
+        java.util.Locale $r107;
+        android.content.ContentValues $r12, $r119;
+        org.thoughtcrime.securesms.profiles.ProfileName $r73;
+        java.util.HashSet $r126;
+        long[] $r60;
+        int $i0, $i1, $i6, $i7;
+        android.media.AudioAttributes $r59;
+        java.util.LinkedList $r91, $r125;
+        java.io.FileInputStream $r123;
+        net.sqlcipher.database.SQLiteDatabase $r1;
+        java.lang.Object $r55;
+        java.io.File[] $r72;
+        android.net.Uri $r32;
+        org.thoughtcrime.securesms.recipients.RecipientId $r75;
+        org.thoughtcrime.securesms.jobs.RefreshPreKeysJob $r118;
+        java.lang.Throwable $r3, $r8, $r19, $r20, $r21, $r24, $r25, $r26, $r33, $r34, $r36, $r37, $r38, $r39, $r40, $r41, $r43, $r44, $r45, $r46, $r47, $r48, $r62, $r63, $r64, $r68, $r69, $r70, $r77, $r78, $r79, $r80, $r82, $r83, $r84, $r85, $r86, $r87, $r88, $r89, $r90, $r93, $r94, $r95, $r97, $r98, $r99, $r104, $r105, $r106, $r108, $r109, $r110, $r111, $r112, $r113, $r114, $r115, $r116;
+        java.lang.AssertionError $r121;
+        org.thoughtcrime.securesms.database.RecipientDatabase$VibrateState $r7;
+        java.lang.String $r2, $r5, $r6, $r11, $r14, $r16, $r18, $r22, $r23, $r28, $r29, $r30, $r31, $r61;
+        java.io.File $r17, $r74, $r122;
+        org.thoughtcrime.securesms.database.helpers.'-$$Lambda$SQLCipherOpenHelper$biRQsJ4RaeHA_URG7pRNGTvMH5s' $r71;
+        org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter $r27;
+        android.app.NotificationChannel $r56, $r120;
+        boolean $z0, $z1;
+        android.app.NotificationManager $r49, $r50;
+        java.util.List $r51;
+        org.thoughtcrime.securesms.groups.GroupId $r100;
+        net.sqlcipher.Cursor $r15, $r35;
+        org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper r0, $r4;
+        android.content.Context $r9;
+        java.lang.String[] $r13, $r57;
+        org.thoughtcrime.securesms.color.MaterialColor $r81;
+        java.util.Iterator $r54;
+        char $c8;
+        com.bumptech.glide.Glide $r65;
+
+        r0 := @this: org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper;
+
+        $r1 := @parameter0: net.sqlcipher.database.SQLiteDatabase;
+
+        $i0 := @parameter1: int;
+
+        $i1 := @parameter2: int;
+
+        $r4 = r0;
+
+        $r5 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Upgrading database: ");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", ");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r6 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r5, $r6);
+
+        $l2 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void beginTransaction()>();
+
+        if $i0 >= 2 goto label005;
+
+     label001:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient_preferences ADD COLUMN call_ringtone TEXT DEFAULT NULL");
+
+        $r117 = new java.lang.StringBuilder;
+
+     label002:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("ALTER TABLE recipient_preferences ADD COLUMN call_vibrate INTEGER DEFAULT ");
+
+        $r7 = <org.thoughtcrime.securesms.database.RecipientDatabase$VibrateState: org.thoughtcrime.securesms.database.RecipientDatabase$VibrateState DEFAULT>;
+
+        $i1 = virtualinvoke $r7.<org.thoughtcrime.securesms.database.RecipientDatabase$VibrateState: int getId()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r5 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>($r5);
+
+     label003:
+        goto label005;
+
+     label004:
+        $r8 := @caughtexception;
+
+        goto label753;
+
+     label005:
+        if $i0 >= 3 goto label010;
+
+     label006:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TABLE signed_prekeys (_id INTEGER PRIMARY KEY, key_id INTEGER UNIQUE, public_key TEXT NOT NULL, private_key TEXT NOT NULL, signature TEXT NOT NULL, timestamp INTEGER DEFAULT 0)");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TABLE one_time_prekeys (_id INTEGER PRIMARY KEY, key_id INTEGER UNIQUE, public_key TEXT NOT NULL, private_key TEXT NOT NULL)");
+
+        $r9 = r0.<org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: android.content.Context context>;
+
+        $z0 = staticinvoke <org.thoughtcrime.securesms.database.helpers.PreKeyMigrationHelper: boolean migratePreKeys(android.content.Context,net.sqlcipher.database.SQLiteDatabase)>($r9, $r1);
+
+     label007:
+        if $z0 != 0 goto label010;
+
+     label008:
+        $r10 = staticinvoke <org.thoughtcrime.securesms.dependencies.ApplicationDependencies: org.thoughtcrime.securesms.jobmanager.JobManager getJobManager()>();
+
+        $r118 = new org.thoughtcrime.securesms.jobs.RefreshPreKeysJob;
+
+     label009:
+        specialinvoke $r118.<org.thoughtcrime.securesms.jobs.RefreshPreKeysJob: void <init>()>();
+
+        virtualinvoke $r10.<org.thoughtcrime.securesms.jobmanager.JobManager: void add(org.thoughtcrime.securesms.jobmanager.Job)>($r118);
+
+     label010:
+        if $i0 >= 4 goto label012;
+
+     label011:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TABLE sessions (_id INTEGER PRIMARY KEY, address TEXT NOT NULL, device INTEGER NOT NULL, record BLOB NOT NULL, UNIQUE(address, device) ON CONFLICT REPLACE)");
+
+        $r9 = r0.<org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: android.content.Context context>;
+
+        staticinvoke <org.thoughtcrime.securesms.database.helpers.SessionStoreMigrationHelper: void migrateSessions(android.content.Context,net.sqlcipher.database.SQLiteDatabase)>($r9, $r1);
+
+     label012:
+        $r11 = "part";
+
+        if $i0 >= 5 goto label043;
+
+     label013:
+        $r119 = new android.content.ContentValues;
+
+     label014:
+        $r12 = $r119;
+
+     label015:
+        specialinvoke $r119.<android.content.ContentValues: void <init>()>();
+
+        virtualinvoke $r119.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("thumbnail", null);
+
+        virtualinvoke $r119.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("aspect_ratio", null);
+
+        virtualinvoke $r119.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("thumbnail_random", null);
+
+        $r13 = newarray (java.lang.String)[3];
+
+        $r13[0] = "_id";
+
+        $r13[1] = "ct";
+
+        $r13[2] = "thumbnail";
+
+     label016:
+        $r14 = "_id";
+
+        $r5 = "_id = ?";
+
+        $r11 = "thumbnail";
+
+        $r6 = "part";
+
+     label017:
+        $r15 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: net.sqlcipher.Cursor query(java.lang.String,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String,java.lang.String,java.lang.String)>("part", $r13, "thumbnail IS NOT NULL", null, null, null, null);
+
+     label018:
+        if $r15 == null goto label040;
+
+     label019:
+        $z0 = interfaceinvoke $r15.<android.database.Cursor: boolean moveToNext()>();
+
+     label020:
+        if $z0 == 0 goto label040;
+
+     label021:
+        $i1 = interfaceinvoke $r15.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("_id");
+
+        $l3 = interfaceinvoke $r15.<android.database.Cursor: long getLong(int)>($i1);
+
+        $i1 = interfaceinvoke $r15.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("ct");
+
+        $r16 = interfaceinvoke $r15.<android.database.Cursor: java.lang.String getString(int)>($i1);
+
+     label022:
+        if $r16 == null goto label030;
+
+     label023:
+        $z0 = virtualinvoke $r16.<java.lang.String: boolean startsWith(java.lang.String)>("video");
+
+     label024:
+        if $z0 != 0 goto label030;
+
+        $r16 = $r11;
+
+     label025:
+        $i1 = interfaceinvoke $r15.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>($r11);
+
+        $r11 = interfaceinvoke $r15.<android.database.Cursor: java.lang.String getString(int)>($i1);
+
+        $r74 = new java.io.File;
+
+     label026:
+        specialinvoke $r74.<java.io.File: void <init>(java.lang.String)>($r11);
+
+        virtualinvoke $r74.<java.io.File: boolean delete()>();
+
+        $r13 = newarray (java.lang.String)[1];
+
+        $r11 = staticinvoke <java.lang.String: java.lang.String valueOf(long)>($l3);
+
+        $r13[0] = $r11;
+
+     label027:
+        $r18 = $r5;
+
+        $r11 = $r6;
+
+     label028:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int update(java.lang.String,android.content.ContentValues,java.lang.String,java.lang.String[])>($r6, $r12, $r5, $r13);
+
+     label029:
+        goto label031;
+
+     label030:
+        $r18 = $r5;
+
+        $r16 = $r11;
+
+        $r11 = $r6;
+
+     label031:
+        $r5 = $r18;
+
+        $r6 = $r11;
+
+        $r11 = $r16;
+
+        goto label018;
+
+     label032:
+        $r19 := @caughtexception;
+
+     label033:
+        throw $r19;
+
+     label034:
+        $r20 := @caughtexception;
+
+        if $r15 == null goto label039;
+
+     label035:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label036:
+        goto label039;
+
+     label037:
+        $r21 := @caughtexception;
+
+     label038:
+        virtualinvoke $r19.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r21);
+
+     label039:
+        throw $r20;
+
+     label040:
+        $r16 = $r5;
+
+        $r5 = $r11;
+
+        $r11 = $r6;
+
+        if $r15 == null goto label044;
+
+     label041:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label042:
+        goto label044;
+
+     label043:
+        $r14 = "_id";
+
+        $r5 = "thumbnail";
+
+        $r16 = "_id = ?";
+
+     label044:
+        if $i0 >= 6 goto label046;
+
+     label045:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE part ADD COLUMN width INTEGER DEFAULT 0");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE part ADD COLUMN height INTEGER DEFAULT 0");
+
+     label046:
+        if $i0 >= 7 goto label048;
+
+     label047:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE mms ADD COLUMN quote_id INTEGER DEFAULT 0");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE mms ADD COLUMN quote_author TEXT");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE mms ADD COLUMN quote_body TEXT");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE mms ADD COLUMN quote_attachment INTEGER DEFAULT -1");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE part ADD COLUMN quote INTEGER DEFAULT 0");
+
+     label048:
+        if $i0 >= 8 goto label050;
+
+     label049:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE mms ADD COLUMN shared_contacts TEXT");
+
+     label050:
+        if $i0 >= 9 goto label063;
+
+     label051:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE VIRTUAL TABLE sms_fts USING fts5(body, content=sms, content_rowid=_id)");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TRIGGER sms_ai AFTER INSERT ON sms BEGIN\n  INSERT INTO sms_fts(rowid, body) VALUES (new._id, new.body);\nEND;");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TRIGGER sms_ad AFTER DELETE ON sms BEGIN\n  INSERT INTO sms_fts(sms_fts, rowid, body) VALUES(\'delete\', old._id, old.body);\nEND;\n");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TRIGGER sms_au AFTER UPDATE ON sms BEGIN\n  INSERT INTO sms_fts(sms_fts, rowid, body) VALUES(\'delete\', old._id, old.body);\n  INSERT INTO sms_fts(rowid, body) VALUES(new._id, new.body);\nEND;");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE VIRTUAL TABLE mms_fts USING fts5(body, content=mms, content_rowid=_id)");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TRIGGER mms_ai AFTER INSERT ON mms BEGIN\n  INSERT INTO mms_fts(rowid, body) VALUES (new._id, new.body);\nEND;");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TRIGGER mms_ad AFTER DELETE ON mms BEGIN\n  INSERT INTO mms_fts(mms_fts, rowid, body) VALUES(\'delete\', old._id, old.body);\nEND;\n");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TRIGGER mms_au AFTER UPDATE ON mms BEGIN\n  INSERT INTO mms_fts(mms_fts, rowid, body) VALUES(\'delete\', old._id, old.body);\n  INSERT INTO mms_fts(rowid, body) VALUES(new._id, new.body);\nEND;");
+
+        $r6 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r6, "Beginning to build search index.");
+
+        $l3 = staticinvoke <android.os.SystemClock: long elapsedRealtime()>();
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("INSERT INTO sms_fts (rowid, body) SELECT _id, body FROM sms");
+
+        $l4 = staticinvoke <android.os.SystemClock: long elapsedRealtime()>();
+
+        $r117 = new java.lang.StringBuilder;
+
+     label052:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+     label053:
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Indexing SMS completed in ");
+
+     label054:
+        $r22 = $r11;
+
+        $l5 = $l4 - $l3;
+
+     label055:
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l5);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ms");
+
+        $r11 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r6, $r11);
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("INSERT INTO mms_fts (rowid, body) SELECT _id, body FROM mms");
+
+        $l5 = staticinvoke <android.os.SystemClock: long elapsedRealtime()>();
+
+        $r117 = new java.lang.StringBuilder;
+
+     label056:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Indexing MMS completed in ");
+
+     label057:
+        $l4 = $l5 - $l4;
+
+     label058:
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l4);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ms");
+
+        $r11 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r6, $r11);
+
+        $r117 = new java.lang.StringBuilder;
+
+     label059:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Indexing finished. Total time: ");
+
+     label060:
+        $l3 = $l5 - $l3;
+
+     label061:
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l3);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ms");
+
+        $r11 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r6, $r11);
+
+     label062:
+        goto label064;
+
+     label063:
+        $r22 = $r11;
+
+     label064:
+        if $i0 >= 10 goto label095;
+
+     label065:
+        $r117 = new java.lang.StringBuilder;
+
+     label066:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("mms_id");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" NOT IN (SELECT _id FROM mms)");
+
+        $r11 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int delete(java.lang.String,java.lang.String,java.lang.String[])>("group_receipts", $r11, null);
+
+        $r13 = newarray (java.lang.String)[4];
+
+        $r13[0] = "_id";
+
+        $r13[1] = "unique_id";
+
+        $r13[2] = "_data";
+
+        $r13[3] = $r5;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label067:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("mid");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" NOT IN (SELECT _id FROM mms)");
+
+        $r23 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label068:
+        $r11 = $r16;
+
+        $r16 = $r22;
+
+     label069:
+        $r15 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: net.sqlcipher.Cursor query(java.lang.String,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String,java.lang.String,java.lang.String)>("part", $r13, $r23, null, null, null, null);
+
+     label070:
+        if $r15 == null goto label096;
+
+     label071:
+        $z0 = interfaceinvoke $r15.<android.database.Cursor: boolean moveToNext()>();
+
+     label072:
+        if $z0 == 0 goto label092;
+
+     label073:
+        $r13 = newarray (java.lang.String)[2];
+
+        $l3 = interfaceinvoke $r15.<android.database.Cursor: long getLong(int)>(0);
+
+        $r22 = staticinvoke <java.lang.String: java.lang.String valueOf(long)>($l3);
+
+        $r13[0] = $r22;
+
+        $l3 = interfaceinvoke $r15.<android.database.Cursor: long getLong(int)>(1);
+
+        $r22 = staticinvoke <java.lang.String: java.lang.String valueOf(long)>($l3);
+
+        $r13[1] = $r22;
+
+     label074:
+        $r22 = $r16;
+
+     label075:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int delete(java.lang.String,java.lang.String,java.lang.String[])>($r16, "_id = ? AND unique_id = ?", $r13);
+
+        $r16 = interfaceinvoke $r15.<android.database.Cursor: java.lang.String getString(int)>(2);
+
+        $r23 = interfaceinvoke $r15.<android.database.Cursor: java.lang.String getString(int)>(3);
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r16);
+
+     label076:
+        if $z0 != 0 goto label079;
+
+     label077:
+        $r74 = new java.io.File;
+
+     label078:
+        specialinvoke $r74.<java.io.File: void <init>(java.lang.String)>($r16);
+
+        virtualinvoke $r74.<java.io.File: boolean delete()>();
+
+     label079:
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r23);
+
+     label080:
+        if $z0 != 0 goto label083;
+
+     label081:
+        $r74 = new java.io.File;
+
+     label082:
+        specialinvoke $r74.<java.io.File: void <init>(java.lang.String)>($r23);
+
+        virtualinvoke $r74.<java.io.File: boolean delete()>();
+
+     label083:
+        $r16 = $r22;
+
+        goto label070;
+
+     label084:
+        $r24 := @caughtexception;
+
+     label085:
+        throw $r24;
+
+     label086:
+        $r25 := @caughtexception;
+
+        if $r15 == null goto label091;
+
+     label087:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label088:
+        goto label091;
+
+     label089:
+        $r26 := @caughtexception;
+
+     label090:
+        virtualinvoke $r24.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r26);
+
+     label091:
+        throw $r25;
+
+     label092:
+        if $r15 == null goto label096;
+
+     label093:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label094:
+        goto label096;
+
+     label095:
+        $r11 = $r16;
+
+        $r16 = $r22;
+
+     label096:
+        if $i0 >= 11 goto label100;
+
+     label097:
+        $z0 = staticinvoke <org.thoughtcrime.securesms.util.SqlUtil: boolean columnExists(net.sqlcipher.database.SQLiteDatabase,java.lang.String,java.lang.String)>($r1, "mms", "quote_missing");
+
+     label098:
+        if $z0 != 0 goto label100;
+
+     label099:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE mms ADD COLUMN quote_missing INTEGER DEFAULT 0");
+
+     label100:
+        if $i0 >= 12 goto label160;
+
+     label101:
+        $z0 = staticinvoke <org.thoughtcrime.securesms.util.SqlUtil: boolean columnExists(net.sqlcipher.database.SQLiteDatabase,java.lang.String,java.lang.String)>($r1, "recipient_preferences", "notification_channel");
+
+     label102:
+        if $z0 != 0 goto label160;
+
+     label103:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient_preferences ADD COLUMN notification_channel TEXT DEFAULT NULL");
+
+        $r9 = r0.<org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: android.content.Context context>;
+
+        staticinvoke <org.thoughtcrime.securesms.notifications.NotificationChannels: void create(android.content.Context)>($r9);
+
+        $r15 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: net.sqlcipher.Cursor rawQuery(java.lang.String,java.lang.String[])>("SELECT recipient_ids, system_display_name, signal_profile_name, notification, vibrate FROM recipient_preferences WHERE notification NOT NULL OR vibrate != 0", null);
+
+     label104:
+        if $r15 == null goto label161;
+
+     label105:
+        $z0 = interfaceinvoke $r15.<android.database.Cursor: boolean moveToNext()>();
+
+     label106:
+        if $z0 == 0 goto label156;
+
+     label107:
+        $i1 = interfaceinvoke $r15.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("recipient_ids");
+
+        $r22 = interfaceinvoke $r15.<android.database.Cursor: java.lang.String getString(int)>($i1);
+
+        $r9 = $r4.<org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: android.content.Context context>;
+
+        $r27 = staticinvoke <org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter: org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter get(android.content.Context)>($r9);
+
+        $r28 = virtualinvoke $r27.<org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter: java.lang.String format(java.lang.String)>($r22);
+
+        $i1 = interfaceinvoke $r15.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("system_display_name");
+
+        $r29 = interfaceinvoke $r15.<android.database.Cursor: java.lang.String getString(int)>($i1);
+
+        $i1 = interfaceinvoke $r15.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("signal_profile_name");
+
+        $r30 = interfaceinvoke $r15.<android.database.Cursor: java.lang.String getString(int)>($i1);
+
+     label108:
+        $i1 = interfaceinvoke $r15.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("notification");
+
+        $r31 = interfaceinvoke $r15.<android.database.Cursor: java.lang.String getString(int)>($i1);
+
+     label109:
+        if $r31 == null goto label113;
+
+     label110:
+        $r32 = staticinvoke <android.net.Uri: android.net.Uri parse(java.lang.String)>($r31);
+
+     label111:
+        goto label114;
+
+     label112:
+        $r33 := @caughtexception;
+
+        $r34 = $r33;
+
+        $r35 = $r15;
+
+        goto label149;
+
+     label113:
+        $r32 = null;
+
+     label114:
+        $i1 = interfaceinvoke $r15.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("vibrate");
+
+        $i1 = interfaceinvoke $r15.<android.database.Cursor: int getInt(int)>($i1);
+
+     label115:
+        $r9 = $r4.<org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: android.content.Context context>;
+
+     label116:
+        $r29 = staticinvoke <org.thoughtcrime.securesms.notifications.NotificationChannels: java.lang.String getChannelDisplayNameFor(android.content.Context,java.lang.String,java.lang.String,java.lang.String,java.lang.String)>($r9, $r29, $r30, null, $r28);
+
+     label117:
+        if $i1 != 0 goto label120;
+
+     label118:
+        $r9 = $r4.<org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: android.content.Context context>;
+
+        $z0 = staticinvoke <org.thoughtcrime.securesms.util.TextSecurePreferences: boolean isNotificationVibrateEnabled(android.content.Context)>($r9);
+
+     label119:
+        goto label122;
+
+     label120:
+        if $i1 != 1 goto label121;
+
+        $z0 = 1;
+
+        goto label122;
+
+     label121:
+        $z0 = 0;
+
+     label122:
+        $z1 = staticinvoke <org.thoughtcrime.securesms.groups.GroupId: boolean isEncodedGroup(java.lang.String)>($r28);
+
+     label123:
+        if $z1 == 0 goto label140;
+
+     label124:
+        $r13 = newarray (java.lang.String)[1];
+
+        $r13[0] = $r28;
+
+        $r35 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: net.sqlcipher.Cursor rawQuery(java.lang.String,java.lang.String[])>("SELECT title FROM groups WHERE group_id = ?", $r13);
+
+     label125:
+        if $r35 == null goto label140;
+
+     label126:
+        $z1 = interfaceinvoke $r35.<android.database.Cursor: boolean moveToFirst()>();
+
+     label127:
+        if $z1 == 0 goto label138;
+
+     label128:
+        $i1 = interfaceinvoke $r35.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("title");
+
+        $r30 = interfaceinvoke $r35.<android.database.Cursor: java.lang.String getString(int)>($i1);
+
+        $z1 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r30);
+
+     label129:
+        if $z1 != 0 goto label138;
+
+        $r29 = $r30;
+
+        goto label138;
+
+     label130:
+        $r36 := @caughtexception;
+
+     label131:
+        throw $r36;
+
+     label132:
+        $r37 := @caughtexception;
+
+        if $r35 == null goto label137;
+
+     label133:
+        interfaceinvoke $r35.<android.database.Cursor: void close()>();
+
+     label134:
+        goto label137;
+
+     label135:
+        $r38 := @caughtexception;
+
+     label136:
+        virtualinvoke $r36.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r38);
+
+     label137:
+        throw $r37;
+
+     label138:
+        if $r35 == null goto label140;
+
+     label139:
+        interfaceinvoke $r35.<android.database.Cursor: void close()>();
+
+     label140:
+        $r9 = $r4.<org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: android.content.Context context>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label141:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("contact_");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r28);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("_");
+
+     label142:
+        $r35 = $r15;
+
+     label143:
+        $l3 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l3);
+
+        $r28 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r28 = staticinvoke <org.thoughtcrime.securesms.notifications.NotificationChannels: java.lang.String createChannelFor(android.content.Context,java.lang.String,java.lang.String,android.net.Uri,boolean)>($r9, $r28, $r29, $r32, $z0);
+
+        $r119 = new android.content.ContentValues;
+
+     label144:
+        specialinvoke $r119.<android.content.ContentValues: void <init>(int)>(1);
+
+        virtualinvoke $r119.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("notification_channel", $r28);
+
+        $r13 = newarray (java.lang.String)[1];
+
+        $r13[0] = $r22;
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int update(java.lang.String,android.content.ContentValues,java.lang.String,java.lang.String[])>("recipient_preferences", $r119, "recipient_ids = ?", $r13);
+
+     label145:
+        $r4 = r0;
+
+        goto label104;
+
+     label146:
+        $r39 := @caughtexception;
+
+        goto label148;
+
+     label147:
+        $r39 := @caughtexception;
+
+        $r35 = $r15;
+
+     label148:
+        $r34 = $r39;
+
+     label149:
+        throw $r34;
+
+     label150:
+        $r40 := @caughtexception;
+
+        if $r35 == null goto label155;
+
+     label151:
+        interfaceinvoke $r35.<android.database.Cursor: void close()>();
+
+     label152:
+        goto label155;
+
+     label153:
+        $r41 := @caughtexception;
+
+     label154:
+        virtualinvoke $r34.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r41);
+
+     label155:
+        throw $r40;
+
+     label156:
+        if $r15 == null goto label161;
+
+     label157:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label158:
+        goto label161;
+
+     label159:
+        $r8 := @caughtexception;
+
+        goto label753;
+
+     label160:
+        $r14 = "_id";
+
+     label161:
+        if $i0 >= 13 goto label163;
+
+     label162:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient_preferences ADD COLUMN unidentified_access_mode INTEGER DEFAULT 0");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE push ADD COLUMN server_timestamp INTEGER DEFAULT 0");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE push ADD COLUMN server_guid TEXT DEFAULT NULL");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE group_receipts ADD COLUMN unidentified INTEGER DEFAULT 0");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE mms ADD COLUMN unidentified INTEGER DEFAULT 0");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE sms ADD COLUMN unidentified INTEGER DEFAULT 0");
+
+     label163:
+        if $i0 >= 14 goto label165;
+
+     label164:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE part ADD COLUMN caption TEXT DEFAULT NULL");
+
+     label165:
+        if $i0 >= 15 goto label169;
+
+     label166:
+        $z0 = staticinvoke <org.thoughtcrime.securesms.util.SqlUtil: boolean columnExists(net.sqlcipher.database.SQLiteDatabase,java.lang.String,java.lang.String)>($r1, $r16, "caption");
+
+     label167:
+        if $z0 != 0 goto label169;
+
+     label168:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE part ADD COLUMN caption TEXT DEFAULT NULL");
+
+     label169:
+        if $i0 >= 16 goto label171;
+
+     label170:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE mms ADD COLUMN previews TEXT");
+
+     label171:
+        if $i0 >= 17 goto label182;
+
+     label172:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("DROP TABLE sms_fts");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("DROP TABLE mms_fts");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("DROP TRIGGER sms_ai");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("DROP TRIGGER sms_au");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("DROP TRIGGER sms_ad");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("DROP TRIGGER mms_ai");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("DROP TRIGGER mms_au");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("DROP TRIGGER mms_ad");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE VIRTUAL TABLE sms_fts USING fts5(body, thread_id UNINDEXED, content=sms, content_rowid=_id)");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TRIGGER sms_ai AFTER INSERT ON sms BEGIN\n  INSERT INTO sms_fts(rowid, body, thread_id) VALUES (new._id, new.body, new.thread_id);\nEND;");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TRIGGER sms_ad AFTER DELETE ON sms BEGIN\n  INSERT INTO sms_fts(sms_fts, rowid, body, thread_id) VALUES(\'delete\', old._id, old.body, old.thread_id);\nEND;\n");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TRIGGER sms_au AFTER UPDATE ON sms BEGIN\n  INSERT INTO sms_fts(sms_fts, rowid, body, thread_id) VALUES(\'delete\', old._id, old.body, old.thread_id);\n  INSERT INTO sms_fts(rowid, body, thread_id) VALUES(new._id, new.body, new.thread_id);\nEND;");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE VIRTUAL TABLE mms_fts USING fts5(body, thread_id UNINDEXED, content=mms, content_rowid=_id)");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TRIGGER mms_ai AFTER INSERT ON mms BEGIN\n  INSERT INTO mms_fts(rowid, body, thread_id) VALUES (new._id, new.body, new.thread_id);\nEND;");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TRIGGER mms_ad AFTER DELETE ON mms BEGIN\n  INSERT INTO mms_fts(mms_fts, rowid, body, thread_id) VALUES(\'delete\', old._id, old.body, old.thread_id);\nEND;\n");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TRIGGER mms_au AFTER UPDATE ON mms BEGIN\n  INSERT INTO mms_fts(mms_fts, rowid, body, thread_id) VALUES(\'delete\', old._id, old.body, old.thread_id);\n  INSERT INTO mms_fts(rowid, body, thread_id) VALUES(new._id, new.body, new.thread_id);\nEND;");
+
+        $r23 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r23, "Beginning to build search index.");
+
+        $l3 = staticinvoke <android.os.SystemClock: long elapsedRealtime()>();
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("INSERT INTO sms_fts (rowid, body, thread_id) SELECT _id, body, thread_id FROM sms");
+
+        $l4 = staticinvoke <android.os.SystemClock: long elapsedRealtime()>();
+
+        $r117 = new java.lang.StringBuilder;
+
+     label173:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Indexing SMS completed in ");
+
+     label174:
+        $l5 = $l4 - $l3;
+
+     label175:
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l5);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ms");
+
+        $r28 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r23, $r28);
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("INSERT INTO mms_fts (rowid, body, thread_id) SELECT _id, body, thread_id FROM mms");
+
+        $l5 = staticinvoke <android.os.SystemClock: long elapsedRealtime()>();
+
+        $r117 = new java.lang.StringBuilder;
+
+     label176:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Indexing MMS completed in ");
+
+     label177:
+        $l4 = $l5 - $l4;
+
+     label178:
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l4);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ms");
+
+        $r28 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r23, $r28);
+
+        $r117 = new java.lang.StringBuilder;
+
+     label179:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Indexing finished. Total time: ");
+
+     label180:
+        $l3 = $l5 - $l3;
+
+     label181:
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l3);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ms");
+
+        $r18 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r23, $r18);
+
+     label182:
+        if $i0 >= 18 goto label204;
+
+        $r4 = r0;
+
+     label183:
+        $r9 = r0.<org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: android.content.Context context>;
+
+        $r18 = staticinvoke <org.thoughtcrime.securesms.util.TextSecurePreferences: java.lang.String getLocalNumber(android.content.Context)>($r9);
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r18);
+
+     label184:
+        if $z0 != 0 goto label205;
+
+     label185:
+        $r13 = newarray (java.lang.String)[1];
+
+        $r13[0] = $r18;
+
+        $r15 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: net.sqlcipher.Cursor rawQuery(java.lang.String,java.lang.String[])>("SELECT _id FROM thread WHERE recipient_ids = ?", $r13);
+
+     label186:
+        if $r15 == null goto label205;
+
+     label187:
+        $z0 = interfaceinvoke $r15.<android.database.Cursor: boolean moveToFirst()>();
+
+     label188:
+        if $z0 == 0 goto label201;
+
+     label189:
+        $l3 = interfaceinvoke $r15.<android.database.Cursor: long getLong(int)>(0);
+
+        $r119 = new android.content.ContentValues;
+
+     label190:
+        specialinvoke $r119.<android.content.ContentValues: void <init>(int)>(1);
+
+        $r42 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(0);
+
+        virtualinvoke $r119.<android.content.ContentValues: void put(java.lang.String,java.lang.Integer)>("pending_push", $r42);
+
+        $r13 = newarray (java.lang.String)[1];
+
+        $r18 = staticinvoke <java.lang.String: java.lang.String valueOf(long)>($l3);
+
+        $r13[0] = $r18;
+
+        $i1 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int update(java.lang.String,android.content.ContentValues,java.lang.String,java.lang.String[])>($r16, $r119, "mid IN (SELECT _id FROM mms WHERE thread_id = ?)", $r13);
+
+        $r18 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label191:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Updated ");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" self-sent attachments.");
+
+        $r23 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r18, $r23);
+
+     label192:
+        goto label201;
+
+     label193:
+        $r43 := @caughtexception;
+
+     label194:
+        throw $r43;
+
+     label195:
+        $r44 := @caughtexception;
+
+        if $r15 == null goto label200;
+
+     label196:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label197:
+        goto label200;
+
+     label198:
+        $r45 := @caughtexception;
+
+     label199:
+        virtualinvoke $r43.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r45);
+
+     label200:
+        throw $r44;
+
+     label201:
+        if $r15 == null goto label205;
+
+     label202:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label203:
+        goto label205;
+
+     label204:
+        $r4 = r0;
+
+     label205:
+        if $i0 >= 19 goto label207;
+
+     label206:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient_preferences ADD COLUMN force_sms_selection INTEGER DEFAULT 0");
+
+     label207:
+        if $i0 >= 20 goto label209;
+
+     label208:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TABLE job_spec(_id INTEGER PRIMARY KEY AUTOINCREMENT, job_spec_id TEXT UNIQUE, factory_key TEXT, queue_key TEXT, create_time INTEGER, next_run_attempt_time INTEGER, run_attempt INTEGER, max_attempts INTEGER, max_backoff INTEGER, max_instances INTEGER, lifespan INTEGER, serialized_data TEXT, is_running INTEGER)");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TABLE constraint_spec(_id INTEGER PRIMARY KEY AUTOINCREMENT, job_spec_id TEXT, factory_key TEXT, UNIQUE(job_spec_id, factory_key))");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TABLE dependency_spec(_id INTEGER PRIMARY KEY AUTOINCREMENT, job_spec_id TEXT, depends_on_job_spec_id TEXT, UNIQUE(job_spec_id, depends_on_job_spec_id))");
+
+     label209:
+        if $i0 >= 21 goto label211;
+
+     label210:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TABLE sticker (_id INTEGER PRIMARY KEY AUTOINCREMENT, pack_id TEXT NOT NULL, pack_key TEXT NOT NULL, pack_title TEXT NOT NULL, pack_author TEXT NOT NULL, sticker_id INTEGER, cover INTEGER, emoji TEXT NOT NULL, last_used INTEGER, installed INTEGER,file_path TEXT NOT NULL, file_length INTEGER, file_random BLOB, UNIQUE(pack_id, sticker_id, cover) ON CONFLICT IGNORE)");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE INDEX IF NOT EXISTS sticker_pack_id_index ON sticker (pack_id);");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE INDEX IF NOT EXISTS sticker_sticker_id_index ON sticker (sticker_id);");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE part ADD COLUMN sticker_pack_id TEXT");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE part ADD COLUMN sticker_pack_key TEXT");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE part ADD COLUMN sticker_id INTEGER DEFAULT -1");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE INDEX IF NOT EXISTS part_sticker_pack_id_index ON part (sticker_pack_id)");
+
+     label211:
+        if $i0 >= 22 goto label213;
+
+     label212:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE mms ADD COLUMN reveal_duration INTEGER DEFAULT 0");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE mms ADD COLUMN reveal_start_time INTEGER DEFAULT 0");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE thread ADD COLUMN snippet_content_type TEXT DEFAULT NULL");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE thread ADD COLUMN snippet_extras TEXT DEFAULT NULL");
+
+     label213:
+        if $i0 >= 23 goto label215;
+
+     label214:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("UPDATE mms SET reveal_duration = 1 WHERE reveal_duration > 0");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("UPDATE mms SET reveal_start_time = 0");
+
+     label215:
+        if $i0 >= 24 goto label217;
+
+     label216:
+        staticinvoke <org.thoughtcrime.securesms.database.helpers.RecipientIdMigrationHelper: void execute(net.sqlcipher.database.SQLiteDatabase)>($r1);
+
+     label217:
+        if $i0 >= 25 goto label241;
+
+     label218:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN system_phone_type INTEGER DEFAULT -1");
+
+        $r9 = $r4.<org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: android.content.Context context>;
+
+        $r29 = staticinvoke <org.thoughtcrime.securesms.util.TextSecurePreferences: java.lang.String getLocalNumber(android.content.Context)>($r9);
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r29);
+
+     label219:
+        if $z0 != 0 goto label241;
+
+     label220:
+        $r13 = newarray (java.lang.String)[1];
+
+        $r13[0] = $r29;
+
+     label221:
+        $r18 = "notification_channel";
+
+        $r28 = "_";
+
+     label222:
+        $r15 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: net.sqlcipher.Cursor query(java.lang.String,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String,java.lang.String,java.lang.String)>("recipient", null, "phone = ?", $r13, null, null, null);
+
+     label223:
+        if $r15 == null goto label228;
+
+     label224:
+        $z0 = interfaceinvoke $r15.<android.database.Cursor: boolean moveToFirst()>();
+
+     label225:
+        if $z0 == 0 goto label228;
+
+     label226:
+        $r13 = newarray (java.lang.String)[3];
+
+        $r13[0] = "1";
+
+        $r13[1] = "1";
+
+        $r13[2] = $r29;
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String,java.lang.Object[])>("UPDATE recipient SET registered = ?, profile_sharing = ? WHERE phone = ?", $r13);
+
+     label227:
+        goto label230;
+
+     label228:
+        $r119 = new android.content.ContentValues;
+
+     label229:
+        specialinvoke $r119.<android.content.ContentValues: void <init>()>();
+
+        virtualinvoke $r119.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("phone", $r29);
+
+        $r42 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(1);
+
+        virtualinvoke $r119.<android.content.ContentValues: void put(java.lang.String,java.lang.Integer)>("registered", $r42);
+
+        $r42 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(1);
+
+        virtualinvoke $r119.<android.content.ContentValues: void put(java.lang.String,java.lang.Integer)>("profile_sharing", $r42);
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: long insert(java.lang.String,java.lang.String,android.content.ContentValues)>("recipient", null, $r119);
+
+     label230:
+        if $r15 == null goto label242;
+
+     label231:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label232:
+        goto label242;
+
+     label233:
+        $r46 := @caughtexception;
+
+     label234:
+        throw $r46;
+
+     label235:
+        $r47 := @caughtexception;
+
+        if $r15 == null goto label240;
+
+     label236:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label237:
+        goto label240;
+
+     label238:
+        $r48 := @caughtexception;
+
+     label239:
+        virtualinvoke $r46.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r48);
+
+     label240:
+        throw $r47;
+
+     label241:
+        $r18 = "notification_channel";
+
+        $r28 = "_";
+
+     label242:
+        if $i0 >= 26 goto label244;
+
+     label243:
+        staticinvoke <org.thoughtcrime.securesms.database.helpers.RecipientIdCleanupHelper: void execute(net.sqlcipher.database.SQLiteDatabase)>($r1);
+
+     label244:
+        if $i0 >= 27 goto label249;
+
+     label245:
+        $r119 = new android.content.ContentValues;
+
+     label246:
+        specialinvoke $r119.<android.content.ContentValues: void <init>(int)>(1);
+
+        virtualinvoke $r119.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("address", "-1");
+
+        $r13 = newarray (java.lang.String)[1];
+
+        $r13[0] = "0";
+
+     label247:
+        $i1 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int update(java.lang.String,android.content.ContentValues,java.lang.String,java.lang.String[])>("mms", $r119, "address = ?", $r13);
+
+        $r29 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label248:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("MMS recipient cleanup updated ");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" rows.");
+
+        $r30 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r29, $r30);
+
+     label249:
+        if $i0 >= 28 goto label251;
+
+     label250:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE part ADD COLUMN data_hash TEXT DEFAULT NULL");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE INDEX IF NOT EXISTS part_data_hash_index ON part (data_hash)");
+
+     label251:
+        if $i0 >= 29 goto label295;
+
+     label252:
+        $i1 = <android.os.Build$VERSION: int SDK_INT>;
+
+     label253:
+        if $i1 < 26 goto label295;
+
+     label254:
+        $r9 = $r4.<org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: android.content.Context context>;
+
+        $r49 = staticinvoke <org.thoughtcrime.securesms.util.ServiceUtil: android.app.NotificationManager getNotificationManager(android.content.Context)>($r9);
+
+     label255:
+        $r50 = $r49;
+
+     label256:
+        $r51 = virtualinvoke $r49.<android.app.NotificationManager: java.util.List getNotificationChannels()>();
+
+        $r52 = staticinvoke <com.annimon.stream.Stream: com.annimon.stream.Stream of(java.lang.Iterable)>($r51);
+
+        $r53 = <org.thoughtcrime.securesms.database.helpers.'-$$Lambda$SQLCipherOpenHelper$LaqcpnmrOeS8KsJo5XEWz_-5WkQ': org.thoughtcrime.securesms.database.helpers.'-$$Lambda$SQLCipherOpenHelper$LaqcpnmrOeS8KsJo5XEWz_-5WkQ' INSTANCE>;
+
+        $r52 = virtualinvoke $r52.<com.annimon.stream.Stream: com.annimon.stream.Stream filter(com.annimon.stream.function.Predicate)>($r53);
+
+        $r51 = virtualinvoke $r52.<com.annimon.stream.Stream: java.util.List toList()>();
+
+        $r29 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label257:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Migrating ");
+
+        $i1 = interfaceinvoke $r51.<java.util.List: int size()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" channels to use RecipientId\'s.");
+
+        $r30 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r29, $r30);
+
+        $r54 = interfaceinvoke $r51.<java.util.List: java.util.Iterator iterator()>();
+
+     label258:
+        $z0 = interfaceinvoke $r54.<java.util.Iterator: boolean hasNext()>();
+
+     label259:
+        if $z0 == 0 goto label295;
+
+     label260:
+        $r55 = interfaceinvoke $r54.<java.util.Iterator: java.lang.Object next()>();
+
+        $r56 = (android.app.NotificationChannel) $r55;
+
+        $r29 = virtualinvoke $r56.<android.app.NotificationChannel: java.lang.String getId()>();
+
+        virtualinvoke $r50.<android.app.NotificationManager: void deleteNotificationChannel(java.lang.String)>($r29);
+
+        $r29 = virtualinvoke $r56.<android.app.NotificationChannel: java.lang.String getId()>();
+
+        $i1 = virtualinvoke $r29.<java.lang.String: int lastIndexOf(java.lang.String)>($r28);
+
+        $r29 = virtualinvoke $r56.<android.app.NotificationChannel: java.lang.String getId()>();
+
+        $r31 = virtualinvoke $r29.<java.lang.String: java.lang.String substring(int,int)>(8, $i1);
+
+        $r13 = newarray (java.lang.String)[1];
+
+        $r13[0] = $r14;
+
+        $r57 = newarray (java.lang.String)[3];
+
+        $r57[0] = $r31;
+
+        $r57[1] = $r31;
+
+        $r57[2] = $r31;
+
+     label261:
+        $r2 = $r28;
+
+        $r49 = $r50;
+
+     label262:
+        $r15 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: net.sqlcipher.Cursor query(java.lang.String,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String,java.lang.String,java.lang.String)>("recipient", $r13, "phone = ? OR email = ? OR group_id = ?", $r57, null, null, null);
+
+     label263:
+        if $r15 == null goto label281;
+
+     label264:
+        $z0 = interfaceinvoke $r15.<android.database.Cursor: boolean moveToFirst()>();
+
+     label265:
+        if $z0 == 0 goto label281;
+
+        $r28 = $r14;
+
+     label266:
+        $i1 = interfaceinvoke $r15.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>($r14);
+
+        $r14 = interfaceinvoke $r15.<android.database.Cursor: java.lang.String getString(int)>($i1);
+
+     label267:
+        if $r15 == null goto label269;
+
+     label268:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label269:
+        $r117 = new java.lang.StringBuilder;
+
+     label270:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("contact_");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r14);
+
+     label271:
+        $r29 = $r2;
+
+     label272:
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $l3 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l3);
+
+        $r30 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r120 = new android.app.NotificationChannel;
+
+     label273:
+        $r58 = virtualinvoke $r56.<android.app.NotificationChannel: java.lang.CharSequence getName()>();
+
+        $i1 = virtualinvoke $r56.<android.app.NotificationChannel: int getImportance()>();
+
+        specialinvoke $r120.<android.app.NotificationChannel: void <init>(java.lang.String,java.lang.CharSequence,int)>($r30, $r58, $i1);
+
+        $r30 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label274:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Updating channel ID from \'");
+
+        $r31 = virtualinvoke $r56.<android.app.NotificationChannel: java.lang.String getId()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r31);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\' to \'");
+
+        $r31 = virtualinvoke $r120.<android.app.NotificationChannel: java.lang.String getId()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r31);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\'.");
+
+        $r31 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r30, $r31);
+
+        $r30 = virtualinvoke $r56.<android.app.NotificationChannel: java.lang.String getGroup()>();
+
+        virtualinvoke $r120.<android.app.NotificationChannel: void setGroup(java.lang.String)>($r30);
+
+        $r32 = virtualinvoke $r56.<android.app.NotificationChannel: android.net.Uri getSound()>();
+
+        $r59 = virtualinvoke $r56.<android.app.NotificationChannel: android.media.AudioAttributes getAudioAttributes()>();
+
+        virtualinvoke $r120.<android.app.NotificationChannel: void setSound(android.net.Uri,android.media.AudioAttributes)>($r32, $r59);
+
+        $z0 = virtualinvoke $r56.<android.app.NotificationChannel: boolean canBypassDnd()>();
+
+        virtualinvoke $r120.<android.app.NotificationChannel: void setBypassDnd(boolean)>($z0);
+
+        $z0 = virtualinvoke $r56.<android.app.NotificationChannel: boolean shouldVibrate()>();
+
+        virtualinvoke $r120.<android.app.NotificationChannel: void enableVibration(boolean)>($z0);
+
+        $r60 = virtualinvoke $r56.<android.app.NotificationChannel: long[] getVibrationPattern()>();
+
+        virtualinvoke $r120.<android.app.NotificationChannel: void setVibrationPattern(long[])>($r60);
+
+        $i1 = virtualinvoke $r56.<android.app.NotificationChannel: int getLockscreenVisibility()>();
+
+        virtualinvoke $r120.<android.app.NotificationChannel: void setLockscreenVisibility(int)>($i1);
+
+        $z0 = virtualinvoke $r56.<android.app.NotificationChannel: boolean canShowBadge()>();
+
+        virtualinvoke $r120.<android.app.NotificationChannel: void setShowBadge(boolean)>($z0);
+
+        $i1 = virtualinvoke $r56.<android.app.NotificationChannel: int getLightColor()>();
+
+        virtualinvoke $r120.<android.app.NotificationChannel: void setLightColor(int)>($i1);
+
+        $z0 = virtualinvoke $r56.<android.app.NotificationChannel: boolean shouldShowLights()>();
+
+        virtualinvoke $r120.<android.app.NotificationChannel: void enableLights(boolean)>($z0);
+
+        virtualinvoke $r49.<android.app.NotificationManager: void createNotificationChannel(android.app.NotificationChannel)>($r120);
+
+        $r119 = new android.content.ContentValues;
+
+     label275:
+        specialinvoke $r119.<android.content.ContentValues: void <init>(int)>(1);
+
+        $r31 = virtualinvoke $r120.<android.app.NotificationChannel: java.lang.String getId()>();
+
+     label276:
+        $r30 = $r18;
+
+     label277:
+        virtualinvoke $r119.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>($r18, $r31);
+
+        $r13 = newarray (java.lang.String)[1];
+
+        $r13[0] = $r14;
+
+     label278:
+        $r61 = $r11;
+
+     label279:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int update(java.lang.String,android.content.ContentValues,java.lang.String,java.lang.String[])>("recipient", $r119, $r11, $r13);
+
+     label280:
+        goto label286;
+
+     label281:
+        $r28 = $r14;
+
+        $r61 = $r11;
+
+        $r30 = $r18;
+
+        $r29 = $r2;
+
+     label282:
+        $r14 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label283:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Couldn\'t find recipient for address: ");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r31);
+
+        $r11 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void w(java.lang.String,java.lang.String)>($r14, $r11);
+
+     label284:
+        if $r15 == null goto label286;
+
+     label285:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label286:
+        $r14 = $r28;
+
+        $r11 = $r61;
+
+        $r28 = $r29;
+
+        $r18 = $r30;
+
+        $r50 = $r49;
+
+        goto label258;
+
+     label287:
+        $r62 := @caughtexception;
+
+     label288:
+        throw $r62;
+
+     label289:
+        $r63 := @caughtexception;
+
+        if $r15 == null goto label294;
+
+     label290:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label291:
+        goto label294;
+
+     label292:
+        $r64 := @caughtexception;
+
+     label293:
+        virtualinvoke $r62.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r64);
+
+     label294:
+        throw $r63;
+
+     label295:
+        if $i0 >= 30 goto label297;
+
+     label296:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE part ADD COLUMN blur_hash TEXT DEFAULT NULL");
+
+     label297:
+        if $i0 >= 31 goto label301;
+
+     label298:
+        $r119 = new android.content.ContentValues;
+
+     label299:
+        specialinvoke $r119.<android.content.ContentValues: void <init>(int)>(1);
+
+        virtualinvoke $r119.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("address", "-1");
+
+        $r13 = newarray (java.lang.String)[1];
+
+        $r13[0] = "0";
+
+        $i1 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int update(java.lang.String,android.content.ContentValues,java.lang.String,java.lang.String[])>("mms", $r119, "address = ? OR address IS NULL", $r13);
+
+        $r22 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label300:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("MMS recipient cleanup 2 updated ");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" rows.");
+
+        $r23 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r22, $r23);
+
+     label301:
+        if $i0 >= 32 goto label303;
+
+     label302:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE part ADD COLUMN transform_properties TEXT DEFAULT NULL");
+
+     label303:
+        if $i0 >= 33 goto label305;
+
+     label304:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("UPDATE part SET data_hash = null");
+
+     label305:
+        if $i0 >= 34 goto label307;
+
+     label306:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("UPDATE part SET data_hash = null");
+
+        $r9 = $r4.<org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: android.content.Context context>;
+
+        $r65 = staticinvoke <com.bumptech.glide.Glide: com.bumptech.glide.Glide get(android.content.Context)>($r9);
+
+        virtualinvoke $r65.<com.bumptech.glide.Glide: void clearDiskCache()>();
+
+     label307:
+        if $i0 >= 35 goto label309;
+
+     label308:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN uuid_supported INTEGER DEFAULT 0");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE push ADD COLUMN source_uuid TEXT DEFAULT NULL");
+
+     label309:
+        if $i0 >= 36 goto label311;
+
+     label310:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN username TEXT DEFAULT NULL");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE UNIQUE INDEX IF NOT EXISTS recipient_username_index ON recipient (username)");
+
+     label311:
+        if $i0 >= 37 goto label313;
+
+     label312:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE sms ADD COLUMN reactions BLOB DEFAULT NULL");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE mms ADD COLUMN reactions BLOB DEFAULT NULL");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE sms ADD COLUMN reactions_unread INTEGER DEFAULT 0");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE mms ADD COLUMN reactions_unread INTEGER DEFAULT 0");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE sms ADD COLUMN reactions_last_seen INTEGER DEFAULT -1");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE mms ADD COLUMN reactions_last_seen INTEGER DEFAULT -1");
+
+     label313:
+        if $i0 >= 38 goto label315;
+
+     label314:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TABLE storage_key (_id INTEGER PRIMARY KEY AUTOINCREMENT, type INTEGER, key TEXT UNIQUE)");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE INDEX IF NOT EXISTS storage_key_type_index ON storage_key (type)");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN system_info_pending INTEGER DEFAULT 0");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN storage_service_key TEXT DEFAULT NULL");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN dirty INTEGER DEFAULT 0");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE UNIQUE INDEX recipient_storage_service_key ON recipient (storage_service_key)");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE INDEX recipient_dirty_index ON recipient (dirty)");
+
+     label315:
+        if $i0 >= 39 goto label317;
+
+     label316:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE INDEX IF NOT EXISTS sms_reactions_unread_index ON sms (reactions_unread);");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE INDEX IF NOT EXISTS mms_reactions_unread_index ON mms (reactions_unread);");
+
+     label317:
+        if $i0 >= 40 goto label319;
+
+     label318:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE part ADD COLUMN transfer_file TEXT DEFAULT NULL");
+
+     label319:
+        if $i0 >= 41 goto label321;
+
+     label320:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TABLE key_value (_id INTEGER PRIMARY KEY AUTOINCREMENT, key TEXT UNIQUE, value TEXT, type INTEGER)");
+
+     label321:
+        if $i0 >= 42 goto label323;
+
+     label322:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE part ADD COLUMN display_order INTEGER DEFAULT 0");
+
+     label323:
+        if $i0 >= 43 goto label325;
+
+     label324:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN profile_family_name TEXT DEFAULT NULL");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN profile_joined_name TEXT DEFAULT NULL");
+
+     label325:
+        if $i0 >= 44 goto label327;
+
+     label326:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE sticker ADD COLUMN pack_order INTEGER DEFAULT 0");
+
+     label327:
+        if $i0 >= 45 goto label329;
+
+     label328:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TABLE megaphone (_id INTEGER PRIMARY KEY AUTOINCREMENT, event TEXT UNIQUE, seen_count INTEGER, last_seen INTEGER, finished INTEGER)");
+
+     label329:
+        if $i0 >= 46 goto label331;
+
+     label330:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE megaphone ADD COLUMN first_visible INTEGER DEFAULT 0");
+
+     label331:
+        if $i0 >= 47 goto label344;
+
+     label332:
+        $r9 = $r4.<org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: android.content.Context context>;
+
+        $r22 = staticinvoke <org.thoughtcrime.securesms.util.TextSecurePreferences: java.lang.String getLocalNumber(android.content.Context)>($r9);
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r22);
+
+     label333:
+        if $z0 != 0 goto label344;
+
+     label334:
+        $r9 = $r4.<org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: android.content.Context context>;
+
+        $r66 = staticinvoke <android.preference.PreferenceManager: android.content.SharedPreferences getDefaultSharedPreferences(android.content.Context)>($r9);
+
+        $r23 = interfaceinvoke $r66.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("pref_profile_key", null);
+
+     label335:
+        if $r23 == null goto label338;
+
+     label336:
+        $r67 = staticinvoke <org.thoughtcrime.securesms.util.Base64: byte[] decodeOrThrow(java.lang.String)>($r23);
+
+     label337:
+        goto label339;
+
+     label338:
+        $r67 = staticinvoke <org.thoughtcrime.securesms.util.Util: byte[] getSecretBytes(int)>(32);
+
+     label339:
+        $r119 = new android.content.ContentValues;
+
+     label340:
+        specialinvoke $r119.<android.content.ContentValues: void <init>(int)>(1);
+
+        $r23 = staticinvoke <org.thoughtcrime.securesms.util.Base64: java.lang.String encodeBytes(byte[])>($r67);
+
+        virtualinvoke $r119.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("profile_key", $r23);
+
+        $r13 = newarray (java.lang.String)[1];
+
+        $r13[0] = $r22;
+
+        $i1 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int update(java.lang.String,android.content.ContentValues,java.lang.String,java.lang.String[])>("recipient", $r119, "phone = ?", $r13);
+
+     label341:
+        if $i1 != 0 goto label344;
+
+     label342:
+        $r121 = new java.lang.AssertionError;
+
+     label343:
+        specialinvoke $r121.<java.lang.AssertionError: void <init>(java.lang.Object)>("No rows updated!");
+
+        throw $r121;
+
+     label344:
+        if $i0 >= 48 goto label346;
+
+     label345:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN profile_key_credential TEXT DEFAULT NULL");
+
+     label346:
+        if $i0 >= 49 goto label348;
+
+     label347:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE INDEX IF NOT EXISTS part_data_index ON part (_data)");
+
+     label348:
+        if $i0 >= 50 goto label366;
+
+     label349:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN group_type INTEGER DEFAULT 0");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE INDEX IF NOT EXISTS recipient_group_type_index ON recipient (group_type)");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("UPDATE recipient set group_type = 1 WHERE group_id NOT NULL AND group_id LIKE \'__signal_mms_group__%\'");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("UPDATE recipient set group_type = 2 WHERE group_id NOT NULL AND group_id LIKE \'__textsecure_group__%\'");
+
+        $r15 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: net.sqlcipher.Cursor rawQuery(java.lang.String,java.lang.String[])>("SELECT _id FROM recipient WHERE registered = 1 or group_type = 2", null);
+
+     label350:
+        if $r15 == null goto label366;
+
+     label351:
+        $z0 = interfaceinvoke $r15.<android.database.Cursor: boolean moveToNext()>();
+
+     label352:
+        if $z0 == 0 goto label364;
+
+     label353:
+        $i1 = interfaceinvoke $r15.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>($r14);
+
+        $r22 = interfaceinvoke $r15.<android.database.Cursor: java.lang.String getString(int)>($i1);
+
+        $r119 = new android.content.ContentValues;
+
+     label354:
+        specialinvoke $r119.<android.content.ContentValues: void <init>(int)>(1);
+
+        $r42 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(2);
+
+        virtualinvoke $r119.<android.content.ContentValues: void put(java.lang.String,java.lang.Integer)>("dirty", $r42);
+
+        $r67 = staticinvoke <org.thoughtcrime.securesms.storage.StorageSyncHelper: byte[] generateKey()>();
+
+        $r23 = staticinvoke <org.thoughtcrime.securesms.util.Base64: java.lang.String encodeBytes(byte[])>($r67);
+
+        virtualinvoke $r119.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("storage_service_key", $r23);
+
+        $r13 = newarray (java.lang.String)[1];
+
+        $r13[0] = $r22;
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int update(java.lang.String,android.content.ContentValues,java.lang.String,java.lang.String[])>("recipient", $r119, $r11, $r13);
+
+     label355:
+        goto label350;
+
+     label356:
+        $r68 := @caughtexception;
+
+     label357:
+        throw $r68;
+
+     label358:
+        $r69 := @caughtexception;
+
+        if $r15 == null goto label363;
+
+     label359:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label360:
+        goto label363;
+
+     label361:
+        $r70 := @caughtexception;
+
+     label362:
+        virtualinvoke $r68.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r70);
+
+     label363:
+        throw $r69;
+
+     label364:
+        if $r15 == null goto label366;
+
+     label365:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label366:
+        if $i0 >= 51 goto label368;
+
+     label367:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN gv2_capability INTEGER DEFAULT 0");
+
+     label368:
+        if $i0 >= 52 goto label385;
+
+     label369:
+        $r9 = $r4.<org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: android.content.Context context>;
+
+        $r17 = virtualinvoke $r9.<android.content.Context: java.io.File getDir(java.lang.String,int)>("parts", 0);
+
+        $z0 = virtualinvoke $r17.<java.io.File: boolean exists()>();
+
+     label370:
+        if $z0 == 0 goto label384;
+
+     label371:
+        $r71 = <org.thoughtcrime.securesms.database.helpers.'-$$Lambda$SQLCipherOpenHelper$biRQsJ4RaeHA_URG7pRNGTvMH5s': org.thoughtcrime.securesms.database.helpers.'-$$Lambda$SQLCipherOpenHelper$biRQsJ4RaeHA_URG7pRNGTvMH5s' INSTANCE>;
+
+        $r72 = virtualinvoke $r17.<java.io.File: java.io.File[] listFiles(java.io.FilenameFilter)>($r71);
+
+        $r22 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label372:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Found ");
+
+        $i1 = lengthof $r72;
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" dangling transfer files.");
+
+        $r23 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r22, $r23);
+
+        $i1 = lengthof $r72;
+
+     label373:
+        $i6 = 0;
+
+        $i7 = 0;
+
+     label374:
+        if $i6 >= $i1 goto label381;
+
+     label375:
+        $r17 = $r72[$i6];
+
+        $z0 = virtualinvoke $r17.<java.io.File: boolean delete()>();
+
+     label376:
+        if $z0 == 0 goto label380;
+
+     label377:
+        $r22 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label378:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Deleted ");
+
+        $r23 = virtualinvoke $r17.<java.io.File: java.lang.String getName()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r23);
+
+        $r23 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r22, $r23);
+
+     label379:
+        $i7 = $i7 + 1;
+
+     label380:
+        $i6 = $i6 + 1;
+
+        goto label374;
+
+     label381:
+        $r22 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label382:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Deleted ");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i7);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" dangling transfer files.");
+
+        $r23 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r22, $r23);
+
+     label383:
+        goto label385;
+
+     label384:
+        $r22 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        staticinvoke <org.signal.core.util.logging.Log: void w(java.lang.String,java.lang.String)>($r22, "Part directory did not exist. Skipping.");
+
+     label385:
+        if $i0 >= 53 goto label389;
+
+     label386:
+        $r9 = $r4.<org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: android.content.Context context>;
+
+        $r22 = staticinvoke <org.thoughtcrime.securesms.util.TextSecurePreferences: java.lang.String getLocalNumber(android.content.Context)>($r9);
+
+     label387:
+        if $r22 == null goto label389;
+
+     label388:
+        $r9 = $r4.<org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: android.content.Context context>;
+
+        $r66 = staticinvoke <android.preference.PreferenceManager: android.content.SharedPreferences getDefaultSharedPreferences(android.content.Context)>($r9);
+
+        $r23 = interfaceinvoke $r66.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("pref_profile_name", null);
+
+        $r73 = staticinvoke <org.thoughtcrime.securesms.profiles.ProfileName: org.thoughtcrime.securesms.profiles.ProfileName fromSerialized(java.lang.String)>($r23);
+
+        $r13 = newarray (java.lang.String)[4];
+
+        $r23 = virtualinvoke $r73.<org.thoughtcrime.securesms.profiles.ProfileName: java.lang.String getGivenName()>();
+
+        $r13[0] = $r23;
+
+        $r23 = virtualinvoke $r73.<org.thoughtcrime.securesms.profiles.ProfileName: java.lang.String getFamilyName()>();
+
+        $r13[1] = $r23;
+
+        $r23 = virtualinvoke $r73.<org.thoughtcrime.securesms.profiles.ProfileName: java.lang.String toString()>();
+
+        $r13[2] = $r23;
+
+        $r13[3] = $r22;
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String,java.lang.Object[])>("UPDATE recipient SET signal_profile_name = ?, profile_family_name = ?, profile_joined_name = ? WHERE phone = ?", $r13);
+
+     label389:
+        if $i0 >= 54 goto label443;
+
+     label390:
+        $r122 = new java.io.File;
+
+     label391:
+        $r9 = $r4.<org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: android.content.Context context>;
+
+        $r74 = virtualinvoke $r9.<android.content.Context: java.io.File getFilesDir()>();
+
+        specialinvoke $r122.<java.io.File: void <init>(java.io.File,java.lang.String)>($r74, "avatars");
+
+        $r72 = virtualinvoke $r122.<java.io.File: java.io.File[] listFiles()>();
+
+     label392:
+        if $r72 == null goto label410;
+
+     label393:
+        $r22 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label394:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Preparing to migrate ");
+
+        $i1 = lengthof $r72;
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" avatars.");
+
+        $r23 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r22, $r23);
+
+        $i1 = lengthof $r72;
+
+     label395:
+        $i6 = 0;
+
+     label396:
+        if $i6 >= $i1 goto label411;
+
+     label397:
+        $r74 = $r72[$i6];
+
+        $r22 = virtualinvoke $r74.<java.io.File: java.lang.String getName()>();
+
+        $z0 = staticinvoke <org.thoughtcrime.securesms.util.Util: boolean isLong(java.lang.String)>($r22);
+
+     label398:
+        if $z0 == 0 goto label407;
+
+     label399:
+        $r9 = $r4.<org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: android.content.Context context>;
+
+     label400:
+        $r22 = virtualinvoke $r74.<java.io.File: java.lang.String getName()>();
+
+        $r75 = staticinvoke <org.thoughtcrime.securesms.recipients.RecipientId: org.thoughtcrime.securesms.recipients.RecipientId 'from'(java.lang.String)>($r22);
+
+     label401:
+        $r123 = new java.io.FileInputStream;
+
+     label402:
+        specialinvoke $r123.<java.io.FileInputStream: void <init>(java.io.File)>($r74);
+
+        staticinvoke <org.thoughtcrime.securesms.profiles.AvatarHelper: void setAvatar(android.content.Context,org.thoughtcrime.securesms.recipients.RecipientId,java.io.InputStream)>($r9, $r75, $r123);
+
+     label403:
+        goto label409;
+
+     label404:
+        $r22 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label405:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Failed to copy file ");
+
+        $r23 = virtualinvoke $r74.<java.io.File: java.lang.String getName()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r23);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("! Skipping.");
+
+        $r23 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void w(java.lang.String,java.lang.String)>($r22, $r23);
+
+     label406:
+        goto label409;
+
+     label407:
+        $r22 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label408:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Invalid avatar name \'");
+
+        $r23 = virtualinvoke $r74.<java.io.File: java.lang.String getName()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r23);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\'! Skipping.");
+
+        $r23 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void w(java.lang.String,java.lang.String)>($r22, $r23);
+
+     label409:
+        $i6 = $i6 + 1;
+
+        goto label396;
+
+     label410:
+        $r22 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        staticinvoke <org.signal.core.util.logging.Log: void w(java.lang.String,java.lang.String)>($r22, "No avatar directory files found.");
+
+     label411:
+        $z0 = staticinvoke <org.thoughtcrime.securesms.util.FileUtils: boolean deleteDirectory(java.io.File)>($r122);
+
+     label412:
+        if $z0 != 0 goto label414;
+
+     label413:
+        $r22 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        staticinvoke <org.signal.core.util.logging.Log: void w(java.lang.String,java.lang.String)>($r22, "Failed to delete avatar directory.");
+
+     label414:
+        $r15 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: net.sqlcipher.Cursor rawQuery(java.lang.String,java.lang.String[])>("SELECT recipient_id, avatar FROM groups", null);
+
+     label415:
+        if $r15 == null goto label442;
+
+     label416:
+        $z0 = interfaceinvoke $r15.<android.database.Cursor: boolean moveToNext()>();
+
+     label417:
+        if $z0 == 0 goto label440;
+
+     label418:
+        $i1 = interfaceinvoke $r15.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("recipient_id");
+
+        $l3 = interfaceinvoke $r15.<android.database.Cursor: long getLong(int)>($i1);
+
+        $r75 = staticinvoke <org.thoughtcrime.securesms.recipients.RecipientId: org.thoughtcrime.securesms.recipients.RecipientId 'from'(long)>($l3);
+
+        $i1 = interfaceinvoke $r15.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("avatar");
+
+        $r67 = interfaceinvoke $r15.<android.database.Cursor: byte[] getBlob(int)>($i1);
+
+     label419:
+        $r9 = $r4.<org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: android.content.Context context>;
+
+     label420:
+        if $r67 == null goto label425;
+
+     label421:
+        $r124 = new java.io.ByteArrayInputStream;
+
+     label422:
+        $r76 = $r124;
+
+     label423:
+        specialinvoke $r124.<java.io.ByteArrayInputStream: void <init>(byte[])>($r67);
+
+     label424:
+        goto label426;
+
+     label425:
+        $r76 = null;
+
+     label426:
+        staticinvoke <org.thoughtcrime.securesms.profiles.AvatarHelper: void setAvatar(android.content.Context,org.thoughtcrime.securesms.recipients.RecipientId,java.io.InputStream)>($r9, $r75, $r76);
+
+     label427:
+        goto label415;
+
+     label428:
+        $r77 := @caughtexception;
+
+     label429:
+        $r22 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label430:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Failed to copy avatar for ");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r75);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("! Skipping.");
+
+        $r23 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void w(java.lang.String,java.lang.String,java.lang.Throwable)>($r22, $r23, $r77);
+
+     label431:
+        goto label415;
+
+     label432:
+        $r78 := @caughtexception;
+
+     label433:
+        throw $r78;
+
+     label434:
+        $r79 := @caughtexception;
+
+        if $r15 == null goto label439;
+
+     label435:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label436:
+        goto label439;
+
+     label437:
+        $r80 := @caughtexception;
+
+     label438:
+        virtualinvoke $r78.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r80);
+
+     label439:
+        throw $r79;
+
+     label440:
+        if $r15 == null goto label442;
+
+     label441:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label442:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("UPDATE groups SET avatar_id = 0 WHERE avatar IS NULL");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("UPDATE groups SET avatar = NULL");
+
+     label443:
+        if $i0 >= 55 goto label445;
+
+     label444:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE groups ADD COLUMN master_key");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE groups ADD COLUMN revision");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE groups ADD COLUMN decrypted_group");
+
+     label445:
+        if $i0 >= 56 goto label447;
+
+     label446:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE part ADD COLUMN upload_timestamp DEFAULT 0");
+
+     label447:
+        if $i0 >= 57 goto label449;
+
+     label448:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE part ADD COLUMN cdn_number INTEGER DEFAULT 0");
+
+     label449:
+        if $i0 >= 58 goto label451;
+
+     label450:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE job_spec ADD COLUMN serialized_input_data TEXT DEFAULT NULL");
+
+     label451:
+        if $i0 >= 59 goto label453;
+
+     label452:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE sms ADD COLUMN date_server INTEGER DEFAULT -1");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE INDEX IF NOT EXISTS sms_date_server_index ON sms (date_server)");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE mms ADD COLUMN date_server INTEGER DEFAULT -1");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE INDEX IF NOT EXISTS mms_date_server_index ON mms (date_server)");
+
+     label453:
+        if $i0 >= 60 goto label455;
+
+     label454:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE sms ADD COLUMN remote_deleted INTEGER DEFAULT 0");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE mms ADD COLUMN remote_deleted INTEGER DEFAULT 0");
+
+     label455:
+        if $i0 >= 61 goto label473;
+
+     label456:
+        $r15 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: net.sqlcipher.Cursor rawQuery(java.lang.String,java.lang.String[])>("SELECT _id, system_display_name FROM recipient WHERE system_display_name NOT NULL AND color IS NULL", null);
+
+     label457:
+        if $r15 == null goto label473;
+
+     label458:
+        $z0 = interfaceinvoke $r15.<android.database.Cursor: boolean moveToNext()>();
+
+     label459:
+        if $z0 == 0 goto label471;
+
+     label460:
+        $i1 = interfaceinvoke $r15.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>($r14);
+
+        $l3 = interfaceinvoke $r15.<android.database.Cursor: long getLong(int)>($i1);
+
+        $i1 = interfaceinvoke $r15.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("system_display_name");
+
+        $r22 = interfaceinvoke $r15.<android.database.Cursor: java.lang.String getString(int)>($i1);
+
+        $r119 = new android.content.ContentValues;
+
+     label461:
+        specialinvoke $r119.<android.content.ContentValues: void <init>()>();
+
+        $r81 = staticinvoke <org.thoughtcrime.securesms.contacts.avatars.ContactColorsLegacy: org.thoughtcrime.securesms.color.MaterialColor generateForV2(java.lang.String)>($r22);
+
+        $r22 = virtualinvoke $r81.<org.thoughtcrime.securesms.color.MaterialColor: java.lang.String serialize()>();
+
+        virtualinvoke $r119.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("color", $r22);
+
+        $r13 = newarray (java.lang.String)[1];
+
+        $r22 = staticinvoke <java.lang.String: java.lang.String valueOf(long)>($l3);
+
+        $r13[0] = $r22;
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int update(java.lang.String,android.content.ContentValues,java.lang.String,java.lang.String[])>("recipient", $r119, $r11, $r13);
+
+     label462:
+        goto label457;
+
+     label463:
+        $r82 := @caughtexception;
+
+     label464:
+        throw $r82;
+
+     label465:
+        $r83 := @caughtexception;
+
+        if $r15 == null goto label470;
+
+     label466:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label467:
+        goto label470;
+
+     label468:
+        $r84 := @caughtexception;
+
+     label469:
+        virtualinvoke $r82.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r84);
+
+     label470:
+        throw $r83;
+
+     label471:
+        if $r15 == null goto label473;
+
+     label472:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label473:
+        if $i0 >= 62 goto label475;
+
+     label474:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE thread ADD COLUMN last_scrolled INTEGER DEFAULT 0");
+
+     label475:
+        if $i0 >= 63 goto label477;
+
+     label476:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN last_profile_fetch INTEGER DEFAULT 0");
+
+     label477:
+        if $i0 >= 64 goto label479;
+
+     label478:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE push ADD COLUMN server_delivered_timestamp INTEGER DEFAULT 0");
+
+     label479:
+        if $i0 >= 65 goto label509;
+
+     label480:
+        $r15 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: net.sqlcipher.Cursor rawQuery(java.lang.String,java.lang.String[])>("SELECT _data FROM (SELECT _data, MIN(quote) AS all_quotes FROM part WHERE _data NOT NULL AND data_hash NOT NULL GROUP BY _data) WHERE all_quotes = 1", null);
+
+     label481:
+        $i1 = 0;
+
+     label482:
+        if $r15 == null goto label507;
+
+     label483:
+        $z0 = interfaceinvoke $r15.<android.database.Cursor: boolean moveToNext()>();
+
+     label484:
+        if $z0 == 0 goto label505;
+
+     label485:
+        $i6 = interfaceinvoke $r15.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("_data");
+
+        $r23 = interfaceinvoke $r15.<android.database.Cursor: java.lang.String getString(int)>($i6);
+
+        $r74 = new java.io.File;
+
+     label486:
+        specialinvoke $r74.<java.io.File: void <init>(java.lang.String)>($r23);
+
+        $z0 = virtualinvoke $r74.<java.io.File: boolean delete()>();
+
+     label487:
+        if $z0 == 0 goto label493;
+
+     label488:
+        $r119 = new android.content.ContentValues;
+
+     label489:
+        specialinvoke $r119.<android.content.ContentValues: void <init>()>();
+
+        virtualinvoke $r119.<android.content.ContentValues: void putNull(java.lang.String)>("_data");
+
+        virtualinvoke $r119.<android.content.ContentValues: void putNull(java.lang.String)>("data_random");
+
+     label490:
+        $r22 = $r5;
+
+     label491:
+        virtualinvoke $r119.<android.content.ContentValues: void putNull(java.lang.String)>($r5);
+
+        virtualinvoke $r119.<android.content.ContentValues: void putNull(java.lang.String)>("thumbnail_random");
+
+        virtualinvoke $r119.<android.content.ContentValues: void putNull(java.lang.String)>("data_hash");
+
+        $r13 = newarray (java.lang.String)[1];
+
+        $r13[0] = $r23;
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int update(java.lang.String,android.content.ContentValues,java.lang.String,java.lang.String[])>($r16, $r119, "_data = ?", $r13);
+
+     label492:
+        $i1 = $i1 + 1;
+
+        goto label496;
+
+     label493:
+        $r22 = $r5;
+
+     label494:
+        $r5 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label495:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("[QuoteCleanup] Failed to delete ");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r23);
+
+        $r23 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void w(java.lang.String,java.lang.String)>($r5, $r23);
+
+     label496:
+        $r5 = $r22;
+
+        goto label482;
+
+     label497:
+        $r85 := @caughtexception;
+
+     label498:
+        throw $r85;
+
+     label499:
+        $r86 := @caughtexception;
+
+        if $r15 == null goto label504;
+
+     label500:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label501:
+        goto label504;
+
+     label502:
+        $r87 := @caughtexception;
+
+     label503:
+        virtualinvoke $r85.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r87);
+
+     label504:
+        throw $r86;
+
+     label505:
+        if $r15 == null goto label507;
+
+     label506:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label507:
+        $r6 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label508:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("[QuoteCleanup] Cleaned up ");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" quotes.");
+
+        $r22 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r6, $r22);
+
+     label509:
+        if $i0 >= 66 goto label511;
+
+     label510:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE part ADD COLUMN borderless INTEGER DEFAULT 0");
+
+     label511:
+        if $i0 >= 67 goto label513;
+
+     label512:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TABLE remapped_recipients (_id INTEGER PRIMARY KEY AUTOINCREMENT, old_id INTEGER UNIQUE, new_id INTEGER)");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TABLE remapped_threads (_id INTEGER PRIMARY KEY AUTOINCREMENT, old_id INTEGER UNIQUE, new_id INTEGER)");
+
+     label513:
+        if $i0 >= 68 goto label515;
+
+     label514:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE TABLE mention (_id INTEGER PRIMARY KEY AUTOINCREMENT, thread_id INTEGER, message_id INTEGER, recipient_id INTEGER, range_start INTEGER, range_length INTEGER)");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE INDEX IF NOT EXISTS mention_message_id_index ON mention (message_id)");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE INDEX IF NOT EXISTS mention_recipient_id_thread_id_index ON mention (recipient_id, thread_id);");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE mms ADD COLUMN quote_mentions BLOB DEFAULT NULL");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE mms ADD COLUMN mentions_self INTEGER DEFAULT 0");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN mention_setting INTEGER DEFAULT 0");
+
+     label515:
+        if $i0 >= 69 goto label517;
+
+     label516:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE thread ADD COLUMN pinned INTEGER DEFAULT 0");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE INDEX IF NOT EXISTS thread_pinned_index ON thread (pinned)");
+
+     label517:
+        if $i0 >= 70 goto label521;
+
+     label518:
+        $r119 = new android.content.ContentValues;
+
+     label519:
+        specialinvoke $r119.<android.content.ContentValues: void <init>()>();
+
+        $r42 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(0);
+
+        virtualinvoke $r119.<android.content.ContentValues: void put(java.lang.String,java.lang.Integer)>("mention_setting", $r42);
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int update(java.lang.String,android.content.ContentValues,java.lang.String,java.lang.String[])>("recipient", $r119, "mention_setting = 1", null);
+
+        $r119 = new android.content.ContentValues;
+
+     label520:
+        specialinvoke $r119.<android.content.ContentValues: void <init>()>();
+
+        $r42 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(1);
+
+        virtualinvoke $r119.<android.content.ContentValues: void put(java.lang.String,java.lang.Integer)>("mention_setting", $r42);
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int update(java.lang.String,android.content.ContentValues,java.lang.String,java.lang.String[])>("recipient", $r119, "mention_setting = 2", null);
+
+     label521:
+        if $i0 >= 71 goto label523;
+
+     label522:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN storage_proto TEXT DEFAULT NULL");
+
+     label523:
+        if $i0 >= 72 goto label525;
+
+     label524:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE sticker ADD COLUMN content_type TEXT DEFAULT NULL");
+
+     label525:
+        if $i0 >= 73 goto label527;
+
+     label526:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE part ADD COLUMN sticker_emoji TEXT DEFAULT NULL");
+
+     label527:
+        if $i0 >= 74 goto label555;
+
+     label528:
+        $r15 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: net.sqlcipher.Cursor rawQuery(java.lang.String,java.lang.String[])>("SELECT thumbnail FROM part WHERE thumbnail NOT NULL", null);
+
+     label529:
+        if $r15 == null goto label534;
+
+     label530:
+        $i1 = interfaceinvoke $r15.<android.database.Cursor: int getCount()>();
+
+        $r6 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label531:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Found ");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" thumbnails to delete.");
+
+        $r22 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void w(java.lang.String,java.lang.String)>($r6, $r22);
+
+     label532:
+        $i6 = 0;
+
+        goto label535;
+
+     label533:
+        $r88 := @caughtexception;
+
+        goto label544;
+
+     label534:
+        $i6 = 0;
+
+        $i1 = 0;
+
+     label535:
+        if $r15 == null goto label553;
+
+     label536:
+        $z0 = interfaceinvoke $r15.<android.database.Cursor: boolean moveToNext()>();
+
+     label537:
+        if $z0 == 0 goto label551;
+
+     label538:
+        $r74 = new java.io.File;
+
+     label539:
+        $r6 = staticinvoke <org.thoughtcrime.securesms.util.CursorUtil: java.lang.String requireString(android.database.Cursor,java.lang.String)>($r15, $r5);
+
+        specialinvoke $r74.<java.io.File: void <init>(java.lang.String)>($r6);
+
+        $z0 = virtualinvoke $r74.<java.io.File: boolean delete()>();
+
+     label540:
+        if $z0 == 0 goto label541;
+
+        $i6 = $i6 + 1;
+
+        goto label535;
+
+     label541:
+        $r6 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label542:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Failed to delete file! ");
+
+        $r22 = virtualinvoke $r74.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r22);
+
+        $r22 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void w(java.lang.String,java.lang.String)>($r6, $r22);
+
+     label543:
+        goto label535;
+
+     label544:
+        throw $r88;
+
+     label545:
+        $r89 := @caughtexception;
+
+        if $r15 == null goto label550;
+
+     label546:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label547:
+        goto label550;
+
+     label548:
+        $r90 := @caughtexception;
+
+     label549:
+        virtualinvoke $r88.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r90);
+
+     label550:
+        throw $r89;
+
+     label551:
+        if $r15 == null goto label553;
+
+     label552:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label553:
+        $r5 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label554:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Deleted ");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i6);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" thumbnail files.");
+
+        $r6 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void w(java.lang.String,java.lang.String)>($r5, $r6);
+
+     label555:
+        if $i0 >= 75 goto label559;
+
+     label556:
+        $r119 = new android.content.ContentValues;
+
+     label557:
+        specialinvoke $r119.<android.content.ContentValues: void <init>()>();
+
+        virtualinvoke $r119.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("ct", "image/webp");
+
+        $i1 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int update(java.lang.String,android.content.ContentValues,java.lang.String,java.lang.String[])>($r16, $r119, "sticker_id NOT NULL AND (ct IS NULL OR ct = \'\')", null);
+
+        $r5 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label558:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Updated ");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" sticker attachment content types.");
+
+        $r6 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r5, $r6);
+
+     label559:
+        if $i0 >= 76 goto label589;
+
+     label560:
+        $r117 = new java.lang.StringBuilder;
+
+     label561:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("_id in (");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("select mention._id from mention left join thread on mention.thread_id = thread._id left join recipient on thread.recipient_ids = recipient._id where recipient.group_type != 3");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(")");
+
+        $r5 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int delete(java.lang.String,java.lang.String,java.lang.String[])>("mention", $r5, null);
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int delete(java.lang.String,java.lang.String,java.lang.String[])>("mention", "message_id NOT IN (SELECT _id FROM mms) OR thread_id NOT IN (SELECT _id from thread)", null);
+
+        $r125 = new java.util.LinkedList;
+
+     label562:
+        $r91 = $r125;
+
+     label563:
+        specialinvoke $r125.<java.util.LinkedList: void <init>()>();
+
+        $r15 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: net.sqlcipher.Cursor rawQuery(java.lang.String,java.lang.String[])>("select mention.*, mms.body from mention inner join mms on mention.message_id = mms._id", null);
+
+     label564:
+        if $r15 == null goto label585;
+
+     label565:
+        $z0 = interfaceinvoke $r15.<android.database.Cursor: boolean moveToNext()>();
+
+     label566:
+        if $z0 == 0 goto label583;
+
+     label567:
+        $i1 = staticinvoke <org.thoughtcrime.securesms.util.CursorUtil: int requireInt(android.database.Cursor,java.lang.String)>($r15, "range_start");
+
+        $i6 = staticinvoke <org.thoughtcrime.securesms.util.CursorUtil: int requireInt(android.database.Cursor,java.lang.String)>($r15, "range_length");
+
+        $r5 = staticinvoke <org.thoughtcrime.securesms.util.CursorUtil: java.lang.String requireString(android.database.Cursor,java.lang.String)>($r15, "body");
+
+     label568:
+        if $r5 == null goto label573;
+
+     label569:
+        $z0 = virtualinvoke $r5.<java.lang.String: boolean isEmpty()>();
+
+     label570:
+        if $z0 != 0 goto label573;
+
+        if $i1 < 0 goto label573;
+
+        if $i6 < 0 goto label573;
+
+        $i1 = $i1 + $i6;
+
+     label571:
+        $i6 = virtualinvoke $r5.<java.lang.String: int length()>();
+
+     label572:
+        if $i1 <= $i6 goto label564;
+
+     label573:
+        $l3 = staticinvoke <org.thoughtcrime.securesms.util.CursorUtil: long requireLong(android.database.Cursor,java.lang.String)>($r15, $r14);
+
+        $r92 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>($l3);
+
+        interfaceinvoke $r91.<java.util.List: boolean add(java.lang.Object)>($r92);
+
+     label574:
+        goto label564;
+
+     label575:
+        $r93 := @caughtexception;
+
+     label576:
+        throw $r93;
+
+     label577:
+        $r94 := @caughtexception;
+
+        if $r15 == null goto label582;
+
+     label578:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label579:
+        goto label582;
+
+     label580:
+        $r95 := @caughtexception;
+
+     label581:
+        virtualinvoke $r93.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r95);
+
+     label582:
+        throw $r94;
+
+     label583:
+        if $r15 == null goto label585;
+
+     label584:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label585:
+        $z0 = staticinvoke <org.thoughtcrime.securesms.util.Util: boolean hasItems(java.util.Collection)>($r91);
+
+     label586:
+        if $z0 == 0 goto label589;
+
+     label587:
+        $r5 = staticinvoke <android.text.TextUtils: java.lang.String join(java.lang.CharSequence,java.lang.Iterable)>(",", $r91);
+
+        $r117 = new java.lang.StringBuilder;
+
+     label588:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("_id in (");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(")");
+
+        $r5 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int delete(java.lang.String,java.lang.String,java.lang.String[])>("mention", $r5, null);
+
+     label589:
+        if $i0 >= 77 goto label630;
+
+     label590:
+        $r117 = new java.lang.StringBuilder;
+
+     label591:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("_id in (");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("select mention._id from mention left join mms on mention.message_id = mms._id where mention.thread_id != mms.thread_id");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(")");
+
+        $r5 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int delete(java.lang.String,java.lang.String,java.lang.String[])>("mention", $r5, null);
+
+        $r125 = new java.util.LinkedList;
+
+     label592:
+        $r91 = $r125;
+
+     label593:
+        specialinvoke $r125.<java.util.LinkedList: void <init>()>();
+
+        $r126 = new java.util.HashSet;
+
+     label594:
+        specialinvoke $r126.<java.util.HashSet: void <init>()>();
+
+        $r15 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: net.sqlcipher.Cursor rawQuery(java.lang.String,java.lang.String[])>("select mention.*, mms.body from mention inner join mms on mention.message_id = mms._id order by mention._id desc", null);
+
+     label595:
+        if $r15 == null goto label614;
+
+     label596:
+        $z0 = interfaceinvoke $r15.<android.database.Cursor: boolean moveToNext()>();
+
+     label597:
+        if $z0 == 0 goto label614;
+
+     label598:
+        $l3 = staticinvoke <org.thoughtcrime.securesms.util.CursorUtil: long requireLong(android.database.Cursor,java.lang.String)>($r15, $r14);
+
+        $l4 = staticinvoke <org.thoughtcrime.securesms.util.CursorUtil: long requireLong(android.database.Cursor,java.lang.String)>($r15, "message_id");
+
+        $i1 = staticinvoke <org.thoughtcrime.securesms.util.CursorUtil: int requireInt(android.database.Cursor,java.lang.String)>($r15, "range_start");
+
+        $i6 = staticinvoke <org.thoughtcrime.securesms.util.CursorUtil: int requireInt(android.database.Cursor,java.lang.String)>($r15, "range_length");
+
+        $r5 = staticinvoke <org.thoughtcrime.securesms.util.CursorUtil: java.lang.String requireString(android.database.Cursor,java.lang.String)>($r15, "body");
+
+     label599:
+        if $r5 == null goto label606;
+
+        $r6 = $r11;
+
+     label600:
+        $i7 = virtualinvoke $r5.<java.lang.String: int length()>();
+
+     label601:
+        if $i1 >= $i7 goto label607;
+
+     label602:
+        $c8 = virtualinvoke $r5.<java.lang.String: char charAt(int)>($i1);
+
+     label603:
+        $i7 = (int) $c8;
+
+        if $i7 == 65532 goto label607;
+
+     label604:
+        $r92 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>($l3);
+
+        interfaceinvoke $r91.<java.util.List: boolean add(java.lang.Object)>($r92);
+
+     label605:
+        goto label613;
+
+     label606:
+        $r6 = $r11;
+
+     label607:
+        $r127 = new org.thoughtcrime.securesms.util.Triple;
+
+     label608:
+        $r92 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>($l4);
+
+        $r42 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i1);
+
+        $r96 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i6);
+
+        specialinvoke $r127.<org.thoughtcrime.securesms.util.Triple: void <init>(java.lang.Object,java.lang.Object,java.lang.Object)>($r92, $r42, $r96);
+
+        $z0 = interfaceinvoke $r126.<java.util.Set: boolean contains(java.lang.Object)>($r127);
+
+     label609:
+        if $z0 == 0 goto label612;
+
+     label610:
+        $r92 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>($l3);
+
+        interfaceinvoke $r91.<java.util.List: boolean add(java.lang.Object)>($r92);
+
+     label611:
+        goto label613;
+
+     label612:
+        interfaceinvoke $r126.<java.util.Set: boolean add(java.lang.Object)>($r127);
+
+     label613:
+        $r11 = $r6;
+
+        goto label595;
+
+     label614:
+        $r5 = $r11;
+
+     label615:
+        $z0 = staticinvoke <org.thoughtcrime.securesms.util.Util: boolean hasItems(java.util.Collection)>($r91);
+
+     label616:
+        if $z0 == 0 goto label619;
+
+     label617:
+        $r6 = staticinvoke <android.text.TextUtils: java.lang.String join(java.lang.CharSequence,java.lang.Iterable)>(",", $r91);
+
+        $r117 = new java.lang.StringBuilder;
+
+     label618:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("_id in (");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(")");
+
+        $r6 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int delete(java.lang.String,java.lang.String,java.lang.String[])>("mention", $r6, null);
+
+     label619:
+        if $r15 == null goto label631;
+
+     label620:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label621:
+        goto label631;
+
+     label622:
+        $r97 := @caughtexception;
+
+     label623:
+        throw $r97;
+
+     label624:
+        $r98 := @caughtexception;
+
+        if $r15 == null goto label629;
+
+     label625:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label626:
+        goto label629;
+
+     label627:
+        $r99 := @caughtexception;
+
+     label628:
+        virtualinvoke $r97.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r99);
+
+     label629:
+        throw $r98;
+
+     label630:
+        $r5 = $r11;
+
+     label631:
+        if $i0 >= 78 goto label634;
+
+     label632:
+        $r119 = new android.content.ContentValues;
+
+     label633:
+        specialinvoke $r119.<android.content.ContentValues: void <init>()>();
+
+        virtualinvoke $r119.<android.content.ContentValues: void putNull(java.lang.String)>("reactions");
+
+        $r13 = newarray (java.lang.String)[1];
+
+        $r13[0] = "1";
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int update(java.lang.String,android.content.ContentValues,java.lang.String,java.lang.String[])>("sms", $r119, "remote_deleted = ?", $r13);
+
+     label634:
+        if $i0 >= 79 goto label636;
+
+     label635:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN capabilities INTEGER DEFAULT 0");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("UPDATE recipient SET capabilities = 1 WHERE gv2_capability = 1");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("UPDATE recipient SET capabilities = 2 WHERE gv2_capability = -1");
+
+     label636:
+        if $i0 >= 80 goto label657;
+
+     label637:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE groups ADD COLUMN expected_v2_id TEXT DEFAULT NULL");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE groups ADD COLUMN former_v1_members TEXT DEFAULT NULL");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("CREATE UNIQUE INDEX IF NOT EXISTS expected_v2_id_index ON groups (expected_v2_id)");
+
+        $r15 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: net.sqlcipher.Cursor rawQuery(java.lang.String,java.lang.String[])>("SELECT * FROM groups WHERE group_id LIKE \'__textsecure_group__!%\' AND LENGTH(group_id) = 53", null);
+
+     label638:
+        $i1 = 0;
+
+     label639:
+        $z0 = interfaceinvoke $r15.<android.database.Cursor: boolean moveToNext()>();
+
+     label640:
+        if $z0 == 0 goto label644;
+
+     label641:
+        $r6 = staticinvoke <org.thoughtcrime.securesms.util.CursorUtil: java.lang.String requireString(android.database.Cursor,java.lang.String)>($r15, "group_id");
+
+        $r100 = staticinvoke <org.thoughtcrime.securesms.groups.GroupId: org.thoughtcrime.securesms.groups.GroupId parseOrThrow(java.lang.String)>($r6);
+
+        $r101 = virtualinvoke $r100.<org.thoughtcrime.securesms.groups.GroupId: org.thoughtcrime.securesms.groups.GroupId$V1 requireV1()>();
+
+        $r102 = virtualinvoke $r101.<org.thoughtcrime.securesms.groups.GroupId$V1: org.thoughtcrime.securesms.groups.GroupId$V2 deriveV2MigrationGroupId()>();
+
+        $r16 = virtualinvoke $r102.<org.thoughtcrime.securesms.groups.GroupId: java.lang.String toString()>();
+
+        $r119 = new android.content.ContentValues;
+
+     label642:
+        specialinvoke $r119.<android.content.ContentValues: void <init>()>();
+
+        virtualinvoke $r119.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("expected_v2_id", $r16);
+
+        $r103 = newarray (java.lang.Object)[1];
+
+        $r103[0] = $r6;
+
+        $r13 = staticinvoke <org.thoughtcrime.securesms.util.SqlUtil: java.lang.String[] buildArgs(java.lang.Object[])>($r103);
+
+        $i6 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int update(java.lang.String,android.content.ContentValues,java.lang.String,java.lang.String[])>("groups", $r119, "group_id = ?", $r13);
+
+     label643:
+        $i1 = $i1 + $i6;
+
+        goto label639;
+
+     label644:
+        if $r15 == null goto label646;
+
+     label645:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label646:
+        $r6 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label647:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Updated ");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" GV1 groups with expected GV2 IDs.");
+
+        $r16 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r6, $r16);
+
+     label648:
+        goto label657;
+
+     label649:
+        $r104 := @caughtexception;
+
+     label650:
+        throw $r104;
+
+     label651:
+        $r105 := @caughtexception;
+
+        if $r15 == null goto label656;
+
+     label652:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label653:
+        goto label656;
+
+     label654:
+        $r106 := @caughtexception;
+
+     label655:
+        virtualinvoke $r104.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r106);
+
+     label656:
+        throw $r105;
+
+     label657:
+        if $i0 >= 81 goto label659;
+
+     label658:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE sms ADD COLUMN notified_timestamp INTEGER DEFAULT 0");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE mms ADD COLUMN notified_timestamp INTEGER DEFAULT 0");
+
+     label659:
+        if $i0 >= 82 goto label661;
+
+     label660:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN last_gv1_migrate_reminder INTEGER DEFAULT 0");
+
+     label661:
+        if $i0 >= 83 goto label663;
+
+     label662:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE mms ADD COLUMN viewed_receipt_count INTEGER DEFAULT 0");
+
+     label663:
+        if $i0 >= 84 goto label734;
+
+     label664:
+        $r125 = new java.util.LinkedList;
+
+     label665:
+        $r91 = $r125;
+
+     label666:
+        specialinvoke $r125.<java.util.LinkedList: void <init>()>();
+
+        $r15 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: net.sqlcipher.Cursor rawQuery(java.lang.String,java.lang.String[])>("SELECT _id, group_id FROM recipient\nWHERE group_id NOT IN (SELECT group_id FROM groups)\nAND group_id LIKE \'__textsecure_group__!%\' AND length(group_id) <> 53\nAND (_id NOT IN (SELECT recipient_ids FROM thread) OR _id IN (SELECT recipient_ids FROM thread WHERE message_count = 0))", null);
+
+     label667:
+        $z0 = interfaceinvoke $r15.<android.database.Cursor: boolean moveToNext()>();
+
+     label668:
+        if $z0 == 0 goto label671;
+
+     label669:
+        $i1 = interfaceinvoke $r15.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>($r14);
+
+        $r16 = interfaceinvoke $r15.<android.database.Cursor: java.lang.String getString(int)>($i1);
+
+        $i1 = interfaceinvoke $r15.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("group_id");
+
+        $r11 = interfaceinvoke $r15.<android.database.Cursor: java.lang.String getString(int)>($i1);
+
+        interfaceinvoke $r91.<java.util.List: boolean add(java.lang.Object)>($r16);
+
+        $r6 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r107 = <java.util.Locale: java.util.Locale US>;
+
+        $r103 = newarray (java.lang.Object)[3];
+
+        $r103[0] = $r16;
+
+        $r103[1] = $r11;
+
+        $i1 = virtualinvoke $r11.<java.lang.String: int length()>();
+
+        $r42 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i1);
+
+        $r103[2] = $r42;
+
+        $r16 = staticinvoke <java.lang.String: java.lang.String format(java.util.Locale,java.lang.String,java.lang.Object[])>($r107, "Found invalid GV1 on %s with no or empty thread %s length %d", $r103);
+
+        staticinvoke <org.signal.core.util.logging.Log: void d(java.lang.String,java.lang.String)>($r6, $r16);
+
+     label670:
+        goto label667;
+
+     label671:
+        if $r15 == null goto label673;
+
+     label672:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label673:
+        $r54 = interfaceinvoke $r91.<java.util.List: java.util.Iterator iterator()>();
+
+     label674:
+        $z0 = interfaceinvoke $r54.<java.util.Iterator: boolean hasNext()>();
+
+     label675:
+        if $z0 == 0 goto label679;
+
+     label676:
+        $r55 = interfaceinvoke $r54.<java.util.Iterator: java.lang.Object next()>();
+
+        $r16 = (java.lang.String) $r55;
+
+        $r13 = newarray (java.lang.String)[1];
+
+        $r13[0] = $r16;
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int delete(java.lang.String,java.lang.String,java.lang.String[])>("recipient", $r5, $r13);
+
+        $r6 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label677:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Deleted recipient ");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r16);
+
+        $r16 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void d(java.lang.String,java.lang.String)>($r6, $r16);
+
+     label678:
+        goto label674;
+
+     label679:
+        $r125 = new java.util.LinkedList;
+
+     label680:
+        $r91 = $r125;
+
+     label681:
+        specialinvoke $r125.<java.util.LinkedList: void <init>()>();
+
+        $r15 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: net.sqlcipher.Cursor rawQuery(java.lang.String,java.lang.String[])>("SELECT _id FROM thread WHERE message_count = 0 AND recipient_ids NOT IN (SELECT _id FROM recipient)", null);
+
+     label682:
+        $z0 = interfaceinvoke $r15.<android.database.Cursor: boolean moveToNext()>();
+
+     label683:
+        if $z0 == 0 goto label686;
+
+     label684:
+        $i1 = interfaceinvoke $r15.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>($r14);
+
+        $r6 = interfaceinvoke $r15.<android.database.Cursor: java.lang.String getString(int)>($i1);
+
+        interfaceinvoke $r91.<java.util.List: boolean add(java.lang.Object)>($r6);
+
+     label685:
+        goto label682;
+
+     label686:
+        if $r15 == null goto label688;
+
+     label687:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label688:
+        $r54 = interfaceinvoke $r91.<java.util.List: java.util.Iterator iterator()>();
+
+     label689:
+        $z0 = interfaceinvoke $r54.<java.util.Iterator: boolean hasNext()>();
+
+     label690:
+        if $z0 == 0 goto label694;
+
+     label691:
+        $r55 = interfaceinvoke $r54.<java.util.Iterator: java.lang.Object next()>();
+
+        $r16 = (java.lang.String) $r55;
+
+        $r13 = newarray (java.lang.String)[1];
+
+        $r13[0] = $r16;
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int delete(java.lang.String,java.lang.String,java.lang.String[])>("thread", $r5, $r13);
+
+        $r6 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label692:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Deleted orphaned thread ");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r16);
+
+        $r16 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void d(java.lang.String,java.lang.String)>($r6, $r16);
+
+     label693:
+        goto label689;
+
+     label694:
+        $r125 = new java.util.LinkedList;
+
+     label695:
+        $r91 = $r125;
+
+     label696:
+        specialinvoke $r125.<java.util.LinkedList: void <init>()>();
+
+        $r15 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: net.sqlcipher.Cursor rawQuery(java.lang.String,java.lang.String[])>("SELECT _id, group_id FROM recipient\nWHERE group_id NOT IN (SELECT group_id FROM groups)\nAND group_id LIKE \'__textsecure_group__!%\' AND length(group_id) <> 53\nAND _id IN (SELECT recipient_ids FROM thread)", null);
+
+     label697:
+        $z0 = interfaceinvoke $r15.<android.database.Cursor: boolean moveToNext()>();
+
+     label698:
+        if $z0 == 0 goto label701;
+
+     label699:
+        $i1 = interfaceinvoke $r15.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>($r14);
+
+        $r16 = interfaceinvoke $r15.<android.database.Cursor: java.lang.String getString(int)>($i1);
+
+        $i1 = interfaceinvoke $r15.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("group_id");
+
+        $r11 = interfaceinvoke $r15.<android.database.Cursor: java.lang.String getString(int)>($i1);
+
+        interfaceinvoke $r91.<java.util.List: boolean add(java.lang.Object)>($r16);
+
+        $r6 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r107 = <java.util.Locale: java.util.Locale US>;
+
+        $r103 = newarray (java.lang.Object)[3];
+
+        $r103[0] = $r16;
+
+        $r103[1] = $r11;
+
+        $i1 = virtualinvoke $r11.<java.lang.String: int length()>();
+
+        $r42 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i1);
+
+        $r103[2] = $r42;
+
+        $r16 = staticinvoke <java.lang.String: java.lang.String format(java.util.Locale,java.lang.String,java.lang.Object[])>($r107, "Found invalid GV1 on %s with non-empty thread %s length %d", $r103);
+
+        staticinvoke <org.signal.core.util.logging.Log: void d(java.lang.String,java.lang.String)>($r6, $r16);
+
+     label700:
+        goto label697;
+
+     label701:
+        if $r15 == null goto label703;
+
+     label702:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label703:
+        $r54 = interfaceinvoke $r91.<java.util.List: java.util.Iterator iterator()>();
+
+     label704:
+        $z0 = interfaceinvoke $r54.<java.util.Iterator: boolean hasNext()>();
+
+     label705:
+        if $z0 == 0 goto label734;
+
+     label706:
+        $r55 = interfaceinvoke $r54.<java.util.Iterator: java.lang.Object next()>();
+
+        $r6 = (java.lang.String) $r55;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label707:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("__textsecure_group__!");
+
+        $r67 = staticinvoke <org.thoughtcrime.securesms.util.Util: byte[] getSecretBytes(int)>(16);
+
+        $r14 = staticinvoke <org.thoughtcrime.securesms.util.Hex: java.lang.String toStringCondensed(byte[])>($r67);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r14);
+
+        $r14 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r119 = new android.content.ContentValues;
+
+     label708:
+        specialinvoke $r119.<android.content.ContentValues: void <init>(int)>(1);
+
+        virtualinvoke $r119.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("group_id", $r14);
+
+        $r13 = newarray (java.lang.String)[1];
+
+        $r16 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r6);
+
+        $r13[0] = $r16;
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int update(java.lang.String,android.content.ContentValues,java.lang.String,java.lang.String[])>("recipient", $r119, $r5, $r13);
+
+        $r16 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r103 = newarray (java.lang.Object)[2];
+
+        $r103[0] = $r6;
+
+        $r103[1] = $r14;
+
+        $r6 = staticinvoke <java.lang.String: java.lang.String format(java.lang.String,java.lang.Object[])>("Replaced group id on recipient %s now %s", $r103);
+
+        staticinvoke <org.signal.core.util.logging.Log: void d(java.lang.String,java.lang.String)>($r16, $r6);
+
+     label709:
+        goto label704;
+
+     label710:
+        $r108 := @caughtexception;
+
+     label711:
+        throw $r108;
+
+     label712:
+        $r109 := @caughtexception;
+
+        if $r15 == null goto label717;
+
+     label713:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label714:
+        goto label717;
+
+     label715:
+        $r110 := @caughtexception;
+
+     label716:
+        virtualinvoke $r108.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r110);
+
+     label717:
+        throw $r109;
+
+     label718:
+        $r111 := @caughtexception;
+
+     label719:
+        throw $r111;
+
+     label720:
+        $r112 := @caughtexception;
+
+        if $r15 == null goto label725;
+
+     label721:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label722:
+        goto label725;
+
+     label723:
+        $r113 := @caughtexception;
+
+     label724:
+        virtualinvoke $r111.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r113);
+
+     label725:
+        throw $r112;
+
+     label726:
+        $r114 := @caughtexception;
+
+     label727:
+        throw $r114;
+
+     label728:
+        $r115 := @caughtexception;
+
+        if $r15 == null goto label733;
+
+     label729:
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label730:
+        goto label733;
+
+     label731:
+        $r116 := @caughtexception;
+
+     label732:
+        virtualinvoke $r114.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r116);
+
+     label733:
+        throw $r115;
+
+     label734:
+        if $i0 >= 85 goto label738;
+
+     label735:
+        $r119 = new android.content.ContentValues;
+
+     label736:
+        specialinvoke $r119.<android.content.ContentValues: void <init>(int)>(1);
+
+        virtualinvoke $r119.<android.content.ContentValues: void putNull(java.lang.String)>("former_v1_members");
+
+        $i1 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int update(java.lang.String,android.content.ContentValues,java.lang.String,java.lang.String[])>("groups", $r119, "former_v1_members NOT NULL", null);
+
+        $r5 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label737:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Cleared former_v1_members for ");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" rows");
+
+        $r6 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r5, $r6);
+
+     label738:
+        if $i0 >= 86 goto label742;
+
+     label739:
+        $r119 = new android.content.ContentValues;
+
+     label740:
+        specialinvoke $r119.<android.content.ContentValues: void <init>(int)>(1);
+
+        virtualinvoke $r119.<android.content.ContentValues: void putNull(java.lang.String)>("profile_key_credential");
+
+        $i1 = virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: int update(java.lang.String,android.content.ContentValues,java.lang.String,java.lang.String[])>("recipient", $r119, "profile_key_credential NOT NULL", null);
+
+        $r5 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+     label741:
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Cleared profile key credentials for ");
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" rows");
+
+        $r6 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r5, $r6);
+
+     label742:
+        if $i0 >= 87 goto label744;
+
+     label743:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN last_session_reset BLOB DEFAULT NULL");
+
+     label744:
+        if $i0 >= 88 goto label746;
+
+     label745:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN wallpaper BLOB DEFAULT NULL");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN wallpaper_file TEXT DEFAULT NULL");
+
+     label746:
+        if $i0 >= 89 goto label748;
+
+     label747:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN about TEXT DEFAULT NULL");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN about_emoji TEXT DEFAULT NULL");
+
+     label748:
+        if $i0 >= 90 goto label750;
+
+     label749:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN system_family_name TEXT DEFAULT NULL");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("ALTER TABLE recipient ADD COLUMN system_given_name TEXT DEFAULT NULL");
+
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void execSQL(java.lang.String)>("UPDATE recipient SET system_given_name = system_display_name");
+
+     label750:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void setTransactionSuccessful()>();
+
+     label751:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void endTransaction()>();
+
+        if $i0 >= 3 goto label752;
+
+        $r9 = r0.<org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: android.content.Context context>;
+
+        staticinvoke <org.thoughtcrime.securesms.database.helpers.PreKeyMigrationHelper: void cleanUpPreKeys(android.content.Context)>($r9);
+
+     label752:
+        $r5 = <org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper: java.lang.String TAG>;
+
+        $r117 = new java.lang.StringBuilder;
+
+        specialinvoke $r117.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Upgrade complete. Took ");
+
+        $l3 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $l2 = $l3 - $l2;
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l2);
+
+        virtualinvoke $r117.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ms.");
+
+        $r6 = virtualinvoke $r117.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <org.signal.core.util.logging.Log: void i(java.lang.String,java.lang.String)>($r5, $r6);
+
+        return;
+
+     label753:
+        virtualinvoke $r1.<net.sqlcipher.database.SQLiteDatabase: void endTransaction()>();
+
+        throw $r8;
+
+     label754:
+        $r3 := @caughtexception;
+
+        goto label404;
+
+        catch java.lang.Throwable from label001 to label002 with label004;
+        catch java.lang.Throwable from label002 to label003 with label004;
+        catch java.lang.Throwable from label006 to label007 with label004;
+        catch java.lang.Throwable from label008 to label009 with label004;
+        catch java.lang.Throwable from label009 to label010 with label004;
+        catch java.lang.Throwable from label011 to label012 with label004;
+        catch java.lang.Throwable from label013 to label014 with label004;
+        catch java.lang.Throwable from label015 to label016 with label004;
+        catch java.lang.Throwable from label017 to label018 with label004;
+        catch java.lang.Throwable from label019 to label020 with label032;
+        catch java.lang.Throwable from label021 to label022 with label032;
+        catch java.lang.Throwable from label023 to label024 with label032;
+        catch java.lang.Throwable from label025 to label026 with label032;
+        catch java.lang.Throwable from label026 to label027 with label032;
+        catch java.lang.Throwable from label028 to label029 with label032;
+        catch java.lang.Throwable from label033 to label034 with label034;
+        catch java.lang.Throwable from label035 to label036 with label037;
+        catch java.lang.Throwable from label038 to label040 with label004;
+        catch java.lang.Throwable from label041 to label042 with label004;
+        catch java.lang.Throwable from label045 to label046 with label004;
+        catch java.lang.Throwable from label047 to label048 with label004;
+        catch java.lang.Throwable from label049 to label050 with label004;
+        catch java.lang.Throwable from label051 to label052 with label004;
+        catch java.lang.Throwable from label052 to label053 with label004;
+        catch java.lang.Throwable from label053 to label054 with label004;
+        catch java.lang.Throwable from label055 to label056 with label004;
+        catch java.lang.Throwable from label056 to label057 with label004;
+        catch java.lang.Throwable from label058 to label059 with label004;
+        catch java.lang.Throwable from label059 to label060 with label004;
+        catch java.lang.Throwable from label061 to label062 with label004;
+        catch java.lang.Throwable from label065 to label066 with label004;
+        catch java.lang.Throwable from label066 to label067 with label004;
+        catch java.lang.Throwable from label067 to label068 with label004;
+        catch java.lang.Throwable from label069 to label070 with label004;
+        catch java.lang.Throwable from label071 to label072 with label084;
+        catch java.lang.Throwable from label073 to label074 with label084;
+        catch java.lang.Throwable from label075 to label076 with label084;
+        catch java.lang.Throwable from label077 to label078 with label084;
+        catch java.lang.Throwable from label078 to label080 with label084;
+        catch java.lang.Throwable from label081 to label082 with label084;
+        catch java.lang.Throwable from label082 to label083 with label084;
+        catch java.lang.Throwable from label085 to label086 with label086;
+        catch java.lang.Throwable from label087 to label088 with label089;
+        catch java.lang.Throwable from label090 to label092 with label004;
+        catch java.lang.Throwable from label093 to label094 with label004;
+        catch java.lang.Throwable from label097 to label098 with label004;
+        catch java.lang.Throwable from label099 to label100 with label004;
+        catch java.lang.Throwable from label101 to label102 with label159;
+        catch java.lang.Throwable from label103 to label104 with label159;
+        catch java.lang.Throwable from label105 to label106 with label147;
+        catch java.lang.Throwable from label107 to label108 with label147;
+        catch java.lang.Throwable from label108 to label109 with label147;
+        catch java.lang.Throwable from label110 to label111 with label112;
+        catch java.lang.Throwable from label114 to label115 with label147;
+        catch java.lang.Throwable from label115 to label116 with label147;
+        catch java.lang.Throwable from label116 to label117 with label147;
+        catch java.lang.Throwable from label118 to label119 with label112;
+        catch java.lang.Throwable from label122 to label123 with label147;
+        catch java.lang.Throwable from label124 to label125 with label112;
+        catch java.lang.Throwable from label126 to label127 with label130;
+        catch java.lang.Throwable from label128 to label129 with label130;
+        catch java.lang.Throwable from label131 to label132 with label132;
+        catch java.lang.Throwable from label133 to label134 with label135;
+        catch java.lang.Throwable from label136 to label138 with label112;
+        catch java.lang.Throwable from label139 to label140 with label112;
+        catch java.lang.Throwable from label140 to label141 with label147;
+        catch java.lang.Throwable from label141 to label142 with label147;
+        catch java.lang.Throwable from label143 to label144 with label146;
+        catch java.lang.Throwable from label144 to label145 with label146;
+        catch java.lang.Throwable from label149 to label150 with label150;
+        catch java.lang.Throwable from label151 to label152 with label153;
+        catch java.lang.Throwable from label154 to label156 with label159;
+        catch java.lang.Throwable from label157 to label158 with label159;
+        catch java.lang.Throwable from label162 to label163 with label159;
+        catch java.lang.Throwable from label164 to label165 with label159;
+        catch java.lang.Throwable from label166 to label167 with label159;
+        catch java.lang.Throwable from label168 to label169 with label159;
+        catch java.lang.Throwable from label170 to label171 with label159;
+        catch java.lang.Throwable from label172 to label173 with label159;
+        catch java.lang.Throwable from label173 to label174 with label159;
+        catch java.lang.Throwable from label175 to label176 with label159;
+        catch java.lang.Throwable from label176 to label177 with label159;
+        catch java.lang.Throwable from label178 to label179 with label159;
+        catch java.lang.Throwable from label179 to label180 with label159;
+        catch java.lang.Throwable from label181 to label182 with label159;
+        catch java.lang.Throwable from label183 to label184 with label004;
+        catch java.lang.Throwable from label185 to label186 with label004;
+        catch java.lang.Throwable from label187 to label188 with label193;
+        catch java.lang.Throwable from label189 to label190 with label193;
+        catch java.lang.Throwable from label190 to label191 with label193;
+        catch java.lang.Throwable from label191 to label192 with label193;
+        catch java.lang.Throwable from label194 to label195 with label195;
+        catch java.lang.Throwable from label196 to label197 with label198;
+        catch java.lang.Throwable from label199 to label201 with label004;
+        catch java.lang.Throwable from label202 to label203 with label004;
+        catch java.lang.Throwable from label206 to label207 with label004;
+        catch java.lang.Throwable from label208 to label209 with label004;
+        catch java.lang.Throwable from label210 to label211 with label004;
+        catch java.lang.Throwable from label212 to label213 with label004;
+        catch java.lang.Throwable from label214 to label215 with label004;
+        catch java.lang.Throwable from label216 to label217 with label004;
+        catch java.lang.Throwable from label218 to label219 with label004;
+        catch java.lang.Throwable from label220 to label221 with label004;
+        catch java.lang.Throwable from label222 to label223 with label004;
+        catch java.lang.Throwable from label224 to label225 with label233;
+        catch java.lang.Throwable from label226 to label227 with label233;
+        catch java.lang.Throwable from label228 to label229 with label233;
+        catch java.lang.Throwable from label229 to label230 with label233;
+        catch java.lang.Throwable from label231 to label232 with label004;
+        catch java.lang.Throwable from label234 to label235 with label235;
+        catch java.lang.Throwable from label236 to label237 with label238;
+        catch java.lang.Throwable from label239 to label241 with label004;
+        catch java.lang.Throwable from label243 to label244 with label004;
+        catch java.lang.Throwable from label245 to label246 with label004;
+        catch java.lang.Throwable from label246 to label247 with label004;
+        catch java.lang.Throwable from label247 to label248 with label004;
+        catch java.lang.Throwable from label248 to label249 with label004;
+        catch java.lang.Throwable from label250 to label251 with label004;
+        catch java.lang.Throwable from label252 to label253 with label004;
+        catch java.lang.Throwable from label254 to label255 with label004;
+        catch java.lang.Throwable from label256 to label257 with label004;
+        catch java.lang.Throwable from label257 to label259 with label004;
+        catch java.lang.Throwable from label260 to label261 with label004;
+        catch java.lang.Throwable from label262 to label263 with label004;
+        catch java.lang.Throwable from label264 to label265 with label287;
+        catch java.lang.Throwable from label266 to label267 with label287;
+        catch java.lang.Throwable from label268 to label270 with label004;
+        catch java.lang.Throwable from label270 to label271 with label004;
+        catch java.lang.Throwable from label272 to label273 with label004;
+        catch java.lang.Throwable from label273 to label274 with label004;
+        catch java.lang.Throwable from label274 to label275 with label004;
+        catch java.lang.Throwable from label275 to label276 with label004;
+        catch java.lang.Throwable from label277 to label278 with label004;
+        catch java.lang.Throwable from label279 to label280 with label004;
+        catch java.lang.Throwable from label282 to label283 with label287;
+        catch java.lang.Throwable from label283 to label284 with label287;
+        catch java.lang.Throwable from label285 to label286 with label004;
+        catch java.lang.Throwable from label288 to label289 with label289;
+        catch java.lang.Throwable from label290 to label291 with label292;
+        catch java.lang.Throwable from label293 to label295 with label004;
+        catch java.lang.Throwable from label296 to label297 with label004;
+        catch java.lang.Throwable from label298 to label299 with label004;
+        catch java.lang.Throwable from label299 to label300 with label004;
+        catch java.lang.Throwable from label300 to label301 with label004;
+        catch java.lang.Throwable from label302 to label303 with label004;
+        catch java.lang.Throwable from label304 to label305 with label004;
+        catch java.lang.Throwable from label306 to label307 with label004;
+        catch java.lang.Throwable from label308 to label309 with label004;
+        catch java.lang.Throwable from label310 to label311 with label004;
+        catch java.lang.Throwable from label312 to label313 with label004;
+        catch java.lang.Throwable from label314 to label315 with label004;
+        catch java.lang.Throwable from label316 to label317 with label004;
+        catch java.lang.Throwable from label318 to label319 with label004;
+        catch java.lang.Throwable from label320 to label321 with label004;
+        catch java.lang.Throwable from label322 to label323 with label004;
+        catch java.lang.Throwable from label324 to label325 with label004;
+        catch java.lang.Throwable from label326 to label327 with label004;
+        catch java.lang.Throwable from label328 to label329 with label004;
+        catch java.lang.Throwable from label330 to label331 with label004;
+        catch java.lang.Throwable from label332 to label333 with label004;
+        catch java.lang.Throwable from label334 to label335 with label004;
+        catch java.lang.Throwable from label336 to label337 with label004;
+        catch java.lang.Throwable from label338 to label339 with label004;
+        catch java.lang.Throwable from label339 to label340 with label004;
+        catch java.lang.Throwable from label340 to label341 with label004;
+        catch java.lang.Throwable from label342 to label343 with label004;
+        catch java.lang.Throwable from label343 to label344 with label004;
+        catch java.lang.Throwable from label345 to label346 with label004;
+        catch java.lang.Throwable from label347 to label348 with label004;
+        catch java.lang.Throwable from label349 to label350 with label004;
+        catch java.lang.Throwable from label351 to label352 with label356;
+        catch java.lang.Throwable from label353 to label354 with label356;
+        catch java.lang.Throwable from label354 to label355 with label356;
+        catch java.lang.Throwable from label357 to label358 with label358;
+        catch java.lang.Throwable from label359 to label360 with label361;
+        catch java.lang.Throwable from label362 to label364 with label004;
+        catch java.lang.Throwable from label365 to label366 with label004;
+        catch java.lang.Throwable from label367 to label368 with label004;
+        catch java.lang.Throwable from label369 to label370 with label004;
+        catch java.lang.Throwable from label371 to label372 with label004;
+        catch java.lang.Throwable from label372 to label373 with label004;
+        catch java.lang.Throwable from label375 to label376 with label004;
+        catch java.lang.Throwable from label377 to label378 with label004;
+        catch java.lang.Throwable from label378 to label379 with label004;
+        catch java.lang.Throwable from label381 to label382 with label004;
+        catch java.lang.Throwable from label382 to label383 with label004;
+        catch java.lang.Throwable from label384 to label385 with label004;
+        catch java.lang.Throwable from label386 to label387 with label004;
+        catch java.lang.Throwable from label388 to label389 with label004;
+        catch java.lang.Throwable from label390 to label391 with label004;
+        catch java.lang.Throwable from label391 to label392 with label004;
+        catch java.lang.Throwable from label393 to label394 with label004;
+        catch java.lang.Throwable from label394 to label395 with label004;
+        catch java.lang.Throwable from label397 to label398 with label004;
+        catch java.io.IOException from label400 to label401 with label754;
+        catch java.io.IOException from label402 to label403 with label754;
+        catch java.lang.Throwable from label399 to label402 with label004;
+        catch java.lang.Throwable from label402 to label403 with label004;
+        catch java.lang.Throwable from label404 to label405 with label004;
+        catch java.lang.Throwable from label405 to label406 with label004;
+        catch java.lang.Throwable from label407 to label408 with label004;
+        catch java.lang.Throwable from label408 to label409 with label004;
+        catch java.lang.Throwable from label410 to label412 with label004;
+        catch java.lang.Throwable from label413 to label415 with label004;
+        catch java.lang.Throwable from label416 to label417 with label432;
+        catch java.lang.Throwable from label418 to label419 with label432;
+        catch java.io.IOException from label423 to label424 with label428;
+        catch java.io.IOException from label426 to label427 with label428;
+        catch java.lang.Throwable from label419 to label420 with label432;
+        catch java.lang.Throwable from label421 to label422 with label432;
+        catch java.lang.Throwable from label423 to label424 with label432;
+        catch java.lang.Throwable from label426 to label427 with label432;
+        catch java.lang.Throwable from label429 to label430 with label432;
+        catch java.lang.Throwable from label430 to label431 with label432;
+        catch java.lang.Throwable from label433 to label434 with label434;
+        catch java.lang.Throwable from label435 to label436 with label437;
+        catch java.lang.Throwable from label438 to label440 with label004;
+        catch java.lang.Throwable from label441 to label443 with label004;
+        catch java.lang.Throwable from label444 to label445 with label004;
+        catch java.lang.Throwable from label446 to label447 with label004;
+        catch java.lang.Throwable from label448 to label449 with label004;
+        catch java.lang.Throwable from label450 to label451 with label004;
+        catch java.lang.Throwable from label452 to label453 with label004;
+        catch java.lang.Throwable from label454 to label455 with label004;
+        catch java.lang.Throwable from label456 to label457 with label004;
+        catch java.lang.Throwable from label458 to label459 with label463;
+        catch java.lang.Throwable from label460 to label461 with label463;
+        catch java.lang.Throwable from label461 to label462 with label463;
+        catch java.lang.Throwable from label464 to label465 with label465;
+        catch java.lang.Throwable from label466 to label467 with label468;
+        catch java.lang.Throwable from label469 to label471 with label004;
+        catch java.lang.Throwable from label472 to label473 with label004;
+        catch java.lang.Throwable from label474 to label475 with label004;
+        catch java.lang.Throwable from label476 to label477 with label004;
+        catch java.lang.Throwable from label478 to label479 with label004;
+        catch java.lang.Throwable from label480 to label481 with label004;
+        catch java.lang.Throwable from label483 to label484 with label497;
+        catch java.lang.Throwable from label485 to label486 with label497;
+        catch java.lang.Throwable from label486 to label487 with label497;
+        catch java.lang.Throwable from label488 to label489 with label497;
+        catch java.lang.Throwable from label489 to label490 with label497;
+        catch java.lang.Throwable from label491 to label492 with label497;
+        catch java.lang.Throwable from label494 to label495 with label497;
+        catch java.lang.Throwable from label495 to label496 with label497;
+        catch java.lang.Throwable from label498 to label499 with label499;
+        catch java.lang.Throwable from label500 to label501 with label502;
+        catch java.lang.Throwable from label503 to label505 with label004;
+        catch java.lang.Throwable from label506 to label508 with label004;
+        catch java.lang.Throwable from label508 to label509 with label004;
+        catch java.lang.Throwable from label510 to label511 with label004;
+        catch java.lang.Throwable from label512 to label513 with label004;
+        catch java.lang.Throwable from label514 to label515 with label004;
+        catch java.lang.Throwable from label516 to label517 with label004;
+        catch java.lang.Throwable from label518 to label519 with label004;
+        catch java.lang.Throwable from label519 to label520 with label004;
+        catch java.lang.Throwable from label520 to label521 with label004;
+        catch java.lang.Throwable from label522 to label523 with label004;
+        catch java.lang.Throwable from label524 to label525 with label004;
+        catch java.lang.Throwable from label526 to label527 with label004;
+        catch java.lang.Throwable from label528 to label529 with label004;
+        catch java.lang.Throwable from label530 to label531 with label533;
+        catch java.lang.Throwable from label531 to label532 with label533;
+        catch java.lang.Throwable from label536 to label537 with label533;
+        catch java.lang.Throwable from label538 to label539 with label533;
+        catch java.lang.Throwable from label539 to label540 with label533;
+        catch java.lang.Throwable from label541 to label542 with label533;
+        catch java.lang.Throwable from label542 to label543 with label533;
+        catch java.lang.Throwable from label544 to label545 with label545;
+        catch java.lang.Throwable from label546 to label547 with label548;
+        catch java.lang.Throwable from label549 to label551 with label004;
+        catch java.lang.Throwable from label552 to label554 with label004;
+        catch java.lang.Throwable from label554 to label555 with label004;
+        catch java.lang.Throwable from label556 to label557 with label004;
+        catch java.lang.Throwable from label557 to label558 with label004;
+        catch java.lang.Throwable from label558 to label559 with label004;
+        catch java.lang.Throwable from label560 to label561 with label004;
+        catch java.lang.Throwable from label561 to label562 with label004;
+        catch java.lang.Throwable from label563 to label564 with label004;
+        catch java.lang.Throwable from label565 to label566 with label575;
+        catch java.lang.Throwable from label567 to label568 with label575;
+        catch java.lang.Throwable from label569 to label570 with label575;
+        catch java.lang.Throwable from label571 to label572 with label575;
+        catch java.lang.Throwable from label573 to label574 with label575;
+        catch java.lang.Throwable from label576 to label577 with label577;
+        catch java.lang.Throwable from label578 to label579 with label580;
+        catch java.lang.Throwable from label581 to label583 with label004;
+        catch java.lang.Throwable from label584 to label586 with label004;
+        catch java.lang.Throwable from label587 to label588 with label004;
+        catch java.lang.Throwable from label588 to label589 with label004;
+        catch java.lang.Throwable from label590 to label591 with label159;
+        catch java.lang.Throwable from label591 to label592 with label159;
+        catch java.lang.Throwable from label593 to label594 with label159;
+        catch java.lang.Throwable from label594 to label595 with label159;
+        catch java.lang.Throwable from label596 to label597 with label622;
+        catch java.lang.Throwable from label598 to label599 with label622;
+        catch java.lang.Throwable from label600 to label601 with label622;
+        catch java.lang.Throwable from label602 to label603 with label622;
+        catch java.lang.Throwable from label604 to label605 with label622;
+        catch java.lang.Throwable from label607 to label608 with label622;
+        catch java.lang.Throwable from label608 to label609 with label622;
+        catch java.lang.Throwable from label610 to label611 with label622;
+        catch java.lang.Throwable from label612 to label613 with label622;
+        catch java.lang.Throwable from label615 to label616 with label622;
+        catch java.lang.Throwable from label617 to label618 with label622;
+        catch java.lang.Throwable from label618 to label619 with label622;
+        catch java.lang.Throwable from label620 to label621 with label159;
+        catch java.lang.Throwable from label623 to label624 with label624;
+        catch java.lang.Throwable from label625 to label626 with label627;
+        catch java.lang.Throwable from label628 to label630 with label159;
+        catch java.lang.Throwable from label632 to label633 with label159;
+        catch java.lang.Throwable from label633 to label634 with label159;
+        catch java.lang.Throwable from label635 to label636 with label159;
+        catch java.lang.Throwable from label637 to label638 with label159;
+        catch java.lang.Throwable from label639 to label640 with label649;
+        catch java.lang.Throwable from label641 to label642 with label649;
+        catch java.lang.Throwable from label642 to label643 with label649;
+        catch java.lang.Throwable from label645 to label647 with label159;
+        catch java.lang.Throwable from label647 to label648 with label159;
+        catch java.lang.Throwable from label650 to label651 with label651;
+        catch java.lang.Throwable from label652 to label653 with label654;
+        catch java.lang.Throwable from label655 to label657 with label159;
+        catch java.lang.Throwable from label658 to label659 with label159;
+        catch java.lang.Throwable from label660 to label661 with label159;
+        catch java.lang.Throwable from label662 to label663 with label159;
+        catch java.lang.Throwable from label664 to label665 with label159;
+        catch java.lang.Throwable from label666 to label667 with label159;
+        catch java.lang.Throwable from label667 to label668 with label726;
+        catch java.lang.Throwable from label669 to label670 with label726;
+        catch java.lang.Throwable from label672 to label675 with label159;
+        catch java.lang.Throwable from label676 to label677 with label159;
+        catch java.lang.Throwable from label677 to label678 with label159;
+        catch java.lang.Throwable from label679 to label680 with label159;
+        catch java.lang.Throwable from label681 to label682 with label159;
+        catch java.lang.Throwable from label682 to label683 with label718;
+        catch java.lang.Throwable from label684 to label685 with label718;
+        catch java.lang.Throwable from label687 to label690 with label159;
+        catch java.lang.Throwable from label691 to label692 with label159;
+        catch java.lang.Throwable from label692 to label693 with label159;
+        catch java.lang.Throwable from label694 to label695 with label159;
+        catch java.lang.Throwable from label696 to label697 with label159;
+        catch java.lang.Throwable from label697 to label698 with label710;
+        catch java.lang.Throwable from label699 to label700 with label710;
+        catch java.lang.Throwable from label702 to label705 with label159;
+        catch java.lang.Throwable from label706 to label707 with label159;
+        catch java.lang.Throwable from label707 to label708 with label159;
+        catch java.lang.Throwable from label708 to label709 with label159;
+        catch java.lang.Throwable from label711 to label712 with label712;
+        catch java.lang.Throwable from label713 to label714 with label715;
+        catch java.lang.Throwable from label716 to label718 with label159;
+        catch java.lang.Throwable from label719 to label720 with label720;
+        catch java.lang.Throwable from label721 to label722 with label723;
+        catch java.lang.Throwable from label724 to label726 with label159;
+        catch java.lang.Throwable from label727 to label728 with label728;
+        catch java.lang.Throwable from label729 to label730 with label731;
+        catch java.lang.Throwable from label732 to label734 with label159;
+        catch java.lang.Throwable from label735 to label736 with label159;
+        catch java.lang.Throwable from label736 to label737 with label159;
+        catch java.lang.Throwable from label737 to label738 with label159;
+        catch java.lang.Throwable from label739 to label740 with label159;
+        catch java.lang.Throwable from label740 to label741 with label159;
+        catch java.lang.Throwable from label741 to label742 with label159;
+        catch java.lang.Throwable from label743 to label744 with label159;
+        catch java.lang.Throwable from label745 to label746 with label159;
+        catch java.lang.Throwable from label747 to label748 with label159;
+        catch java.lang.Throwable from label749 to label751 with label159;
+    }

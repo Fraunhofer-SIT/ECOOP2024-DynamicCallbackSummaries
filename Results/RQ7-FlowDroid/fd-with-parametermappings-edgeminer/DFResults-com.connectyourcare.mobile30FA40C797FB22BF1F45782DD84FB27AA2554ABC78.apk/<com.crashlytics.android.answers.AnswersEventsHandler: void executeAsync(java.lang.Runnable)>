@@ -1,0 +1,31 @@
+    private void executeAsync(java.lang.Runnable)
+    {
+        io.fabric.sdk.android.Logger $r1;
+        java.util.concurrent.ScheduledExecutorService $r3;
+        java.lang.Runnable $r2;
+        java.lang.Exception $r4;
+        com.crashlytics.android.answers.AnswersEventsHandler r0;
+
+        r0 := @this: com.crashlytics.android.answers.AnswersEventsHandler;
+
+        $r2 := @parameter0: java.lang.Runnable;
+
+     label1:
+        $r3 = r0.<com.crashlytics.android.answers.AnswersEventsHandler: java.util.concurrent.ScheduledExecutorService executor>;
+
+        interfaceinvoke $r3.<java.util.concurrent.ScheduledExecutorService: java.util.concurrent.Future submit(java.lang.Runnable)>($r2);
+
+     label2:
+        return;
+
+     label3:
+        $r4 := @caughtexception;
+
+        $r1 = staticinvoke <io.fabric.sdk.android.Fabric: io.fabric.sdk.android.Logger getLogger()>();
+
+        interfaceinvoke $r1.<io.fabric.sdk.android.Logger: void e(java.lang.String,java.lang.String,java.lang.Throwable)>("Answers", "Failed to submit events task", $r4);
+
+        return;
+
+        catch java.lang.Exception from label1 to label2 with label3;
+    }

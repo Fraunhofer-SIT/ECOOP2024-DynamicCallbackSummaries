@@ -1,0 +1,350 @@
+    public static byte[] downloadKey(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+    {
+        java.lang.Throwable $r5, $r6;
+        java.net.HttpURLConnection $r20;
+        byte[] $r21;
+        java.io.ByteArrayOutputStream $r22;
+        java.net.URL $r9;
+        java.util.HashMap $r18;
+        java.nio.charset.Charset $r17;
+        java.net.URLConnection $r11;
+        int $i0, $i1;
+        java.io.OutputStreamWriter $r16;
+        java.lang.String $r0, $r1, $r2, $r3, $r4, $r8;
+        boolean $z0;
+        java.io.OutputStream $r14;
+        javax.net.ssl.HttpsURLConnection $r12;
+        java.io.BufferedWriter $r15;
+        javax.net.ssl.SSLSocketFactory $r13;
+        java.lang.StringBuilder $r7;
+        kr.co.deotis.wisemobile.common.WMCommonUtil$1 $r10;
+        java.io.InputStream $r19;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r2 := @parameter2: java.lang.String;
+
+        $r3 := @parameter3: java.lang.String;
+
+        $r4 = <kr.co.deotis.wisemobile.common.WMCommonUtil: java.lang.String TAG>;
+
+        $r7 = new java.lang.StringBuilder;
+
+     label01:
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("downloadKey() uri:");
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", phone_id:");
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", tel_num:");
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", version:");
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void d(java.lang.String,java.lang.String)>($r4, $r8);
+
+     label02:
+        $r9 = new java.net.URL;
+
+     label03:
+        specialinvoke $r9.<java.net.URL: void <init>(java.lang.String)>($r0);
+
+     label04:
+        $r10 = new kr.co.deotis.wisemobile.common.WMCommonUtil$1;
+
+     label05:
+        specialinvoke $r10.<kr.co.deotis.wisemobile.common.WMCommonUtil$1: void <init>(java.net.URL)>($r9);
+
+        $z0 = virtualinvoke $r0.<java.lang.String: boolean startsWith(java.lang.String)>("https://");
+
+     label06:
+        if $z0 == 0 goto label23;
+
+     label07:
+        $r11 = virtualinvoke $r9.<java.net.URL: java.net.URLConnection openConnection()>();
+
+     label08:
+        $r12 = (javax.net.ssl.HttpsURLConnection) $r11;
+
+     label09:
+        virtualinvoke $r12.<javax.net.ssl.HttpsURLConnection: void setReadTimeout(int)>(7000);
+
+        virtualinvoke $r12.<javax.net.ssl.HttpsURLConnection: void setConnectTimeout(int)>(5000);
+
+        virtualinvoke $r12.<javax.net.ssl.HttpsURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+        virtualinvoke $r12.<javax.net.ssl.HttpsURLConnection: void setDoInput(boolean)>(1);
+
+        virtualinvoke $r12.<javax.net.ssl.HttpsURLConnection: void setDoOutput(boolean)>(1);
+
+        virtualinvoke $r12.<javax.net.ssl.HttpsURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("User-Agent", "SMART IVR Client");
+
+        virtualinvoke $r12.<javax.net.ssl.HttpsURLConnection: void setHostnameVerifier(javax.net.ssl.HostnameVerifier)>($r10);
+
+        $r13 = staticinvoke <kr.co.deotis.wisemobile.common.WMCommonUtil: javax.net.ssl.SSLSocketFactory getSSLSocketFactory()>();
+
+     label10:
+        if $r13 == null goto label12;
+
+     label11:
+        $r13 = staticinvoke <kr.co.deotis.wisemobile.common.WMCommonUtil: javax.net.ssl.SSLSocketFactory getSSLSocketFactory()>();
+
+        virtualinvoke $r12.<javax.net.ssl.HttpsURLConnection: void setSSLSocketFactory(javax.net.ssl.SSLSocketFactory)>($r13);
+
+     label12:
+        $r14 = virtualinvoke $r12.<javax.net.ssl.HttpsURLConnection: java.io.OutputStream getOutputStream()>();
+
+     label13:
+        $r15 = new java.io.BufferedWriter;
+
+        $r16 = new java.io.OutputStreamWriter;
+
+        $r17 = <java.nio.charset.StandardCharsets: java.nio.charset.Charset UTF_8>;
+
+     label14:
+        specialinvoke $r16.<java.io.OutputStreamWriter: void <init>(java.io.OutputStream,java.nio.charset.Charset)>($r14, $r17);
+
+        specialinvoke $r15.<java.io.BufferedWriter: void <init>(java.io.Writer)>($r16);
+
+     label15:
+        $r18 = new java.util.HashMap;
+
+     label16:
+        specialinvoke $r18.<java.util.HashMap: void <init>()>();
+
+        interfaceinvoke $r18.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("phone_id", $r1);
+
+        interfaceinvoke $r18.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("tel_num", $r2);
+
+        interfaceinvoke $r18.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("app_version", $r3);
+
+        interfaceinvoke $r18.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("phone_os", "android");
+
+        $r0 = staticinvoke <kr.co.deotis.wiseportal.library.common.WMPCommon: java.lang.String getParameterString(java.util.Map)>($r18);
+
+        virtualinvoke $r15.<java.io.BufferedWriter: void write(java.lang.String)>($r0);
+
+        virtualinvoke $r15.<java.io.BufferedWriter: void flush()>();
+
+        virtualinvoke $r15.<java.io.BufferedWriter: void close()>();
+
+        virtualinvoke $r14.<java.io.OutputStream: void close()>();
+
+        $r19 = virtualinvoke $r12.<javax.net.ssl.HttpsURLConnection: java.io.InputStream getInputStream()>();
+
+     label17:
+        $i0 = virtualinvoke $r12.<javax.net.ssl.HttpsURLConnection: int getResponseCode()>();
+
+     label18:
+        $i1 = $i0;
+
+     label19:
+        virtualinvoke $r12.<javax.net.ssl.HttpsURLConnection: void disconnect()>();
+
+     label20:
+        $r7 = new java.lang.StringBuilder;
+
+     label21:
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("sendReport() responseCode:");
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r0 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void d(java.lang.String,java.lang.String)>($r4, $r0);
+
+     label22:
+        goto label33;
+
+     label23:
+        $r11 = virtualinvoke $r9.<java.net.URL: java.net.URLConnection openConnection()>();
+
+     label24:
+        $r20 = (java.net.HttpURLConnection) $r11;
+
+     label25:
+        virtualinvoke $r20.<java.net.HttpURLConnection: void setReadTimeout(int)>(7000);
+
+        virtualinvoke $r20.<java.net.HttpURLConnection: void setConnectTimeout(int)>(5000);
+
+        virtualinvoke $r20.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+        virtualinvoke $r20.<java.net.HttpURLConnection: void setDoInput(boolean)>(1);
+
+        virtualinvoke $r20.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+        virtualinvoke $r20.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("User-Agent", "SMART IVR Client");
+
+        $r14 = virtualinvoke $r20.<java.net.HttpURLConnection: java.io.OutputStream getOutputStream()>();
+
+     label26:
+        $r15 = new java.io.BufferedWriter;
+
+        $r16 = new java.io.OutputStreamWriter;
+
+        $r17 = <java.nio.charset.StandardCharsets: java.nio.charset.Charset UTF_8>;
+
+     label27:
+        specialinvoke $r16.<java.io.OutputStreamWriter: void <init>(java.io.OutputStream,java.nio.charset.Charset)>($r14, $r17);
+
+        specialinvoke $r15.<java.io.BufferedWriter: void <init>(java.io.Writer)>($r16);
+
+     label28:
+        $r18 = new java.util.HashMap;
+
+     label29:
+        specialinvoke $r18.<java.util.HashMap: void <init>()>();
+
+        interfaceinvoke $r18.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("phone_id", $r1);
+
+        interfaceinvoke $r18.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("tel_num", $r2);
+
+        interfaceinvoke $r18.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("app_version", $r3);
+
+        interfaceinvoke $r18.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("phone_os", "android");
+
+        $r0 = staticinvoke <kr.co.deotis.wiseportal.library.common.WMPCommon: java.lang.String getParameterString(java.util.Map)>($r18);
+
+        virtualinvoke $r15.<java.io.BufferedWriter: void write(java.lang.String)>($r0);
+
+        virtualinvoke $r15.<java.io.BufferedWriter: void flush()>();
+
+        virtualinvoke $r15.<java.io.BufferedWriter: void close()>();
+
+        virtualinvoke $r14.<java.io.OutputStream: void close()>();
+
+        $r19 = virtualinvoke $r20.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+     label30:
+        $i0 = virtualinvoke $r20.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label31:
+        $i1 = $i0;
+
+     label32:
+        virtualinvoke $r20.<java.net.HttpURLConnection: void disconnect()>();
+
+     label33:
+        $r7 = new java.lang.StringBuilder;
+
+     label34:
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("downloadKey() => key response code : ");
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r0 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void d(java.lang.String,java.lang.String)>($r4, $r0);
+
+     label35:
+        if $i1 != 200 goto label47;
+
+        $r21 = newarray (byte)[1024];
+
+        $r22 = new java.io.ByteArrayOutputStream;
+
+     label36:
+        specialinvoke $r22.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label37:
+        $i0 = virtualinvoke $r19.<java.io.InputStream: int read(byte[])>($r21);
+
+     label38:
+        if $i0 >= 1 goto label45;
+
+     label39:
+        $r21 = virtualinvoke $r22.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label40:
+        $r0 = new java.lang.String;
+
+     label41:
+        specialinvoke $r0.<java.lang.String: void <init>(byte[])>($r21);
+
+     label42:
+        $r1 = <kr.co.deotis.wisemobile.common.WMCommonUtil: java.lang.String TAG>;
+
+        $r7 = new java.lang.StringBuilder;
+
+     label43:
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("downloadKey key:");
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r2 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void d(java.lang.String,java.lang.String)>($r1, $r2);
+
+        $r21 = staticinvoke <android.util.Base64: byte[] decode(java.lang.String,int)>($r0, 2);
+
+     label44:
+        return $r21;
+
+     label45:
+        virtualinvoke $r22.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r21, 0, $i0);
+
+     label46:
+        goto label37;
+
+     label47:
+        return null;
+
+     label48:
+        $r21 = newarray (byte)[1];
+
+        $r21[0] = 3;
+
+        return $r21;
+
+     label49:
+        $r5 := @caughtexception;
+
+        goto label48;
+
+     label50:
+        $r6 := @caughtexception;
+
+        goto label48;
+
+        catch java.io.IOException from label01 to label02 with label49;
+        catch java.io.IOException from label03 to label04 with label49;
+        catch java.io.IOException from label05 to label06 with label49;
+        catch java.io.IOException from label07 to label08 with label50;
+        catch java.io.IOException from label09 to label10 with label50;
+        catch java.io.IOException from label11 to label13 with label50;
+        catch java.io.IOException from label14 to label15 with label50;
+        catch java.io.IOException from label16 to label17 with label50;
+        catch java.io.IOException from label17 to label18 with label50;
+        catch java.io.IOException from label19 to label20 with label50;
+        catch java.io.IOException from label21 to label22 with label50;
+        catch java.io.IOException from label23 to label24 with label50;
+        catch java.io.IOException from label25 to label26 with label50;
+        catch java.io.IOException from label27 to label28 with label50;
+        catch java.io.IOException from label29 to label30 with label50;
+        catch java.io.IOException from label30 to label31 with label50;
+        catch java.io.IOException from label32 to label33 with label50;
+        catch java.io.IOException from label34 to label35 with label50;
+        catch java.io.IOException from label36 to label38 with label50;
+        catch java.io.IOException from label39 to label40 with label50;
+        catch java.io.IOException from label41 to label42 with label50;
+        catch java.io.IOException from label43 to label44 with label50;
+        catch java.io.IOException from label45 to label46 with label50;
+    }

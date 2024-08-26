@@ -1,0 +1,120 @@
+    public io.fabric.sdk.android.services.settings.SettingsData loadSettingsData(io.fabric.sdk.android.services.settings.SettingsCacheBehavior)
+    {
+        io.fabric.sdk.android.services.common.DataCollectionArbiter $r3;
+        io.fabric.sdk.android.services.settings.CachedSettingsIo $r12;
+        long $l0;
+        io.fabric.sdk.android.services.settings.DefaultSettingsController r0;
+        org.json.JSONObject $r9;
+        java.lang.String $r13;
+        boolean $z0;
+        io.fabric.sdk.android.services.settings.SettingsData r5, $r6;
+        java.lang.Exception r2;
+        io.fabric.sdk.android.Logger $r4;
+        io.fabric.sdk.android.services.settings.SettingsSpiCall $r7;
+        io.fabric.sdk.android.services.settings.SettingsJsonTransform $r10;
+        io.fabric.sdk.android.services.settings.SettingsRequest $r8;
+        io.fabric.sdk.android.services.settings.SettingsCacheBehavior $r1;
+        io.fabric.sdk.android.services.common.CurrentTimeProvider $r11;
+
+        r0 := @this: io.fabric.sdk.android.services.settings.DefaultSettingsController;
+
+        $r1 := @parameter0: io.fabric.sdk.android.services.settings.SettingsCacheBehavior;
+
+        $r3 = r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: io.fabric.sdk.android.services.common.DataCollectionArbiter dataCollectionArbiter>;
+
+        $z0 = virtualinvoke $r3.<io.fabric.sdk.android.services.common.DataCollectionArbiter: boolean isDataCollectionEnabled()>();
+
+        if $z0 != 0 goto label01;
+
+        $r4 = staticinvoke <io.fabric.sdk.android.Fabric: io.fabric.sdk.android.Logger getLogger()>();
+
+        interfaceinvoke $r4.<io.fabric.sdk.android.Logger: void d(java.lang.String,java.lang.String)>("Fabric", "Not fetching settings, because data collection is disabled by Firebase.");
+
+        return null;
+
+     label01:
+        r5 = null;
+
+     label02:
+        $z0 = staticinvoke <io.fabric.sdk.android.Fabric: boolean isDebuggable()>();
+
+     label03:
+        if $z0 != 0 goto label08;
+
+     label04:
+        $z0 = virtualinvoke r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: boolean buildInstanceIdentifierChanged()>();
+
+     label05:
+        if $z0 != 0 goto label08;
+
+     label06:
+        $r6 = specialinvoke r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: io.fabric.sdk.android.services.settings.SettingsData getCachedSettingsData(io.fabric.sdk.android.services.settings.SettingsCacheBehavior)>($r1);
+
+     label07:
+        r5 = $r6;
+
+     label08:
+        if r5 != null goto label18;
+
+     label09:
+        $r7 = r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: io.fabric.sdk.android.services.settings.SettingsSpiCall settingsSpiCall>;
+
+        $r8 = r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: io.fabric.sdk.android.services.settings.SettingsRequest settingsRequest>;
+
+        $r9 = interfaceinvoke $r7.<io.fabric.sdk.android.services.settings.SettingsSpiCall: org.json.JSONObject invoke(io.fabric.sdk.android.services.settings.SettingsRequest)>($r8);
+
+     label10:
+        if $r9 == null goto label14;
+
+     label11:
+        $r10 = r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: io.fabric.sdk.android.services.settings.SettingsJsonTransform settingsJsonTransform>;
+
+        $r11 = r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: io.fabric.sdk.android.services.common.CurrentTimeProvider currentTimeProvider>;
+
+        $r6 = interfaceinvoke $r10.<io.fabric.sdk.android.services.settings.SettingsJsonTransform: io.fabric.sdk.android.services.settings.SettingsData buildFromJson(io.fabric.sdk.android.services.common.CurrentTimeProvider,org.json.JSONObject)>($r11, $r9);
+
+     label12:
+        r5 = $r6;
+
+     label13:
+        $r12 = r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: io.fabric.sdk.android.services.settings.CachedSettingsIo cachedSettingsIo>;
+
+        $l0 = $r6.<io.fabric.sdk.android.services.settings.SettingsData: long expiresAtMillis>;
+
+        interfaceinvoke $r12.<io.fabric.sdk.android.services.settings.CachedSettingsIo: void writeCachedSettings(long,org.json.JSONObject)>($l0, $r9);
+
+        specialinvoke r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: void logSettings(org.json.JSONObject,java.lang.String)>($r9, "Loaded settings: ");
+
+        $r13 = virtualinvoke r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: java.lang.String getBuildInstanceIdentifierFromContext()>();
+
+        virtualinvoke r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: boolean setStoredBuildInstanceIdentifier(java.lang.String)>($r13);
+
+     label14:
+        if r5 != null goto label18;
+
+        $r1 = <io.fabric.sdk.android.services.settings.SettingsCacheBehavior: io.fabric.sdk.android.services.settings.SettingsCacheBehavior IGNORE_CACHE_EXPIRATION>;
+
+     label15:
+        $r6 = specialinvoke r0.<io.fabric.sdk.android.services.settings.DefaultSettingsController: io.fabric.sdk.android.services.settings.SettingsData getCachedSettingsData(io.fabric.sdk.android.services.settings.SettingsCacheBehavior)>($r1);
+
+     label16:
+        return $r6;
+
+     label17:
+        r2 := @caughtexception;
+
+        $r4 = staticinvoke <io.fabric.sdk.android.Fabric: io.fabric.sdk.android.Logger getLogger()>();
+
+        interfaceinvoke $r4.<io.fabric.sdk.android.Logger: void e(java.lang.String,java.lang.String,java.lang.Throwable)>("Fabric", "Unknown error while loading Crashlytics settings. Crashes will be cached until settings can be retrieved.", r2);
+
+     label18:
+        return r5;
+
+        catch java.lang.Exception from label02 to label03 with label17;
+        catch java.lang.Exception from label04 to label05 with label17;
+        catch java.lang.Exception from label06 to label07 with label17;
+        catch java.lang.Exception from label09 to label10 with label17;
+        catch java.lang.Exception from label11 to label12 with label17;
+        catch java.lang.Exception from label13 to label14 with label17;
+        catch java.lang.Exception from label15 to label16 with label17;
+    }

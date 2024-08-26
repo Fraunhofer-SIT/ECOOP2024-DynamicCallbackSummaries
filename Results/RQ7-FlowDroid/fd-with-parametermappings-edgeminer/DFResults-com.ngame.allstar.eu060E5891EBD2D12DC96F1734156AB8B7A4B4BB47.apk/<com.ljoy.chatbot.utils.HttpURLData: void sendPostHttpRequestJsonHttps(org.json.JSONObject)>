@@ -1,0 +1,275 @@
+    private void sendPostHttpRequestJsonHttps(org.json.JSONObject)
+    {
+        java.lang.Throwable $r16;
+        byte[] $r12;
+        javax.net.ssl.SSLContext $r8;
+        java.lang.Object[] $r6;
+        java.net.URL $r20;
+        java.security.SecureRandom $r21;
+        org.json.JSONObject $r1;
+        java.net.URLConnection $r4;
+        int $i0;
+        java.lang.String $r3;
+        boolean $z0;
+        java.io.OutputStream $r2, $r15;
+        java.io.PrintStream $r13;
+        javax.net.ssl.HttpsURLConnection $r5;
+        com.ljoy.chatbot.utils.HttpURLData r0;
+        java.lang.Exception $r10, $r17, $r18, $r19;
+        javax.net.ssl.SSLSocketFactory $r9;
+        javax.net.ssl.X509TrustManager $r7;
+        javax.net.ssl.TrustManager[] $r23;
+        java.lang.StringBuilder $r11, $r14, $r22;
+
+        r0 := @this: com.ljoy.chatbot.utils.HttpURLData;
+
+        $r1 := @parameter0: org.json.JSONObject;
+
+        $r2 = null;
+
+     label01:
+        $r20 = new java.net.URL;
+
+     label02:
+        $r3 = r0.<com.ljoy.chatbot.utils.HttpURLData: java.lang.String urlStr>;
+
+        specialinvoke $r20.<java.net.URL: void <init>(java.lang.String)>($r3);
+
+        $r4 = virtualinvoke $r20.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r5 = (javax.net.ssl.HttpsURLConnection) $r4;
+
+        r0.<com.ljoy.chatbot.utils.HttpURLData: javax.net.ssl.HttpsURLConnection urlsConnection> = $r5;
+
+     label03:
+        if $r5 == null goto label27;
+
+     label04:
+        $r3 = r0.<com.ljoy.chatbot.utils.HttpURLData: java.lang.String urlStr>;
+
+        $z0 = staticinvoke <com.ljoy.chatbot.utils.CommonUtils: boolean isEmpty(java.lang.String)>($r3);
+
+     label05:
+        if $z0 != 0 goto label17;
+
+     label06:
+        $r3 = r0.<com.ljoy.chatbot.utils.HttpURLData: java.lang.String urlStr>;
+
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean startsWith(java.lang.String)>("https");
+
+     label07:
+        if $z0 == 0 goto label17;
+
+     label08:
+        $r6 = newarray (javax.net.ssl.TrustManager)[1];
+
+     label09:
+        $r7 = staticinvoke <com.ljoy.chatbot.utils.HttpURLData: javax.net.ssl.X509TrustManager getDefaultTrustManager()>();
+
+     label10:
+        $r6[0] = $r7;
+
+     label11:
+        $r8 = staticinvoke <javax.net.ssl.SSLContext: javax.net.ssl.SSLContext getInstance(java.lang.String)>("TLSv1");
+
+     label12:
+        $r21 = new java.security.SecureRandom;
+
+     label13:
+        specialinvoke $r21.<java.security.SecureRandom: void <init>()>();
+
+        $r23 = (javax.net.ssl.TrustManager[]) $r6;
+
+        virtualinvoke $r8.<javax.net.ssl.SSLContext: void init(javax.net.ssl.KeyManager[],javax.net.ssl.TrustManager[],java.security.SecureRandom)>(null, $r23, $r21);
+
+        $r9 = virtualinvoke $r8.<javax.net.ssl.SSLContext: javax.net.ssl.SSLSocketFactory getSocketFactory()>();
+
+        $r5 = r0.<com.ljoy.chatbot.utils.HttpURLData: javax.net.ssl.HttpsURLConnection urlsConnection>;
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setSSLSocketFactory(javax.net.ssl.SSLSocketFactory)>($r9);
+
+     label14:
+        goto label17;
+
+     label15:
+        $r10 := @caughtexception;
+
+     label16:
+        virtualinvoke $r10.<java.lang.Exception: void printStackTrace()>();
+
+     label17:
+        $r5 = r0.<com.ljoy.chatbot.utils.HttpURLData: javax.net.ssl.HttpsURLConnection urlsConnection>;
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+        $r5 = r0.<com.ljoy.chatbot.utils.HttpURLData: javax.net.ssl.HttpsURLConnection urlsConnection>;
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setReadTimeout(int)>(30000);
+
+        $r5 = r0.<com.ljoy.chatbot.utils.HttpURLData: javax.net.ssl.HttpsURLConnection urlsConnection>;
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setConnectTimeout(int)>(30000);
+
+     label18:
+        $r14 = new java.lang.StringBuilder;
+
+     label19:
+        $r11 = $r14;
+
+     label20:
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        $r3 = virtualinvoke $r1.<org.json.JSONObject: java.lang.String toString()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r12 = virtualinvoke $r3.<java.lang.String: byte[] getBytes()>();
+
+     label21:
+        $r13 = <java.lang.System: java.io.PrintStream out>;
+
+        $r22 = new java.lang.StringBuilder;
+
+     label22:
+        specialinvoke $r22.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Elva sendPostHttpRequestJson req:");
+
+        $r3 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r13.<java.io.PrintStream: void println(java.lang.String)>($r3);
+
+        $r5 = r0.<com.ljoy.chatbot.utils.HttpURLData: javax.net.ssl.HttpsURLConnection urlsConnection>;
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("accept", "*/*");
+
+        $r5 = r0.<com.ljoy.chatbot.utils.HttpURLData: javax.net.ssl.HttpsURLConnection urlsConnection>;
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Connection", "keep-alive");
+
+        $r5 = r0.<com.ljoy.chatbot.utils.HttpURLData: javax.net.ssl.HttpsURLConnection urlsConnection>;
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Type", "application/json");
+
+        $r5 = r0.<com.ljoy.chatbot.utils.HttpURLData: javax.net.ssl.HttpsURLConnection urlsConnection>;
+
+     label23:
+        $i0 = lengthof $r12;
+
+     label24:
+        $r3 = staticinvoke <java.lang.Integer: java.lang.String toString(int)>($i0);
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Length", $r3);
+
+        $r5 = r0.<com.ljoy.chatbot.utils.HttpURLData: javax.net.ssl.HttpsURLConnection urlsConnection>;
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("User-Agent", "Mozilla/5.0 (Windows NT 6.3; WOW64; rv:27.0) Gecko/20100101 Firefox/27.0");
+
+        $r5 = r0.<com.ljoy.chatbot.utils.HttpURLData: javax.net.ssl.HttpsURLConnection urlsConnection>;
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setDoOutput(boolean)>(1);
+
+        $r5 = r0.<com.ljoy.chatbot.utils.HttpURLData: javax.net.ssl.HttpsURLConnection urlsConnection>;
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setDoInput(boolean)>(1);
+
+        $r5 = r0.<com.ljoy.chatbot.utils.HttpURLData: javax.net.ssl.HttpsURLConnection urlsConnection>;
+
+        $r15 = virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: java.io.OutputStream getOutputStream()>();
+
+     label25:
+        $r2 = $r15;
+
+     label26:
+        virtualinvoke $r15.<java.io.OutputStream: void write(byte[])>($r12);
+
+        virtualinvoke $r15.<java.io.OutputStream: void flush()>();
+
+     label27:
+        if $r2 == null goto label42;
+
+     label28:
+        virtualinvoke $r2.<java.io.OutputStream: void close()>();
+
+     label29:
+        return;
+
+     label30:
+        $r16 := @caughtexception;
+
+        goto label37;
+
+     label31:
+        $r17 := @caughtexception;
+
+     label32:
+        virtualinvoke $r17.<java.lang.Exception: void printStackTrace()>();
+
+     label33:
+        if $r2 == null goto label42;
+
+     label34:
+        virtualinvoke $r2.<java.io.OutputStream: void close()>();
+
+     label35:
+        return;
+
+     label36:
+        $r18 := @caughtexception;
+
+        virtualinvoke $r18.<java.lang.Exception: void printStackTrace()>();
+
+        return;
+
+     label37:
+        if $r2 == null goto label41;
+
+     label38:
+        virtualinvoke $r2.<java.io.OutputStream: void close()>();
+
+     label39:
+        goto label41;
+
+     label40:
+        $r19 := @caughtexception;
+
+        virtualinvoke $r19.<java.lang.Exception: void printStackTrace()>();
+
+     label41:
+        throw $r16;
+
+     label42:
+        return;
+
+        catch java.lang.Exception from label02 to label03 with label31;
+        catch java.lang.Exception from label04 to label05 with label31;
+        catch java.lang.Exception from label06 to label07 with label31;
+        catch java.lang.Throwable from label01 to label02 with label30;
+        catch java.lang.Throwable from label02 to label03 with label30;
+        catch java.lang.Throwable from label04 to label05 with label30;
+        catch java.lang.Throwable from label06 to label07 with label30;
+        catch java.lang.Exception from label09 to label12 with label15;
+        catch java.lang.Exception from label13 to label14 with label15;
+        catch java.lang.Throwable from label08 to label10 with label30;
+        catch java.lang.Throwable from label11 to label13 with label30;
+        catch java.lang.Throwable from label13 to label14 with label30;
+        catch java.lang.Exception from label16 to label18 with label31;
+        catch java.lang.Exception from label20 to label21 with label31;
+        catch java.lang.Exception from label22 to label25 with label31;
+        catch java.lang.Exception from label26 to label27 with label31;
+        catch java.lang.Throwable from label16 to label19 with label30;
+        catch java.lang.Throwable from label20 to label22 with label30;
+        catch java.lang.Throwable from label22 to label23 with label30;
+        catch java.lang.Throwable from label24 to label25 with label30;
+        catch java.lang.Throwable from label26 to label27 with label30;
+        catch java.lang.Exception from label28 to label29 with label36;
+        catch java.lang.Throwable from label32 to label33 with label30;
+        catch java.lang.Exception from label34 to label35 with label36;
+        catch java.lang.Exception from label38 to label39 with label40;
+    }

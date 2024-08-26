@@ -1,0 +1,267 @@
+    public static boolean sendDataByPost(java.lang.String, java.lang.String)
+    {
+        java.net.HttpURLConnection r9;
+        java.lang.Throwable $r18;
+        java.net.URL r4;
+        java.net.URLConnection $r8;
+        int $i0;
+        java.lang.String $r0, $r1, r7;
+        java.io.PrintWriter r3, r5;
+        java.io.OutputStream $r10;
+        java.io.InputStreamReader $r11;
+        java.lang.Exception r14, r15, r16, r17, r19;
+        java.lang.StringBuilder $r13;
+        java.io.BufferedReader r2, r6;
+        java.io.InputStream $r12;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r1 := @parameter1: java.lang.String;
+
+        if $r0 == null goto label43;
+
+        $i0 = virtualinvoke $r0.<java.lang.String: int length()>();
+
+        if $i0 < 1 goto label43;
+
+        if $r1 == null goto label43;
+
+        $i0 = virtualinvoke $r1.<java.lang.String: int length()>();
+
+        if $i0 >= 1 goto label01;
+
+        return 1;
+
+     label01:
+        r5 = null;
+
+        r6 = null;
+
+        r7 = "";
+
+     label02:
+        r4 = new java.net.URL;
+
+     label03:
+        specialinvoke r4.<java.net.URL: void <init>(java.lang.String)>($r0);
+
+        $r8 = virtualinvoke r4.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        r9 = (java.net.HttpURLConnection) $r8;
+
+        virtualinvoke r9.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Accept", "*/*");
+
+        virtualinvoke r9.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Connection", "Keep-Alive");
+
+        virtualinvoke r9.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("User-Agent", "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)");
+
+        virtualinvoke r9.<java.net.HttpURLConnection: void setDoInput(boolean)>(1);
+
+        virtualinvoke r9.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+     label04:
+        r3 = new java.io.PrintWriter;
+
+     label05:
+        $r10 = virtualinvoke r9.<java.net.HttpURLConnection: java.io.OutputStream getOutputStream()>();
+
+        specialinvoke r3.<java.io.PrintWriter: void <init>(java.io.OutputStream)>($r10);
+
+     label06:
+        virtualinvoke r3.<java.io.PrintWriter: void write(java.lang.String)>($r1);
+
+        virtualinvoke r3.<java.io.PrintWriter: void flush()>();
+
+     label07:
+        r2 = new java.io.BufferedReader;
+
+        $r11 = new java.io.InputStreamReader;
+
+     label08:
+        $r12 = virtualinvoke r9.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+        specialinvoke $r11.<java.io.InputStreamReader: void <init>(java.io.InputStream,java.lang.String)>($r12, "UTF-8");
+
+        specialinvoke r2.<java.io.BufferedReader: void <init>(java.io.Reader)>($r11);
+
+     label09:
+        $r0 = virtualinvoke r2.<java.io.BufferedReader: java.lang.String readLine()>();
+
+     label10:
+        if $r0 != null goto label18;
+
+     label11:
+        $r13 = new java.lang.StringBuilder;
+
+     label12:
+        specialinvoke $r13.<java.lang.StringBuilder: void <init>(java.lang.String)>("===================\u300b\u300b");
+
+        $i0 = virtualinvoke r9.<java.net.HttpURLConnection: int getResponseCode()>();
+
+        $r13 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r0 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>("", $r0);
+
+        $i0 = virtualinvoke r9.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label13:
+        if $i0 != 200 goto label21;
+
+        if r3 == null goto label15;
+
+     label14:
+        virtualinvoke r3.<java.io.PrintWriter: void close()>();
+
+     label15:
+        virtualinvoke r2.<java.io.BufferedReader: void close()>();
+
+     label16:
+        return 1;
+
+     label17:
+        r14 := @caughtexception;
+
+        virtualinvoke r14.<java.lang.Exception: void printStackTrace()>();
+
+        return 1;
+
+     label18:
+        $r13 = new java.lang.StringBuilder;
+
+     label19:
+        $r1 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>(r7);
+
+        specialinvoke $r13.<java.lang.StringBuilder: void <init>(java.lang.String)>($r1);
+
+        $r13 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r13 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\r\n");
+
+        $r0 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label20:
+        r7 = $r0;
+
+        goto label09;
+
+     label21:
+        if r3 == null goto label23;
+
+     label22:
+        virtualinvoke r3.<java.io.PrintWriter: void close()>();
+
+     label23:
+        virtualinvoke r2.<java.io.BufferedReader: void close()>();
+
+     label24:
+        return 0;
+
+     label25:
+        r15 := @caughtexception;
+
+        virtualinvoke r15.<java.lang.Exception: void printStackTrace()>();
+
+        goto label24;
+
+     label26:
+        r16 := @caughtexception;
+
+     label27:
+        virtualinvoke r16.<java.lang.Exception: void printStackTrace()>();
+
+     label28:
+        if r5 == null goto label30;
+
+     label29:
+        virtualinvoke r5.<java.io.PrintWriter: void close()>();
+
+     label30:
+        virtualinvoke r6.<java.io.BufferedReader: void close()>();
+
+     label31:
+        return 0;
+
+     label32:
+        r17 := @caughtexception;
+
+        virtualinvoke r17.<java.lang.Exception: void printStackTrace()>();
+
+        goto label31;
+
+     label33:
+        $r18 := @caughtexception;
+
+     label34:
+        if r5 == null goto label36;
+
+     label35:
+        virtualinvoke r5.<java.io.PrintWriter: void close()>();
+
+     label36:
+        virtualinvoke r6.<java.io.BufferedReader: void close()>();
+
+     label37:
+        throw $r18;
+
+     label38:
+        r19 := @caughtexception;
+
+        virtualinvoke r19.<java.lang.Exception: void printStackTrace()>();
+
+        goto label37;
+
+     label39:
+        $r18 := @caughtexception;
+
+        r5 = r3;
+
+        goto label34;
+
+     label40:
+        $r18 := @caughtexception;
+
+        r6 = r2;
+
+        r5 = r3;
+
+        goto label34;
+
+     label41:
+        r16 := @caughtexception;
+
+        r5 = r3;
+
+        goto label27;
+
+     label42:
+        r16 := @caughtexception;
+
+        r6 = r2;
+
+        r5 = r3;
+
+        goto label27;
+
+     label43:
+        return 1;
+
+        catch java.lang.Exception from label03 to label04 with label26;
+        catch java.lang.Exception from label05 to label06 with label26;
+        catch java.lang.Throwable from label02 to label06 with label33;
+        catch java.lang.Exception from label06 to label07 with label41;
+        catch java.lang.Exception from label08 to label09 with label41;
+        catch java.lang.Throwable from label06 to label09 with label39;
+        catch java.lang.Exception from label09 to label10 with label42;
+        catch java.lang.Exception from label12 to label13 with label42;
+        catch java.lang.Throwable from label09 to label10 with label40;
+        catch java.lang.Throwable from label11 to label13 with label40;
+        catch java.lang.Exception from label14 to label16 with label17;
+        catch java.lang.Exception from label19 to label20 with label42;
+        catch java.lang.Throwable from label18 to label20 with label40;
+        catch java.lang.Exception from label22 to label24 with label25;
+        catch java.lang.Throwable from label27 to label28 with label33;
+        catch java.lang.Exception from label29 to label31 with label32;
+        catch java.lang.Exception from label35 to label37 with label38;
+    }

@@ -1,0 +1,96 @@
+    public void loadFullscreen()
+    {
+        android.content.Context $r3;
+        com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackMopubAdapter r0;
+        com.appsgeyser.sdk.server.StatController $r8;
+        java.util.HashMap $r7;
+        com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackMopubAdapter$5 $r6;
+        com.mopub.mobileads.MoPubInterstitial $r2;
+        java.lang.StringBuilder $r5;
+        java.lang.String $r1;
+        android.app.Activity $r4;
+        boolean $z0;
+
+        r0 := @this: com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackMopubAdapter;
+
+        $r1 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackMopubAdapter: java.lang.String fullscreenPlacementId>;
+
+        if $r1 == null goto label1;
+
+        $z0 = virtualinvoke $r1.<java.lang.String: boolean isEmpty()>();
+
+        if $z0 != 0 goto label1;
+
+        $r2 = new com.mopub.mobileads.MoPubInterstitial;
+
+        $r3 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackMopubAdapter: android.content.Context context>;
+
+        $r4 = (android.app.Activity) $r3;
+
+        $r1 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackMopubAdapter: java.lang.String fullscreenPlacementId>;
+
+        specialinvoke $r2.<com.mopub.mobileads.MoPubInterstitial: void <init>(android.app.Activity,java.lang.String)>($r4, $r1);
+
+        r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackMopubAdapter: com.mopub.mobileads.MoPubInterstitial interstitialAd> = $r2;
+
+        $r5 = new java.lang.StringBuilder;
+
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("mopub fullscreen initializing: ");
+
+        $r1 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackMopubAdapter: java.lang.String fullscreenPlacementId>;
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("fastTrackTag", $r1);
+
+        $r2 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackMopubAdapter: com.mopub.mobileads.MoPubInterstitial interstitialAd>;
+
+        $r6 = new com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackMopubAdapter$5;
+
+        specialinvoke $r6.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackMopubAdapter$5: void <init>(com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackMopubAdapter)>(r0);
+
+        virtualinvoke $r2.<com.mopub.mobileads.MoPubInterstitial: void setInterstitialAdListener(com.mopub.mobileads.MoPubInterstitial$InterstitialAdListener)>($r6);
+
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("fastTrackTag", "mopub fullscreen attempt to load");
+
+        $r7 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackMopubAdapter: java.util.HashMap interstitialDetails>;
+
+        $r5 = new java.lang.StringBuilder;
+
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("fs id: ");
+
+        $r1 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackMopubAdapter: java.lang.String fullscreenPlacementId>;
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r7.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>("details", $r1);
+
+        $r7 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackMopubAdapter: java.util.HashMap interstitialDetails>;
+
+        $r1 = staticinvoke <com.appsgeyser.sdk.GuidGenerator: java.lang.String generateNewGuid()>();
+
+        virtualinvoke $r7.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>("uniqid", $r1);
+
+        $r2 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackMopubAdapter: com.mopub.mobileads.MoPubInterstitial interstitialAd>;
+
+        virtualinvoke $r2.<com.mopub.mobileads.MoPubInterstitial: void load()>();
+
+        $r8 = staticinvoke <com.appsgeyser.sdk.server.StatController: com.appsgeyser.sdk.server.StatController getInstance()>();
+
+        $r7 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackMopubAdapter: java.util.HashMap interstitialDetails>;
+
+        $r3 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackMopubAdapter: android.content.Context context>;
+
+        virtualinvoke $r8.<com.appsgeyser.sdk.server.StatController: void sendRequestAsyncByKey(java.lang.String,java.util.HashMap,android.content.Context,boolean)>("ft_interstitial_sdk_request", $r7, $r3, 1);
+
+     label1:
+        return;
+    }

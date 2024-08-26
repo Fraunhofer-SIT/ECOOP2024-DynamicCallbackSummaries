@@ -1,0 +1,167 @@
+    private void saveMyStockList(java.lang.String, java.util.ArrayList, boolean)
+    {
+        java.lang.Throwable $r5, $r15;
+        android.app.backup.BackupManager $r9;
+        java.util.Date $r7;
+        java.util.ArrayList $r2, $r3;
+        it.webxperience.PortfolioCollection $r13;
+        java.util.Map $r4;
+        java.lang.String $r1;
+        it.webxperience.QuoteDaily $r12;
+        boolean $z0, $z1;
+        java.util.Iterator $r6;
+        it.webxperience.Stock $r10, $r11;
+        it.webxperience.DividendCollection $r14;
+        it.webxperience.ActivityMainStocks r0;
+        java.lang.Object $r8;
+
+        r0 := @this: it.webxperience.ActivityMainStocks;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: java.util.ArrayList;
+
+        $z0 := @parameter2: boolean;
+
+        if $r2 != null goto label01;
+
+        return;
+
+     label01:
+        $z1 = virtualinvoke r0.<it.webxperience.ActivityMainStocks: boolean isFinishing()>();
+
+        if $z1 != 0 goto label18;
+
+        entermonitor $r2;
+
+     label02:
+        $r4 = r0.<it.webxperience.ActivityMainStocks: java.util.Map lastFileSaveDate>;
+
+        $z1 = interfaceinvoke $r4.<java.util.Map: boolean containsKey(java.lang.Object)>($r1);
+
+        if $z1 == 0 goto label03;
+
+        $r4 = r0.<it.webxperience.ActivityMainStocks: java.util.Map lastFileSaveDate>;
+
+        interfaceinvoke $r4.<java.util.Map: java.lang.Object remove(java.lang.Object)>($r1);
+
+     label03:
+        $z1 = virtualinvoke $r2.<java.util.ArrayList: boolean isEmpty()>();
+
+        if $z1 == 0 goto label08;
+
+        staticinvoke <it.webxperience.utils.InternalMemoryFileUtils: boolean deleteFile(android.content.Context,java.lang.String)>(r0, $r1);
+
+     label04:
+        exitmonitor $r2;
+
+     label05:
+        return;
+
+     label06:
+        $r5 := @caughtexception;
+
+        exitmonitor $r2;
+
+     label07:
+        throw $r5;
+
+     label08:
+        $r3 = new java.util.ArrayList;
+
+        specialinvoke $r3.<java.util.ArrayList: void <init>()>();
+
+        $r6 = virtualinvoke $r2.<java.util.ArrayList: java.util.Iterator iterator()>();
+
+     label09:
+        $z1 = interfaceinvoke $r6.<java.util.Iterator: boolean hasNext()>();
+
+        if $z1 != 0 goto label13;
+
+        $r4 = r0.<it.webxperience.ActivityMainStocks: java.util.Map lastFileSaveDate>;
+
+        $r7 = new java.util.Date;
+
+        specialinvoke $r7.<java.util.Date: void <init>()>();
+
+        interfaceinvoke $r4.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($r1, $r7);
+
+        $r8 = <it.webxperience.ActivityMainStocks: java.lang.Object sDataLock>;
+
+        entermonitor $r8;
+
+     label10:
+        staticinvoke <it.webxperience.utils.InternalMemoryFileUtils: boolean safeSerialize(android.content.Context,java.lang.String,java.io.Serializable)>(r0, $r1, $r3);
+
+        exitmonitor $r8;
+
+     label11:
+        if $z0 == 0 goto label04;
+
+     label12:
+        $r9 = r0.<it.webxperience.ActivityMainStocks: android.app.backup.BackupManager mBackupManager>;
+
+        if $r9 == null goto label04;
+
+        $r9 = r0.<it.webxperience.ActivityMainStocks: android.app.backup.BackupManager mBackupManager>;
+
+        virtualinvoke $r9.<android.app.backup.BackupManager: void dataChanged()>();
+
+        goto label04;
+
+     label13:
+        $r8 = interfaceinvoke $r6.<java.util.Iterator: java.lang.Object next()>();
+
+        $r10 = (it.webxperience.Stock) $r8;
+
+        $r11 = virtualinvoke $r10.<it.webxperience.Stock: it.webxperience.Stock cloneShallow()>();
+
+        $r12 = $r10.<it.webxperience.Stock: it.webxperience.QuoteDaily dailyQuote>;
+
+        $r11.<it.webxperience.Stock: it.webxperience.QuoteDaily dailyQuote> = $r12;
+
+        $r13 = $r10.<it.webxperience.Stock: it.webxperience.PortfolioCollection portfolios>;
+
+        $r11.<it.webxperience.Stock: it.webxperience.PortfolioCollection portfolios> = $r13;
+
+        $r14 = $r10.<it.webxperience.Stock: it.webxperience.DividendCollection dividends>;
+
+        $r11.<it.webxperience.Stock: it.webxperience.DividendCollection dividends> = $r14;
+
+        $r7 = $r10.<it.webxperience.Stock: java.util.Date lastActualQuoteUpdate>;
+
+        $r11.<it.webxperience.Stock: java.util.Date lastActualQuoteUpdate> = $r7;
+
+        $r7 = $r10.<it.webxperience.Stock: java.util.Date lastHistoricalQuotesUpdate>;
+
+        $r11.<it.webxperience.Stock: java.util.Date lastHistoricalQuotesUpdate> = $r7;
+
+        $r7 = $r10.<it.webxperience.Stock: java.util.Date lastIntraDayQuotesUpdate>;
+
+        $r11.<it.webxperience.Stock: java.util.Date lastIntraDayQuotesUpdate> = $r7;
+
+        virtualinvoke $r3.<java.util.ArrayList: boolean add(java.lang.Object)>($r11);
+
+     label14:
+        goto label09;
+
+     label15:
+        $r15 := @caughtexception;
+
+     label16:
+        exitmonitor $r8;
+
+     label17:
+        throw $r15;
+
+     label18:
+        return;
+
+        catch java.lang.Throwable from label02 to label05 with label06;
+        catch java.lang.Throwable from label06 to label07 with label06;
+        catch java.lang.Throwable from label08 to label10 with label06;
+        catch java.lang.Throwable from label10 to label11 with label15;
+        catch java.lang.Throwable from label12 to label14 with label06;
+        catch java.lang.Throwable from label16 to label17 with label15;
+        catch java.lang.Throwable from label17 to label18 with label06;
+    }

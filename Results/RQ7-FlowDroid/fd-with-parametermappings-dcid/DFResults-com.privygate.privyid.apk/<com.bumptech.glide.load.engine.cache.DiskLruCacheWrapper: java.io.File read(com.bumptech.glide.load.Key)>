@@ -1,0 +1,70 @@
+    public java.io.File read(com.bumptech.glide.load.Key)
+    {
+        java.lang.Throwable $r9;
+        com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper r0;
+        com.bumptech.glide.load.engine.cache.SafeKeyGenerator $r2;
+        java.io.File $r8;
+        com.bumptech.glide.disklrucache.DiskLruCache $r6;
+        com.bumptech.glide.load.Key $r1;
+        com.bumptech.glide.disklrucache.DiskLruCache$Value $r7;
+        java.lang.StringBuilder $r4;
+        java.lang.String $r3, $r5;
+        boolean $z0;
+
+        r0 := @this: com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
+
+        $r1 := @parameter0: com.bumptech.glide.load.Key;
+
+        $r2 = r0.<com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper: com.bumptech.glide.load.engine.cache.SafeKeyGenerator gp>;
+
+        $r3 = virtualinvoke $r2.<com.bumptech.glide.load.engine.cache.SafeKeyGenerator: java.lang.String MediaBrowserCompat$SearchResultReceiver(com.bumptech.glide.load.Key)>($r1);
+
+        $z0 = staticinvoke <android.util.Log: boolean isLoggable(java.lang.String,int)>("DiskLruCacheWrapper", 2);
+
+        if $z0 == 0 goto label1;
+
+        $r4 = new java.lang.StringBuilder;
+
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Get: Obtained: ");
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" for for Key: ");
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r1);
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int v(java.lang.String,java.lang.String)>("DiskLruCacheWrapper", $r5);
+
+     label1:
+        $r6 = specialinvoke r0.<com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper: com.bumptech.glide.disklrucache.DiskLruCache sourceToViewRect()>();
+
+        $r7 = virtualinvoke $r6.<com.bumptech.glide.disklrucache.DiskLruCache: com.bumptech.glide.disklrucache.DiskLruCache$Value setPopupCallback(java.lang.String)>($r3);
+
+     label2:
+        if $r7 == null goto label6;
+
+     label3:
+        $r8 = virtualinvoke $r7.<com.bumptech.glide.disklrucache.DiskLruCache$Value: java.io.File snapshot(int)>(0);
+
+     label4:
+        return $r8;
+
+     label5:
+        $r9 := @caughtexception;
+
+        $z0 = staticinvoke <android.util.Log: boolean isLoggable(java.lang.String,int)>("DiskLruCacheWrapper", 5);
+
+        if $z0 == 0 goto label6;
+
+        staticinvoke <android.util.Log: int w(java.lang.String,java.lang.String,java.lang.Throwable)>("DiskLruCacheWrapper", "Unable to get from disk cache", $r9);
+
+     label6:
+        return null;
+
+        catch java.io.IOException from label1 to label2 with label5;
+        catch java.io.IOException from label3 to label4 with label5;
+    }

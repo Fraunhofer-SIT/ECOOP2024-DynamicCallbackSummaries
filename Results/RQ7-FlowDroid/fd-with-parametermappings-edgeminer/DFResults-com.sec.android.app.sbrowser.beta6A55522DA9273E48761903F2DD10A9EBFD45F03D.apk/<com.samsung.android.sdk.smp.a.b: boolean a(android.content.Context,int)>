@@ -1,0 +1,158 @@
+    public static boolean a(android.content.Context, int)
+    {
+        android.content.Context $r1;
+        java.lang.Object[] $r14;
+        java.lang.Integer $r15;
+        com.samsung.android.sdk.smp.d.a$c $r9;
+        int $i0, $i1;
+        android.app.NotificationChannel $r6;
+        java.lang.String $r5, $r7;
+        java.lang.reflect.Method $r13;
+        com.samsung.android.sdk.smp.j.c $r4;
+        boolean $z0;
+        android.app.NotificationManager $r3;
+        java.lang.Class[] $r11;
+        java.lang.Exception $r0;
+        java.lang.Object $r2;
+        java.lang.StringBuilder $r8;
+        java.lang.Class $r10, $r12;
+        android.content.pm.ApplicationInfo $r16;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $i0 := @parameter1: int;
+
+        $i1 = <android.os.Build$VERSION: int SDK_INT>;
+
+        if $i1 < 26 goto label04;
+
+        $r2 = virtualinvoke $r1.<android.content.Context: java.lang.Object getSystemService(java.lang.String)>("notification");
+
+        $r3 = (android.app.NotificationManager) $r2;
+
+        if $r3 == null goto label03;
+
+        $i1 = virtualinvoke $r3.<android.app.NotificationManager: int getImportance()>();
+
+        if $i1 != 0 goto label01;
+
+        return 1;
+
+     label01:
+        $r4 = new com.samsung.android.sdk.smp.j.c;
+
+        specialinvoke $r4.<com.samsung.android.sdk.smp.j.c: void <init>(android.content.Context)>($r1);
+
+        $r5 = virtualinvoke $r4.<com.samsung.android.sdk.smp.j.c: java.lang.String b(int)>($i0);
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r5);
+
+        if $z0 != 0 goto label15;
+
+        $r6 = virtualinvoke $r3.<android.app.NotificationManager: android.app.NotificationChannel getNotificationChannel(java.lang.String)>($r5);
+
+        if $r6 != null goto label02;
+
+        $r7 = <com.samsung.android.sdk.smp.a.b: java.lang.String a>;
+
+        $r8 = new java.lang.StringBuilder;
+
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("channel not created : ");
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.samsung.android.sdk.smp.a.g: void a(java.lang.String,java.lang.String)>($r7, $r5);
+
+        $r9 = new com.samsung.android.sdk.smp.d.a$c;
+
+        specialinvoke $r9.<com.samsung.android.sdk.smp.d.a$c: void <init>()>();
+
+        throw $r9;
+
+     label02:
+        $i0 = virtualinvoke $r6.<android.app.NotificationChannel: int getImportance()>();
+
+        if $i0 != 0 goto label03;
+
+        return 1;
+
+     label03:
+        return 0;
+
+     label04:
+        $i0 = <android.os.Build$VERSION: int SDK_INT>;
+
+        if $i0 < 19 goto label13;
+
+     label05:
+        $r2 = virtualinvoke $r1.<android.content.Context: java.lang.Object getSystemService(java.lang.String)>("appops");
+
+        $r10 = staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>("android.app.AppOpsManager");
+
+     label06:
+        $r11 = newarray (java.lang.Class)[3];
+
+        $r12 = <java.lang.Integer: java.lang.Class TYPE>;
+
+     label07:
+        $r11[0] = $r12;
+
+     label08:
+        $r12 = <java.lang.Integer: java.lang.Class TYPE>;
+
+     label09:
+        $r11[1] = $r12;
+
+        $r11[2] = class "Ljava/lang/String;";
+
+        $r13 = virtualinvoke $r10.<java.lang.Class: java.lang.reflect.Method getMethod(java.lang.String,java.lang.Class[])>("checkOp", $r11);
+
+     label10:
+        $r14 = newarray (java.lang.Object)[3];
+
+     label11:
+        $r15 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(11);
+
+        $r14[0] = $r15;
+
+        $r16 = virtualinvoke $r1.<android.content.Context: android.content.pm.ApplicationInfo getApplicationInfo()>();
+
+        $i0 = $r16.<android.content.pm.ApplicationInfo: int uid>;
+
+        $r15 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+        $r14[1] = $r15;
+
+        $r7 = virtualinvoke $r1.<android.content.Context: java.lang.String getPackageName()>();
+
+        $r14[2] = $r7;
+
+        $r2 = virtualinvoke $r13.<java.lang.reflect.Method: java.lang.Object invoke(java.lang.Object,java.lang.Object[])>($r2, $r14);
+
+        $r15 = (java.lang.Integer) $r2;
+
+        $i0 = virtualinvoke $r15.<java.lang.Integer: int intValue()>();
+
+     label12:
+        if $i0 == 0 goto label13;
+
+        return 1;
+
+     label13:
+        return 0;
+
+     label14:
+        $r0 := @caughtexception;
+
+     label15:
+        return 0;
+
+        catch java.lang.Exception from label05 to label06 with label14;
+        catch java.lang.Exception from label07 to label08 with label14;
+        catch java.lang.Exception from label09 to label10 with label14;
+        catch java.lang.Exception from label11 to label12 with label14;
+    }

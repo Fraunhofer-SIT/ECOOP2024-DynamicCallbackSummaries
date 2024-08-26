@@ -1,0 +1,184 @@
+    private java.util.ArrayList loadMyStockList(java.lang.String)
+    {
+        java.lang.Throwable $r6;
+        java.util.ArrayList $r2, $r5;
+        it.webxperience.PortfolioCollection $r10, $r14;
+        int $i0, $i1;
+        java.lang.String $r1, $r12;
+        it.webxperience.QuoteDaily $r9, $r13;
+        boolean $z0, $z1, $z2, $z3;
+        java.util.Iterator $r7;
+        java.io.Serializable $r4;
+        it.webxperience.Stock $r8;
+        it.webxperience.DividendCollection $r11, $r15;
+        it.webxperience.ActivityMainStocks r0;
+        java.lang.Object $r3;
+
+        r0 := @this: it.webxperience.ActivityMainStocks;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r5 = new java.util.ArrayList;
+
+        $r2 = $r5;
+
+        specialinvoke $r5.<java.util.ArrayList: void <init>()>();
+
+        $z0 = staticinvoke <it.webxperience.utils.InternalMemoryFileUtils: boolean fileExist(android.content.Context,java.lang.String)>(r0, $r1);
+
+        if $z0 != 0 goto label01;
+
+        return $r5;
+
+     label01:
+        $r3 = <it.webxperience.ActivityMainStocks: java.lang.Object sDataLock>;
+
+        entermonitor $r3;
+
+     label02:
+        $r4 = staticinvoke <it.webxperience.utils.InternalMemoryFileUtils: java.io.Serializable deserialize(android.content.Context,java.lang.String)>(r0, $r1);
+
+        $r5 = (java.util.ArrayList) $r4;
+
+        exitmonitor $r3;
+
+     label03:
+        if $r5 == null goto label04;
+
+        $i0 = virtualinvoke $r5.<java.util.ArrayList: int size()>();
+
+        if $i0 != 0 goto label08;
+
+     label04:
+        return $r2;
+
+     label05:
+        $r6 := @caughtexception;
+
+     label06:
+        exitmonitor $r3;
+
+     label07:
+        throw $r6;
+
+     label08:
+        $z0 = virtualinvoke $r1.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>("myMarkets");
+
+        $z1 = virtualinvoke $r1.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>("myCurrencies");
+
+        $z2 = virtualinvoke $r1.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>("myCurrencyInfo");
+
+        if $z0 != 0 goto label12;
+
+        if $z1 != 0 goto label12;
+
+        if $z2 != 0 goto label12;
+
+        $z1 = 1;
+
+     label09:
+        $r7 = virtualinvoke $r5.<java.util.ArrayList: java.util.Iterator iterator()>();
+
+        $z2 = 0;
+
+        $i0 = -1;
+
+     label10:
+        $z3 = interfaceinvoke $r7.<java.util.Iterator: boolean hasNext()>();
+
+        if $z3 != 0 goto label13;
+
+        if $z2 == 0 goto label11;
+
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("LoadMyStockList", "Resaving data");
+
+        specialinvoke r0.<it.webxperience.ActivityMainStocks: void saveMyStockList(java.lang.String,java.util.ArrayList,boolean)>($r1, $r2, 1);
+
+     label11:
+        return $r2;
+
+     label12:
+        $z1 = 0;
+
+        goto label09;
+
+     label13:
+        $r3 = interfaceinvoke $r7.<java.util.Iterator: java.lang.Object next()>();
+
+        $r8 = (it.webxperience.Stock) $r3;
+
+        if $r8 == null goto label10;
+
+        $i0 = $i0 + 1;
+
+        $r9 = $r8.<it.webxperience.Stock: it.webxperience.QuoteDaily dailyQuote>;
+
+        if $r9 != null goto label14;
+
+        $r13 = new it.webxperience.QuoteDaily;
+
+        specialinvoke $r13.<it.webxperience.QuoteDaily: void <init>()>();
+
+        $r8.<it.webxperience.Stock: it.webxperience.QuoteDaily dailyQuote> = $r13;
+
+     label14:
+        $i1 = $r8.<it.webxperience.Stock: int index>;
+
+        if $i1 != -1 goto label15;
+
+        $r8.<it.webxperience.Stock: int index> = $i0;
+
+        $z2 = 1;
+
+     label15:
+        if $z1 == 0 goto label17;
+
+        $r10 = $r8.<it.webxperience.Stock: it.webxperience.PortfolioCollection portfolios>;
+
+        if $r10 != null goto label16;
+
+        $r14 = new it.webxperience.PortfolioCollection;
+
+        specialinvoke $r14.<it.webxperience.PortfolioCollection: void <init>()>();
+
+        $r8.<it.webxperience.Stock: it.webxperience.PortfolioCollection portfolios> = $r14;
+
+     label16:
+        if $z1 == 0 goto label17;
+
+        $r11 = $r8.<it.webxperience.Stock: it.webxperience.DividendCollection dividends>;
+
+        if $r11 != null goto label17;
+
+        $r15 = new it.webxperience.DividendCollection;
+
+        specialinvoke $r15.<it.webxperience.DividendCollection: void <init>()>();
+
+        $r8.<it.webxperience.Stock: it.webxperience.DividendCollection dividends> = $r15;
+
+     label17:
+        if $z0 == 0 goto label19;
+
+        $r12 = $r8.<it.webxperience.Stock: java.lang.String type>;
+
+        if $r12 == null goto label18;
+
+        $r12 = $r8.<it.webxperience.Stock: java.lang.String type>;
+
+        $z3 = virtualinvoke $r12.<java.lang.String: boolean isEmpty()>();
+
+        if $z3 == 0 goto label19;
+
+     label18:
+        $r8.<it.webxperience.Stock: java.lang.String type> = "I";
+
+        $z2 = 1;
+
+     label19:
+        virtualinvoke $r2.<java.util.ArrayList: boolean add(java.lang.Object)>($r8);
+
+        goto label10;
+
+        catch java.lang.Throwable from label02 to label03 with label05;
+        catch java.lang.Throwable from label06 to label07 with label05;
+    }

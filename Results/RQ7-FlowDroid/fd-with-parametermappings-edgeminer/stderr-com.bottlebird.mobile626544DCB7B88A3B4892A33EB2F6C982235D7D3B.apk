@@ -1,0 +1,84 @@
+[main] INFO soot.jimple.infoflow.android.source.parsers.xml.XMLSourceSinkParser - Loading sources and sinks from SourcesSinks/UnconstrainedSourcesSinks.xml...
+[main] INFO soot.jimple.infoflow.android.source.parsers.xml.XMLSourceSinkParser - Loaded 273 sources and 91 sinks from the XML file
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Initializing Soot...
+[main] WARN soot.Scene - Android API version '31' not available, using minApkVersion '21' instead
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Loading dex files...
+[main] INFO soot.jimple.infoflow.android.SetupApplication - ARSC file parsing took 0.046943332 seconds
+[main] INFO soot.jimple.infoflow.memory.MemoryWarningSystem - Registered a memory warning system for 230.400 MiB
+[main] INFO soot.jimple.infoflow.memory.FlowDroidTimeoutWatcher - FlowDroid timeout watcher started
+[main] INFO soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Creating Android entry point for 27 components...
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Cannot generate constructor for phantom class androidx.core.content.FileProvider
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Cannot generate constructor for phantom class androidx.startup.InitializationProvider
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Constructing the callgraph...
+[main] ERROR soot.jimple.infoflow.android.SetupApplication - Could not calculate callback methods
+java.lang.RuntimeException: An error occurred while processing <com.instabug.library.util.DeviceStateProvider: int getBatteryLevel(android.content.Context)> in callgraph
+	at soot.jimple.spark.solver.OnFlyCallGraph.processReachables(OnFlyCallGraph.java:125)
+	at soot.jimple.spark.solver.OnFlyCallGraph.build(OnFlyCallGraph.java:106)
+	at soot.jimple.spark.solver.PropWorklist.handleVarNode(PropWorklist.java:158)
+	at soot.jimple.spark.solver.PropWorklist.propagate(PropWorklist.java:81)
+	at soot.jimple.spark.SparkTransformer.propagatePAG(SparkTransformer.java:238)
+	at soot.jimple.spark.SparkTransformer.internalTransform(SparkTransformer.java:155)
+	at soot.SceneTransformer.transform(SceneTransformer.java:36)
+	at soot.Transform.apply(Transform.java:105)
+	at soot.RadioScenePack.internalApply(RadioScenePack.java:64)
+	at soot.jimple.toolkits.callgraph.CallGraphPack.internalApply(CallGraphPack.java:61)
+	at soot.Pack.apply(Pack.java:118)
+	at soot.jimple.infoflow.android.SetupApplication.constructCallgraphInternal(SetupApplication.java:634)
+	at soot.jimple.infoflow.android.SetupApplication.calculateCallbackMethods(SetupApplication.java:752)
+	at soot.jimple.infoflow.android.SetupApplication.calculateCallbacks(SetupApplication.java:536)
+	at soot.jimple.infoflow.android.SetupApplication.calculateCallbacks(SetupApplication.java:483)
+	at soot.jimple.infoflow.android.SetupApplication.processEntryPoint(SetupApplication.java:1574)
+	at soot.jimple.infoflow.android.SetupApplication.runInfoflow(SetupApplication.java:1540)
+	at soot.jimple.infoflow.android.SetupApplication.runInfoflow(SetupApplication.java:1487)
+	at reproduction.dcidsubmit.FlowDroidSecondStep.main(FlowDroidSecondStep.java:121)
+Caused by: java.lang.RuntimeException: Attempt to create VarNode of type float
+	at soot.jimple.spark.pag.VarNode.<init>(VarNode.java:135)
+	at soot.jimple.spark.pag.LocalVarNode.<init>(LocalVarNode.java:52)
+	at soot.jimple.spark.pag.PAG.makeLocalVarNode(PAG.java:740)
+	at soot.jimple.spark.builder.MethodNodeFactory.caseLocal(MethodNodeFactory.java:344)
+	at soot.jimple.internal.JimpleLocal.apply(JimpleLocal.java:119)
+	at soot.jimple.spark.builder.MethodNodeFactory.caseCastExpr(MethodNodeFactory.java:321)
+	at soot.jimple.internal.AbstractCastExpr.apply(AbstractCastExpr.java:136)
+	at soot.jimple.spark.builder.MethodNodeFactory$1.caseAssignStmt(MethodNodeFactory.java:162)
+	at soot.jimple.internal.JAssignStmt.apply(JAssignStmt.java:217)
+	at soot.jimple.spark.builder.MethodNodeFactory.handleStmt(MethodNodeFactory.java:150)
+	at soot.jimple.spark.pag.MethodPAG.buildNormal(MethodPAG.java:224)
+	at soot.jimple.spark.pag.MethodPAG.build(MethodPAG.java:186)
+	at soot.jimple.spark.solver.OnFlyCallGraph.processReachables(OnFlyCallGraph.java:119)
+	... 18 more
+[main] INFO soot.jimple.infoflow.memory.MemoryWarningSystem - Shutting down the memory warning system...
+Exception in thread "main" java.lang.RuntimeException: An error occurred while processing <com.instabug.library.util.DeviceStateProvider: int getBatteryLevel(android.content.Context)> in callgraph
+	at soot.jimple.spark.solver.OnFlyCallGraph.processReachables(OnFlyCallGraph.java:125)
+	at soot.jimple.spark.solver.OnFlyCallGraph.build(OnFlyCallGraph.java:106)
+	at soot.jimple.spark.solver.PropWorklist.handleVarNode(PropWorklist.java:158)
+	at soot.jimple.spark.solver.PropWorklist.propagate(PropWorklist.java:81)
+	at soot.jimple.spark.SparkTransformer.propagatePAG(SparkTransformer.java:238)
+	at soot.jimple.spark.SparkTransformer.internalTransform(SparkTransformer.java:155)
+	at soot.SceneTransformer.transform(SceneTransformer.java:36)
+	at soot.Transform.apply(Transform.java:105)
+	at soot.RadioScenePack.internalApply(RadioScenePack.java:64)
+	at soot.jimple.toolkits.callgraph.CallGraphPack.internalApply(CallGraphPack.java:61)
+	at soot.Pack.apply(Pack.java:118)
+	at soot.jimple.infoflow.android.SetupApplication.constructCallgraphInternal(SetupApplication.java:634)
+	at soot.jimple.infoflow.android.SetupApplication.calculateCallbackMethods(SetupApplication.java:752)
+	at soot.jimple.infoflow.android.SetupApplication.calculateCallbacks(SetupApplication.java:536)
+	at soot.jimple.infoflow.android.SetupApplication.calculateCallbacks(SetupApplication.java:483)
+	at soot.jimple.infoflow.android.SetupApplication.processEntryPoint(SetupApplication.java:1574)
+	at soot.jimple.infoflow.android.SetupApplication.runInfoflow(SetupApplication.java:1540)
+	at soot.jimple.infoflow.android.SetupApplication.runInfoflow(SetupApplication.java:1487)
+	at reproduction.dcidsubmit.FlowDroidSecondStep.main(FlowDroidSecondStep.java:121)
+Caused by: java.lang.RuntimeException: Attempt to create VarNode of type float
+	at soot.jimple.spark.pag.VarNode.<init>(VarNode.java:135)
+	at soot.jimple.spark.pag.LocalVarNode.<init>(LocalVarNode.java:52)
+	at soot.jimple.spark.pag.PAG.makeLocalVarNode(PAG.java:740)
+	at soot.jimple.spark.builder.MethodNodeFactory.caseLocal(MethodNodeFactory.java:344)
+	at soot.jimple.internal.JimpleLocal.apply(JimpleLocal.java:119)
+	at soot.jimple.spark.builder.MethodNodeFactory.caseCastExpr(MethodNodeFactory.java:321)
+	at soot.jimple.internal.AbstractCastExpr.apply(AbstractCastExpr.java:136)
+	at soot.jimple.spark.builder.MethodNodeFactory$1.caseAssignStmt(MethodNodeFactory.java:162)
+	at soot.jimple.internal.JAssignStmt.apply(JAssignStmt.java:217)
+	at soot.jimple.spark.builder.MethodNodeFactory.handleStmt(MethodNodeFactory.java:150)
+	at soot.jimple.spark.pag.MethodPAG.buildNormal(MethodPAG.java:224)
+	at soot.jimple.spark.pag.MethodPAG.build(MethodPAG.java:186)
+	at soot.jimple.spark.solver.OnFlyCallGraph.processReachables(OnFlyCallGraph.java:119)
+	... 18 more

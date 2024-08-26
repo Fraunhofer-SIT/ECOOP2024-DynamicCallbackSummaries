@@ -1,0 +1,86 @@
+    final void write(org.json.JSONObject, java.lang.Boolean)
+    {
+        java.lang.Throwable $r8;
+        java.util.Iterator $r3;
+        o.ai$4 $r7;
+        org.json.JSONObject $r1;
+        o.ai r0;
+        int $i0;
+        java.lang.Boolean $r2;
+        java.lang.Object $r4;
+        com.clevertap.android.sdk.CleverTapInstanceConfig $r6;
+        java.lang.String $r5;
+        boolean $z0;
+        com.facebook.GraphRequest$ParcelableResourceWithMimeType$AudioAttributesCompatParcelizer $r9;
+
+        r0 := @this: o.ai;
+
+        $r1 := @parameter0: org.json.JSONObject;
+
+        $r2 := @parameter1: java.lang.Boolean;
+
+     label1:
+        $r3 = virtualinvoke $r1.<org.json.JSONObject: java.util.Iterator keys()>();
+
+     label2:
+        $z0 = interfaceinvoke $r3.<java.util.Iterator: boolean hasNext()>();
+
+     label3:
+        if $z0 == 0 goto label6;
+
+     label4:
+        $r4 = interfaceinvoke $r3.<java.util.Iterator: java.lang.Object next()>();
+
+        $r5 = virtualinvoke $r4.<java.lang.Object: java.lang.String toString()>();
+
+        $r4 = virtualinvoke $r1.<org.json.JSONObject: java.lang.Object get(java.lang.String)>($r5);
+
+        virtualinvoke r0.<o.ai: void RemoteActionCompatParcelizer(java.lang.String,java.lang.Object,java.lang.Boolean,boolean)>($r5, $r4, $r2, 0);
+
+     label5:
+        goto label2;
+
+     label6:
+        $r6 = r0.<o.ai: com.clevertap.android.sdk.CleverTapInstanceConfig read>;
+
+        $r5 = $r6.<com.clevertap.android.sdk.CleverTapInstanceConfig: java.lang.String IconCompatParcelizer>;
+
+        $r7 = new o.ai$4;
+
+        specialinvoke $r7.<o.ai$4: void <init>(o.ai,java.lang.String)>(r0, $r5);
+
+        specialinvoke r0.<o.ai: void write(java.lang.String,java.lang.Runnable)>("LocalDataStore#persistLocalProfileAsync", $r7);
+
+     label7:
+        return;
+
+     label8:
+        $r8 := @caughtexception;
+
+        $r6 = r0.<o.ai: com.clevertap.android.sdk.CleverTapInstanceConfig read>;
+
+        $r9 = $r6.<com.clevertap.android.sdk.CleverTapInstanceConfig: com.facebook.GraphRequest$ParcelableResourceWithMimeType$AudioAttributesCompatParcelizer RatingCompat>;
+
+        if $r9 != null goto label9;
+
+        $r9 = new com.facebook.GraphRequest$ParcelableResourceWithMimeType$AudioAttributesCompatParcelizer;
+
+        $i0 = $r6.<com.clevertap.android.sdk.CleverTapInstanceConfig: int AudioAttributesImplBaseParcelizer>;
+
+        specialinvoke $r9.<com.facebook.GraphRequest$ParcelableResourceWithMimeType$AudioAttributesCompatParcelizer: void <init>(int)>($i0);
+
+        $r6.<com.clevertap.android.sdk.CleverTapInstanceConfig: com.facebook.GraphRequest$ParcelableResourceWithMimeType$AudioAttributesCompatParcelizer RatingCompat> = $r9;
+
+     label9:
+        $r6 = r0.<o.ai: com.clevertap.android.sdk.CleverTapInstanceConfig read>;
+
+        $r5 = $r6.<com.clevertap.android.sdk.CleverTapInstanceConfig: java.lang.String IconCompatParcelizer>;
+
+        staticinvoke <com.facebook.GraphRequest$ParcelableResourceWithMimeType$AudioAttributesCompatParcelizer: void read(java.lang.String,java.lang.String,java.lang.Throwable)>($r5, "Failed to set profile fields", $r8);
+
+        return;
+
+        catch java.lang.Throwable from label1 to label3 with label8;
+        catch java.lang.Throwable from label4 to label5 with label8;
+        catch java.lang.Throwable from label6 to label7 with label8;
+    }

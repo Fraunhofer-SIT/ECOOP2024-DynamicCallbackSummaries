@@ -1,0 +1,120 @@
+    public static void a(java.lang.String, java.lang.String)
+    {
+        java.lang.Throwable $r7;
+        java.io.BufferedWriter $r3, $r5;
+        java.io.FileWriter $r6;
+        java.io.File $r0, $r4;
+        java.lang.Exception $r8;
+        java.lang.String $r1, $r2;
+        boolean $z0;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r0 = new java.io.File;
+
+        specialinvoke $r0.<java.io.File: void <init>(java.lang.String)>($r1);
+
+        $z0 = virtualinvoke $r0.<java.io.File: boolean exists()>();
+
+        if $z0 == 0 goto label01;
+
+        virtualinvoke $r0.<java.io.File: boolean delete()>();
+
+     label01:
+        $r3 = null;
+
+     label02:
+        $r4 = virtualinvoke $r0.<java.io.File: java.io.File getParentFile()>();
+
+        $z0 = virtualinvoke $r4.<java.io.File: boolean exists()>();
+
+     label03:
+        if $z0 != 0 goto label06;
+
+     label04:
+        $z0 = virtualinvoke $r4.<java.io.File: boolean mkdirs()>();
+
+     label05:
+        goto label07;
+
+     label06:
+        $z0 = 1;
+
+     label07:
+        if $z0 == 0 goto label19;
+
+     label08:
+        $z0 = virtualinvoke $r0.<java.io.File: boolean createNewFile()>();
+
+     label09:
+        if $z0 == 0 goto label19;
+
+     label10:
+        $r5 = new java.io.BufferedWriter;
+
+        $r6 = new java.io.FileWriter;
+
+     label11:
+        specialinvoke $r6.<java.io.FileWriter: void <init>(java.io.File)>($r0);
+
+        specialinvoke $r5.<java.io.BufferedWriter: void <init>(java.io.Writer)>($r6);
+
+     label12:
+        virtualinvoke $r5.<java.io.BufferedWriter: void write(java.lang.String)>($r2);
+
+        virtualinvoke $r5.<java.io.BufferedWriter: void flush()>();
+
+     label13:
+        $r3 = $r5;
+
+        goto label19;
+
+     label14:
+        $r7 := @caughtexception;
+
+        $r3 = $r5;
+
+        goto label20;
+
+     label15:
+        $r8 := @caughtexception;
+
+        $r3 = $r5;
+
+        goto label18;
+
+     label16:
+        $r7 := @caughtexception;
+
+        goto label20;
+
+     label17:
+        $r8 := @caughtexception;
+
+     label18:
+        staticinvoke <l.kvm: void a(java.lang.Exception)>($r8);
+
+     label19:
+        staticinvoke <l.kvf: void a(java.io.Closeable)>($r3);
+
+        return;
+
+     label20:
+        staticinvoke <l.kvf: void a(java.io.Closeable)>($r3);
+
+        throw $r7;
+
+        catch java.lang.Exception from label02 to label03 with label17;
+        catch java.lang.Exception from label04 to label05 with label17;
+        catch java.lang.Exception from label08 to label09 with label17;
+        catch java.lang.Exception from label11 to label12 with label17;
+        catch java.lang.Throwable from label02 to label03 with label16;
+        catch java.lang.Throwable from label04 to label05 with label16;
+        catch java.lang.Throwable from label08 to label09 with label16;
+        catch java.lang.Throwable from label10 to label12 with label16;
+        catch java.lang.Exception from label12 to label13 with label15;
+        catch java.lang.Throwable from label12 to label13 with label14;
+        catch java.lang.Throwable from label18 to label19 with label16;
+    }

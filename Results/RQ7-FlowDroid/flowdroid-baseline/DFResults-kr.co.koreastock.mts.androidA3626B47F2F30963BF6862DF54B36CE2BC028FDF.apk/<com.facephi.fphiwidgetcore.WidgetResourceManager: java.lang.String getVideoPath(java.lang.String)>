@@ -1,0 +1,199 @@
+    public java.lang.String getVideoPath(java.lang.String)
+    {
+        java.lang.Throwable $r13;
+        android.content.Context $r10;
+        byte[] $r12;
+        com.facephi.fphiwidgetcore.WidgetResourceManager r0;
+        java.lang.String[] $r2;
+        java.util.HashMap $r4;
+        java.io.BufferedOutputStream $r17;
+        int $i0;
+        java.util.zip.ZipFile $r7;
+        java.lang.String $r1, $r3, $r6;
+        java.util.zip.ZipEntry $r8;
+        boolean $z0;
+        java.io.FileOutputStream $r16;
+        java.io.IOException $r18;
+        java.io.File $r11;
+        java.lang.Exception $r14;
+        java.lang.Object $r5;
+        java.lang.StringBuilder $r15;
+        java.io.InputStream $r9;
+
+        r0 := @this: com.facephi.fphiwidgetcore.WidgetResourceManager;
+
+        $r1 := @parameter0: java.lang.String;
+
+        staticinvoke <java.lang.System: long nanoTime()>();
+
+        $z0 = virtualinvoke $r1.<java.lang.String: boolean equals(java.lang.Object)>("");
+
+        if $z0 == 0 goto label01;
+
+        return "";
+
+     label01:
+        $r2 = virtualinvoke $r1.<java.lang.String: java.lang.String[] split(java.lang.String)>(",");
+
+        $i0 = lengthof $r2;
+
+        if $i0 < 2 goto label02;
+
+        $i0 = lengthof $r2;
+
+        $i0 = $i0 + -1;
+
+        $i0 = specialinvoke r0.<com.facephi.fphiwidgetcore.WidgetResourceManager: int getUniformRandomNumber(int,int)>(0, $i0);
+
+        $r1 = $r2[$i0];
+
+        $r1 = virtualinvoke $r1.<java.lang.String: java.lang.String trim()>();
+
+     label02:
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("resources/");
+
+        $i0 = r0.<com.facephi.fphiwidgetcore.WidgetResourceManager: int _DPIResources>;
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("dpi/");
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r3 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r4 = r0.<com.facephi.fphiwidgetcore.WidgetResourceManager: java.util.HashMap _widgetVideos>;
+
+        $r5 = virtualinvoke $r4.<java.util.HashMap: java.lang.Object get(java.lang.Object)>($r3);
+
+        $r6 = (java.lang.String) $r5;
+
+        if $r6 == null goto label03;
+
+        return $r6;
+
+     label03:
+        $r7 = r0.<com.facephi.fphiwidgetcore.WidgetResourceManager: java.util.zip.ZipFile _resourcesFile>;
+
+        $r8 = virtualinvoke $r7.<java.util.zip.ZipFile: java.util.zip.ZipEntry getEntry(java.lang.String)>($r3);
+
+        $r9 = virtualinvoke $r7.<java.util.zip.ZipFile: java.io.InputStream getInputStream(java.util.zip.ZipEntry)>($r8);
+
+     label04:
+        if $r9 != null goto label05;
+
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("File \'");
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\' not found");
+
+        $r1 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("ResourceManager", $r1);
+
+        return "";
+
+     label05:
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/tmp-");
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        $r10 = r0.<com.facephi.fphiwidgetcore.WidgetResourceManager: android.content.Context _context>;
+
+        $r11 = virtualinvoke $r10.<android.content.Context: java.io.File getCacheDir()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r11);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r12 = newarray (byte)[8192];
+
+        $r17 = new java.io.BufferedOutputStream;
+
+        $r16 = new java.io.FileOutputStream;
+
+     label06:
+        specialinvoke $r16.<java.io.FileOutputStream: void <init>(java.lang.String)>($r1);
+
+        specialinvoke $r17.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r16);
+
+     label07:
+        $i0 = virtualinvoke $r9.<java.io.InputStream: int read(byte[],int,int)>($r12, 0, 8192);
+
+     label08:
+        if $i0 <= 0 goto label11;
+
+     label09:
+        virtualinvoke $r17.<java.io.BufferedOutputStream: void write(byte[],int,int)>($r12, 0, $i0);
+
+     label10:
+        goto label07;
+
+     label11:
+        virtualinvoke $r17.<java.io.BufferedOutputStream: void close()>();
+
+        virtualinvoke $r9.<java.io.InputStream: void close()>();
+
+     label12:
+        $r4 = r0.<com.facephi.fphiwidgetcore.WidgetResourceManager: java.util.HashMap _widgetVideos>;
+
+        virtualinvoke $r4.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>($r3, $r1);
+
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("File \'");
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\' loaded");
+
+        $r3 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int v(java.lang.String,java.lang.String)>("ResourceManager", $r3);
+
+        return $r1;
+
+     label13:
+        $r13 := @caughtexception;
+
+        $r18 = (java.io.IOException) $r13;
+
+        virtualinvoke $r18.<java.io.IOException: void printStackTrace()>();
+
+        return "";
+
+     label14:
+        $r14 := @caughtexception;
+
+        virtualinvoke $r14.<java.lang.Exception: void printStackTrace()>();
+
+        return "";
+
+        catch java.lang.Exception from label03 to label04 with label14;
+        catch java.io.IOException from label06 to label08 with label13;
+        catch java.io.IOException from label09 to label10 with label13;
+        catch java.io.IOException from label11 to label12 with label13;
+    }

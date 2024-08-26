@@ -1,0 +1,285 @@
+    private void lambda$parseFontJson$10()
+    {
+        byte[] $r14;
+        java.io.ByteArrayOutputStream $r18;
+        java.util.concurrent.atomic.AtomicBoolean $r9;
+        org.json.JSONException $r7, $r15;
+        org.json.JSONObject $r17;
+        android.content.res.AssetManager $r12;
+        java.util.Locale $r6;
+        int $i0;
+        java.lang.String $r1, $r5, $r8;
+        boolean $z0;
+        notes.easy.android.mynotes.App $r11;
+        notes.easy.android.mynotes.ui.activities.MainActivity r0;
+        java.lang.Exception $r2, $r3, $r16;
+        notes.easy.android.mynotes.firebase.FirebaseReportUtils $r10;
+        notes.easy.android.mynotes.constant.UserConfig $r4;
+        java.io.InputStream $r13;
+
+        r0 := @this: notes.easy.android.mynotes.ui.activities.MainActivity;
+
+        $r4 = r0.<notes.easy.android.mynotes.ui.activities.MainActivity: notes.easy.android.mynotes.constant.UserConfig userPreferences>;
+
+        $r5 = virtualinvoke $r4.<notes.easy.android.mynotes.constant.UserConfig: java.lang.String getCurrentFontConfig()>();
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r5);
+
+        $r1 = "zh_CN";
+
+        if $z0 != 0 goto label08;
+
+        $r6 = <notes.easy.android.mynotes.ui.activities.MainActivity: java.util.Locale locale>;
+
+        if $r6 != null goto label04;
+
+        $r17 = new org.json.JSONObject;
+
+     label01:
+        specialinvoke $r17.<org.json.JSONObject: void <init>(java.lang.String)>($r5);
+
+        specialinvoke r0.<notes.easy.android.mynotes.ui.activities.MainActivity: void initFontBeanAndSortList(org.json.JSONObject,java.lang.String)>($r17, "en");
+
+     label02:
+        goto label07;
+
+     label03:
+        $r7 := @caughtexception;
+
+        virtualinvoke $r7.<org.json.JSONException: void printStackTrace()>();
+
+        goto label07;
+
+     label04:
+        $r8 = virtualinvoke $r6.<java.util.Locale: java.lang.String toString()>();
+
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean contains(java.lang.CharSequence)>("zh_");
+
+        if $z0 == 0 goto label06;
+
+        $r6 = <notes.easy.android.mynotes.ui.activities.MainActivity: java.util.Locale locale>;
+
+        $r8 = virtualinvoke $r6.<java.util.Locale: java.lang.String toString()>();
+
+        $z0 = virtualinvoke $r1.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>($r8);
+
+        if $z0 == 0 goto label05;
+
+        specialinvoke r0.<notes.easy.android.mynotes.ui.activities.MainActivity: void judgeFontExist(java.lang.String,java.lang.String)>($r5, "zh_CN");
+
+        goto label07;
+
+     label05:
+        specialinvoke r0.<notes.easy.android.mynotes.ui.activities.MainActivity: void judgeFontExist(java.lang.String,java.lang.String)>($r5, "zh_TW");
+
+        goto label07;
+
+     label06:
+        $r6 = <notes.easy.android.mynotes.ui.activities.MainActivity: java.util.Locale locale>;
+
+        $r1 = virtualinvoke $r6.<java.util.Locale: java.lang.String toString()>();
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r1);
+
+        if $z0 != 0 goto label07;
+
+        $r6 = <notes.easy.android.mynotes.ui.activities.MainActivity: java.util.Locale locale>;
+
+        $r1 = virtualinvoke $r6.<java.util.Locale: java.lang.String toString()>();
+
+        $i0 = virtualinvoke $r1.<java.lang.String: int length()>();
+
+        if $i0 < 2 goto label07;
+
+        $r6 = <notes.easy.android.mynotes.ui.activities.MainActivity: java.util.Locale locale>;
+
+        $r1 = virtualinvoke $r6.<java.util.Locale: java.lang.String toString()>();
+
+        $r1 = virtualinvoke $r1.<java.lang.String: java.lang.String substring(int,int)>(0, 2);
+
+        specialinvoke r0.<notes.easy.android.mynotes.ui.activities.MainActivity: void judgeFontExist(java.lang.String,java.lang.String)>($r5, $r1);
+
+     label07:
+        $r9 = r0.<notes.easy.android.mynotes.ui.activities.MainActivity: java.util.concurrent.atomic.AtomicBoolean parseSuccess>;
+
+        $z0 = virtualinvoke $r9.<java.util.concurrent.atomic.AtomicBoolean: boolean get()>();
+
+        if $z0 == 0 goto label46;
+
+        $r10 = staticinvoke <notes.easy.android.mynotes.firebase.FirebaseReportUtils: notes.easy.android.mynotes.firebase.FirebaseReportUtils getInstance()>();
+
+        virtualinvoke $r10.<notes.easy.android.mynotes.firebase.FirebaseReportUtils: void reportNew(java.lang.String)>("edit_tool_font_parse_json_OK");
+
+        return;
+
+     label08:
+        $r11 = <notes.easy.android.mynotes.App: notes.easy.android.mynotes.App app>;
+
+     label09:
+        $r12 = virtualinvoke $r11.<notes.easy.android.mynotes.App: android.content.res.AssetManager getAssets()>();
+
+        $r13 = virtualinvoke $r12.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>("local_fonts_test.json");
+
+     label10:
+        $r18 = new java.io.ByteArrayOutputStream;
+
+     label11:
+        specialinvoke $r18.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label12:
+        $r14 = newarray (byte)[4096];
+
+     label13:
+        $i0 = virtualinvoke $r13.<java.io.InputStream: int read(byte[])>($r14);
+
+     label14:
+        if $i0 == -1 goto label17;
+
+     label15:
+        virtualinvoke $r18.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r14, 0, $i0);
+
+     label16:
+        goto label13;
+
+     label17:
+        $r8 = new java.lang.String;
+
+        $r5 = $r8;
+
+     label18:
+        $r14 = virtualinvoke $r18.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        specialinvoke $r8.<java.lang.String: void <init>(byte[])>($r14);
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r8);
+
+     label19:
+        if $z0 != 0 goto label46;
+
+        $r6 = <notes.easy.android.mynotes.ui.activities.MainActivity: java.util.Locale locale>;
+
+        if $r6 != null goto label25;
+
+        $r17 = new org.json.JSONObject;
+
+     label20:
+        specialinvoke $r17.<org.json.JSONObject: void <init>(java.lang.String)>($r8);
+
+        specialinvoke r0.<notes.easy.android.mynotes.ui.activities.MainActivity: void initFontBeanAndSortList(org.json.JSONObject,java.lang.String)>($r17, "en");
+
+     label21:
+        return;
+
+     label22:
+        $r15 := @caughtexception;
+
+     label23:
+        virtualinvoke $r15.<org.json.JSONException: void printStackTrace()>();
+
+     label24:
+        return;
+
+     label25:
+        $r6 = <notes.easy.android.mynotes.ui.activities.MainActivity: java.util.Locale locale>;
+
+     label26:
+        $r8 = virtualinvoke $r6.<java.util.Locale: java.lang.String toString()>();
+
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean contains(java.lang.CharSequence)>("zh_");
+
+     label27:
+        if $z0 == 0 goto label34;
+
+        $r6 = <notes.easy.android.mynotes.ui.activities.MainActivity: java.util.Locale locale>;
+
+     label28:
+        $r8 = virtualinvoke $r6.<java.util.Locale: java.lang.String toString()>();
+
+        $z0 = virtualinvoke $r1.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>($r8);
+
+     label29:
+        if $z0 == 0 goto label32;
+
+     label30:
+        specialinvoke r0.<notes.easy.android.mynotes.ui.activities.MainActivity: void judgeFontExist(java.lang.String,java.lang.String)>($r5, "zh_CN");
+
+     label31:
+        return;
+
+     label32:
+        specialinvoke r0.<notes.easy.android.mynotes.ui.activities.MainActivity: void judgeFontExist(java.lang.String,java.lang.String)>($r5, "zh_TW");
+
+     label33:
+        return;
+
+     label34:
+        $r6 = <notes.easy.android.mynotes.ui.activities.MainActivity: java.util.Locale locale>;
+
+     label35:
+        $r1 = virtualinvoke $r6.<java.util.Locale: java.lang.String toString()>();
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r1);
+
+     label36:
+        if $z0 != 0 goto label46;
+
+        $r6 = <notes.easy.android.mynotes.ui.activities.MainActivity: java.util.Locale locale>;
+
+     label37:
+        $r1 = virtualinvoke $r6.<java.util.Locale: java.lang.String toString()>();
+
+        $i0 = virtualinvoke $r1.<java.lang.String: int length()>();
+
+     label38:
+        if $i0 < 2 goto label46;
+
+        $r6 = <notes.easy.android.mynotes.ui.activities.MainActivity: java.util.Locale locale>;
+
+     label39:
+        $r1 = virtualinvoke $r6.<java.util.Locale: java.lang.String toString()>();
+
+        $r1 = virtualinvoke $r1.<java.lang.String: java.lang.String substring(int,int)>(0, 2);
+
+        specialinvoke r0.<notes.easy.android.mynotes.ui.activities.MainActivity: void judgeFontExist(java.lang.String,java.lang.String)>($r5, $r1);
+
+     label40:
+        return;
+
+     label41:
+        $r16 := @caughtexception;
+
+     label42:
+        virtualinvoke $r16.<java.lang.Exception: void printStackTrace()>();
+
+     label43:
+        return;
+
+     label44:
+        $r2 := @caughtexception;
+
+        return;
+
+     label45:
+        $r3 := @caughtexception;
+
+     label46:
+        return;
+
+        catch org.json.JSONException from label01 to label02 with label03;
+        catch java.lang.Exception from label09 to label10 with label44;
+        catch java.lang.Exception from label11 to label12 with label44;
+        catch java.lang.Exception from label13 to label14 with label44;
+        catch java.lang.Exception from label15 to label16 with label44;
+        catch java.lang.Exception from label18 to label19 with label44;
+        catch org.json.JSONException from label20 to label21 with label22;
+        catch java.lang.Exception from label20 to label21 with label41;
+        catch java.lang.Exception from label23 to label24 with label41;
+        catch java.lang.Exception from label26 to label27 with label41;
+        catch java.lang.Exception from label28 to label29 with label41;
+        catch java.lang.Exception from label30 to label31 with label41;
+        catch java.lang.Exception from label32 to label33 with label41;
+        catch java.lang.Exception from label35 to label36 with label41;
+        catch java.lang.Exception from label37 to label38 with label41;
+        catch java.lang.Exception from label39 to label40 with label41;
+        catch java.lang.Exception from label42 to label43 with label45;
+    }

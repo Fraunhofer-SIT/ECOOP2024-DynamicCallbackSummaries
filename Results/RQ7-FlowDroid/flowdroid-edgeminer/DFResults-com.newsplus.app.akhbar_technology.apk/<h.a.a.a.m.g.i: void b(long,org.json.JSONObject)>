@@ -1,0 +1,108 @@
+    public void b(long, org.json.JSONObject)
+    {
+        java.lang.Throwable $r10;
+        h.a.a.a.m.g.i r0;
+        java.io.FileWriter $r3, $r4;
+        long $l0;
+        java.io.File $r5, $r8;
+        java.lang.Exception $r11;
+        h.a.a.a.h $r7;
+        org.json.JSONObject $r1;
+        h.a.a.a.k $r2;
+        h.a.a.a.m.f.b $r6;
+        java.lang.String $r9;
+
+        r0 := @this: h.a.a.a.m.g.i;
+
+        $l0 := @parameter0: long;
+
+        $r1 := @parameter1: org.json.JSONObject;
+
+        $r2 = staticinvoke <h.a.a.a.c: h.a.a.a.k p()>();
+
+        interfaceinvoke $r2.<h.a.a.a.k: void d(java.lang.String,java.lang.String)>("Fabric", "Writing settings to cache file...");
+
+        if $r1 == null goto label13;
+
+        $r3 = null;
+
+     label01:
+        virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,long)>("expires_at", $l0);
+
+     label02:
+        $r4 = new java.io.FileWriter;
+
+        $r5 = new java.io.File;
+
+        $r6 = new h.a.a.a.m.f.b;
+
+     label03:
+        $r7 = r0.<h.a.a.a.m.g.i: h.a.a.a.h a>;
+
+        specialinvoke $r6.<h.a.a.a.m.f.b: void <init>(h.a.a.a.h)>($r7);
+
+        $r8 = virtualinvoke $r6.<h.a.a.a.m.f.b: java.io.File getFilesDir()>();
+
+        specialinvoke $r5.<java.io.File: void <init>(java.io.File,java.lang.String)>($r8, "com.crashlytics.settings.json");
+
+        specialinvoke $r4.<java.io.FileWriter: void <init>(java.io.File)>($r5);
+
+     label04:
+        $r9 = virtualinvoke $r1.<org.json.JSONObject: java.lang.String toString()>();
+
+        virtualinvoke $r4.<java.io.FileWriter: void write(java.lang.String)>($r9);
+
+        virtualinvoke $r4.<java.io.FileWriter: void flush()>();
+
+     label05:
+        staticinvoke <h.a.a.a.m.b.i: void e(java.io.Closeable,java.lang.String)>($r4, "Failed to close settings writer.");
+
+        return;
+
+     label06:
+        $r10 := @caughtexception;
+
+        $r3 = $r4;
+
+        goto label12;
+
+     label07:
+        $r11 := @caughtexception;
+
+        $r3 = $r4;
+
+        goto label10;
+
+     label08:
+        $r10 := @caughtexception;
+
+        goto label12;
+
+     label09:
+        $r11 := @caughtexception;
+
+     label10:
+        $r2 = staticinvoke <h.a.a.a.c: h.a.a.a.k p()>();
+
+        interfaceinvoke $r2.<h.a.a.a.k: void e(java.lang.String,java.lang.String,java.lang.Throwable)>("Fabric", "Failed to cache settings", $r11);
+
+     label11:
+        staticinvoke <h.a.a.a.m.b.i: void e(java.io.Closeable,java.lang.String)>($r3, "Failed to close settings writer.");
+
+        return;
+
+     label12:
+        staticinvoke <h.a.a.a.m.b.i: void e(java.io.Closeable,java.lang.String)>($r3, "Failed to close settings writer.");
+
+        throw $r10;
+
+     label13:
+        return;
+
+        catch java.lang.Exception from label01 to label02 with label09;
+        catch java.lang.Exception from label03 to label04 with label09;
+        catch java.lang.Throwable from label01 to label04 with label08;
+        catch java.lang.Exception from label04 to label05 with label07;
+        catch java.lang.Throwable from label04 to label05 with label06;
+        catch java.lang.Throwable from label10 to label11 with label08;
+    }

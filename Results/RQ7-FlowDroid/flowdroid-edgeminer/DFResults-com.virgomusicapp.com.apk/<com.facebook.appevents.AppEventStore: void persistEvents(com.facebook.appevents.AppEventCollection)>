@@ -1,0 +1,102 @@
+    public static final void persistEvents(com.facebook.appevents.AppEventCollection)
+    {
+        java.lang.Throwable $r10, $r11;
+        java.lang.IllegalStateException $r9;
+        java.util.Iterator $r3;
+        java.util.Set $r2;
+        com.facebook.appevents.SessionEventsState $r6;
+        java.util.List $r7;
+        com.facebook.appevents.AccessTokenAppIdPair $r5;
+        java.lang.Object $r4;
+        java.lang.String $r8;
+        com.facebook.appevents.AppEventCollection $r0;
+        boolean $z0;
+        com.facebook.appevents.PersistedEvents $r1;
+
+        $r0 := @parameter0: com.facebook.appevents.AppEventCollection;
+
+        entermonitor class "Lcom/facebook/appevents/AppEventStore;";
+
+     label01:
+        $z0 = staticinvoke <com.facebook.internal.instrument.crashshield.CrashShieldHandler: boolean isObjectCrashing(java.lang.Object)>(class "Lcom/facebook/appevents/AppEventStore;");
+
+     label02:
+        if $z0 == 0 goto label03;
+
+        exitmonitor class "Lcom/facebook/appevents/AppEventStore;";
+
+        return;
+
+     label03:
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkNotNullParameter(java.lang.Object,java.lang.String)>($r0, "eventsToPersist");
+
+        staticinvoke <com.facebook.appevents.internal.AppEventUtility: void assertIsNotMainThread()>();
+
+        $r1 = staticinvoke <com.facebook.appevents.AppEventStore: com.facebook.appevents.PersistedEvents readAndClearStore()>();
+
+        $r2 = virtualinvoke $r0.<com.facebook.appevents.AppEventCollection: java.util.Set keySet()>();
+
+        $r3 = interfaceinvoke $r2.<java.util.Set: java.util.Iterator iterator()>();
+
+     label04:
+        $z0 = interfaceinvoke $r3.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label06;
+
+        $r4 = interfaceinvoke $r3.<java.util.Iterator: java.lang.Object next()>();
+
+        $r5 = (com.facebook.appevents.AccessTokenAppIdPair) $r4;
+
+        $r6 = virtualinvoke $r0.<com.facebook.appevents.AppEventCollection: com.facebook.appevents.SessionEventsState get(com.facebook.appevents.AccessTokenAppIdPair)>($r5);
+
+        if $r6 == null goto label05;
+
+        $r7 = virtualinvoke $r6.<com.facebook.appevents.SessionEventsState: java.util.List getEventsToPersist()>();
+
+        virtualinvoke $r1.<com.facebook.appevents.PersistedEvents: void addEvents(com.facebook.appevents.AccessTokenAppIdPair,java.util.List)>($r5, $r7);
+
+        goto label04;
+
+     label05:
+        $r8 = "Required value was null.";
+
+        $r9 = new java.lang.IllegalStateException;
+
+        $r8 = virtualinvoke $r8.<java.lang.Object: java.lang.String toString()>();
+
+        specialinvoke $r9.<java.lang.IllegalStateException: void <init>(java.lang.String)>($r8);
+
+        $r10 = (java.lang.Throwable) $r9;
+
+        throw $r10;
+
+     label06:
+        staticinvoke <com.facebook.appevents.AppEventStore: void saveEventsToDisk$facebook_core_release(com.facebook.appevents.PersistedEvents)>($r1);
+
+     label07:
+        exitmonitor class "Lcom/facebook/appevents/AppEventStore;";
+
+        return;
+
+     label08:
+        $r10 := @caughtexception;
+
+     label09:
+        staticinvoke <com.facebook.internal.instrument.crashshield.CrashShieldHandler: void handleThrowable(java.lang.Throwable,java.lang.Object)>($r10, class "Lcom/facebook/appevents/AppEventStore;");
+
+     label10:
+        exitmonitor class "Lcom/facebook/appevents/AppEventStore;";
+
+        return;
+
+     label11:
+        $r11 := @caughtexception;
+
+        exitmonitor class "Lcom/facebook/appevents/AppEventStore;";
+
+        throw $r11;
+
+        catch java.lang.Throwable from label01 to label02 with label11;
+        catch java.lang.Throwable from label03 to label07 with label08;
+        catch java.lang.Throwable from label09 to label10 with label11;
+    }

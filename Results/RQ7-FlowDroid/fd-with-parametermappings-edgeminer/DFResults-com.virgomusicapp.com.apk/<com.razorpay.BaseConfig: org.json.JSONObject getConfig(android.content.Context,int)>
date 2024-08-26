@@ -1,0 +1,112 @@
+    static org.json.JSONObject getConfig(android.content.Context, int)
+    {
+        java.lang.Throwable $r8;
+        android.content.Context $r2;
+        java.io.StringWriter $r9;
+        java.io.InputStreamReader $r10;
+        java.lang.Exception $r0, $r1;
+        org.json.JSONObject $r12;
+        int $i0;
+        char[] $r7;
+        java.lang.String $r3, $r4;
+        java.io.BufferedReader $r11;
+        android.content.res.Resources $r5;
+        java.io.InputStream $r6;
+
+        $r2 := @parameter0: android.content.Context;
+
+        $i0 := @parameter1: int;
+
+        $r3 = staticinvoke <com.razorpay.BaseConfig: java.lang.String getConfigDataFromPreferences(android.content.Context)>($r2);
+
+        $r4 = $r3;
+
+        if $r3 != null goto label16;
+
+     label01:
+        $r5 = virtualinvoke $r2.<android.content.Context: android.content.res.Resources getResources()>();
+
+        $r6 = virtualinvoke $r5.<android.content.res.Resources: java.io.InputStream openRawResource(int)>($i0);
+
+     label02:
+        $r9 = new java.io.StringWriter;
+
+     label03:
+        specialinvoke $r9.<java.io.StringWriter: void <init>()>();
+
+     label04:
+        $r7 = newarray (char)[1024];
+
+     label05:
+        $r11 = new java.io.BufferedReader;
+
+     label06:
+        $r10 = new java.io.InputStreamReader;
+
+     label07:
+        specialinvoke $r10.<java.io.InputStreamReader: void <init>(java.io.InputStream,java.lang.String)>($r6, "UTF-8");
+
+        specialinvoke $r11.<java.io.BufferedReader: void <init>(java.io.Reader)>($r10);
+
+     label08:
+        $i0 = virtualinvoke $r11.<java.io.Reader: int read(char[])>($r7);
+
+     label09:
+        if $i0 == -1 goto label12;
+
+     label10:
+        virtualinvoke $r9.<java.io.Writer: void write(char[],int,int)>($r7, 0, $i0);
+
+     label11:
+        goto label08;
+
+     label12:
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+        $r3 = virtualinvoke $r9.<java.lang.Object: java.lang.String toString()>();
+
+     label13:
+        $r4 = $r3;
+
+        goto label16;
+
+     label14:
+        $r8 := @caughtexception;
+
+     label15:
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+        throw $r8;
+
+     label16:
+        $r12 = new org.json.JSONObject;
+
+     label17:
+        specialinvoke $r12.<org.json.JSONObject: void <init>(java.lang.String)>($r4);
+
+     label18:
+        return $r12;
+
+     label19:
+        return null;
+
+     label20:
+        $r0 := @caughtexception;
+
+        goto label19;
+
+     label21:
+        $r1 := @caughtexception;
+
+        goto label19;
+
+        catch java.lang.Exception from label01 to label02 with label20;
+        catch java.lang.Exception from label03 to label04 with label20;
+        catch java.lang.Throwable from label05 to label06 with label14;
+        catch java.lang.Throwable from label06 to label07 with label14;
+        catch java.lang.Throwable from label07 to label09 with label14;
+        catch java.lang.Throwable from label10 to label11 with label14;
+        catch java.lang.Exception from label12 to label13 with label21;
+        catch java.lang.Exception from label15 to label16 with label21;
+        catch java.lang.Exception from label17 to label18 with label21;
+    }

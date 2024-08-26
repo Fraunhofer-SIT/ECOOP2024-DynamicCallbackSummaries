@@ -1,0 +1,154 @@
+    private boolean trackEventInternal(int)
+    {
+        java.lang.Throwable r1, $r10;
+        com.qbiki.analytics.SCAnalyticsTracker r0;
+        android.content.Context $r3;
+        java.util.HashMap r2;
+        android.util.DisplayMetrics $r5;
+        int $i0;
+        java.lang.StringBuilder $r7;
+        java.lang.String $r6, $r8, $r9;
+        android.content.res.Resources $r4;
+        boolean $z0;
+
+        r0 := @this: com.qbiki.analytics.SCAnalyticsTracker;
+
+        $i0 := @parameter0: int;
+
+        $r3 = <com.qbiki.analytics.SCAnalyticsTracker: android.content.Context mCtx>;
+
+        $r4 = virtualinvoke $r3.<android.content.Context: android.content.res.Resources getResources()>();
+
+        $r5 = virtualinvoke $r4.<android.content.res.Resources: android.util.DisplayMetrics getDisplayMetrics()>();
+
+        r2 = new java.util.HashMap;
+
+        specialinvoke r2.<java.util.HashMap: void <init>()>();
+
+        $r6 = staticinvoke <java.lang.Integer: java.lang.String toString(int)>($i0);
+
+        interfaceinvoke r2.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("type", $r6);
+
+        interfaceinvoke r2.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("param", "");
+
+        $r6 = <com.qbiki.seattleclouds.App: java.lang.String username>;
+
+        interfaceinvoke r2.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("username", $r6);
+
+        $r6 = <com.qbiki.seattleclouds.App: java.lang.String appId>;
+
+        interfaceinvoke r2.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("appId", $r6);
+
+        $r6 = <com.qbiki.seattleclouds.App: java.lang.String publisherId>;
+
+        interfaceinvoke r2.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("publisherid", $r6);
+
+        $r3 = <com.qbiki.analytics.SCAnalyticsTracker: android.content.Context mCtx>;
+
+        $r6 = virtualinvoke $r3.<android.content.Context: java.lang.String getPackageName()>();
+
+        interfaceinvoke r2.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("uniqueAppId", $r6);
+
+        $r3 = <com.qbiki.analytics.SCAnalyticsTracker: android.content.Context mCtx>;
+
+        $r6 = staticinvoke <com.qbiki.seattleclouds.AppLicensing: java.lang.String getDeviceId(android.content.Context)>($r3);
+
+        interfaceinvoke r2.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("deviceId", $r6);
+
+        $r6 = staticinvoke <java.lang.Integer: java.lang.String toString(int)>(1);
+
+        interfaceinvoke r2.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("os", $r6);
+
+        $r6 = <android.os.Build$VERSION: java.lang.String RELEASE>;
+
+        interfaceinvoke r2.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("osVersion", $r6);
+
+        $r6 = staticinvoke <com.qbiki.analytics.SCAnalyticsTracker: java.lang.String getDeviceModel()>();
+
+        interfaceinvoke r2.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("deviceModel", $r6);
+
+        $i0 = specialinvoke r0.<com.qbiki.analytics.SCAnalyticsTracker: int getCurrentConnectionType()>();
+
+        $r6 = staticinvoke <java.lang.Integer: java.lang.String toString(int)>($i0);
+
+        interfaceinvoke r2.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("connectionType", $r6);
+
+        $i0 = specialinvoke r0.<com.qbiki.analytics.SCAnalyticsTracker: int getScreenSize()>();
+
+        $r6 = staticinvoke <java.lang.Integer: java.lang.String toString(int)>($i0);
+
+        interfaceinvoke r2.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("screenSize", $r6);
+
+        $i0 = $r5.<android.util.DisplayMetrics: int densityDpi>;
+
+        $r6 = staticinvoke <java.lang.Integer: java.lang.String toString(int)>($i0);
+
+        interfaceinvoke r2.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("screenDensity", $r6);
+
+        $r6 = null;
+
+        $r7 = new java.lang.StringBuilder;
+
+     label1:
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>()>();
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("http://");
+
+     label2:
+        $r8 = <com.qbiki.analytics.SCAnalyticsTracker: java.lang.String analyticsServerHostname>;
+
+     label3:
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("trackevent.ashx");
+
+        $r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r8 = staticinvoke <com.qbiki.util.HTTPUtil: java.lang.String performPostRequest(java.lang.String,java.util.Map)>($r8, r2);
+
+     label4:
+        $r6 = $r8;
+
+     label5:
+        $r8 = "OK";
+
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>($r6);
+
+        if $z0 == 0 goto label7;
+
+        return 1;
+
+     label6:
+        r1 := @caughtexception;
+
+        $r8 = <com.qbiki.analytics.SCAnalyticsTracker: java.lang.String TAG>;
+
+        $r7 = new java.lang.StringBuilder;
+
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>()>();
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Error performing analytics request: ");
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>(r1);
+
+        $r9 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>($r8, $r9);
+
+        goto label5;
+
+     label7:
+        return 0;
+
+     label8:
+        $r10 := @caughtexception;
+
+        goto label5;
+
+        catch java.lang.SecurityException from label1 to label2 with label6;
+        catch java.lang.SecurityException from label3 to label4 with label6;
+        catch java.io.IOException from label1 to label2 with label8;
+        catch java.io.IOException from label3 to label4 with label8;
+    }

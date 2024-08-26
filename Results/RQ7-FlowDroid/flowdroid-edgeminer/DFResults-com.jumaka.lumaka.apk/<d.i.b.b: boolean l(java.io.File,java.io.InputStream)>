@@ -1,0 +1,140 @@
+    public static boolean l(java.io.File, java.io.InputStream)
+    {
+        java.lang.Throwable $r0, $r1, $r2, $r8, $r9;
+        byte[] $r7;
+        android.os.StrictMode$ThreadPolicy $r5;
+        java.io.FileOutputStream $r6, $r11;
+        java.io.IOException $r13;
+        java.io.File $r3;
+        int $i0;
+        java.lang.StringBuilder $r12;
+        java.lang.String $r10;
+        java.io.InputStream $r4;
+
+        $r3 := @parameter0: java.io.File;
+
+        $r4 := @parameter1: java.io.InputStream;
+
+        $r5 = staticinvoke <android.os.StrictMode: android.os.StrictMode$ThreadPolicy allowThreadDiskWrites()>();
+
+        $r6 = null;
+
+     label01:
+        $r11 = new java.io.FileOutputStream;
+
+     label02:
+        specialinvoke $r11.<java.io.FileOutputStream: void <init>(java.io.File,boolean)>($r3, 0);
+
+     label03:
+        $r7 = newarray (byte)[1024];
+
+     label04:
+        $i0 = virtualinvoke $r4.<java.io.InputStream: int read(byte[])>($r7);
+
+     label05:
+        if $i0 == -1 goto label08;
+
+     label06:
+        virtualinvoke $r11.<java.io.FileOutputStream: void write(byte[],int,int)>($r7, 0, $i0);
+
+     label07:
+        goto label04;
+
+     label08:
+        virtualinvoke $r11.<java.io.FileOutputStream: void close()>();
+
+     label09:
+        staticinvoke <android.os.StrictMode: void setThreadPolicy(android.os.StrictMode$ThreadPolicy)>($r5);
+
+        return 1;
+
+     label10:
+        $r8 := @caughtexception;
+
+        $r6 = $r11;
+
+        goto label19;
+
+     label11:
+        $r9 := @caughtexception;
+
+        $r6 = $r11;
+
+        goto label14;
+
+     label12:
+        $r8 := @caughtexception;
+
+        goto label19;
+
+     label13:
+        $r9 := @caughtexception;
+
+     label14:
+        $r12 = new java.lang.StringBuilder;
+
+     label15:
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Error copying resource contents to temp file: ");
+
+        $r13 = (java.io.IOException) $r9;
+
+        $r10 = virtualinvoke $r13.<java.io.IOException: java.lang.String getMessage()>();
+
+        virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r10 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("TypefaceCompatUtil", $r10);
+
+     label16:
+        if $r6 == null goto label18;
+
+     label17:
+        interfaceinvoke $r6.<java.io.Closeable: void close()>();
+
+     label18:
+        staticinvoke <android.os.StrictMode: void setThreadPolicy(android.os.StrictMode$ThreadPolicy)>($r5);
+
+        return 0;
+
+     label19:
+        if $r6 == null goto label21;
+
+     label20:
+        interfaceinvoke $r6.<java.io.Closeable: void close()>();
+
+     label21:
+        staticinvoke <android.os.StrictMode: void setThreadPolicy(android.os.StrictMode$ThreadPolicy)>($r5);
+
+        throw $r8;
+
+     label22:
+        $r0 := @caughtexception;
+
+        goto label09;
+
+     label23:
+        $r1 := @caughtexception;
+
+        goto label18;
+
+     label24:
+        $r2 := @caughtexception;
+
+        goto label21;
+
+        catch java.io.IOException from label02 to label03 with label13;
+        catch java.lang.Throwable from label01 to label02 with label12;
+        catch java.lang.Throwable from label02 to label03 with label12;
+        catch java.io.IOException from label04 to label05 with label11;
+        catch java.io.IOException from label06 to label07 with label11;
+        catch java.lang.Throwable from label04 to label05 with label10;
+        catch java.lang.Throwable from label06 to label07 with label10;
+        catch java.io.IOException from label08 to label09 with label22;
+        catch java.lang.Throwable from label14 to label15 with label12;
+        catch java.lang.Throwable from label15 to label16 with label12;
+        catch java.io.IOException from label17 to label18 with label23;
+        catch java.io.IOException from label20 to label21 with label24;
+    }

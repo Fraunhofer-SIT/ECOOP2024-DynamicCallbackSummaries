@@ -1,0 +1,330 @@
+    public void toPdf(com.itextpdf.text.pdf.PdfWriter, java.io.OutputStream) throws java.io.IOException
+    {
+        byte[] r11;
+        java.io.ByteArrayOutputStream r19;
+        long $l1;
+        com.itextpdf.text.pdf.PdfNumber r10, $r23;
+        java.util.zip.DeflaterOutputStream r12, r18;
+        com.itextpdf.text.pdf.PdfNull $r22;
+        com.itextpdf.text.pdf.PdfEFStream r0;
+        com.itextpdf.text.pdf.PdfName r4, r5;
+        com.itextpdf.text.pdf.PdfObject $r7;
+        com.itextpdf.text.pdf.PdfWriter $r1;
+        com.itextpdf.text.pdf.OutputStreamEncryption r13, $r15;
+        com.itextpdf.text.pdf.OutputStreamCounter $r24;
+        int $i0, $i2;
+        boolean z0;
+        java.io.OutputStream $r2, $r25;
+        com.itextpdf.text.pdf.PdfArray r8, r9, $r20;
+        com.itextpdf.text.pdf.PdfEncryption r6;
+        java.util.zip.Deflater r16, r17;
+        com.itextpdf.text.pdf.PdfDictionary $r21;
+        java.lang.Object r14;
+        java.io.InputStream r3;
+
+        r0 := @this: com.itextpdf.text.pdf.PdfEFStream;
+
+        $r1 := @parameter0: com.itextpdf.text.pdf.PdfWriter;
+
+        $r2 := @parameter1: java.io.OutputStream;
+
+        r3 = r0.<com.itextpdf.text.pdf.PdfEFStream: java.io.InputStream inputStream>;
+
+        if r3 == null goto label01;
+
+        z0 = r0.<com.itextpdf.text.pdf.PdfEFStream: boolean compressed>;
+
+        if z0 == 0 goto label01;
+
+        r4 = <com.itextpdf.text.pdf.PdfName: com.itextpdf.text.pdf.PdfName FILTER>;
+
+        r5 = <com.itextpdf.text.pdf.PdfName: com.itextpdf.text.pdf.PdfName FLATEDECODE>;
+
+        virtualinvoke r0.<com.itextpdf.text.pdf.PdfEFStream: void put(com.itextpdf.text.pdf.PdfName,com.itextpdf.text.pdf.PdfObject)>(r4, r5);
+
+     label01:
+        r6 = null;
+
+        if $r1 == null goto label02;
+
+        r6 = virtualinvoke $r1.<com.itextpdf.text.pdf.PdfWriter: com.itextpdf.text.pdf.PdfEncryption getEncryption()>();
+
+     label02:
+        if r6 == null goto label06;
+
+        r4 = <com.itextpdf.text.pdf.PdfName: com.itextpdf.text.pdf.PdfName FILTER>;
+
+        $r7 = virtualinvoke r0.<com.itextpdf.text.pdf.PdfEFStream: com.itextpdf.text.pdf.PdfObject get(com.itextpdf.text.pdf.PdfName)>(r4);
+
+        if $r7 == null goto label04;
+
+        r4 = <com.itextpdf.text.pdf.PdfName: com.itextpdf.text.pdf.PdfName CRYPT>;
+
+        z0 = virtualinvoke r4.<com.itextpdf.text.pdf.PdfName: boolean equals(java.lang.Object)>($r7);
+
+        if z0 == 0 goto label03;
+
+        r6 = null;
+
+        goto label04;
+
+     label03:
+        z0 = virtualinvoke $r7.<com.itextpdf.text.pdf.PdfObject: boolean isArray()>();
+
+        if z0 == 0 goto label04;
+
+        r8 = (com.itextpdf.text.pdf.PdfArray) $r7;
+
+        z0 = virtualinvoke r8.<com.itextpdf.text.pdf.PdfArray: boolean isEmpty()>();
+
+        if z0 != 0 goto label04;
+
+        r4 = <com.itextpdf.text.pdf.PdfName: com.itextpdf.text.pdf.PdfName CRYPT>;
+
+        $r7 = virtualinvoke r8.<com.itextpdf.text.pdf.PdfArray: com.itextpdf.text.pdf.PdfObject getPdfObject(int)>(0);
+
+        z0 = virtualinvoke r4.<com.itextpdf.text.pdf.PdfName: boolean equals(java.lang.Object)>($r7);
+
+        if z0 == 0 goto label04;
+
+        r6 = null;
+
+     label04:
+        if r6 == null goto label06;
+
+        z0 = virtualinvoke r6.<com.itextpdf.text.pdf.PdfEncryption: boolean isEmbeddedFilesOnly()>();
+
+        if z0 == 0 goto label06;
+
+        r9 = new com.itextpdf.text.pdf.PdfArray;
+
+        r8 = r9;
+
+        specialinvoke r9.<com.itextpdf.text.pdf.PdfArray: void <init>()>();
+
+        $r20 = new com.itextpdf.text.pdf.PdfArray;
+
+        specialinvoke $r20.<com.itextpdf.text.pdf.PdfArray: void <init>()>();
+
+        $r21 = new com.itextpdf.text.pdf.PdfDictionary;
+
+        specialinvoke $r21.<com.itextpdf.text.pdf.PdfDictionary: void <init>()>();
+
+        r4 = <com.itextpdf.text.pdf.PdfName: com.itextpdf.text.pdf.PdfName NAME>;
+
+        r5 = <com.itextpdf.text.pdf.PdfName: com.itextpdf.text.pdf.PdfName STDCF>;
+
+        virtualinvoke $r21.<com.itextpdf.text.pdf.PdfDictionary: void put(com.itextpdf.text.pdf.PdfName,com.itextpdf.text.pdf.PdfObject)>(r4, r5);
+
+        r4 = <com.itextpdf.text.pdf.PdfName: com.itextpdf.text.pdf.PdfName CRYPT>;
+
+        virtualinvoke r8.<com.itextpdf.text.pdf.PdfArray: boolean add(com.itextpdf.text.pdf.PdfObject)>(r4);
+
+        virtualinvoke $r20.<com.itextpdf.text.pdf.PdfArray: boolean add(com.itextpdf.text.pdf.PdfObject)>($r21);
+
+        z0 = r0.<com.itextpdf.text.pdf.PdfEFStream: boolean compressed>;
+
+        if z0 == 0 goto label05;
+
+        r4 = <com.itextpdf.text.pdf.PdfName: com.itextpdf.text.pdf.PdfName FLATEDECODE>;
+
+        virtualinvoke r8.<com.itextpdf.text.pdf.PdfArray: boolean add(com.itextpdf.text.pdf.PdfObject)>(r4);
+
+        $r22 = new com.itextpdf.text.pdf.PdfNull;
+
+        specialinvoke $r22.<com.itextpdf.text.pdf.PdfNull: void <init>()>();
+
+        virtualinvoke $r20.<com.itextpdf.text.pdf.PdfArray: boolean add(com.itextpdf.text.pdf.PdfObject)>($r22);
+
+     label05:
+        r4 = <com.itextpdf.text.pdf.PdfName: com.itextpdf.text.pdf.PdfName FILTER>;
+
+        virtualinvoke r0.<com.itextpdf.text.pdf.PdfEFStream: void put(com.itextpdf.text.pdf.PdfName,com.itextpdf.text.pdf.PdfObject)>(r4, r8);
+
+        r4 = <com.itextpdf.text.pdf.PdfName: com.itextpdf.text.pdf.PdfName DECODEPARMS>;
+
+        virtualinvoke r0.<com.itextpdf.text.pdf.PdfEFStream: void put(com.itextpdf.text.pdf.PdfName,com.itextpdf.text.pdf.PdfObject)>(r4, $r20);
+
+     label06:
+        r4 = <com.itextpdf.text.pdf.PdfName: com.itextpdf.text.pdf.PdfName LENGTH>;
+
+        $r7 = virtualinvoke r0.<com.itextpdf.text.pdf.PdfEFStream: com.itextpdf.text.pdf.PdfObject get(com.itextpdf.text.pdf.PdfName)>(r4);
+
+        if r6 == null goto label07;
+
+        if $r7 == null goto label07;
+
+        z0 = virtualinvoke $r7.<com.itextpdf.text.pdf.PdfObject: boolean isNumber()>();
+
+        if z0 == 0 goto label07;
+
+        r10 = (com.itextpdf.text.pdf.PdfNumber) $r7;
+
+        $i0 = virtualinvoke r10.<com.itextpdf.text.pdf.PdfNumber: int intValue()>();
+
+        r4 = <com.itextpdf.text.pdf.PdfName: com.itextpdf.text.pdf.PdfName LENGTH>;
+
+        $r23 = new com.itextpdf.text.pdf.PdfNumber;
+
+        $i0 = virtualinvoke r6.<com.itextpdf.text.pdf.PdfEncryption: int calculateStreamSize(int)>($i0);
+
+        specialinvoke $r23.<com.itextpdf.text.pdf.PdfNumber: void <init>(int)>($i0);
+
+        virtualinvoke r0.<com.itextpdf.text.pdf.PdfEFStream: void put(com.itextpdf.text.pdf.PdfName,com.itextpdf.text.pdf.PdfObject)>(r4, $r23);
+
+        virtualinvoke r0.<com.itextpdf.text.pdf.PdfEFStream: void superToPdf(com.itextpdf.text.pdf.PdfWriter,java.io.OutputStream)>($r1, $r2);
+
+        r4 = <com.itextpdf.text.pdf.PdfName: com.itextpdf.text.pdf.PdfName LENGTH>;
+
+        virtualinvoke r0.<com.itextpdf.text.pdf.PdfEFStream: void put(com.itextpdf.text.pdf.PdfName,com.itextpdf.text.pdf.PdfObject)>(r4, $r7);
+
+        goto label08;
+
+     label07:
+        virtualinvoke r0.<com.itextpdf.text.pdf.PdfEFStream: void superToPdf(com.itextpdf.text.pdf.PdfWriter,java.io.OutputStream)>($r1, $r2);
+
+     label08:
+        r11 = <com.itextpdf.text.pdf.PdfEFStream: byte[] STARTSTREAM>;
+
+        virtualinvoke $r2.<java.io.OutputStream: void write(byte[])>(r11);
+
+        r3 = r0.<com.itextpdf.text.pdf.PdfEFStream: java.io.InputStream inputStream>;
+
+        if r3 == null goto label15;
+
+        r0.<com.itextpdf.text.pdf.PdfEFStream: int rawLength> = 0;
+
+        r12 = null;
+
+        $r24 = new com.itextpdf.text.pdf.OutputStreamCounter;
+
+        specialinvoke $r24.<com.itextpdf.text.pdf.OutputStreamCounter: void <init>(java.io.OutputStream)>($r2);
+
+        r13 = null;
+
+        r14 = $r24;
+
+        if r6 == null goto label09;
+
+        $r15 = virtualinvoke r6.<com.itextpdf.text.pdf.PdfEncryption: com.itextpdf.text.pdf.OutputStreamEncryption getEncryptionStream(java.io.OutputStream)>($r24);
+
+        r13 = $r15;
+
+        r14 = $r15;
+
+     label09:
+        r16 = null;
+
+        z0 = r0.<com.itextpdf.text.pdf.PdfEFStream: boolean compressed>;
+
+        if z0 == 0 goto label10;
+
+        r16 = new java.util.zip.Deflater;
+
+        r17 = r16;
+
+        $i0 = r0.<com.itextpdf.text.pdf.PdfEFStream: int compressionLevel>;
+
+        specialinvoke r16.<java.util.zip.Deflater: void <init>(int)>($i0);
+
+        r12 = new java.util.zip.DeflaterOutputStream;
+
+        r18 = r12;
+
+        $r25 = (java.io.OutputStream) r14;
+
+        specialinvoke r12.<java.util.zip.DeflaterOutputStream: void <init>(java.io.OutputStream,java.util.zip.Deflater,int)>($r25, r17, 32768);
+
+        r14 = r18;
+
+     label10:
+        r11 = newarray (byte)[4192];
+
+     label11:
+        r3 = r0.<com.itextpdf.text.pdf.PdfEFStream: java.io.InputStream inputStream>;
+
+        $i0 = virtualinvoke r3.<java.io.InputStream: int read(byte[])>(r11);
+
+        if $i0 > 0 goto label14;
+
+        if r12 == null goto label12;
+
+        virtualinvoke r12.<java.util.zip.DeflaterOutputStream: void finish()>();
+
+        virtualinvoke r16.<java.util.zip.Deflater: void end()>();
+
+     label12:
+        if r13 == null goto label13;
+
+        virtualinvoke r13.<com.itextpdf.text.pdf.OutputStreamEncryption: void finish()>();
+
+     label13:
+        $l1 = virtualinvoke $r24.<com.itextpdf.text.pdf.OutputStreamCounter: long getCounter()>();
+
+        $i0 = (int) $l1;
+
+        r0.<com.itextpdf.text.pdf.PdfEFStream: int inputStreamLength> = $i0;
+
+        goto label20;
+
+     label14:
+        $r25 = (java.io.OutputStream) r14;
+
+        virtualinvoke $r25.<java.io.OutputStream: void write(byte[],int,int)>(r11, 0, $i0);
+
+        $i2 = r0.<com.itextpdf.text.pdf.PdfEFStream: int rawLength>;
+
+        $i0 = $i2 + $i0;
+
+        r0.<com.itextpdf.text.pdf.PdfEFStream: int rawLength> = $i0;
+
+        goto label11;
+
+     label15:
+        if r6 != null goto label17;
+
+        r19 = r0.<com.itextpdf.text.pdf.PdfEFStream: java.io.ByteArrayOutputStream streamBytes>;
+
+        if r19 == null goto label16;
+
+        r19 = r0.<com.itextpdf.text.pdf.PdfEFStream: java.io.ByteArrayOutputStream streamBytes>;
+
+        virtualinvoke r19.<java.io.ByteArrayOutputStream: void writeTo(java.io.OutputStream)>($r2);
+
+        goto label20;
+
+     label16:
+        r11 = r0.<com.itextpdf.text.pdf.PdfEFStream: byte[] bytes>;
+
+        virtualinvoke $r2.<java.io.OutputStream: void write(byte[])>(r11);
+
+        goto label20;
+
+     label17:
+        r19 = r0.<com.itextpdf.text.pdf.PdfEFStream: java.io.ByteArrayOutputStream streamBytes>;
+
+        if r19 == null goto label18;
+
+        r19 = r0.<com.itextpdf.text.pdf.PdfEFStream: java.io.ByteArrayOutputStream streamBytes>;
+
+        r11 = virtualinvoke r19.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        r11 = virtualinvoke r6.<com.itextpdf.text.pdf.PdfEncryption: byte[] encryptByteArray(byte[])>(r11);
+
+        goto label19;
+
+     label18:
+        r11 = r0.<com.itextpdf.text.pdf.PdfEFStream: byte[] bytes>;
+
+        r11 = virtualinvoke r6.<com.itextpdf.text.pdf.PdfEncryption: byte[] encryptByteArray(byte[])>(r11);
+
+     label19:
+        virtualinvoke $r2.<java.io.OutputStream: void write(byte[])>(r11);
+
+     label20:
+        r11 = <com.itextpdf.text.pdf.PdfEFStream: byte[] ENDSTREAM>;
+
+        virtualinvoke $r2.<java.io.OutputStream: void write(byte[])>(r11);
+
+        return;
+    }

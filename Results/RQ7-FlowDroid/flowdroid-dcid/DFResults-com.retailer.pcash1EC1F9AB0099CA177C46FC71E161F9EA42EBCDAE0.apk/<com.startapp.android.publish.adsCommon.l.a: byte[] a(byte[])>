@@ -1,0 +1,75 @@
+    private static byte[] a(byte[])
+    {
+        java.lang.Throwable $r4, $r5;
+        byte[] $r0;
+        java.io.ByteArrayOutputStream $r2;
+        java.util.zip.GZIPOutputStream $r1, $r3;
+        java.lang.Exception $r6;
+
+        $r0 := @parameter0: byte[];
+
+        $r1 = null;
+
+     label01:
+        $r2 = new java.io.ByteArrayOutputStream;
+
+     label02:
+        specialinvoke $r2.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label03:
+        $r3 = new java.util.zip.GZIPOutputStream;
+
+     label04:
+        specialinvoke $r3.<java.util.zip.GZIPOutputStream: void <init>(java.io.OutputStream)>($r2);
+
+     label05:
+        $r1 = $r3;
+
+     label06:
+        virtualinvoke $r3.<java.util.zip.GZIPOutputStream: void write(byte[])>($r0);
+
+        virtualinvoke $r3.<java.util.zip.GZIPOutputStream: void flush()>();
+
+        virtualinvoke $r3.<java.util.zip.GZIPOutputStream: void close()>();
+
+     label07:
+        $r1 = null;
+
+     label08:
+        $r0 = virtualinvoke $r2.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label09:
+        return $r0;
+
+     label10:
+        $r4 := @caughtexception;
+
+     label11:
+        throw $r4;
+
+     label12:
+        $r5 := @caughtexception;
+
+        if $r1 == null goto label14;
+
+     label13:
+        virtualinvoke $r1.<java.util.zip.GZIPOutputStream: void close()>();
+
+     label14:
+        throw $r5;
+
+     label15:
+        $r6 := @caughtexception;
+
+        goto label14;
+
+        catch java.io.IOException from label02 to label03 with label10;
+        catch java.io.IOException from label04 to label05 with label10;
+        catch java.io.IOException from label06 to label07 with label10;
+        catch java.io.IOException from label08 to label09 with label10;
+        catch java.lang.Throwable from label01 to label05 with label12;
+        catch java.lang.Throwable from label06 to label07 with label12;
+        catch java.lang.Throwable from label08 to label09 with label12;
+        catch java.lang.Throwable from label11 to label12 with label12;
+        catch java.lang.Exception from label13 to label14 with label15;
+    }

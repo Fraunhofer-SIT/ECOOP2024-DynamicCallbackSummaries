@@ -1,0 +1,122 @@
+    public final java.lang.Object invoke(java.lang.Object)
+    {
+        java.security.cert.X509Certificate $r9;
+        java.lang.Throwable $r15;
+        byte[] $r4;
+        java.io.ByteArrayOutputStream $r3;
+        java.security.cert.X509CRL $r8;
+        o.leftToLeft $r14;
+        o.setGroupAlertBehavior r16;
+        int $i0;
+        java.lang.String $r13;
+        o.dfunc $r6;
+        java.security.PublicKey $r10;
+        o.parseAttributes $r5;
+        java.lang.Exception $r11;
+        o.LinearCurveFit$MediaBrowserCompat$CustomActionResultReceiver$onTransact$2 r0;
+        java.lang.Object $r1;
+        java.lang.StringBuilder $r12;
+        java.io.InputStream $r2;
+        o.rotationX $r7;
+
+        r0 := @this: o.LinearCurveFit$MediaBrowserCompat$CustomActionResultReceiver$onTransact$2;
+
+        $r1 := @parameter0: java.lang.Object;
+
+        $r2 = (java.io.InputStream) $r1;
+
+        staticinvoke <o.setContentIconGravity: void onTransact(java.lang.Object,java.lang.String)>($r2, "it");
+
+        $r3 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r3.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r4 = newarray (byte)[4096];
+
+     label1:
+        $i0 = virtualinvoke $r2.<java.io.InputStream: int read(byte[])>($r4);
+
+        if $i0 >= 0 goto label9;
+
+        $r4 = virtualinvoke $r3.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $r5 = r0.<o.LinearCurveFit$MediaBrowserCompat$CustomActionResultReceiver$onTransact$2: o.parseAttributes asInterface>;
+
+        $r6 = interfaceinvoke $r5.<o.parseAttributes: o.dfunc write()>();
+
+     label2:
+        $r7 = $r6.<o.dfunc: o.rotationX getDefaultImpl>;
+
+     label3:
+        $r8 = staticinvoke <o.width: java.security.cert.X509CRL asBinder(o.rotationX,byte[])>($r7, $r4);
+
+     label4:
+        $r6.<o.dfunc: java.security.cert.X509CRL onTransact> = $r8;
+
+        $r9 = $r6.<o.dfunc: java.security.cert.X509Certificate asInterface>;
+
+     label5:
+        $r10 = virtualinvoke $r9.<java.security.cert.Certificate: java.security.PublicKey getPublicKey()>();
+
+        virtualinvoke $r8.<java.security.cert.X509CRL: void verify(java.security.PublicKey)>($r10);
+
+     label6:
+        r16 = <o.setGroupAlertBehavior: o.setGroupAlertBehavior asBinder>;
+
+        return r16;
+
+     label7:
+        $r11 := @caughtexception;
+
+        $r6.<o.dfunc: java.security.cert.X509CRL onTransact> = null;
+
+        $r12 = new java.lang.StringBuilder;
+
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("CRL error: ");
+
+        $r13 = virtualinvoke $r11.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r14 = new o.leftToLeft;
+
+        $r13 = virtualinvoke $r12.<java.lang.Object: java.lang.String toString()>();
+
+        specialinvoke $r14.<o.leftToLeft: void <init>(java.lang.String)>($r13);
+
+        throw $r14;
+
+     label8:
+        $r15 := @caughtexception;
+
+        $r6.<o.dfunc: java.security.cert.X509CRL onTransact> = null;
+
+        $r12 = new java.lang.StringBuilder;
+
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("CRL: certificate exception ");
+
+        $r13 = virtualinvoke $r15.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r14 = new o.leftToLeft;
+
+        $r13 = virtualinvoke $r12.<java.lang.Object: java.lang.String toString()>();
+
+        specialinvoke $r14.<o.leftToLeft: void <init>(java.lang.String)>($r13);
+
+        throw $r14;
+
+     label9:
+        virtualinvoke $r3.<java.io.OutputStream: void write(byte[],int,int)>($r4, 0, $i0);
+
+        goto label1;
+
+        catch java.security.cert.CertificateException from label3 to label4 with label8;
+        catch java.security.cert.CertificateException from label5 to label6 with label8;
+        catch java.lang.Exception from label2 to label6 with label7;
+    }

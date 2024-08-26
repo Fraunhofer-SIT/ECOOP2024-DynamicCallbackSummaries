@@ -1,0 +1,149 @@
+    public static void upZipFile(java.io.File, java.lang.String) throws java.util.zip.ZipException, java.io.IOException
+    {
+        byte[] $r11;
+        java.util.Enumeration $r5;
+        int $i1;
+        java.util.zip.ZipFile $r4;
+        java.lang.String $r1, $r8, $r10;
+        java.util.zip.ZipEntry $r7;
+        boolean $z0;
+        java.io.FileOutputStream $r12;
+        char $c0;
+        java.io.File $r0, $r3;
+        java.lang.StringBuilder $r2;
+        java.lang.Object $r6;
+        java.io.InputStream $r9;
+
+        $r0 := @parameter0: java.io.File;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $z0 = virtualinvoke $r1.<java.lang.String: boolean endsWith(java.lang.String)>("/");
+
+        if $z0 != 0 goto label1;
+
+        $r2 = staticinvoke <a.a: java.lang.StringBuilder k(java.lang.String)>($r1);
+
+        $c0 = <java.io.File: char separatorChar>;
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>($c0);
+
+        $r1 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label1:
+        $r3 = new java.io.File;
+
+        specialinvoke $r3.<java.io.File: void <init>(java.lang.String)>($r1);
+
+        $z0 = virtualinvoke $r3.<java.io.File: boolean exists()>();
+
+        if $z0 != 0 goto label2;
+
+        virtualinvoke $r3.<java.io.File: boolean mkdirs()>();
+
+     label2:
+        $r4 = new java.util.zip.ZipFile;
+
+        specialinvoke $r4.<java.util.zip.ZipFile: void <init>(java.io.File)>($r0);
+
+        $r5 = virtualinvoke $r4.<java.util.zip.ZipFile: java.util.Enumeration entries()>();
+
+     label3:
+        $z0 = interfaceinvoke $r5.<java.util.Enumeration: boolean hasMoreElements()>();
+
+        if $z0 == 0 goto label9;
+
+        $r6 = interfaceinvoke $r5.<java.util.Enumeration: java.lang.Object nextElement()>();
+
+        $r7 = (java.util.zip.ZipEntry) $r6;
+
+        $r8 = virtualinvoke $r7.<java.util.zip.ZipEntry: java.lang.String getName()>();
+
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean contains(java.lang.CharSequence)>("../");
+
+        if $z0 == 0 goto label4;
+
+        $r2 = staticinvoke <a.a: java.lang.StringBuilder k(java.lang.String)>("util.ZipUtils Path traversal attack prevented path=");
+
+        $r8 = virtualinvoke $r7.<java.util.zip.ZipEntry: java.lang.String getName()>();
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r8 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <io.dcloud.common.adapter.util.Logger: void d(java.lang.String,java.lang.String)>("ZIP", $r8);
+
+        goto label3;
+
+     label4:
+        $r9 = virtualinvoke $r4.<java.util.zip.ZipFile: java.io.InputStream getInputStream(java.util.zip.ZipEntry)>($r7);
+
+        $r2 = staticinvoke <a.a: java.lang.StringBuilder k(java.lang.String)>($r1);
+
+        $r8 = virtualinvoke $r7.<java.util.zip.ZipEntry: java.lang.String getName()>();
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r8 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r10 = new java.lang.String;
+
+        $r11 = virtualinvoke $r8.<java.lang.String: byte[] getBytes()>();
+
+        specialinvoke $r10.<java.lang.String: void <init>(byte[],java.lang.String)>($r11, "UTF-8");
+
+        $r8 = virtualinvoke $r10.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("\\", "/");
+
+        $r0 = new java.io.File;
+
+        specialinvoke $r0.<java.io.File: void <init>(java.lang.String)>($r8);
+
+        $r3 = virtualinvoke $r0.<java.io.File: java.io.File getParentFile()>();
+
+        $z0 = virtualinvoke $r3.<java.io.File: boolean exists()>();
+
+        if $z0 != 0 goto label5;
+
+        virtualinvoke $r3.<java.io.File: boolean mkdirs()>();
+
+     label5:
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean endsWith(java.lang.String)>("/");
+
+        if $z0 != 0 goto label3;
+
+        $z0 = virtualinvoke $r0.<java.io.File: boolean exists()>();
+
+        if $z0 == 0 goto label6;
+
+        virtualinvoke $r0.<java.io.File: boolean delete()>();
+
+     label6:
+        virtualinvoke $r0.<java.io.File: boolean createNewFile()>();
+
+        $r12 = new java.io.FileOutputStream;
+
+        specialinvoke $r12.<java.io.FileOutputStream: void <init>(java.io.File)>($r0);
+
+        $r11 = newarray (byte)[1048576];
+
+     label7:
+        $i1 = virtualinvoke $r9.<java.io.InputStream: int read(byte[])>($r11);
+
+        if $i1 <= 0 goto label8;
+
+        virtualinvoke $r12.<java.io.OutputStream: void write(byte[],int,int)>($r11, 0, $i1);
+
+        goto label7;
+
+     label8:
+        virtualinvoke $r9.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r12.<java.io.OutputStream: void close()>();
+
+        goto label3;
+
+     label9:
+        virtualinvoke $r4.<java.util.zip.ZipFile: void close()>();
+
+        return;
+    }

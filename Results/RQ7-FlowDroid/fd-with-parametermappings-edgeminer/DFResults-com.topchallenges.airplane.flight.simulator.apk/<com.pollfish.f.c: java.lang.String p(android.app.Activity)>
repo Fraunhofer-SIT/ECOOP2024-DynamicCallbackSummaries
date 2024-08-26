@@ -1,0 +1,77 @@
+    public static java.lang.String p(android.app.Activity)
+    {
+        android.content.pm.PackageManager $r1;
+        java.lang.Exception $r7;
+        android.telephony.TelephonyManager $r4;
+        int $i0;
+        java.lang.Object $r3;
+        java.lang.StringBuilder $r5;
+        java.lang.String $r2, $r6;
+        android.app.Activity $r0;
+
+        $r0 := @parameter0: android.app.Activity;
+
+     label1:
+        $r1 = virtualinvoke $r0.<android.app.Activity: android.content.pm.PackageManager getPackageManager()>();
+
+        $r2 = virtualinvoke $r0.<android.app.Activity: java.lang.String getPackageName()>();
+
+        $i0 = virtualinvoke $r1.<android.content.pm.PackageManager: int checkPermission(java.lang.String,java.lang.String)>("android.permission.READ_PHONE_STATE", $r2);
+
+     label2:
+        if $i0 != 0 goto label7;
+
+     label3:
+        staticinvoke <com.pollfish.f.b: void a(java.lang.String,java.lang.String)>("PollfishUtilities", "READ_PHONE_STATE permission at place");
+
+        $r3 = virtualinvoke $r0.<android.app.Activity: java.lang.Object getSystemService(java.lang.String)>("phone");
+
+        $r4 = (android.telephony.TelephonyManager) $r3;
+
+        $r2 = virtualinvoke $r4.<android.telephony.TelephonyManager: java.lang.String getDeviceId()>();
+
+     label4:
+        $r5 = new java.lang.StringBuilder;
+
+     label5:
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>()>();
+
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("getDeviceIME:");
+
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.pollfish.f.b: void a(java.lang.String,java.lang.String)>("PollfishUtilities", $r6);
+
+     label6:
+        return $r2;
+
+     label7:
+        staticinvoke <com.pollfish.f.b: void a(java.lang.String,java.lang.String)>("PollfishUtilities", "READ_PHONE_STATE permission not at place");
+
+     label8:
+        return null;
+
+     label9:
+        $r7 := @caughtexception;
+
+        $r5 = new java.lang.StringBuilder;
+
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>()>();
+
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("getDeviceIME exception:");
+
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r7);
+
+        $r2 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.pollfish.f.b: void a(java.lang.String,java.lang.String)>("PollfishUtilities", $r2);
+
+        return null;
+
+        catch java.lang.Exception from label1 to label2 with label9;
+        catch java.lang.Exception from label3 to label4 with label9;
+        catch java.lang.Exception from label5 to label6 with label9;
+        catch java.lang.Exception from label7 to label8 with label9;
+    }

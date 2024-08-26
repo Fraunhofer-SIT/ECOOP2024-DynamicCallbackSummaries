@@ -1,0 +1,322 @@
+    com.itextpdf.text.pdf.PdfChunk add(com.itextpdf.text.pdf.PdfChunk)
+    {
+        java.lang.Float $r12;
+        java.lang.Object[] $r6;
+        java.util.ArrayList $r8;
+        com.itextpdf.text.TabStop$Alignment $r10, $r11;
+        byte $b0;
+        int $i1;
+        java.lang.Boolean $r7;
+        java.lang.String $r2;
+        boolean $z0, $z1;
+        double $d0;
+        com.itextpdf.text.pdf.PdfChunk $r1, $r3, $r4;
+        com.itextpdf.text.pdf.PdfLine r0;
+        com.itextpdf.text.TabStop $r9;
+        float $f0, $f1, $f2;
+        java.lang.Object $r5;
+
+        r0 := @this: com.itextpdf.text.pdf.PdfLine;
+
+        $r1 := @parameter0: com.itextpdf.text.pdf.PdfChunk;
+
+        if $r1 == null goto label20;
+
+        $r2 = virtualinvoke $r1.<com.itextpdf.text.pdf.PdfChunk: java.lang.String toString()>();
+
+        $z0 = virtualinvoke $r2.<java.lang.String: boolean equals(java.lang.Object)>("");
+
+        if $z0 == 0 goto label01;
+
+        return null;
+
+     label01:
+        $f0 = r0.<com.itextpdf.text.pdf.PdfLine: float width>;
+
+        $r3 = virtualinvoke $r1.<com.itextpdf.text.pdf.PdfChunk: com.itextpdf.text.pdf.PdfChunk split(float)>($f0);
+
+        $r4 = $r3;
+
+        $z0 = virtualinvoke $r1.<com.itextpdf.text.pdf.PdfChunk: boolean isNewlineSplit()>();
+
+        if $z0 != 0 goto label02;
+
+        if $r3 == null goto label02;
+
+        $z0 = 0;
+
+        goto label03;
+
+     label02:
+        $z0 = 1;
+
+     label03:
+        r0.<com.itextpdf.text.pdf.PdfLine: boolean newlineSplit> = $z0;
+
+        $z0 = virtualinvoke $r1.<com.itextpdf.text.pdf.PdfChunk: boolean isTab()>();
+
+        if $z0 == 0 goto label14;
+
+        $r5 = virtualinvoke $r1.<com.itextpdf.text.pdf.PdfChunk: java.lang.Object getAttribute(java.lang.String)>("TAB");
+
+        $r6 = (java.lang.Object[]) $r5;
+
+        $z0 = virtualinvoke $r1.<com.itextpdf.text.pdf.PdfChunk: boolean isAttribute(java.lang.String)>("TABSETTINGS");
+
+        if $z0 == 0 goto label12;
+
+        $r5 = $r6[1];
+
+        $r7 = (java.lang.Boolean) $r5;
+
+        $z0 = virtualinvoke $r7.<java.lang.Boolean: boolean booleanValue()>();
+
+        if $z0 == 0 goto label04;
+
+        $r8 = r0.<com.itextpdf.text.pdf.PdfLine: java.util.ArrayList line>;
+
+        $z1 = virtualinvoke $r8.<java.util.ArrayList: boolean isEmpty()>();
+
+        if $z1 == 0 goto label04;
+
+        return null;
+
+     label04:
+        virtualinvoke r0.<com.itextpdf.text.pdf.PdfLine: void flush()>();
+
+        r0.<com.itextpdf.text.pdf.PdfLine: float tabStopAnchorPosition> = #NaNF;
+
+        $f0 = r0.<com.itextpdf.text.pdf.PdfLine: float originalWidth>;
+
+        $f1 = r0.<com.itextpdf.text.pdf.PdfLine: float width>;
+
+        $f0 = $f0 - $f1;
+
+        $r9 = staticinvoke <com.itextpdf.text.pdf.PdfChunk: com.itextpdf.text.TabStop getTabStop(com.itextpdf.text.pdf.PdfChunk,float)>($r1, $f0);
+
+        r0.<com.itextpdf.text.pdf.PdfLine: com.itextpdf.text.TabStop tabStop> = $r9;
+
+        $r9 = r0.<com.itextpdf.text.pdf.PdfLine: com.itextpdf.text.TabStop tabStop>;
+
+        $f1 = virtualinvoke $r9.<com.itextpdf.text.TabStop: float getPosition()>();
+
+        $f0 = r0.<com.itextpdf.text.pdf.PdfLine: float originalWidth>;
+
+        $b0 = $f1 cmpl $f0;
+
+        $i1 = (int) $b0;
+
+        if $i1 <= 0 goto label10;
+
+        if $z0 == 0 goto label06;
+
+     label05:
+        $r4 = null;
+
+        goto label08;
+
+     label06:
+        $f1 = r0.<com.itextpdf.text.pdf.PdfLine: float width>;
+
+        $f0 = $f0 - $f1;
+
+        $f0 = staticinvoke <java.lang.Math: float abs(float)>($f0);
+
+        $d0 = (double) $f0;
+
+        $b0 = $d0 cmpg 0.001;
+
+        $i1 = (int) $b0;
+
+        if $i1 >= 0 goto label07;
+
+        specialinvoke r0.<com.itextpdf.text.pdf.PdfLine: void addToLine(com.itextpdf.text.pdf.PdfChunk)>($r1);
+
+        goto label05;
+
+     label07:
+        $r4 = $r1;
+
+     label08:
+        $f0 = 0.0F;
+
+     label09:
+        r0.<com.itextpdf.text.pdf.PdfLine: float width> = $f0;
+
+        return $r4;
+
+     label10:
+        $r9 = r0.<com.itextpdf.text.pdf.PdfLine: com.itextpdf.text.TabStop tabStop>;
+
+        virtualinvoke $r1.<com.itextpdf.text.pdf.PdfChunk: void setTabStop(com.itextpdf.text.TabStop)>($r9);
+
+        $z0 = r0.<com.itextpdf.text.pdf.PdfLine: boolean isRTL>;
+
+        if $z0 != 0 goto label11;
+
+        $r9 = r0.<com.itextpdf.text.pdf.PdfLine: com.itextpdf.text.TabStop tabStop>;
+
+        $r10 = virtualinvoke $r9.<com.itextpdf.text.TabStop: com.itextpdf.text.TabStop$Alignment getAlignment()>();
+
+        $r11 = <com.itextpdf.text.TabStop$Alignment: com.itextpdf.text.TabStop$Alignment LEFT>;
+
+        if $r10 != $r11 goto label11;
+
+        $f0 = r0.<com.itextpdf.text.pdf.PdfLine: float originalWidth>;
+
+        $r9 = r0.<com.itextpdf.text.pdf.PdfLine: com.itextpdf.text.TabStop tabStop>;
+
+        $f1 = virtualinvoke $r9.<com.itextpdf.text.TabStop: float getPosition()>();
+
+        $f0 = $f0 - $f1;
+
+        r0.<com.itextpdf.text.pdf.PdfLine: float width> = $f0;
+
+        r0.<com.itextpdf.text.pdf.PdfLine: com.itextpdf.text.TabStop tabStop> = null;
+
+        r0.<com.itextpdf.text.pdf.PdfLine: float tabPosition> = #NaNF;
+
+        goto label19;
+
+     label11:
+        $f0 = r0.<com.itextpdf.text.pdf.PdfLine: float originalWidth>;
+
+        $f1 = r0.<com.itextpdf.text.pdf.PdfLine: float width>;
+
+        $f0 = $f0 - $f1;
+
+        r0.<com.itextpdf.text.pdf.PdfLine: float tabPosition> = $f0;
+
+        goto label19;
+
+     label12:
+        $r5 = $r6[1];
+
+        $r12 = (java.lang.Float) $r5;
+
+        $f0 = virtualinvoke $r12.<java.lang.Float: float floatValue()>();
+
+        $r12 = staticinvoke <java.lang.Float: java.lang.Float valueOf(float)>($f0);
+
+        $r5 = $r6[2];
+
+        $r7 = (java.lang.Boolean) $r5;
+
+        $z0 = virtualinvoke $r7.<java.lang.Boolean: boolean booleanValue()>();
+
+        if $z0 == 0 goto label13;
+
+        $f0 = virtualinvoke $r12.<java.lang.Float: float floatValue()>();
+
+        $f1 = r0.<com.itextpdf.text.pdf.PdfLine: float originalWidth>;
+
+        $f2 = r0.<com.itextpdf.text.pdf.PdfLine: float width>;
+
+        $f1 = $f1 - $f2;
+
+        $b0 = $f0 cmpg $f1;
+
+        $i1 = (int) $b0;
+
+        if $i1 >= 0 goto label13;
+
+        return $r1;
+
+     label13:
+        $f0 = r0.<com.itextpdf.text.pdf.PdfLine: float left>;
+
+        virtualinvoke $r1.<com.itextpdf.text.pdf.PdfChunk: void adjustLeft(float)>($f0);
+
+        $f0 = r0.<com.itextpdf.text.pdf.PdfLine: float originalWidth>;
+
+        $f1 = virtualinvoke $r12.<java.lang.Float: float floatValue()>();
+
+        $f0 = $f0 - $f1;
+
+        r0.<com.itextpdf.text.pdf.PdfLine: float width> = $f0;
+
+        goto label19;
+
+     label14:
+        $i1 = virtualinvoke $r1.<com.itextpdf.text.pdf.PdfChunk: int length()>();
+
+        if $i1 > 0 goto label17;
+
+        $z0 = virtualinvoke $r1.<com.itextpdf.text.pdf.PdfChunk: boolean isImage()>();
+
+        if $z0 != 0 goto label17;
+
+        $r8 = r0.<com.itextpdf.text.pdf.PdfLine: java.util.ArrayList line>;
+
+        $i1 = virtualinvoke $r8.<java.util.ArrayList: int size()>();
+
+        if $i1 > 0 goto label16;
+
+        $f0 = r0.<com.itextpdf.text.pdf.PdfLine: float width>;
+
+        $r1 = virtualinvoke $r3.<com.itextpdf.text.pdf.PdfChunk: com.itextpdf.text.pdf.PdfChunk truncate(float)>($f0);
+
+        $f0 = r0.<com.itextpdf.text.pdf.PdfLine: float width>;
+
+        $f1 = virtualinvoke $r3.<com.itextpdf.text.pdf.PdfChunk: float width()>();
+
+        $f0 = $f0 - $f1;
+
+        r0.<com.itextpdf.text.pdf.PdfLine: float width> = $f0;
+
+        $i1 = virtualinvoke $r3.<com.itextpdf.text.pdf.PdfChunk: int length()>();
+
+        if $i1 <= 0 goto label15;
+
+        specialinvoke r0.<com.itextpdf.text.pdf.PdfLine: void addToLine(com.itextpdf.text.pdf.PdfChunk)>($r3);
+
+        return $r1;
+
+     label15:
+        if $r1 == null goto label20;
+
+        specialinvoke r0.<com.itextpdf.text.pdf.PdfLine: void addToLine(com.itextpdf.text.pdf.PdfChunk)>($r1);
+
+        return null;
+
+     label16:
+        $f0 = r0.<com.itextpdf.text.pdf.PdfLine: float width>;
+
+        $r8 = r0.<com.itextpdf.text.pdf.PdfLine: java.util.ArrayList line>;
+
+        $i1 = virtualinvoke $r8.<java.util.ArrayList: int size()>();
+
+        $i1 = $i1 - 1;
+
+        $r5 = virtualinvoke $r8.<java.util.ArrayList: java.lang.Object get(int)>($i1);
+
+        $r1 = (com.itextpdf.text.pdf.PdfChunk) $r5;
+
+        $f1 = virtualinvoke $r1.<com.itextpdf.text.pdf.PdfChunk: float trimLastSpace()>();
+
+        $f0 = $f0 + $f1;
+
+        goto label09;
+
+     label17:
+        if $r3 == null goto label18;
+
+        virtualinvoke $r1.<com.itextpdf.text.pdf.PdfChunk: float trimLastSpace()>();
+
+     label18:
+        $f0 = r0.<com.itextpdf.text.pdf.PdfLine: float width>;
+
+        $f1 = virtualinvoke $r1.<com.itextpdf.text.pdf.PdfChunk: float width()>();
+
+        $f0 = $f0 - $f1;
+
+        r0.<com.itextpdf.text.pdf.PdfLine: float width> = $f0;
+
+     label19:
+        specialinvoke r0.<com.itextpdf.text.pdf.PdfLine: void addToLine(com.itextpdf.text.pdf.PdfChunk)>($r1);
+
+        return $r3;
+
+     label20:
+        return null;
+    }

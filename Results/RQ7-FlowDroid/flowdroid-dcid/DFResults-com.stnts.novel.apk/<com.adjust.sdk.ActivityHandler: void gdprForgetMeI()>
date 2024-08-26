@@ -1,0 +1,102 @@
+    private void gdprForgetMeI()
+    {
+        android.content.Context $r9;
+        com.adjust.sdk.SessionParameters $r3;
+        java.lang.Object[] $r11;
+        com.adjust.sdk.ActivityState $r2;
+        long $l0;
+        com.adjust.sdk.AdjustConfig $r5;
+        com.adjust.sdk.ActivityPackage $r6;
+        com.adjust.sdk.PackageBuilder $r4;
+        com.adjust.sdk.DeviceInfo $r1;
+        com.adjust.sdk.ILogger $r10;
+        java.lang.String $r12;
+        com.adjust.sdk.ActivityHandler r0;
+        com.adjust.sdk.IPackageHandler $r7;
+        com.adjust.sdk.SharedPreferencesManager $r8;
+        boolean $z0;
+
+        r0 := @this: com.adjust.sdk.ActivityHandler;
+
+        $r2 = r0.<com.adjust.sdk.ActivityHandler: com.adjust.sdk.ActivityState activityState>;
+
+        $z0 = specialinvoke r0.<com.adjust.sdk.ActivityHandler: boolean checkActivityStateI(com.adjust.sdk.ActivityState)>($r2);
+
+        if $z0 != 0 goto label1;
+
+        return;
+
+     label1:
+        $z0 = specialinvoke r0.<com.adjust.sdk.ActivityHandler: boolean isEnabledI()>();
+
+        if $z0 != 0 goto label2;
+
+        return;
+
+     label2:
+        $r2 = r0.<com.adjust.sdk.ActivityHandler: com.adjust.sdk.ActivityState activityState>;
+
+        $z0 = $r2.<com.adjust.sdk.ActivityState: boolean isGdprForgotten>;
+
+        if $z0 == 0 goto label3;
+
+        return;
+
+     label3:
+        $r2.<com.adjust.sdk.ActivityState: boolean isGdprForgotten> = 1;
+
+        specialinvoke r0.<com.adjust.sdk.ActivityHandler: void writeActivityStateI()>();
+
+        $l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $r4 = new com.adjust.sdk.PackageBuilder;
+
+        $r5 = r0.<com.adjust.sdk.ActivityHandler: com.adjust.sdk.AdjustConfig adjustConfig>;
+
+        $r1 = r0.<com.adjust.sdk.ActivityHandler: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r2 = r0.<com.adjust.sdk.ActivityHandler: com.adjust.sdk.ActivityState activityState>;
+
+        $r3 = r0.<com.adjust.sdk.ActivityHandler: com.adjust.sdk.SessionParameters sessionParameters>;
+
+        specialinvoke $r4.<com.adjust.sdk.PackageBuilder: void <init>(com.adjust.sdk.AdjustConfig,com.adjust.sdk.DeviceInfo,com.adjust.sdk.ActivityState,com.adjust.sdk.SessionParameters,long)>($r5, $r1, $r2, $r3, $l0);
+
+        $r6 = virtualinvoke $r4.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.ActivityPackage buildGdprPackage()>();
+
+        $r7 = r0.<com.adjust.sdk.ActivityHandler: com.adjust.sdk.IPackageHandler packageHandler>;
+
+        interfaceinvoke $r7.<com.adjust.sdk.IPackageHandler: void addPackage(com.adjust.sdk.ActivityPackage)>($r6);
+
+        $r8 = new com.adjust.sdk.SharedPreferencesManager;
+
+        $r9 = virtualinvoke r0.<com.adjust.sdk.ActivityHandler: android.content.Context getContext()>();
+
+        specialinvoke $r8.<com.adjust.sdk.SharedPreferencesManager: void <init>(android.content.Context)>($r9);
+
+        virtualinvoke $r8.<com.adjust.sdk.SharedPreferencesManager: void removeGdprForgetMe()>();
+
+        $r5 = r0.<com.adjust.sdk.ActivityHandler: com.adjust.sdk.AdjustConfig adjustConfig>;
+
+        $z0 = $r5.<com.adjust.sdk.AdjustConfig: boolean eventBufferingEnabled>;
+
+        if $z0 == 0 goto label4;
+
+        $r10 = r0.<com.adjust.sdk.ActivityHandler: com.adjust.sdk.ILogger logger>;
+
+        $r11 = newarray (java.lang.Object)[1];
+
+        $r12 = virtualinvoke $r6.<com.adjust.sdk.ActivityPackage: java.lang.String getSuffix()>();
+
+        $r11[0] = $r12;
+
+        interfaceinvoke $r10.<com.adjust.sdk.ILogger: void info(java.lang.String,java.lang.Object[])>("Buffered event %s", $r11);
+
+        return;
+
+     label4:
+        $r7 = r0.<com.adjust.sdk.ActivityHandler: com.adjust.sdk.IPackageHandler packageHandler>;
+
+        interfaceinvoke $r7.<com.adjust.sdk.IPackageHandler: void sendFirstPackage()>();
+
+        return;
+    }

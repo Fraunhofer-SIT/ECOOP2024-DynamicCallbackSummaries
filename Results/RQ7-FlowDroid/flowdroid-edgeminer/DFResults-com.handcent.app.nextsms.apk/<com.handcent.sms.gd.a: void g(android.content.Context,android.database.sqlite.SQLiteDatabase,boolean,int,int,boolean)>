@@ -1,0 +1,1363 @@
+    public static void g(android.content.Context, android.database.sqlite.SQLiteDatabase, boolean, int, int, boolean) throws java.lang.Exception
+    {
+        android.net.Uri $r6;
+        java.lang.Integer $r25;
+        android.database.sqlite.SQLiteDatabase $r1, $r13, $r26;
+        byte $b5;
+        android.content.ContentResolver $r4;
+        boolean $z0, $z1, $z2, $z3;
+        java.lang.Exception $r17, $r28, $r30, $r33, $r36, $r38, $r40;
+        java.lang.StringBuilder $r42;
+        android.content.ContentValues $r11, $r43;
+        java.lang.Throwable $r12, $r27, $r29, $r32, $r35, $r37, $r39, $r41;
+        android.content.Context $r0;
+        long $l3, $l4;
+        java.util.ArrayList $r44;
+        int $i0, $i1, $i2, $i6;
+        java.lang.Boolean $r2;
+        java.lang.String $r5, $r8, $r9, $r10, $r16, $r19, $r20, $r21, $r22, $r23, $r24, $r31;
+        android.database.Cursor $r3, $r7, $r14, $r15, $r18;
+        com.handcent.im.util.MyInfoCache $r34;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 := @parameter1: android.database.sqlite.SQLiteDatabase;
+
+        $z0 := @parameter2: boolean;
+
+        $i0 := @parameter3: int;
+
+        $i1 := @parameter4: int;
+
+        $z1 := @parameter5: boolean;
+
+        staticinvoke <com.handcent.sms.yc.r1: void i(java.lang.String,java.lang.String)>("huang", "create  pbox differ msg");
+
+        $r2 = staticinvoke <com.handcent.sms.gd.b: java.lang.Boolean m(android.content.Context)>($r0);
+
+        $z2 = virtualinvoke $r2.<java.lang.Boolean: boolean booleanValue()>();
+
+        $r3 = null;
+
+     label001:
+        $r4 = virtualinvoke $r0.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+     label002:
+        $r42 = new java.lang.StringBuilder;
+
+     label003:
+        specialinvoke $r42.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("content://com.handcent.app.providers.PrivacyProvider/pconverdiff?all=");
+
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(boolean)>($z2);
+
+        $r5 = virtualinvoke $r42.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r6 = staticinvoke <android.net.Uri: android.net.Uri parse(java.lang.String)>($r5);
+
+        $r7 = virtualinvoke $r4.<android.content.ContentResolver: android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String)>($r6, null, null, null, null);
+
+     label004:
+        $r8 = "sid";
+
+        $r10 = "pn";
+
+        if $r7 == null goto label014;
+
+     label005:
+        $i2 = interfaceinvoke $r7.<android.database.Cursor: int getCount()>();
+
+     label006:
+        if $i2 <= 0 goto label014;
+
+     label007:
+        $z3 = interfaceinvoke $r7.<android.database.Cursor: boolean moveToFirst()>();
+
+     label008:
+        if $z3 == 0 goto label014;
+
+     label009:
+        $r43 = new android.content.ContentValues;
+
+     label010:
+        specialinvoke $r43.<android.content.ContentValues: void <init>()>();
+
+        $i2 = interfaceinvoke $r7.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("_id");
+
+        interfaceinvoke $r7.<android.database.Cursor: java.lang.String getString(int)>($i2);
+
+        $i2 = interfaceinvoke $r7.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("_id");
+
+        $r5 = interfaceinvoke $r7.<android.database.Cursor: java.lang.String getString(int)>($i2);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("lid", $r5);
+
+        $i2 = interfaceinvoke $r7.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("sid");
+
+        $r5 = interfaceinvoke $r7.<android.database.Cursor: java.lang.String getString(int)>($i2);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("cid", $r5);
+
+        $i2 = interfaceinvoke $r7.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("phonenumber");
+
+        $r5 = interfaceinvoke $r7.<android.database.Cursor: java.lang.String getString(int)>($i2);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("pn", $r5);
+
+        $i2 = interfaceinvoke $r7.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("action");
+
+        $r5 = interfaceinvoke $r7.<android.database.Cursor: java.lang.String getString(int)>($i2);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("action", $r5);
+
+        virtualinvoke $r1.<android.database.sqlite.SQLiteDatabase: long insert(java.lang.String,java.lang.String,android.content.ContentValues)>("pbox_conver", null, $r43);
+
+        $z3 = interfaceinvoke $r7.<android.database.Cursor: boolean moveToNext()>();
+
+     label011:
+        if $z3 != 0 goto label009;
+
+        goto label014;
+
+     label012:
+        $r12 := @caughtexception;
+
+        $r13 = $r1;
+
+        $r14 = null;
+
+        $r15 = $r7;
+
+        $r16 = "huang";
+
+        goto label159;
+
+     label013:
+        $r17 := @caughtexception;
+
+        $r13 = $r1;
+
+        $r18 = null;
+
+        $r14 = null;
+
+        $r3 = $r7;
+
+        $r16 = "huang";
+
+        goto label156;
+
+     label014:
+        if $z0 == 0 goto label019;
+
+     label015:
+        $r4 = virtualinvoke $r0.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+     label016:
+        $r42 = new java.lang.StringBuilder;
+
+     label017:
+        specialinvoke $r42.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("content://com.handcent.app.providers.PrivacyProvider/pmsgdiff?all=");
+
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(boolean)>($z2);
+
+        $r5 = virtualinvoke $r42.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r6 = staticinvoke <android.net.Uri: android.net.Uri parse(java.lang.String)>($r5);
+
+        $r15 = virtualinvoke $r4.<android.content.ContentResolver: android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String)>($r6, null, null, null, "timestamp asc");
+
+     label018:
+        $r18 = $r15;
+
+        goto label023;
+
+     label019:
+        $r4 = virtualinvoke $r0.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+     label020:
+        $r42 = new java.lang.StringBuilder;
+
+     label021:
+        specialinvoke $r42.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("content://com.handcent.app.providers.PrivacyProvider/pmsgdiff?all=");
+
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(boolean)>($z2);
+
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("&msgtype=");
+
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(0);
+
+        $r5 = virtualinvoke $r42.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r6 = staticinvoke <android.net.Uri: android.net.Uri parse(java.lang.String)>($r5);
+
+        $r15 = virtualinvoke $r4.<android.content.ContentResolver: android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String)>($r6, null, null, null, "timestamp asc");
+
+     label022:
+        $r18 = $r15;
+
+     label023:
+        staticinvoke <com.handcent.sms.sc.d: void i(long)>(0L);
+
+     label024:
+        $r15 = $r7;
+
+        $r22 = "subject";
+
+        if $z1 == 0 goto label066;
+
+        if $r18 == null goto label057;
+
+     label025:
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getCount()>();
+
+     label026:
+        if $i0 <= 0 goto label057;
+
+     label027:
+        $z0 = interfaceinvoke $r18.<android.database.Cursor: boolean moveToFirst()>();
+
+     label028:
+        if $z0 == 0 goto label057;
+
+        $r9 = "huang";
+
+     label029:
+        $r43 = new android.content.ContentValues;
+
+     label030:
+        $r11 = $r43;
+
+     label031:
+        specialinvoke $r43.<android.content.ContentValues: void <init>()>();
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("_id");
+
+        $r24 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("lid", $r24);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("sid");
+
+        $r24 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("mid", $r24);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("cid");
+
+        $r24 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("cid", $r24);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>($r10);
+
+        $r24 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>($r10, $r24);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("messagetype");
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getInt(int)>($i0);
+
+     label032:
+        $r24 = $r10;
+
+     label033:
+        $r25 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.Integer)>("msgtype", $r25);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("type");
+
+        $r19 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("type", $r19);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("read");
+
+        $r19 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("read", $r19);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>($r22);
+
+        $r19 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>($r22, $r19);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("data");
+
+        $r19 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("data", $r19);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("sub_cs");
+
+        $r19 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("sub_cs", $r19);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("m_type");
+
+        $r19 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("m_type", $r19);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("type");
+
+        $r19 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("mms_type", $r19);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("network_type");
+
+        $r19 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("network_type", $r19);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("_id");
+
+     label034:
+        $r19 = $r22;
+
+     label035:
+        $l3 = interfaceinvoke $r18.<android.database.Cursor: long getLong(int)>($i0);
+
+     label036:
+        $r42 = new java.lang.StringBuilder;
+
+     label037:
+        specialinvoke $r42.<java.lang.StringBuilder: void <init>()>();
+
+     label038:
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("pbox differ id=");
+
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l3);
+
+        $r8 = virtualinvoke $r42.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label039:
+        $r16 = $r9;
+
+     label040:
+        staticinvoke <com.handcent.sms.yc.r1: void i(java.lang.String,java.lang.String)>($r9, $r8);
+
+     label041:
+        $l4 = <com.handcent.sms.gd.a: long t>;
+
+     label042:
+        $b5 = $l4 cmp $l3;
+
+        $i0 = (int) $b5;
+
+        if $i0 >= 0 goto label044;
+
+     label043:
+        <com.handcent.sms.gd.a: long t> = $l3;
+
+     label044:
+        $r42 = new java.lang.StringBuilder;
+
+     label045:
+        specialinvoke $r42.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("");
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("timestamp");
+
+        $l3 = interfaceinvoke $r18.<android.database.Cursor: long getLong(int)>($i0);
+
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l3);
+
+        $r9 = virtualinvoke $r42.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("date", $r9);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("locked");
+
+        $r9 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("locked", $r9);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("status");
+
+        $r9 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("status", $r9);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("hash");
+
+        $r9 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("hash", $r9);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("action");
+
+        $r9 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("action", $r9);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("modified");
+
+        $r9 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("modified", $r9);
+
+     label046:
+        $r26 = $r1;
+
+     label047:
+        virtualinvoke $r1.<android.database.sqlite.SQLiteDatabase: long insert(java.lang.String,java.lang.String,android.content.ContentValues)>("pbox_msg", null, $r11);
+
+        $z0 = interfaceinvoke $r18.<android.database.Cursor: boolean moveToNext()>();
+
+     label048:
+        if $z0 == 0 goto label058;
+
+        $r22 = $r19;
+
+        $r10 = $r24;
+
+        $r9 = $r16;
+
+        goto label029;
+
+     label049:
+        $r27 := @caughtexception;
+
+        $r16 = $r9;
+
+        goto label052;
+
+     label050:
+        $r28 := @caughtexception;
+
+        $r16 = $r9;
+
+        goto label055;
+
+     label051:
+        $r27 := @caughtexception;
+
+        $r16 = "huang";
+
+     label052:
+        $r13 = $r1;
+
+     label053:
+        $r12 = $r27;
+
+        $r3 = $r18;
+
+        goto label063;
+
+     label054:
+        $r28 := @caughtexception;
+
+        $r16 = "huang";
+
+     label055:
+        $r13 = $r1;
+
+     label056:
+        $r17 = $r28;
+
+        goto label065;
+
+     label057:
+        $r26 = $r1;
+
+        $r16 = "huang";
+
+     label058:
+        $r4 = virtualinvoke $r0.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+     label059:
+        $r42 = new java.lang.StringBuilder;
+
+     label060:
+        specialinvoke $r42.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("content://com.handcent.app.providers.PrivacyProvider/ppartdiff?all=");
+
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(boolean)>($z2);
+
+        $r5 = virtualinvoke $r42.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r6 = staticinvoke <android.net.Uri: android.net.Uri parse(java.lang.String)>($r5);
+
+        $r3 = virtualinvoke $r4.<android.content.ContentResolver: android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String)>($r6, null, null, null, null);
+
+     label061:
+        $r13 = $r26;
+
+        goto label110;
+
+     label062:
+        $r29 := @caughtexception;
+
+        $r12 = $r29;
+
+        $r3 = $r18;
+
+        $r13 = $r26;
+
+     label063:
+        $r14 = null;
+
+        goto label159;
+
+     label064:
+        $r30 := @caughtexception;
+
+        $r17 = $r30;
+
+        $r13 = $r26;
+
+     label065:
+        $r3 = $r7;
+
+        $r14 = null;
+
+        goto label156;
+
+     label066:
+        $r10 = "pn";
+
+        $r16 = "huang";
+
+     label067:
+        $r44 = new java.util.ArrayList;
+
+     label068:
+        specialinvoke $r44.<java.util.ArrayList: void <init>()>();
+
+     label069:
+        if $r18 == null goto label108;
+
+     label070:
+        $i6 = interfaceinvoke $r18.<android.database.Cursor: int getCount()>();
+
+     label071:
+        $i2 = 0;
+
+        if $i6 <= 0 goto label108;
+
+     label072:
+        $i0 = $i1 + 1;
+
+        if $i2 >= $i0 goto label099;
+
+     label073:
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getCount()>();
+
+     label074:
+        $i0 = $i0 - 1;
+
+        if $i2 > $i0 goto label099;
+
+     label075:
+        interfaceinvoke $r18.<android.database.Cursor: boolean moveToPosition(int)>($i2);
+
+     label076:
+        $r43 = new android.content.ContentValues;
+
+     label077:
+        $r11 = $r43;
+
+     label078:
+        specialinvoke $r43.<android.content.ContentValues: void <init>()>();
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("_id");
+
+        $r20 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("lid", $r20);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>($r8);
+
+        $r20 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("mid", $r20);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("cid");
+
+        $r20 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("cid", $r20);
+
+     label079:
+        $r20 = $r8;
+
+        $r8 = $r10;
+
+     label080:
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>($r10);
+
+        $r31 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>($r10, $r31);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("messagetype");
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getInt(int)>($i0);
+
+     label081:
+        if $i0 != 1 goto label083;
+
+     label082:
+        $i6 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("_id");
+
+        $i6 = interfaceinvoke $r18.<android.database.Cursor: int getInt(int)>($i6);
+
+        $r25 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i6);
+
+        virtualinvoke $r44.<java.util.ArrayList: boolean add(java.lang.Object)>($r25);
+
+     label083:
+        $r25 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.Integer)>("msgtype", $r25);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("type");
+
+        $r10 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("type", $r10);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("read");
+
+        $r10 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("read", $r10);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("subject");
+
+        $r10 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("subject", $r10);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("data");
+
+        $r10 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("data", $r10);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("sub_cs");
+
+        $r10 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("sub_cs", $r10);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("m_type");
+
+        $r10 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("m_type", $r10);
+
+     label084:
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("type");
+
+        $r10 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("mms_type", $r10);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("network_type");
+
+        $r10 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("network_type", $r10);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("_id");
+
+     label085:
+        $l3 = interfaceinvoke $r18.<android.database.Cursor: long getLong(int)>($i0);
+
+     label086:
+        $r42 = new java.lang.StringBuilder;
+
+     label087:
+        specialinvoke $r42.<java.lang.StringBuilder: void <init>()>();
+
+     label088:
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("pbox differ id=");
+
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l3);
+
+        $r10 = virtualinvoke $r42.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.handcent.sms.yc.r1: void i(java.lang.String,java.lang.String)>("huang", $r10);
+
+     label089:
+        $l4 = <com.handcent.sms.gd.a: long t>;
+
+     label090:
+        $b5 = $l4 cmp $l3;
+
+        $i0 = (int) $b5;
+
+        if $i0 >= 0 goto label092;
+
+     label091:
+        <com.handcent.sms.gd.a: long t> = $l3;
+
+     label092:
+        $r42 = new java.lang.StringBuilder;
+
+     label093:
+        specialinvoke $r42.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("");
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("timestamp");
+
+        $l3 = interfaceinvoke $r18.<android.database.Cursor: long getLong(int)>($i0);
+
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l3);
+
+        $r10 = virtualinvoke $r42.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("date", $r10);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("locked");
+
+        $r10 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("locked", $r10);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("status");
+
+        $r10 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("status", $r10);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("hash");
+
+        $r10 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("hash", $r10);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("action");
+
+        $r10 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("action", $r10);
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("modified");
+
+        $r10 = interfaceinvoke $r18.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("modified", $r10);
+
+     label094:
+        $r13 = $r1;
+
+     label095:
+        virtualinvoke $r1.<android.database.sqlite.SQLiteDatabase: long insert(java.lang.String,java.lang.String,android.content.ContentValues)>("pbox_msg", null, $r11);
+
+     label096:
+        $i2 = $i2 + 1;
+
+        $r10 = $r8;
+
+        $r8 = $r20;
+
+        goto label072;
+
+     label097:
+        $r27 := @caughtexception;
+
+        goto label052;
+
+     label098:
+        $r28 := @caughtexception;
+
+        goto label055;
+
+     label099:
+        $r13 = $r1;
+
+     label100:
+        $l3 = <com.handcent.sms.gd.a: long t>;
+
+     label101:
+        $b5 = $l3 cmp 0L;
+
+        $i0 = (int) $b5;
+
+        if $i0 <= 0 goto label109;
+
+     label102:
+        staticinvoke <com.handcent.sms.sc.d: void i(long)>($l3);
+
+     label103:
+        goto label109;
+
+     label104:
+        $r27 := @caughtexception;
+
+        goto label053;
+
+     label105:
+        $r28 := @caughtexception;
+
+        goto label056;
+
+     label106:
+        $r27 := @caughtexception;
+
+        $r13 = $r1;
+
+        goto label053;
+
+     label107:
+        $r28 := @caughtexception;
+
+        $r13 = $r1;
+
+        goto label056;
+
+     label108:
+        $r13 = $r1;
+
+     label109:
+        $r3 = staticinvoke <com.handcent.sms.ii.n1: android.database.Cursor Z(java.util.ArrayList)>($r44);
+
+     label110:
+        if $r3 == null goto label139;
+
+     label111:
+        $i0 = interfaceinvoke $r3.<android.database.Cursor: int getCount()>();
+
+     label112:
+        if $i0 <= 0 goto label139;
+
+     label113:
+        $z0 = interfaceinvoke $r3.<android.database.Cursor: boolean moveToFirst()>();
+
+     label114:
+        if $z0 == 0 goto label139;
+
+     label115:
+        $r43 = new android.content.ContentValues;
+
+     label116:
+        $r11 = $r43;
+
+     label117:
+        specialinvoke $r43.<android.content.ContentValues: void <init>()>();
+
+        $i0 = interfaceinvoke $r3.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("_id");
+
+        $r5 = interfaceinvoke $r3.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("_id", $r5);
+
+        $i0 = interfaceinvoke $r3.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("mid");
+
+        $r5 = interfaceinvoke $r3.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("mid", $r5);
+
+        $i0 = interfaceinvoke $r3.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("seq");
+
+        $r5 = interfaceinvoke $r3.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("seq", $r5);
+
+        $i0 = interfaceinvoke $r3.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("ct");
+
+        $r5 = interfaceinvoke $r3.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("ct", $r5);
+
+        $i0 = interfaceinvoke $r3.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("name");
+
+        $r5 = interfaceinvoke $r3.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("name", $r5);
+
+        $i0 = interfaceinvoke $r3.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("chset");
+
+        $r5 = interfaceinvoke $r3.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("chset", $r5);
+
+        $i0 = interfaceinvoke $r3.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("cd");
+
+        $r5 = interfaceinvoke $r3.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("cd", $r5);
+
+        $i0 = interfaceinvoke $r3.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("fn");
+
+        $r5 = interfaceinvoke $r3.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("fn", $r5);
+
+        $i0 = interfaceinvoke $r3.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("cid");
+
+        $r5 = interfaceinvoke $r3.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("cid", $r5);
+
+        $i0 = interfaceinvoke $r3.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("cl");
+
+        $r5 = interfaceinvoke $r3.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("cl", $r5);
+
+        $i0 = interfaceinvoke $r3.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("ctt_s");
+
+        $r5 = interfaceinvoke $r3.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("ctt_s", $r5);
+
+        $i0 = interfaceinvoke $r3.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("ctt_t");
+
+        $r5 = interfaceinvoke $r3.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("ctt_t", $r5);
+
+        $i0 = interfaceinvoke $r3.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("_data");
+
+        $r5 = interfaceinvoke $r3.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        $z0 = staticinvoke <com.handcent.sms.ii.f2: boolean g(java.lang.String)>($r5);
+
+     label118:
+        if $z0 != 0 goto label123;
+
+     label119:
+        $r21 = virtualinvoke $r5.<java.lang.String: java.lang.String toUpperCase()>();
+
+        $r23 = staticinvoke <com.handcent.sms.yc.w: java.lang.String a(java.lang.String)>("PART");
+
+        $i0 = virtualinvoke $r21.<java.lang.String: int indexOf(java.lang.String)>($r23);
+
+     label120:
+        if $i0 < 0 goto label123;
+
+     label121:
+        $i0 = virtualinvoke $r5.<java.lang.String: int lastIndexOf(java.lang.String)>("/");
+
+        $r21 = virtualinvoke $r5.<java.lang.String: java.lang.String substring(int)>($i0);
+
+        virtualinvoke $r43.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("_data", $r21);
+
+     label122:
+        goto label124;
+
+     label123:
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("_data", $r5);
+
+     label124:
+        $i0 = interfaceinvoke $r3.<android.database.Cursor: int getColumnIndexOrThrow(java.lang.String)>("text");
+
+        $r21 = interfaceinvoke $r3.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        virtualinvoke $r11.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("text", $r21);
+
+        $l3 = virtualinvoke $r13.<android.database.sqlite.SQLiteDatabase: long insert(java.lang.String,java.lang.String,android.content.ContentValues)>("pbox_part", null, $r11);
+
+     label125:
+        $b5 = $l3 cmp 0L;
+
+        $i0 = (int) $b5;
+
+        if $i0 <= 0 goto label135;
+
+     label126:
+        $z0 = staticinvoke <com.handcent.sms.ii.f2: boolean g(java.lang.String)>($r5);
+
+     label127:
+        if $z0 != 0 goto label135;
+
+     label128:
+        $r21 = virtualinvoke $r5.<java.lang.String: java.lang.String toUpperCase()>();
+
+        $r23 = staticinvoke <com.handcent.sms.yc.w: java.lang.String a(java.lang.String)>("PART");
+
+        $i0 = virtualinvoke $r21.<java.lang.String: int indexOf(java.lang.String)>($r23);
+
+     label129:
+        if $i0 < 0 goto label135;
+
+     label130:
+        $i0 = virtualinvoke $r5.<java.lang.String: int lastIndexOf(java.lang.String)>("/");
+
+     label131:
+        $i0 = $i0 + 1;
+
+     label132:
+        $r21 = virtualinvoke $r5.<java.lang.String: java.lang.String substring(int)>($i0);
+
+     label133:
+        $r42 = new java.lang.StringBuilder;
+
+     label134:
+        specialinvoke $r42.<java.lang.StringBuilder: void <init>()>();
+
+        $r23 = staticinvoke <com.handcent.sms.gd.c: java.lang.String a()>();
+
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r23);
+
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("backup-");
+
+        $r23 = staticinvoke <com.handcent.sms.kf.f: java.lang.String u(android.content.Context)>($r0);
+
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r23);
+
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/pbox/parts/");
+
+        virtualinvoke $r42.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r21);
+
+        $r21 = virtualinvoke $r42.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.handcent.sms.gd.a: void c(java.lang.String,java.lang.String)>($r5, $r21);
+
+     label135:
+        $z0 = interfaceinvoke $r3.<android.database.Cursor: boolean moveToNext()>();
+
+     label136:
+        if $z0 != 0 goto label115;
+
+        goto label139;
+
+     label137:
+        $r32 := @caughtexception;
+
+        $r14 = $r3;
+
+        $r3 = $r18;
+
+        $r12 = $r32;
+
+        goto label159;
+
+     label138:
+        $r33 := @caughtexception;
+
+        $r14 = $r3;
+
+        $r3 = $r7;
+
+        $r17 = $r33;
+
+        goto label156;
+
+     label139:
+        $r34 = staticinvoke <com.handcent.im.util.MyInfoCache: com.handcent.im.util.MyInfoCache v()>();
+
+        $i0 = virtualinvoke $r34.<com.handcent.im.util.MyInfoCache: int R()>();
+
+        if $i0 != 1 goto label140;
+
+        if $r18 == null goto label140;
+
+        $i0 = interfaceinvoke $r18.<android.database.Cursor: int getCount()>();
+
+        if $i0 <= 300 goto label140;
+
+        staticinvoke <com.handcent.sms.yc.r1: void c(java.lang.String,java.lang.String)>($r16, "delete pbox msg ,where msg  is over 300 msg ");
+
+        virtualinvoke $r13.<android.database.sqlite.SQLiteDatabase: void execSQL(java.lang.String)>("DELETE FROM pbox_msg WHERE _id not IN (SELECT _id FROM pbox_msg where action=1 ORDER BY date desc LIMIT 100)");
+
+     label140:
+        if $r7 == null goto label141;
+
+        interfaceinvoke $r7.<android.database.Cursor: void close()>();
+
+     label141:
+        if $r18 == null goto label142;
+
+        interfaceinvoke $r18.<android.database.Cursor: void close()>();
+
+     label142:
+        if $r3 == null goto label164;
+
+        interfaceinvoke $r3.<android.database.Cursor: void close()>();
+
+        return;
+
+     label143:
+        $r35 := @caughtexception;
+
+        goto label148;
+
+     label144:
+        $r36 := @caughtexception;
+
+        goto label150;
+
+     label145:
+        $r35 := @caughtexception;
+
+        $r13 = $r1;
+
+        goto label148;
+
+     label146:
+        $r36 := @caughtexception;
+
+        $r13 = $r1;
+
+        goto label150;
+
+     label147:
+        $r35 := @caughtexception;
+
+        $r13 = $r1;
+
+        $r15 = $r7;
+
+        $r16 = "huang";
+
+     label148:
+        $r12 = $r35;
+
+        $r14 = null;
+
+        goto label158;
+
+     label149:
+        $r36 := @caughtexception;
+
+        $r13 = $r1;
+
+        $r15 = $r7;
+
+        $r16 = "huang";
+
+     label150:
+        $r17 = $r36;
+
+        $r14 = null;
+
+        goto label153;
+
+     label151:
+        $r37 := @caughtexception;
+
+        $r13 = $r1;
+
+        $r15 = $r7;
+
+        $r16 = "huang";
+
+        $r12 = $r37;
+
+        $r14 = null;
+
+        goto label159;
+
+     label152:
+        $r38 := @caughtexception;
+
+        $r13 = $r1;
+
+        $r15 = $r7;
+
+        $r16 = "huang";
+
+        $r17 = $r38;
+
+        $r18 = null;
+
+        $r14 = null;
+
+     label153:
+        $r3 = $r15;
+
+        goto label156;
+
+     label154:
+        $r39 := @caughtexception;
+
+        $r13 = $r1;
+
+        $r16 = "huang";
+
+        $r12 = $r39;
+
+        $r14 = null;
+
+        $r15 = null;
+
+        goto label159;
+
+     label155:
+        $r40 := @caughtexception;
+
+        $r13 = $r1;
+
+        $r16 = "huang";
+
+        $r17 = $r40;
+
+        $r18 = null;
+
+        $r14 = null;
+
+     label156:
+        throw $r17;
+
+     label157:
+        $r41 := @caughtexception;
+
+        $r12 = $r41;
+
+        $r15 = $r3;
+
+     label158:
+        $r3 = $r18;
+
+     label159:
+        $r34 = staticinvoke <com.handcent.im.util.MyInfoCache: com.handcent.im.util.MyInfoCache v()>();
+
+        $i0 = virtualinvoke $r34.<com.handcent.im.util.MyInfoCache: int R()>();
+
+        if $i0 != 1 goto label160;
+
+        if $r3 == null goto label160;
+
+        $i0 = interfaceinvoke $r3.<android.database.Cursor: int getCount()>();
+
+        if $i0 <= 300 goto label160;
+
+        staticinvoke <com.handcent.sms.yc.r1: void c(java.lang.String,java.lang.String)>($r16, "delete pbox msg ,where msg  is over 300 msg ");
+
+        virtualinvoke $r13.<android.database.sqlite.SQLiteDatabase: void execSQL(java.lang.String)>("DELETE FROM pbox_msg WHERE _id not IN (SELECT _id FROM pbox_msg where action=1 ORDER BY date desc LIMIT 100)");
+
+     label160:
+        if $r15 == null goto label161;
+
+        interfaceinvoke $r15.<android.database.Cursor: void close()>();
+
+     label161:
+        if $r3 == null goto label162;
+
+        interfaceinvoke $r3.<android.database.Cursor: void close()>();
+
+     label162:
+        if $r14 == null goto label163;
+
+        interfaceinvoke $r14.<android.database.Cursor: void close()>();
+
+     label163:
+        throw $r12;
+
+     label164:
+        return;
+
+        catch java.lang.Exception from label001 to label002 with label155;
+        catch java.lang.Exception from label003 to label004 with label155;
+        catch java.lang.Throwable from label001 to label003 with label154;
+        catch java.lang.Throwable from label003 to label004 with label154;
+        catch java.lang.Exception from label005 to label006 with label013;
+        catch java.lang.Exception from label007 to label008 with label013;
+        catch java.lang.Exception from label010 to label011 with label013;
+        catch java.lang.Exception from label015 to label016 with label013;
+        catch java.lang.Exception from label017 to label018 with label013;
+        catch java.lang.Throwable from label005 to label006 with label012;
+        catch java.lang.Throwable from label007 to label008 with label012;
+        catch java.lang.Throwable from label009 to label010 with label012;
+        catch java.lang.Throwable from label010 to label011 with label012;
+        catch java.lang.Throwable from label015 to label017 with label012;
+        catch java.lang.Throwable from label017 to label018 with label012;
+        catch java.lang.Exception from label019 to label020 with label152;
+        catch java.lang.Exception from label021 to label022 with label152;
+        catch java.lang.Throwable from label019 to label021 with label151;
+        catch java.lang.Throwable from label021 to label022 with label151;
+        catch java.lang.Exception from label023 to label024 with label149;
+        catch java.lang.Throwable from label023 to label024 with label147;
+        catch java.lang.Exception from label025 to label026 with label054;
+        catch java.lang.Exception from label027 to label028 with label054;
+        catch java.lang.Throwable from label025 to label026 with label051;
+        catch java.lang.Throwable from label027 to label028 with label051;
+        catch java.lang.Exception from label031 to label032 with label050;
+        catch java.lang.Exception from label033 to label034 with label050;
+        catch java.lang.Exception from label035 to label036 with label050;
+        catch java.lang.Exception from label037 to label038 with label050;
+        catch java.lang.Exception from label038 to label039 with label050;
+        catch java.lang.Throwable from label029 to label030 with label049;
+        catch java.lang.Throwable from label031 to label032 with label049;
+        catch java.lang.Throwable from label033 to label034 with label049;
+        catch java.lang.Throwable from label035 to label036 with label049;
+        catch java.lang.Throwable from label036 to label037 with label049;
+        catch java.lang.Throwable from label037 to label038 with label049;
+        catch java.lang.Throwable from label038 to label039 with label049;
+        catch java.lang.Exception from label040 to label041 with label098;
+        catch java.lang.Exception from label045 to label046 with label098;
+        catch java.lang.Throwable from label040 to label042 with label097;
+        catch java.lang.Throwable from label043 to label045 with label097;
+        catch java.lang.Throwable from label045 to label046 with label097;
+        catch java.lang.Exception from label047 to label048 with label064;
+        catch java.lang.Exception from label058 to label059 with label064;
+        catch java.lang.Exception from label060 to label061 with label064;
+        catch java.lang.Throwable from label047 to label048 with label062;
+        catch java.lang.Throwable from label058 to label060 with label062;
+        catch java.lang.Throwable from label060 to label061 with label062;
+        catch java.lang.Exception from label068 to label069 with label146;
+        catch java.lang.Throwable from label067 to label068 with label145;
+        catch java.lang.Throwable from label068 to label069 with label145;
+        catch java.lang.Exception from label070 to label071 with label107;
+        catch java.lang.Throwable from label070 to label071 with label106;
+        catch java.lang.Exception from label073 to label074 with label098;
+        catch java.lang.Exception from label075 to label076 with label098;
+        catch java.lang.Exception from label078 to label079 with label098;
+        catch java.lang.Exception from label080 to label081 with label098;
+        catch java.lang.Exception from label082 to label084 with label098;
+        catch java.lang.Exception from label084 to label085 with label098;
+        catch java.lang.Exception from label085 to label086 with label098;
+        catch java.lang.Exception from label087 to label088 with label098;
+        catch java.lang.Exception from label088 to label089 with label098;
+        catch java.lang.Exception from label093 to label094 with label098;
+        catch java.lang.Throwable from label073 to label074 with label097;
+        catch java.lang.Throwable from label075 to label077 with label097;
+        catch java.lang.Throwable from label078 to label079 with label097;
+        catch java.lang.Throwable from label080 to label081 with label097;
+        catch java.lang.Throwable from label082 to label084 with label097;
+        catch java.lang.Throwable from label084 to label085 with label097;
+        catch java.lang.Throwable from label085 to label087 with label097;
+        catch java.lang.Throwable from label087 to label088 with label097;
+        catch java.lang.Throwable from label088 to label090 with label097;
+        catch java.lang.Throwable from label091 to label093 with label097;
+        catch java.lang.Throwable from label093 to label094 with label097;
+        catch java.lang.Exception from label095 to label096 with label105;
+        catch java.lang.Exception from label102 to label103 with label105;
+        catch java.lang.Throwable from label095 to label096 with label104;
+        catch java.lang.Throwable from label100 to label101 with label104;
+        catch java.lang.Throwable from label102 to label103 with label104;
+        catch java.lang.Exception from label109 to label110 with label144;
+        catch java.lang.Throwable from label109 to label110 with label143;
+        catch java.lang.Exception from label111 to label112 with label138;
+        catch java.lang.Exception from label113 to label114 with label138;
+        catch java.lang.Exception from label117 to label118 with label138;
+        catch java.lang.Exception from label119 to label120 with label138;
+        catch java.lang.Exception from label121 to label122 with label138;
+        catch java.lang.Exception from label123 to label125 with label138;
+        catch java.lang.Exception from label126 to label127 with label138;
+        catch java.lang.Exception from label128 to label129 with label138;
+        catch java.lang.Exception from label130 to label131 with label138;
+        catch java.lang.Exception from label132 to label133 with label138;
+        catch java.lang.Exception from label134 to label136 with label138;
+        catch java.lang.Throwable from label111 to label112 with label137;
+        catch java.lang.Throwable from label113 to label114 with label137;
+        catch java.lang.Throwable from label115 to label116 with label137;
+        catch java.lang.Throwable from label117 to label118 with label137;
+        catch java.lang.Throwable from label119 to label120 with label137;
+        catch java.lang.Throwable from label121 to label122 with label137;
+        catch java.lang.Throwable from label123 to label125 with label137;
+        catch java.lang.Throwable from label126 to label127 with label137;
+        catch java.lang.Throwable from label128 to label129 with label137;
+        catch java.lang.Throwable from label130 to label131 with label137;
+        catch java.lang.Throwable from label132 to label134 with label137;
+        catch java.lang.Throwable from label134 to label136 with label137;
+        catch java.lang.Throwable from label156 to label157 with label157;
+    }

@@ -1,0 +1,39 @@
+    private static void X(java.io.InputStream, java.io.File) throws java.lang.Exception
+    {
+        byte[] $r1;
+        int $i0;
+        java.io.FileOutputStream $r4;
+        java.lang.String $r3;
+        java.io.File $r2;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $r2 := @parameter1: java.io.File;
+
+        $r3 = virtualinvoke $r2.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        staticinvoke <com.handcent.sms.ri.n: boolean c(java.lang.String)>($r3);
+
+        $r4 = new java.io.FileOutputStream;
+
+        specialinvoke $r4.<java.io.FileOutputStream: void <init>(java.io.File)>($r2);
+
+        $r1 = newarray (byte)[8192];
+
+     label1:
+        $i0 = virtualinvoke $r0.<java.io.InputStream: int read(byte[],int,int)>($r1, 0, 8192);
+
+        if $i0 == -1 goto label2;
+
+        virtualinvoke $r4.<java.io.OutputStream: void write(byte[],int,int)>($r1, 0, $i0);
+
+        goto label1;
+
+     label2:
+        virtualinvoke $r4.<java.io.OutputStream: void close()>();
+
+        virtualinvoke $r0.<java.io.InputStream: void close()>();
+
+        return;
+    }

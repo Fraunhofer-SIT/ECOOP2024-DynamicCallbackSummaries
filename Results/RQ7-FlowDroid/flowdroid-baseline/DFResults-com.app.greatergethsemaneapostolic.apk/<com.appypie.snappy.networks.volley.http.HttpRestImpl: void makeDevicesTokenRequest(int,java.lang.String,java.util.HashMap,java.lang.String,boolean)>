@@ -1,0 +1,240 @@
+    private void makeDevicesTokenRequest(int, java.lang.String, java.util.HashMap, java.lang.String, boolean)
+    {
+        java.lang.Throwable $r14;
+        android.content.Context $r4;
+        byte[] $r13;
+        com.android.volley.Cache $r11;
+        java.util.HashMap $r3;
+        org.json.JSONException $r15;
+        org.json.JSONObject $r18;
+        int $i0;
+        java.lang.String $r1, $r2, $r8;
+        boolean $z0, $z1;
+        com.appypie.snappy.AppypieApplication $r9;
+        com.android.volley.RequestQueue $r10;
+        com.android.volley.Cache$Entry $r12;
+        com.appypie.snappy.networks.volley.http.HttpRestImpl$3 $r21;
+        com.appypie.snappy.networks.volley.http.HttpRestImpl$2 $r20;
+        java.lang.Exception $r16;
+        com.appypie.snappy.networks.volley.http.HttpRestImpl$1 $r19;
+        com.appypie.snappy.networks.volley.http.HttpRestImpl r0;
+        com.appypie.snappy.networks.volley.http.HttpResponseListener $r5;
+        java.lang.Object $r7;
+        java.lang.StringBuilder $r17;
+        android.app.Activity $r6;
+        java.io.UnsupportedEncodingException $r22;
+
+        r0 := @this: com.appypie.snappy.networks.volley.http.HttpRestImpl;
+
+        $i0 := @parameter0: int;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r3 := @parameter2: java.util.HashMap;
+
+        $r1 := @parameter3: java.lang.String;
+
+        $z0 := @parameter4: boolean;
+
+        $z1 = staticinvoke <com.appypie.snappy.networks.volley.NetworkUtil: boolean isConnected()>();
+
+        if $z1 != 0 goto label01;
+
+        $r4 = r0.<com.appypie.snappy.networks.volley.http.HttpRestImpl: android.content.Context context>;
+
+        $r2 = virtualinvoke $r4.<android.content.Context: java.lang.String getString(int)>(2131820781);
+
+        staticinvoke <com.appypie.snappy.utils.Utils: void showToast(android.content.Context,java.lang.String)>($r4, $r2);
+
+        $r5 = r0.<com.appypie.snappy.networks.volley.http.HttpRestImpl: com.appypie.snappy.networks.volley.http.HttpResponseListener httpResponseListener>;
+
+        if $r5 == null goto label29;
+
+        interfaceinvoke $r5.<com.appypie.snappy.networks.volley.http.HttpResponseListener: void showProgress(boolean,java.lang.String)>(0, "generateAuthToken");
+
+        return;
+
+     label01:
+        $r5 = r0.<com.appypie.snappy.networks.volley.http.HttpRestImpl: com.appypie.snappy.networks.volley.http.HttpResponseListener httpResponseListener>;
+
+        if $r5 != null goto label02;
+
+        return;
+
+     label02:
+        $r4 = r0.<com.appypie.snappy.networks.volley.http.HttpRestImpl: android.content.Context context>;
+
+        $r6 = (android.app.Activity) $r4;
+
+        staticinvoke <com.appypie.snappy.utils.Utils: void hideSoftKeyboard(android.app.Activity)>($r6);
+
+        $r17 = new java.lang.StringBuilder;
+
+     label03:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" === ");
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("deviceId");
+
+        $r7 = virtualinvoke $r3.<java.util.HashMap: java.lang.Object get(java.lang.Object)>("deviceId");
+
+        $r8 = (java.lang.String) $r7;
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("AppId:");
+
+        $r7 = virtualinvoke $r3.<java.util.HashMap: java.lang.Object get(java.lang.Object)>("appId");
+
+        $r8 = (java.lang.String) $r7;
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r8 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke r0.<com.appypie.snappy.networks.volley.http.HttpRestImpl: void printDebugString(java.lang.String)>($r8);
+
+        $r5 = r0.<com.appypie.snappy.networks.volley.http.HttpRestImpl: com.appypie.snappy.networks.volley.http.HttpResponseListener httpResponseListener>;
+
+        interfaceinvoke $r5.<com.appypie.snappy.networks.volley.http.HttpResponseListener: void showProgress(boolean,java.lang.String)>(1, "generateAuthToken");
+
+        $r9 = staticinvoke <com.appypie.snappy.AppypieApplication: com.appypie.snappy.AppypieApplication getApplicationInstance()>();
+
+        $r10 = virtualinvoke $r9.<com.appypie.snappy.AppypieApplication: com.android.volley.RequestQueue getRequestQueue()>();
+
+        $r11 = virtualinvoke $r10.<com.android.volley.RequestQueue: com.android.volley.Cache getCache()>();
+
+        $r12 = interfaceinvoke $r11.<com.android.volley.Cache: com.android.volley.Cache$Entry get(java.lang.String)>($r2);
+
+     label04:
+        if $r12 == null goto label23;
+
+        $r8 = new java.lang.String;
+
+     label05:
+        $r13 = $r12.<com.android.volley.Cache$Entry: byte[] data>;
+
+     label06:
+        specialinvoke $r8.<java.lang.String: void <init>(byte[],java.lang.String)>($r13, "utf-8");
+
+     label07:
+        $r18 = new org.json.JSONObject;
+
+     label08:
+        specialinvoke $r18.<org.json.JSONObject: void <init>(java.lang.String)>($r8);
+
+     label09:
+        $r17 = new java.lang.StringBuilder;
+
+     label10:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("generateAuthToken");
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" === ");
+
+        $r2 = virtualinvoke $r18.<org.json.JSONObject: java.lang.String toString()>();
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke r0.<com.appypie.snappy.networks.volley.http.HttpRestImpl: void printDebugString(java.lang.String)>($r2);
+
+     label11:
+        $r5 = r0.<com.appypie.snappy.networks.volley.http.HttpRestImpl: com.appypie.snappy.networks.volley.http.HttpResponseListener httpResponseListener>;
+
+     label12:
+        interfaceinvoke $r5.<com.appypie.snappy.networks.volley.http.HttpResponseListener: void onSuccess(java.lang.Object,java.lang.String)>($r18, "generateAuthToken");
+
+     label13:
+        $r5 = r0.<com.appypie.snappy.networks.volley.http.HttpRestImpl: com.appypie.snappy.networks.volley.http.HttpResponseListener httpResponseListener>;
+
+     label14:
+        interfaceinvoke $r5.<com.appypie.snappy.networks.volley.http.HttpResponseListener: void showProgress(boolean,java.lang.String)>(0, "generateAuthToken");
+
+     label15:
+        goto label21;
+
+     label16:
+        $r14 := @caughtexception;
+
+     label17:
+        $r22 = (java.io.UnsupportedEncodingException) $r14;
+
+        virtualinvoke $r22.<java.io.UnsupportedEncodingException: void printStackTrace()>();
+
+     label18:
+        goto label21;
+
+     label19:
+        $r15 := @caughtexception;
+
+     label20:
+        virtualinvoke $r15.<org.json.JSONException: void printStackTrace()>();
+
+     label21:
+        $r5 = r0.<com.appypie.snappy.networks.volley.http.HttpRestImpl: com.appypie.snappy.networks.volley.http.HttpResponseListener httpResponseListener>;
+
+        interfaceinvoke $r5.<com.appypie.snappy.networks.volley.http.HttpResponseListener: void showProgress(boolean,java.lang.String)>(0, "generateAuthToken");
+
+     label22:
+        return;
+
+     label23:
+        $r21 = new com.appypie.snappy.networks.volley.http.HttpRestImpl$3;
+
+        $r19 = new com.appypie.snappy.networks.volley.http.HttpRestImpl$1;
+
+     label24:
+        specialinvoke $r19.<com.appypie.snappy.networks.volley.http.HttpRestImpl$1: void <init>(com.appypie.snappy.networks.volley.http.HttpRestImpl,java.lang.String)>(r0, "generateAuthToken");
+
+     label25:
+        $r20 = new com.appypie.snappy.networks.volley.http.HttpRestImpl$2;
+
+     label26:
+        $r4 = r0.<com.appypie.snappy.networks.volley.http.HttpRestImpl: android.content.Context context>;
+
+        specialinvoke $r20.<com.appypie.snappy.networks.volley.http.HttpRestImpl$2: void <init>(com.appypie.snappy.networks.volley.http.HttpRestImpl,android.content.Context,java.lang.String)>(r0, $r4, "generateAuthToken");
+
+        specialinvoke $r21.<com.appypie.snappy.networks.volley.http.HttpRestImpl$3: void <init>(com.appypie.snappy.networks.volley.http.HttpRestImpl,int,java.lang.String,org.json.JSONObject,com.android.volley.Response$Listener,com.android.volley.Response$ErrorListener,java.util.HashMap)>(r0, 1, $r2, null, $r19, $r20, $r3);
+
+        virtualinvoke $r21.<com.appypie.snappy.networks.volley.JsonRequest: com.android.volley.Request setShouldCache(boolean)>(0);
+
+        $r9 = staticinvoke <com.appypie.snappy.AppypieApplication: com.appypie.snappy.AppypieApplication getApplicationInstance()>();
+
+        virtualinvoke $r9.<com.appypie.snappy.AppypieApplication: void addToRequestQueue(com.android.volley.Request)>($r21);
+
+     label27:
+        return;
+
+     label28:
+        $r16 := @caughtexception;
+
+        virtualinvoke $r16.<java.lang.Exception: void printStackTrace()>();
+
+     label29:
+        return;
+
+        catch java.lang.Exception from label03 to label04 with label28;
+        catch org.json.JSONException from label06 to label07 with label19;
+        catch org.json.JSONException from label08 to label09 with label19;
+        catch org.json.JSONException from label10 to label11 with label19;
+        catch org.json.JSONException from label12 to label13 with label19;
+        catch org.json.JSONException from label14 to label15 with label19;
+        catch java.io.UnsupportedEncodingException from label06 to label07 with label16;
+        catch java.io.UnsupportedEncodingException from label08 to label09 with label16;
+        catch java.io.UnsupportedEncodingException from label10 to label11 with label16;
+        catch java.io.UnsupportedEncodingException from label12 to label13 with label16;
+        catch java.io.UnsupportedEncodingException from label14 to label15 with label16;
+        catch java.lang.Exception from label05 to label07 with label28;
+        catch java.lang.Exception from label08 to label09 with label28;
+        catch java.lang.Exception from label10 to label15 with label28;
+        catch java.lang.Exception from label17 to label18 with label28;
+        catch java.lang.Exception from label20 to label22 with label28;
+        catch java.lang.Exception from label24 to label25 with label28;
+        catch java.lang.Exception from label26 to label27 with label28;
+    }

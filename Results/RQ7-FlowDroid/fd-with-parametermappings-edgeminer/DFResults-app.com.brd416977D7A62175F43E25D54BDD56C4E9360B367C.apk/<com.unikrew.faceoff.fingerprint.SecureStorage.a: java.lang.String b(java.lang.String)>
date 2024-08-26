@@ -1,0 +1,104 @@
+    static java.lang.String b(java.lang.String) throws com.unikrew.faceoff.fingerprint.SecureStorage.d
+    {
+        byte[] $r5;
+        java.io.ByteArrayOutputStream $r4;
+        com.unikrew.faceoff.fingerprint.SecureStorage.d$a $r8;
+        java.security.PublicKey $r3;
+        javax.crypto.Cipher $r2;
+        java.lang.Exception $r6;
+        com.unikrew.faceoff.fingerprint.SecureStorage.d $r7;
+        int $i0, $i1, $i2;
+        java.lang.String $r0, $r1;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $i0 = <android.os.Build$VERSION: int SDK_INT>;
+
+        if $i0 < 23 goto label01;
+
+        $r1 = "AndroidKeyStoreBCWorkaround";
+
+        goto label02;
+
+     label01:
+        $r1 = "AndroidOpenSSL";
+
+     label02:
+        $r2 = staticinvoke <javax.crypto.Cipher: javax.crypto.Cipher getInstance(java.lang.String,java.lang.String)>("RSA/ECB/PKCS1Padding", $r1);
+
+        $r3 = staticinvoke <com.unikrew.faceoff.fingerprint.SecureStorage.a: java.security.PublicKey e()>();
+
+        virtualinvoke $r2.<javax.crypto.Cipher: void init(int,java.security.Key)>(1, $r3);
+
+     label03:
+        $i1 = 245;
+
+        $r4 = new java.io.ByteArrayOutputStream;
+
+     label04:
+        specialinvoke $r4.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label05:
+        $i0 = 0;
+
+     label06:
+        $i2 = virtualinvoke $r0.<java.lang.String: int length()>();
+
+     label07:
+        if $i0 >= $i2 goto label14;
+
+     label08:
+        $i2 = virtualinvoke $r0.<java.lang.String: int length()>();
+
+     label09:
+        $i2 = $i2 - $i0;
+
+        if $i2 >= $i1 goto label12;
+
+     label10:
+        $i1 = virtualinvoke $r0.<java.lang.String: int length()>();
+
+     label11:
+        $i1 = $i1 - $i0;
+
+     label12:
+        $r5 = virtualinvoke $r0.<java.lang.String: byte[] getBytes()>();
+
+        $r5 = virtualinvoke $r2.<javax.crypto.Cipher: byte[] doFinal(byte[],int,int)>($r5, $i0, $i1);
+
+        virtualinvoke $r4.<java.io.OutputStream: void write(byte[])>($r5);
+
+     label13:
+        $i0 = $i0 + $i1;
+
+        goto label06;
+
+     label14:
+        $r5 = virtualinvoke $r4.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $r0 = staticinvoke <android.util.Base64: java.lang.String encodeToString(byte[],int)>($r5, 0);
+
+     label15:
+        return $r0;
+
+     label16:
+        $r6 := @caughtexception;
+
+        $r7 = new com.unikrew.faceoff.fingerprint.SecureStorage.d;
+
+        $r0 = virtualinvoke $r6.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        $r8 = <com.unikrew.faceoff.fingerprint.SecureStorage.d$a: com.unikrew.faceoff.fingerprint.SecureStorage.d$a a>;
+
+        specialinvoke $r7.<com.unikrew.faceoff.fingerprint.SecureStorage.d: void <init>(java.lang.String,java.lang.Throwable,com.unikrew.faceoff.fingerprint.SecureStorage.d$a)>($r0, $r6, $r8);
+
+        throw $r7;
+
+        catch java.lang.Exception from label02 to label03 with label16;
+        catch java.lang.Exception from label04 to label05 with label16;
+        catch java.lang.Exception from label06 to label07 with label16;
+        catch java.lang.Exception from label08 to label09 with label16;
+        catch java.lang.Exception from label10 to label11 with label16;
+        catch java.lang.Exception from label12 to label13 with label16;
+        catch java.lang.Exception from label14 to label15 with label16;
+    }

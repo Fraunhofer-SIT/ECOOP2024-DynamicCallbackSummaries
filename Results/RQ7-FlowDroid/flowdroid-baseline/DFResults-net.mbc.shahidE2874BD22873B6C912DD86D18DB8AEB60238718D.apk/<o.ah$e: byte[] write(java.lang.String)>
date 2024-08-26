@@ -1,0 +1,237 @@
+    public static byte[] write(java.lang.String)
+    {
+        java.lang.Throwable $r0, $r1, $r10, $r12, $r13, $r14;
+        java.net.HttpURLConnection $r6;
+        byte[] $r9;
+        java.io.ByteArrayOutputStream $r16;
+        java.net.URL $r15;
+        java.util.concurrent.atomic.AtomicBoolean $r5;
+        java.net.URLConnection $r4;
+        int $i0, $i1;
+        java.lang.String $r2;
+        boolean $z0;
+        com.clevertap.android.sdk.CleverTapAPI$LogLevel $r11;
+        javax.net.ssl.HttpsURLConnection $r3, $r7;
+        java.lang.StringBuilder $r17;
+        java.io.InputStream $r8;
+
+        $r2 := @parameter0: java.lang.String;
+
+        $r2 = virtualinvoke $r2.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("///", "/");
+
+        $r2 = virtualinvoke $r2.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("//", "/");
+
+        $r2 = virtualinvoke $r2.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("http:/", "http://");
+
+        $r2 = virtualinvoke $r2.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("https:/", "https://");
+
+        $r3 = null;
+
+     label01:
+        $r15 = new java.net.URL;
+
+     label02:
+        specialinvoke $r15.<java.net.URL: void <init>(java.lang.String)>($r2);
+
+        $r4 = virtualinvoke $r15.<java.net.URL: java.net.URLConnection openConnection()>();
+
+     label03:
+        $r5 = <o.cw: java.util.concurrent.atomic.AtomicBoolean AudioAttributesCompatParcelizer>;
+
+     label04:
+        $z0 = virtualinvoke $r5.<java.util.concurrent.atomic.AtomicBoolean: boolean get()>();
+
+     label05:
+        if $z0 == 0 goto label10;
+
+     label06:
+        $z0 = $r4 instanceof java.net.HttpURLConnection;
+
+     label07:
+        if $z0 == 0 goto label10;
+
+     label08:
+        $r6 = (java.net.HttpURLConnection) $r4;
+
+     label09:
+        staticinvoke <com.dynatrace.android.callback.CallbackCore: o.v$c write(java.net.HttpURLConnection)>($r6);
+
+     label10:
+        $r7 = (javax.net.ssl.HttpsURLConnection) $r4;
+
+     label11:
+        $r8 = staticinvoke <o.onAddQueueItem: java.io.InputStream write(java.net.HttpURLConnection)>($r7);
+
+     label12:
+        $r9 = newarray (byte)[8192];
+
+     label13:
+        $r16 = new java.io.ByteArrayOutputStream;
+
+     label14:
+        specialinvoke $r16.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label15:
+        $i0 = virtualinvoke $r8.<java.io.InputStream: int read(byte[])>($r9);
+
+     label16:
+        if $i0 == -1 goto label19;
+
+     label17:
+        virtualinvoke $r16.<java.io.OutputStream: void write(byte[],int,int)>($r9, 0, $i0);
+
+     label18:
+        goto label15;
+
+     label19:
+        $r9 = virtualinvoke $r16.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label20:
+        if $r7 == null goto label42;
+
+     label21:
+        virtualinvoke $r7.<java.net.HttpURLConnection: void disconnect()>();
+
+     label22:
+        return $r9;
+
+     label23:
+        $r10 := @caughtexception;
+
+        $i0 = staticinvoke <com.clevertap.android.sdk.CleverTapAPI: int IconCompatParcelizer()>();
+
+        $r11 = <com.clevertap.android.sdk.CleverTapAPI$LogLevel: com.clevertap.android.sdk.CleverTapAPI$LogLevel DEBUG>;
+
+        $i1 = $r11.<com.clevertap.android.sdk.CleverTapAPI$LogLevel: int value>;
+
+        if $i0 <= $i1 goto label42;
+
+        staticinvoke <android.util.Log: int v(java.lang.String,java.lang.String,java.lang.Throwable)>("CleverTap", "Couldn\'t close connection!", $r10);
+
+        return $r9;
+
+     label24:
+        $r12 := @caughtexception;
+
+        goto label35;
+
+     label25:
+        $r7 = null;
+
+     label26:
+        $r17 = new java.lang.StringBuilder;
+
+     label27:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Error processing image bytes from url: ");
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r17.<java.lang.Object: java.lang.String toString()>();
+
+        $i0 = staticinvoke <com.clevertap.android.sdk.CleverTapAPI: int IconCompatParcelizer()>();
+
+        $r11 = <com.clevertap.android.sdk.CleverTapAPI$LogLevel: com.clevertap.android.sdk.CleverTapAPI$LogLevel DEBUG>;
+
+        $i1 = $r11.<com.clevertap.android.sdk.CleverTapAPI$LogLevel: int value>;
+
+     label28:
+        if $i0 <= $i1 goto label30;
+
+     label29:
+        staticinvoke <android.util.Log: int v(java.lang.String,java.lang.String)>("CleverTap", $r2);
+
+     label30:
+        if $r7 == null goto label43;
+
+     label31:
+        virtualinvoke $r7.<java.net.HttpURLConnection: void disconnect()>();
+
+     label32:
+        return null;
+
+     label33:
+        $r13 := @caughtexception;
+
+        $i0 = staticinvoke <com.clevertap.android.sdk.CleverTapAPI: int IconCompatParcelizer()>();
+
+        $r11 = <com.clevertap.android.sdk.CleverTapAPI$LogLevel: com.clevertap.android.sdk.CleverTapAPI$LogLevel DEBUG>;
+
+        $i1 = $r11.<com.clevertap.android.sdk.CleverTapAPI$LogLevel: int value>;
+
+        if $i0 <= $i1 goto label43;
+
+        staticinvoke <android.util.Log: int v(java.lang.String,java.lang.String,java.lang.Throwable)>("CleverTap", "Couldn\'t close connection!", $r13);
+
+        return null;
+
+     label34:
+        $r12 := @caughtexception;
+
+        $r3 = $r7;
+
+     label35:
+        if $r3 == null goto label39;
+
+     label36:
+        virtualinvoke $r3.<java.net.HttpURLConnection: void disconnect()>();
+
+     label37:
+        goto label39;
+
+     label38:
+        $r14 := @caughtexception;
+
+        $i0 = staticinvoke <com.clevertap.android.sdk.CleverTapAPI: int IconCompatParcelizer()>();
+
+        $r11 = <com.clevertap.android.sdk.CleverTapAPI$LogLevel: com.clevertap.android.sdk.CleverTapAPI$LogLevel DEBUG>;
+
+        $i1 = $r11.<com.clevertap.android.sdk.CleverTapAPI$LogLevel: int value>;
+
+        if $i0 <= $i1 goto label39;
+
+        staticinvoke <android.util.Log: int v(java.lang.String,java.lang.String,java.lang.Throwable)>("CleverTap", "Couldn\'t close connection!", $r14);
+
+     label39:
+        throw $r12;
+
+     label40:
+        $r0 := @caughtexception;
+
+        goto label25;
+
+     label41:
+        $r1 := @caughtexception;
+
+        goto label26;
+
+     label42:
+        return $r9;
+
+     label43:
+        return null;
+
+        catch java.io.IOException from label02 to label03 with label40;
+        catch java.io.IOException from label04 to label05 with label40;
+        catch java.io.IOException from label09 to label10 with label40;
+        catch java.lang.Throwable from label01 to label02 with label24;
+        catch java.lang.Throwable from label02 to label05 with label24;
+        catch java.lang.Throwable from label06 to label07 with label24;
+        catch java.lang.Throwable from label08 to label11 with label24;
+        catch java.io.IOException from label11 to label12 with label41;
+        catch java.io.IOException from label14 to label16 with label41;
+        catch java.io.IOException from label17 to label18 with label41;
+        catch java.io.IOException from label19 to label20 with label41;
+        catch java.lang.Throwable from label11 to label12 with label34;
+        catch java.lang.Throwable from label13 to label14 with label34;
+        catch java.lang.Throwable from label14 to label16 with label34;
+        catch java.lang.Throwable from label17 to label18 with label34;
+        catch java.lang.Throwable from label19 to label20 with label34;
+        catch java.lang.Throwable from label21 to label22 with label23;
+        catch java.lang.Throwable from label26 to label27 with label34;
+        catch java.lang.Throwable from label27 to label28 with label34;
+        catch java.lang.Throwable from label29 to label30 with label34;
+        catch java.lang.Throwable from label31 to label32 with label33;
+        catch java.lang.Throwable from label36 to label37 with label38;
+    }

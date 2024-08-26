@@ -1,0 +1,56 @@
+    public java.lang.Object getValue()
+    {
+        java.lang.Throwable $r6;
+        kotlin.SynchronizedLazyImpl r0;
+        java.lang.Object $r1, $r3, $r4;
+        kotlin.UNINITIALIZED_VALUE $r2;
+        kotlin.jvm.functions.Function0 $r5;
+
+        r0 := @this: kotlin.SynchronizedLazyImpl;
+
+        $r1 = r0.<kotlin.SynchronizedLazyImpl: java.lang.Object _value>;
+
+        $r2 = <kotlin.UNINITIALIZED_VALUE: kotlin.UNINITIALIZED_VALUE INSTANCE>;
+
+        if $r1 == $r2 goto label1;
+
+        return $r1;
+
+     label1:
+        $r3 = r0.<kotlin.SynchronizedLazyImpl: java.lang.Object lock>;
+
+        entermonitor $r3;
+
+     label2:
+        $r4 = r0.<kotlin.SynchronizedLazyImpl: java.lang.Object _value>;
+
+        $r2 = <kotlin.UNINITIALIZED_VALUE: kotlin.UNINITIALIZED_VALUE INSTANCE>;
+
+        if $r4 != $r2 goto label3;
+
+        $r5 = r0.<kotlin.SynchronizedLazyImpl: kotlin.jvm.functions.Function0 initializer>;
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkNotNull(java.lang.Object)>($r5);
+
+        $r1 = interfaceinvoke $r5.<kotlin.jvm.functions.Function0: java.lang.Object invoke()>();
+
+        $r4 = $r1;
+
+        r0.<kotlin.SynchronizedLazyImpl: java.lang.Object _value> = $r1;
+
+        r0.<kotlin.SynchronizedLazyImpl: kotlin.jvm.functions.Function0 initializer> = null;
+
+     label3:
+        exitmonitor $r3;
+
+        return $r4;
+
+     label4:
+        $r6 := @caughtexception;
+
+        exitmonitor $r3;
+
+        throw $r6;
+
+        catch java.lang.Throwable from label2 to label3 with label4;
+    }

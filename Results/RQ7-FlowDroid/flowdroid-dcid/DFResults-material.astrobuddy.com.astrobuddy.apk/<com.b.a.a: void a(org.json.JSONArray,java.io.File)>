@@ -1,0 +1,54 @@
+    public final void a(org.json.JSONArray, java.io.File)
+    {
+        com.b.a.a r0;
+        org.json.JSONException $r6;
+        org.json.JSONObject $r3;
+        com.b.a.b $r5;
+        java.lang.String $r4;
+        org.json.JSONArray $r1;
+        java.io.File $r2;
+
+        r0 := @this: com.b.a.a;
+
+        $r1 := @parameter0: org.json.JSONArray;
+
+        $r2 := @parameter1: java.io.File;
+
+        staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>("Rollbar", "Sending item batch...");
+
+        $r3 = new org.json.JSONObject;
+
+     label1:
+        specialinvoke $r3.<org.json.JSONObject: void <init>()>();
+
+     label2:
+        $r4 = r0.<com.b.a.a: java.lang.String d>;
+
+     label3:
+        virtualinvoke $r3.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("access_token", $r4);
+
+        virtualinvoke $r3.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("data", $r1);
+
+     label4:
+        staticinvoke <com.b.a.a.b: com.b.a.a.b a()>();
+
+        $r4 = r0.<com.b.a.a: java.lang.String g>;
+
+        $r5 = new com.b.a.b;
+
+        specialinvoke $r5.<com.b.a.b: void <init>(com.b.a.a,java.io.File,org.json.JSONArray)>(r0, $r2, $r1);
+
+        staticinvoke <com.b.a.a.b: void a(java.lang.String,org.json.JSONObject,com.b.a.a.e)>($r4, $r3, $r5);
+
+        return;
+
+     label5:
+        $r6 := @caughtexception;
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("Rollbar", "There was an error constructing the JSON payload.", $r6);
+
+        return;
+
+        catch org.json.JSONException from label1 to label2 with label5;
+        catch org.json.JSONException from label3 to label4 with label5;
+    }

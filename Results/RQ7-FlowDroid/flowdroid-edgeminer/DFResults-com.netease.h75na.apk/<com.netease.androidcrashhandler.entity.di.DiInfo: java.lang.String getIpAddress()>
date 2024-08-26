@@ -1,0 +1,229 @@
+    public java.lang.String getIpAddress()
+    {
+        android.content.Context $r1;
+        java.util.Enumeration $r10, $r12;
+        android.net.wifi.WifiInfo $r16;
+        java.net.InetAddress $r13;
+        int $i0;
+        java.lang.String $r2, $r9;
+        boolean $z0;
+        android.net.ConnectivityManager $r5;
+        java.net.NetworkInterface $r11;
+        android.net.NetworkInfo $r3, $r6;
+        com.netease.androidcrashhandler.entity.di.DiInfo r0;
+        java.lang.Exception $r7, $r14, $r17;
+        android.net.wifi.WifiManager $r15;
+        java.lang.Object $r4;
+        java.lang.StringBuilder $r8;
+
+        r0 := @this: com.netease.androidcrashhandler.entity.di.DiInfo;
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", "DiInfo [getIpAddress] start");
+
+        $r1 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: android.content.Context mContext>;
+
+        $r2 = "unknown";
+
+        if $r1 != null goto label01;
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", "DiInfo [getIpAddress] context error");
+
+        return "unknown";
+
+     label01:
+        $r3 = null;
+
+     label02:
+        $r4 = virtualinvoke $r1.<android.content.Context: java.lang.Object getSystemService(java.lang.String)>("connectivity");
+
+        $r5 = (android.net.ConnectivityManager) $r4;
+
+     label03:
+        if $r5 == null goto label08;
+
+     label04:
+        $r6 = virtualinvoke $r5.<android.net.ConnectivityManager: android.net.NetworkInfo getActiveNetworkInfo()>();
+
+     label05:
+        $r3 = $r6;
+
+        goto label08;
+
+     label06:
+        $r7 := @caughtexception;
+
+        $r8 = new java.lang.StringBuilder;
+
+     label07:
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("DiInfo [getIpAddress] Exception1=");
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r7);
+
+        $r9 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void w(java.lang.String,java.lang.String)>("trace", $r9);
+
+        virtualinvoke $r7.<java.lang.Exception: void printStackTrace()>();
+
+     label08:
+        if $r3 == null goto label31;
+
+     label09:
+        $z0 = virtualinvoke $r3.<android.net.NetworkInfo: boolean isConnected()>();
+
+     label10:
+        if $z0 == 0 goto label31;
+
+     label11:
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", "DiInfo [getIpAddress] connect to network");
+
+        $i0 = virtualinvoke $r3.<android.net.NetworkInfo: int getType()>();
+
+     label12:
+        if $i0 != 0 goto label27;
+
+     label13:
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", "DiInfo [getIpAddress] mobile network");
+
+     label14:
+        $r10 = staticinvoke <java.net.NetworkInterface: java.util.Enumeration getNetworkInterfaces()>();
+
+     label15:
+        $z0 = interfaceinvoke $r10.<java.util.Enumeration: boolean hasMoreElements()>();
+
+     label16:
+        if $z0 == 0 goto label32;
+
+     label17:
+        $r4 = interfaceinvoke $r10.<java.util.Enumeration: java.lang.Object nextElement()>();
+
+        $r11 = (java.net.NetworkInterface) $r4;
+
+        $r12 = virtualinvoke $r11.<java.net.NetworkInterface: java.util.Enumeration getInetAddresses()>();
+
+     label18:
+        $z0 = interfaceinvoke $r12.<java.util.Enumeration: boolean hasMoreElements()>();
+
+     label19:
+        if $z0 == 0 goto label15;
+
+     label20:
+        $r4 = interfaceinvoke $r12.<java.util.Enumeration: java.lang.Object nextElement()>();
+
+        $r13 = (java.net.InetAddress) $r4;
+
+        $z0 = virtualinvoke $r13.<java.net.InetAddress: boolean isLoopbackAddress()>();
+
+     label21:
+        if $z0 != 0 goto label18;
+
+     label22:
+        $r9 = virtualinvoke $r13.<java.net.InetAddress: java.lang.String getHostAddress()>();
+
+     label23:
+        $r2 = $r9;
+
+        goto label18;
+
+     label24:
+        $r14 := @caughtexception;
+
+        $r8 = new java.lang.StringBuilder;
+
+     label25:
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("DiInfo [getIpAddress] Exception2=");
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r14);
+
+        $r9 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void w(java.lang.String,java.lang.String)>("trace", $r9);
+
+        virtualinvoke $r14.<java.lang.Exception: void printStackTrace()>();
+
+     label26:
+        goto label32;
+
+     label27:
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", "DiInfo [getIpAddress] wifi network");
+
+        $r1 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: android.content.Context mContext>;
+
+        $r4 = virtualinvoke $r1.<android.content.Context: java.lang.Object getSystemService(java.lang.String)>("wifi");
+
+        $r15 = (android.net.wifi.WifiManager) $r4;
+
+     label28:
+        if $r15 == null goto label32;
+
+     label29:
+        $r16 = virtualinvoke $r15.<android.net.wifi.WifiManager: android.net.wifi.WifiInfo getConnectionInfo()>();
+
+        $i0 = virtualinvoke $r16.<android.net.wifi.WifiInfo: int getIpAddress()>();
+
+        $r9 = staticinvoke <com.netease.androidcrashhandler.entity.di.DiInfo: java.lang.String intIP2StringIP(int)>($i0);
+
+     label30:
+        $r2 = $r9;
+
+        goto label32;
+
+     label31:
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", "DiInfo [getIpAddress] Unable to connect to network");
+
+     label32:
+        $r8 = new java.lang.StringBuilder;
+
+     label33:
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("DiInfo [getIpAddress] final ip = ");
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r9 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", $r9);
+
+     label34:
+        return $r2;
+
+     label35:
+        $r17 := @caughtexception;
+
+        $r8 = new java.lang.StringBuilder;
+
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("DiInfo [getIpAddress] Exception3=");
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r17);
+
+        $r9 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void w(java.lang.String,java.lang.String)>("trace", $r9);
+
+        virtualinvoke $r17.<java.lang.Exception: void printStackTrace()>();
+
+        return $r2;
+
+        catch java.lang.Exception from label02 to label03 with label06;
+        catch java.lang.Exception from label04 to label05 with label06;
+        catch java.lang.Exception from label07 to label08 with label35;
+        catch java.lang.Exception from label09 to label10 with label35;
+        catch java.lang.Exception from label11 to label12 with label35;
+        catch java.lang.Exception from label13 to label14 with label35;
+        catch java.lang.Exception from label14 to label16 with label24;
+        catch java.lang.Exception from label17 to label19 with label24;
+        catch java.lang.Exception from label20 to label21 with label24;
+        catch java.lang.Exception from label22 to label23 with label24;
+        catch java.lang.Exception from label25 to label26 with label35;
+        catch java.lang.Exception from label27 to label28 with label35;
+        catch java.lang.Exception from label29 to label30 with label35;
+        catch java.lang.Exception from label31 to label32 with label35;
+        catch java.lang.Exception from label33 to label34 with label35;
+    }

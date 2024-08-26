@@ -1,0 +1,37 @@
+    public void writeRawVarint64(long) throws java.io.IOException
+    {
+        com.crashlytics.android.core.CodedOutputStream r0;
+        byte $b1;
+        int $i0;
+        long $l2, $l3;
+
+        r0 := @this: com.crashlytics.android.core.CodedOutputStream;
+
+        $l2 := @parameter0: long;
+
+     label1:
+        $l3 = -128L & $l2;
+
+        $b1 = $l3 cmp 0L;
+
+        if $b1 != 0 goto label2;
+
+        $i0 = (int) $l2;
+
+        virtualinvoke r0.<com.crashlytics.android.core.CodedOutputStream: void writeRawByte(int)>($i0);
+
+        return;
+
+     label2:
+        $i0 = (int) $l2;
+
+        $i0 = $i0 & 127;
+
+        $i0 = $i0 | 128;
+
+        virtualinvoke r0.<com.crashlytics.android.core.CodedOutputStream: void writeRawByte(int)>($i0);
+
+        $l2 = $l2 >>> 7;
+
+        goto label1;
+    }

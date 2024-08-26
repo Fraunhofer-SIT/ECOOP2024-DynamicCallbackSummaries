@@ -1,0 +1,84 @@
+    public static boolean write(android.content.Context, java.lang.String, java.lang.String)
+    {
+        android.content.Context $r0;
+        byte[] $r6;
+        java.io.FileOutputStream $r5;
+        java.io.File $r3, $r4;
+        java.lang.Exception $r7;
+        java.lang.StringBuilder $r8;
+        java.lang.String $r1, $r2;
+        boolean $z0;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r2 := @parameter2: java.lang.String;
+
+     label01:
+        $r3 = virtualinvoke $r0.<android.content.Context: java.io.File getFilesDir()>();
+
+     label02:
+        $r4 = new java.io.File;
+
+     label03:
+        specialinvoke $r4.<java.io.File: void <init>(java.io.File,java.lang.String)>($r3, "unisdk_push");
+
+        $z0 = virtualinvoke $r4.<java.io.File: boolean isDirectory()>();
+
+     label04:
+        if $z0 != 0 goto label06;
+
+     label05:
+        virtualinvoke $r4.<java.io.File: boolean mkdirs()>();
+
+     label06:
+        $r3 = new java.io.File;
+
+     label07:
+        specialinvoke $r3.<java.io.File: void <init>(java.io.File,java.lang.String)>($r4, $r1);
+
+     label08:
+        $r5 = new java.io.FileOutputStream;
+
+     label09:
+        specialinvoke $r5.<java.io.FileOutputStream: void <init>(java.io.File,boolean)>($r3, 0);
+
+        $r6 = virtualinvoke $r2.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8");
+
+        virtualinvoke $r5.<java.io.FileOutputStream: void write(byte[])>($r6);
+
+        virtualinvoke $r5.<java.io.FileOutputStream: void flush()>();
+
+        virtualinvoke $r5.<java.io.FileOutputStream: void close()>();
+
+     label10:
+        return 1;
+
+     label11:
+        $r7 := @caughtexception;
+
+        $r1 = <com.netease.push.utils.FileUtils: java.lang.String TAG>;
+
+        $r8 = new java.lang.StringBuilder;
+
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("write exception:");
+
+        $r2 = virtualinvoke $r7.<java.lang.Exception: java.lang.String toString()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.push.utils.PushLog: void e(java.lang.String,java.lang.String)>($r1, $r2);
+
+        return 0;
+
+        catch java.lang.Exception from label01 to label02 with label11;
+        catch java.lang.Exception from label03 to label04 with label11;
+        catch java.lang.Exception from label05 to label06 with label11;
+        catch java.lang.Exception from label07 to label08 with label11;
+        catch java.lang.Exception from label09 to label10 with label11;
+    }

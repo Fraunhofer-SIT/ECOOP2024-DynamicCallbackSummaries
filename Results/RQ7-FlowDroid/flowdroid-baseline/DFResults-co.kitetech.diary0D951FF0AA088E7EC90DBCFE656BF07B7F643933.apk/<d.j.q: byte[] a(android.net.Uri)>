@@ -1,0 +1,179 @@
+    public static byte[] a(android.net.Uri)
+    {
+        java.lang.Throwable $r0, $r7, $r9;
+        android.content.Context $r3;
+        byte[] $r6;
+        java.io.ByteArrayOutputStream $r11;
+        d.g.c $r13;
+        android.net.Uri $r1;
+        android.content.ContentResolver $r4;
+        int $i0;
+        java.lang.String $r10;
+        boolean $z0;
+        java.io.IOException $r14;
+        java.lang.RuntimeException $r12;
+        java.lang.Exception $r8;
+        java.io.InputStream $r2, $r5;
+
+        $r1 := @parameter0: android.net.Uri;
+
+        $r11 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r11.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r2 = null;
+
+     label01:
+        $r3 = staticinvoke <d.b.b: android.content.Context b()>();
+
+        $r4 = virtualinvoke $r3.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+        $r5 = virtualinvoke $r4.<android.content.ContentResolver: java.io.InputStream openInputStream(android.net.Uri)>($r1);
+
+     label02:
+        $r2 = $r5;
+
+        $r6 = newarray (byte)[4096];
+
+     label03:
+        $i0 = virtualinvoke $r5.<java.io.InputStream: int read(byte[])>($r6);
+
+     label04:
+        if -1 == $i0 goto label07;
+
+     label05:
+        virtualinvoke $r11.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r6, 0, $i0);
+
+     label06:
+        goto label03;
+
+     label07:
+        $r6 = virtualinvoke $r11.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label08:
+        staticinvoke <d.j.q: void a(java.io.InputStream)>($r5);
+
+        staticinvoke <d.j.q: void a(java.io.OutputStream)>($r11);
+
+        return $r6;
+
+     label09:
+        $r7 := @caughtexception;
+
+        goto label28;
+
+     label10:
+        $r8 := @caughtexception;
+
+     label11:
+        $r12 = new java.lang.RuntimeException;
+
+     label12:
+        specialinvoke $r12.<java.lang.RuntimeException: void <init>(java.lang.Throwable)>($r8);
+
+        throw $r12;
+
+     label13:
+        $r9 := @caughtexception;
+
+     label14:
+        $r14 = (java.io.IOException) $r9;
+
+        $r10 = virtualinvoke $r14.<java.io.IOException: java.lang.String getMessage()>();
+
+     label15:
+        if $r10 == null goto label24;
+
+     label16:
+        $r14 = (java.io.IOException) $r9;
+
+        $r10 = virtualinvoke $r14.<java.io.IOException: java.lang.String getMessage()>();
+
+        $z0 = virtualinvoke $r10.<java.lang.String: boolean contains(java.lang.CharSequence)>("EACCES");
+
+     label17:
+        if $z0 != 0 goto label22;
+
+     label18:
+        $r14 = (java.io.IOException) $r9;
+
+        $r10 = virtualinvoke $r14.<java.io.IOException: java.lang.String getMessage()>();
+
+        $z0 = virtualinvoke $r10.<java.lang.String: boolean contains(java.lang.CharSequence)>("Permission denied");
+
+     label19:
+        if $z0 != 0 goto label22;
+
+     label20:
+        $r14 = (java.io.IOException) $r9;
+
+        $r10 = virtualinvoke $r14.<java.io.IOException: java.lang.String getMessage()>();
+
+        $z0 = virtualinvoke $r10.<java.lang.String: boolean contains(java.lang.CharSequence)>("ENOENT");
+
+     label21:
+        if $z0 == 0 goto label24;
+
+     label22:
+        $r13 = new d.g.c;
+
+     label23:
+        specialinvoke $r13.<d.g.c: void <init>()>();
+
+        throw $r13;
+
+     label24:
+        $r12 = new java.lang.RuntimeException;
+
+     label25:
+        specialinvoke $r12.<java.lang.RuntimeException: void <init>(java.lang.Throwable)>($r9);
+
+        throw $r12;
+
+     label26:
+        $r13 = new d.g.c;
+
+     label27:
+        specialinvoke $r13.<d.g.c: void <init>()>();
+
+        throw $r13;
+
+     label28:
+        staticinvoke <d.j.q: void a(java.io.InputStream)>($r2);
+
+        staticinvoke <d.j.q: void a(java.io.OutputStream)>($r11);
+
+        throw $r7;
+
+     label29:
+        $r0 := @caughtexception;
+
+        goto label26;
+
+        catch java.io.FileNotFoundException from label01 to label02 with label29;
+        catch java.io.FileNotFoundException from label03 to label04 with label29;
+        catch java.io.FileNotFoundException from label05 to label06 with label29;
+        catch java.io.FileNotFoundException from label07 to label08 with label29;
+        catch java.io.IOException from label01 to label02 with label13;
+        catch java.io.IOException from label03 to label04 with label13;
+        catch java.io.IOException from label05 to label06 with label13;
+        catch java.io.IOException from label07 to label08 with label13;
+        catch java.lang.Exception from label01 to label02 with label10;
+        catch java.lang.Exception from label03 to label04 with label10;
+        catch java.lang.Exception from label05 to label06 with label10;
+        catch java.lang.Exception from label07 to label08 with label10;
+        catch java.lang.Throwable from label01 to label02 with label09;
+        catch java.lang.Throwable from label03 to label04 with label09;
+        catch java.lang.Throwable from label05 to label06 with label09;
+        catch java.lang.Throwable from label07 to label08 with label09;
+        catch java.lang.Throwable from label11 to label12 with label09;
+        catch java.lang.Throwable from label12 to label13 with label09;
+        catch java.lang.Throwable from label14 to label15 with label09;
+        catch java.lang.Throwable from label16 to label17 with label09;
+        catch java.lang.Throwable from label18 to label19 with label09;
+        catch java.lang.Throwable from label20 to label21 with label09;
+        catch java.lang.Throwable from label22 to label23 with label09;
+        catch java.lang.Throwable from label23 to label25 with label09;
+        catch java.lang.Throwable from label25 to label27 with label09;
+        catch java.lang.Throwable from label27 to label28 with label09;
+    }

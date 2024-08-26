@@ -1,0 +1,49 @@
+    java.lang.String decrypt(java.lang.String)
+    {
+        byte[] $r4;
+        com.adobe.creativesdk.foundation.internal.auth.AdobeCommonCipher r0;
+        com.adobe.creativesdk.foundation.internal.utils.logging.Level $r5;
+        java.lang.Class $r6;
+        java.lang.String $r1;
+        javax.crypto.Cipher $r3;
+        java.lang.Exception r2;
+
+        r0 := @this: com.adobe.creativesdk.foundation.internal.auth.AdobeCommonCipher;
+
+        $r1 := @parameter0: java.lang.String;
+
+        if $r1 == null goto label6;
+
+     label1:
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.auth.AdobeCommonCipher: javax.crypto.Cipher decryptionCipher>;
+
+        $r4 = staticinvoke <android.util.Base64: byte[] decode(java.lang.String,int)>($r1, 2);
+
+        $r4 = virtualinvoke $r3.<javax.crypto.Cipher: byte[] doFinal(byte[])>($r4);
+
+     label2:
+        $r1 = new java.lang.String;
+
+     label3:
+        specialinvoke $r1.<java.lang.String: void <init>(byte[],java.lang.String)>($r4, "UTF-8");
+
+     label4:
+        return $r1;
+
+     label5:
+        r2 := @caughtexception;
+
+        $r5 = <com.adobe.creativesdk.foundation.internal.utils.logging.Level: com.adobe.creativesdk.foundation.internal.utils.logging.Level ERROR>;
+
+        $r6 = virtualinvoke r2.<java.lang.Object: java.lang.Class getClass()>();
+
+        $r1 = virtualinvoke $r6.<java.lang.Class: java.lang.String getSimpleName()>();
+
+        staticinvoke <com.adobe.creativesdk.foundation.internal.utils.logging.AdobeLogger: void log(com.adobe.creativesdk.foundation.internal.utils.logging.Level,java.lang.String,java.lang.String)>($r5, $r1, "Decryption error");
+
+     label6:
+        return null;
+
+        catch java.lang.Exception from label1 to label2 with label5;
+        catch java.lang.Exception from label3 to label4 with label5;
+    }

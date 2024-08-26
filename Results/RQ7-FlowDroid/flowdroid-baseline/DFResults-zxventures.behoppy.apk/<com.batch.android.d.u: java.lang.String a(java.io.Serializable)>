@@ -1,0 +1,138 @@
+    private java.lang.String a(java.io.Serializable) throws java.io.IOException
+    {
+        java.lang.Throwable $r11;
+        byte[] $r7;
+        com.batch.android.d.u r0;
+        java.io.ByteArrayOutputStream $r2, $r4;
+        java.lang.NullPointerException $r3;
+        java.lang.Exception $r9, $r10, $r12, $r13;
+        java.io.Serializable $r1;
+        com.batch.android.d.f $r6;
+        java.io.ObjectOutputStream $r5;
+        java.lang.String $r8;
+
+        r0 := @this: com.batch.android.d.u;
+
+        $r1 := @parameter0: java.io.Serializable;
+
+        $r2 = null;
+
+        if $r1 != null goto label01;
+
+        $r3 = new java.lang.NullPointerException;
+
+        specialinvoke $r3.<java.lang.NullPointerException: void <init>(java.lang.String)>("Null object");
+
+        throw $r3;
+
+     label01:
+        $r4 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r4.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label02:
+        $r5 = new java.io.ObjectOutputStream;
+
+        specialinvoke $r5.<java.io.ObjectOutputStream: void <init>(java.io.OutputStream)>($r4);
+
+     label03:
+        virtualinvoke $r5.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>($r1);
+
+        $r6 = r0.<com.batch.android.d.u: com.batch.android.d.f d>;
+
+        $r7 = virtualinvoke $r4.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $r7 = interfaceinvoke $r6.<com.batch.android.d.f: byte[] a(byte[])>($r7);
+
+        $r8 = staticinvoke <com.batch.android.d.b: java.lang.String a(byte[])>($r7);
+
+     label04:
+        if $r5 == null goto label06;
+
+     label05:
+        virtualinvoke $r5.<java.io.ObjectOutputStream: void close()>();
+
+     label06:
+        if $r4 == null goto label21;
+
+     label07:
+        virtualinvoke $r4.<java.io.ByteArrayOutputStream: void close()>();
+
+     label08:
+        return $r8;
+
+     label09:
+        $r9 := @caughtexception;
+
+        staticinvoke <com.batch.android.d.q: void b(java.lang.String,java.lang.Throwable)>("Error while closing ObjectOutputStream", $r9);
+
+        goto label06;
+
+     label10:
+        $r10 := @caughtexception;
+
+        staticinvoke <com.batch.android.d.q: void b(java.lang.String,java.lang.Throwable)>("Error while closing ByteArrayOutputStream", $r10);
+
+        return $r8;
+
+     label11:
+        $r11 := @caughtexception;
+
+        $r5 = null;
+
+     label12:
+        if $r5 == null goto label14;
+
+     label13:
+        virtualinvoke $r5.<java.io.ObjectOutputStream: void close()>();
+
+     label14:
+        if $r2 == null goto label16;
+
+     label15:
+        virtualinvoke $r2.<java.io.ByteArrayOutputStream: void close()>();
+
+     label16:
+        throw $r11;
+
+     label17:
+        $r12 := @caughtexception;
+
+        staticinvoke <com.batch.android.d.q: void b(java.lang.String,java.lang.Throwable)>("Error while closing ObjectOutputStream", $r12);
+
+        goto label14;
+
+     label18:
+        $r13 := @caughtexception;
+
+        staticinvoke <com.batch.android.d.q: void b(java.lang.String,java.lang.Throwable)>("Error while closing ByteArrayOutputStream", $r13);
+
+        goto label16;
+
+     label19:
+        $r11 := @caughtexception;
+
+        $r5 = null;
+
+        $r2 = $r4;
+
+        goto label12;
+
+     label20:
+        $r11 := @caughtexception;
+
+        $r2 = $r4;
+
+        goto label12;
+
+     label21:
+        return $r8;
+
+        catch java.lang.Throwable from label01 to label02 with label11;
+        catch java.lang.Throwable from label02 to label03 with label19;
+        catch java.lang.Throwable from label03 to label04 with label20;
+        catch java.lang.Exception from label05 to label06 with label09;
+        catch java.lang.Exception from label07 to label08 with label10;
+        catch java.lang.Exception from label13 to label14 with label17;
+        catch java.lang.Exception from label15 to label16 with label18;
+    }

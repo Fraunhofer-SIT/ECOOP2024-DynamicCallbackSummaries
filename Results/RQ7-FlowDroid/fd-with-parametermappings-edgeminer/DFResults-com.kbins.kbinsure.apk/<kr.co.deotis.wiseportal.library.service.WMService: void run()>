@@ -1,0 +1,916 @@
+    public void run()
+    {
+        byte[] $r4, $r14;
+        java.lang.IndexOutOfBoundsException $r16;
+        kr.co.deotis.wiseportal.library.service.WMService r0;
+        java.net.InetAddress $r8;
+        kr.co.deotis.wiseportal.library.link.WMSocketInterface $r5;
+        boolean $z0;
+        java.lang.Exception $r1, $r3, $r18, $r19, $r21, $r24;
+        java.lang.StringBuilder $r25;
+        java.lang.Throwable $r2, $r17, $r20;
+        android.content.Context $r11;
+        java.net.Socket $r15;
+        kr.co.deotis.wiseportal.library.common.WiseSingleton $r10;
+        java.lang.String[] $r23;
+        java.net.SocketException $r27;
+        java.nio.charset.Charset $r22;
+        int $i0, $i1, $i2, $i3, $i4;
+        java.lang.String $r6, $r7, $r12, $r13;
+        java.lang.NumberFormatException $r26;
+        android.content.SharedPreferences $r9;
+
+        r0 := @this: kr.co.deotis.wiseportal.library.service.WMService;
+
+        $r4 = newarray (byte)[2048];
+
+     label01:
+        $z0 = r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_bservice>;
+
+        if $z0 == 0 goto label59;
+
+     label02:
+        $z0 = r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_bservice>;
+
+        if $z0 == 0 goto label30;
+
+        $z0 = r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_bconnect>;
+
+        if $z0 != 0 goto label30;
+
+        $r5 = r0.<kr.co.deotis.wiseportal.library.service.WMService: kr.co.deotis.wiseportal.library.link.WMSocketInterface wvSocket>;
+
+        $r6 = r0.<kr.co.deotis.wiseportal.library.service.WMService: java.lang.String site_ip>;
+
+        $r7 = r0.<kr.co.deotis.wiseportal.library.service.WMService: java.lang.String site_port>;
+
+        $z0 = interfaceinvoke $r5.<kr.co.deotis.wiseportal.library.link.WMSocketInterface: boolean TCP_Connect(java.lang.String,java.lang.String)>($r6, $r7);
+
+        if $z0 == 0 goto label29;
+
+        $r7 = <kr.co.deotis.wiseportal.library.service.WMService: java.lang.String TAG>;
+
+        $r25 = new java.lang.StringBuilder;
+
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("wvSocket.getInetAddress() : ");
+
+        $r5 = r0.<kr.co.deotis.wiseportal.library.service.WMService: kr.co.deotis.wiseportal.library.link.WMSocketInterface wvSocket>;
+
+        $r8 = interfaceinvoke $r5.<kr.co.deotis.wiseportal.library.link.WMSocketInterface: java.net.InetAddress getInetAddress()>();
+
+        $r6 = virtualinvoke $r8.<java.net.InetAddress: java.lang.String toString()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r6 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void i(java.lang.String,java.lang.String)>($r7, $r6);
+
+        specialinvoke r0.<kr.co.deotis.wiseportal.library.service.WMService: void clearHandler()>();
+
+        $r9 = virtualinvoke r0.<kr.co.deotis.wiseportal.library.service.WMService: android.content.SharedPreferences getSharedPreferences(java.lang.String,int)>("wisemobile_preference", 0);
+
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: android.content.SharedPreferences prefs> = $r9;
+
+        $r10 = r0.<kr.co.deotis.wiseportal.library.service.WMService: kr.co.deotis.wiseportal.library.common.WiseSingleton wiseInstance>;
+
+        if $r10 != null goto label03;
+
+        $r11 = virtualinvoke r0.<kr.co.deotis.wiseportal.library.service.WMService: android.content.Context getApplicationContext()>();
+
+        $r10 = staticinvoke <kr.co.deotis.wiseportal.library.common.WiseSingleton: kr.co.deotis.wiseportal.library.common.WiseSingleton getInstance(android.content.Context)>($r11);
+
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: kr.co.deotis.wiseportal.library.common.WiseSingleton wiseInstance> = $r10;
+
+     label03:
+        $r9 = r0.<kr.co.deotis.wiseportal.library.service.WMService: android.content.SharedPreferences prefs>;
+
+        $r6 = interfaceinvoke $r9.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("REGISTRATION_ID", "");
+
+        $r25 = new java.lang.StringBuilder;
+
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("======= SITE IP = ");
+
+        $r12 = r0.<kr.co.deotis.wiseportal.library.service.WMService: java.lang.String site_ip>;
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r12);
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" | SSL PORT = ");
+
+        $r12 = r0.<kr.co.deotis.wiseportal.library.service.WMService: java.lang.String site_ssl_port>;
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r12);
+
+        $r12 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void i(java.lang.String,java.lang.String)>($r7, $r12);
+
+        $r7 = staticinvoke <kr.co.deotis.wisemobile.common.WMCommonUtil: java.lang.String getAppVersionName(android.content.Context)>(r0);
+
+        $r7 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r7);
+
+        $r12 = r0.<kr.co.deotis.wiseportal.library.service.WMService: java.lang.String site_ip>;
+
+        $r13 = r0.<kr.co.deotis.wiseportal.library.service.WMService: java.lang.String site_ssl_port>;
+
+        $r12 = staticinvoke <kr.co.deotis.wisemobile.common.WMCommonUtil: java.lang.String getSSLUrl(java.lang.String,java.lang.String)>($r12, $r13);
+
+        $r12 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r12);
+
+        $r13 = r0.<kr.co.deotis.wiseportal.library.service.WMService: java.lang.String phoneNumber>;
+
+        $r14 = staticinvoke <kr.co.deotis.wisemobile.common.WMCommonUtil: byte[] downloadKey(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>($r12, $r6, $r13, $r7);
+
+        if $r14 == null goto label30;
+
+        <kr.co.deotis.wiseportal.library.common.WMPCommon: byte[] AES_KEY> = $r14;
+
+        $r5 = r0.<kr.co.deotis.wiseportal.library.service.WMService: kr.co.deotis.wiseportal.library.link.WMSocketInterface wvSocket>;
+
+        $r15 = interfaceinvoke $r5.<kr.co.deotis.wiseportal.library.link.WMSocketInterface: java.net.Socket TCP_GetSock()>();
+
+        $r10 = r0.<kr.co.deotis.wiseportal.library.service.WMService: kr.co.deotis.wiseportal.library.common.WiseSingleton wiseInstance>;
+
+        virtualinvoke $r10.<kr.co.deotis.wiseportal.library.common.WiseSingleton: void setWiseSocket(java.net.Socket)>($r15);
+
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_btimeout> = 1;
+
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: int mRetryCnt> = 0;
+
+        $r6 = r0.<kr.co.deotis.wiseportal.library.service.WMService: java.lang.String phoneNumber>;
+
+        $r14 = staticinvoke <kr.co.deotis.wisemobile.common.WMCommonUtil: byte[] dataLength(java.lang.String,byte)>($r6, 10);
+
+        $i0 = 0;
+
+     label04:
+        $z0 = r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_btimeout>;
+
+        if $z0 == 0 goto label22;
+
+        if $i0 >= 3 goto label21;
+
+        $i0 = $i0 + 1;
+
+     label05:
+        $r5 = r0.<kr.co.deotis.wiseportal.library.service.WMService: kr.co.deotis.wiseportal.library.link.WMSocketInterface wvSocket>;
+
+        $i1 = lengthof $r14;
+
+        interfaceinvoke $r5.<kr.co.deotis.wiseportal.library.link.WMSocketInterface: boolean TCP_Send(android.content.Context,byte[],int)>(r0, $r14, $i1);
+
+        virtualinvoke $r15.<java.net.Socket: void setSoTimeout(int)>(2000);
+
+     label06:
+        staticinvoke <java.util.Arrays: void fill(byte[],byte)>($r4, 0);
+
+        $r5 = r0.<kr.co.deotis.wiseportal.library.service.WMService: kr.co.deotis.wiseportal.library.link.WMSocketInterface wvSocket>;
+
+        $i1 = interfaceinvoke $r5.<kr.co.deotis.wiseportal.library.link.WMSocketInterface: int TCP_Receive(byte[])>($r4);
+
+        if $i1 != -1 goto label07;
+
+        $r6 = <kr.co.deotis.wiseportal.library.service.WMService: java.lang.String TAG>;
+
+        $r25 = new java.lang.StringBuilder;
+
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("[ TCP_Receive Error...0 ] ");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(0);
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(":");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(4);
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(":");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r7 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void i(java.lang.String,java.lang.String)>($r6, $r7);
+
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_bconnect> = 0;
+
+        goto label22;
+
+     label07:
+        if $i1 != -99 goto label08;
+
+        $r6 = <kr.co.deotis.wiseportal.library.service.WMService: java.lang.String TAG>;
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void i(java.lang.String,java.lang.String)>($r6, "TCP_Receive time out...");
+
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_btimeout> = 1;
+
+        goto label04;
+
+     label08:
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_btimeout> = 0;
+
+        $r7 = new java.lang.String;
+
+        $r6 = $r7;
+
+     label09:
+        specialinvoke $r7.<java.lang.String: void <init>(byte[],int,int)>($r4, 0, $i1);
+
+     label10:
+        $r7 = <kr.co.deotis.wiseportal.library.service.WMService: java.lang.String TAG>;
+
+        $r25 = new java.lang.StringBuilder;
+
+     label11:
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("[");
+
+        $i1 = r0.<kr.co.deotis.wiseportal.library.service.WMService: int wm_nstartid>;
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("] receive \ub370\uc774\ud130 \uae38\uc774\ub294  ");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r12 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void i(java.lang.String,java.lang.String)>($r7, $r12);
+
+     label12:
+        $r12 = virtualinvoke $r6.<java.lang.String: java.lang.String substring(int,int)>(0, 4);
+
+        $r12 = virtualinvoke $r12.<java.lang.String: java.lang.String trim()>();
+
+        $i1 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>($r12);
+
+     label13:
+        $r25 = new java.lang.StringBuilder;
+
+     label14:
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("SSL receive data = ");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" || receiveLength = ");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r6 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void d(java.lang.String,java.lang.String)>($r7, $r6);
+
+     label15:
+        if $i1 <= 0 goto label16;
+
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_btimeout> = 0;
+
+        goto label22;
+
+     label16:
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_btimeout> = 1;
+
+        goto label04;
+
+     label17:
+        $r16 := @caughtexception;
+
+        virtualinvoke $r16.<java.lang.IndexOutOfBoundsException: void printStackTrace()>();
+
+        goto label04;
+
+     label18:
+        $r17 := @caughtexception;
+
+        $r26 = (java.lang.NumberFormatException) $r17;
+
+        virtualinvoke $r26.<java.lang.NumberFormatException: void printStackTrace()>();
+
+        goto label04;
+
+     label19:
+        $r18 := @caughtexception;
+
+        $r6 = <kr.co.deotis.wiseportal.library.service.WMService: java.lang.String TAG>;
+
+        $r25 = new java.lang.StringBuilder;
+
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("[");
+
+        $i0 = r0.<kr.co.deotis.wiseportal.library.service.WMService: int wm_nstartid>;
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("] ");
+
+        $r7 = virtualinvoke $r18.<java.lang.Exception: java.lang.String getMessage()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r7 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void e(java.lang.String,java.lang.String)>($r6, $r7);
+
+        goto label22;
+
+     label20:
+        $r19 := @caughtexception;
+
+        virtualinvoke $r19.<java.lang.Exception: void printStackTrace()>();
+
+        goto label22;
+
+     label21:
+        $r6 = <kr.co.deotis.wiseportal.library.service.WMService: java.lang.String TAG>;
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void e(java.lang.String,java.lang.String)>($r6, "======= Handshake fail =======");
+
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_bconnect> = 0;
+
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_btimeout> = 1;
+
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_bservice> = 0;
+
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean restartService> = 0;
+
+        <kr.co.deotis.wiseportal.library.common.WMPCommon: byte[] AES_KEY> = null;
+
+        virtualinvoke r0.<kr.co.deotis.wiseportal.library.service.WMService: void stopSelf()>();
+
+     label22:
+        $z0 = r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_btimeout>;
+
+        if $z0 != 0 goto label02;
+
+     label23:
+        virtualinvoke $r15.<java.net.Socket: void setSoTimeout(int)>(0);
+
+     label24:
+        $r10 = r0.<kr.co.deotis.wiseportal.library.service.WMService: kr.co.deotis.wiseportal.library.common.WiseSingleton wiseInstance>;
+
+     label25:
+        virtualinvoke $r10.<kr.co.deotis.wiseportal.library.common.WiseSingleton: void setWiseSocket(java.net.Socket)>($r15);
+
+     label26:
+        goto label28;
+
+     label27:
+        $r20 := @caughtexception;
+
+        $r6 = <kr.co.deotis.wiseportal.library.service.WMService: java.lang.String TAG>;
+
+        $r25 = new java.lang.StringBuilder;
+
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Socket Exception");
+
+        $r27 = (java.net.SocketException) $r20;
+
+        $r7 = virtualinvoke $r27.<java.net.SocketException: java.lang.String getMessage()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r7 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void i(java.lang.String,java.lang.String)>($r6, $r7);
+
+     label28:
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_bconnect> = 1;
+
+        virtualinvoke r0.<kr.co.deotis.wiseportal.library.service.WMService: void wmConnect()>();
+
+        goto label30;
+
+     label29:
+        $r6 = <kr.co.deotis.wiseportal.library.service.WMService: java.lang.String TAG>;
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void d(java.lang.String,java.lang.String)>($r6, "\uc18c\ucf13 \uc5f0\uacb0 \uc2e4\ud328 - \uc11c\ubc84 \ubc18\uc751 \uc5c6\uc74c");
+
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_bconnect> = 0;
+
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_btimeout> = 0;
+
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean socketConnectFlg> = 1;
+
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_bservice> = 0;
+
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean restartService> = 0;
+
+        <kr.co.deotis.wiseportal.library.common.WMPCommon: byte[] AES_KEY> = null;
+
+        virtualinvoke r0.<kr.co.deotis.wiseportal.library.service.WMService: void stopSelf()>();
+
+     label30:
+        $z0 = r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_bservice>;
+
+        if $z0 == 0 goto label58;
+
+        $z0 = r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_bconnect>;
+
+        if $z0 == 0 goto label58;
+
+        $z0 = r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean returnFlg>;
+
+        if $z0 == 0 goto label35;
+
+     label31:
+        $r5 = r0.<kr.co.deotis.wiseportal.library.service.WMService: kr.co.deotis.wiseportal.library.link.WMSocketInterface wvSocket>;
+
+        $r6 = r0.<kr.co.deotis.wiseportal.library.service.WMService: java.lang.String packetStr>;
+
+        interfaceinvoke $r5.<kr.co.deotis.wiseportal.library.link.WMSocketInterface: void TCP_Send(android.content.Context,java.lang.String)>(r0, $r6);
+
+     label32:
+        goto label34;
+
+     label33:
+        $r21 := @caughtexception;
+
+        virtualinvoke $r21.<java.lang.Exception: void printStackTrace()>();
+
+     label34:
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean returnFlg> = 0;
+
+     label35:
+        staticinvoke <java.util.Arrays: void fill(byte[],byte)>($r4, 0);
+
+        $r5 = r0.<kr.co.deotis.wiseportal.library.service.WMService: kr.co.deotis.wiseportal.library.link.WMSocketInterface wvSocket>;
+
+        $i1 = interfaceinvoke $r5.<kr.co.deotis.wiseportal.library.link.WMSocketInterface: int TCP_Receive(byte[],int,int)>($r4, 0, 4);
+
+        $i0 = $i1;
+
+        if $i1 != -1 goto label36;
+
+        $r6 = <kr.co.deotis.wiseportal.library.service.WMService: java.lang.String TAG>;
+
+        $r25 = new java.lang.StringBuilder;
+
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("[ TCP_Receive Error...1 ] ");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(0);
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(":");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(4);
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(":");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r7 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void i(java.lang.String,java.lang.String)>($r6, $r7);
+
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_bconnect> = 0;
+
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean restartService> = 1;
+
+        goto label58;
+
+     label36:
+        if $i1 != -99 goto label39;
+
+        $r6 = <kr.co.deotis.wiseportal.library.service.WMService: java.lang.String TAG>;
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void i(java.lang.String,java.lang.String)>($r6, "TCP_Receive time out...");
+
+     label37:
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void i(java.lang.String,java.lang.String)>($r6, "Thread Sleep 500");
+
+        staticinvoke <java.lang.Thread: void sleep(long)>(500L);
+
+     label38:
+        goto label30;
+
+     label39:
+        $r7 = new java.lang.String;
+
+        $r6 = $r7;
+
+     label40:
+        specialinvoke $r7.<java.lang.String: void <init>(byte[],int,int)>($r4, 0, 4);
+
+     label41:
+        $r7 = <kr.co.deotis.wiseportal.library.service.WMService: java.lang.String TAG>;
+
+        $r25 = new java.lang.StringBuilder;
+
+     label42:
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("[");
+
+        $i2 = r0.<kr.co.deotis.wiseportal.library.service.WMService: int wm_nstartid>;
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i2);
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("] receive \ub370\uc774\ud130 \uae38\uc774\ub294  ");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r12 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void i(java.lang.String,java.lang.String)>($r7, $r12);
+
+     label43:
+        $r7 = virtualinvoke $r6.<java.lang.String: java.lang.String trim()>();
+
+        $i3 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>($r7);
+
+     label44:
+        $i2 = $i3;
+
+        $i4 = lengthof $r4;
+
+        if $i4 >= $i3 goto label45;
+
+        $i3 = $i3 / 1024;
+
+        $i3 = $i3 + 1;
+
+        $i3 = $i3 - 2;
+
+        $i3 = $i3 * 1024;
+
+        $i3 = $i3 + 2048;
+
+        $r4 = newarray (byte)[$i3];
+
+     label45:
+        $z0 = r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_bservice>;
+
+        if $z0 == 0 goto label47;
+
+        $z0 = r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_bconnect>;
+
+        if $z0 == 0 goto label47;
+
+        $r5 = r0.<kr.co.deotis.wiseportal.library.service.WMService: kr.co.deotis.wiseportal.library.link.WMSocketInterface wvSocket>;
+
+        $i3 = interfaceinvoke $r5.<kr.co.deotis.wiseportal.library.link.WMSocketInterface: int TCP_Receive(byte[],int,int)>($r4, $i1, $i2);
+
+        $i0 = $i3;
+
+        if $i3 != -1 goto label46;
+
+        $r6 = <kr.co.deotis.wiseportal.library.service.WMService: java.lang.String TAG>;
+
+        $r25 = new java.lang.StringBuilder;
+
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("[");
+
+        $i4 = r0.<kr.co.deotis.wiseportal.library.service.WMService: int wm_nstartid>;
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i4);
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("] TCP_Receive Error...2  ");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" : ");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i2);
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" : ");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i3);
+
+        $r7 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void i(java.lang.String,java.lang.String)>($r6, $r7);
+
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_bconnect> = 0;
+
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean restartService> = 1;
+
+        goto label47;
+
+     label46:
+        if $i3 == $i2 goto label47;
+
+        $r6 = <kr.co.deotis.wiseportal.library.service.WMService: java.lang.String TAG>;
+
+        $r25 = new java.lang.StringBuilder;
+
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("[");
+
+        $i4 = r0.<kr.co.deotis.wiseportal.library.service.WMService: int wm_nstartid>;
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i4);
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("] receive \ub370\uc774\ud130 \uae38\uc774\ub294 ");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i2);
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" : ");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i3);
+
+        $r7 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void i(java.lang.String,java.lang.String)>($r6, $r7);
+
+        $i1 = $i1 + $i3;
+
+        $i2 = $i2 - $i3;
+
+        goto label45;
+
+     label47:
+        $z0 = r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_bservice>;
+
+        if $z0 == 0 goto label58;
+
+        $z0 = r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean wm_bconnect>;
+
+        if $z0 == 0 goto label58;
+
+        $r7 = new java.lang.String;
+
+        $i0 = $i1 + $i0;
+
+        specialinvoke $r7.<java.lang.String: void <init>(byte[],int,int)>($r4, 5, $i0);
+
+        $r14 = <kr.co.deotis.wiseportal.library.common.WMPCommon: byte[] AES_KEY>;
+
+        $r6 = staticinvoke <kr.co.deotis.wisemobile.common.WMCommonUtil: java.lang.String AES_Decode(java.lang.String,byte[])>($r7, $r14);
+
+        $r7 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r6);
+
+        $r22 = <java.nio.charset.StandardCharsets: java.nio.charset.Charset UTF_8>;
+
+        $r14 = virtualinvoke $r7.<java.lang.String: byte[] getBytes(java.nio.charset.Charset)>($r22);
+
+        $r6 = <kr.co.deotis.wiseportal.library.service.WMService: java.lang.String TAG>;
+
+        $r25 = new java.lang.StringBuilder;
+
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("[");
+
+        $r12 = staticinvoke <kr.co.deotis.wisemobile.common.WMCommonUtil: java.lang.String currentSimpleDateFormat(java.lang.String)>("yy/MM/dd HH:mm:ss");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r12);
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("] Receive Socket Message : ");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r12 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void i(java.lang.String,java.lang.String)>($r6, $r12);
+
+        $r23 = virtualinvoke $r7.<java.lang.String: java.lang.String[] split(java.lang.String)>("`");
+
+        $i0 = lengthof $r23;
+
+        if $i0 == 0 goto label48;
+
+        $r12 = $r23[2];
+
+        $z0 = virtualinvoke $r12.<java.lang.String: boolean equals(java.lang.Object)>("2");
+
+        if $z0 == 0 goto label48;
+
+        $r12 = $r23[3];
+
+        $z0 = virtualinvoke $r12.<java.lang.String: boolean equals(java.lang.Object)>("E");
+
+        if $z0 == 0 goto label48;
+
+        $z0 = r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean b_endE1>;
+
+        if $z0 == 0 goto label48;
+
+        specialinvoke r0.<kr.co.deotis.wiseportal.library.service.WMService: void activityFinish()>();
+
+     label48:
+        $i0 = lengthof $r23;
+
+        if $i0 == 0 goto label51;
+
+        $i0 = lengthof $r23;
+
+        if $i0 <= 5 goto label50;
+
+        $r12 = $r23[5];
+
+        $z0 = virtualinvoke $r12.<java.lang.String: boolean equals(java.lang.Object)>("agent");
+
+        if $z0 == 0 goto label49;
+
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean b_start> = 0;
+
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean b_endE1> = 0;
+
+        goto label52;
+
+     label49:
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean b_start> = 1;
+
+        goto label52;
+
+     label50:
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean b_start> = 1;
+
+        goto label52;
+
+     label51:
+        r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean b_start> = 1;
+
+     label52:
+        $z0 = r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean b_start>;
+
+        if $z0 == 0 goto label30;
+
+        $i0 = lengthof $r14;
+
+        specialinvoke r0.<kr.co.deotis.wiseportal.library.service.WMService: void getDataAnalysis(java.lang.String,byte[],int)>($r7, $r14, $i0);
+
+        $r25 = new java.lang.StringBuilder;
+
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("receiveFileEnd : ");
+
+        $z0 = r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean receiveFileEnd>;
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(boolean)>($z0);
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" // callActionFlg : ");
+
+        $z0 = r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean callActionFlg>;
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(boolean)>($z0);
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" // xmlLostFlg : ");
+
+        $z0 = r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean xmlLostFlg>;
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(boolean)>($z0);
+
+        $r7 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void i(java.lang.String,java.lang.String)>($r6, $r7);
+
+        $z0 = r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean callActionFlg>;
+
+        if $z0 == 0 goto label53;
+
+        $r25 = new java.lang.StringBuilder;
+
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("requestTemplateId : ");
+
+        $r7 = r0.<kr.co.deotis.wiseportal.library.service.WMService: java.lang.String requestTemplateId>;
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r7 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void i(java.lang.String,java.lang.String)>($r6, $r7);
+
+        $r6 = r0.<kr.co.deotis.wiseportal.library.service.WMService: java.lang.String requestTemplateId>;
+
+        virtualinvoke r0.<kr.co.deotis.wiseportal.library.service.WMService: void callActivity(java.lang.String)>($r6);
+
+     label53:
+        $z0 = r0.<kr.co.deotis.wiseportal.library.service.WMService: boolean xmlLostFlg>;
+
+        if $z0 == 0 goto label30;
+
+     label54:
+        staticinvoke <java.lang.Thread: void sleep(long)>(1L);
+
+     label55:
+        goto label53;
+
+     label56:
+        $r7 = <kr.co.deotis.wiseportal.library.service.WMService: java.lang.String TAG>;
+
+        $r25 = new java.lang.StringBuilder;
+
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("receiveLength sdata: ");
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r6 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void d(java.lang.String,java.lang.String)>($r7, $r6);
+
+        goto label30;
+
+     label57:
+        $r24 := @caughtexception;
+
+        $r6 = <kr.co.deotis.wiseportal.library.service.WMService: java.lang.String TAG>;
+
+        $r25 = new java.lang.StringBuilder;
+
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("[");
+
+        $i0 = r0.<kr.co.deotis.wiseportal.library.service.WMService: int wm_nstartid>;
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("] ");
+
+        $r7 = virtualinvoke $r24.<java.lang.Exception: java.lang.String getMessage()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r7 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void e(java.lang.String,java.lang.String)>($r6, $r7);
+
+     label58:
+        $r5 = r0.<kr.co.deotis.wiseportal.library.service.WMService: kr.co.deotis.wiseportal.library.link.WMSocketInterface wvSocket>;
+
+        interfaceinvoke $r5.<kr.co.deotis.wiseportal.library.link.WMSocketInterface: boolean TCP_Close()>();
+
+        $r6 = <kr.co.deotis.wiseportal.library.service.WMService: java.lang.String TAG>;
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void i(java.lang.String,java.lang.String)>($r6, "TCP Close() : \uc18c\ucf13\uc744 \ub2eb\uc558\uc2b5\ub2c8\ub2e4!!!!");
+
+        goto label01;
+
+     label59:
+        $r5 = r0.<kr.co.deotis.wiseportal.library.service.WMService: kr.co.deotis.wiseportal.library.link.WMSocketInterface wvSocket>;
+
+        interfaceinvoke $r5.<kr.co.deotis.wiseportal.library.link.WMSocketInterface: boolean TCP_Close()>();
+
+        $r6 = <kr.co.deotis.wiseportal.library.service.WMService: java.lang.String TAG>;
+
+        $r25 = new java.lang.StringBuilder;
+
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("run () - while end >>>>> Thread EXIT [");
+
+        $i0 = r0.<kr.co.deotis.wiseportal.library.service.WMService: int wm_nstartid>;
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("] exit while...");
+
+        $r7 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void i(java.lang.String,java.lang.String)>($r6, $r7);
+
+        return;
+
+     label60:
+        $r1 := @caughtexception;
+
+        goto label30;
+
+     label61:
+        $r2 := @caughtexception;
+
+        goto label56;
+
+     label62:
+        $r3 := @caughtexception;
+
+        goto label53;
+
+        catch java.lang.Exception from label05 to label06 with label20;
+        catch java.lang.Exception from label09 to label10 with label19;
+        catch java.lang.Exception from label11 to label12 with label19;
+        catch java.lang.NumberFormatException from label12 to label13 with label18;
+        catch java.lang.NumberFormatException from label14 to label15 with label18;
+        catch java.lang.IndexOutOfBoundsException from label12 to label13 with label17;
+        catch java.lang.IndexOutOfBoundsException from label14 to label15 with label17;
+        catch java.net.SocketException from label23 to label24 with label27;
+        catch java.net.SocketException from label25 to label26 with label27;
+        catch java.lang.Exception from label31 to label32 with label33;
+        catch java.lang.Exception from label37 to label38 with label60;
+        catch java.lang.Exception from label40 to label41 with label57;
+        catch java.lang.Exception from label42 to label43 with label57;
+        catch java.lang.NumberFormatException from label43 to label44 with label61;
+        catch java.lang.Exception from label54 to label55 with label62;
+    }

@@ -1,0 +1,153 @@
+    public void putParam(java.lang.String, java.lang.String)
+    {
+        com.netease.androidcrashhandler.entity.param.ParamsInfo r0;
+        org.json.JSONException $r6;
+        org.json.JSONObject $r5;
+        java.lang.StringBuilder $r3;
+        java.lang.String $r1, $r2, $r4;
+        boolean $z0, $z1, $z2;
+
+        r0 := @this: com.netease.androidcrashhandler.entity.param.ParamsInfo;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r3 = new java.lang.StringBuilder;
+
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("ParamsInfo [putParam] key=");
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", value=");
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r4 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", $r4);
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r1);
+
+        if $z0 != 0 goto label24;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r2);
+
+        if $z0 == 0 goto label01;
+
+        return;
+
+     label01:
+        $z0 = 0;
+
+        $r4 = null;
+
+        $r5 = r0.<com.netease.androidcrashhandler.entity.param.ParamsInfo: org.json.JSONObject mParamsJson>;
+
+     label02:
+        $z1 = virtualinvoke $r5.<org.json.JSONObject: boolean has(java.lang.String)>($r1);
+
+     label03:
+        $z2 = 1;
+
+        if $z1 != 0 goto label04;
+
+        $z0 = 1;
+
+        goto label06;
+
+     label04:
+        $r5 = r0.<com.netease.androidcrashhandler.entity.param.ParamsInfo: org.json.JSONObject mParamsJson>;
+
+     label05:
+        $r4 = virtualinvoke $r5.<org.json.JSONObject: java.lang.String getString(java.lang.String)>($r1);
+
+     label06:
+        if $z0 != 0 goto label11;
+
+     label07:
+        $z1 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r4);
+
+     label08:
+        if $z1 != 0 goto label11;
+
+     label09:
+        $z1 = virtualinvoke $r4.<java.lang.String: boolean equals(java.lang.Object)>($r2);
+
+     label10:
+        if $z1 == 0 goto label12;
+
+     label11:
+        $z2 = $z0;
+
+     label12:
+        if $z2 == 0 goto label24;
+
+        $r5 = r0.<com.netease.androidcrashhandler.entity.param.ParamsInfo: org.json.JSONObject mParamsJson>;
+
+     label13:
+        virtualinvoke $r5.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>($r1, $r2);
+
+     label14:
+        $z0 = r0.<com.netease.androidcrashhandler.entity.param.ParamsInfo: boolean mAutoStorage>;
+
+        if $z0 == 0 goto label24;
+
+        $r3 = new java.lang.StringBuilder;
+
+     label15:
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("ParamsInfo [putParam] mParamsJson=");
+
+     label16:
+        $r5 = r0.<com.netease.androidcrashhandler.entity.param.ParamsInfo: org.json.JSONObject mParamsJson>;
+
+     label17:
+        $r1 = virtualinvoke $r5.<org.json.JSONObject: java.lang.String toString()>();
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", $r1);
+
+     label18:
+        $r5 = r0.<com.netease.androidcrashhandler.entity.param.ParamsInfo: org.json.JSONObject mParamsJson>;
+
+     label19:
+        $r1 = virtualinvoke $r5.<org.json.JSONObject: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.init.InitProxy: com.netease.androidcrashhandler.init.InitProxy getInstance()>();
+
+     label20:
+        $r2 = <com.netease.androidcrashhandler.init.InitProxy: java.lang.String sUploadFilePath>;
+
+        $r4 = r0.<com.netease.androidcrashhandler.entity.param.ParamsInfo: java.lang.String mFileName>;
+
+     label21:
+        staticinvoke <com.netease.androidcrashhandler.util.CUtil: boolean str2File(java.lang.String,java.lang.String,java.lang.String)>($r1, $r2, $r4);
+
+     label22:
+        return;
+
+     label23:
+        $r6 := @caughtexception;
+
+        virtualinvoke $r6.<org.json.JSONException: void printStackTrace()>();
+
+     label24:
+        return;
+
+        catch org.json.JSONException from label02 to label03 with label23;
+        catch org.json.JSONException from label05 to label06 with label23;
+        catch org.json.JSONException from label07 to label08 with label23;
+        catch org.json.JSONException from label09 to label10 with label23;
+        catch org.json.JSONException from label13 to label14 with label23;
+        catch org.json.JSONException from label15 to label16 with label23;
+        catch org.json.JSONException from label17 to label18 with label23;
+        catch org.json.JSONException from label19 to label20 with label23;
+        catch org.json.JSONException from label21 to label22 with label23;
+    }

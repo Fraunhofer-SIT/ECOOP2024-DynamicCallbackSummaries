@@ -1,0 +1,43 @@
+    private static void a(android.content.Context, java.lang.String, java.io.File)
+    {
+        android.content.Context $r0;
+        byte[] $r5;
+        java.io.FileOutputStream $r6;
+        java.io.File $r2;
+        android.content.res.AssetManager $r3;
+        int $i0;
+        java.lang.String $r1;
+        java.io.InputStream $r4;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r2 := @parameter2: java.io.File;
+
+        $r3 = virtualinvoke $r0.<android.content.Context: android.content.res.AssetManager getAssets()>();
+
+        $r4 = virtualinvoke $r3.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>($r1);
+
+        $r6 = new java.io.FileOutputStream;
+
+        specialinvoke $r6.<java.io.FileOutputStream: void <init>(java.io.File)>($r2);
+
+        $r5 = newarray (byte)[1024];
+
+     label1:
+        $i0 = virtualinvoke $r4.<java.io.InputStream: int read(byte[])>($r5);
+
+        if $i0 == -1 goto label2;
+
+        virtualinvoke $r6.<java.io.FileOutputStream: void write(byte[],int,int)>($r5, 0, $i0);
+
+        goto label1;
+
+     label2:
+        virtualinvoke $r6.<java.io.FileOutputStream: void close()>();
+
+        virtualinvoke $r4.<java.io.InputStream: void close()>();
+
+        return;
+    }

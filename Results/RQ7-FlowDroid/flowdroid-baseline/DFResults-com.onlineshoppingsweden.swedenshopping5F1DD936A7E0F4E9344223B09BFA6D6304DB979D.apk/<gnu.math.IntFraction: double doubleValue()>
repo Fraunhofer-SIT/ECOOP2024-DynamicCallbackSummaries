@@ -1,0 +1,87 @@
+    public double doubleValue()
+    {
+        gnu.math.IntFraction r0;
+        int $i0, $i1, $i2;
+        gnu.math.IntNum $r1, $r2, $r3, $r4;
+        boolean $z0, $z1;
+        double $d0;
+
+        r0 := @this: gnu.math.IntFraction;
+
+        $r2 = r0.<gnu.math.IntFraction: gnu.math.IntNum num>;
+
+        $z0 = virtualinvoke $r2.<gnu.math.IntNum: boolean isNegative()>();
+
+        $r2 = r0.<gnu.math.IntFraction: gnu.math.IntNum den>;
+
+        $z1 = virtualinvoke $r2.<gnu.math.IntNum: boolean isZero()>();
+
+        if $z1 == 0 goto label3;
+
+        if $z0 == 0 goto label1;
+
+        return #-Infinity;
+
+     label1:
+        $r2 = r0.<gnu.math.IntFraction: gnu.math.IntNum num>;
+
+        $z0 = virtualinvoke $r2.<gnu.math.IntNum: boolean isZero()>();
+
+        if $z0 == 0 goto label2;
+
+        return #NaN;
+
+     label2:
+        return #Infinity;
+
+     label3:
+        $r2 = r0.<gnu.math.IntFraction: gnu.math.IntNum num>;
+
+        if $z0 == 0 goto label4;
+
+        $r2 = staticinvoke <gnu.math.IntNum: gnu.math.IntNum 'neg'(gnu.math.IntNum)>($r2);
+
+     label4:
+        $i0 = virtualinvoke $r2.<gnu.math.IntNum: int intLength()>();
+
+        $r3 = r0.<gnu.math.IntFraction: gnu.math.IntNum den>;
+
+        $i1 = virtualinvoke $r3.<gnu.math.IntNum: int intLength()>();
+
+        $i2 = 0;
+
+        $i1 = $i1 + 54;
+
+        if $i0 >= $i1 goto label5;
+
+        $i0 = $i1 - $i0;
+
+        $r2 = staticinvoke <gnu.math.IntNum: gnu.math.IntNum shift(gnu.math.IntNum,int)>($r2, $i0);
+
+        $i2 = neg $i0;
+
+     label5:
+        $r4 = new gnu.math.IntNum;
+
+        specialinvoke $r4.<gnu.math.IntNum: void <init>()>();
+
+        $r3 = new gnu.math.IntNum;
+
+        specialinvoke $r3.<gnu.math.IntNum: void <init>()>();
+
+        $r1 = r0.<gnu.math.IntFraction: gnu.math.IntNum den>;
+
+        staticinvoke <gnu.math.IntNum: void divide(gnu.math.IntNum,gnu.math.IntNum,gnu.math.IntNum,gnu.math.IntNum,int)>($r2, $r1, $r4, $r3, 3);
+
+        $r2 = virtualinvoke $r4.<gnu.math.IntNum: gnu.math.IntNum canonicalize()>();
+
+        $r3 = virtualinvoke $r3.<gnu.math.IntNum: gnu.math.IntNum canonicalize()>();
+
+        $z1 = virtualinvoke $r3.<gnu.math.IntNum: boolean isZero()>();
+
+        $z1 = $z1 ^ 1;
+
+        $d0 = virtualinvoke $r2.<gnu.math.IntNum: double roundToDouble(int,boolean,boolean)>($i2, $z0, $z1);
+
+        return $d0;
+    }

@@ -1,0 +1,609 @@
+    public com.samsung.android.sdk.a.d a(java.lang.String, java.lang.String, int, int)
+    {
+        java.net.HttpURLConnection $r39;
+        byte[] $r14;
+        java.net.URL $r33;
+        com.samsung.android.sdk.a.d $r37;
+        java.util.Map r7;
+        boolean $z0;
+        java.util.Set $r8;
+        com.samsung.android.sdk.a.c.c r0;
+        com.samsung.android.sdk.a.a.a $r38;
+        java.lang.StringBuilder $r36;
+        java.lang.Throwable $r15, $r16, $r18, r20, r21, $r22, $r23, r24, r25, r26, r27, r28, r29, r30, r31, r32;
+        java.net.URLConnection $r5;
+        int $i0, $i1;
+        java.io.OutputStreamWriter $r34;
+        java.lang.String $r1, $r2, $r3, $r19;
+        java.io.OutputStream $r12, r13;
+        java.util.Map$Entry $r11;
+        java.util.Iterator $r9;
+        java.net.MalformedURLException $r41;
+        java.io.BufferedWriter $r35;
+        java.io.IOException $r40;
+        java.lang.Object $r4, $r6, $r10;
+        java.io.InputStream $r17;
+
+        r0 := @this: com.samsung.android.sdk.a.c.c;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $i0 := @parameter2: int;
+
+        $i1 := @parameter3: int;
+
+        $r3 = <com.samsung.android.sdk.a.c.c: java.lang.String a>;
+
+        staticinvoke <com.samsung.android.sdk.a.a: void b(java.lang.String,java.lang.String)>($r3, "HttpUtils post:");
+
+        $r4 = null;
+
+        $r33 = new java.net.URL;
+
+     label001:
+        specialinvoke $r33.<java.net.URL: void <init>(java.lang.String)>($r1);
+
+     label002:
+        $r5 = virtualinvoke $r33.<java.net.URL: java.net.URLConnection openConnection()>();
+
+     label003:
+        $r6 = (java.net.HttpURLConnection) $r5;
+
+     label004:
+        r7 = r0.<com.samsung.android.sdk.a.c.c: java.util.Map b>;
+
+     label005:
+        $r8 = interfaceinvoke r7.<java.util.Map: java.util.Set entrySet()>();
+
+        $r9 = interfaceinvoke $r8.<java.util.Set: java.util.Iterator iterator()>();
+
+     label006:
+        $z0 = interfaceinvoke $r9.<java.util.Iterator: boolean hasNext()>();
+
+     label007:
+        if $z0 == 0 goto label016;
+
+     label008:
+        $r10 = interfaceinvoke $r9.<java.util.Iterator: java.lang.Object next()>();
+
+     label009:
+        $r11 = (java.util.Map$Entry) $r10;
+
+     label010:
+        $r10 = interfaceinvoke $r11.<java.util.Map$Entry: java.lang.Object getKey()>();
+
+     label011:
+        $r1 = (java.lang.String) $r10;
+
+     label012:
+        $r10 = interfaceinvoke $r11.<java.util.Map$Entry: java.lang.Object getValue()>();
+
+     label013:
+        $r3 = (java.lang.String) $r10;
+
+        $r39 = (java.net.HttpURLConnection) $r6;
+
+     label014:
+        virtualinvoke $r39.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>($r1, $r3);
+
+     label015:
+        goto label006;
+
+     label016:
+        $r39 = (java.net.HttpURLConnection) $r6;
+
+     label017:
+        virtualinvoke $r39.<java.net.HttpURLConnection: void setReadTimeout(int)>(30000);
+
+     label018:
+        $r39 = (java.net.HttpURLConnection) $r6;
+
+     label019:
+        virtualinvoke $r39.<java.net.HttpURLConnection: void setConnectTimeout(int)>(30000);
+
+     label020:
+        $r39 = (java.net.HttpURLConnection) $r6;
+
+     label021:
+        virtualinvoke $r39.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+     label022:
+        if $r2 == null goto label032;
+
+     label023:
+        $r39 = (java.net.HttpURLConnection) $r6;
+
+     label024:
+        virtualinvoke $r39.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+     label025:
+        $r39 = (java.net.HttpURLConnection) $r6;
+
+     label026:
+        $r12 = virtualinvoke $r39.<java.net.HttpURLConnection: java.io.OutputStream getOutputStream()>();
+
+     label027:
+        r13 = $r12;
+
+     label028:
+        $r35 = new java.io.BufferedWriter;
+
+     label029:
+        $r34 = new java.io.OutputStreamWriter;
+
+     label030:
+        specialinvoke $r34.<java.io.OutputStreamWriter: void <init>(java.io.OutputStream,java.lang.String)>($r12, "UTF-8");
+
+        specialinvoke $r35.<java.io.BufferedWriter: void <init>(java.io.Writer)>($r34);
+
+        virtualinvoke $r35.<java.io.BufferedWriter: void write(java.lang.String)>($r2);
+
+        virtualinvoke $r35.<java.io.BufferedWriter: void flush()>();
+
+     label031:
+        goto label033;
+
+     label032:
+        r13 = null;
+
+     label033:
+        $r39 = (java.net.HttpURLConnection) $r6;
+
+     label034:
+        $i0 = virtualinvoke $r39.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label035:
+        $i1 = $i0;
+
+        if $r6 == null goto label044;
+
+     label036:
+        $r39 = (java.net.HttpURLConnection) $r6;
+
+     label037:
+        $r2 = virtualinvoke $r39.<java.net.HttpURLConnection: java.lang.String getHeaderField(java.lang.String)>("nonce");
+
+     label038:
+        $r1 = $r2;
+
+        if $r2 == null goto label045;
+
+     label039:
+        $r3 = new java.lang.String;
+
+     label040:
+        $r14 = staticinvoke <com.samsung.android.sdk.a.c.a: byte[] b(java.lang.String)>($r2);
+
+        specialinvoke $r3.<java.lang.String: void <init>(byte[],java.lang.String)>($r14, "UTF-8");
+
+     label041:
+        $r1 = $r3;
+
+        goto label045;
+
+     label042:
+        $r15 := @caughtexception;
+
+        $r10 = $r4;
+
+        goto label078;
+
+     label043:
+        $r16 := @caughtexception;
+
+        $r10 = $r4;
+
+        goto label080;
+
+     label044:
+        $r1 = null;
+
+     label045:
+        if $i0 != 200 goto label054;
+
+     label046:
+        $r39 = (java.net.HttpURLConnection) $r6;
+
+     label047:
+        $r17 = virtualinvoke $r39.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+     label048:
+        $r10 = $r17;
+
+     label049:
+        $r2 = staticinvoke <com.samsung.android.sdk.a.c.a: java.lang.String a(java.io.InputStream)>($r17);
+
+     label050:
+        $r4 = $r10;
+
+        goto label059;
+
+     label051:
+        $r18 := @caughtexception;
+
+        goto label089;
+
+     label052:
+        $r15 := @caughtexception;
+
+        goto label078;
+
+     label053:
+        $r16 := @caughtexception;
+
+        goto label080;
+
+     label054:
+        $r39 = (java.net.HttpURLConnection) $r6;
+
+     label055:
+        $r17 = virtualinvoke $r39.<java.net.HttpURLConnection: java.io.InputStream getErrorStream()>();
+
+     label056:
+        $r10 = $r17;
+
+     label057:
+        $r2 = staticinvoke <com.samsung.android.sdk.a.c.a: java.lang.String a(java.io.InputStream)>($r17);
+
+     label058:
+        goto label050;
+
+     label059:
+        $r3 = <com.samsung.android.sdk.a.c.c: java.lang.String a>;
+
+        $r36 = new java.lang.StringBuilder;
+
+     label060:
+        specialinvoke $r36.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r36.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("HTTPPost:responseCode : ");
+
+        virtualinvoke $r36.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r19 = virtualinvoke $r36.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.samsung.android.sdk.a.a: void a(java.lang.String,java.lang.String)>($r3, $r19);
+
+     label061:
+        $r3 = <com.samsung.android.sdk.a.c.c: java.lang.String a>;
+
+        $r36 = new java.lang.StringBuilder;
+
+     label062:
+        specialinvoke $r36.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r36.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("HTTPPost:responseCode :");
+
+        virtualinvoke $r36.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r19 = virtualinvoke $r36.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.samsung.android.sdk.a.a: void b(java.lang.String,java.lang.String)>($r3, $r19);
+
+     label063:
+        if $r6 == null goto label064;
+
+        $r39 = (java.net.HttpURLConnection) $r6;
+
+        virtualinvoke $r39.<java.net.HttpURLConnection: void disconnect()>();
+
+     label064:
+        if r13 == null goto label068;
+
+     label065:
+        virtualinvoke r13.<java.io.OutputStream: void close()>();
+
+     label066:
+        goto label068;
+
+     label067:
+        r20 := @caughtexception;
+
+        $r40 = (java.io.IOException) r20;
+
+        virtualinvoke $r40.<java.io.IOException: void printStackTrace()>();
+
+     label068:
+        if $r4 == null goto label072;
+
+        $r17 = (java.io.InputStream) $r4;
+
+     label069:
+        virtualinvoke $r17.<java.io.InputStream: void close()>();
+
+     label070:
+        goto label072;
+
+     label071:
+        r21 := @caughtexception;
+
+        $r40 = (java.io.IOException) r21;
+
+        virtualinvoke $r40.<java.io.IOException: void printStackTrace()>();
+
+     label072:
+        $r37 = new com.samsung.android.sdk.a.d;
+
+        specialinvoke $r37.<com.samsung.android.sdk.a.d: void <init>(int,java.lang.String,java.lang.String)>($i0, $r1, $r2);
+
+        return $r37;
+
+     label073:
+        $r18 := @caughtexception;
+
+        goto label090;
+
+     label074:
+        $r22 := @caughtexception;
+
+        $r10 = null;
+
+        $r4 = $r6;
+
+        $i1 = -1;
+
+        $r15 = $r22;
+
+        goto label083;
+
+     label075:
+        $r23 := @caughtexception;
+
+        $r10 = null;
+
+        $r4 = $r6;
+
+        $i1 = -1;
+
+        $r16 = $r23;
+
+        goto label086;
+
+     label076:
+        r24 := @caughtexception;
+
+        $r18 = r24;
+
+        r13 = null;
+
+        goto label090;
+
+     label077:
+        r25 := @caughtexception;
+
+        $i1 = -1;
+
+        $r10 = null;
+
+        $r15 = r25;
+
+        r13 = null;
+
+     label078:
+        $r4 = $r6;
+
+        goto label083;
+
+     label079:
+        r26 := @caughtexception;
+
+        $i1 = -1;
+
+        $r10 = null;
+
+        $r16 = r26;
+
+        r13 = null;
+
+     label080:
+        $r4 = $r6;
+
+        goto label086;
+
+     label081:
+        r27 := @caughtexception;
+
+        $r18 = r27;
+
+        r13 = null;
+
+        $r6 = null;
+
+        goto label090;
+
+     label082:
+        r28 := @caughtexception;
+
+        $i1 = -1;
+
+        $r10 = null;
+
+        $r15 = r28;
+
+        r13 = null;
+
+     label083:
+        $r1 = <com.samsung.android.sdk.a.c.c: java.lang.String a>;
+
+        $r40 = (java.io.IOException) $r15;
+
+        $r2 = virtualinvoke $r40.<java.io.IOException: java.lang.String getMessage()>();
+
+        staticinvoke <com.samsung.android.sdk.a.a: void b(java.lang.String,java.lang.String)>($r1, $r2);
+
+        $r38 = new com.samsung.android.sdk.a.a.a;
+
+     label084:
+        $r40 = (java.io.IOException) $r15;
+
+        $r1 = virtualinvoke $r40.<java.io.IOException: java.lang.String toString()>();
+
+        specialinvoke $r38.<com.samsung.android.sdk.a.a.a: void <init>(int,java.lang.String)>($i1, $r1);
+
+        throw $r38;
+
+     label085:
+        r29 := @caughtexception;
+
+        $i1 = -1;
+
+        $r10 = null;
+
+        $r16 = r29;
+
+        r13 = null;
+
+     label086:
+        $r1 = <com.samsung.android.sdk.a.c.c: java.lang.String a>;
+
+        $r41 = (java.net.MalformedURLException) $r16;
+
+        $r2 = virtualinvoke $r41.<java.net.MalformedURLException: java.lang.String getMessage()>();
+
+        staticinvoke <com.samsung.android.sdk.a.a: void b(java.lang.String,java.lang.String)>($r1, $r2);
+
+        $r38 = new com.samsung.android.sdk.a.a.a;
+
+     label087:
+        $r41 = (java.net.MalformedURLException) $r16;
+
+        $r1 = virtualinvoke $r41.<java.net.MalformedURLException: java.lang.String toString()>();
+
+        specialinvoke $r38.<com.samsung.android.sdk.a.a.a: void <init>(int,java.lang.String)>($i1, $r1);
+
+        throw $r38;
+
+     label088:
+        $r18 := @caughtexception;
+
+        $r6 = $r4;
+
+     label089:
+        $r4 = $r10;
+
+     label090:
+        if $r6 == null goto label091;
+
+        $r39 = (java.net.HttpURLConnection) $r6;
+
+        virtualinvoke $r39.<java.net.HttpURLConnection: void disconnect()>();
+
+     label091:
+        if r13 == null goto label095;
+
+     label092:
+        virtualinvoke r13.<java.io.OutputStream: void close()>();
+
+     label093:
+        goto label095;
+
+     label094:
+        r30 := @caughtexception;
+
+        $r40 = (java.io.IOException) r30;
+
+        virtualinvoke $r40.<java.io.IOException: void printStackTrace()>();
+
+     label095:
+        if $r4 == null goto label099;
+
+        $r17 = (java.io.InputStream) $r4;
+
+     label096:
+        virtualinvoke $r17.<java.io.InputStream: void close()>();
+
+     label097:
+        goto label099;
+
+     label098:
+        r31 := @caughtexception;
+
+        $r40 = (java.io.IOException) r31;
+
+        virtualinvoke $r40.<java.io.IOException: void printStackTrace()>();
+
+     label099:
+        throw $r18;
+
+     label100:
+        r32 := @caughtexception;
+
+        $r41 = (java.net.MalformedURLException) r32;
+
+        virtualinvoke $r41.<java.net.MalformedURLException: void printStackTrace()>();
+
+        return null;
+
+        catch java.net.MalformedURLException from label001 to label002 with label100;
+        catch java.net.MalformedURLException from label002 to label003 with label085;
+        catch java.io.IOException from label002 to label003 with label082;
+        catch java.lang.Throwable from label002 to label004 with label081;
+        catch java.net.MalformedURLException from label005 to label007 with label079;
+        catch java.net.MalformedURLException from label008 to label009 with label079;
+        catch java.net.MalformedURLException from label010 to label011 with label079;
+        catch java.net.MalformedURLException from label012 to label013 with label079;
+        catch java.net.MalformedURLException from label014 to label015 with label079;
+        catch java.net.MalformedURLException from label017 to label018 with label079;
+        catch java.net.MalformedURLException from label019 to label020 with label079;
+        catch java.net.MalformedURLException from label021 to label022 with label079;
+        catch java.net.MalformedURLException from label024 to label025 with label079;
+        catch java.net.MalformedURLException from label026 to label027 with label079;
+        catch java.io.IOException from label005 to label007 with label077;
+        catch java.io.IOException from label008 to label009 with label077;
+        catch java.io.IOException from label010 to label011 with label077;
+        catch java.io.IOException from label012 to label013 with label077;
+        catch java.io.IOException from label014 to label015 with label077;
+        catch java.io.IOException from label017 to label018 with label077;
+        catch java.io.IOException from label019 to label020 with label077;
+        catch java.io.IOException from label021 to label022 with label077;
+        catch java.io.IOException from label024 to label025 with label077;
+        catch java.io.IOException from label026 to label027 with label077;
+        catch java.lang.Throwable from label004 to label007 with label076;
+        catch java.lang.Throwable from label008 to label015 with label076;
+        catch java.lang.Throwable from label016 to label022 with label076;
+        catch java.lang.Throwable from label023 to label027 with label076;
+        catch java.net.MalformedURLException from label030 to label031 with label075;
+        catch java.net.MalformedURLException from label034 to label035 with label075;
+        catch java.io.IOException from label030 to label031 with label074;
+        catch java.io.IOException from label034 to label035 with label074;
+        catch java.lang.Throwable from label028 to label029 with label073;
+        catch java.lang.Throwable from label029 to label030 with label073;
+        catch java.lang.Throwable from label030 to label031 with label073;
+        catch java.lang.Throwable from label033 to label035 with label073;
+        catch java.net.MalformedURLException from label037 to label038 with label043;
+        catch java.net.MalformedURLException from label040 to label041 with label043;
+        catch java.net.MalformedURLException from label047 to label048 with label043;
+        catch java.io.IOException from label037 to label038 with label042;
+        catch java.io.IOException from label040 to label041 with label042;
+        catch java.io.IOException from label047 to label048 with label042;
+        catch java.lang.Throwable from label036 to label038 with label073;
+        catch java.lang.Throwable from label039 to label040 with label073;
+        catch java.lang.Throwable from label040 to label041 with label073;
+        catch java.lang.Throwable from label046 to label048 with label073;
+        catch java.net.MalformedURLException from label049 to label050 with label053;
+        catch java.io.IOException from label049 to label050 with label052;
+        catch java.lang.Throwable from label049 to label050 with label051;
+        catch java.net.MalformedURLException from label055 to label056 with label043;
+        catch java.io.IOException from label055 to label056 with label042;
+        catch java.lang.Throwable from label054 to label056 with label073;
+        catch java.net.MalformedURLException from label057 to label058 with label053;
+        catch java.io.IOException from label057 to label058 with label052;
+        catch java.lang.Throwable from label057 to label058 with label051;
+        catch java.net.MalformedURLException from label060 to label061 with label043;
+        catch java.net.MalformedURLException from label062 to label063 with label043;
+        catch java.io.IOException from label060 to label061 with label042;
+        catch java.io.IOException from label062 to label063 with label042;
+        catch java.lang.Throwable from label059 to label060 with label073;
+        catch java.lang.Throwable from label060 to label062 with label073;
+        catch java.lang.Throwable from label062 to label063 with label073;
+        catch java.io.IOException from label065 to label066 with label067;
+        catch java.io.IOException from label069 to label070 with label071;
+        catch java.lang.Throwable from label083 to label084 with label088;
+        catch java.lang.Throwable from label084 to label085 with label088;
+        catch java.lang.Throwable from label086 to label087 with label088;
+        catch java.lang.Throwable from label087 to label088 with label088;
+        catch java.io.IOException from label092 to label093 with label094;
+        catch java.io.IOException from label096 to label097 with label098;
+    }

@@ -1,0 +1,135 @@
+    static void a(android.content.Context)
+    {
+        java.lang.Throwable $r8, $r13;
+        android.content.Context $r1;
+        java.io.FileOutputStream $r5;
+        com.facebook.u $r7;
+        java.lang.Exception $r9;
+        java.io.BufferedOutputStream $r4;
+        java.util.Map $r6;
+        java.lang.Object $r0;
+        java.io.ObjectOutputStream $r2, $r3;
+        java.lang.StringBuilder $r11;
+        java.lang.String $r10, $r12;
+        boolean $z0;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $r0 = <com.facebook.appevents.f$b: java.lang.Object a>;
+
+        entermonitor $r0;
+
+     label01:
+        $z0 = <com.facebook.appevents.f$b: boolean b>;
+
+     label02:
+        if $z0 == 0 goto label18;
+
+        $r2 = null;
+
+     label03:
+        $r3 = new java.io.ObjectOutputStream;
+
+        $r4 = new java.io.BufferedOutputStream;
+
+     label04:
+        $r5 = virtualinvoke $r1.<android.content.Context: java.io.FileOutputStream openFileOutput(java.lang.String,int)>("AppEventsLogger.persistedsessioninfo", 0);
+
+        specialinvoke $r4.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r5);
+
+        specialinvoke $r3.<java.io.ObjectOutputStream: void <init>(java.io.OutputStream)>($r4);
+
+     label05:
+        $r6 = <com.facebook.appevents.f$b: java.util.Map d>;
+
+     label06:
+        virtualinvoke $r3.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>($r6);
+
+     label07:
+        <com.facebook.appevents.f$b: boolean b> = 0;
+
+        $r7 = <com.facebook.u: com.facebook.u e>;
+
+     label08:
+        staticinvoke <com.facebook.internal.t: void a(com.facebook.u,java.lang.String,java.lang.String)>($r7, "AppEvents", "App session info saved");
+
+     label09:
+        staticinvoke <com.facebook.internal.ab: void a(java.io.Closeable)>($r3);
+
+     label10:
+        goto label18;
+
+     label11:
+        $r8 := @caughtexception;
+
+        $r2 = $r3;
+
+        goto label17;
+
+     label12:
+        $r9 := @caughtexception;
+
+        $r2 = $r3;
+
+        goto label15;
+
+     label13:
+        $r8 := @caughtexception;
+
+        goto label17;
+
+     label14:
+        $r9 := @caughtexception;
+
+     label15:
+        $r10 = staticinvoke <com.facebook.appevents.f: java.lang.String i()>();
+
+        $r11 = new java.lang.StringBuilder;
+
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Got unexpected exception while writing app session info: ");
+
+        $r12 = virtualinvoke $r9.<java.lang.Exception: java.lang.String toString()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r12);
+
+        $r12 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int w(java.lang.String,java.lang.String)>($r10, $r12);
+
+     label16:
+        staticinvoke <com.facebook.internal.ab: void a(java.io.Closeable)>($r2);
+
+        goto label18;
+
+     label17:
+        staticinvoke <com.facebook.internal.ab: void a(java.io.Closeable)>($r2);
+
+        throw $r8;
+
+     label18:
+        exitmonitor $r0;
+
+     label19:
+        return;
+
+     label20:
+        $r13 := @caughtexception;
+
+        exitmonitor $r0;
+
+     label21:
+        throw $r13;
+
+        catch java.lang.Throwable from label01 to label02 with label20;
+        catch java.lang.Exception from label04 to label05 with label14;
+        catch java.lang.Throwable from label03 to label05 with label13;
+        catch java.lang.Exception from label06 to label07 with label12;
+        catch java.lang.Exception from label08 to label09 with label12;
+        catch java.lang.Throwable from label05 to label09 with label11;
+        catch java.lang.Throwable from label09 to label10 with label20;
+        catch java.lang.Throwable from label15 to label16 with label13;
+        catch java.lang.Throwable from label16 to label19 with label20;
+        catch java.lang.Throwable from label20 to label21 with label20;
+    }

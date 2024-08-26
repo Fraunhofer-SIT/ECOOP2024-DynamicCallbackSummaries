@@ -1,0 +1,100 @@
+    private byte[] process(java.lang.String)
+    {
+        java.lang.Throwable $r7, $r11;
+        byte[] $r3, $r4;
+        com.centauri.comm.log.processor.CTILogEncryptor $r6;
+        java.lang.Object[] $r9;
+        com.centauri.comm.log.processor.CTILogCompressor $r5;
+        long $l0;
+        com.centauri.comm.log.internal.CTILogAppender r0;
+        java.util.Locale $r8;
+        java.lang.StringBuilder $r2;
+        java.lang.Class $r10;
+        java.lang.String $r1;
+
+        r0 := @this: com.centauri.comm.log.internal.CTILogAppender;
+
+        $r1 := @parameter0: java.lang.String;
+
+        entermonitor r0;
+
+     label1:
+        $r2 = new java.lang.StringBuilder;
+
+        specialinvoke $r2.<java.lang.StringBuilder: void <init>()>();
+
+        $l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r3 = virtualinvoke $r1.<java.lang.String: byte[] getBytes()>();
+
+        $r4 = $r3;
+
+        $r5 = r0.<com.centauri.comm.log.internal.CTILogAppender: com.centauri.comm.log.processor.CTILogCompressor mCompressor>;
+
+        if $r5 == null goto label2;
+
+        $r5 = r0.<com.centauri.comm.log.internal.CTILogAppender: com.centauri.comm.log.processor.CTILogCompressor mCompressor>;
+
+        $r4 = virtualinvoke $r5.<com.centauri.comm.log.processor.CTILogCompressor: byte[] compress(byte[])>($r3);
+
+     label2:
+        $r6 = r0.<com.centauri.comm.log.internal.CTILogAppender: com.centauri.comm.log.processor.CTILogEncryptor mEncryptor>;
+
+        if $r6 == null goto label3;
+
+        $r6 = r0.<com.centauri.comm.log.internal.CTILogAppender: com.centauri.comm.log.processor.CTILogEncryptor mEncryptor>;
+
+        $r4 = virtualinvoke $r6.<com.centauri.comm.log.processor.CTILogEncryptor: byte[] encrypt(byte[])>($r4);
+
+     label3:
+        exitmonitor r0;
+
+        return $r4;
+
+     label4:
+        $r7 := @caughtexception;
+
+     label5:
+        $r8 = <java.util.Locale: java.util.Locale CHINA>;
+
+        $r9 = newarray (java.lang.Object)[2];
+
+        $r10 = virtualinvoke $r7.<java.lang.Object: java.lang.Class getClass()>();
+
+        $r1 = virtualinvoke $r10.<java.lang.Class: java.lang.String getName()>();
+
+        $r9[0] = $r1;
+
+        $r1 = virtualinvoke $r7.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        $r9[1] = $r1;
+
+        $r1 = staticinvoke <java.lang.String: java.lang.String format(java.util.Locale,java.lang.String,java.lang.Object[])>($r8, "process log error: <%s>%s", $r9);
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("centauriComm<Log>", $r1);
+
+        $r3 = r0.<com.centauri.comm.log.internal.CTILogAppender: byte[] _bytes>;
+
+     label6:
+        exitmonitor r0;
+
+        return $r3;
+
+     label7:
+        $r11 := @caughtexception;
+
+        exitmonitor r0;
+
+        throw $r11;
+
+        catch java.lang.Throwable from label1 to label3 with label4;
+        catch java.lang.Throwable from label5 to label6 with label7;
+    }

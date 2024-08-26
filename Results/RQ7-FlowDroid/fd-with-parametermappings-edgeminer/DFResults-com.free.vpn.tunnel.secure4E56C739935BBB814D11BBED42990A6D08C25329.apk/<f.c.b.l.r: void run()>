@@ -1,0 +1,195 @@
+    public void run()
+    {
+        java.lang.Throwable $r8, $r11, $r13, $r14, $r15;
+        byte[] $r2;
+        android.net.LocalServerSocket $r5;
+        android.net.LocalSocket $r6;
+        java.util.Vector $r4;
+        java.io.FileDescriptor[] $r9, $r10;
+        int $i0;
+        java.lang.String $r3, $r16;
+        java.util.LinkedList $r12;
+        boolean $z0;
+        java.io.IOException $r19;
+        f.c.b.l.r r0;
+        java.lang.Exception $r18;
+        java.lang.StringBuilder $r17;
+        f.c.b.l.y$b $r1;
+        java.io.InputStream $r7;
+
+        r0 := @this: f.c.b.l.r;
+
+        $r2 = newarray (byte)[2048];
+
+        $r3 = "";
+
+        $r4 = <f.c.b.l.r: java.util.Vector u>;
+
+        entermonitor $r4;
+
+     label01:
+        virtualinvoke $r4.<java.util.Vector: boolean add(java.lang.Object)>(r0);
+
+        exitmonitor $r4;
+
+     label02:
+        $r5 = r0.<f.c.b.l.r: android.net.LocalServerSocket g>;
+
+     label03:
+        $r6 = virtualinvoke $r5.<android.net.LocalServerSocket: android.net.LocalSocket accept()>();
+
+     label04:
+        r0.<f.c.b.l.r: android.net.LocalSocket b> = $r6;
+
+     label05:
+        $r7 = virtualinvoke $r6.<android.net.LocalSocket: java.io.InputStream getInputStream()>();
+
+     label06:
+        $r5 = r0.<f.c.b.l.r: android.net.LocalServerSocket g>;
+
+     label07:
+        virtualinvoke $r5.<android.net.LocalServerSocket: void close()>();
+
+     label08:
+        goto label11;
+
+     label09:
+        $r8 := @caughtexception;
+
+        $r18 = (java.lang.Exception) $r8;
+
+     label10:
+        staticinvoke <f.c.b.l.y: void n(java.lang.Exception)>($r18);
+
+     label11:
+        virtualinvoke r0.<f.c.b.l.r: boolean b(java.lang.String)>("version 3\n");
+
+     label12:
+        $i0 = virtualinvoke $r7.<java.io.InputStream: int read(byte[])>($r2);
+
+     label13:
+        if $i0 != -1 goto label14;
+
+        return;
+
+     label14:
+        $r9 = null;
+
+        $r6 = r0.<f.c.b.l.r: android.net.LocalSocket b>;
+
+     label15:
+        $r10 = virtualinvoke $r6.<android.net.LocalSocket: java.io.FileDescriptor[] getAncillaryFileDescriptors()>();
+
+     label16:
+        $r9 = $r10;
+
+        goto label19;
+
+     label17:
+        $r11 := @caughtexception;
+
+        $r1 = <f.c.b.l.y$b: f.c.b.l.y$b d>;
+
+        $r18 = (java.lang.Exception) $r11;
+
+     label18:
+        staticinvoke <f.c.b.l.y: void m(f.c.b.l.y$b,java.lang.String,java.lang.Exception)>($r1, "Error reading fds from socket", $r18);
+
+     label19:
+        if $r9 == null goto label21;
+
+        $r12 = r0.<f.c.b.l.r: java.util.LinkedList f>;
+
+     label20:
+        staticinvoke <java.util.Collections: boolean addAll(java.util.Collection,java.lang.Object[])>($r12, $r9);
+
+     label21:
+        $r16 = new java.lang.String;
+
+     label22:
+        specialinvoke $r16.<java.lang.String: void <init>(byte[],int,int,java.lang.String)>($r2, 0, $i0, "UTF-8");
+
+     label23:
+        $r17 = new java.lang.StringBuilder;
+
+     label24:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r16);
+
+        $r3 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r3 = virtualinvoke r0.<f.c.b.l.r: java.lang.String e(java.lang.String)>($r3);
+
+     label25:
+        goto label12;
+
+     label26:
+        $r13 := @caughtexception;
+
+        $r19 = (java.io.IOException) $r13;
+
+        $r3 = virtualinvoke $r19.<java.io.IOException: java.lang.String getMessage()>();
+
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean equals(java.lang.Object)>("socket closed");
+
+        if $z0 != 0 goto label27;
+
+        $r19 = (java.io.IOException) $r13;
+
+        $r3 = virtualinvoke $r19.<java.io.IOException: java.lang.String getMessage()>();
+
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean equals(java.lang.Object)>("Connection reset by peer");
+
+        if $z0 != 0 goto label27;
+
+        $r18 = (java.lang.Exception) $r13;
+
+        staticinvoke <f.c.b.l.y: void n(java.lang.Exception)>($r18);
+
+     label27:
+        $r4 = <f.c.b.l.r: java.util.Vector u>;
+
+        entermonitor $r4;
+
+     label28:
+        virtualinvoke $r4.<java.util.Vector: boolean remove(java.lang.Object)>(r0);
+
+        exitmonitor $r4;
+
+     label29:
+        return;
+
+     label30:
+        $r14 := @caughtexception;
+
+        exitmonitor $r4;
+
+     label31:
+        throw $r14;
+
+     label32:
+        $r15 := @caughtexception;
+
+     label33:
+        exitmonitor $r4;
+
+     label34:
+        throw $r15;
+
+        catch java.lang.Throwable from label01 to label02 with label32;
+        catch java.io.IOException from label03 to label04 with label26;
+        catch java.io.IOException from label05 to label06 with label26;
+        catch java.io.IOException from label07 to label08 with label09;
+        catch java.io.IOException from label10 to label13 with label26;
+        catch java.io.IOException from label15 to label16 with label17;
+        catch java.io.IOException from label18 to label19 with label26;
+        catch java.io.IOException from label20 to label21 with label26;
+        catch java.io.IOException from label22 to label23 with label26;
+        catch java.io.IOException from label24 to label25 with label26;
+        catch java.lang.Throwable from label28 to label29 with label30;
+        catch java.lang.Throwable from label30 to label31 with label30;
+        catch java.lang.Throwable from label33 to label34 with label32;
+    }

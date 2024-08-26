@@ -1,0 +1,261 @@
+    public void save(java.lang.String)
+    {
+        java.lang.Throwable $r14, $r16, $r17, $r18, $r19, $r20, $r21;
+        android.content.Context $r6;
+        com.openfeint.internal.OpenFeintInternal $r5;
+        long $l1;
+        com.openfeint.internal.offline.OfflineSupport$DB r0;
+        java.util.ArrayList $r9;
+        com.openfeint.internal.offline.OfflineSupport$OfflineAchievement r12;
+        int $i0;
+        java.io.ObjectOutputStream r2, r3;
+        java.lang.String $r1;
+        javax.crypto.CipherOutputStream r4, $r8;
+        boolean $z0;
+        java.util.Iterator $r10;
+        java.io.FileOutputStream $r7;
+        java.lang.Exception $r13, $r22;
+        com.openfeint.internal.offline.OfflineSupport$OfflineScore r15;
+        float $f0;
+        java.lang.Object $r11;
+
+        r0 := @this: com.openfeint.internal.offline.OfflineSupport$DB;
+
+        $r1 := @parameter0: java.lang.String;
+
+        r3 = null;
+
+        r4 = null;
+
+     label01:
+        $r5 = staticinvoke <com.openfeint.internal.OpenFeintInternal: com.openfeint.internal.OpenFeintInternal getInstance()>();
+
+        $r6 = virtualinvoke $r5.<com.openfeint.internal.OpenFeintInternal: android.content.Context getContext()>();
+
+        $r7 = virtualinvoke $r6.<android.content.Context: java.io.FileOutputStream openFileOutput(java.lang.String,int)>($r1, 0);
+
+        $r8 = staticinvoke <com.openfeint.internal.Encryption: javax.crypto.CipherOutputStream encryptionWrap(java.io.OutputStream)>($r7);
+
+     label02:
+        r4 = $r8;
+
+     label03:
+        r2 = new java.io.ObjectOutputStream;
+
+     label04:
+        specialinvoke r2.<java.io.ObjectOutputStream: void <init>(java.io.OutputStream)>($r8);
+
+     label05:
+        virtualinvoke r2.<java.io.ObjectOutputStream: void writeInt(int)>(0);
+
+        $r9 = r0.<com.openfeint.internal.offline.OfflineSupport$DB: java.util.ArrayList achievements>;
+
+        $i0 = virtualinvoke $r9.<java.util.ArrayList: int size()>();
+
+        virtualinvoke r2.<java.io.ObjectOutputStream: void writeInt(int)>($i0);
+
+        $r9 = r0.<com.openfeint.internal.offline.OfflineSupport$DB: java.util.ArrayList achievements>;
+
+        $r10 = virtualinvoke $r9.<java.util.ArrayList: java.util.Iterator iterator()>();
+
+     label06:
+        $z0 = interfaceinvoke $r10.<java.util.Iterator: boolean hasNext()>();
+
+     label07:
+        if $z0 != 0 goto label17;
+
+     label08:
+        $r9 = r0.<com.openfeint.internal.offline.OfflineSupport$DB: java.util.ArrayList scores>;
+
+        $i0 = virtualinvoke $r9.<java.util.ArrayList: int size()>();
+
+        virtualinvoke r2.<java.io.ObjectOutputStream: void writeInt(int)>($i0);
+
+        $r9 = r0.<com.openfeint.internal.offline.OfflineSupport$DB: java.util.ArrayList scores>;
+
+        $r10 = virtualinvoke $r9.<java.util.ArrayList: java.util.Iterator iterator()>();
+
+     label09:
+        $z0 = interfaceinvoke $r10.<java.util.Iterator: boolean hasNext()>();
+
+     label10:
+        if $z0 != 0 goto label26;
+
+     label11:
+        virtualinvoke r2.<java.io.ObjectOutputStream: void close()>();
+
+     label12:
+        if r2 == null goto label14;
+
+     label13:
+        virtualinvoke r2.<java.io.ObjectOutputStream: void close()>();
+
+     label14:
+        if $r8 == null goto label41;
+
+     label15:
+        virtualinvoke $r8.<java.io.OutputStream: void close()>();
+
+     label16:
+        return;
+
+     label17:
+        $r11 = interfaceinvoke $r10.<java.util.Iterator: java.lang.Object next()>();
+
+        r12 = (com.openfeint.internal.offline.OfflineSupport$OfflineAchievement) $r11;
+
+        $r1 = r12.<com.openfeint.internal.offline.OfflineSupport$OfflineAchievement: java.lang.String resourceID>;
+
+        virtualinvoke r2.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>($r1);
+
+        $f0 = r12.<com.openfeint.internal.offline.OfflineSupport$OfflineAchievement: float clientCompletionPercentage>;
+
+        virtualinvoke r2.<java.io.ObjectOutputStream: void writeFloat(float)>($f0);
+
+        $f0 = r12.<com.openfeint.internal.offline.OfflineSupport$OfflineAchievement: float serverCompletionPercentage>;
+
+        virtualinvoke r2.<java.io.ObjectOutputStream: void writeFloat(float)>($f0);
+
+        $r1 = r12.<com.openfeint.internal.offline.OfflineSupport$OfflineAchievement: java.lang.String timestamp>;
+
+        virtualinvoke r2.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>($r1);
+
+     label18:
+        goto label06;
+
+     label19:
+        $r13 := @caughtexception;
+
+        r3 = r2;
+
+     label20:
+        if r3 == null goto label22;
+
+     label21:
+        virtualinvoke r3.<java.io.ObjectOutputStream: void close()>();
+
+     label22:
+        if r4 == null goto label41;
+
+     label23:
+        virtualinvoke r4.<java.io.OutputStream: void close()>();
+
+     label24:
+        return;
+
+     label25:
+        $r14 := @caughtexception;
+
+        return;
+
+     label26:
+        $r11 = interfaceinvoke $r10.<java.util.Iterator: java.lang.Object next()>();
+
+        r15 = (com.openfeint.internal.offline.OfflineSupport$OfflineScore) $r11;
+
+        $r1 = r15.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: java.lang.String leaderboardID>;
+
+        virtualinvoke r2.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>($r1);
+
+        $l1 = r15.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: long score>;
+
+        virtualinvoke r2.<java.io.ObjectOutputStream: void writeLong(long)>($l1);
+
+        $r1 = r15.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: java.lang.String displayText>;
+
+        virtualinvoke r2.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>($r1);
+
+        $r1 = r15.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: java.lang.String customData>;
+
+        virtualinvoke r2.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>($r1);
+
+        $r1 = r15.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: java.lang.String blobFileName>;
+
+        virtualinvoke r2.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>($r1);
+
+        $r1 = r15.<com.openfeint.internal.offline.OfflineSupport$OfflineScore: java.lang.String timestamp>;
+
+        virtualinvoke r2.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>($r1);
+
+     label27:
+        goto label09;
+
+     label28:
+        $r16 := @caughtexception;
+
+        r3 = r2;
+
+     label29:
+        if r3 == null goto label31;
+
+     label30:
+        virtualinvoke r3.<java.io.ObjectOutputStream: void close()>();
+
+     label31:
+        if r4 == null goto label33;
+
+     label32:
+        virtualinvoke r4.<java.io.OutputStream: void close()>();
+
+     label33:
+        throw $r16;
+
+     label34:
+        $r17 := @caughtexception;
+
+        return;
+
+     label35:
+        $r18 := @caughtexception;
+
+        goto label22;
+
+     label36:
+        $r19 := @caughtexception;
+
+        goto label31;
+
+     label37:
+        $r20 := @caughtexception;
+
+        goto label33;
+
+     label38:
+        $r21 := @caughtexception;
+
+        goto label14;
+
+     label39:
+        $r16 := @caughtexception;
+
+        goto label29;
+
+     label40:
+        $r22 := @caughtexception;
+
+        goto label20;
+
+     label41:
+        return;
+
+        catch java.lang.Exception from label01 to label02 with label40;
+        catch java.lang.Exception from label04 to label05 with label40;
+        catch java.lang.Throwable from label01 to label02 with label39;
+        catch java.lang.Throwable from label03 to label05 with label39;
+        catch java.lang.Exception from label05 to label07 with label19;
+        catch java.lang.Exception from label08 to label10 with label19;
+        catch java.lang.Exception from label11 to label12 with label19;
+        catch java.lang.Throwable from label05 to label07 with label28;
+        catch java.lang.Throwable from label08 to label10 with label28;
+        catch java.lang.Throwable from label11 to label12 with label28;
+        catch java.io.IOException from label13 to label14 with label38;
+        catch java.io.IOException from label15 to label16 with label34;
+        catch java.lang.Exception from label17 to label18 with label19;
+        catch java.lang.Throwable from label17 to label18 with label28;
+        catch java.io.IOException from label21 to label22 with label35;
+        catch java.io.IOException from label23 to label24 with label25;
+        catch java.lang.Exception from label26 to label27 with label19;
+        catch java.lang.Throwable from label26 to label27 with label28;
+        catch java.io.IOException from label30 to label31 with label36;
+        catch java.io.IOException from label32 to label33 with label37;
+    }

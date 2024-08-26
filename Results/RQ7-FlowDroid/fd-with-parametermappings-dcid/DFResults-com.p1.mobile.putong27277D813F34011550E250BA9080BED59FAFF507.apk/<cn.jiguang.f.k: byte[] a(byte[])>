@@ -1,0 +1,65 @@
+    public static byte[] a(byte[])
+    {
+        java.lang.Throwable $r3;
+        byte[] $r0;
+        java.io.ByteArrayOutputStream $r1;
+        int $i0;
+        java.util.zip.GZIPOutputStream $r2;
+
+        $r0 := @parameter0: byte[];
+
+        if $r0 == null goto label8;
+
+        $i0 = lengthof $r0;
+
+        if $i0 != 0 goto label1;
+
+        return $r0;
+
+     label1:
+        $r1 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r1.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label2:
+        $r2 = new java.util.zip.GZIPOutputStream;
+
+        specialinvoke $r2.<java.util.zip.GZIPOutputStream: void <init>(java.io.OutputStream)>($r1);
+
+     label3:
+        virtualinvoke $r2.<java.io.OutputStream: void write(byte[])>($r0);
+
+        virtualinvoke $r2.<java.io.OutputStream: void close()>();
+
+        $r0 = virtualinvoke $r1.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label4:
+        staticinvoke <cn.jiguang.f.k: void a(java.io.Closeable)>($r1);
+
+        staticinvoke <cn.jiguang.f.k: void a(java.io.Closeable)>($r2);
+
+        return $r0;
+
+     label5:
+        $r3 := @caughtexception;
+
+        goto label7;
+
+     label6:
+        $r3 := @caughtexception;
+
+        $r2 = null;
+
+     label7:
+        staticinvoke <cn.jiguang.f.k: void a(java.io.Closeable)>($r1);
+
+        staticinvoke <cn.jiguang.f.k: void a(java.io.Closeable)>($r2);
+
+        throw $r3;
+
+     label8:
+        return $r0;
+
+        catch java.lang.Throwable from label2 to label3 with label6;
+        catch java.lang.Throwable from label3 to label4 with label5;
+    }

@@ -1,0 +1,84 @@
+    public void n()
+    {
+        byte[] $r7;
+        java.io.FileInputStream $r3;
+        java.io.File $r2;
+        java.lang.Exception $r5;
+        org.json.JSONObject $r4;
+        io.dcloud.g.a.e r0;
+        java.lang.StringBuilder $r6;
+        java.lang.String $r1;
+        boolean $z0;
+
+        r0 := @this: io.dcloud.g.a.e;
+
+        $r1 = r0.<io.dcloud.g.a.f: java.lang.String m>;
+
+        $r1 = specialinvoke r0.<io.dcloud.g.a.e: java.lang.String c(java.lang.String)>($r1);
+
+        $r2 = new java.io.File;
+
+        specialinvoke $r2.<java.io.File: void <init>(java.lang.String)>($r1);
+
+        $z0 = virtualinvoke $r2.<java.io.File: boolean exists()>();
+
+        if $z0 == 0 goto label6;
+
+        $r3 = new java.io.FileInputStream;
+
+     label1:
+        specialinvoke $r3.<java.io.FileInputStream: void <init>(java.io.File)>($r2);
+
+        $r1 = staticinvoke <io.dcloud.common.util.IOUtil: java.lang.String toString(java.io.InputStream)>($r3);
+
+     label2:
+        $r4 = new org.json.JSONObject;
+
+     label3:
+        specialinvoke $r4.<org.json.JSONObject: void <init>(java.lang.String)>($r1);
+
+        r0.<io.dcloud.g.a.e: org.json.JSONObject r1> = $r4;
+
+        $r1 = virtualinvoke $r4.<org.json.JSONObject: java.lang.String optString(java.lang.String)>("version");
+
+        r0.<io.dcloud.g.a.e: java.lang.String y> = $r1;
+
+     label4:
+        return;
+
+     label5:
+        $r5 := @caughtexception;
+
+        virtualinvoke $r5.<java.lang.Exception: void printStackTrace()>();
+
+        return;
+
+     label6:
+        $r6 = staticinvoke <a.a: java.lang.StringBuilder k(java.lang.String)>("data/sitemap/");
+
+        $r1 = r0.<io.dcloud.g.a.f: java.lang.String m>;
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".json");
+
+        $r1 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r7 = staticinvoke <io.dcloud.common.adapter.util.PlatformUtil: byte[] getFileContent(java.lang.String,int)>($r1, 0);
+
+        if $r7 == null goto label7;
+
+        $r1 = r0.<io.dcloud.g.a.f: java.lang.String m>;
+
+        $r1 = specialinvoke r0.<io.dcloud.g.a.e: java.lang.String c(java.lang.String)>($r1);
+
+        staticinvoke <io.dcloud.common.adapter.io.DHFile: void writeFile(byte[],int,java.lang.String)>($r7, 0, $r1);
+
+        virtualinvoke r0.<io.dcloud.g.a.e: void n()>();
+
+     label7:
+        return;
+
+        catch java.lang.Exception from label1 to label2 with label5;
+        catch java.lang.Exception from label3 to label4 with label5;
+    }

@@ -1,0 +1,196 @@
+    public final void run()
+    {
+        java.lang.Throwable $r14;
+        byte[] $r12;
+        long $l0, $l1;
+        java.util.concurrent.ScheduledExecutorService $r16;
+        java.lang.String $r4, $r10;
+        com.appsflyer.AFFacebookDeferredDeeplink $r9;
+        com.appsflyer.internal.model.event.CachedEvent $r2;
+        boolean $z0;
+        java.util.Iterator $r7;
+        java.lang.Exception $r13, $r15;
+        com.appsflyer.AppsFlyerLibCore $r1;
+        java.util.List $r6;
+        com.appsflyer.AppsFlyerLibCore$d r0;
+        android.app.Application $r5;
+        java.lang.StringBuilder $r3;
+        java.lang.Object $r8;
+        com.appsflyer.AFEvent $r11;
+
+        r0 := @this: com.appsflyer.AppsFlyerLibCore$d;
+
+        $r1 = r0.<com.appsflyer.AppsFlyerLibCore$d: com.appsflyer.AppsFlyerLibCore \u03b9>;
+
+        $z0 = staticinvoke <com.appsflyer.AppsFlyerLibCore: boolean \u0268(com.appsflyer.AppsFlyerLibCore)>($r1);
+
+        if $z0 == 0 goto label01;
+
+        return;
+
+     label01:
+        $r1 = r0.<com.appsflyer.AppsFlyerLibCore$d: com.appsflyer.AppsFlyerLibCore \u03b9>;
+
+        $l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $r1.<com.appsflyer.AppsFlyerLibCore: long \u0399> = $l0;
+
+        $r1 = r0.<com.appsflyer.AppsFlyerLibCore$d: com.appsflyer.AppsFlyerLibCore \u03b9>;
+
+        staticinvoke <com.appsflyer.AppsFlyerLibCore: boolean \u0131(com.appsflyer.AppsFlyerLibCore,boolean)>($r1, 1);
+
+     label02:
+        $r4 = staticinvoke <com.appsflyer.AppsFlyerLibCore: java.lang.String \u0131(java.lang.String)>("AppsFlyerKey");
+
+        staticinvoke <com.appsflyer.internal.w: com.appsflyer.internal.w \u0131()>();
+
+        $r5 = r0.<com.appsflyer.AppsFlyerLibCore$d: android.app.Application \u0131>;
+
+        $r6 = staticinvoke <com.appsflyer.internal.w: java.util.List \u0269(android.content.Context)>($r5);
+
+        $r7 = interfaceinvoke $r6.<java.util.List: java.util.Iterator iterator()>();
+
+     label03:
+        $z0 = interfaceinvoke $r7.<java.util.Iterator: boolean hasNext()>();
+
+     label04:
+        if $z0 == 0 goto label22;
+
+     label05:
+        $r8 = interfaceinvoke $r7.<java.util.Iterator: java.lang.Object next()>();
+
+        $r9 = (com.appsflyer.AFFacebookDeferredDeeplink) $r8;
+
+     label06:
+        $r3 = new java.lang.StringBuilder;
+
+     label07:
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>(java.lang.String)>("resending request: ");
+
+        $r10 = $r9.<com.appsflyer.AFFacebookDeferredDeeplink: java.lang.String \u0131>;
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r10 = virtualinvoke $r3.<java.lang.Object: java.lang.String toString()>();
+
+        staticinvoke <com.appsflyer.AFLogger: void afInfoLog(java.lang.String)>($r10);
+
+     label08:
+        $l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $r10 = $r9.<com.appsflyer.AFFacebookDeferredDeeplink: java.lang.String \u01c3>;
+
+        $l1 = staticinvoke <java.lang.Long: long parseLong(java.lang.String,int)>($r10, 10);
+
+        $r1 = r0.<com.appsflyer.AppsFlyerLibCore$d: com.appsflyer.AppsFlyerLibCore \u03b9>;
+
+     label09:
+        $r2 = new com.appsflyer.internal.model.event.CachedEvent;
+
+     label10:
+        specialinvoke $r2.<com.appsflyer.internal.model.event.CachedEvent: void <init>()>();
+
+     label11:
+        $r3 = new java.lang.StringBuilder;
+
+     label12:
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>()>();
+
+        $r10 = $r9.<com.appsflyer.AFFacebookDeferredDeeplink: java.lang.String \u0131>;
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("&isCachedRequest=true&timeincache=");
+
+     label13:
+        $l0 = $l0 - $l1;
+
+        $l0 = $l0 / 1000L;
+
+     label14:
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+
+        $r10 = virtualinvoke $r3.<java.lang.Object: java.lang.String toString()>();
+
+        $r11 = virtualinvoke $r2.<com.appsflyer.AFEvent: com.appsflyer.AFEvent urlString(java.lang.String)>($r10);
+
+        $r12 = virtualinvoke $r9.<com.appsflyer.AFFacebookDeferredDeeplink: byte[] \u03b9()>();
+
+        $r11 = virtualinvoke $r11.<com.appsflyer.AFEvent: com.appsflyer.AFEvent post(byte[])>($r12);
+
+        $r11 = virtualinvoke $r11.<com.appsflyer.AFEvent: com.appsflyer.AFEvent key(java.lang.String)>($r4);
+
+        $r5 = r0.<com.appsflyer.AppsFlyerLibCore$d: android.app.Application \u0131>;
+
+        $r11 = virtualinvoke $r11.<com.appsflyer.AFEvent: com.appsflyer.AFEvent context(android.content.Context)>($r5);
+
+        $r10 = $r9.<com.appsflyer.AFFacebookDeferredDeeplink: java.lang.String \u01c3>;
+
+        $r11.<com.appsflyer.AFEvent: java.lang.String \u01c3> = $r10;
+
+        $r11.<com.appsflyer.AFEvent: boolean \u0406> = 0;
+
+        staticinvoke <com.appsflyer.AppsFlyerLibCore: void \u01c3(com.appsflyer.AppsFlyerLibCore,com.appsflyer.AFEvent)>($r1, $r11);
+
+     label15:
+        goto label03;
+
+     label16:
+        $r13 := @caughtexception;
+
+     label17:
+        staticinvoke <com.appsflyer.AFLogger: void afErrorLog(java.lang.String,java.lang.Throwable)>("Failed to resend cached request", $r13);
+
+     label18:
+        goto label03;
+
+     label19:
+        $r14 := @caughtexception;
+
+        goto label23;
+
+     label20:
+        $r15 := @caughtexception;
+
+     label21:
+        staticinvoke <com.appsflyer.AFLogger: void afErrorLog(java.lang.String,java.lang.Throwable)>("failed to check cache. ", $r15);
+
+     label22:
+        $r1 = r0.<com.appsflyer.AppsFlyerLibCore$d: com.appsflyer.AppsFlyerLibCore \u03b9>;
+
+        staticinvoke <com.appsflyer.AppsFlyerLibCore: boolean \u0131(com.appsflyer.AppsFlyerLibCore,boolean)>($r1, 0);
+
+        $r1 = r0.<com.appsflyer.AppsFlyerLibCore$d: com.appsflyer.AppsFlyerLibCore \u03b9>;
+
+        $r16 = staticinvoke <com.appsflyer.AppsFlyerLibCore: java.util.concurrent.ScheduledExecutorService \u04cf(com.appsflyer.AppsFlyerLibCore)>($r1);
+
+        interfaceinvoke $r16.<java.util.concurrent.ScheduledExecutorService: void shutdown()>();
+
+        $r1 = r0.<com.appsflyer.AppsFlyerLibCore$d: com.appsflyer.AppsFlyerLibCore \u03b9>;
+
+        staticinvoke <com.appsflyer.AppsFlyerLibCore: java.util.concurrent.ScheduledExecutorService \u027e(com.appsflyer.AppsFlyerLibCore)>($r1);
+
+        return;
+
+     label23:
+        $r1 = r0.<com.appsflyer.AppsFlyerLibCore$d: com.appsflyer.AppsFlyerLibCore \u03b9>;
+
+        staticinvoke <com.appsflyer.AppsFlyerLibCore: boolean \u0131(com.appsflyer.AppsFlyerLibCore,boolean)>($r1, 0);
+
+        throw $r14;
+
+        catch java.lang.Exception from label02 to label04 with label20;
+        catch java.lang.Exception from label05 to label06 with label20;
+        catch java.lang.Exception from label07 to label08 with label20;
+        catch java.lang.Throwable from label02 to label04 with label19;
+        catch java.lang.Throwable from label05 to label08 with label19;
+        catch java.lang.Exception from label08 to label09 with label16;
+        catch java.lang.Exception from label10 to label11 with label16;
+        catch java.lang.Exception from label12 to label13 with label16;
+        catch java.lang.Exception from label14 to label15 with label16;
+        catch java.lang.Throwable from label08 to label13 with label19;
+        catch java.lang.Throwable from label14 to label15 with label19;
+        catch java.lang.Exception from label17 to label18 with label20;
+        catch java.lang.Throwable from label17 to label18 with label19;
+        catch java.lang.Throwable from label21 to label22 with label19;
+    }

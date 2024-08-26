@@ -1,0 +1,471 @@
+    public static java.io.File downloadFileToPath(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+    {
+        java.net.HttpURLConnection $r6;
+        java.lang.Throwable $r12, $r14, $r18;
+        byte[] $r7;
+        java.io.DataInputStream $r8, $r23;
+        java.net.URL $r22;
+        java.io.BufferedOutputStream $r10, $r25;
+        java.net.URLConnection $r5;
+        int $i0;
+        java.lang.String $r0, $r1, $r2, $r3;
+        boolean $z0;
+        java.io.FileOutputStream $r24;
+        java.io.File $r4, $r21;
+        java.lang.Exception $r11, $r13, $r15, $r16, $r17, $r19;
+        java.lang.StringBuilder $r20;
+        java.io.InputStream $r9;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r2 := @parameter2: java.lang.String;
+
+        $r3 := @parameter3: java.lang.String;
+
+        staticinvoke <android.net.TrafficStats: void setThreadStatsTag(int)>(1337);
+
+        $z0 = staticinvoke <com.appboy.Appboy: boolean getOutboundNetworkRequestsOffline()>();
+
+        if $z0 == 0 goto label01;
+
+        $r0 = <com.appboy.support.AppboyFileUtils: java.lang.String TAG>;
+
+        $r20 = new java.lang.StringBuilder;
+
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("SDK is offline. File not downloaded for url: ");
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.appboy.support.AppboyLogger: int i(java.lang.String,java.lang.String)>($r0, $r1);
+
+        return null;
+
+     label01:
+        $z0 = staticinvoke <com.appboy.support.StringUtils: boolean isNullOrBlank(java.lang.String)>($r0);
+
+        if $z0 == 0 goto label02;
+
+        $r0 = <com.appboy.support.AppboyFileUtils: java.lang.String TAG>;
+
+        staticinvoke <com.appboy.support.AppboyLogger: int i(java.lang.String,java.lang.String)>($r0, "Download directory null or blank. File not downloaded.");
+
+        return null;
+
+     label02:
+        $z0 = staticinvoke <com.appboy.support.StringUtils: boolean isNullOrBlank(java.lang.String)>($r1);
+
+        if $z0 == 0 goto label03;
+
+        $r0 = <com.appboy.support.AppboyFileUtils: java.lang.String TAG>;
+
+        staticinvoke <com.appboy.support.AppboyLogger: int i(java.lang.String,java.lang.String)>($r0, "Zip file url null or blank. File not downloaded.");
+
+        return null;
+
+     label03:
+        $z0 = staticinvoke <com.appboy.support.StringUtils: boolean isNullOrBlank(java.lang.String)>($r2);
+
+        if $z0 == 0 goto label04;
+
+        $r0 = <com.appboy.support.AppboyFileUtils: java.lang.String TAG>;
+
+        staticinvoke <com.appboy.support.AppboyLogger: int i(java.lang.String,java.lang.String)>($r0, "Output filename null or blank. File not downloaded.");
+
+        return null;
+
+     label04:
+        $r21 = new java.io.File;
+
+     label05:
+        specialinvoke $r21.<java.io.File: void <init>(java.lang.String)>($r0);
+
+        virtualinvoke $r21.<java.io.File: boolean mkdirs()>();
+
+        $z0 = staticinvoke <com.appboy.support.StringUtils: boolean isNullOrBlank(java.lang.String)>(".zip");
+
+     label06:
+        if $z0 != 0 goto label09;
+
+     label07:
+        $r20 = new java.lang.StringBuilder;
+
+     label08:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".zip");
+
+        $r2 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label09:
+        $r21 = new java.io.File;
+
+     label10:
+        $r4 = $r21;
+
+     label11:
+        specialinvoke $r21.<java.io.File: void <init>(java.lang.String,java.lang.String)>($r0, $r2);
+
+     label12:
+        $r22 = new java.net.URL;
+
+     label13:
+        specialinvoke $r22.<java.net.URL: void <init>(java.lang.String)>($r1);
+
+        $r5 = staticinvoke <bo.app.k: java.net.URLConnection a(java.net.URL)>($r22);
+
+        $r6 = (java.net.HttpURLConnection) $r5;
+
+     label14:
+        $i0 = virtualinvoke $r6.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label15:
+        if $i0 == 200 goto label19;
+
+     label16:
+        $r0 = <com.appboy.support.AppboyFileUtils: java.lang.String TAG>;
+
+        $r20 = new java.lang.StringBuilder;
+
+     label17:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("HTTP response code was ");
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(". File with url ");
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" could not be downloaded.");
+
+        $r2 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.appboy.support.AppboyLogger: int d(java.lang.String,java.lang.String)>($r0, $r2);
+
+     label18:
+        if $r6 == null goto label78;
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void disconnect()>();
+
+        return null;
+
+     label19:
+        $r7 = newarray (byte)[8192];
+
+     label20:
+        $r23 = new java.io.DataInputStream;
+
+     label21:
+        $r8 = $r23;
+
+     label22:
+        $r9 = virtualinvoke $r6.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+        specialinvoke $r23.<java.io.DataInputStream: void <init>(java.io.InputStream)>($r9);
+
+     label23:
+        $r25 = new java.io.BufferedOutputStream;
+
+     label24:
+        $r10 = $r25;
+
+     label25:
+        $r24 = new java.io.FileOutputStream;
+
+     label26:
+        specialinvoke $r24.<java.io.FileOutputStream: void <init>(java.io.File)>($r21);
+
+        specialinvoke $r25.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r24);
+
+     label27:
+        $i0 = virtualinvoke $r23.<java.io.DataInputStream: int read(byte[])>($r7);
+
+     label28:
+        if $i0 == -1 goto label31;
+
+     label29:
+        virtualinvoke $r25.<java.io.BufferedOutputStream: void write(byte[],int,int)>($r7, 0, $i0);
+
+     label30:
+        goto label27;
+
+     label31:
+        virtualinvoke $r23.<java.io.DataInputStream: void close()>();
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void disconnect()>();
+
+        virtualinvoke $r25.<java.io.BufferedOutputStream: void close()>();
+
+     label32:
+        if $r6 == null goto label33;
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void disconnect()>();
+
+     label33:
+        virtualinvoke $r23.<java.io.DataInputStream: void close()>();
+
+        virtualinvoke $r25.<java.io.BufferedOutputStream: void close()>();
+
+     label34:
+        return $r4;
+
+     label35:
+        $r11 := @caughtexception;
+
+        $r0 = <com.appboy.support.AppboyFileUtils: java.lang.String TAG>;
+
+        staticinvoke <com.appboy.support.AppboyLogger: int e(java.lang.String,java.lang.String,java.lang.Throwable)>($r0, "Exception during closing of file download streams.", $r11);
+
+        return $r4;
+
+     label36:
+        $r12 := @caughtexception;
+
+        goto label44;
+
+     label37:
+        $r13 := @caughtexception;
+
+        goto label57;
+
+     label38:
+        $r12 := @caughtexception;
+
+        $r10 = null;
+
+        goto label44;
+
+     label39:
+        $r13 := @caughtexception;
+
+        $r10 = null;
+
+        goto label57;
+
+     label40:
+        $r12 := @caughtexception;
+
+        goto label43;
+
+     label41:
+        $r13 := @caughtexception;
+
+        goto label56;
+
+     label42:
+        $r14 := @caughtexception;
+
+        $r12 = $r14;
+
+        $r6 = null;
+
+     label43:
+        $r8 = null;
+
+        $r10 = null;
+
+     label44:
+        $r0 = <com.appboy.support.AppboyFileUtils: java.lang.String TAG>;
+
+        $r20 = new java.lang.StringBuilder;
+
+     label45:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Throwable during download of file from url : ");
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.appboy.support.AppboyLogger: int e(java.lang.String,java.lang.String,java.lang.Throwable)>($r0, $r1, $r12);
+
+     label46:
+        if $r6 == null goto label47;
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void disconnect()>();
+
+     label47:
+        if $r8 == null goto label51;
+
+     label48:
+        virtualinvoke $r8.<java.io.DataInputStream: void close()>();
+
+     label49:
+        goto label51;
+
+     label50:
+        $r15 := @caughtexception;
+
+        goto label54;
+
+     label51:
+        if $r10 == null goto label78;
+
+     label52:
+        virtualinvoke $r10.<java.io.BufferedOutputStream: void close()>();
+
+     label53:
+        return null;
+
+     label54:
+        $r0 = <com.appboy.support.AppboyFileUtils: java.lang.String TAG>;
+
+        staticinvoke <com.appboy.support.AppboyLogger: int e(java.lang.String,java.lang.String,java.lang.Throwable)>($r0, "Exception during closing of file download streams.", $r15);
+
+        return null;
+
+     label55:
+        $r16 := @caughtexception;
+
+        $r13 = $r16;
+
+        $r6 = null;
+
+     label56:
+        $r8 = null;
+
+        $r10 = null;
+
+     label57:
+        $r0 = <com.appboy.support.AppboyFileUtils: java.lang.String TAG>;
+
+        $r20 = new java.lang.StringBuilder;
+
+     label58:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Exception during download of file from url : ");
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.appboy.support.AppboyLogger: int e(java.lang.String,java.lang.String,java.lang.Throwable)>($r0, $r1, $r13);
+
+     label59:
+        if $r6 == null goto label60;
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void disconnect()>();
+
+     label60:
+        if $r8 == null goto label64;
+
+     label61:
+        virtualinvoke $r8.<java.io.DataInputStream: void close()>();
+
+     label62:
+        goto label64;
+
+     label63:
+        $r17 := @caughtexception;
+
+        goto label67;
+
+     label64:
+        if $r10 == null goto label78;
+
+     label65:
+        virtualinvoke $r10.<java.io.BufferedOutputStream: void close()>();
+
+     label66:
+        return null;
+
+     label67:
+        $r0 = <com.appboy.support.AppboyFileUtils: java.lang.String TAG>;
+
+        staticinvoke <com.appboy.support.AppboyLogger: int e(java.lang.String,java.lang.String,java.lang.Throwable)>($r0, "Exception during closing of file download streams.", $r17);
+
+        return null;
+
+     label68:
+        $r18 := @caughtexception;
+
+        if $r6 == null goto label69;
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void disconnect()>();
+
+     label69:
+        if $r8 == null goto label73;
+
+     label70:
+        virtualinvoke $r8.<java.io.DataInputStream: void close()>();
+
+     label71:
+        goto label73;
+
+     label72:
+        $r19 := @caughtexception;
+
+        goto label76;
+
+     label73:
+        if $r10 == null goto label77;
+
+     label74:
+        virtualinvoke $r10.<java.io.BufferedOutputStream: void close()>();
+
+     label75:
+        goto label77;
+
+     label76:
+        $r0 = <com.appboy.support.AppboyFileUtils: java.lang.String TAG>;
+
+        staticinvoke <com.appboy.support.AppboyLogger: int e(java.lang.String,java.lang.String,java.lang.Throwable)>($r0, "Exception during closing of file download streams.", $r19);
+
+     label77:
+        throw $r18;
+
+     label78:
+        return null;
+
+        catch java.lang.Exception from label05 to label06 with label55;
+        catch java.lang.Exception from label08 to label09 with label55;
+        catch java.lang.Exception from label11 to label12 with label55;
+        catch java.lang.Exception from label13 to label14 with label55;
+        catch java.lang.Throwable from label04 to label05 with label42;
+        catch java.lang.Throwable from label05 to label06 with label42;
+        catch java.lang.Throwable from label07 to label08 with label42;
+        catch java.lang.Throwable from label08 to label09 with label42;
+        catch java.lang.Throwable from label09 to label10 with label42;
+        catch java.lang.Throwable from label11 to label13 with label42;
+        catch java.lang.Throwable from label13 to label14 with label42;
+        catch java.lang.Exception from label14 to label15 with label41;
+        catch java.lang.Exception from label17 to label18 with label41;
+        catch java.lang.Throwable from label14 to label15 with label40;
+        catch java.lang.Throwable from label16 to label17 with label40;
+        catch java.lang.Throwable from label17 to label18 with label40;
+        catch java.lang.Exception from label22 to label23 with label41;
+        catch java.lang.Throwable from label20 to label21 with label40;
+        catch java.lang.Throwable from label22 to label23 with label40;
+        catch java.lang.Exception from label26 to label27 with label39;
+        catch java.lang.Throwable from label23 to label24 with label38;
+        catch java.lang.Throwable from label25 to label26 with label38;
+        catch java.lang.Throwable from label26 to label27 with label38;
+        catch java.lang.Exception from label27 to label28 with label37;
+        catch java.lang.Exception from label29 to label30 with label37;
+        catch java.lang.Exception from label31 to label32 with label37;
+        catch java.lang.Throwable from label27 to label28 with label36;
+        catch java.lang.Throwable from label29 to label30 with label36;
+        catch java.lang.Throwable from label31 to label32 with label36;
+        catch java.lang.Exception from label33 to label34 with label35;
+        catch java.lang.Throwable from label44 to label45 with label68;
+        catch java.lang.Throwable from label45 to label46 with label68;
+        catch java.lang.Exception from label48 to label49 with label50;
+        catch java.lang.Exception from label52 to label53 with label50;
+        catch java.lang.Throwable from label57 to label58 with label68;
+        catch java.lang.Throwable from label58 to label59 with label68;
+        catch java.lang.Exception from label61 to label62 with label63;
+        catch java.lang.Exception from label65 to label66 with label63;
+        catch java.lang.Exception from label70 to label71 with label72;
+        catch java.lang.Exception from label74 to label75 with label72;
+    }

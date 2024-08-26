@@ -1,0 +1,465 @@
+    public void run()
+    {
+        java.net.HttpURLConnection $r12;
+        java.lang.Throwable $r16, $r17, $r22;
+        android.content.Context $r7;
+        com.appsflyer.f $r18;
+        com.appsflyer.k r0;
+        java.net.URL $r10;
+        long $l1, $l2;
+        org.json.JSONObject $r21;
+        java.util.concurrent.atomic.AtomicInteger $r4;
+        java.net.URLConnection $r11;
+        java.util.Map $r20;
+        int $i0;
+        java.util.concurrent.ScheduledExecutorService $r19;
+        java.lang.String $r3, $r8;
+        java.lang.ref.WeakReference $r5;
+        boolean $z0;
+        java.io.InputStreamReader $r13;
+        java.lang.StringBuilder $r1, $r9;
+        java.lang.Object $r6;
+        java.io.BufferedReader $r2, $r15;
+        com.appsflyer.q $r23;
+        java.io.InputStream $r14;
+
+        r0 := @this: com.appsflyer.k;
+
+        $r2 = null;
+
+        $r3 = r0.<com.appsflyer.k: java.lang.String c>;
+
+        if $r3 == null goto label62;
+
+        $r3 = r0.<com.appsflyer.k: java.lang.String c>;
+
+        $i0 = virtualinvoke $r3.<java.lang.String: int length()>();
+
+        if $i0 != 0 goto label01;
+
+        return;
+
+     label01:
+        $r4 = r0.<com.appsflyer.k: java.util.concurrent.atomic.AtomicInteger e>;
+
+        virtualinvoke $r4.<java.util.concurrent.atomic.AtomicInteger: int incrementAndGet()>();
+
+     label02:
+        $r5 = r0.<com.appsflyer.k: java.lang.ref.WeakReference a>;
+
+        $r6 = virtualinvoke $r5.<java.lang.ref.WeakReference: java.lang.Object get()>();
+
+        $r7 = (android.content.Context) $r6;
+
+     label03:
+        if $r7 != null goto label04;
+
+        $r4 = r0.<com.appsflyer.k: java.util.concurrent.atomic.AtomicInteger e>;
+
+        virtualinvoke $r4.<java.util.concurrent.atomic.AtomicInteger: int decrementAndGet()>();
+
+        return;
+
+     label04:
+        $l1 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $r3 = staticinvoke <com.appsflyer.h: java.lang.String f(android.content.Context)>($r7);
+
+        $r8 = staticinvoke <com.appsflyer.h: java.lang.String a(android.content.Context,java.lang.String)>($r7, $r3);
+
+     label05:
+        $r3 = "";
+
+        if $r8 == null goto label07;
+
+     label06:
+        $r1 = new java.lang.StringBuilder;
+
+        specialinvoke $r1.<java.lang.StringBuilder: void <init>(java.lang.String)>("-");
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r3 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label07:
+        $r1 = new java.lang.StringBuilder;
+
+        specialinvoke $r1.<java.lang.StringBuilder: void <init>()>();
+
+        staticinvoke <FLOWDROID_EXCEPTIONS: void throw_java_lang_Throwable_4()>();
+
+        staticinvoke <FLOWDROID_EXCEPTIONS: void throw_com_appsflyer_q_6()>();
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("https://api.appsflyer.com/install_data/v3/");
+
+        $r8 = virtualinvoke $r7.<android.content.Context: java.lang.String getPackageName()>();
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("?devkey=");
+
+        $r3 = r0.<com.appsflyer.k: java.lang.String c>;
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("&device_id=");
+
+        $r3 = staticinvoke <com.appsflyer.h: java.lang.String b(android.content.Context)>($r7);
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>(java.lang.String)>("Calling server for attribution url: ");
+
+        $r3 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.appsflyer.z: void b(java.lang.String)>($r3);
+
+        $r10 = new java.net.URL;
+
+        $r3 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r10.<java.net.URL: void <init>(java.lang.String)>($r3);
+
+        $r11 = virtualinvoke $r10.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r12 = (java.net.HttpURLConnection) $r11;
+
+     label08:
+        virtualinvoke $r12.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("GET");
+
+        virtualinvoke $r12.<java.net.HttpURLConnection: void setConnectTimeout(int)>(10000);
+
+        virtualinvoke $r12.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Connection", "close");
+
+        virtualinvoke $r12.<java.net.HttpURLConnection: void connect()>();
+
+        $i0 = virtualinvoke $r12.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label09:
+        if $i0 != 200 goto label53;
+
+     label10:
+        $l2 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+     label11:
+        $l1 = $l2 - $l1;
+
+        $l1 = $l1 / 1000L;
+
+     label12:
+        staticinvoke <com.appsflyer.h: void a(android.content.Context,java.lang.String,long)>($r7, "appsflyerGetConversionDataTiming", $l1);
+
+        $r1 = new java.lang.StringBuilder;
+
+        specialinvoke $r1.<java.lang.StringBuilder: void <init>()>();
+
+     label13:
+        $r13 = new java.io.InputStreamReader;
+
+        $r14 = virtualinvoke $r12.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+        specialinvoke $r13.<java.io.InputStreamReader: void <init>(java.io.InputStream)>($r14);
+
+     label14:
+        $r15 = new java.io.BufferedReader;
+
+        specialinvoke $r15.<java.io.BufferedReader: void <init>(java.io.Reader)>($r13);
+
+     label15:
+        $r3 = virtualinvoke $r15.<java.io.BufferedReader: java.lang.String readLine()>();
+
+     label16:
+        if $r3 == null goto label32;
+
+     label17:
+        $r9 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(10);
+
+     label18:
+        goto label15;
+
+     label19:
+        $r16 := @caughtexception;
+
+        $r2 = $r15;
+
+     label20:
+        if $r2 == null goto label22;
+
+     label21:
+        virtualinvoke $r2.<java.io.BufferedReader: void close()>();
+
+     label22:
+        if $r13 == null goto label24;
+
+     label23:
+        virtualinvoke $r13.<java.io.InputStreamReader: void close()>();
+
+     label24:
+        throw $r16;
+
+     label25:
+        $r17 := @caughtexception;
+
+     label26:
+        $r18 = staticinvoke <com.appsflyer.h: com.appsflyer.f b()>();
+
+     label27:
+        if $r18 == null goto label29;
+
+     label28:
+        virtualinvoke $r17.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        virtualinvoke r0.<com.appsflyer.k: void a(int)>(0);
+
+     label29:
+        $r3 = virtualinvoke $r17.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        staticinvoke <com.appsflyer.a: void a(java.lang.String,java.lang.Throwable)>($r3, $r17);
+
+     label30:
+        $r4 = r0.<com.appsflyer.k: java.util.concurrent.atomic.AtomicInteger e>;
+
+        virtualinvoke $r4.<java.util.concurrent.atomic.AtomicInteger: int decrementAndGet()>();
+
+        if $r12 == null goto label31;
+
+        virtualinvoke $r12.<java.net.HttpURLConnection: void disconnect()>();
+
+     label31:
+        $r19 = r0.<com.appsflyer.k: java.util.concurrent.ScheduledExecutorService d>;
+
+        interfaceinvoke $r19.<java.util.concurrent.ScheduledExecutorService: void shutdown()>();
+
+        return;
+
+     label32:
+        virtualinvoke $r15.<java.io.BufferedReader: void close()>();
+
+        virtualinvoke $r13.<java.io.InputStreamReader: void close()>();
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>(java.lang.String)>("Attribution data: ");
+
+        $r3 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.appsflyer.z: void b(java.lang.String)>($r3);
+
+        $i0 = virtualinvoke $r1.<java.lang.StringBuilder: int length()>();
+
+     label33:
+        if $i0 <= 0 goto label48;
+
+        if $r7 == null goto label48;
+
+     label34:
+        $r3 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r20 = staticinvoke <com.appsflyer.h: java.util.Map d(java.lang.String)>($r3);
+
+        $r6 = interfaceinvoke $r20.<java.util.Map: java.lang.Object get(java.lang.Object)>("iscache");
+
+        $r3 = (java.lang.String) $r6;
+
+     label35:
+        if $r3 == null goto label39;
+
+        $r8 = "false";
+
+     label36:
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean equals(java.lang.Object)>($r3);
+
+     label37:
+        if $z0 == 0 goto label39;
+
+     label38:
+        $l1 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        staticinvoke <com.appsflyer.h: void a(android.content.Context,java.lang.String,long)>($r7, "appsflyerConversionDataCacheExpiration", $l1);
+
+     label39:
+        $r21 = new org.json.JSONObject;
+
+        specialinvoke $r21.<org.json.JSONObject: void <init>(java.util.Map)>($r20);
+
+        $r8 = virtualinvoke $r21.<org.json.JSONObject: java.lang.String toString()>();
+
+     label40:
+        if $r8 == null goto label49;
+
+     label41:
+        staticinvoke <com.appsflyer.h: void a(android.content.Context,java.lang.String,java.lang.String)>($r7, "attributionId", $r8);
+
+     label42:
+        $r1 = new java.lang.StringBuilder;
+
+        specialinvoke $r1.<java.lang.StringBuilder: void <init>(java.lang.String)>("iscache=");
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" caching conversion data");
+
+        $r3 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.appsflyer.a: void b(java.lang.String)>($r3);
+
+        $r18 = staticinvoke <com.appsflyer.h: com.appsflyer.f b()>();
+
+     label43:
+        if $r18 == null goto label48;
+
+     label44:
+        $r4 = r0.<com.appsflyer.k: java.util.concurrent.atomic.AtomicInteger e>;
+
+        $i0 = virtualinvoke $r4.<java.util.concurrent.atomic.AtomicInteger: int intValue()>();
+
+     label45:
+        if $i0 > 1 goto label48;
+
+     label46:
+        staticinvoke <com.appsflyer.h: java.util.Map a(android.content.Context)>($r7);
+
+     label47:
+        virtualinvoke r0.<com.appsflyer.k: void a()>();
+
+     label48:
+        $r4 = r0.<com.appsflyer.k: java.util.concurrent.atomic.AtomicInteger e>;
+
+        virtualinvoke $r4.<java.util.concurrent.atomic.AtomicInteger: int decrementAndGet()>();
+
+        if $r12 == null goto label31;
+
+        virtualinvoke $r12.<java.net.HttpURLConnection: void disconnect()>();
+
+        goto label31;
+
+     label49:
+        $r8 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.appsflyer.h: void a(android.content.Context,java.lang.String,java.lang.String)>($r7, "attributionId", $r8);
+
+     label50:
+        goto label42;
+
+     label51:
+        $r22 := @caughtexception;
+
+        $r4 = r0.<com.appsflyer.k: java.util.concurrent.atomic.AtomicInteger e>;
+
+        virtualinvoke $r4.<java.util.concurrent.atomic.AtomicInteger: int decrementAndGet()>();
+
+        if $r12 == null goto label52;
+
+        virtualinvoke $r12.<java.net.HttpURLConnection: void disconnect()>();
+
+     label52:
+        throw $r22;
+
+     label53:
+        $r18 = staticinvoke <com.appsflyer.h: com.appsflyer.f b()>();
+
+     label54:
+        if $r18 == null goto label56;
+
+     label55:
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>(java.lang.String)>("Error connection to server: ");
+
+        $i0 = virtualinvoke $r12.<java.net.HttpURLConnection: int getResponseCode()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $i0 = virtualinvoke $r12.<java.net.HttpURLConnection: int getResponseCode()>();
+
+        virtualinvoke r0.<com.appsflyer.k: void a(int)>($i0);
+
+     label56:
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>(java.lang.String)>("AttributionIdFetcher response code: ");
+
+        $i0 = virtualinvoke $r12.<java.net.HttpURLConnection: int getResponseCode()>();
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  url: ");
+
+        $r1 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r1);
+
+        $r3 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.appsflyer.z: void b(java.lang.String)>($r3);
+
+     label57:
+        goto label48;
+
+     label58:
+        $r23 := @caughtexception;
+
+        goto label47;
+
+     label59:
+        $r17 := @caughtexception;
+
+        $r12 = null;
+
+        goto label26;
+
+     label60:
+        $r16 := @caughtexception;
+
+        $r13 = null;
+
+        goto label20;
+
+     label61:
+        $r16 := @caughtexception;
+
+        goto label20;
+
+     label62:
+        return;
+
+        catch java.lang.Throwable from label02 to label03 with label59;
+        catch java.lang.Throwable from label04 to label05 with label59;
+        catch java.lang.Throwable from label06 to label07 with label59;
+        catch java.lang.Throwable from label07 to label08 with label59;
+        catch java.lang.Throwable from label08 to label09 with label25;
+        catch java.lang.Throwable from label10 to label11 with label25;
+        catch java.lang.Throwable from label12 to label13 with label25;
+        catch java.lang.Throwable from label13 to label14 with label60;
+        catch java.lang.Throwable from label14 to label15 with label61;
+        catch java.lang.Throwable from label15 to label16 with label19;
+        catch java.lang.Throwable from label17 to label18 with label19;
+        catch java.lang.Throwable from label21 to label22 with label25;
+        catch java.lang.Throwable from label23 to label25 with label25;
+        catch java.lang.Throwable from label26 to label27 with label51;
+        catch java.lang.Throwable from label28 to label30 with label51;
+        catch java.lang.Throwable from label32 to label33 with label25;
+        catch java.lang.Throwable from label34 to label35 with label25;
+        catch java.lang.Throwable from label36 to label37 with label25;
+        catch java.lang.Throwable from label38 to label40 with label25;
+        catch java.lang.Throwable from label41 to label43 with label25;
+        catch java.lang.Throwable from label44 to label45 with label25;
+        catch com.appsflyer.q from label46 to label47 with label58;
+        catch java.lang.Throwable from label46 to label47 with label25;
+        catch java.lang.Throwable from label47 to label48 with label25;
+        catch java.lang.Throwable from label49 to label50 with label25;
+        catch java.lang.Throwable from label53 to label54 with label25;
+        catch java.lang.Throwable from label55 to label57 with label25;
+    }

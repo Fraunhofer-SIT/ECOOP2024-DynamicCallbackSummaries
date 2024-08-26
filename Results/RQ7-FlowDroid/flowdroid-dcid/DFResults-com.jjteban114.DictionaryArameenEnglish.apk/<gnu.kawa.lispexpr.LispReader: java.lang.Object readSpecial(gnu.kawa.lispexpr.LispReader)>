@@ -1,0 +1,156 @@
+    public static java.lang.Object readSpecial(gnu.kawa.lispexpr.LispReader) throws java.io.IOException, gnu.text.SyntaxException
+    {
+        gnu.kawa.lispexpr.ReadTable $r3;
+        gnu.mapping.Values $r2;
+        gnu.kawa.lispexpr.LispReader $r0;
+        gnu.kawa.lispexpr.ReaderIgnoreRestOfLine $r1;
+        int $i0, $i1;
+        char[] $r5;
+        java.lang.Object $r7;
+        gnu.expr.QuoteExp $r8;
+        java.lang.StringBuilder $r9;
+        java.lang.String $r4;
+        gnu.expr.Special $r6;
+        boolean $z0;
+
+        $r0 := @parameter0: gnu.kawa.lispexpr.LispReader;
+
+        $i0 = virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: int read()>();
+
+        if $i0 >= 0 goto label01;
+
+        virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: void eofError(java.lang.String)>("unexpected EOF in #! special form");
+
+     label01:
+        if $i0 != 47 goto label02;
+
+        $i1 = virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: int getLineNumber()>();
+
+        if $i1 != 0 goto label02;
+
+        $i1 = virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: int getColumnNumber()>();
+
+        if $i1 != 3 goto label02;
+
+        $r1 = staticinvoke <gnu.kawa.lispexpr.ReaderIgnoreRestOfLine: gnu.kawa.lispexpr.ReaderIgnoreRestOfLine getInstance()>();
+
+        virtualinvoke $r1.<gnu.kawa.lispexpr.ReaderIgnoreRestOfLine: java.lang.Object read(gnu.text.Lexer,int,int)>($r0, 35, 1);
+
+        $r2 = <gnu.mapping.Values: gnu.mapping.Values empty>;
+
+        return $r2;
+
+     label02:
+        $i1 = $r0.<gnu.kawa.lispexpr.LispReader: int tokenBufferLength>;
+
+        virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: void tokenBufferAppend(int)>($i0);
+
+        $i0 = virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: int read()>();
+
+        $r3 = staticinvoke <gnu.kawa.lispexpr.ReadTable: gnu.kawa.lispexpr.ReadTable getCurrent()>();
+
+        virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: void readToken(int,char,gnu.kawa.lispexpr.ReadTable)>($i0, 68, $r3);
+
+        $i0 = $r0.<gnu.kawa.lispexpr.LispReader: int tokenBufferLength>;
+
+        $i0 = $i0 - $i1;
+
+        $r4 = new java.lang.String;
+
+        $r5 = $r0.<gnu.kawa.lispexpr.LispReader: char[] tokenBuffer>;
+
+        specialinvoke $r4.<java.lang.String: void <init>(char[],int,int)>($r5, $i1, $i0);
+
+        $z0 = virtualinvoke $r4.<java.lang.String: boolean equals(java.lang.Object)>("optional");
+
+        if $z0 == 0 goto label03;
+
+        $r6 = <gnu.expr.Special: gnu.expr.Special optional>;
+
+        return $r6;
+
+     label03:
+        $z0 = virtualinvoke $r4.<java.lang.String: boolean equals(java.lang.Object)>("rest");
+
+        if $z0 == 0 goto label04;
+
+        $r6 = <gnu.expr.Special: gnu.expr.Special rest>;
+
+        return $r6;
+
+     label04:
+        $z0 = virtualinvoke $r4.<java.lang.String: boolean equals(java.lang.Object)>("key");
+
+        if $z0 == 0 goto label05;
+
+        $r6 = <gnu.expr.Special: gnu.expr.Special key>;
+
+        return $r6;
+
+     label05:
+        $z0 = virtualinvoke $r4.<java.lang.String: boolean equals(java.lang.Object)>("eof");
+
+        if $z0 == 0 goto label06;
+
+        $r7 = <gnu.expr.Special: java.lang.Object eof>;
+
+        return $r7;
+
+     label06:
+        $z0 = virtualinvoke $r4.<java.lang.String: boolean equals(java.lang.Object)>("void");
+
+        if $z0 == 0 goto label07;
+
+        $r8 = <gnu.expr.QuoteExp: gnu.expr.QuoteExp voidExp>;
+
+        return $r8;
+
+     label07:
+        $z0 = virtualinvoke $r4.<java.lang.String: boolean equals(java.lang.Object)>("default");
+
+        if $z0 == 0 goto label08;
+
+        $r6 = <gnu.expr.Special: gnu.expr.Special dfault>;
+
+        return $r6;
+
+     label08:
+        $z0 = virtualinvoke $r4.<java.lang.String: boolean equals(java.lang.Object)>("undefined");
+
+        if $z0 == 0 goto label09;
+
+        $r6 = <gnu.expr.Special: gnu.expr.Special undefined>;
+
+        return $r6;
+
+     label09:
+        $z0 = virtualinvoke $r4.<java.lang.String: boolean equals(java.lang.Object)>("abstract");
+
+        if $z0 == 0 goto label10;
+
+        $r6 = <gnu.expr.Special: gnu.expr.Special abstractSpecial>;
+
+        return $r6;
+
+     label10:
+        $z0 = virtualinvoke $r4.<java.lang.String: boolean equals(java.lang.Object)>("null");
+
+        if $z0 == 0 goto label11;
+
+        return null;
+
+     label11:
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("unknown named constant #!");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        $r4 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r0.<gnu.kawa.lispexpr.LispReader: void error(java.lang.String)>($r4);
+
+        return null;
+    }

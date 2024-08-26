@@ -1,0 +1,103 @@
+    public byte[] f(java.lang.String)
+    {
+        java.lang.Throwable $r6, $r7, $r8;
+        byte[] $r5;
+        java.io.ByteArrayOutputStream $r9;
+        java.io.FileInputStream $r4;
+        java.lang.Exception $r1;
+        o.a.a.a.a.a.d.c.a.a r0;
+        byte $b1;
+        int $i0;
+        java.lang.StringBuilder $r10;
+        java.lang.String $r2;
+        android.content.ContextWrapper $r3;
+
+        r0 := @this: o.a.a.a.a.a.d.c.a.a;
+
+        $r2 := @parameter0: java.lang.String;
+
+        $r9 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r9.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r3 = r0.<o.a.a.a.a.a.d.c.a.a: android.content.ContextWrapper a>;
+
+        $r10 = new java.lang.StringBuilder;
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".bin");
+
+        $r2 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r4 = virtualinvoke $r3.<android.content.ContextWrapper: java.io.FileInputStream openFileInput(java.lang.String)>($r2);
+
+     label01:
+        $i0 = virtualinvoke $r4.<java.io.FileInputStream: int read()>();
+
+     label02:
+        if $i0 == -1 goto label05;
+
+        $b1 = (byte) $i0;
+
+        $i0 = (int) $b1;
+
+     label03:
+        virtualinvoke $r9.<java.io.ByteArrayOutputStream: void write(int)>($i0);
+
+     label04:
+        goto label01;
+
+     label05:
+        $r5 = virtualinvoke $r9.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label06:
+        virtualinvoke $r4.<java.io.FileInputStream: void close()>();
+
+        virtualinvoke $r9.<java.io.ByteArrayOutputStream: void close()>();
+
+     label07:
+        virtualinvoke $r4.<java.io.FileInputStream: void close()>();
+
+        return $r5;
+
+     label08:
+        $r6 := @caughtexception;
+
+     label09:
+        throw $r6;
+
+     label10:
+        $r7 := @caughtexception;
+
+        if $r4 == null goto label14;
+
+     label11:
+        virtualinvoke $r4.<java.io.FileInputStream: void close()>();
+
+     label12:
+        goto label14;
+
+     label13:
+        $r8 := @caughtexception;
+
+        virtualinvoke $r6.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r8);
+
+     label14:
+        throw $r7;
+
+     label15:
+        $r1 := @caughtexception;
+
+        goto label07;
+
+        catch java.lang.Throwable from label01 to label02 with label08;
+        catch java.lang.Throwable from label03 to label04 with label08;
+        catch java.lang.Throwable from label05 to label06 with label08;
+        catch java.lang.Exception from label06 to label07 with label15;
+        catch java.lang.Throwable from label06 to label07 with label08;
+        catch java.lang.Throwable from label09 to label10 with label10;
+        catch java.lang.Throwable from label11 to label12 with label13;
+    }

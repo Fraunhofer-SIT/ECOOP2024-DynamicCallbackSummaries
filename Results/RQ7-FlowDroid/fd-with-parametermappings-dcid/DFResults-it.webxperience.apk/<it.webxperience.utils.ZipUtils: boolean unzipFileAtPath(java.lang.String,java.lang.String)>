@@ -1,0 +1,167 @@
+    public static boolean unzipFileAtPath(java.lang.String, java.lang.String)
+    {
+        java.lang.Throwable $r6;
+        byte[] $r2;
+        java.io.BufferedInputStream $r9;
+        java.util.zip.ZipInputStream $r10;
+        int $i0;
+        java.lang.String $r0, $r1, $r7;
+        java.util.zip.ZipEntry $r3;
+        boolean $z0;
+        java.io.FileOutputStream $r14;
+        java.io.IOException $r15;
+        java.io.FileInputStream $r8;
+        java.io.File $r4, $r11;
+        java.io.FileNotFoundException $r13;
+        java.lang.StringBuilder $r5, $r12;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r8 = new java.io.FileInputStream;
+
+     label01:
+        specialinvoke $r8.<java.io.FileInputStream: void <init>(java.lang.String)>($r0);
+
+     label02:
+        $r10 = new java.util.zip.ZipInputStream;
+
+        $r9 = new java.io.BufferedInputStream;
+
+     label03:
+        specialinvoke $r9.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r8);
+
+        specialinvoke $r10.<java.util.zip.ZipInputStream: void <init>(java.io.InputStream)>($r9);
+
+     label04:
+        $r2 = newarray (byte)[1024];
+
+     label05:
+        $r3 = virtualinvoke $r10.<java.util.zip.ZipInputStream: java.util.zip.ZipEntry getNextEntry()>();
+
+     label06:
+        if $r3 != null goto label09;
+
+     label07:
+        virtualinvoke $r10.<java.util.zip.ZipInputStream: void close()>();
+
+     label08:
+        return 1;
+
+     label09:
+        $r0 = virtualinvoke $r3.<java.util.zip.ZipEntry: java.lang.String getName()>();
+
+     label10:
+        $r11 = new java.io.File;
+
+        $r4 = $r11;
+
+     label11:
+        specialinvoke $r11.<java.io.File: void <init>(java.lang.String,java.lang.String)>($r1, $r0);
+
+        $z0 = virtualinvoke $r3.<java.util.zip.ZipEntry: boolean isDirectory()>();
+
+     label12:
+        if $z0 == 0 goto label19;
+
+     label13:
+        $z0 = virtualinvoke $r4.<java.io.File: boolean isDirectory()>();
+
+     label14:
+        if $z0 != 0 goto label21;
+
+     label15:
+        $z0 = virtualinvoke $r4.<java.io.File: boolean mkdirs()>();
+
+     label16:
+        if $z0 != 0 goto label21;
+
+        $r13 = new java.io.FileNotFoundException;
+
+        $r12 = new java.lang.StringBuilder;
+
+     label17:
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>(java.lang.String)>("Failed to ensure directory: ");
+
+        $r0 = virtualinvoke $r4.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $r5 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r0 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r13.<java.io.FileNotFoundException: void <init>(java.lang.String)>($r0);
+
+        throw $r13;
+
+     label18:
+        $r6 := @caughtexception;
+
+        $r15 = (java.io.IOException) $r6;
+
+        virtualinvoke $r15.<java.io.IOException: void printStackTrace()>();
+
+        return 0;
+
+     label19:
+        $r4 = virtualinvoke $r11.<java.io.File: java.io.File getParentFile()>();
+
+     label20:
+        goto label13;
+
+     label21:
+        $z0 = virtualinvoke $r3.<java.util.zip.ZipEntry: boolean isDirectory()>();
+
+     label22:
+        if $z0 != 0 goto label05;
+
+        $r14 = new java.io.FileOutputStream;
+
+        $r12 = new java.lang.StringBuilder;
+
+     label23:
+        $r7 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r1);
+
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>(java.lang.String)>($r7);
+
+        $r5 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r0 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r14.<java.io.FileOutputStream: void <init>(java.lang.String)>($r0);
+
+     label24:
+        $i0 = virtualinvoke $r10.<java.util.zip.ZipInputStream: int read(byte[])>($r2);
+
+     label25:
+        if $i0 != -1 goto label28;
+
+     label26:
+        virtualinvoke $r14.<java.io.FileOutputStream: void close()>();
+
+        virtualinvoke $r10.<java.util.zip.ZipInputStream: void closeEntry()>();
+
+     label27:
+        goto label05;
+
+     label28:
+        virtualinvoke $r14.<java.io.FileOutputStream: void write(byte[],int,int)>($r2, 0, $i0);
+
+     label29:
+        goto label24;
+
+        catch java.io.IOException from label01 to label02 with label18;
+        catch java.io.IOException from label03 to label04 with label18;
+        catch java.io.IOException from label05 to label06 with label18;
+        catch java.io.IOException from label07 to label08 with label18;
+        catch java.io.IOException from label09 to label10 with label18;
+        catch java.io.IOException from label11 to label12 with label18;
+        catch java.io.IOException from label13 to label14 with label18;
+        catch java.io.IOException from label15 to label16 with label18;
+        catch java.io.IOException from label17 to label18 with label18;
+        catch java.io.IOException from label19 to label20 with label18;
+        catch java.io.IOException from label21 to label22 with label18;
+        catch java.io.IOException from label23 to label25 with label18;
+        catch java.io.IOException from label26 to label27 with label18;
+        catch java.io.IOException from label28 to label29 with label18;
+    }

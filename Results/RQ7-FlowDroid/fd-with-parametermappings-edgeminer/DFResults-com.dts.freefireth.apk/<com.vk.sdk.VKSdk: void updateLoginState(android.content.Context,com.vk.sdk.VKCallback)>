@@ -1,0 +1,30 @@
+    private static void updateLoginState(android.content.Context, com.vk.sdk.VKCallback)
+    {
+        android.content.Context $r0;
+        com.vk.sdk.VKSdk$LoginState $r3;
+        com.vk.sdk.VKCallback r1;
+        com.vk.sdk.VKAccessToken $r2;
+
+        $r0 := @parameter0: android.content.Context;
+
+        r1 := @parameter1: com.vk.sdk.VKCallback;
+
+        staticinvoke <com.vk.sdk.VKUIHelper: void setApplicationContext(android.content.Context)>($r0);
+
+        $r2 = staticinvoke <com.vk.sdk.VKAccessToken: com.vk.sdk.VKAccessToken currentToken()>();
+
+        if $r2 == null goto label1;
+
+        $r3 = <com.vk.sdk.VKSdk$LoginState: com.vk.sdk.VKSdk$LoginState LoggedIn>;
+
+        staticinvoke <com.vk.sdk.VKSdk: void forceLoginState(com.vk.sdk.VKSdk$LoginState,com.vk.sdk.VKCallback)>($r3, r1);
+
+        return;
+
+     label1:
+        $r3 = <com.vk.sdk.VKSdk$LoginState: com.vk.sdk.VKSdk$LoginState LoggedOut>;
+
+        staticinvoke <com.vk.sdk.VKSdk: void forceLoginState(com.vk.sdk.VKSdk$LoginState,com.vk.sdk.VKCallback)>($r3, r1);
+
+        return;
+    }

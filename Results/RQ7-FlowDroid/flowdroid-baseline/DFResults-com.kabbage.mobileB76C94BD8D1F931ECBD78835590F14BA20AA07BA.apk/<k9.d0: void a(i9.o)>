@@ -1,0 +1,353 @@
+    public void a(i9.o)
+    {
+        java.net.HttpURLConnection $r4;
+        java.lang.Throwable $r11, $r12, $r13, $r14, $r15, $r16, $r17, $r18, $r19, $r20, $r21, $r22, $r23, $r24;
+        i9.o $r1;
+        byte[] $r9, $r10;
+        i9.r $r6;
+        java.io.ByteArrayOutputStream $r26;
+        java.net.URL $r2;
+        java.net.URLConnection $r3;
+        i9.d $r5;
+        int $i0, $i1;
+        java.io.OutputStream $r7;
+        java.lang.Exception $r28;
+        k9.d0 r0;
+        java.util.zip.GZIPOutputStream $r25;
+        java.lang.StringBuilder $r27;
+        java.io.InputStream $r8;
+
+        r0 := @this: k9.d0;
+
+        $r1 := @parameter0: i9.o;
+
+        $i0 = -1;
+
+     label01:
+        $r2 = r0.<k9.d0: java.net.URL a>;
+
+     label02:
+        $r3 = virtualinvoke $r2.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r3 = staticinvoke <com.fullstory.instrumentation.InstrumentInjector: java.net.URLConnection urlconnection_wrapInstance(java.net.URLConnection)>($r3);
+
+     label03:
+        $r4 = (java.net.HttpURLConnection) $r3;
+
+     label04:
+        $i1 = r0.<k9.d0: int b>;
+
+     label05:
+        virtualinvoke $r4.<java.net.HttpURLConnection: void setConnectTimeout(int)>($i1);
+
+     label06:
+        $i1 = r0.<k9.d0: int c>;
+
+     label07:
+        virtualinvoke $r4.<java.net.HttpURLConnection: void setReadTimeout(int)>($i1);
+
+        virtualinvoke $r4.<java.net.HttpURLConnection: void setInstanceFollowRedirects(boolean)>(1);
+
+        virtualinvoke $r4.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Type", "application/x-protobuf");
+
+        virtualinvoke $r4.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Encoding", "gzip");
+
+     label08:
+        $r5 = r0.<k9.d0: i9.d d>;
+
+     label09:
+        if $r5 == null goto label11;
+
+     label10:
+        interfaceinvoke $r5.<i9.d: void a(java.net.URLConnection,i9.o)>($r4, $r1);
+
+     label11:
+        $r6 = r0.<k9.d0: i9.r e>;
+
+     label12:
+        virtualinvoke $r6.<i9.r: void a(java.net.HttpURLConnection)>($r4);
+
+        virtualinvoke $r4.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+     label13:
+        $r25 = new java.util.zip.GZIPOutputStream;
+
+     label14:
+        $r7 = virtualinvoke $r4.<java.net.HttpURLConnection: java.io.OutputStream getOutputStream()>();
+
+        specialinvoke $r25.<java.util.zip.GZIPOutputStream: void <init>(java.io.OutputStream)>($r7);
+
+     label15:
+        virtualinvoke $r1.<i9.o: void c(java.io.OutputStream)>($r25);
+
+     label16:
+        virtualinvoke $r25.<java.io.OutputStream: void close()>();
+
+        $i1 = virtualinvoke $r4.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label17:
+        $r8 = virtualinvoke $r4.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+     label18:
+        $r26 = new java.io.ByteArrayOutputStream;
+
+     label19:
+        specialinvoke $r26.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label20:
+        $r9 = newarray (byte)[4096];
+
+     label21:
+        $i0 = virtualinvoke $r8.<java.io.InputStream: int read(byte[])>($r9);
+
+     label22:
+        if $i0 == -1 goto label25;
+
+     label23:
+        virtualinvoke $r26.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r9, 0, $i0);
+
+     label24:
+        goto label21;
+
+     label25:
+        $r9 = virtualinvoke $r26.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label26:
+        $r10 = $r9;
+
+     label27:
+        virtualinvoke $r26.<java.io.ByteArrayOutputStream: void close()>();
+
+     label28:
+        virtualinvoke $r8.<java.io.InputStream: void close()>();
+
+     label29:
+        $r2 = r0.<k9.d0: java.net.URL a>;
+
+        virtualinvoke $r1.<i9.o: void b(int,java.net.URL,byte[],java.lang.Exception)>($i1, $r2, $r9, null);
+
+        virtualinvoke $r4.<java.net.HttpURLConnection: void disconnect()>();
+
+        return;
+
+     label30:
+        $r11 := @caughtexception;
+
+        goto label38;
+
+     label31:
+        $r12 := @caughtexception;
+
+     label32:
+        virtualinvoke $r26.<java.io.ByteArrayOutputStream: void close()>();
+
+     label33:
+        goto label36;
+
+     label34:
+        $r13 := @caughtexception;
+
+     label35:
+        virtualinvoke $r12.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r13);
+
+     label36:
+        throw $r12;
+
+     label37:
+        $r11 := @caughtexception;
+
+        $r10 = null;
+
+     label38:
+        if $r8 == null goto label43;
+
+     label39:
+        virtualinvoke $r8.<java.io.InputStream: void close()>();
+
+     label40:
+        goto label43;
+
+     label41:
+        $r14 := @caughtexception;
+
+     label42:
+        virtualinvoke $r11.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r14);
+
+     label43:
+        throw $r11;
+
+     label44:
+        $r15 := @caughtexception;
+
+        $r9 = $r10;
+
+        $i0 = $i1;
+
+        goto label64;
+
+     label45:
+        $r16 := @caughtexception;
+
+        $r9 = $r10;
+
+        $i0 = $i1;
+
+        goto label60;
+
+     label46:
+        $r17 := @caughtexception;
+
+        $r15 = $r17;
+
+        $i0 = $i1;
+
+        goto label55;
+
+     label47:
+        $r18 := @caughtexception;
+
+        $r16 = $r18;
+
+        $i0 = $i1;
+
+        goto label57;
+
+     label48:
+        $r19 := @caughtexception;
+
+     label49:
+        virtualinvoke $r25.<java.io.OutputStream: void close()>();
+
+     label50:
+        goto label53;
+
+     label51:
+        $r20 := @caughtexception;
+
+     label52:
+        virtualinvoke $r19.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r20);
+
+     label53:
+        throw $r19;
+
+     label54:
+        $r21 := @caughtexception;
+
+        $r15 = $r21;
+
+     label55:
+        $r9 = null;
+
+        goto label64;
+
+     label56:
+        $r22 := @caughtexception;
+
+        $r16 = $r22;
+
+     label57:
+        $r9 = null;
+
+        goto label60;
+
+     label58:
+        $r23 := @caughtexception;
+
+        $r9 = null;
+
+        $r15 = $r23;
+
+        $r4 = null;
+
+        goto label64;
+
+     label59:
+        $r24 := @caughtexception;
+
+        $r9 = null;
+
+        $r16 = $r24;
+
+        $r4 = null;
+
+     label60:
+        $r27 = new java.lang.StringBuilder;
+
+     label61:
+        specialinvoke $r27.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r27.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Error connecting to ");
+
+        $r2 = r0.<k9.d0: java.net.URL a>;
+
+        virtualinvoke $r27.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r2);
+
+        virtualinvoke $r27.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(": ");
+
+        virtualinvoke $r27.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r16);
+
+     label62:
+        $r2 = r0.<k9.d0: java.net.URL a>;
+
+        $r28 = (java.lang.Exception) $r16;
+
+        virtualinvoke $r1.<i9.o: void b(int,java.net.URL,byte[],java.lang.Exception)>($i0, $r2, $r9, $r28);
+
+        if $r4 == null goto label66;
+
+        virtualinvoke $r4.<java.net.HttpURLConnection: void disconnect()>();
+
+        return;
+
+     label63:
+        $r15 := @caughtexception;
+
+     label64:
+        $r2 = r0.<k9.d0: java.net.URL a>;
+
+        virtualinvoke $r1.<i9.o: void b(int,java.net.URL,byte[],java.lang.Exception)>($i0, $r2, $r9, null);
+
+        if $r4 == null goto label65;
+
+        virtualinvoke $r4.<java.net.HttpURLConnection: void disconnect()>();
+
+     label65:
+        throw $r15;
+
+     label66:
+        return;
+
+        catch java.io.IOException from label02 to label03 with label59;
+        catch java.lang.Throwable from label01 to label04 with label58;
+        catch java.io.IOException from label05 to label06 with label56;
+        catch java.io.IOException from label07 to label08 with label56;
+        catch java.io.IOException from label10 to label11 with label56;
+        catch java.io.IOException from label12 to label13 with label56;
+        catch java.io.IOException from label14 to label15 with label56;
+        catch java.lang.Throwable from label04 to label09 with label54;
+        catch java.lang.Throwable from label10 to label14 with label54;
+        catch java.lang.Throwable from label14 to label15 with label54;
+        catch java.lang.Throwable from label15 to label16 with label48;
+        catch java.io.IOException from label16 to label17 with label56;
+        catch java.lang.Throwable from label16 to label17 with label54;
+        catch java.io.IOException from label17 to label18 with label47;
+        catch java.lang.Throwable from label17 to label18 with label46;
+        catch java.lang.Throwable from label18 to label19 with label37;
+        catch java.lang.Throwable from label19 to label20 with label37;
+        catch java.lang.Throwable from label21 to label22 with label31;
+        catch java.lang.Throwable from label23 to label24 with label31;
+        catch java.lang.Throwable from label25 to label26 with label31;
+        catch java.lang.Throwable from label27 to label28 with label30;
+        catch java.io.IOException from label28 to label29 with label45;
+        catch java.lang.Throwable from label28 to label29 with label44;
+        catch java.lang.Throwable from label32 to label33 with label34;
+        catch java.lang.Throwable from label35 to label37 with label37;
+        catch java.lang.Throwable from label39 to label40 with label41;
+        catch java.io.IOException from label42 to label44 with label45;
+        catch java.lang.Throwable from label42 to label44 with label44;
+        catch java.lang.Throwable from label49 to label50 with label51;
+        catch java.io.IOException from label52 to label54 with label56;
+        catch java.lang.Throwable from label52 to label54 with label54;
+        catch java.lang.Throwable from label60 to label61 with label63;
+        catch java.lang.Throwable from label61 to label62 with label63;
+    }

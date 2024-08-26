@@ -1,0 +1,65 @@
+    public static byte[] FlateDecode(byte[], boolean)
+    {
+        byte[] $r0;
+        java.io.ByteArrayOutputStream r3;
+        java.util.zip.InflaterInputStream r2;
+        java.lang.Exception r4;
+        short s0;
+        java.io.ByteArrayInputStream r1;
+        int $i1;
+        boolean $z0;
+
+        $r0 := @parameter0: byte[];
+
+        $z0 := @parameter1: boolean;
+
+        r1 = new java.io.ByteArrayInputStream;
+
+        specialinvoke r1.<java.io.ByteArrayInputStream: void <init>(byte[])>($r0);
+
+        r2 = new java.util.zip.InflaterInputStream;
+
+        specialinvoke r2.<java.util.zip.InflaterInputStream: void <init>(java.io.InputStream)>(r1);
+
+        r3 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke r3.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        s0 = 4092;
+
+        goto label1;
+
+     label1:
+        $r0 = newarray (byte)[s0];
+
+     label2:
+        $i1 = virtualinvoke r2.<java.util.zip.InflaterInputStream: int read(byte[])>($r0);
+
+     label3:
+        if $i1 < 0 goto label6;
+
+     label4:
+        virtualinvoke r3.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r0, 0, $i1);
+
+     label5:
+        goto label2;
+
+     label6:
+        virtualinvoke r2.<java.util.zip.InflaterInputStream: void close()>();
+
+        virtualinvoke r3.<java.io.ByteArrayOutputStream: void close()>();
+
+        $r0 = virtualinvoke r3.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label7:
+        return $r0;
+
+     label8:
+        r4 := @caughtexception;
+
+        return null;
+
+        catch java.lang.Exception from label2 to label3 with label8;
+        catch java.lang.Exception from label4 to label5 with label8;
+        catch java.lang.Exception from label6 to label7 with label8;
+    }

@@ -1,0 +1,365 @@
+    private java.util.HashMap mapFromStore(java.io.File)
+    {
+        java.lang.Throwable r8, r9, r10, r11, r12, r13, r14, r16, $r17, r18, r19, r22, r23, r24, r25, r26, r27;
+        java.io.ObjectInputStream r3, r6;
+        java.util.HashMap r7;
+        boolean $z0;
+        com.openfeint.internal.SyncedStore r0;
+        java.io.FileInputStream r2, r5;
+        java.io.File $r1;
+        java.lang.Object $r4;
+        java.lang.ClassNotFoundException r15, r20, r21;
+
+        r0 := @this: com.openfeint.internal.SyncedStore;
+
+        $r1 := @parameter0: java.io.File;
+
+        r5 = null;
+
+        r6 = null;
+
+     label01:
+        r2 = new java.io.FileInputStream;
+
+     label02:
+        specialinvoke r2.<java.io.FileInputStream: void <init>(java.io.File)>($r1);
+
+     label03:
+        r3 = new java.io.ObjectInputStream;
+
+     label04:
+        specialinvoke r3.<java.io.ObjectInputStream: void <init>(java.io.InputStream)>(r2);
+
+     label05:
+        $r4 = virtualinvoke r3.<java.io.ObjectInputStream: java.lang.Object readObject()>();
+
+     label06:
+        if $r4 == null goto label61;
+
+     label07:
+        $z0 = $r4 instanceof java.util.HashMap;
+
+     label08:
+        if $z0 == 0 goto label61;
+
+     label09:
+        r7 = (java.util.HashMap) $r4;
+
+     label10:
+        if r3 == null goto label13;
+
+     label11:
+        virtualinvoke r3.<java.io.ObjectInputStream: void close()>();
+
+     label12:
+        return r7;
+
+     label13:
+        if r2 == null goto label12;
+
+     label14:
+        virtualinvoke r2.<java.io.InputStream: void close()>();
+
+     label15:
+        goto label12;
+
+     label16:
+        r8 := @caughtexception;
+
+        staticinvoke <com.openfeint.internal.logcat.OFLog: void e(java.lang.String,java.lang.String)>("DistributedPrefs", "IOException while cleaning up");
+
+        goto label12;
+
+     label17:
+        r9 := @caughtexception;
+
+     label18:
+        staticinvoke <com.openfeint.internal.logcat.OFLog: void e(java.lang.String,java.lang.String)>("DistributedPrefs", "Couldn\'t open of_prefs");
+
+     label19:
+        if r6 == null goto label22;
+
+     label20:
+        virtualinvoke r6.<java.io.ObjectInputStream: void close()>();
+
+     label21:
+        return null;
+
+     label22:
+        if r5 == null goto label21;
+
+     label23:
+        virtualinvoke r5.<java.io.InputStream: void close()>();
+
+     label24:
+        goto label21;
+
+     label25:
+        r10 := @caughtexception;
+
+        staticinvoke <com.openfeint.internal.logcat.OFLog: void e(java.lang.String,java.lang.String)>("DistributedPrefs", "IOException while cleaning up");
+
+        goto label21;
+
+     label26:
+        r11 := @caughtexception;
+
+     label27:
+        staticinvoke <com.openfeint.internal.logcat.OFLog: void e(java.lang.String,java.lang.String)>("DistributedPrefs", "StreamCorruptedException");
+
+     label28:
+        if r6 == null goto label32;
+
+     label29:
+        virtualinvoke r6.<java.io.ObjectInputStream: void close()>();
+
+     label30:
+        goto label21;
+
+     label31:
+        r12 := @caughtexception;
+
+        staticinvoke <com.openfeint.internal.logcat.OFLog: void e(java.lang.String,java.lang.String)>("DistributedPrefs", "IOException while cleaning up");
+
+        goto label21;
+
+     label32:
+        if r5 == null goto label21;
+
+     label33:
+        virtualinvoke r5.<java.io.InputStream: void close()>();
+
+     label34:
+        goto label21;
+
+     label35:
+        r13 := @caughtexception;
+
+     label36:
+        staticinvoke <com.openfeint.internal.logcat.OFLog: void e(java.lang.String,java.lang.String)>("DistributedPrefs", "IOException while reading");
+
+     label37:
+        if r6 == null goto label41;
+
+     label38:
+        virtualinvoke r6.<java.io.ObjectInputStream: void close()>();
+
+     label39:
+        goto label21;
+
+     label40:
+        r14 := @caughtexception;
+
+        staticinvoke <com.openfeint.internal.logcat.OFLog: void e(java.lang.String,java.lang.String)>("DistributedPrefs", "IOException while cleaning up");
+
+        goto label21;
+
+     label41:
+        if r5 == null goto label21;
+
+     label42:
+        virtualinvoke r5.<java.io.InputStream: void close()>();
+
+     label43:
+        goto label21;
+
+     label44:
+        r15 := @caughtexception;
+
+     label45:
+        staticinvoke <com.openfeint.internal.logcat.OFLog: void e(java.lang.String,java.lang.String)>("DistributedPrefs", "ClassNotFoundException");
+
+     label46:
+        if r6 == null goto label50;
+
+     label47:
+        virtualinvoke r6.<java.io.ObjectInputStream: void close()>();
+
+     label48:
+        goto label21;
+
+     label49:
+        r16 := @caughtexception;
+
+        staticinvoke <com.openfeint.internal.logcat.OFLog: void e(java.lang.String,java.lang.String)>("DistributedPrefs", "IOException while cleaning up");
+
+        goto label21;
+
+     label50:
+        if r5 == null goto label21;
+
+     label51:
+        virtualinvoke r5.<java.io.InputStream: void close()>();
+
+     label52:
+        goto label21;
+
+     label53:
+        $r17 := @caughtexception;
+
+     label54:
+        if r6 == null goto label57;
+
+     label55:
+        virtualinvoke r6.<java.io.ObjectInputStream: void close()>();
+
+     label56:
+        throw $r17;
+
+     label57:
+        if r5 == null goto label56;
+
+     label58:
+        virtualinvoke r5.<java.io.InputStream: void close()>();
+
+     label59:
+        goto label56;
+
+     label60:
+        r18 := @caughtexception;
+
+        staticinvoke <com.openfeint.internal.logcat.OFLog: void e(java.lang.String,java.lang.String)>("DistributedPrefs", "IOException while cleaning up");
+
+        goto label56;
+
+     label61:
+        if r3 == null goto label64;
+
+     label62:
+        virtualinvoke r3.<java.io.ObjectInputStream: void close()>();
+
+     label63:
+        goto label21;
+
+     label64:
+        if r2 == null goto label21;
+
+     label65:
+        virtualinvoke r2.<java.io.InputStream: void close()>();
+
+     label66:
+        goto label21;
+
+     label67:
+        r19 := @caughtexception;
+
+        staticinvoke <com.openfeint.internal.logcat.OFLog: void e(java.lang.String,java.lang.String)>("DistributedPrefs", "IOException while cleaning up");
+
+        goto label21;
+
+     label68:
+        $r17 := @caughtexception;
+
+        r5 = r2;
+
+        goto label54;
+
+     label69:
+        $r17 := @caughtexception;
+
+        r6 = r3;
+
+        r5 = r2;
+
+        goto label54;
+
+     label70:
+        r20 := @caughtexception;
+
+        r5 = r2;
+
+        goto label45;
+
+     label71:
+        r21 := @caughtexception;
+
+        r6 = r3;
+
+        r5 = r2;
+
+        goto label45;
+
+     label72:
+        r22 := @caughtexception;
+
+        r5 = r2;
+
+        goto label36;
+
+     label73:
+        r23 := @caughtexception;
+
+        r6 = r3;
+
+        r5 = r2;
+
+        goto label36;
+
+     label74:
+        r24 := @caughtexception;
+
+        r5 = r2;
+
+        goto label27;
+
+     label75:
+        r25 := @caughtexception;
+
+        r6 = r3;
+
+        r5 = r2;
+
+        goto label27;
+
+     label76:
+        r26 := @caughtexception;
+
+        r5 = r2;
+
+        goto label18;
+
+     label77:
+        r27 := @caughtexception;
+
+        r6 = r3;
+
+        r5 = r2;
+
+        goto label18;
+
+        catch java.io.FileNotFoundException from label02 to label03 with label17;
+        catch java.io.StreamCorruptedException from label02 to label03 with label26;
+        catch java.io.IOException from label02 to label03 with label35;
+        catch java.lang.ClassNotFoundException from label02 to label03 with label44;
+        catch java.lang.Throwable from label01 to label03 with label53;
+        catch java.io.FileNotFoundException from label04 to label05 with label76;
+        catch java.io.StreamCorruptedException from label04 to label05 with label74;
+        catch java.io.IOException from label04 to label05 with label72;
+        catch java.lang.ClassNotFoundException from label04 to label05 with label70;
+        catch java.lang.Throwable from label03 to label05 with label68;
+        catch java.io.FileNotFoundException from label05 to label06 with label77;
+        catch java.io.StreamCorruptedException from label05 to label06 with label75;
+        catch java.io.IOException from label05 to label06 with label73;
+        catch java.lang.ClassNotFoundException from label05 to label06 with label71;
+        catch java.lang.Throwable from label05 to label06 with label69;
+        catch java.lang.Throwable from label07 to label08 with label69;
+        catch java.lang.Throwable from label09 to label10 with label69;
+        catch java.io.IOException from label11 to label12 with label16;
+        catch java.io.IOException from label14 to label15 with label16;
+        catch java.lang.Throwable from label18 to label19 with label53;
+        catch java.io.IOException from label20 to label21 with label25;
+        catch java.io.IOException from label23 to label24 with label25;
+        catch java.lang.Throwable from label27 to label28 with label53;
+        catch java.io.IOException from label29 to label30 with label31;
+        catch java.io.IOException from label33 to label34 with label31;
+        catch java.lang.Throwable from label36 to label37 with label53;
+        catch java.io.IOException from label38 to label39 with label40;
+        catch java.io.IOException from label42 to label43 with label40;
+        catch java.lang.Throwable from label45 to label46 with label53;
+        catch java.io.IOException from label47 to label48 with label49;
+        catch java.io.IOException from label51 to label52 with label49;
+        catch java.io.IOException from label55 to label56 with label60;
+        catch java.io.IOException from label58 to label59 with label60;
+        catch java.io.IOException from label62 to label63 with label67;
+        catch java.io.IOException from label65 to label66 with label67;
+    }

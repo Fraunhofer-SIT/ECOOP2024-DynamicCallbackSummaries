@@ -1,0 +1,54 @@
+    void setObjectId(java.lang.String, java.lang.String)
+    {
+        java.lang.Throwable $r6;
+        java.lang.IllegalStateException $r5;
+        com.parse.LocalIdManager$MapEntry $r3;
+        com.parse.LocalIdManager r0;
+        int $i0;
+        java.lang.String $r1, $r2, $r4;
+
+        r0 := @this: com.parse.LocalIdManager;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: java.lang.String;
+
+        entermonitor r0;
+
+     label1:
+        $r3 = specialinvoke r0.<com.parse.LocalIdManager: com.parse.LocalIdManager$MapEntry getMapEntry(java.lang.String)>($r1);
+
+        $i0 = $r3.<com.parse.LocalIdManager$MapEntry: int retainCount>;
+
+        if $i0 <= 0 goto label4;
+
+        $r4 = $r3.<com.parse.LocalIdManager$MapEntry: java.lang.String objectId>;
+
+        if $r4 == null goto label3;
+
+        $r5 = new java.lang.IllegalStateException;
+
+        specialinvoke $r5.<java.lang.IllegalStateException: void <init>(java.lang.String)>("Tried to set an objectId for a localId that already has one.");
+
+        throw $r5;
+
+     label2:
+        $r6 := @caughtexception;
+
+        exitmonitor r0;
+
+        throw $r6;
+
+     label3:
+        $r3.<com.parse.LocalIdManager$MapEntry: java.lang.String objectId> = $r2;
+
+        specialinvoke r0.<com.parse.LocalIdManager: void putMapEntry(java.lang.String,com.parse.LocalIdManager$MapEntry)>($r1, $r3);
+
+     label4:
+        exitmonitor r0;
+
+        return;
+
+        catch java.lang.Throwable from label1 to label2 with label2;
+        catch java.lang.Throwable from label3 to label4 with label2;
+    }

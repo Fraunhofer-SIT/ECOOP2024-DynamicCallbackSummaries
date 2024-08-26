@@ -1,0 +1,31 @@
+    public static void closeOrLog(java.io.Closeable, java.lang.String)
+    {
+        java.lang.Throwable r2;
+        io.fabric.sdk.android.Logger $r3;
+        java.io.Closeable $r0;
+        java.lang.String $r1;
+
+        $r0 := @parameter0: java.io.Closeable;
+
+        $r1 := @parameter1: java.lang.String;
+
+        if $r0 == null goto label4;
+
+     label1:
+        interfaceinvoke $r0.<java.io.Closeable: void close()>();
+
+     label2:
+        return;
+
+     label3:
+        r2 := @caughtexception;
+
+        $r3 = staticinvoke <io.fabric.sdk.android.Fabric: io.fabric.sdk.android.Logger getLogger()>();
+
+        interfaceinvoke $r3.<io.fabric.sdk.android.Logger: void e(java.lang.String,java.lang.String,java.lang.Throwable)>("Fabric", $r1, r2);
+
+     label4:
+        return;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }

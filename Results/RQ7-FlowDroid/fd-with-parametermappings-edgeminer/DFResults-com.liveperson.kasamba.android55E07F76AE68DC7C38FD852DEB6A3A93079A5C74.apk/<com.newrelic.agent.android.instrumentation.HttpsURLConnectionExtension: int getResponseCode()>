@@ -1,0 +1,33 @@
+    public int getResponseCode() throws java.io.IOException
+    {
+        java.lang.Throwable $r2;
+        javax.net.ssl.HttpsURLConnection $r1;
+        com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension r0;
+        int $i0;
+        java.lang.Exception $r3;
+
+        r0 := @this: com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension;
+
+        specialinvoke r0.<com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension: com.newrelic.agent.android.instrumentation.TransactionState getTransactionState()>();
+
+        $r1 = r0.<com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension: javax.net.ssl.HttpsURLConnection impl>;
+
+     label1:
+        $i0 = virtualinvoke $r1.<javax.net.ssl.HttpsURLConnection: int getResponseCode()>();
+
+     label2:
+        specialinvoke r0.<com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension: void checkResponse()>();
+
+        return $i0;
+
+     label3:
+        $r2 := @caughtexception;
+
+        $r3 = (java.lang.Exception) $r2;
+
+        specialinvoke r0.<com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension: void error(java.lang.Exception)>($r3);
+
+        throw $r2;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }

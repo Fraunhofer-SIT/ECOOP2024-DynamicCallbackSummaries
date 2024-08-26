@@ -1,0 +1,57 @@
+    void setup()
+    {
+        int $i0;
+        java.lang.Throwable $r1;
+        gnu.kawa.reflect.FieldLocation r0;
+
+        r0 := @this: gnu.kawa.reflect.FieldLocation;
+
+        entermonitor r0;
+
+     label1:
+        $i0 = r0.<gnu.kawa.reflect.FieldLocation: int flags>;
+
+        $i0 = $i0 & 1;
+
+        if $i0 == 0 goto label3;
+
+        exitmonitor r0;
+
+     label2:
+        return;
+
+     label3:
+        specialinvoke r0.<gnu.kawa.reflect.ClassMemberLocation: void setup()>();
+
+        $i0 = r0.<gnu.kawa.reflect.FieldLocation: int flags>;
+
+        $i0 = $i0 & 64;
+
+        if $i0 != 0 goto label4;
+
+        virtualinvoke r0.<gnu.kawa.reflect.FieldLocation: void setKindFlags()>();
+
+     label4:
+        $i0 = r0.<gnu.kawa.reflect.FieldLocation: int flags>;
+
+        $i0 = $i0 | 1;
+
+        r0.<gnu.kawa.reflect.FieldLocation: int flags> = $i0;
+
+        exitmonitor r0;
+
+     label5:
+        return;
+
+     label6:
+        $r1 := @caughtexception;
+
+        exitmonitor r0;
+
+     label7:
+        throw $r1;
+
+        catch java.lang.Throwable from label1 to label2 with label6;
+        catch java.lang.Throwable from label3 to label5 with label6;
+        catch java.lang.Throwable from label6 to label7 with label6;
+    }

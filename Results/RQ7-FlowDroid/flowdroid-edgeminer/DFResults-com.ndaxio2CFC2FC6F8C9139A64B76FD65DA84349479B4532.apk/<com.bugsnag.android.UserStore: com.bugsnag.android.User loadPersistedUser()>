@@ -1,0 +1,73 @@
+    private final com.bugsnag.android.User loadPersistedUser()
+    {
+        java.lang.Throwable $r11;
+        com.bugsnag.android.User$Companion $r6;
+        com.bugsnag.android.User $r3;
+        kotlin.jvm.functions.Function1 $r7;
+        com.bugsnag.android.UserStore$loadPersistedUser$1 $r5;
+        java.lang.Exception $r9;
+        com.bugsnag.android.Logger $r10;
+        com.bugsnag.android.UserStore r0;
+        com.bugsnag.android.SharedPrefMigrator $r1;
+        com.bugsnag.android.JsonStream$Streamable $r8;
+        java.lang.String $r2;
+        boolean $z0;
+        com.bugsnag.android.SynchronizedStreamableStore $r4;
+
+        r0 := @this: com.bugsnag.android.UserStore;
+
+        $r1 = r0.<com.bugsnag.android.UserStore: com.bugsnag.android.SharedPrefMigrator sharedPrefMigrator>;
+
+        $z0 = virtualinvoke $r1.<com.bugsnag.android.SharedPrefMigrator: boolean hasPrefs()>();
+
+        if $z0 == 0 goto label1;
+
+        $r1 = r0.<com.bugsnag.android.UserStore: com.bugsnag.android.SharedPrefMigrator sharedPrefMigrator>;
+
+        $r2 = r0.<com.bugsnag.android.UserStore: java.lang.String deviceId>;
+
+        $r3 = virtualinvoke $r1.<com.bugsnag.android.SharedPrefMigrator: com.bugsnag.android.User loadUser(java.lang.String)>($r2);
+
+        virtualinvoke r0.<com.bugsnag.android.UserStore: void save(com.bugsnag.android.User)>($r3);
+
+        return $r3;
+
+     label1:
+        $r4 = r0.<com.bugsnag.android.UserStore: com.bugsnag.android.SynchronizedStreamableStore synchronizedStreamableStore>;
+
+     label2:
+        $r5 = new com.bugsnag.android.UserStore$loadPersistedUser$1;
+
+        $r6 = <com.bugsnag.android.User: com.bugsnag.android.User$Companion Companion>;
+
+     label3:
+        specialinvoke $r5.<com.bugsnag.android.UserStore$loadPersistedUser$1: void <init>(com.bugsnag.android.User$Companion)>($r6);
+
+     label4:
+        $r7 = (kotlin.jvm.functions.Function1) $r5;
+
+     label5:
+        $r8 = virtualinvoke $r4.<com.bugsnag.android.SynchronizedStreamableStore: com.bugsnag.android.JsonStream$Streamable load(kotlin.jvm.functions.Function1)>($r7);
+
+        $r3 = (com.bugsnag.android.User) $r8;
+
+     label6:
+        return $r3;
+
+     label7:
+        $r9 := @caughtexception;
+
+        $r10 = r0.<com.bugsnag.android.UserStore: com.bugsnag.android.Logger logger>;
+
+        $r11 = (java.lang.Throwable) $r9;
+
+        $r2 = staticinvoke <runtime.Strings.StringIndexer: java.lang.String b08c60020(java.lang.String)>("11437");
+
+        interfaceinvoke $r10.<com.bugsnag.android.Logger: void w(java.lang.String,java.lang.Throwable)>($r2, $r11);
+
+        return null;
+
+        catch java.lang.Exception from label1 to label2 with label7;
+        catch java.lang.Exception from label3 to label4 with label7;
+        catch java.lang.Exception from label5 to label6 with label7;
+    }

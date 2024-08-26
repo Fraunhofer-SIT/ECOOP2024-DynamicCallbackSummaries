@@ -1,0 +1,113 @@
+    public static byte[] a(java.util.ArrayList)
+    {
+        java.lang.Throwable $r7;
+        byte[] $r11;
+        java.io.ByteArrayOutputStream $r0;
+        java.io.BufferedWriter $r1;
+        java.lang.Exception $r8;
+        java.util.ArrayList $r2;
+        java.nio.charset.Charset $r4;
+        int $i0, $i1, $i2;
+        java.io.OutputStreamWriter $r3;
+        java.lang.Object $r5;
+        java.lang.StringBuilder $r9;
+        java.lang.String $r6, $r10;
+
+        $r2 := @parameter0: java.util.ArrayList;
+
+        $r0 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r0.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r1 = new java.io.BufferedWriter;
+
+        $r3 = new java.io.OutputStreamWriter;
+
+        $r4 = <java.nio.charset.StandardCharsets: java.nio.charset.Charset UTF_8>;
+
+        specialinvoke $r3.<java.io.OutputStreamWriter: void <init>(java.io.OutputStream,java.nio.charset.Charset)>($r0, $r4);
+
+        specialinvoke $r1.<java.io.BufferedWriter: void <init>(java.io.Writer)>($r3);
+
+     label01:
+        staticinvoke <java.util.Collections: void sort(java.util.List)>($r2);
+
+        $i0 = virtualinvoke $r2.<java.util.AbstractCollection: int size()>();
+
+     label02:
+        $i1 = 0;
+
+     label03:
+        if $i1 >= $i0 goto label06;
+
+     label04:
+        $r5 = virtualinvoke $r2.<java.util.AbstractList: java.lang.Object get(int)>($i1);
+
+        $r6 = (java.lang.String) $r5;
+
+        $i2 = virtualinvoke $r6.<java.lang.String: int length()>();
+
+        virtualinvoke $r1.<java.io.Writer: void write(java.lang.String,int,int)>($r6, 0, $i2);
+
+        virtualinvoke $r1.<java.io.Writer: void write(java.lang.String,int,int)>("\r\n", 0, 2);
+
+     label05:
+        $i1 = $i1 + 1;
+
+        goto label03;
+
+     label06:
+        virtualinvoke $r1.<java.io.Writer: void flush()>();
+
+     label07:
+        goto label11;
+
+     label08:
+        $r7 := @caughtexception;
+
+        goto label12;
+
+     label09:
+        $r8 := @caughtexception;
+
+     label10:
+        $r6 = <com.huawei.hms.utils.ReadApkFileUtil: java.lang.String a>;
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("getManifestBytesbySorted Exception!");
+
+        $r10 = virtualinvoke $r8.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r10 = virtualinvoke $r9.<java.lang.Object: java.lang.String toString()>();
+
+        staticinvoke <com.huawei.hms.support.log.HMSLog: void i(java.lang.String,java.lang.String)>($r6, $r10);
+
+     label11:
+        staticinvoke <com.huawei.hms.utils.IOUtils: void closeQuietly(java.io.OutputStream)>($r0);
+
+        staticinvoke <com.huawei.hms.utils.IOUtils: void closeQuietly(java.io.Writer)>($r1);
+
+        $r11 = virtualinvoke $r0.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        return $r11;
+
+     label12:
+        staticinvoke <com.huawei.hms.utils.IOUtils: void closeQuietly(java.io.OutputStream)>($r0);
+
+        staticinvoke <com.huawei.hms.utils.IOUtils: void closeQuietly(java.io.Writer)>($r1);
+
+        throw $r7;
+
+        catch java.lang.Exception from label01 to label02 with label09;
+        catch java.lang.Exception from label04 to label05 with label09;
+        catch java.lang.Exception from label06 to label07 with label09;
+        catch java.lang.Throwable from label01 to label02 with label08;
+        catch java.lang.Throwable from label04 to label05 with label08;
+        catch java.lang.Throwable from label06 to label07 with label08;
+        catch java.lang.Throwable from label10 to label11 with label08;
+    }

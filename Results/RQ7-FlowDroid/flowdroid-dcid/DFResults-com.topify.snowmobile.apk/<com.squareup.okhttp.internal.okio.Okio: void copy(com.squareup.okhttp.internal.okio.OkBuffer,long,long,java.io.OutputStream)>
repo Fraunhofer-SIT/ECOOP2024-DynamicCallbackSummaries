@@ -1,0 +1,93 @@
+    public static void copy(com.squareup.okhttp.internal.okio.OkBuffer, long, long, java.io.OutputStream) throws java.io.IOException
+    {
+        java.io.OutputStream $r1;
+        byte[] $r3;
+        long $l2, $l3, $l4;
+        com.squareup.okhttp.internal.okio.OkBuffer $r0;
+        byte $b5;
+        int i0, i1;
+        com.squareup.okhttp.internal.okio.Segment r2;
+
+        $r0 := @parameter0: com.squareup.okhttp.internal.okio.OkBuffer;
+
+        $l2 := @parameter1: long;
+
+        $l3 := @parameter2: long;
+
+        $r1 := @parameter3: java.io.OutputStream;
+
+        $l4 = $r0.<com.squareup.okhttp.internal.okio.OkBuffer: long size>;
+
+        staticinvoke <com.squareup.okhttp.internal.okio.Util: void checkOffsetAndCount(long,long,long)>($l4, $l2, $l3);
+
+        r2 = $r0.<com.squareup.okhttp.internal.okio.OkBuffer: com.squareup.okhttp.internal.okio.Segment head>;
+
+     label1:
+        i0 = r2.<com.squareup.okhttp.internal.okio.Segment: int limit>;
+
+        i1 = r2.<com.squareup.okhttp.internal.okio.Segment: int pos>;
+
+        i0 = i0 - i1;
+
+        $l4 = (long) i0;
+
+        $b5 = $l2 cmp $l4;
+
+        i0 = (int) $b5;
+
+        if i0 < 0 goto label2;
+
+        i0 = r2.<com.squareup.okhttp.internal.okio.Segment: int limit>;
+
+        i1 = r2.<com.squareup.okhttp.internal.okio.Segment: int pos>;
+
+        i0 = i0 - i1;
+
+        $l4 = (long) i0;
+
+        $l2 = $l2 - $l4;
+
+        r2 = r2.<com.squareup.okhttp.internal.okio.Segment: com.squareup.okhttp.internal.okio.Segment next>;
+
+        goto label1;
+
+     label2:
+        $b5 = $l3 cmp 0L;
+
+        i0 = (int) $b5;
+
+        if i0 <= 0 goto label3;
+
+        i0 = r2.<com.squareup.okhttp.internal.okio.Segment: int pos>;
+
+        $l4 = (long) i0;
+
+        $l2 = $l4 + $l2;
+
+        i0 = (int) $l2;
+
+        i1 = r2.<com.squareup.okhttp.internal.okio.Segment: int limit>;
+
+        i1 = i1 - i0;
+
+        $l2 = (long) i1;
+
+        $l2 = staticinvoke <java.lang.Math: long min(long,long)>($l2, $l3);
+
+        i1 = (int) $l2;
+
+        $r3 = r2.<com.squareup.okhttp.internal.okio.Segment: byte[] data>;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[],int,int)>($r3, i0, i1);
+
+        $l2 = (long) i1;
+
+        $l3 = $l3 - $l2;
+
+        $l2 = 0L;
+
+        goto label2;
+
+     label3:
+        return;
+    }

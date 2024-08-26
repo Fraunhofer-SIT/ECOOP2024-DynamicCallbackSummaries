@@ -1,0 +1,411 @@
+    public void a(android.content.Context)
+    {
+        android.content.pm.PackageManager $r25;
+        android.app.UiModeManager $r27;
+        android.content.ContentResolver $r3;
+        java.util.Locale $r12;
+        boolean $z0;
+        java.util.TimeZone $r20;
+        android.util.DisplayMetrics $r18;
+        float $f0;
+        java.lang.StringBuilder $r29;
+        java.lang.Throwable $r4, $r8, $r9, $r13, $r14, $r16, $r17, $r19, $r21, $r22, $r23, $r24, $r26, $r28;
+        android.content.Context $r1;
+        com.my.tracker.obfuscated.b0 r0;
+        long $l1;
+        android.content.pm.PackageInfo $r15;
+        android.telephony.TelephonyManager $r6;
+        int $i0;
+        java.lang.String $r2, $r7;
+        android.content.res.Configuration $r11;
+        java.lang.Object $r5;
+        android.content.res.Resources $r10;
+
+        r0 := @this: com.my.tracker.obfuscated.b0;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $z0 = r0.<com.my.tracker.obfuscated.b0: boolean a>;
+
+        if $z0 == 0 goto label01;
+
+        return;
+
+     label01:
+        staticinvoke <com.my.tracker.obfuscated.e: void a(java.lang.String)>("DeviceParamsDataProvider: collect application info...");
+
+        $r2 = <android.os.Build: java.lang.String DEVICE>;
+
+        r0.<com.my.tracker.obfuscated.b0: java.lang.String c> = $r2;
+
+        $r2 = <android.os.Build: java.lang.String MANUFACTURER>;
+
+        r0.<com.my.tracker.obfuscated.b0: java.lang.String i> = $r2;
+
+        $r2 = <android.os.Build: java.lang.String MODEL>;
+
+        r0.<com.my.tracker.obfuscated.b0: java.lang.String j> = $r2;
+
+        $r2 = <android.os.Build$VERSION: java.lang.String RELEASE>;
+
+        r0.<com.my.tracker.obfuscated.b0: java.lang.String e> = $r2;
+
+     label02:
+        $r3 = virtualinvoke $r1.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+     label03:
+        if $r3 == null goto label09;
+
+     label04:
+        $r2 = staticinvoke <android.provider.Settings$Secure: java.lang.String getString(android.content.ContentResolver,java.lang.String)>($r3, "android_id");
+
+        r0.<com.my.tracker.obfuscated.b0: java.lang.String d> = $r2;
+
+     label05:
+        if $r2 != null goto label09;
+
+     label06:
+        r0.<com.my.tracker.obfuscated.b0: java.lang.String d> = "";
+
+     label07:
+        goto label09;
+
+     label08:
+        $r4 := @caughtexception;
+
+        staticinvoke <com.my.tracker.obfuscated.e: void a(java.lang.String,java.lang.Throwable)>("DeviceParamsDataProvider: collecting android ID exception ", $r4);
+
+     label09:
+        $r5 = virtualinvoke $r1.<android.content.Context: java.lang.Object getSystemService(java.lang.String)>("phone");
+
+        $r6 = (android.telephony.TelephonyManager) $r5;
+
+     label10:
+        if $r6 == null goto label23;
+
+     label11:
+        $r2 = virtualinvoke $r6.<android.telephony.TelephonyManager: java.lang.String getNetworkOperatorName()>();
+
+        r0.<com.my.tracker.obfuscated.b0: java.lang.String o> = $r2;
+
+        $r2 = virtualinvoke $r6.<android.telephony.TelephonyManager: java.lang.String getNetworkOperator()>();
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r2);
+
+     label12:
+        if $z0 != 0 goto label17;
+
+     label13:
+        $i0 = virtualinvoke $r2.<java.lang.String: int length()>();
+
+     label14:
+        if $i0 <= 3 goto label17;
+
+     label15:
+        $r7 = virtualinvoke $r2.<java.lang.String: java.lang.String substring(int)>(3);
+
+        r0.<com.my.tracker.obfuscated.b0: java.lang.String n> = $r7;
+
+        $r2 = virtualinvoke $r2.<java.lang.String: java.lang.String substring(int,int)>(0, 3);
+
+        r0.<com.my.tracker.obfuscated.b0: java.lang.String m> = $r2;
+
+     label16:
+        goto label18;
+
+     label17:
+        r0.<com.my.tracker.obfuscated.b0: java.lang.String n> = $r2;
+
+     label18:
+        $i0 = virtualinvoke $r6.<android.telephony.TelephonyManager: int getSimState()>();
+
+     label19:
+        if $i0 != 5 goto label23;
+
+     label20:
+        $r2 = virtualinvoke $r6.<android.telephony.TelephonyManager: java.lang.String getSimOperator()>();
+
+        r0.<com.my.tracker.obfuscated.b0: java.lang.String p> = $r2;
+
+     label21:
+        goto label23;
+
+     label22:
+        $r8 := @caughtexception;
+
+        staticinvoke <com.my.tracker.obfuscated.e: void a(java.lang.String,java.lang.Throwable)>("DeviceParamsDataProvider: collecting telephony exception: ", $r8);
+
+     label23:
+        $r2 = virtualinvoke $r1.<android.content.Context: java.lang.String getPackageName()>();
+
+        r0.<com.my.tracker.obfuscated.b0: java.lang.String f> = $r2;
+
+     label24:
+        goto label26;
+
+     label25:
+        $r9 := @caughtexception;
+
+        staticinvoke <com.my.tracker.obfuscated.e: void a(java.lang.String,java.lang.Throwable)>("DeviceParamsDataProvider: collecting packageName exception: ", $r9);
+
+     label26:
+        $r10 = virtualinvoke $r1.<android.content.Context: android.content.res.Resources getResources()>();
+
+        $r11 = virtualinvoke $r10.<android.content.res.Resources: android.content.res.Configuration getConfiguration()>();
+
+        $r12 = $r11.<android.content.res.Configuration: java.util.Locale locale>;
+
+        $r2 = virtualinvoke $r12.<java.util.Locale: java.lang.String getLanguage()>();
+
+        r0.<com.my.tracker.obfuscated.b0: java.lang.String l> = $r2;
+
+     label27:
+        goto label29;
+
+     label28:
+        $r13 := @caughtexception;
+
+        staticinvoke <com.my.tracker.obfuscated.e: void a(java.lang.String,java.lang.Throwable)>("DeviceParamsDataProvider: collecting app lang exception: ", $r13);
+
+     label29:
+        $r2 = staticinvoke <com.my.tracker.obfuscated.b0: java.lang.String e(android.content.Context)>($r1);
+
+        r0.<com.my.tracker.obfuscated.b0: java.lang.String r> = $r2;
+
+     label30:
+        goto label32;
+
+     label31:
+        $r14 := @caughtexception;
+
+        staticinvoke <com.my.tracker.obfuscated.e: void a(java.lang.String,java.lang.Throwable)>("DeviceParamsDataProvider: unable to retrieve mac: exception ", $r14);
+
+     label32:
+        $r15 = staticinvoke <com.my.tracker.obfuscated.n0: android.content.pm.PackageInfo a(android.content.Context)>($r1);
+
+     label33:
+        if $r15 == null goto label42;
+
+     label34:
+        $r2 = $r15.<android.content.pm.PackageInfo: java.lang.String versionName>;
+
+        r0.<com.my.tracker.obfuscated.b0: java.lang.String h> = $r2;
+
+        $i0 = <android.os.Build$VERSION: int SDK_INT>;
+
+     label35:
+        if $i0 >= 28 goto label38;
+
+     label36:
+        $i0 = $r15.<android.content.pm.PackageInfo: int versionCode>;
+
+     label37:
+        $l1 = (long) $i0;
+
+        goto label39;
+
+     label38:
+        $l1 = virtualinvoke $r15.<android.content.pm.PackageInfo: long getLongVersionCode()>();
+
+     label39:
+        $r2 = staticinvoke <java.lang.Long: java.lang.String toString(long)>($l1);
+
+        r0.<com.my.tracker.obfuscated.b0: java.lang.String g> = $r2;
+
+     label40:
+        goto label42;
+
+     label41:
+        $r16 := @caughtexception;
+
+        staticinvoke <com.my.tracker.obfuscated.e: void a(java.lang.String,java.lang.Throwable)>("DeviceParamsDataProvider: collecting app package info exception: ", $r16);
+
+     label42:
+        specialinvoke r0.<com.my.tracker.obfuscated.b0: void c(android.content.Context)>($r1);
+
+     label43:
+        goto label45;
+
+     label44:
+        $r17 := @caughtexception;
+
+        staticinvoke <com.my.tracker.obfuscated.e: void a(java.lang.String,java.lang.Throwable)>("DeviceParamsDataProvider: collecting screen size exception: ", $r17);
+
+     label45:
+        $r10 = virtualinvoke $r1.<android.content.Context: android.content.res.Resources getResources()>();
+
+        $r18 = virtualinvoke $r10.<android.content.res.Resources: android.util.DisplayMetrics getDisplayMetrics()>();
+
+     label46:
+        if $r18 == null goto label50;
+
+     label47:
+        $i0 = $r18.<android.util.DisplayMetrics: int densityDpi>;
+
+        r0.<com.my.tracker.obfuscated.b0: int u> = $i0;
+
+        $f0 = $r18.<android.util.DisplayMetrics: float density>;
+
+        r0.<com.my.tracker.obfuscated.b0: float v> = $f0;
+
+        $f0 = $r18.<android.util.DisplayMetrics: float xdpi>;
+
+        r0.<com.my.tracker.obfuscated.b0: float w> = $f0;
+
+        $f0 = $r18.<android.util.DisplayMetrics: float ydpi>;
+
+        r0.<com.my.tracker.obfuscated.b0: float x> = $f0;
+
+     label48:
+        goto label50;
+
+     label49:
+        $r19 := @caughtexception;
+
+        staticinvoke <com.my.tracker.obfuscated.e: void a(java.lang.String,java.lang.Throwable)>("DeviceParamsDataProvider: collecting display metrics exception: ", $r19);
+
+     label50:
+        $r20 = staticinvoke <java.util.TimeZone: java.util.TimeZone getDefault()>();
+
+        $r29 = new java.lang.StringBuilder;
+
+     label51:
+        specialinvoke $r29.<java.lang.StringBuilder: void <init>()>();
+
+        $r2 = virtualinvoke $r20.<java.util.TimeZone: java.lang.String getDisplayName(boolean,int)>(0, 0);
+
+        virtualinvoke $r29.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r29.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        $r2 = virtualinvoke $r20.<java.util.TimeZone: java.lang.String getID()>();
+
+        virtualinvoke $r29.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r29.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r0.<com.my.tracker.obfuscated.b0: java.lang.String q> = $r2;
+
+     label52:
+        goto label54;
+
+     label53:
+        $r21 := @caughtexception;
+
+        staticinvoke <com.my.tracker.obfuscated.e: void a(java.lang.String,java.lang.Throwable)>("DeviceParamsDataProvider: collecting timezone exception: ", $r21);
+
+     label54:
+        $i0 = <com.my.tracker.obfuscated.b0$a: int a>;
+
+        r0.<com.my.tracker.obfuscated.b0: int y> = $i0;
+
+     label55:
+        goto label57;
+
+     label56:
+        $r22 := @caughtexception;
+
+        staticinvoke <com.my.tracker.obfuscated.e: void a(java.lang.String,java.lang.Throwable)>("DeviceParamsDataProvider: collecting isRooted exception: ", $r22);
+
+     label57:
+        specialinvoke r0.<com.my.tracker.obfuscated.b0: void b(android.content.Context)>($r1);
+
+     label58:
+        goto label60;
+
+     label59:
+        $r23 := @caughtexception;
+
+        staticinvoke <com.my.tracker.obfuscated.e: void a(java.lang.String,java.lang.Throwable)>("DeviceParamsDataProvider: collecting disk info exception: ", $r23);
+
+     label60:
+        $r12 = staticinvoke <java.util.Locale: java.util.Locale getDefault()>();
+
+        $r2 = virtualinvoke $r12.<java.util.Locale: java.lang.String getLanguage()>();
+
+        r0.<com.my.tracker.obfuscated.b0: java.lang.String k> = $r2;
+
+     label61:
+        goto label63;
+
+     label62:
+        $r24 := @caughtexception;
+
+        staticinvoke <com.my.tracker.obfuscated.e: void a(java.lang.String,java.lang.Throwable)>("DeviceParamsDataProvider: collecting lang exception: ", $r24);
+
+     label63:
+        $r25 = virtualinvoke $r1.<android.content.Context: android.content.pm.PackageManager getPackageManager()>();
+
+        $z0 = virtualinvoke $r25.<android.content.pm.PackageManager: boolean hasSystemFeature(java.lang.String)>("android.hardware.touchscreen");
+
+     label64:
+        $i0 = (int) $z0;
+
+     label65:
+        r0.<com.my.tracker.obfuscated.b0: int D> = $i0;
+
+     label66:
+        goto label68;
+
+     label67:
+        $r26 := @caughtexception;
+
+        staticinvoke <com.my.tracker.obfuscated.e: void a(java.lang.String,java.lang.Throwable)>("DeviceParamsDataProvider: collecting touchscreen info exception: ", $r26);
+
+     label68:
+        $r5 = virtualinvoke $r1.<android.content.Context: java.lang.Object getSystemService(java.lang.String)>("uimode");
+
+        $r27 = (android.app.UiModeManager) $r5;
+
+        $i0 = virtualinvoke $r27.<android.app.UiModeManager: int getCurrentModeType()>();
+
+        r0.<com.my.tracker.obfuscated.b0: int E> = $i0;
+
+     label69:
+        goto label71;
+
+     label70:
+        $r28 := @caughtexception;
+
+        staticinvoke <com.my.tracker.obfuscated.e: void a(java.lang.String,java.lang.Throwable)>("DeviceParamsDataProvider: collecting ui mode info exception: ", $r28);
+
+     label71:
+        $r2 = staticinvoke <com.my.tracker.obfuscated.u0: java.lang.String a(android.content.Context)>($r1);
+
+        r0.<com.my.tracker.obfuscated.b0: java.lang.String b> = $r2;
+
+        r0.<com.my.tracker.obfuscated.b0: boolean a> = 1;
+
+        staticinvoke <com.my.tracker.obfuscated.e: void a(java.lang.String)>("DeviceParamsDataProvider: collected");
+
+        return;
+
+        catch java.lang.Throwable from label02 to label03 with label08;
+        catch java.lang.Throwable from label04 to label05 with label08;
+        catch java.lang.Throwable from label06 to label07 with label08;
+        catch java.lang.Throwable from label09 to label10 with label22;
+        catch java.lang.Throwable from label11 to label12 with label22;
+        catch java.lang.Throwable from label13 to label14 with label22;
+        catch java.lang.Throwable from label15 to label16 with label22;
+        catch java.lang.Throwable from label17 to label19 with label22;
+        catch java.lang.Throwable from label20 to label21 with label22;
+        catch java.lang.Throwable from label23 to label24 with label25;
+        catch java.lang.Throwable from label26 to label27 with label28;
+        catch java.lang.Throwable from label29 to label30 with label31;
+        catch java.lang.Throwable from label32 to label33 with label41;
+        catch java.lang.Throwable from label34 to label35 with label41;
+        catch java.lang.Throwable from label36 to label37 with label41;
+        catch java.lang.Throwable from label38 to label39 with label41;
+        catch java.lang.Throwable from label39 to label40 with label41;
+        catch java.lang.Throwable from label42 to label43 with label44;
+        catch java.lang.Throwable from label45 to label46 with label49;
+        catch java.lang.Throwable from label47 to label48 with label49;
+        catch java.lang.Throwable from label50 to label51 with label53;
+        catch java.lang.Throwable from label51 to label52 with label53;
+        catch java.lang.Throwable from label54 to label55 with label56;
+        catch java.lang.Throwable from label57 to label58 with label59;
+        catch java.lang.Throwable from label60 to label61 with label62;
+        catch java.lang.Throwable from label63 to label64 with label67;
+        catch java.lang.Throwable from label65 to label66 with label67;
+        catch java.lang.Throwable from label68 to label69 with label70;
+    }

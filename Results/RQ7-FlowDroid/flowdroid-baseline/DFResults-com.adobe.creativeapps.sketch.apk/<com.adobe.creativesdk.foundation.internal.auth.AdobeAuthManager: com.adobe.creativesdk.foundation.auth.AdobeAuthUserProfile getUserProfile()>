@@ -1,0 +1,175 @@
+    public com.adobe.creativesdk.foundation.auth.AdobeAuthUserProfile getUserProfile()
+    {
+        java.lang.Throwable $r8;
+        com.adobe.creativesdk.foundation.internal.auth.AdobeAuthIdentityManagementService $r4, $r5;
+        java.lang.RuntimeException $r7;
+        com.adobe.creativesdk.foundation.internal.auth.AdobeAuthManager r0;
+        com.adobe.creativesdk.foundation.internal.analytics.AdobeAnalyticsETSAuthEvent r1;
+        com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl $r3;
+        java.lang.Object $r2;
+        java.lang.String $r6;
+        boolean z0, $z1;
+
+        r0 := @this: com.adobe.creativesdk.foundation.internal.auth.AdobeAuthManager;
+
+        z0 = 1;
+
+        $z1 = specialinvoke r0.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthManager: boolean isInitialized()>();
+
+        if $z1 == 0 goto label01;
+
+        $z1 = virtualinvoke r0.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthManager: boolean isAuthenticated()>();
+
+        if $z1 != 0 goto label02;
+
+     label01:
+        return null;
+
+     label02:
+        $r2 = r0.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthManager: java.lang.Object userProfileLock>;
+
+        entermonitor $r2;
+
+     label03:
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthManager: com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl mUserProfile>;
+
+        if $r3 != null goto label09;
+
+        $r3 = new com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl;
+
+        specialinvoke $r3.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl: void <init>()>();
+
+        r0.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthManager: com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl mUserProfile> = $r3;
+
+        $r4 = staticinvoke <com.adobe.creativesdk.foundation.internal.auth.AdobeAuthIdentityManagementService: com.adobe.creativesdk.foundation.internal.auth.AdobeAuthIdentityManagementService getSharedInstance()>();
+
+        r1 = new com.adobe.creativesdk.foundation.internal.analytics.AdobeAnalyticsETSAuthEvent;
+
+        specialinvoke r1.<com.adobe.creativesdk.foundation.internal.analytics.AdobeAnalyticsETSAuthEvent: void <init>(java.lang.String)>("user_profile");
+
+        $r5 = specialinvoke r0.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthManager: com.adobe.creativesdk.foundation.internal.auth.AdobeAuthIdentityManagementService getIMSService()>();
+
+        $r6 = virtualinvoke $r5.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthIdentityManagementService: java.lang.String getAdobeID()>();
+
+        if $r6 != null goto label06;
+
+        virtualinvoke r1.<com.adobe.creativesdk.foundation.internal.analytics.AdobeAnalyticsETSAuthEvent: void trackError(java.lang.String,java.lang.String)>("USER PROFILE ERROR", "User ID not available");
+
+        virtualinvoke r1.<com.adobe.creativesdk.foundation.internal.analytics.AdobeAnalyticsETSAuthEvent: void endAndTrackEvent()>();
+
+        $r7 = new java.lang.RuntimeException;
+
+        specialinvoke $r7.<java.lang.RuntimeException: void <init>(java.lang.String)>("User profile not available. But user Authenticated");
+
+        throw $r7;
+
+     label04:
+        $r8 := @caughtexception;
+
+        exitmonitor $r2;
+
+     label05:
+        throw $r8;
+
+     label06:
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthManager: com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl mUserProfile>;
+
+        virtualinvoke $r3.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl: void setAdobeID(java.lang.String)>($r6);
+
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthManager: com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl mUserProfile>;
+
+        $r6 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthIdentityManagementService: java.lang.String getDisplayName()>();
+
+        virtualinvoke $r3.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl: void setDisplayName(java.lang.String)>($r6);
+
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthManager: com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl mUserProfile>;
+
+        $r6 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthIdentityManagementService: java.lang.String getCountryCode()>();
+
+        virtualinvoke $r3.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl: void setCountrycode(java.lang.String)>($r6);
+
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthManager: com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl mUserProfile>;
+
+        $r6 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthIdentityManagementService: java.lang.String getLicenseStatus()>();
+
+        virtualinvoke $r3.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl: void setLicenseStatus(java.lang.String)>($r6);
+
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthManager: com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl mUserProfile>;
+
+        $r6 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthIdentityManagementService: java.lang.String getFirstName()>();
+
+        virtualinvoke $r3.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl: void setFirstName(java.lang.String)>($r6);
+
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthManager: com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl mUserProfile>;
+
+        $r6 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthIdentityManagementService: java.lang.String getLastName()>();
+
+        virtualinvoke $r3.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl: void setLastName(java.lang.String)>($r6);
+
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthManager: com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl mUserProfile>;
+
+        $r6 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthIdentityManagementService: java.lang.String getEmailAddress()>();
+
+        virtualinvoke $r3.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl: void setEmail(java.lang.String)>($r6);
+
+        $r6 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthIdentityManagementService: java.lang.String getEmailVerified()>();
+
+        if $r6 == null goto label11;
+
+        $r6 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthIdentityManagementService: java.lang.String getEmailVerified()>();
+
+        $z1 = virtualinvoke $r6.<java.lang.String: boolean equals(java.lang.Object)>("true");
+
+        if $z1 == 0 goto label11;
+
+        $z1 = 1;
+
+     label07:
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthManager: com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl mUserProfile>;
+
+        virtualinvoke $r3.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl: void setEmailVerified(boolean)>($z1);
+
+        $r6 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthIdentityManagementService: java.lang.String getIsEnterPrise()>();
+
+        if $r6 == null goto label12;
+
+        $r6 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthIdentityManagementService: java.lang.String getIsEnterPrise()>();
+
+        $z1 = virtualinvoke $r6.<java.lang.String: boolean equals(java.lang.Object)>("true");
+
+        if $z1 == 0 goto label12;
+
+     label08:
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthManager: com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl mUserProfile>;
+
+        virtualinvoke $r3.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl: void setEnterprise(boolean)>(z0);
+
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthManager: com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl mUserProfile>;
+
+        $r6 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthIdentityManagementService: java.lang.String getAccountType()>();
+
+        virtualinvoke $r3.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl: void setAccountType(java.lang.String)>($r6);
+
+        virtualinvoke r1.<com.adobe.creativesdk.foundation.internal.analytics.AdobeAnalyticsETSAuthEvent: void endAndTrackEvent()>();
+
+     label09:
+        exitmonitor $r2;
+
+     label10:
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.auth.AdobeAuthManager: com.adobe.creativesdk.foundation.internal.auth.AdobeAuthUserProfileImpl mUserProfile>;
+
+        return $r3;
+
+     label11:
+        $z1 = 0;
+
+        goto label07;
+
+     label12:
+        z0 = 0;
+
+        goto label08;
+
+        catch java.lang.Throwable from label03 to label05 with label04;
+        catch java.lang.Throwable from label06 to label10 with label04;
+    }

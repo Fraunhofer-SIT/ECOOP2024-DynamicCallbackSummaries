@@ -1,0 +1,36 @@
+    public static java.lang.String h(android.content.Context)
+    {
+        android.content.Context $r0;
+        android.telephony.TelephonyManager $r2;
+        java.lang.Object $r1;
+        java.lang.String $r3;
+        java.lang.Exception $r4;
+
+        $r0 := @parameter0: android.content.Context;
+
+     label1:
+        $r1 = virtualinvoke $r0.<android.content.Context: java.lang.Object getSystemService(java.lang.String)>("phone");
+
+        $r2 = (android.telephony.TelephonyManager) $r1;
+
+     label2:
+        if $r2 != null goto label3;
+
+        return "Unknown";
+
+     label3:
+        $r3 = virtualinvoke $r2.<android.telephony.TelephonyManager: java.lang.String getNetworkOperatorName()>();
+
+     label4:
+        return $r3;
+
+     label5:
+        $r4 := @caughtexception;
+
+        virtualinvoke $r4.<java.lang.Exception: void printStackTrace()>();
+
+        return "Unknown";
+
+        catch java.lang.Exception from label1 to label2 with label5;
+        catch java.lang.Exception from label3 to label4 with label5;
+    }

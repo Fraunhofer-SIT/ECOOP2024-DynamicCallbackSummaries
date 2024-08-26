@@ -1,0 +1,68 @@
+    public static java.lang.String readFileToString(java.io.File, java.lang.String) throws java.io.IOException
+    {
+        java.lang.Throwable $r1, $r2, $r8;
+        byte[] $r7;
+        java.io.FileInputStream $r5, $r6;
+        java.io.File $r3;
+        java.nio.charset.Charset $r4;
+        java.lang.String $r0;
+
+        $r3 := @parameter0: java.io.File;
+
+        $r0 := @parameter1: java.lang.String;
+
+        $r4 = staticinvoke <java.nio.charset.Charset: java.nio.charset.Charset forName(java.lang.String)>("UTF-8");
+
+        $r0 = new java.lang.String;
+
+     label01:
+        $r5 = staticinvoke <i.o.f.b.k: java.io.FileInputStream openInputStream(java.io.File)>($r3);
+
+     label02:
+        $r6 = $r5;
+
+     label03:
+        $r7 = staticinvoke <i.o.f.b.k: byte[] toByteArray(java.io.InputStream)>($r5);
+
+     label04:
+        virtualinvoke $r5.<java.io.InputStream: void close()>();
+
+     label05:
+        specialinvoke $r0.<java.lang.String: void <init>(byte[],java.nio.charset.Charset)>($r7, $r4);
+
+        return $r0;
+
+     label06:
+        $r8 := @caughtexception;
+
+        goto label08;
+
+     label07:
+        $r8 := @caughtexception;
+
+        $r6 = null;
+
+     label08:
+        if $r6 == null goto label10;
+
+     label09:
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+     label10:
+        throw $r8;
+
+     label11:
+        $r1 := @caughtexception;
+
+        goto label05;
+
+     label12:
+        $r2 := @caughtexception;
+
+        goto label10;
+
+        catch java.lang.Throwable from label01 to label02 with label07;
+        catch java.lang.Throwable from label03 to label04 with label06;
+        catch java.io.IOException from label04 to label05 with label11;
+        catch java.io.IOException from label09 to label10 with label12;
+    }

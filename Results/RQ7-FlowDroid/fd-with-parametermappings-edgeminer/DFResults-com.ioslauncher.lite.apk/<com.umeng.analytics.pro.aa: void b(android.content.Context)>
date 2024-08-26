@@ -1,0 +1,133 @@
+    public void b(android.content.Context)
+    {
+        java.lang.Throwable $r13, $r14;
+        android.content.Context $r1;
+        byte[] $r6, $r8;
+        org.json.JSONObject $r10;
+        java.lang.String $r2, $r5, $r7, $r9;
+        com.umeng.analytics.pro.af $r3;
+        boolean $z0;
+        com.umeng.analytics.pro.aa r0;
+        com.umeng.analytics.pro.af$a $r4;
+        java.io.File $r11, $r12;
+
+        r0 := @this: com.umeng.analytics.pro.aa;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $r2 = r0.<com.umeng.analytics.pro.aa: java.lang.String e>;
+
+        $r3 = staticinvoke <com.umeng.analytics.pro.af: com.umeng.analytics.pro.af a(android.content.Context)>($r1);
+
+        $r4 = virtualinvoke $r3.<com.umeng.analytics.pro.af: com.umeng.analytics.pro.af$a b()>();
+
+        $r5 = virtualinvoke $r4.<com.umeng.analytics.pro.af$a: java.lang.String g(java.lang.String)>(null);
+
+        $r6 = r0.<com.umeng.analytics.pro.aa: byte[] f>;
+
+        $r7 = staticinvoke <com.umeng.analytics.pro.br: java.lang.String a(byte[])>($r6);
+
+        $r6 = newarray (byte)[16];
+
+        $r8 = r0.<com.umeng.analytics.pro.aa: byte[] f>;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($r8, 2, $r6, 0, 16);
+
+        $r6 = staticinvoke <com.umeng.analytics.pro.br: byte[] b(byte[])>($r6);
+
+        $r9 = staticinvoke <com.umeng.analytics.pro.br: java.lang.String a(byte[])>($r6);
+
+     label01:
+        $r10 = new org.json.JSONObject;
+
+        specialinvoke $r10.<org.json.JSONObject: void <init>()>();
+
+        virtualinvoke $r10.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("appkey", $r2);
+
+     label02:
+        if $r5 == null goto label04;
+
+     label03:
+        virtualinvoke $r10.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("umid", $r5);
+
+     label04:
+        virtualinvoke $r10.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("signature", $r7);
+
+        virtualinvoke $r10.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("checksum", $r9);
+
+        $r11 = new java.io.File;
+
+        $r12 = virtualinvoke $r1.<android.content.Context: java.io.File getFilesDir()>();
+
+        specialinvoke $r11.<java.io.File: void <init>(java.io.File,java.lang.String)>($r12, ".umeng");
+
+        $z0 = virtualinvoke $r11.<java.io.File: boolean exists()>();
+
+     label05:
+        if $z0 != 0 goto label07;
+
+     label06:
+        virtualinvoke $r11.<java.io.File: boolean mkdir()>();
+
+     label07:
+        $r12 = new java.io.File;
+
+        specialinvoke $r12.<java.io.File: void <init>(java.io.File,java.lang.String)>($r11, "exchangeIdentity.json");
+
+        $r7 = virtualinvoke $r10.<org.json.JSONObject: java.lang.String toString()>();
+
+        staticinvoke <com.umeng.analytics.pro.bu: void a(java.io.File,java.lang.String)>($r12, $r7);
+
+     label08:
+        $r10 = new org.json.JSONObject;
+
+        specialinvoke $r10.<org.json.JSONObject: void <init>()>();
+
+        virtualinvoke $r10.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("appkey", $r2);
+
+        $r2 = staticinvoke <com.umeng.analytics.AnalyticsConfig: java.lang.String getChannel(android.content.Context)>($r1);
+
+        virtualinvoke $r10.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("channel", $r2);
+
+     label09:
+        if $r5 == null goto label11;
+
+     label10:
+        $r5 = staticinvoke <com.umeng.analytics.pro.bu: java.lang.String b(java.lang.String)>($r5);
+
+        virtualinvoke $r10.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("umid", $r5);
+
+     label11:
+        $r11 = new java.io.File;
+
+        $r12 = virtualinvoke $r1.<android.content.Context: java.io.File getFilesDir()>();
+
+        specialinvoke $r11.<java.io.File: void <init>(java.io.File,java.lang.String)>($r12, "exid.dat");
+
+        $r5 = virtualinvoke $r10.<org.json.JSONObject: java.lang.String toString()>();
+
+        staticinvoke <com.umeng.analytics.pro.bu: void a(java.io.File,java.lang.String)>($r11, $r5);
+
+     label12:
+        return;
+
+     label13:
+        $r13 := @caughtexception;
+
+        virtualinvoke $r13.<java.lang.Throwable: void printStackTrace()>();
+
+        goto label08;
+
+     label14:
+        $r14 := @caughtexception;
+
+        virtualinvoke $r14.<java.lang.Throwable: void printStackTrace()>();
+
+        return;
+
+        catch java.lang.Throwable from label01 to label02 with label13;
+        catch java.lang.Throwable from label03 to label05 with label13;
+        catch java.lang.Throwable from label06 to label08 with label13;
+        catch java.lang.Throwable from label08 to label09 with label14;
+        catch java.lang.Throwable from label10 to label12 with label14;
+    }

@@ -1,0 +1,46 @@
+    public static bolts.Task call(java.util.concurrent.Callable, java.util.concurrent.Executor, bolts.CancellationToken)
+    {
+        java.util.concurrent.Executor $r1;
+        java.util.concurrent.Callable r0;
+        bolts.TaskCompletionSource r4;
+        java.lang.Exception r3;
+        bolts.CancellationToken $r2;
+        bolts.Task$4 $r6;
+        bolts.ExecutorException $r7;
+        bolts.Task $r5;
+
+        r0 := @parameter0: java.util.concurrent.Callable;
+
+        $r1 := @parameter1: java.util.concurrent.Executor;
+
+        $r2 := @parameter2: bolts.CancellationToken;
+
+        r4 = new bolts.TaskCompletionSource;
+
+        specialinvoke r4.<bolts.TaskCompletionSource: void <init>()>();
+
+        $r6 = new bolts.Task$4;
+
+     label1:
+        specialinvoke $r6.<bolts.Task$4: void <init>(bolts.CancellationToken,bolts.TaskCompletionSource,java.util.concurrent.Callable)>(null, r4, r0);
+
+        interfaceinvoke $r1.<java.util.concurrent.Executor: void execute(java.lang.Runnable)>($r6);
+
+     label2:
+        $r5 = virtualinvoke r4.<bolts.TaskCompletionSource: bolts.Task getTask()>();
+
+        return $r5;
+
+     label3:
+        r3 := @caughtexception;
+
+        $r7 = new bolts.ExecutorException;
+
+        specialinvoke $r7.<bolts.ExecutorException: void <init>(java.lang.Exception)>(r3);
+
+        virtualinvoke r4.<bolts.TaskCompletionSource: void setError(java.lang.Exception)>($r7);
+
+        goto label2;
+
+        catch java.lang.Exception from label1 to label2 with label3;
+    }

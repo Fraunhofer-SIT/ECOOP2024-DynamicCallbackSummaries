@@ -1,0 +1,301 @@
+    private static android.graphics.Bitmap c(android.content.Context, java.lang.String)
+    {
+        java.net.HttpURLConnection $r3;
+        java.lang.Throwable $r14, $r16;
+        android.content.Context $r1;
+        byte[] $r9;
+        java.io.BufferedInputStream $r19;
+        src.ad.imageloader.i$a $r21;
+        java.net.URL $r17;
+        long $l1;
+        java.io.BufferedOutputStream $r20;
+        java.net.URLConnection $r2;
+        int $i0, $i2;
+        java.lang.String $r0, $r11;
+        boolean $z0;
+        src.ad.imageloader.j $r10;
+        java.net.MalformedURLException $r22;
+        java.io.FileOutputStream $r8, $r18;
+        java.io.File $r6, $r7, $r13;
+        java.lang.Exception $r15;
+        android.graphics.Bitmap $r12;
+        float $f0, $f1;
+        java.io.InputStream $r4, $r5;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $r0 := @parameter1: java.lang.String;
+
+        $r17 = new java.net.URL;
+
+     label01:
+        specialinvoke $r17.<java.net.URL: void <init>(java.lang.String)>($r0);
+
+        $r2 = virtualinvoke $r17.<java.net.URL: java.net.URLConnection openConnection()>();
+
+     label02:
+        $r3 = (java.net.HttpURLConnection) $r2;
+
+     label03:
+        virtualinvoke $r3.<java.net.HttpURLConnection: void setConnectTimeout(int)>(20000);
+
+        virtualinvoke $r3.<java.net.HttpURLConnection: void setReadTimeout(int)>(20000);
+
+        $i0 = virtualinvoke $r3.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label04:
+        if $i0 == 200 goto label05;
+
+        return null;
+
+     label05:
+        $r4 = virtualinvoke $r3.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+     label06:
+        $r5 = $r4;
+
+     label07:
+        $i0 = virtualinvoke $r3.<java.net.HttpURLConnection: int getContentLength()>();
+
+     label08:
+        $l1 = (long) $i0;
+
+     label09:
+        $z0 = staticinvoke <src.ad.imageloader.c: boolean a()>();
+
+     label10:
+        if $z0 == 0 goto label41;
+
+     label11:
+        $r6 = staticinvoke <src.ad.imageloader.c: java.io.File a(android.content.Context)>($r1);
+
+     label12:
+        $r7 = $r6;
+
+        if $r6 == null goto label36;
+
+     label13:
+        $r18 = new java.io.FileOutputStream;
+
+     label14:
+        $r8 = $r18;
+
+     label15:
+        specialinvoke $r18.<java.io.FileOutputStream: void <init>(java.io.File)>($r6);
+
+     label16:
+        $r19 = new java.io.BufferedInputStream;
+
+     label17:
+        specialinvoke $r19.<java.io.BufferedInputStream: void <init>(java.io.InputStream,int)>($r4, 8192);
+
+        $r20 = new java.io.BufferedOutputStream;
+
+     label18:
+        specialinvoke $r20.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream,int)>($r18, 8192);
+
+     label19:
+        $r9 = newarray (byte)[8192];
+
+        $i0 = 0;
+
+     label20:
+        $i2 = virtualinvoke $r19.<java.io.BufferedInputStream: int read(byte[])>($r9);
+
+     label21:
+        if $i2 <= 0 goto label26;
+
+     label22:
+        virtualinvoke $r20.<java.io.BufferedOutputStream: void write(byte[],int,int)>($r9, 0, $i2);
+
+     label23:
+        $i0 = $i0 + $i2;
+
+        $f0 = (float) $i0;
+
+        $f0 = $f0 * 1.0F;
+
+        $f1 = (float) $l1;
+
+        $f0 = $f0 / $f1;
+
+     label24:
+        $r10 = staticinvoke <src.ad.imageloader.j: src.ad.imageloader.j a()>();
+
+        virtualinvoke $r10.<src.ad.imageloader.j: void a(java.lang.String,float)>($r0, $f0);
+
+     label25:
+        goto label20;
+
+     label26:
+        virtualinvoke $r20.<java.io.BufferedOutputStream: void flush()>();
+
+        virtualinvoke $r18.<java.io.FileOutputStream: void close()>();
+
+        virtualinvoke $r4.<java.io.InputStream: void close()>();
+
+     label27:
+        $r11 = virtualinvoke $r6.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $r12 = staticinvoke <src.ad.imageloader.b: android.graphics.Bitmap a(java.lang.String)>($r11);
+
+     label28:
+        if $r12 == null goto label30;
+
+     label29:
+        $r13 = staticinvoke <src.ad.imageloader.c: java.io.File a(android.content.Context,java.lang.String)>($r1, $r0);
+
+        virtualinvoke $r6.<java.io.File: boolean renameTo(java.io.File)>($r13);
+
+     label30:
+        if $r6 == null goto label56;
+
+     label31:
+        virtualinvoke $r6.<java.io.File: boolean delete()>();
+
+     label32:
+        return $r12;
+
+     label33:
+        $r14 := @caughtexception;
+
+        $r5 = null;
+
+        $r8 = null;
+
+        goto label47;
+
+     label34:
+        $r14 := @caughtexception;
+
+        goto label47;
+
+     label35:
+        $r14 := @caughtexception;
+
+        $r8 = null;
+
+        goto label47;
+
+     label36:
+        if $r4 == null goto label38;
+
+     label37:
+        virtualinvoke $r4.<java.io.InputStream: void close()>();
+
+     label38:
+        if $r6 == null goto label57;
+
+     label39:
+        virtualinvoke $r6.<java.io.File: boolean delete()>();
+
+     label40:
+        return null;
+
+     label41:
+        $r21 = new src.ad.imageloader.i$a;
+
+     label42:
+        specialinvoke $r21.<src.ad.imageloader.i$a: void <init>(java.io.InputStream)>($r4);
+
+        $r12 = staticinvoke <android.graphics.BitmapFactory: android.graphics.Bitmap decodeStream(java.io.InputStream)>($r21);
+
+     label43:
+        if $r4 == null goto label58;
+
+     label44:
+        virtualinvoke $r4.<java.io.InputStream: void close()>();
+
+     label45:
+        return $r12;
+
+     label46:
+        $r14 := @caughtexception;
+
+        $r7 = null;
+
+        $r8 = null;
+
+     label47:
+        if $r5 == null goto label49;
+
+     label48:
+        virtualinvoke $r5.<java.io.InputStream: void close()>();
+
+     label49:
+        if $r8 == null goto label51;
+
+     label50:
+        virtualinvoke $r8.<java.io.FileOutputStream: void close()>();
+
+     label51:
+        if $r7 == null goto label53;
+
+     label52:
+        virtualinvoke $r7.<java.io.File: boolean delete()>();
+
+     label53:
+        throw $r14;
+
+     label54:
+        $r15 := @caughtexception;
+
+        virtualinvoke $r15.<java.lang.Exception: void printStackTrace()>();
+
+        return null;
+
+     label55:
+        $r16 := @caughtexception;
+
+        $r22 = (java.net.MalformedURLException) $r16;
+
+        virtualinvoke $r22.<java.net.MalformedURLException: void printStackTrace()>();
+
+        return null;
+
+     label56:
+        return $r12;
+
+     label57:
+        return null;
+
+     label58:
+        return $r12;
+
+        catch java.net.MalformedURLException from label01 to label02 with label55;
+        catch java.net.MalformedURLException from label03 to label04 with label55;
+        catch java.net.MalformedURLException from label05 to label06 with label55;
+        catch java.net.MalformedURLException from label07 to label08 with label55;
+        catch java.lang.Exception from label01 to label04 with label54;
+        catch java.lang.Exception from label05 to label06 with label54;
+        catch java.lang.Exception from label07 to label08 with label54;
+        catch java.lang.Throwable from label09 to label10 with label46;
+        catch java.lang.Throwable from label11 to label12 with label46;
+        catch java.lang.Throwable from label13 to label14 with label35;
+        catch java.lang.Throwable from label15 to label16 with label35;
+        catch java.lang.Throwable from label16 to label17 with label34;
+        catch java.lang.Throwable from label17 to label18 with label34;
+        catch java.lang.Throwable from label18 to label19 with label34;
+        catch java.lang.Throwable from label20 to label21 with label34;
+        catch java.lang.Throwable from label22 to label23 with label34;
+        catch java.lang.Throwable from label24 to label25 with label34;
+        catch java.lang.Throwable from label26 to label27 with label34;
+        catch java.lang.Throwable from label27 to label28 with label33;
+        catch java.lang.Throwable from label29 to label30 with label33;
+        catch java.net.MalformedURLException from label31 to label32 with label55;
+        catch java.net.MalformedURLException from label37 to label38 with label55;
+        catch java.net.MalformedURLException from label39 to label40 with label55;
+        catch java.lang.Exception from label31 to label32 with label54;
+        catch java.lang.Exception from label37 to label38 with label54;
+        catch java.lang.Exception from label39 to label40 with label54;
+        catch java.lang.Throwable from label41 to label42 with label46;
+        catch java.lang.Throwable from label42 to label43 with label46;
+        catch java.net.MalformedURLException from label44 to label45 with label55;
+        catch java.net.MalformedURLException from label48 to label49 with label55;
+        catch java.net.MalformedURLException from label50 to label51 with label55;
+        catch java.net.MalformedURLException from label52 to label54 with label55;
+        catch java.lang.Exception from label44 to label45 with label54;
+        catch java.lang.Exception from label48 to label49 with label54;
+        catch java.lang.Exception from label50 to label51 with label54;
+        catch java.lang.Exception from label52 to label54 with label54;
+    }

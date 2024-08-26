@@ -1,0 +1,80 @@
+    public void onCustomEventInterstitialFailed(com.mopub.mobileads.MoPubErrorCode)
+    {
+        java.lang.Object[] $r5;
+        java.lang.Integer $r6;
+        com.mopub.common.logging.MoPubLog$AdLogEvent $r4;
+        int $i0;
+        com.mopub.mobileads.MoPubInterstitial$MoPubInterstitialView $r7;
+        com.mopub.mobileads.MoPubInterstitial r0;
+        com.mopub.mobileads.MoPubErrorCode $r1;
+        com.mopub.mobileads.MoPubInterstitial$InterstitialState $r2, $r3;
+        boolean $z0;
+
+        r0 := @this: com.mopub.mobileads.MoPubInterstitial;
+
+        $r1 := @parameter0: com.mopub.mobileads.MoPubErrorCode;
+
+        $z0 = virtualinvoke r0.<com.mopub.mobileads.MoPubInterstitial: boolean isDestroyed()>();
+
+        if $z0 == 0 goto label1;
+
+        return;
+
+     label1:
+        $r2 = r0.<com.mopub.mobileads.MoPubInterstitial: com.mopub.mobileads.MoPubInterstitial$InterstitialState mCurrentInterstitialState>;
+
+        $r3 = <com.mopub.mobileads.MoPubInterstitial$InterstitialState: com.mopub.mobileads.MoPubInterstitial$InterstitialState LOADING>;
+
+        if $r2 != $r3 goto label2;
+
+        $r4 = <com.mopub.common.logging.MoPubLog$AdLogEvent: com.mopub.common.logging.MoPubLog$AdLogEvent LOAD_FAILED>;
+
+        $r5 = newarray (java.lang.Object)[2];
+
+        $i0 = virtualinvoke $r1.<com.mopub.mobileads.MoPubErrorCode: int getIntCode()>();
+
+        $r6 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+        $r5[0] = $r6;
+
+        $r5[1] = $r1;
+
+        staticinvoke <com.mopub.common.logging.MoPubLog: void log(com.mopub.common.logging.MoPubLog$MPLogEventType,java.lang.Object[])>($r4, $r5);
+
+        goto label3;
+
+     label2:
+        $r2 = r0.<com.mopub.mobileads.MoPubInterstitial: com.mopub.mobileads.MoPubInterstitial$InterstitialState mCurrentInterstitialState>;
+
+        $r3 = <com.mopub.mobileads.MoPubInterstitial$InterstitialState: com.mopub.mobileads.MoPubInterstitial$InterstitialState SHOWING>;
+
+        if $r2 != $r3 goto label3;
+
+        $r4 = <com.mopub.common.logging.MoPubLog$AdLogEvent: com.mopub.common.logging.MoPubLog$AdLogEvent SHOW_FAILED>;
+
+        $r5 = newarray (java.lang.Object)[2];
+
+        $i0 = virtualinvoke $r1.<com.mopub.mobileads.MoPubErrorCode: int getIntCode()>();
+
+        $r6 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+        $r5[0] = $r6;
+
+        $r5[1] = $r1;
+
+        staticinvoke <com.mopub.common.logging.MoPubLog: void log(com.mopub.common.logging.MoPubLog$MPLogEventType,java.lang.Object[])>($r4, $r5);
+
+     label3:
+        $r7 = r0.<com.mopub.mobileads.MoPubInterstitial: com.mopub.mobileads.MoPubInterstitial$MoPubInterstitialView mInterstitialView>;
+
+        $z0 = virtualinvoke $r7.<com.mopub.mobileads.MoPubInterstitial$MoPubInterstitialView: boolean loadFailUrl(com.mopub.mobileads.MoPubErrorCode)>($r1);
+
+        if $z0 != 0 goto label4;
+
+        $r2 = <com.mopub.mobileads.MoPubInterstitial$InterstitialState: com.mopub.mobileads.MoPubInterstitial$InterstitialState IDLE>;
+
+        specialinvoke r0.<com.mopub.mobileads.MoPubInterstitial: boolean attemptStateTransition(com.mopub.mobileads.MoPubInterstitial$InterstitialState)>($r2);
+
+     label4:
+        return;
+    }

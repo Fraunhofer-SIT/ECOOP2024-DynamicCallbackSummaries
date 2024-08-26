@@ -1,0 +1,171 @@
+    private void sendBody(java.io.OutputStream) throws java.io.IOException
+    {
+        java.util.zip.ZipOutputStream $r17;
+        byte[] $r1;
+        android.content.Context $r8;
+        com.genonbeta.android.framework.io.StreamInfo $r11;
+        android.net.Uri $r10;
+        long $l0;
+        com.app.shareall.service.WebShareServer$ZipBundleResponse r0;
+        int $i1;
+        java.lang.String $r9;
+        java.util.zip.ZipEntry $r19;
+        boolean $z0;
+        java.io.OutputStream $r2;
+        java.util.Iterator $r4;
+        com.app.shareall.model.TransferObject $r6;
+        com.app.shareall.service.WebShareServer $r7;
+        java.lang.Exception $r15;
+        java.util.List $r3;
+        com.app.shareall.service.WebShareServer$ZipBundleResponse$ChunkedOutputStream $r16;
+        java.lang.Object $r5;
+        java.lang.StringBuilder $r13, $r14, $r18;
+        java.io.InputStream $r12;
+
+        r0 := @this: com.app.shareall.service.WebShareServer$ZipBundleResponse;
+
+        $r2 := @parameter0: java.io.OutputStream;
+
+        $r1 = newarray (byte)[16384];
+
+        $r16 = new com.app.shareall.service.WebShareServer$ZipBundleResponse$ChunkedOutputStream;
+
+        specialinvoke $r16.<com.app.shareall.service.WebShareServer$ZipBundleResponse$ChunkedOutputStream: void <init>(com.app.shareall.service.WebShareServer$ZipBundleResponse,java.io.OutputStream)>(r0, $r2);
+
+        $r17 = new java.util.zip.ZipOutputStream;
+
+        specialinvoke $r17.<java.util.zip.ZipOutputStream: void <init>(java.io.OutputStream)>($r16);
+
+        virtualinvoke $r17.<java.util.zip.ZipOutputStream: void setLevel(int)>(0);
+
+        $r3 = r0.<com.app.shareall.service.WebShareServer$ZipBundleResponse: java.util.List mFiles>;
+
+        $r4 = interfaceinvoke $r3.<java.util.List: java.util.Iterator iterator()>();
+
+     label01:
+        $z0 = interfaceinvoke $r4.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label19;
+
+        $r5 = interfaceinvoke $r4.<java.util.Iterator: java.lang.Object next()>();
+
+        $r6 = (com.app.shareall.model.TransferObject) $r5;
+
+     label02:
+        $r7 = r0.<com.app.shareall.service.WebShareServer$ZipBundleResponse: com.app.shareall.service.WebShareServer this$0>;
+
+        $r8 = staticinvoke <com.app.shareall.service.WebShareServer: android.content.Context access$100(com.app.shareall.service.WebShareServer)>($r7);
+
+        $r9 = $r6.<com.app.shareall.model.TransferObject: java.lang.String file>;
+
+        $r10 = staticinvoke <android.net.Uri: android.net.Uri parse(java.lang.String)>($r9);
+
+        $r11 = staticinvoke <com.genonbeta.android.framework.io.StreamInfo: com.genonbeta.android.framework.io.StreamInfo getStreamInfo(android.content.Context,android.net.Uri)>($r8, $r10);
+
+        $r12 = virtualinvoke $r11.<com.genonbeta.android.framework.io.StreamInfo: java.io.InputStream openInputStream()>();
+
+     label03:
+        $r19 = new java.util.zip.ZipEntry;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r13 = $r14;
+
+     label04:
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        $r9 = $r6.<com.app.shareall.model.TransferObject: java.lang.String directory>;
+
+     label05:
+        if $r9 == null goto label10;
+
+        $r18 = new java.lang.StringBuilder;
+
+     label06:
+        specialinvoke $r18.<java.lang.StringBuilder: void <init>()>();
+
+        $r9 = $r6.<com.app.shareall.model.TransferObject: java.lang.String directory>;
+
+        virtualinvoke $r18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+     label07:
+        $r9 = <java.io.File: java.lang.String pathSeparator>;
+
+     label08:
+        virtualinvoke $r18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        $r9 = virtualinvoke $r18.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label09:
+        goto label11;
+
+     label10:
+        $r9 = "";
+
+     label11:
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        $r9 = $r6.<com.app.shareall.model.TransferObject: java.lang.String friendlyName>;
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        $r9 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r19.<java.util.zip.ZipEntry: void <init>(java.lang.String)>($r9);
+
+        $l0 = virtualinvoke $r6.<com.app.shareall.model.TransferObject: long getComparableDate()>();
+
+        virtualinvoke $r19.<java.util.zip.ZipEntry: void setTime(long)>($l0);
+
+        virtualinvoke $r17.<java.util.zip.ZipOutputStream: void putNextEntry(java.util.zip.ZipEntry)>($r19);
+
+     label12:
+        $i1 = virtualinvoke $r12.<java.io.InputStream: int read(byte[],int,int)>($r1, 0, 16384);
+
+     label13:
+        if $i1 == -1 goto label16;
+
+        if $i1 <= 0 goto label12;
+
+     label14:
+        virtualinvoke $r17.<java.util.zip.ZipOutputStream: void write(byte[],int,int)>($r1, 0, $i1);
+
+        virtualinvoke $r17.<java.util.zip.ZipOutputStream: void flush()>();
+
+     label15:
+        goto label12;
+
+     label16:
+        virtualinvoke $r17.<java.util.zip.ZipOutputStream: void closeEntry()>();
+
+        virtualinvoke $r12.<java.io.InputStream: void close()>();
+
+     label17:
+        goto label01;
+
+     label18:
+        $r15 := @caughtexception;
+
+        virtualinvoke $r15.<java.lang.Exception: void printStackTrace()>();
+
+        goto label01;
+
+     label19:
+        virtualinvoke $r17.<java.util.zip.ZipOutputStream: void finish()>();
+
+        virtualinvoke $r17.<java.util.zip.ZipOutputStream: void flush()>();
+
+        virtualinvoke $r16.<com.app.shareall.service.WebShareServer$ZipBundleResponse$ChunkedOutputStream: void finish()>();
+
+        virtualinvoke $r17.<java.util.zip.ZipOutputStream: void close()>();
+
+        return;
+
+        catch java.lang.Exception from label02 to label03 with label18;
+        catch java.lang.Exception from label04 to label05 with label18;
+        catch java.lang.Exception from label06 to label07 with label18;
+        catch java.lang.Exception from label08 to label09 with label18;
+        catch java.lang.Exception from label11 to label13 with label18;
+        catch java.lang.Exception from label14 to label15 with label18;
+        catch java.lang.Exception from label16 to label17 with label18;
+    }

@@ -1,0 +1,88 @@
+    public final void IconCompatParcelizer(com.facebook.appevents.AccessTokenAppIdPair, java.util.List)
+    {
+        java.lang.Throwable $r9;
+        java.util.Collection $r5;
+        java.util.HashMap $r3;
+        java.util.ArrayList $r6;
+        java.util.List $r2, $r8;
+        java.util.Map $r4;
+        com.facebook.appevents.AccessTokenAppIdPair $r1;
+        java.lang.Object $r7;
+        com.facebook.appevents.PersistedEvents r0;
+        boolean $z0;
+
+        r0 := @this: com.facebook.appevents.PersistedEvents;
+
+        $r1 := @parameter0: com.facebook.appevents.AccessTokenAppIdPair;
+
+        $r2 := @parameter1: java.util.List;
+
+        $z0 = staticinvoke <o.StorageModule$sharedPrefMigrator$2: boolean AudioAttributesCompatParcelizer(java.lang.Object)>(r0);
+
+        if $z0 == 0 goto label01;
+
+        return;
+
+     label01:
+        staticinvoke <o.getMaxNumPictureInPictureActions: void RemoteActionCompatParcelizer(java.lang.Object,java.lang.String)>($r1, "accessTokenAppIdPair");
+
+        staticinvoke <o.getMaxNumPictureInPictureActions: void RemoteActionCompatParcelizer(java.lang.Object,java.lang.String)>($r2, "appEvents");
+
+        $r3 = r0.<com.facebook.appevents.PersistedEvents: java.util.HashMap events>;
+
+        $z0 = virtualinvoke $r3.<java.util.AbstractMap: boolean containsKey(java.lang.Object)>($r1);
+
+     label02:
+        if $z0 != 0 goto label05;
+
+     label03:
+        $r3 = r0.<com.facebook.appevents.PersistedEvents: java.util.HashMap events>;
+
+        $r4 = (java.util.Map) $r3;
+
+        $r5 = (java.util.Collection) $r2;
+
+        staticinvoke <o.getMaxNumPictureInPictureActions: void RemoteActionCompatParcelizer(java.lang.Object,java.lang.String)>($r5, "<this>");
+
+        $r6 = new java.util.ArrayList;
+
+        specialinvoke $r6.<java.util.ArrayList: void <init>(java.util.Collection)>($r5);
+
+        $r2 = (java.util.List) $r6;
+
+        interfaceinvoke $r4.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($r1, $r2);
+
+     label04:
+        return;
+
+     label05:
+        $r3 = r0.<com.facebook.appevents.PersistedEvents: java.util.HashMap events>;
+
+        $r7 = virtualinvoke $r3.<java.util.AbstractMap: java.lang.Object get(java.lang.Object)>($r1);
+
+        $r8 = (java.util.List) $r7;
+
+     label06:
+        if $r8 == null goto label10;
+
+     label07:
+        $r5 = (java.util.Collection) $r2;
+
+        interfaceinvoke $r8.<java.util.List: boolean addAll(java.util.Collection)>($r5);
+
+     label08:
+        return;
+
+     label09:
+        $r9 := @caughtexception;
+
+        staticinvoke <o.StorageModule$sharedPrefMigrator$2: void read(java.lang.Throwable,java.lang.Object)>($r9, r0);
+
+     label10:
+        return;
+
+        catch java.lang.Throwable from label01 to label02 with label09;
+        catch java.lang.Throwable from label03 to label04 with label09;
+        catch java.lang.Throwable from label05 to label06 with label09;
+        catch java.lang.Throwable from label07 to label08 with label09;
+    }

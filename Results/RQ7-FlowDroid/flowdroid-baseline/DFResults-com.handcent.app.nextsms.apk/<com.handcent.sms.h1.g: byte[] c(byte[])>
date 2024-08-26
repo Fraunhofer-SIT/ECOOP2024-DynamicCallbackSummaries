@@ -1,0 +1,92 @@
+    public byte[] c(byte[])
+    {
+        java.lang.Throwable $r6;
+        byte[] $r2;
+        com.handcent.sms.d1.b $r8;
+        com.handcent.sms.h1.g r0;
+        javax.crypto.Cipher $r5;
+        java.lang.Exception $r7;
+        java.util.concurrent.locks.Lock $r3;
+        int $i0;
+        javax.crypto.SecretKey $r1;
+        java.security.spec.AlgorithmParameterSpec $r4;
+
+        r0 := @this: com.handcent.sms.h1.g;
+
+        $r2 := @parameter0: byte[];
+
+        $r3 = r0.<com.handcent.sms.h1.g: java.util.concurrent.locks.Lock g>;
+
+        interfaceinvoke $r3.<java.util.concurrent.locks.Lock: void lock()>();
+
+     label01:
+        $r4 = r0.<com.handcent.sms.h1.g: java.security.spec.AlgorithmParameterSpec e>;
+
+     label02:
+        if $r4 != null goto label05;
+
+     label03:
+        $r5 = r0.<com.handcent.sms.h1.g: javax.crypto.Cipher d>;
+
+        $r1 = r0.<com.handcent.sms.h1.g: javax.crypto.SecretKey c>;
+
+        virtualinvoke $r5.<javax.crypto.Cipher: void init(int,java.security.Key)>(2, $r1);
+
+     label04:
+        goto label06;
+
+     label05:
+        $r5 = r0.<com.handcent.sms.h1.g: javax.crypto.Cipher d>;
+
+        $r1 = r0.<com.handcent.sms.h1.g: javax.crypto.SecretKey c>;
+
+        virtualinvoke $r5.<javax.crypto.Cipher: void init(int,java.security.Key,java.security.spec.AlgorithmParameterSpec)>(2, $r1, $r4);
+
+     label06:
+        $r5 = r0.<com.handcent.sms.h1.g: javax.crypto.Cipher d>;
+
+        $i0 = virtualinvoke $r5.<javax.crypto.Cipher: int getBlockSize()>();
+
+        $r5 = r0.<com.handcent.sms.h1.g: javax.crypto.Cipher d>;
+
+        $r2 = virtualinvoke $r5.<javax.crypto.Cipher: byte[] doFinal(byte[])>($r2);
+
+     label07:
+        $r3 = r0.<com.handcent.sms.h1.g: java.util.concurrent.locks.Lock g>;
+
+        interfaceinvoke $r3.<java.util.concurrent.locks.Lock: void unlock()>();
+
+        $r2 = specialinvoke r0.<com.handcent.sms.h1.g: byte[] E(byte[],int)>($r2, $i0);
+
+        return $r2;
+
+     label08:
+        $r6 := @caughtexception;
+
+        goto label11;
+
+     label09:
+        $r7 := @caughtexception;
+
+     label10:
+        $r8 = new com.handcent.sms.d1.b;
+
+        specialinvoke $r8.<com.handcent.sms.d1.b: void <init>(java.lang.Throwable)>($r7);
+
+        throw $r8;
+
+     label11:
+        $r3 = r0.<com.handcent.sms.h1.g: java.util.concurrent.locks.Lock g>;
+
+        interfaceinvoke $r3.<java.util.concurrent.locks.Lock: void unlock()>();
+
+        throw $r6;
+
+        catch java.lang.Exception from label01 to label02 with label09;
+        catch java.lang.Exception from label03 to label04 with label09;
+        catch java.lang.Exception from label05 to label07 with label09;
+        catch java.lang.Throwable from label01 to label02 with label08;
+        catch java.lang.Throwable from label03 to label04 with label08;
+        catch java.lang.Throwable from label05 to label07 with label08;
+        catch java.lang.Throwable from label10 to label11 with label08;
+    }

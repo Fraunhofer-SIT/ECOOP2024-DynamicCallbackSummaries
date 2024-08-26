@@ -1,0 +1,293 @@
+    private static void fillMultiBody(java.io.OutputStream, com.sina.weibo.sdk.network.IRequestParam, java.lang.String) throws java.io.IOException
+    {
+        byte[] $r12;
+        android.os.Bundle $r4;
+        com.sina.weibo.sdk.network.IRequestParam $r2;
+        java.lang.StringBuffer $r17;
+        java.util.Map $r13;
+        int $i0;
+        java.lang.String $r1, $r3, $r8, $r11;
+        boolean $z0;
+        java.io.OutputStream $r0;
+        java.util.Iterator $r6;
+        java.util.Set $r5;
+        com.sina.weibo.sdk.network.IRequestParam$ValuePart $r14;
+        java.io.FileInputStream $r18;
+        java.io.File $r15;
+        java.lang.Object $r7;
+        java.lang.StringBuilder $r9, $r10, $r16;
+
+        $r0 := @parameter0: java.io.OutputStream;
+
+        $r2 := @parameter1: com.sina.weibo.sdk.network.IRequestParam;
+
+        $r3 := @parameter2: java.lang.String;
+
+        $r4 = interfaceinvoke $r2.<com.sina.weibo.sdk.network.IRequestParam: android.os.Bundle getPostBundle()>();
+
+        $r1 = "\r\n";
+
+        $r5 = virtualinvoke $r4.<android.os.Bundle: java.util.Set keySet()>();
+
+        $r6 = interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>();
+
+     label1:
+        $z0 = interfaceinvoke $r6.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label2;
+
+        $r7 = interfaceinvoke $r6.<java.util.Iterator: java.lang.Object next()>();
+
+        $r8 = (java.lang.String) $r7;
+
+        $r10 = new java.lang.StringBuilder;
+
+        $r9 = $r10;
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>(int)>(100);
+
+        virtualinvoke $r10.<java.lang.StringBuilder: void setLength(int)>(0);
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("--");
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\r\n");
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Content-Disposition: form-data; name=\"");
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\"");
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\r\n");
+
+        $r16 = new java.lang.StringBuilder;
+
+        specialinvoke $r16.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Content-Type: text/plain;charset:");
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\"UTF-8\"");
+
+        virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\r\n");
+
+        $r11 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r11);
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Content-Transfer-Encoding: 8bit");
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\r\n");
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\r\n");
+
+        $r7 = virtualinvoke $r4.<android.os.Bundle: java.lang.Object get(java.lang.String)>($r8);
+
+        $r8 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r7);
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\r\n");
+
+        $r8 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r12 = virtualinvoke $r8.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8");
+
+        virtualinvoke $r0.<java.io.OutputStream: void write(byte[])>($r12);
+
+        goto label1;
+
+     label2:
+        $r13 = interfaceinvoke $r2.<com.sina.weibo.sdk.network.IRequestParam: java.util.Map files()>();
+
+        $r5 = interfaceinvoke $r13.<java.util.Map: java.util.Set keySet()>();
+
+        $r6 = interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>();
+
+     label3:
+        $z0 = interfaceinvoke $r6.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label6;
+
+        $r7 = interfaceinvoke $r6.<java.util.Iterator: java.lang.Object next()>();
+
+        $r11 = (java.lang.String) $r7;
+
+        $r7 = interfaceinvoke $r13.<java.util.Map: java.lang.Object get(java.lang.Object)>($r11);
+
+        $r14 = (com.sina.weibo.sdk.network.IRequestParam$ValuePart) $r7;
+
+        $r7 = $r14.<com.sina.weibo.sdk.network.IRequestParam$ValuePart: java.lang.Object value>;
+
+        $r15 = (java.io.File) $r7;
+
+        $r8 = $r14.<com.sina.weibo.sdk.network.IRequestParam$ValuePart: java.lang.String mimeType>;
+
+        $r17 = new java.lang.StringBuffer;
+
+        specialinvoke $r17.<java.lang.StringBuffer: void <init>()>();
+
+        virtualinvoke $r17.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("--");
+
+        virtualinvoke $r17.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r3);
+
+        virtualinvoke $r17.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\r\n");
+
+        virtualinvoke $r17.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("Content-Disposition: form-data; name=\"");
+
+        virtualinvoke $r17.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r11);
+
+        virtualinvoke $r17.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\";");
+
+        virtualinvoke $r17.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("filename=\"");
+
+        $r11 = virtualinvoke $r15.<java.io.File: java.lang.String getName()>();
+
+        virtualinvoke $r17.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r11);
+
+        virtualinvoke $r17.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\"");
+
+        virtualinvoke $r17.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\r\n");
+
+        $r10 = new java.lang.StringBuilder;
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Content-Type: ");
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(";charset:");
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\"UTF-8\"");
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\r\n");
+
+        $r8 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r17.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r8);
+
+        virtualinvoke $r17.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\r\n");
+
+        $r8 = virtualinvoke $r17.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        $r12 = virtualinvoke $r8.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8");
+
+        virtualinvoke $r0.<java.io.OutputStream: void write(byte[])>($r12);
+
+        $r18 = new java.io.FileInputStream;
+
+        specialinvoke $r18.<java.io.FileInputStream: void <init>(java.io.File)>($r15);
+
+        $r12 = newarray (byte)[1024];
+
+     label4:
+        $i0 = virtualinvoke $r18.<java.io.InputStream: int read(byte[])>($r12);
+
+        if $i0 == -1 goto label5;
+
+        virtualinvoke $r0.<java.io.OutputStream: void write(byte[],int,int)>($r12, 0, $i0);
+
+        goto label4;
+
+     label5:
+        virtualinvoke $r18.<java.io.InputStream: void close()>();
+
+        $r12 = virtualinvoke $r1.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke $r0.<java.io.OutputStream: void write(byte[])>($r12);
+
+        goto label3;
+
+     label6:
+        $r13 = interfaceinvoke $r2.<com.sina.weibo.sdk.network.IRequestParam: java.util.Map byteArrays()>();
+
+        $r5 = interfaceinvoke $r13.<java.util.Map: java.util.Set keySet()>();
+
+        $r6 = interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>();
+
+     label7:
+        $z0 = interfaceinvoke $r6.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label8;
+
+        $r7 = interfaceinvoke $r6.<java.util.Iterator: java.lang.Object next()>();
+
+        $r8 = (java.lang.String) $r7;
+
+        $r17 = new java.lang.StringBuffer;
+
+        specialinvoke $r17.<java.lang.StringBuffer: void <init>()>();
+
+        virtualinvoke $r17.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("--");
+
+        virtualinvoke $r17.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r3);
+
+        virtualinvoke $r17.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\r\n");
+
+        virtualinvoke $r17.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("Content-Disposition: form-data; name=\"");
+
+        virtualinvoke $r17.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r8);
+
+        virtualinvoke $r17.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\"");
+
+        virtualinvoke $r17.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\r\n");
+
+        $r10 = new java.lang.StringBuilder;
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Content-Type: text/plain;charset:\"UTF-8\"");
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\r\n");
+
+        $r11 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r17.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r11);
+
+        virtualinvoke $r17.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("\r\n");
+
+        $r11 = virtualinvoke $r17.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        $r12 = virtualinvoke $r11.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke $r0.<java.io.OutputStream: void write(byte[])>($r12);
+
+        $r7 = interfaceinvoke $r13.<java.util.Map: java.lang.Object get(java.lang.Object)>($r8);
+
+        $r12 = (byte[]) $r7;
+
+        virtualinvoke $r0.<java.io.OutputStream: void write(byte[])>($r12);
+
+        $r12 = virtualinvoke $r1.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke $r0.<java.io.OutputStream: void write(byte[])>($r12);
+
+        goto label7;
+
+     label8:
+        $r10 = new java.lang.StringBuilder;
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("--");
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("--");
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\r\n");
+
+        $r3 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r12 = virtualinvoke $r3.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke $r0.<java.io.OutputStream: void write(byte[])>($r12);
+
+        virtualinvoke $r0.<java.io.OutputStream: void flush()>();
+
+        virtualinvoke $r0.<java.io.OutputStream: void close()>();
+
+        return;
+    }

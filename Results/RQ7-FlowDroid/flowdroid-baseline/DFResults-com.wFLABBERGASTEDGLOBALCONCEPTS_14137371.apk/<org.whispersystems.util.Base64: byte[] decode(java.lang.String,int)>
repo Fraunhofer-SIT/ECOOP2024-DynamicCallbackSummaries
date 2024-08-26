@@ -1,0 +1,293 @@
+    public static byte[] decode(java.lang.String, int) throws java.io.IOException
+    {
+        java.lang.Throwable $r0, $r15, $r16;
+        byte[] $r9, $r10, $r11;
+        java.util.zip.GZIPInputStream $r14, $r19;
+        java.io.ByteArrayOutputStream $r12, $r17;
+        short $s3;
+        byte $b2;
+        java.io.ByteArrayInputStream $r13, $r18;
+        int $i0, $i1;
+        java.lang.String $r8;
+        boolean $z0;
+        java.io.IOException $r20;
+        java.lang.Exception $r1, $r2, $r3, $r4, $r5, $r6, $r7;
+
+        $r8 := @parameter0: java.lang.String;
+
+        $i0 := @parameter1: int;
+
+        staticinvoke <java.util.Objects: java.lang.Object requireNonNull(java.lang.Object,java.lang.String)>($r8, "Input string was null.");
+
+     label01:
+        $r9 = virtualinvoke $r8.<java.lang.String: byte[] getBytes(java.lang.String)>("US-ASCII");
+
+     label02:
+        goto label04;
+
+     label03:
+        $r9 = virtualinvoke $r8.<java.lang.String: byte[] getBytes()>();
+
+     label04:
+        $i1 = lengthof $r9;
+
+        $r10 = staticinvoke <org.whispersystems.util.Base64: byte[] decode(byte[],int,int,int)>($r9, 0, $i1, $i0);
+
+        $r9 = $r10;
+
+        $i0 = $i0 & 4;
+
+        if $i0 == 0 goto label05;
+
+        $z0 = 1;
+
+        goto label06;
+
+     label05:
+        $z0 = 0;
+
+     label06:
+        if $r10 == null goto label51;
+
+        $i0 = lengthof $r10;
+
+        if $i0 < 4 goto label51;
+
+        if $z0 != 0 goto label51;
+
+        $b2 = $r10[0];
+
+        $s3 = (short) $b2;
+
+        $s3 = $s3 & 255;
+
+        $b2 = $r10[1];
+
+        $i0 = (int) $b2;
+
+        $i0 = $i0 << 8;
+
+        $i0 = $i0 & 65280;
+
+        $i1 = (int) $s3;
+
+        $i0 = $i1 | $i0;
+
+        if 35615 != $i0 goto label51;
+
+        $r11 = newarray (byte)[2048];
+
+        $r12 = null;
+
+     label07:
+        $r17 = new java.io.ByteArrayOutputStream;
+
+     label08:
+        specialinvoke $r17.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label09:
+        $r18 = new java.io.ByteArrayInputStream;
+
+     label10:
+        $r13 = $r18;
+
+     label11:
+        specialinvoke $r18.<java.io.ByteArrayInputStream: void <init>(byte[])>($r10);
+
+     label12:
+        $r19 = new java.util.zip.GZIPInputStream;
+
+     label13:
+        $r14 = $r19;
+
+     label14:
+        specialinvoke $r19.<java.util.zip.GZIPInputStream: void <init>(java.io.InputStream)>($r18);
+
+     label15:
+        $i0 = virtualinvoke $r19.<java.util.zip.GZIPInputStream: int read(byte[])>($r11);
+
+     label16:
+        if $i0 < 0 goto label19;
+
+     label17:
+        virtualinvoke $r17.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r11, 0, $i0);
+
+     label18:
+        goto label15;
+
+     label19:
+        $r10 = virtualinvoke $r17.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label20:
+        $r9 = $r10;
+
+     label21:
+        virtualinvoke $r17.<java.io.ByteArrayOutputStream: void close()>();
+
+     label22:
+        virtualinvoke $r14.<java.util.zip.GZIPInputStream: void close()>();
+
+     label23:
+        virtualinvoke $r13.<java.io.ByteArrayInputStream: void close()>();
+
+     label24:
+        return $r9;
+
+     label25:
+        $r15 := @caughtexception;
+
+        goto label30;
+
+     label26:
+        $r16 := @caughtexception;
+
+        goto label32;
+
+     label27:
+        $r15 := @caughtexception;
+
+        $r14 = null;
+
+        goto label30;
+
+     label28:
+        $r16 := @caughtexception;
+
+        $r14 = null;
+
+        goto label32;
+
+     label29:
+        $r15 := @caughtexception;
+
+        $r13 = null;
+
+        $r14 = null;
+
+     label30:
+        $r12 = $r17;
+
+        goto label39;
+
+     label31:
+        $r16 := @caughtexception;
+
+        $r13 = null;
+
+        $r14 = null;
+
+     label32:
+        $r12 = $r17;
+
+        goto label35;
+
+     label33:
+        $r15 := @caughtexception;
+
+        $r13 = null;
+
+        $r14 = null;
+
+        goto label39;
+
+     label34:
+        $r16 := @caughtexception;
+
+        $r13 = null;
+
+        $r14 = null;
+
+     label35:
+        $r20 = (java.io.IOException) $r16;
+
+        virtualinvoke $r20.<java.io.IOException: void printStackTrace()>();
+
+     label36:
+        virtualinvoke $r12.<java.io.ByteArrayOutputStream: void close()>();
+
+     label37:
+        goto label22;
+
+     label38:
+        $r15 := @caughtexception;
+
+     label39:
+        virtualinvoke $r12.<java.io.ByteArrayOutputStream: void close()>();
+
+     label40:
+        virtualinvoke $r14.<java.util.zip.GZIPInputStream: void close()>();
+
+     label41:
+        virtualinvoke $r13.<java.io.ByteArrayInputStream: void close()>();
+
+     label42:
+        throw $r15;
+
+     label43:
+        $r0 := @caughtexception;
+
+        goto label03;
+
+     label44:
+        $r1 := @caughtexception;
+
+        goto label22;
+
+     label45:
+        $r2 := @caughtexception;
+
+        goto label23;
+
+     label46:
+        $r3 := @caughtexception;
+
+        return $r9;
+
+     label47:
+        $r4 := @caughtexception;
+
+        goto label22;
+
+     label48:
+        $r5 := @caughtexception;
+
+        goto label40;
+
+     label49:
+        $r6 := @caughtexception;
+
+        goto label41;
+
+     label50:
+        $r7 := @caughtexception;
+
+        goto label42;
+
+     label51:
+        return $r10;
+
+        catch java.io.UnsupportedEncodingException from label01 to label02 with label43;
+        catch java.io.IOException from label08 to label09 with label34;
+        catch java.lang.Throwable from label07 to label08 with label33;
+        catch java.lang.Throwable from label08 to label09 with label33;
+        catch java.io.IOException from label11 to label12 with label31;
+        catch java.lang.Throwable from label09 to label10 with label29;
+        catch java.lang.Throwable from label11 to label12 with label29;
+        catch java.io.IOException from label14 to label15 with label28;
+        catch java.lang.Throwable from label12 to label13 with label27;
+        catch java.lang.Throwable from label14 to label15 with label27;
+        catch java.io.IOException from label15 to label16 with label26;
+        catch java.io.IOException from label17 to label18 with label26;
+        catch java.io.IOException from label19 to label20 with label26;
+        catch java.lang.Throwable from label15 to label16 with label25;
+        catch java.lang.Throwable from label17 to label18 with label25;
+        catch java.lang.Throwable from label19 to label20 with label25;
+        catch java.lang.Exception from label21 to label22 with label44;
+        catch java.lang.Exception from label22 to label23 with label45;
+        catch java.lang.Exception from label23 to label24 with label46;
+        catch java.lang.Throwable from label35 to label36 with label38;
+        catch java.lang.Exception from label36 to label37 with label47;
+        catch java.lang.Exception from label39 to label40 with label48;
+        catch java.lang.Exception from label40 to label41 with label49;
+        catch java.lang.Exception from label41 to label42 with label50;
+    }

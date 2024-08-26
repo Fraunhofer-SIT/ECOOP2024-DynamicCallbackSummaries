@@ -1,0 +1,50 @@
+    private java.lang.String readPage(java.lang.String)
+    {
+        java.lang.Throwable $r3;
+        java.io.ByteArrayOutputStream $r4;
+        int $i0;
+        java.io.IOException $r5;
+        java.lang.String $r1;
+        com.shareit.share.file.shareT.service.WebShareServer r0;
+        java.io.InputStream $r2;
+
+        r0 := @this: com.shareit.share.file.shareT.service.WebShareServer;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r4 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r4.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label1:
+        $r2 = specialinvoke r0.<com.shareit.share.file.shareT.service.WebShareServer: java.io.InputStream openFile(java.lang.String)>($r1);
+
+     label2:
+        $i0 = virtualinvoke $r2.<java.io.InputStream: int read()>();
+
+     label3:
+        if $i0 == -1 goto label7;
+
+     label4:
+        virtualinvoke $r4.<java.io.ByteArrayOutputStream: void write(int)>($i0);
+
+        virtualinvoke $r4.<java.io.ByteArrayOutputStream: void flush()>();
+
+     label5:
+        goto label2;
+
+     label6:
+        $r3 := @caughtexception;
+
+        $r5 = (java.io.IOException) $r3;
+
+        virtualinvoke $r5.<java.io.IOException: void printStackTrace()>();
+
+     label7:
+        $r1 = virtualinvoke $r4.<java.io.ByteArrayOutputStream: java.lang.String toString()>();
+
+        return $r1;
+
+        catch java.io.IOException from label1 to label3 with label6;
+        catch java.io.IOException from label4 to label5 with label6;
+    }

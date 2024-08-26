@@ -1,0 +1,144 @@
+    public static java.lang.String loadDataLocationFromServer()
+    {
+        java.lang.Throwable $r5, $r8;
+        byte[] $r2;
+        java.io.BufferedInputStream $r10;
+        java.io.ByteArrayOutputStream $r11;
+        java.net.URL $r9;
+        java.lang.Error $r6;
+        java.lang.Exception $r7;
+        java.net.URLConnection $r0;
+        java.net.SocketTimeoutException $r13;
+        int $i0;
+        java.lang.StringBuilder $r12;
+        java.lang.String $r3, $r4;
+        java.io.InputStream $r1;
+
+     label01:
+        staticinvoke <com.fgl.enhance.Log: void d(java.lang.String,java.lang.String)>("Utils", "Load country code");
+
+     label02:
+        $r9 = new java.net.URL;
+
+     label03:
+        specialinvoke $r9.<java.net.URL: void <init>(java.lang.String)>("https://data-location.enhance.co/v2/");
+
+        $r0 = virtualinvoke $r9.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        virtualinvoke $r0.<java.net.URLConnection: void setConnectTimeout(int)>(15000);
+
+        virtualinvoke $r0.<java.net.URLConnection: void setReadTimeout(int)>(15000);
+
+        virtualinvoke $r0.<java.net.URLConnection: void setUseCaches(boolean)>(0);
+
+        virtualinvoke $r0.<java.net.URLConnection: void connect()>();
+
+        $r1 = virtualinvoke $r0.<java.net.URLConnection: java.io.InputStream getInputStream()>();
+
+     label04:
+        $r10 = new java.io.BufferedInputStream;
+
+     label05:
+        specialinvoke $r10.<java.io.BufferedInputStream: void <init>(java.io.InputStream,int)>($r1, 1024);
+
+     label06:
+        $r11 = new java.io.ByteArrayOutputStream;
+
+     label07:
+        specialinvoke $r11.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label08:
+        $r2 = newarray (byte)[1024];
+
+     label09:
+        $i0 = virtualinvoke $r1.<java.io.InputStream: int read(byte[])>($r2);
+
+     label10:
+        if $i0 == -1 goto label13;
+
+     label11:
+        virtualinvoke $r11.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r2, 0, $i0);
+
+     label12:
+        goto label09;
+
+     label13:
+        virtualinvoke $r11.<java.io.ByteArrayOutputStream: void close()>();
+
+        $r3 = virtualinvoke $r11.<java.io.ByteArrayOutputStream: java.lang.String toString()>();
+
+        virtualinvoke $r1.<java.io.InputStream: void close()>();
+
+     label14:
+        $r12 = new java.lang.StringBuilder;
+
+     label15:
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("payload received: ");
+
+        virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r4 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.fgl.enhance.Log: void d(java.lang.String,java.lang.String)>("Utils", $r4);
+
+     label16:
+        return $r3;
+
+     label17:
+        $r5 := @caughtexception;
+
+     label18:
+        virtualinvoke $r11.<java.io.ByteArrayOutputStream: void close()>();
+
+        throw $r5;
+
+     label19:
+        $r6 := @caughtexception;
+
+        virtualinvoke $r6.<java.lang.Error: void printStackTrace()>();
+
+        goto label22;
+
+     label20:
+        $r7 := @caughtexception;
+
+        virtualinvoke $r7.<java.lang.Exception: void printStackTrace()>();
+
+        goto label22;
+
+     label21:
+        $r8 := @caughtexception;
+
+        $r13 = (java.net.SocketTimeoutException) $r8;
+
+        virtualinvoke $r13.<java.net.SocketTimeoutException: void printStackTrace()>();
+
+     label22:
+        return null;
+
+        catch java.net.SocketTimeoutException from label01 to label02 with label21;
+        catch java.net.SocketTimeoutException from label03 to label04 with label21;
+        catch java.net.SocketTimeoutException from label05 to label06 with label21;
+        catch java.net.SocketTimeoutException from label07 to label08 with label21;
+        catch java.lang.Exception from label01 to label02 with label20;
+        catch java.lang.Exception from label03 to label04 with label20;
+        catch java.lang.Exception from label05 to label06 with label20;
+        catch java.lang.Exception from label07 to label08 with label20;
+        catch java.lang.Error from label01 to label03 with label19;
+        catch java.lang.Error from label03 to label05 with label19;
+        catch java.lang.Error from label05 to label07 with label19;
+        catch java.lang.Error from label07 to label08 with label19;
+        catch java.lang.Throwable from label09 to label10 with label17;
+        catch java.lang.Throwable from label11 to label12 with label17;
+        catch java.net.SocketTimeoutException from label13 to label14 with label21;
+        catch java.net.SocketTimeoutException from label15 to label16 with label21;
+        catch java.net.SocketTimeoutException from label18 to label19 with label21;
+        catch java.lang.Exception from label13 to label14 with label20;
+        catch java.lang.Exception from label15 to label16 with label20;
+        catch java.lang.Exception from label18 to label19 with label20;
+        catch java.lang.Error from label13 to label15 with label19;
+        catch java.lang.Error from label15 to label16 with label19;
+        catch java.lang.Error from label18 to label19 with label19;
+    }

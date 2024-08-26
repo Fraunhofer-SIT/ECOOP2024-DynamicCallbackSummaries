@@ -1,0 +1,87 @@
+    public static gnu.text.FilePath coerceToFilePathOrNull(java.lang.Object)
+    {
+        gnu.text.FilePath r2;
+        gnu.text.URIPath r4;
+        java.lang.Object r1;
+        java.net.URI $r0;
+        java.lang.String $r5;
+        java.io.File $r3;
+        boolean $z0;
+
+        r1 := @parameter0: java.lang.Object;
+
+        $z0 = r1 instanceof gnu.text.FilePath;
+
+        if $z0 == 0 goto label1;
+
+        r2 = (gnu.text.FilePath) r1;
+
+        return r2;
+
+     label1:
+        $z0 = r1 instanceof gnu.text.URIPath;
+
+        if $z0 == 0 goto label2;
+
+        $r3 = new java.io.File;
+
+        r4 = (gnu.text.URIPath) r1;
+
+        $r0 = r4.<gnu.text.URIPath: java.net.URI uri>;
+
+        specialinvoke $r3.<java.io.File: void <init>(java.net.URI)>($r0);
+
+        r2 = staticinvoke <gnu.text.FilePath: gnu.text.FilePath valueOf(java.io.File)>($r3);
+
+        return r2;
+
+     label2:
+        $z0 = r1 instanceof java.net.URI;
+
+        if $z0 == 0 goto label3;
+
+        $r3 = new java.io.File;
+
+        $r0 = (java.net.URI) r1;
+
+        specialinvoke $r3.<java.io.File: void <init>(java.net.URI)>($r0);
+
+        r2 = staticinvoke <gnu.text.FilePath: gnu.text.FilePath valueOf(java.io.File)>($r3);
+
+        return r2;
+
+     label3:
+        $z0 = r1 instanceof java.io.File;
+
+        if $z0 == 0 goto label4;
+
+        $r3 = (java.io.File) r1;
+
+        r2 = staticinvoke <gnu.text.FilePath: gnu.text.FilePath valueOf(java.io.File)>($r3);
+
+        return r2;
+
+     label4:
+        $z0 = r1 instanceof gnu.lists.FString;
+
+        if $z0 == 0 goto label6;
+
+        $r5 = virtualinvoke r1.<java.lang.Object: java.lang.String toString()>();
+
+     label5:
+        r2 = staticinvoke <gnu.text.FilePath: gnu.text.FilePath valueOf(java.lang.String)>($r5);
+
+        return r2;
+
+     label6:
+        $z0 = r1 instanceof java.lang.String;
+
+        if $z0 == 0 goto label7;
+
+        $r5 = (java.lang.String) r1;
+
+        goto label5;
+
+     label7:
+        return null;
+    }

@@ -1,0 +1,80 @@
+    private void b(java.lang.String)
+    {
+        java.lang.Throwable $r4, $r5, $r6;
+        android.content.Context $r2;
+        com.cardinalcommerce.shared.cs.utils.e r0;
+        java.io.FileOutputStream $r3;
+        java.io.IOException $r10;
+        java.io.OutputStreamWriter $r8;
+        java.lang.StringBuilder $r9;
+        java.lang.String $r1, $r7;
+
+        r0 := @this: com.cardinalcommerce.shared.cs.utils.e;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r8 = new java.io.OutputStreamWriter;
+
+        $r2 = r0.<com.cardinalcommerce.shared.cs.utils.e: android.content.Context c>;
+
+     label01:
+        $r3 = virtualinvoke $r2.<android.content.Context: java.io.FileOutputStream openFileOutput(java.lang.String,int)>("cca_logs.txt", 0);
+
+        specialinvoke $r8.<java.io.OutputStreamWriter: void <init>(java.io.OutputStream)>($r3);
+
+     label02:
+        virtualinvoke $r8.<java.io.OutputStreamWriter: java.io.Writer append(java.lang.CharSequence)>($r1);
+
+     label03:
+        virtualinvoke $r8.<java.io.OutputStreamWriter: void close()>();
+
+     label04:
+        return;
+
+     label05:
+        $r4 := @caughtexception;
+
+     label06:
+        virtualinvoke $r8.<java.io.OutputStreamWriter: void close()>();
+
+     label07:
+        goto label10;
+
+     label08:
+        $r5 := @caughtexception;
+
+     label09:
+        virtualinvoke $r4.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r5);
+
+     label10:
+        throw $r4;
+
+     label11:
+        $r6 := @caughtexception;
+
+        $r1 = r0.<com.cardinalcommerce.shared.cs.utils.e: java.lang.String b>;
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Exception during adding to log file. Error: ");
+
+        $r10 = (java.io.IOException) $r6;
+
+        $r7 = virtualinvoke $r10.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r7 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>($r1, $r7);
+
+        return;
+
+        catch java.io.IOException from label01 to label02 with label11;
+        catch java.lang.Throwable from label02 to label03 with label05;
+        catch java.io.IOException from label03 to label04 with label11;
+        catch java.lang.Throwable from label06 to label07 with label08;
+        catch java.io.IOException from label09 to label11 with label11;
+    }

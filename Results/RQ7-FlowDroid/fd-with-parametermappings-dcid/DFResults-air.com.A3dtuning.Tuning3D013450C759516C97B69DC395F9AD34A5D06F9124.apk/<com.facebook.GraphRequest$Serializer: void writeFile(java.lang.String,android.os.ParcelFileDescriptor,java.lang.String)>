@@ -1,0 +1,97 @@
+    public void writeFile(java.lang.String, android.os.ParcelFileDescriptor, java.lang.String) throws java.io.IOException
+    {
+        java.io.OutputStream $r4;
+        com.facebook.internal.Logger $r8;
+        android.os.ParcelFileDescriptor $r2;
+        java.lang.Object[] $r7;
+        com.facebook.GraphRequest$Serializer r0;
+        long $l0;
+        java.lang.Integer $r11;
+        com.facebook.ProgressNoopOutputStream $r5;
+        java.util.Locale $r10;
+        int $i1;
+        java.lang.StringBuilder $r9;
+        java.lang.String $r1, $r3;
+        boolean $z0;
+        android.os.ParcelFileDescriptor$AutoCloseInputStream $r6;
+
+        r0 := @this: com.facebook.GraphRequest$Serializer;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: android.os.ParcelFileDescriptor;
+
+        $r3 := @parameter2: java.lang.String;
+
+        if $r3 != null goto label1;
+
+        $r3 = "content/unknown";
+
+     label1:
+        virtualinvoke r0.<com.facebook.GraphRequest$Serializer: void writeContentDisposition(java.lang.String,java.lang.String,java.lang.String)>($r1, $r1, $r3);
+
+        $r4 = r0.<com.facebook.GraphRequest$Serializer: java.io.OutputStream outputStream>;
+
+        $z0 = $r4 instanceof com.facebook.ProgressNoopOutputStream;
+
+        if $z0 == 0 goto label2;
+
+        $r4 = r0.<com.facebook.GraphRequest$Serializer: java.io.OutputStream outputStream>;
+
+        $r5 = (com.facebook.ProgressNoopOutputStream) $r4;
+
+        $l0 = virtualinvoke $r2.<android.os.ParcelFileDescriptor: long getStatSize()>();
+
+        virtualinvoke $r5.<com.facebook.ProgressNoopOutputStream: void addProgress(long)>($l0);
+
+        $i1 = 0;
+
+        goto label3;
+
+     label2:
+        $r6 = new android.os.ParcelFileDescriptor$AutoCloseInputStream;
+
+        specialinvoke $r6.<android.os.ParcelFileDescriptor$AutoCloseInputStream: void <init>(android.os.ParcelFileDescriptor)>($r2);
+
+        $r4 = r0.<com.facebook.GraphRequest$Serializer: java.io.OutputStream outputStream>;
+
+        $i1 = staticinvoke <com.facebook.internal.Utility: int copyAndCloseInputStream(java.io.InputStream,java.io.OutputStream)>($r6, $r4);
+
+     label3:
+        $r7 = newarray (java.lang.Object)[0];
+
+        virtualinvoke r0.<com.facebook.GraphRequest$Serializer: void writeLine(java.lang.String,java.lang.Object[])>("", $r7);
+
+        virtualinvoke r0.<com.facebook.GraphRequest$Serializer: void writeRecordBoundary()>();
+
+        $r8 = r0.<com.facebook.GraphRequest$Serializer: com.facebook.internal.Logger logger>;
+
+        if $r8 == null goto label4;
+
+        $r8 = r0.<com.facebook.GraphRequest$Serializer: com.facebook.internal.Logger logger>;
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("    ");
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r10 = <java.util.Locale: java.util.Locale ROOT>;
+
+        $r7 = newarray (java.lang.Object)[1];
+
+        $r11 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i1);
+
+        $r7[0] = $r11;
+
+        $r3 = staticinvoke <java.lang.String: java.lang.String format(java.util.Locale,java.lang.String,java.lang.Object[])>($r10, "<Data: %d>", $r7);
+
+        virtualinvoke $r8.<com.facebook.internal.Logger: void appendKeyValue(java.lang.String,java.lang.Object)>($r1, $r3);
+
+     label4:
+        return;
+    }

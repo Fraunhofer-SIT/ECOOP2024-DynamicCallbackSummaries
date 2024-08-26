@@ -1,0 +1,149 @@
+    public static android.graphics.Bitmap onTransact(android.content.Context, android.net.Uri)
+    {
+        java.lang.Throwable $r7, $r8;
+        android.content.Context $r1;
+        byte[] $r5;
+        java.lang.Object[] $r9;
+        java.io.ByteArrayOutputStream $r11;
+        android.net.Uri $r2;
+        android.content.ContentResolver $r3;
+        int $i0, $i1;
+        java.lang.String $r10;
+        android.graphics.Matrix $r12;
+        java.lang.Exception $r0;
+        android.graphics.Bitmap $r6;
+        float $f0;
+        java.lang.StringBuilder $r13;
+        java.io.InputStream $r4;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $r2 := @parameter1: android.net.Uri;
+
+     label01:
+        $r3 = virtualinvoke $r1.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+        $r4 = virtualinvoke $r3.<android.content.ContentResolver: java.io.InputStream openInputStream(android.net.Uri)>($r2);
+
+     label02:
+        $r11 = new java.io.ByteArrayOutputStream;
+
+     label03:
+        specialinvoke $r11.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label04:
+        $r5 = newarray (byte)[1024];
+
+     label05:
+        $i0 = virtualinvoke $r4.<java.io.InputStream: int read(byte[])>($r5);
+
+     label06:
+        if $i0 == -1 goto label09;
+
+     label07:
+        virtualinvoke $r11.<java.io.OutputStream: void write(byte[],int,int)>($r5, 0, $i0);
+
+     label08:
+        goto label05;
+
+     label09:
+        $r5 = virtualinvoke $r11.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        virtualinvoke $r4.<java.io.InputStream: void close()>();
+
+     label10:
+        $i0 = lengthof $r5;
+
+     label11:
+        $r6 = staticinvoke <android.graphics.BitmapFactory: android.graphics.Bitmap decodeByteArray(byte[],int,int)>($r5, 0, $i0);
+
+        $i0 = staticinvoke <com.adeya.android.application.webrtc.janus.core.userspace.UserSpaceContract$Myself$getDefaultImpl: int setDefaultImpl(byte[])>($r5);
+
+     label12:
+        if $i0 == 0 goto label16;
+
+        $r12 = new android.graphics.Matrix;
+
+     label13:
+        specialinvoke $r12.<android.graphics.Matrix: void <init>()>();
+
+     label14:
+        $f0 = (float) $i0;
+
+     label15:
+        virtualinvoke $r12.<android.graphics.Matrix: boolean postRotate(float)>($f0);
+
+        $i0 = virtualinvoke $r6.<android.graphics.Bitmap: int getWidth()>();
+
+        $i1 = virtualinvoke $r6.<android.graphics.Bitmap: int getHeight()>();
+
+        $r6 = staticinvoke <android.graphics.Bitmap: android.graphics.Bitmap createBitmap(android.graphics.Bitmap,int,int,int,int,android.graphics.Matrix,boolean)>($r6, 0, 0, $i0, $i1, $r12, 1);
+
+     label16:
+        return $r6;
+
+     label17:
+        $r7 := @caughtexception;
+
+        virtualinvoke $r7.<java.lang.Throwable: void printStackTrace()>();
+
+        goto label19;
+
+     label18:
+        $r8 := @caughtexception;
+
+        virtualinvoke $r8.<java.lang.Throwable: void printStackTrace()>();
+
+     label19:
+        $r9 = newarray (java.lang.Object)[0];
+
+        staticinvoke <o.addLikelySubtags: void asBinder(java.lang.String,java.lang.Object[])>("something is wrong trying to get image from uri...", $r9);
+
+     label20:
+        $r3 = virtualinvoke $r1.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+        $r6 = staticinvoke <android.provider.MediaStore$Images$Media: android.graphics.Bitmap getBitmap(android.content.ContentResolver,android.net.Uri)>($r3, $r2);
+
+     label21:
+        return $r6;
+
+     label22:
+        $r13 = new java.lang.StringBuilder;
+
+        specialinvoke $r13.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("picture not found: ");
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r2);
+
+        $r10 = virtualinvoke $r13.<java.lang.Object: java.lang.String toString()>();
+
+        $r9 = newarray (java.lang.Object)[0];
+
+        staticinvoke <o.addLikelySubtags: void asBinder(java.lang.String,java.lang.Object[])>($r10, $r9);
+
+        return null;
+
+     label23:
+        $r0 := @caughtexception;
+
+        goto label22;
+
+        catch java.io.FileNotFoundException from label01 to label02 with label18;
+        catch java.io.FileNotFoundException from label03 to label04 with label18;
+        catch java.io.FileNotFoundException from label05 to label06 with label18;
+        catch java.io.FileNotFoundException from label07 to label08 with label18;
+        catch java.io.FileNotFoundException from label09 to label10 with label18;
+        catch java.io.FileNotFoundException from label11 to label12 with label18;
+        catch java.io.FileNotFoundException from label13 to label14 with label18;
+        catch java.io.FileNotFoundException from label15 to label16 with label18;
+        catch java.io.IOException from label01 to label02 with label17;
+        catch java.io.IOException from label03 to label04 with label17;
+        catch java.io.IOException from label05 to label06 with label17;
+        catch java.io.IOException from label07 to label08 with label17;
+        catch java.io.IOException from label09 to label10 with label17;
+        catch java.io.IOException from label11 to label12 with label17;
+        catch java.io.IOException from label13 to label14 with label17;
+        catch java.io.IOException from label15 to label16 with label17;
+        catch java.lang.Exception from label20 to label21 with label23;
+    }

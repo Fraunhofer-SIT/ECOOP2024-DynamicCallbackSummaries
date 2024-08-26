@@ -1,0 +1,123 @@
+    public static void saveTaskControllerToFile(org.ice.controller.TaskController)
+    {
+        java.lang.Throwable r6, r7;
+        int $i0;
+        java.io.ObjectOutputStream $r11;
+        org.ice.model.Task $r3;
+        java.lang.String $r4, r5;
+        org.ice.controller.TaskController $r0;
+        java.io.PrintStream $r1;
+        java.io.FileOutputStream $r10;
+        char $c1;
+        java.io.IOException $r13;
+        java.io.File $r9;
+        java.io.FileNotFoundException $r12;
+        java.lang.StringBuilder $r2, $r8;
+
+        $r0 := @parameter0: org.ice.controller.TaskController;
+
+        $r1 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $r1.<java.io.PrintStream: void println(java.lang.String)>("saveTaskControllerToFile");
+
+        $r8 = new java.lang.StringBuilder;
+
+     label01:
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        $r3 = virtualinvoke $r0.<org.ice.controller.TaskController: org.ice.model.Task getTask()>();
+
+        $r4 = virtualinvoke $r3.<org.ice.model.Task: java.lang.String getFileName()>();
+
+        $r2 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        $r2 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".");
+
+        $r2 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("data");
+
+        $r4 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r3 = virtualinvoke $r0.<org.ice.controller.TaskController: org.ice.model.Task getTask()>();
+
+        $i0 = virtualinvoke $r3.<org.ice.model.Task: int getStatus()>();
+
+     label02:
+        if $i0 == 3 goto label12;
+
+        r5 = <org.ice.utils.SystemConstants: java.lang.String RUNNING_TASK_PATH>;
+
+     label03:
+        $r8 = new java.lang.StringBuilder;
+
+     label04:
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        $r2 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r5);
+
+     label05:
+        $c1 = <java.io.File: char separatorChar>;
+
+     label06:
+        $r2 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>($c1);
+
+        $r2 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        $r4 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label07:
+        $r9 = new java.io.File;
+
+     label08:
+        specialinvoke $r9.<java.io.File: void <init>(java.lang.String)>($r4);
+
+     label09:
+        $r11 = new java.io.ObjectOutputStream;
+
+        $r10 = new java.io.FileOutputStream;
+
+     label10:
+        specialinvoke $r10.<java.io.FileOutputStream: void <init>(java.io.File)>($r9);
+
+        specialinvoke $r11.<java.io.ObjectOutputStream: void <init>(java.io.OutputStream)>($r10);
+
+        virtualinvoke $r11.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>($r0);
+
+        virtualinvoke $r11.<java.io.ObjectOutputStream: void close()>();
+
+     label11:
+        return;
+
+     label12:
+        r5 = <org.ice.utils.SystemConstants: java.lang.String COMPLETE_TASK_PATH>;
+
+        goto label03;
+
+     label13:
+        r6 := @caughtexception;
+
+        $r12 = (java.io.FileNotFoundException) r6;
+
+        virtualinvoke $r12.<java.io.FileNotFoundException: void printStackTrace()>();
+
+        return;
+
+     label14:
+        r7 := @caughtexception;
+
+        $r13 = (java.io.IOException) r7;
+
+        virtualinvoke $r13.<java.io.IOException: void printStackTrace()>();
+
+        return;
+
+        catch java.io.FileNotFoundException from label01 to label02 with label13;
+        catch java.io.FileNotFoundException from label04 to label05 with label13;
+        catch java.io.FileNotFoundException from label06 to label07 with label13;
+        catch java.io.FileNotFoundException from label08 to label09 with label13;
+        catch java.io.FileNotFoundException from label10 to label11 with label13;
+        catch java.io.IOException from label01 to label02 with label14;
+        catch java.io.IOException from label04 to label05 with label14;
+        catch java.io.IOException from label06 to label07 with label14;
+        catch java.io.IOException from label08 to label09 with label14;
+        catch java.io.IOException from label10 to label11 with label14;
+    }

@@ -1,0 +1,68 @@
+    private static java.lang.String readHttpResponse(java.io.InputStream)
+    {
+        java.lang.Throwable $r4;
+        byte[] $r2;
+        java.io.ByteArrayOutputStream $r5;
+        java.io.IOException $r6;
+        int $i0;
+        java.lang.String $r1, $r3;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $r1 = "";
+
+        $r5 = new java.io.ByteArrayOutputStream;
+
+     label01:
+        specialinvoke $r5.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label02:
+        $r2 = newarray (byte)[2048];
+
+     label03:
+        $i0 = lengthof $r2;
+
+     label04:
+        $i0 = virtualinvoke $r0.<java.io.InputStream: int read(byte[],int,int)>($r2, 0, $i0);
+
+     label05:
+        if $i0 == -1 goto label08;
+
+     label06:
+        virtualinvoke $r5.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r2, 0, $i0);
+
+     label07:
+        goto label03;
+
+     label08:
+        virtualinvoke $r5.<java.io.ByteArrayOutputStream: void flush()>();
+
+        $r3 = virtualinvoke $r5.<java.io.ByteArrayOutputStream: java.lang.String toString(java.lang.String)>("UTF-8");
+
+     label09:
+        $r1 = $r3;
+
+     label10:
+        virtualinvoke $r0.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r5.<java.io.ByteArrayOutputStream: void close()>();
+
+     label11:
+        return $r3;
+
+     label12:
+        $r4 := @caughtexception;
+
+        $r6 = (java.io.IOException) $r4;
+
+        virtualinvoke $r6.<java.io.IOException: void printStackTrace()>();
+
+        return $r1;
+
+        catch java.io.IOException from label01 to label02 with label12;
+        catch java.io.IOException from label04 to label05 with label12;
+        catch java.io.IOException from label06 to label07 with label12;
+        catch java.io.IOException from label08 to label09 with label12;
+        catch java.io.IOException from label10 to label11 with label12;
+    }

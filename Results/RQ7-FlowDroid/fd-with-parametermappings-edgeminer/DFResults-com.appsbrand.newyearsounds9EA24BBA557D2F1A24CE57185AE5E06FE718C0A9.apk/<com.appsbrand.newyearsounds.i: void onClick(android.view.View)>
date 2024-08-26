@@ -1,0 +1,330 @@
+    public void onClick(android.view.View)
+    {
+        com.appsbrand.newyearsounds.i r0;
+        java.lang.Throwable $r18;
+        byte[] $r9;
+        android.net.Uri $r13;
+        android.support.v4.view.ViewPager $r5;
+        android.content.Intent $r12, $r21;
+        java.lang.Integer $r14;
+        int[] $r4;
+        com.appsbrand.newyearsounds.ScreenPager $r2, $r16;
+        int $i0, $i1;
+        android.view.View $r1;
+        java.lang.Boolean $r15;
+        java.lang.String $r8, $r11;
+        boolean $z0;
+        java.io.FileOutputStream $r20;
+        java.io.IOException $r24;
+        java.io.File $r10, $r17, $r23;
+        java.lang.StringBuilder $r7, $r19;
+        android.content.ContentValues $r22;
+        android.content.res.Resources $r3;
+        java.io.InputStream $r6;
+
+        r0 := @this: com.appsbrand.newyearsounds.i;
+
+        $r1 := @parameter0: android.view.View;
+
+        $r2 = r0.<com.appsbrand.newyearsounds.i: com.appsbrand.newyearsounds.ScreenPager a>;
+
+     label01:
+        $r3 = virtualinvoke $r2.<com.appsbrand.newyearsounds.ScreenPager: android.content.res.Resources getResources()>();
+
+     label02:
+        $r4 = <com.appsbrand.newyearsounds.ScreenPager: int[] b>;
+
+        $r5 = r0.<com.appsbrand.newyearsounds.i: android.support.v4.view.ViewPager b>;
+
+     label03:
+        $i0 = virtualinvoke $r5.<android.support.v4.view.ViewPager: int getCurrentItem()>();
+
+     label04:
+        $i0 = $r4[$i0];
+
+     label05:
+        $r6 = virtualinvoke $r3.<android.content.res.Resources: java.io.InputStream openRawResource(int)>($i0);
+
+        $i0 = virtualinvoke $r6.<java.io.InputStream: int available()>();
+
+     label06:
+        $r19 = new java.lang.StringBuilder;
+
+     label07:
+        $r8 = staticinvoke <java.lang.String: java.lang.String valueOf(int)>($i0);
+
+        specialinvoke $r19.<java.lang.StringBuilder: void <init>(java.lang.String)>($r8);
+
+        $r8 = virtualinvoke $r19.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("size", $r8);
+
+     label08:
+        $r9 = newarray (byte)[$i0];
+
+     label09:
+        virtualinvoke $r6.<java.io.InputStream: int read(byte[])>($r9);
+
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+     label10:
+        $i1 = <android.os.Build$VERSION: int SDK_INT>;
+
+        if $i1 < 30 goto label43;
+
+        $r19 = new java.lang.StringBuilder;
+
+     label11:
+        specialinvoke $r19.<java.lang.StringBuilder: void <init>()>();
+
+     label12:
+        $r8 = <android.os.Environment: java.lang.String DIRECTORY_MUSIC>;
+
+     label13:
+        $r10 = staticinvoke <android.os.Environment: java.io.File getExternalStoragePublicDirectory(java.lang.String)>($r8);
+
+        $r7 = virtualinvoke $r19.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r10);
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/media/audio/");
+
+     label14:
+        $r2 = r0.<com.appsbrand.newyearsounds.i: com.appsbrand.newyearsounds.ScreenPager a>;
+
+        $r8 = $r2.<com.appsbrand.newyearsounds.ScreenPager: java.lang.String i>;
+
+     label15:
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label16:
+        $r17 = new java.io.File;
+
+     label17:
+        specialinvoke $r17.<java.io.File: void <init>(java.lang.String)>($r8);
+
+        $z0 = virtualinvoke $r17.<java.io.File: boolean exists()>();
+
+     label18:
+        if $z0 != 0 goto label22;
+
+     label19:
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("file", "Not Exist");
+
+     label20:
+        $r17 = new java.io.File;
+
+     label21:
+        specialinvoke $r17.<java.io.File: void <init>(java.lang.String)>($r8);
+
+        virtualinvoke $r17.<java.io.File: boolean mkdirs()>();
+
+     label22:
+        $r20 = new java.io.FileOutputStream;
+
+        $r19 = new java.lang.StringBuilder;
+
+     label23:
+        $r11 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r8);
+
+        specialinvoke $r19.<java.lang.StringBuilder: void <init>(java.lang.String)>($r11);
+
+        $r7 = virtualinvoke $r19.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("sound.mp3");
+
+        $r11 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r20.<java.io.FileOutputStream: void <init>(java.lang.String)>($r11);
+
+     label24:
+        $r19 = new java.lang.StringBuilder;
+
+     label25:
+        $r11 = staticinvoke <java.lang.String: java.lang.String valueOf(int)>($i0);
+
+        specialinvoke $r19.<java.lang.StringBuilder: void <init>(java.lang.String)>($r11);
+
+        $r11 = virtualinvoke $r19.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("size", $r11);
+
+        virtualinvoke $r20.<java.io.FileOutputStream: void write(byte[])>($r9);
+
+        virtualinvoke $r20.<java.io.FileOutputStream: void flush()>();
+
+        virtualinvoke $r20.<java.io.FileOutputStream: void close()>();
+
+     label26:
+        $r2 = r0.<com.appsbrand.newyearsounds.i: com.appsbrand.newyearsounds.ScreenPager a>;
+
+        $r21 = new android.content.Intent;
+
+        $r19 = new java.lang.StringBuilder;
+
+     label27:
+        specialinvoke $r19.<java.lang.StringBuilder: void <init>(java.lang.String)>("file://");
+
+        $r7 = virtualinvoke $r19.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("sound.mp3");
+
+        $r11 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r13 = staticinvoke <android.net.Uri: android.net.Uri parse(java.lang.String)>($r11);
+
+        specialinvoke $r21.<android.content.Intent: void <init>(java.lang.String,android.net.Uri)>("android.intent.action.MEDIA_SCANNER_SCAN_FILE", $r13);
+
+        virtualinvoke $r2.<com.appsbrand.newyearsounds.ScreenPager: void sendBroadcast(android.content.Intent)>($r21);
+
+     label28:
+        $r17 = new java.io.File;
+
+        $r10 = $r17;
+
+     label29:
+        specialinvoke $r17.<java.io.File: void <init>(java.lang.String,java.lang.String)>($r8, "sound.mp3");
+
+     label30:
+        $r22 = new android.content.ContentValues;
+
+     label31:
+        specialinvoke $r22.<android.content.ContentValues: void <init>()>();
+
+        $r8 = virtualinvoke $r17.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r22.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("_data", $r8);
+
+        virtualinvoke $r22.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("title", "MI");
+
+        $r14 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(203);
+
+        virtualinvoke $r22.<android.content.ContentValues: void put(java.lang.String,java.lang.Integer)>("_size", $r14);
+
+        virtualinvoke $r22.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("mime_type", "audio/mp3");
+
+        virtualinvoke $r22.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("artist", "MI");
+
+        $r14 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(230);
+
+        virtualinvoke $r22.<android.content.ContentValues: void put(java.lang.String,java.lang.Integer)>("duration", $r14);
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("ringType", "1");
+
+        $r15 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(1);
+
+        virtualinvoke $r22.<android.content.ContentValues: void put(java.lang.String,java.lang.Boolean)>("1", $r15);
+
+     label32:
+        $r2 = r0.<com.appsbrand.newyearsounds.i: com.appsbrand.newyearsounds.ScreenPager a>;
+
+     label33:
+        virtualinvoke $r2.<com.appsbrand.newyearsounds.ScreenPager: android.content.ContentResolver getContentResolver()>();
+
+     label34:
+        $r2 = r0.<com.appsbrand.newyearsounds.i: com.appsbrand.newyearsounds.ScreenPager a>;
+
+        $r19 = new java.lang.StringBuilder;
+
+        $r16 = r0.<com.appsbrand.newyearsounds.i: com.appsbrand.newyearsounds.ScreenPager a>;
+
+     label35:
+        $r8 = virtualinvoke $r16.<com.appsbrand.newyearsounds.ScreenPager: java.lang.String getPackageName()>();
+
+        $r8 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r8);
+
+        specialinvoke $r19.<java.lang.StringBuilder: void <init>(java.lang.String)>($r8);
+
+        $r7 = virtualinvoke $r19.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".fileprovider");
+
+        $r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label36:
+        $r23 = new java.io.File;
+
+     label37:
+        $r11 = virtualinvoke $r10.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        specialinvoke $r23.<java.io.File: void <init>(java.lang.String)>($r11);
+
+        $r13 = staticinvoke <android.support.v4.content.FileProvider: android.net.Uri a(android.content.Context,java.lang.String,java.io.File)>($r2, $r8, $r23);
+
+     label38:
+        $r21 = new android.content.Intent;
+
+     label39:
+        specialinvoke $r21.<android.content.Intent: void <init>(java.lang.String)>("android.intent.action.SEND");
+
+        virtualinvoke $r21.<android.content.Intent: android.content.Intent setFlags(int)>(1);
+
+        virtualinvoke $r21.<android.content.Intent: android.content.Intent setType(java.lang.String)>("audio/mp3");
+
+        virtualinvoke $r21.<android.content.Intent: android.content.Intent putExtra(java.lang.String,android.os.Parcelable)>("android.intent.extra.STREAM", $r13);
+
+     label40:
+        $r2 = r0.<com.appsbrand.newyearsounds.i: com.appsbrand.newyearsounds.ScreenPager a>;
+
+     label41:
+        $r12 = staticinvoke <android.content.Intent: android.content.Intent createChooser(android.content.Intent,java.lang.CharSequence)>($r21, "Share Sound File");
+
+        virtualinvoke $r2.<com.appsbrand.newyearsounds.ScreenPager: void startActivity(android.content.Intent)>($r12);
+
+     label42:
+        return;
+
+     label43:
+        $r19 = new java.lang.StringBuilder;
+
+     label44:
+        specialinvoke $r19.<java.lang.StringBuilder: void <init>()>();
+
+        $r10 = staticinvoke <android.os.Environment: java.io.File getExternalStorageDirectory()>();
+
+        $r7 = virtualinvoke $r19.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r10);
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/media/audio/");
+
+     label45:
+        $r2 = r0.<com.appsbrand.newyearsounds.i: com.appsbrand.newyearsounds.ScreenPager a>;
+
+        $r8 = $r2.<com.appsbrand.newyearsounds.ScreenPager: java.lang.String i>;
+
+     label46:
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label47:
+        goto label16;
+
+     label48:
+        $r18 := @caughtexception;
+
+        $r24 = (java.io.IOException) $r18;
+
+        virtualinvoke $r24.<java.io.IOException: void printStackTrace()>();
+
+        return;
+
+        catch java.io.IOException from label01 to label02 with label48;
+        catch java.io.IOException from label03 to label04 with label48;
+        catch java.io.IOException from label05 to label06 with label48;
+        catch java.io.IOException from label07 to label08 with label48;
+        catch java.io.IOException from label09 to label10 with label48;
+        catch java.io.IOException from label11 to label12 with label48;
+        catch java.io.IOException from label13 to label14 with label48;
+        catch java.io.IOException from label15 to label16 with label48;
+        catch java.io.IOException from label17 to label18 with label48;
+        catch java.io.IOException from label19 to label20 with label48;
+        catch java.io.IOException from label21 to label22 with label48;
+        catch java.io.IOException from label23 to label24 with label48;
+        catch java.io.IOException from label25 to label26 with label48;
+        catch java.io.IOException from label27 to label28 with label48;
+        catch java.io.IOException from label29 to label30 with label48;
+        catch java.io.IOException from label31 to label32 with label48;
+        catch java.io.IOException from label33 to label34 with label48;
+        catch java.io.IOException from label35 to label36 with label48;
+        catch java.io.IOException from label37 to label38 with label48;
+        catch java.io.IOException from label39 to label40 with label48;
+        catch java.io.IOException from label41 to label42 with label48;
+        catch java.io.IOException from label44 to label45 with label48;
+        catch java.io.IOException from label46 to label47 with label48;
+    }

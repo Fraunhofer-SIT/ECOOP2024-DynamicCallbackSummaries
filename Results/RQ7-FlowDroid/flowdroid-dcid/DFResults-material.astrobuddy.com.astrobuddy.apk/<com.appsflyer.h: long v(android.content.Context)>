@@ -1,0 +1,36 @@
+    private static long v(android.content.Context)
+    {
+        android.content.Context $r0;
+        android.content.SharedPreferences $r1;
+        byte $b2;
+        int $i3;
+        long $l0, $l1;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 = virtualinvoke $r0.<android.content.Context: android.content.SharedPreferences getSharedPreferences(java.lang.String,int)>("appsflyer-data", 0);
+
+        $l0 = interfaceinvoke $r1.<android.content.SharedPreferences: long getLong(java.lang.String,long)>("AppsFlyerTimePassedSincePrevLaunch", 0L);
+
+        $l1 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $b2 = $l0 cmp 0L;
+
+        $i3 = (int) $b2;
+
+        if $i3 <= 0 goto label2;
+
+        $l0 = $l1 - $l0;
+
+     label1:
+        staticinvoke <com.appsflyer.h: void b(android.content.Context,java.lang.String,long)>($r0, "AppsFlyerTimePassedSincePrevLaunch", $l1);
+
+        $l1 = $l0 / 1000L;
+
+        return $l1;
+
+     label2:
+        $l0 = -1L;
+
+        goto label1;
+    }

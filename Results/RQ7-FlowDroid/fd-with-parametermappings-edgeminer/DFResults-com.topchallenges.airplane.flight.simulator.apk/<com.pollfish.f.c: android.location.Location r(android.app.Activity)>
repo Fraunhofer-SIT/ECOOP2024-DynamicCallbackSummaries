@@ -1,0 +1,129 @@
+    public static android.location.Location r(android.app.Activity)
+    {
+        android.content.pm.PackageManager $r1;
+        java.lang.Exception $r7, $r8, $r9;
+        int $i0;
+        java.lang.Object $r3;
+        java.lang.StringBuilder $r10;
+        java.lang.String $r2;
+        android.location.Location $r5, $r6;
+        android.app.Activity $r0;
+        android.location.LocationManager $r4;
+        double $d0;
+
+        $r0 := @parameter0: android.app.Activity;
+
+        staticinvoke <com.pollfish.f.b: void a(java.lang.String,java.lang.String)>("PollfishUtilities", "getUserLocationFromManager");
+
+        $r1 = virtualinvoke $r0.<android.app.Activity: android.content.pm.PackageManager getPackageManager()>();
+
+        $r2 = virtualinvoke $r0.<android.app.Activity: java.lang.String getPackageName()>();
+
+        $i0 = virtualinvoke $r1.<android.content.pm.PackageManager: int checkPermission(java.lang.String,java.lang.String)>("android.permission.ACCESS_COARSE_LOCATION", $r2);
+
+        if $i0 == 0 goto label01;
+
+        $r2 = virtualinvoke $r0.<android.app.Activity: java.lang.String getPackageName()>();
+
+        $i0 = virtualinvoke $r1.<android.content.pm.PackageManager: int checkPermission(java.lang.String,java.lang.String)>("android.permission.ACCESS_FINE_LOCATION", $r2);
+
+        if $i0 != 0 goto label13;
+
+     label01:
+        $r3 = virtualinvoke $r0.<android.app.Activity: java.lang.Object getSystemService(java.lang.String)>("location");
+
+        $r4 = (android.location.LocationManager) $r3;
+
+        staticinvoke <com.pollfish.f.b: void a(java.lang.String,java.lang.String)>("PollfishUtilities", "At least one location permission at place");
+
+     label02:
+        staticinvoke <com.pollfish.f.b: void a(java.lang.String,java.lang.String)>("PollfishUtilities", "getting last known location from LocationManager.GPS_PROVIDER");
+
+        $r5 = virtualinvoke $r4.<android.location.LocationManager: android.location.Location getLastKnownLocation(java.lang.String)>("gps");
+
+     label03:
+        if $r5 != null goto label14;
+
+     label04:
+        staticinvoke <com.pollfish.f.b: void a(java.lang.String,java.lang.String)>("PollfishUtilities", "getting last known location from LocationManager.NETWORK_PROVIDER");
+
+        $r6 = virtualinvoke $r4.<android.location.LocationManager: android.location.Location getLastKnownLocation(java.lang.String)>("network");
+
+     label05:
+        $r5 = $r6;
+
+     label06:
+        if $r5 != null goto label14;
+
+     label07:
+        staticinvoke <com.pollfish.f.b: void a(java.lang.String,java.lang.String)>("PollfishUtilities", "getting last known location from LocationManager.PASSIVE_PROVIDER");
+
+        $r6 = virtualinvoke $r4.<android.location.LocationManager: android.location.Location getLastKnownLocation(java.lang.String)>("passive");
+
+     label08:
+        $r5 = $r6;
+
+     label09:
+        if $r5 != null goto label14;
+
+        staticinvoke <com.pollfish.f.b: void a(java.lang.String,java.lang.String)>("PollfishUtilities", "Location == null");
+
+        return null;
+
+     label10:
+        $r7 := @caughtexception;
+
+        staticinvoke <com.pollfish.f.b: void b(java.lang.String,java.lang.String)>("PollfishUtilities", "Exception in getting last known location from LocationManager.GPS_PROVIDER");
+
+        $r5 = null;
+
+        goto label03;
+
+     label11:
+        $r8 := @caughtexception;
+
+        staticinvoke <com.pollfish.f.b: void b(java.lang.String,java.lang.String)>("PollfishUtilities", "Exception in getting known knwon location from LocationManager.NETWORK_PROVIDER");
+
+        goto label06;
+
+     label12:
+        $r9 := @caughtexception;
+
+        staticinvoke <com.pollfish.f.b: void b(java.lang.String,java.lang.String)>("PollfishUtilities", "Exception in getting last knwon location from LocationManager.NETWORK_PROVIDER");
+
+        goto label09;
+
+     label13:
+        staticinvoke <com.pollfish.f.b: void a(java.lang.String,java.lang.String)>("PollfishUtilities", "No location permission at place");
+
+        $r5 = null;
+
+        goto label09;
+
+     label14:
+        $r10 = new java.lang.StringBuilder;
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        $r10 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Location-> lat: ");
+
+        $d0 = virtualinvoke $r5.<android.location.Location: double getLatitude()>();
+
+        $r10 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(double)>($d0);
+
+        $r10 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" lon: ");
+
+        $d0 = virtualinvoke $r5.<android.location.Location: double getLongitude()>();
+
+        $r10 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(double)>($d0);
+
+        $r2 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.pollfish.f.b: void a(java.lang.String,java.lang.String)>("PollfishUtilities", $r2);
+
+        return $r5;
+
+        catch java.lang.Exception from label02 to label03 with label10;
+        catch java.lang.Exception from label04 to label05 with label11;
+        catch java.lang.Exception from label07 to label08 with label12;
+    }

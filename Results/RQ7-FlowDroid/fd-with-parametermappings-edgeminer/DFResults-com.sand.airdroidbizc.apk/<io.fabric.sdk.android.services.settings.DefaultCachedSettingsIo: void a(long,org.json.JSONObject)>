@@ -1,0 +1,108 @@
+    public final void a(long, org.json.JSONObject)
+    {
+        java.lang.Throwable $r11;
+        io.fabric.sdk.android.services.settings.DefaultCachedSettingsIo r0;
+        io.fabric.sdk.android.Kit $r8;
+        java.io.FileWriter $r4, $r5;
+        long $l0;
+        java.lang.Exception $r2, $r3;
+        java.io.File $r6, $r9;
+        org.json.JSONObject $r1;
+        io.fabric.sdk.android.services.persistence.FileStoreImpl $r7;
+        java.lang.String $r10;
+
+        r0 := @this: io.fabric.sdk.android.services.settings.DefaultCachedSettingsIo;
+
+        $l0 := @parameter0: long;
+
+        $r1 := @parameter1: org.json.JSONObject;
+
+        staticinvoke <io.fabric.sdk.android.Fabric: io.fabric.sdk.android.Logger d()>();
+
+        if $r1 == null goto label14;
+
+        $r4 = null;
+
+     label01:
+        virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,long)>("expires_at", $l0);
+
+     label02:
+        $r5 = new java.io.FileWriter;
+
+        $r6 = new java.io.File;
+
+        $r7 = new io.fabric.sdk.android.services.persistence.FileStoreImpl;
+
+     label03:
+        $r8 = r0.<io.fabric.sdk.android.services.settings.DefaultCachedSettingsIo: io.fabric.sdk.android.Kit a>;
+
+        specialinvoke $r7.<io.fabric.sdk.android.services.persistence.FileStoreImpl: void <init>(io.fabric.sdk.android.Kit)>($r8);
+
+        $r9 = virtualinvoke $r7.<io.fabric.sdk.android.services.persistence.FileStoreImpl: java.io.File c()>();
+
+        specialinvoke $r6.<java.io.File: void <init>(java.io.File,java.lang.String)>($r9, "com.crashlytics.settings.json");
+
+        specialinvoke $r5.<java.io.FileWriter: void <init>(java.io.File)>($r6);
+
+     label04:
+        $r10 = virtualinvoke $r1.<org.json.JSONObject: java.lang.String toString()>();
+
+        virtualinvoke $r5.<java.io.FileWriter: void write(java.lang.String)>($r10);
+
+        virtualinvoke $r5.<java.io.FileWriter: void flush()>();
+
+     label05:
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void a(java.io.Closeable)>($r5);
+
+        return;
+
+     label06:
+        $r11 := @caughtexception;
+
+        $r4 = $r5;
+
+        goto label11;
+
+     label07:
+        $r4 = $r5;
+
+        goto label09;
+
+     label08:
+        $r11 := @caughtexception;
+
+        goto label11;
+
+     label09:
+        staticinvoke <io.fabric.sdk.android.Fabric: io.fabric.sdk.android.Logger d()>();
+
+     label10:
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void a(java.io.Closeable)>($r4);
+
+        return;
+
+     label11:
+        staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: void a(java.io.Closeable)>($r4);
+
+        throw $r11;
+
+     label12:
+        $r2 := @caughtexception;
+
+        goto label09;
+
+     label13:
+        $r3 := @caughtexception;
+
+        goto label07;
+
+     label14:
+        return;
+
+        catch java.lang.Exception from label01 to label02 with label12;
+        catch java.lang.Exception from label03 to label04 with label12;
+        catch java.lang.Throwable from label01 to label04 with label08;
+        catch java.lang.Exception from label04 to label05 with label13;
+        catch java.lang.Throwable from label04 to label05 with label06;
+        catch java.lang.Throwable from label09 to label10 with label08;
+    }

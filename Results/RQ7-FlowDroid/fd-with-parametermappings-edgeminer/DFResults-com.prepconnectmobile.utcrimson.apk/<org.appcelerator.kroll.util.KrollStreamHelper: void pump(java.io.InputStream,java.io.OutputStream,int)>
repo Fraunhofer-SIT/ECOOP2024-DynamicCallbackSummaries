@@ -1,0 +1,41 @@
+    public static void pump(java.io.InputStream, java.io.OutputStream, int)
+    {
+        java.io.OutputStream $r1;
+        java.lang.Throwable r3;
+        byte[] r2;
+        int $i0;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $r1 := @parameter1: java.io.OutputStream;
+
+        $i0 := @parameter2: int;
+
+        r2 = newarray (byte)[1024];
+
+     label1:
+        $i0 = virtualinvoke $r0.<java.io.InputStream: int read(byte[])>(r2);
+
+     label2:
+        if $i0 == -1 goto label6;
+
+        if $r1 == null goto label1;
+
+     label3:
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[],int,int)>(r2, 0, $i0);
+
+     label4:
+        goto label1;
+
+     label5:
+        r3 := @caughtexception;
+
+        staticinvoke <org.appcelerator.kroll.common.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("KrollStreamHelper", "IOException pumping streams", r3);
+
+     label6:
+        return;
+
+        catch java.io.IOException from label1 to label2 with label5;
+        catch java.io.IOException from label3 to label4 with label5;
+    }

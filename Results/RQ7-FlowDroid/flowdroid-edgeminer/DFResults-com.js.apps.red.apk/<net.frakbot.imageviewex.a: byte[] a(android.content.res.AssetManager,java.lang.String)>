@@ -1,0 +1,159 @@
+    public static byte[] a(android.content.res.AssetManager, java.lang.String)
+    {
+        java.lang.Throwable $r5, $r8, $r9, $r10, $r11, $r12, $r13, $r14, $r15;
+        byte[] $r4;
+        java.io.ByteArrayOutputStream $r16;
+        android.content.res.AssetManager $r0;
+        int $i0;
+        java.lang.String $r1, $r6;
+        java.lang.StringBuilder $r7, $r17;
+        java.io.InputStream $r2, $r3;
+
+        $r0 := @parameter0: android.content.res.AssetManager;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r16 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r16.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label01:
+        $r2 = virtualinvoke $r0.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>($r1);
+
+     label02:
+        $r3 = $r2;
+
+     label03:
+        $i0 = virtualinvoke $r2.<java.io.InputStream: int read()>();
+
+     label04:
+        if $i0 != -1 goto label10;
+
+     label05:
+        $r4 = virtualinvoke $r16.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label06:
+        if $r2 == null goto label08;
+
+     label07:
+        virtualinvoke $r2.<java.io.InputStream: void close()>();
+
+     label08:
+        virtualinvoke $r16.<java.io.ByteArrayOutputStream: void close()>();
+
+     label09:
+        return $r4;
+
+     label10:
+        virtualinvoke $r16.<java.io.ByteArrayOutputStream: void write(int)>($i0);
+
+     label11:
+        goto label03;
+
+     label12:
+        $r5 := @caughtexception;
+
+     label13:
+        $r6 = <net.frakbot.imageviewex.a: java.lang.String a>;
+
+        $r17 = new java.lang.StringBuilder;
+
+     label14:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>(java.lang.String)>("Error while reading asset to byte array: ");
+
+        $r7 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int v(java.lang.String,java.lang.String,java.lang.Throwable)>($r6, $r1, $r5);
+
+     label15:
+        if $r3 == null goto label17;
+
+     label16:
+        virtualinvoke $r3.<java.io.InputStream: void close()>();
+
+     label17:
+        virtualinvoke $r16.<java.io.ByteArrayOutputStream: void close()>();
+
+     label18:
+        return null;
+
+     label19:
+        $r8 := @caughtexception;
+
+        return null;
+
+     label20:
+        $r9 := @caughtexception;
+
+        $r3 = null;
+
+        $r10 = $r9;
+
+     label21:
+        if $r3 == null goto label23;
+
+     label22:
+        virtualinvoke $r3.<java.io.InputStream: void close()>();
+
+     label23:
+        virtualinvoke $r16.<java.io.ByteArrayOutputStream: void close()>();
+
+     label24:
+        throw $r10;
+
+     label25:
+        $r11 := @caughtexception;
+
+        goto label17;
+
+     label26:
+        $r12 := @caughtexception;
+
+        goto label23;
+
+     label27:
+        $r13 := @caughtexception;
+
+        goto label24;
+
+     label28:
+        $r14 := @caughtexception;
+
+        goto label08;
+
+     label29:
+        $r15 := @caughtexception;
+
+        return $r4;
+
+     label30:
+        $r10 := @caughtexception;
+
+        goto label21;
+
+     label31:
+        $r5 := @caughtexception;
+
+        $r3 = null;
+
+        goto label13;
+
+        catch java.io.IOException from label01 to label02 with label31;
+        catch java.lang.Throwable from label01 to label02 with label20;
+        catch java.io.IOException from label03 to label04 with label12;
+        catch java.io.IOException from label05 to label06 with label12;
+        catch java.lang.Throwable from label03 to label04 with label30;
+        catch java.lang.Throwable from label05 to label06 with label30;
+        catch java.io.IOException from label07 to label08 with label28;
+        catch java.io.IOException from label08 to label09 with label29;
+        catch java.io.IOException from label10 to label11 with label12;
+        catch java.lang.Throwable from label10 to label11 with label30;
+        catch java.lang.Throwable from label13 to label14 with label30;
+        catch java.lang.Throwable from label14 to label15 with label30;
+        catch java.io.IOException from label16 to label17 with label25;
+        catch java.io.IOException from label17 to label18 with label19;
+        catch java.io.IOException from label22 to label23 with label26;
+        catch java.io.IOException from label23 to label24 with label27;
+    }

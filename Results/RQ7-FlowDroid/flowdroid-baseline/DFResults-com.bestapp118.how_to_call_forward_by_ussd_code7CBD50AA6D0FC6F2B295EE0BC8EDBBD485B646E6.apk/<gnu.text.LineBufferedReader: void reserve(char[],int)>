@@ -1,0 +1,161 @@
+    private void reserve(char[], int) throws java.io.IOException
+    {
+        gnu.text.LineBufferedReader r0;
+        int $i0, $i1, $i2, $i3, $i4;
+        char[] $r1, $r2;
+
+        r0 := @this: gnu.text.LineBufferedReader;
+
+        $r1 := @parameter0: char[];
+
+        $i1 := @parameter1: int;
+
+        $i2 = r0.<gnu.text.LineBufferedReader: int limit>;
+
+        $i2 = $i1 + $i2;
+
+        $i1 = lengthof $r1;
+
+        if $i2 > $i1 goto label01;
+
+        $i1 = 0;
+
+        goto label10;
+
+     label01:
+        $i1 = r0.<gnu.text.LineBufferedReader: int pos>;
+
+        $i3 = r0.<gnu.text.LineBufferedReader: int readAheadLimit>;
+
+        if $i3 <= 0 goto label04;
+
+        $i4 = r0.<gnu.text.LineBufferedReader: int markPos>;
+
+        if $i4 >= $i1 goto label04;
+
+        $i0 = $i1 - $i4;
+
+        if $i0 > $i3 goto label03;
+
+        $i0 = r0.<gnu.text.LineBufferedReader: int flags>;
+
+        $i0 = $i0 & 2;
+
+        if $i0 == 0 goto label02;
+
+        $i4 = $i2 - $i4;
+
+        $i0 = lengthof $r1;
+
+        if $i4 > $i0 goto label03;
+
+     label02:
+        $i1 = r0.<gnu.text.LineBufferedReader: int markPos>;
+
+        goto label04;
+
+     label03:
+        specialinvoke r0.<gnu.text.LineBufferedReader: void clearMark()>();
+
+     label04:
+        $i4 = lengthof $r1;
+
+        $i2 = $i2 - $i4;
+
+        if $i2 > $i1 goto label05;
+
+        $i4 = r0.<gnu.text.LineBufferedReader: int lineStartPos>;
+
+        if $i1 <= $i4 goto label09;
+
+        $i4 = r0.<gnu.text.LineBufferedReader: int flags>;
+
+        $i4 = $i4 & 8;
+
+        if $i4 != 0 goto label09;
+
+     label05:
+        $i4 = r0.<gnu.text.LineBufferedReader: int lineStartPos>;
+
+        if $i2 > $i4 goto label06;
+
+        if $i1 <= $i4 goto label06;
+
+        $i1 = $i4;
+
+        goto label09;
+
+     label06:
+        $i4 = r0.<gnu.text.LineBufferedReader: int flags>;
+
+        $i4 = $i4 & 2;
+
+        if $i4 == 0 goto label07;
+
+        $i2 = $i1 - $i2;
+
+        $i2 = $i2 >> 2;
+
+        $i1 = $i1 - $i2;
+
+        goto label09;
+
+     label07:
+        $i2 = r0.<gnu.text.LineBufferedReader: int lineStartPos>;
+
+        if $i2 < 0 goto label08;
+
+        $i1 = $i2;
+
+     label08:
+        $i2 = lengthof $r1;
+
+        $i2 = $i2 * 2;
+
+        $r1 = newarray (char)[$i2];
+
+     label09:
+        $i2 = r0.<gnu.text.LineBufferedReader: int lineStartPos>;
+
+        $i2 = $i2 - $i1;
+
+        r0.<gnu.text.LineBufferedReader: int lineStartPos> = $i2;
+
+        $i2 = r0.<gnu.text.LineBufferedReader: int limit>;
+
+        $i2 = $i2 - $i1;
+
+        r0.<gnu.text.LineBufferedReader: int limit> = $i2;
+
+        $i2 = r0.<gnu.text.LineBufferedReader: int markPos>;
+
+        $i2 = $i2 - $i1;
+
+        r0.<gnu.text.LineBufferedReader: int markPos> = $i2;
+
+        $i2 = r0.<gnu.text.LineBufferedReader: int pos>;
+
+        $i2 = $i2 - $i1;
+
+        r0.<gnu.text.LineBufferedReader: int pos> = $i2;
+
+        $i2 = r0.<gnu.text.LineBufferedReader: int highestPos>;
+
+        $i2 = $i2 - $i1;
+
+        r0.<gnu.text.LineBufferedReader: int highestPos> = $i2;
+
+     label10:
+        $i2 = r0.<gnu.text.LineBufferedReader: int limit>;
+
+        if $i2 <= 0 goto label11;
+
+        $r2 = r0.<gnu.text.LineBufferedReader: char[] buffer>;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($r2, $i1, $r1, 0, $i2);
+
+     label11:
+        r0.<gnu.text.LineBufferedReader: char[] buffer> = $r1;
+
+        return;
+    }

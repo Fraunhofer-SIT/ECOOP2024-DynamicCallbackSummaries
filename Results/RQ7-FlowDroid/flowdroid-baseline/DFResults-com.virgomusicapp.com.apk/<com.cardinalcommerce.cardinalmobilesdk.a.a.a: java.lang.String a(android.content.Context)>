@@ -1,0 +1,79 @@
+    private java.lang.String a(android.content.Context)
+    {
+        java.lang.Throwable $r1;
+        android.content.Context $r2;
+        android.content.pm.PackageManager $r5;
+        long $l0, $l1;
+        com.cardinalcommerce.shared.cs.utils.g $r3;
+        java.util.UUID $r10;
+        android.content.pm.PackageInfo $r7;
+        com.cardinalcommerce.cardinalmobilesdk.a.a.a r0;
+        byte $b2;
+        com.cardinalcommerce.cardinalmobilesdk.a.a.c $r9;
+        com.cardinalcommerce.cardinalmobilesdk.a.d.b $r8;
+        java.lang.String $r4, $r6;
+
+        r0 := @this: com.cardinalcommerce.cardinalmobilesdk.a.a.a;
+
+        $r2 := @parameter0: android.content.Context;
+
+        $r3 = staticinvoke <com.cardinalcommerce.shared.cs.utils.g: com.cardinalcommerce.shared.cs.utils.g a(android.content.Context)>($r2);
+
+        $r4 = virtualinvoke $r3.<com.cardinalcommerce.shared.cs.utils.g: java.lang.String b(java.lang.String,java.lang.String)>("SDKAppID", null);
+
+        $l0 = virtualinvoke $r3.<com.cardinalcommerce.shared.cs.utils.g: long b(java.lang.String,long)>("LastUpdatedTime", 0L);
+
+     label1:
+        $r5 = virtualinvoke $r2.<android.content.Context: android.content.pm.PackageManager getPackageManager()>();
+
+        $r6 = virtualinvoke $r2.<android.content.Context: java.lang.String getPackageName()>();
+
+        $r7 = virtualinvoke $r5.<android.content.pm.PackageManager: android.content.pm.PackageInfo getPackageInfo(java.lang.String,int)>($r6, 0);
+
+     label2:
+        $l1 = $r7.<android.content.pm.PackageInfo: long lastUpdateTime>;
+
+        goto label4;
+
+     label3:
+        $r8 = <com.cardinalcommerce.cardinalmobilesdk.a.a.a: com.cardinalcommerce.cardinalmobilesdk.a.d.b k>;
+
+        $r9 = new com.cardinalcommerce.cardinalmobilesdk.a.a.c;
+
+        specialinvoke $r9.<com.cardinalcommerce.cardinalmobilesdk.a.a.c: void <init>(int)>(10220);
+
+        virtualinvoke $r8.<com.cardinalcommerce.cardinalmobilesdk.a.d.b: void a(com.cardinalcommerce.cardinalmobilesdk.a.a.c,java.lang.String)>($r9, null);
+
+        $l1 = 0L;
+
+     label4:
+        if $r4 == null goto label5;
+
+        $b2 = $l0 cmp 0L;
+
+        if $b2 == 0 goto label5;
+
+        $b2 = $l0 cmp $l1;
+
+        if $b2 != 0 goto label5;
+
+        return $r4;
+
+     label5:
+        $r10 = staticinvoke <java.util.UUID: java.util.UUID randomUUID()>();
+
+        $r4 = virtualinvoke $r10.<java.util.UUID: java.lang.String toString()>();
+
+        virtualinvoke $r3.<com.cardinalcommerce.shared.cs.utils.g: void a(java.lang.String,java.lang.String)>("SDKAppID", $r4);
+
+        virtualinvoke $r3.<com.cardinalcommerce.shared.cs.utils.g: void a(java.lang.String,long)>("LastUpdatedTime", $l1);
+
+        return $r4;
+
+     label6:
+        $r1 := @caughtexception;
+
+        goto label3;
+
+        catch android.content.pm.PackageManager$NameNotFoundException from label1 to label2 with label6;
+    }

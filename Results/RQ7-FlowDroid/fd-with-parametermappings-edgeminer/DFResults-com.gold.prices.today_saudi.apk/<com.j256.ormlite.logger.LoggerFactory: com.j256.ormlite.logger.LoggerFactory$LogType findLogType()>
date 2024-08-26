@@ -1,0 +1,83 @@
+    private static com.j256.ormlite.logger.LoggerFactory$LogType findLogType()
+    {
+        java.lang.Throwable $r0;
+        com.j256.ormlite.logger.LocalLog $r3;
+        com.j256.ormlite.logger.LoggerFactory$LogType $r2;
+        com.j256.ormlite.logger.Log$Level $r6;
+        int $i0, $i1;
+        java.lang.Class $r4;
+        java.lang.StringBuilder $r7;
+        java.lang.String $r1, $r5;
+        com.j256.ormlite.logger.LoggerFactory$LogType[] $r8;
+        boolean $z0;
+
+        $r1 = staticinvoke <java.lang.System: java.lang.String getProperty(java.lang.String)>("com.j256.ormlite.logger.type");
+
+        if $r1 == null goto label4;
+
+     label1:
+        $r2 = staticinvoke <com.j256.ormlite.logger.LoggerFactory$LogType: com.j256.ormlite.logger.LoggerFactory$LogType valueOf(java.lang.String)>($r1);
+
+     label2:
+        return $r2;
+
+     label3:
+        $r3 = new com.j256.ormlite.logger.LocalLog;
+
+        $r4 = class "Lcom/j256/ormlite/logger/LoggerFactory;";
+
+        $r5 = virtualinvoke $r4.<java.lang.Class: java.lang.String getName()>();
+
+        specialinvoke $r3.<com.j256.ormlite.logger.LocalLog: void <init>(java.lang.String)>($r5);
+
+        $r6 = <com.j256.ormlite.logger.Log$Level: com.j256.ormlite.logger.Log$Level WARNING>;
+
+        $r7 = new java.lang.StringBuilder;
+
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Could not find valid log-type from system property \'com.j256.ormlite.logger.type\', value \'");
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\'");
+
+        $r1 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        interfaceinvoke $r3.<com.j256.ormlite.logger.Log: void log(com.j256.ormlite.logger.Log$Level,java.lang.String)>($r6, $r1);
+
+     label4:
+        $r8 = staticinvoke <com.j256.ormlite.logger.LoggerFactory$LogType: com.j256.ormlite.logger.LoggerFactory$LogType[] values()>();
+
+        $i0 = lengthof $r8;
+
+        $i1 = 0;
+
+     label5:
+        if $i1 >= $i0 goto label7;
+
+        $r2 = $r8[$i1];
+
+        $z0 = virtualinvoke $r2.<com.j256.ormlite.logger.LoggerFactory$LogType: boolean isAvailable()>();
+
+        if $z0 == 0 goto label6;
+
+        return $r2;
+
+     label6:
+        $i1 = $i1 + 1;
+
+        goto label5;
+
+     label7:
+        $r2 = <com.j256.ormlite.logger.LoggerFactory$LogType: com.j256.ormlite.logger.LoggerFactory$LogType LOCAL>;
+
+        return $r2;
+
+     label8:
+        $r0 := @caughtexception;
+
+        goto label3;
+
+        catch java.lang.IllegalArgumentException from label1 to label2 with label8;
+    }

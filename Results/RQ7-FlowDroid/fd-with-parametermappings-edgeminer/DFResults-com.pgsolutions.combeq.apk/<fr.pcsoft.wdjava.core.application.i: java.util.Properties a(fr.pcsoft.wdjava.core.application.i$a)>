@@ -1,0 +1,132 @@
+    private static final java.util.Properties a(fr.pcsoft.wdjava.core.application.i$a)
+    {
+        java.lang.Throwable $r13, $r14;
+        java.util.Properties $r3;
+        fr.pcsoft.wdjava.core.application.a $r7, $r8;
+        fr.pcsoft.wdjava.core.application.i$a $r1, $r2;
+        java.util.HashMap $r4;
+        java.lang.StringBuilder $r0;
+        java.lang.Object $r5;
+        java.lang.Class $r10;
+        java.lang.String $r9;
+        java.lang.ClassLoader $r11;
+        java.io.InputStream $r6, $r12;
+
+        $r1 := @parameter0: fr.pcsoft.wdjava.core.application.i$a;
+
+        $r2 = <fr.pcsoft.wdjava.core.application.i$a: fr.pcsoft.wdjava.core.application.i$a ca>;
+
+        if $r1 != $r2 goto label01;
+
+        $r3 = staticinvoke <java.lang.System: java.util.Properties getProperties()>();
+
+        return $r3;
+
+     label01:
+        $r4 = <fr.pcsoft.wdjava.core.application.i: java.util.HashMap T>;
+
+        $r5 = virtualinvoke $r4.<java.util.HashMap: java.lang.Object get(java.lang.Object)>($r1);
+
+        $r3 = (java.util.Properties) $r5;
+
+        if $r3 != null goto label20;
+
+        $r3 = new java.util.Properties;
+
+        specialinvoke $r3.<java.util.Properties: void <init>()>();
+
+        $r6 = null;
+
+     label02:
+        $r7 = staticinvoke <fr.pcsoft.wdjava.core.utils.a0: fr.pcsoft.wdjava.core.application.a j()>();
+
+     label03:
+        $r8 = <fr.pcsoft.wdjava.core.application.a: fr.pcsoft.wdjava.core.application.a ea>;
+
+     label04:
+        if $r7 != $r8 goto label05;
+
+        $r9 = "raw";
+
+        goto label06;
+
+     label05:
+        $r9 = "proprietes";
+
+     label06:
+        $r10 = class "Lfr/pcsoft/wdjava/core/application/i;";
+
+     label07:
+        $r11 = virtualinvoke $r10.<java.lang.Class: java.lang.ClassLoader getClassLoader()>();
+
+     label08:
+        $r0 = new java.lang.StringBuilder;
+
+     label09:
+        specialinvoke $r0.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r0.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("res/");
+
+        virtualinvoke $r0.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        virtualinvoke $r0.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        $r9 = virtualinvoke $r1.<fr.pcsoft.wdjava.core.application.i$a: java.lang.String a()>();
+
+        virtualinvoke $r0.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        $r9 = virtualinvoke $r0.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r12 = virtualinvoke $r11.<java.lang.ClassLoader: java.io.InputStream getResourceAsStream(java.lang.String)>($r9);
+
+     label10:
+        $r6 = $r12;
+
+        if $r12 == null goto label18;
+
+     label11:
+        virtualinvoke $r3.<java.util.Properties: void load(java.io.InputStream)>($r12);
+
+     label12:
+        $r4 = <fr.pcsoft.wdjava.core.application.i: java.util.HashMap T>;
+
+     label13:
+        virtualinvoke $r4.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>($r1, $r3);
+
+     label14:
+        goto label18;
+
+     label15:
+        $r13 := @caughtexception;
+
+        goto label19;
+
+     label16:
+        $r14 := @caughtexception;
+
+     label17:
+        staticinvoke <fr.pcsoft.wdjava.core.debug.a: void a(java.lang.String,java.lang.Throwable)>("Impossible de charger les propri\u00e9t\u00e9s de build.", $r14);
+
+     label18:
+        staticinvoke <fr.pcsoft.wdjava.core.utils.z: void a(java.io.Closeable)>($r6);
+
+        return $r3;
+
+     label19:
+        staticinvoke <fr.pcsoft.wdjava.core.utils.z: void a(java.io.Closeable)>($r6);
+
+        throw $r13;
+
+     label20:
+        return $r3;
+
+        catch java.io.IOException from label02 to label03 with label16;
+        catch java.io.IOException from label07 to label08 with label16;
+        catch java.io.IOException from label09 to label10 with label16;
+        catch java.io.IOException from label11 to label12 with label16;
+        catch java.io.IOException from label13 to label14 with label16;
+        catch java.lang.Throwable from label02 to label04 with label15;
+        catch java.lang.Throwable from label07 to label10 with label15;
+        catch java.lang.Throwable from label11 to label14 with label15;
+        catch java.lang.Throwable from label17 to label18 with label15;
+    }

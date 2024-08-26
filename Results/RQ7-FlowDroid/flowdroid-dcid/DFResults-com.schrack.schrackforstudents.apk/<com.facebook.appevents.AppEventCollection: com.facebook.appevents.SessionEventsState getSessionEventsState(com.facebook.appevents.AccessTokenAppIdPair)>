@@ -1,0 +1,80 @@
+    private final com.facebook.appevents.SessionEventsState getSessionEventsState(com.facebook.appevents.AccessTokenAppIdPair)
+    {
+        java.lang.Throwable $r10;
+        android.content.Context $r6;
+        com.facebook.internal.AttributionIdentifiers$Companion $r7;
+        java.util.HashMap $r3;
+        com.facebook.appevents.SessionEventsState $r5;
+        com.facebook.appevents.AppEventsLogger$Companion $r1;
+        com.facebook.appevents.AccessTokenAppIdPair $r2;
+        java.lang.Object $r4;
+        com.facebook.internal.AttributionIdentifiers $r8;
+        java.lang.String $r9;
+        com.facebook.appevents.AppEventCollection r0;
+
+        r0 := @this: com.facebook.appevents.AppEventCollection;
+
+        $r2 := @parameter0: com.facebook.appevents.AccessTokenAppIdPair;
+
+        entermonitor r0;
+
+     label1:
+        $r3 = r0.<com.facebook.appevents.AppEventCollection: java.util.HashMap stateMap>;
+
+        $r4 = virtualinvoke $r3.<java.util.HashMap: java.lang.Object get(java.lang.Object)>($r2);
+
+        $r5 = (com.facebook.appevents.SessionEventsState) $r4;
+
+        if $r5 != null goto label5;
+
+        $r6 = staticinvoke <com.facebook.FacebookSdk: android.content.Context getApplicationContext()>();
+
+        $r7 = <com.facebook.internal.AttributionIdentifiers: com.facebook.internal.AttributionIdentifiers$Companion Companion>;
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkNotNullExpressionValue(java.lang.Object,java.lang.String)>($r6, "context");
+
+        $r8 = virtualinvoke $r7.<com.facebook.internal.AttributionIdentifiers$Companion: com.facebook.internal.AttributionIdentifiers getAttributionIdentifiers(android.content.Context)>($r6);
+
+        if $r8 == null goto label3;
+
+        $r5 = new com.facebook.appevents.SessionEventsState;
+
+        $r1 = <com.facebook.appevents.AppEventsLogger: com.facebook.appevents.AppEventsLogger$Companion Companion>;
+
+        $r9 = virtualinvoke $r1.<com.facebook.appevents.AppEventsLogger$Companion: java.lang.String getAnonymousAppDeviceGUID(android.content.Context)>($r6);
+
+        specialinvoke $r5.<com.facebook.appevents.SessionEventsState: void <init>(com.facebook.internal.AttributionIdentifiers,java.lang.String)>($r8, $r9);
+
+     label2:
+        goto label4;
+
+     label3:
+        $r5 = null;
+
+     label4:
+        if $r5 != null goto label5;
+
+        exitmonitor r0;
+
+        return null;
+
+     label5:
+        $r3 = r0.<com.facebook.appevents.AppEventCollection: java.util.HashMap stateMap>;
+
+        interfaceinvoke $r3.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($r2, $r5);
+
+     label6:
+        exitmonitor r0;
+
+        return $r5;
+
+     label7:
+        $r10 := @caughtexception;
+
+        exitmonitor r0;
+
+        throw $r10;
+
+        catch java.lang.Throwable from label1 to label2 with label7;
+        catch java.lang.Throwable from label5 to label6 with label7;
+    }

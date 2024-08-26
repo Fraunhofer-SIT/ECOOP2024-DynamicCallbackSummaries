@@ -1,0 +1,511 @@
+    public void writeTo(java.io.OutputStream) throws java.io.IOException
+    {
+        java.lang.Throwable $r11;
+        byte[] $r9;
+        java.lang.IllegalStateException $r18;
+        long l0, $l3;
+        com.loopj.android.http.RequestParams$StreamWrapper r12;
+        java.util.Map $r4;
+        int $i1, i2, $i4;
+        java.lang.Boolean r14;
+        java.lang.String r8;
+        java.lang.Number r16;
+        boolean z0, $z1;
+        com.loopj.android.http.JsonValueInterface r13;
+        double $d0;
+        java.io.OutputStream $r1;
+        java.util.Iterator $r6;
+        java.util.Set $r5;
+        cz.msebera.android.httpclient.Header $r2;
+        com.loopj.android.http.RequestParams$FileWrapper r10;
+        com.loopj.android.http.JsonStreamerEntity r0;
+        float $f0;
+        java.lang.Object r3, $r7;
+        java.lang.StringBuilder $r15, $r20;
+        java.util.zip.GZIPOutputStream $r19;
+        com.loopj.android.http.LogInterface $r17;
+
+        r0 := @this: com.loopj.android.http.JsonStreamerEntity;
+
+        $r1 := @parameter0: java.io.OutputStream;
+
+        if $r1 != null goto label01;
+
+        $r18 = new java.lang.IllegalStateException;
+
+        specialinvoke $r18.<java.lang.IllegalStateException: void <init>(java.lang.String)>("Output stream cannot be null.");
+
+        throw $r18;
+
+     label01:
+        l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $r2 = r0.<com.loopj.android.http.JsonStreamerEntity: cz.msebera.android.httpclient.Header contentEncoding>;
+
+        if $r2 == null goto label09;
+
+        $r19 = new java.util.zip.GZIPOutputStream;
+
+        r3 = $r19;
+
+        specialinvoke $r19.<java.util.zip.GZIPOutputStream: void <init>(java.io.OutputStream,int)>($r1, 4096);
+
+     label02:
+        $r1 = (java.io.OutputStream) r3;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(int)>(123);
+
+        $r4 = r0.<com.loopj.android.http.JsonStreamerEntity: java.util.Map jsonParams>;
+
+        $r5 = interfaceinvoke $r4.<java.util.Map: java.util.Set keySet()>();
+
+        $i1 = interfaceinvoke $r5.<java.util.Set: int size()>();
+
+        if $i1 <= 0 goto label69;
+
+        i2 = 0;
+
+        $r6 = interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>();
+
+     label03:
+        z0 = interfaceinvoke $r6.<java.util.Iterator: boolean hasNext()>();
+
+        if z0 == 0 goto label67;
+
+        $r7 = interfaceinvoke $r6.<java.util.Iterator: java.lang.Object next()>();
+
+        r8 = (java.lang.String) $r7;
+
+        i2 = i2 + 1;
+
+     label04:
+        $r4 = r0.<com.loopj.android.http.JsonStreamerEntity: java.util.Map jsonParams>;
+
+        $r7 = interfaceinvoke $r4.<java.util.Map: java.lang.Object get(java.lang.Object)>(r8);
+
+        $r9 = staticinvoke <com.loopj.android.http.JsonStreamerEntity: byte[] escape(java.lang.String)>(r8);
+
+        $r1 = (java.io.OutputStream) r3;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[])>($r9);
+
+        $r1 = (java.io.OutputStream) r3;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(int)>(58);
+
+     label05:
+        if $r7 != null goto label10;
+
+     label06:
+        $r9 = <com.loopj.android.http.JsonStreamerEntity: byte[] JSON_NULL>;
+
+        $r1 = (java.io.OutputStream) r3;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[])>($r9);
+
+     label07:
+        $r9 = r0.<com.loopj.android.http.JsonStreamerEntity: byte[] elapsedField>;
+
+        if $r9 != null goto label08;
+
+        if i2 >= $i1 goto label03;
+
+     label08:
+        $r1 = (java.io.OutputStream) r3;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(int)>(44);
+
+        goto label03;
+
+     label09:
+        r3 = $r1;
+
+        goto label02;
+
+     label10:
+        z0 = $r7 instanceof com.loopj.android.http.RequestParams$FileWrapper;
+
+     label11:
+        if z0 != 0 goto label14;
+
+     label12:
+        $z1 = $r7 instanceof com.loopj.android.http.RequestParams$StreamWrapper;
+
+     label13:
+        if $z1 == 0 goto label24;
+
+     label14:
+        $r1 = (java.io.OutputStream) r3;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(int)>(123);
+
+     label15:
+        if z0 == 0 goto label22;
+
+     label16:
+        r10 = (com.loopj.android.http.RequestParams$FileWrapper) $r7;
+
+        $r1 = (java.io.OutputStream) r3;
+
+        specialinvoke r0.<com.loopj.android.http.JsonStreamerEntity: void writeToFromFile(java.io.OutputStream,com.loopj.android.http.RequestParams$FileWrapper)>($r1, r10);
+
+     label17:
+        $r1 = (java.io.OutputStream) r3;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(int)>(125);
+
+     label18:
+        goto label07;
+
+     label19:
+        $r11 := @caughtexception;
+
+        $r9 = r0.<com.loopj.android.http.JsonStreamerEntity: byte[] elapsedField>;
+
+        if $r9 != null goto label20;
+
+        if i2 >= $i1 goto label21;
+
+     label20:
+        $r1 = (java.io.OutputStream) r3;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(int)>(44);
+
+     label21:
+        throw $r11;
+
+     label22:
+        r12 = (com.loopj.android.http.RequestParams$StreamWrapper) $r7;
+
+        $r1 = (java.io.OutputStream) r3;
+
+        specialinvoke r0.<com.loopj.android.http.JsonStreamerEntity: void writeToFromStream(java.io.OutputStream,com.loopj.android.http.RequestParams$StreamWrapper)>($r1, r12);
+
+     label23:
+        goto label17;
+
+     label24:
+        z0 = $r7 instanceof com.loopj.android.http.JsonValueInterface;
+
+     label25:
+        if z0 == 0 goto label28;
+
+     label26:
+        r13 = (com.loopj.android.http.JsonValueInterface) $r7;
+
+        $r9 = interfaceinvoke r13.<com.loopj.android.http.JsonValueInterface: byte[] getEscapedJsonValue()>();
+
+        $r1 = (java.io.OutputStream) r3;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[])>($r9);
+
+     label27:
+        goto label07;
+
+     label28:
+        z0 = $r7 instanceof org.json.JSONObject;
+
+     label29:
+        if z0 == 0 goto label32;
+
+     label30:
+        r8 = virtualinvoke $r7.<java.lang.Object: java.lang.String toString()>();
+
+        $r9 = virtualinvoke r8.<java.lang.String: byte[] getBytes()>();
+
+        $r1 = (java.io.OutputStream) r3;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[])>($r9);
+
+     label31:
+        goto label07;
+
+     label32:
+        z0 = $r7 instanceof org.json.JSONArray;
+
+     label33:
+        if z0 == 0 goto label36;
+
+     label34:
+        r8 = virtualinvoke $r7.<java.lang.Object: java.lang.String toString()>();
+
+        $r9 = virtualinvoke r8.<java.lang.String: byte[] getBytes()>();
+
+        $r1 = (java.io.OutputStream) r3;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[])>($r9);
+
+     label35:
+        goto label07;
+
+     label36:
+        z0 = $r7 instanceof java.lang.Boolean;
+
+     label37:
+        if z0 == 0 goto label45;
+
+     label38:
+        r14 = (java.lang.Boolean) $r7;
+
+        z0 = virtualinvoke r14.<java.lang.Boolean: boolean booleanValue()>();
+
+     label39:
+        if z0 == 0 goto label43;
+
+     label40:
+        $r9 = <com.loopj.android.http.JsonStreamerEntity: byte[] JSON_TRUE>;
+
+     label41:
+        $r1 = (java.io.OutputStream) r3;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[])>($r9);
+
+     label42:
+        goto label07;
+
+     label43:
+        $r9 = <com.loopj.android.http.JsonStreamerEntity: byte[] JSON_FALSE>;
+
+     label44:
+        goto label41;
+
+     label45:
+        z0 = $r7 instanceof java.lang.Long;
+
+     label46:
+        if z0 == 0 goto label50;
+
+     label47:
+        $r20 = new java.lang.StringBuilder;
+
+     label48:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        r16 = (java.lang.Number) $r7;
+
+        $l3 = virtualinvoke r16.<java.lang.Number: long longValue()>();
+
+        $r15 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l3);
+
+        $r15 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("");
+
+        r8 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r9 = virtualinvoke r8.<java.lang.String: byte[] getBytes()>();
+
+        $r1 = (java.io.OutputStream) r3;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[])>($r9);
+
+     label49:
+        goto label07;
+
+     label50:
+        z0 = $r7 instanceof java.lang.Double;
+
+     label51:
+        if z0 == 0 goto label55;
+
+     label52:
+        $r20 = new java.lang.StringBuilder;
+
+     label53:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        r16 = (java.lang.Number) $r7;
+
+        $d0 = virtualinvoke r16.<java.lang.Number: double doubleValue()>();
+
+        $r15 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(double)>($d0);
+
+        $r15 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("");
+
+        r8 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r9 = virtualinvoke r8.<java.lang.String: byte[] getBytes()>();
+
+        $r1 = (java.io.OutputStream) r3;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[])>($r9);
+
+     label54:
+        goto label07;
+
+     label55:
+        z0 = $r7 instanceof java.lang.Float;
+
+     label56:
+        if z0 == 0 goto label60;
+
+     label57:
+        $r20 = new java.lang.StringBuilder;
+
+     label58:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        r16 = (java.lang.Number) $r7;
+
+        $f0 = virtualinvoke r16.<java.lang.Number: float floatValue()>();
+
+        $r15 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(float)>($f0);
+
+        $r15 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("");
+
+        r8 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r9 = virtualinvoke r8.<java.lang.String: byte[] getBytes()>();
+
+        $r1 = (java.io.OutputStream) r3;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[])>($r9);
+
+     label59:
+        goto label07;
+
+     label60:
+        z0 = $r7 instanceof java.lang.Integer;
+
+     label61:
+        if z0 == 0 goto label65;
+
+     label62:
+        $r20 = new java.lang.StringBuilder;
+
+     label63:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        r16 = (java.lang.Number) $r7;
+
+        $i4 = virtualinvoke r16.<java.lang.Number: int intValue()>();
+
+        $r15 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i4);
+
+        $r15 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("");
+
+        r8 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r9 = virtualinvoke r8.<java.lang.String: byte[] getBytes()>();
+
+        $r1 = (java.io.OutputStream) r3;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[])>($r9);
+
+     label64:
+        goto label07;
+
+     label65:
+        r8 = virtualinvoke $r7.<java.lang.Object: java.lang.String toString()>();
+
+        $r9 = staticinvoke <com.loopj.android.http.JsonStreamerEntity: byte[] escape(java.lang.String)>(r8);
+
+        $r1 = (java.io.OutputStream) r3;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[])>($r9);
+
+     label66:
+        goto label07;
+
+     label67:
+        $l3 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        l0 = $l3 - l0;
+
+        $r9 = r0.<com.loopj.android.http.JsonStreamerEntity: byte[] elapsedField>;
+
+        if $r9 == null goto label68;
+
+        $r9 = r0.<com.loopj.android.http.JsonStreamerEntity: byte[] elapsedField>;
+
+        $r1 = (java.io.OutputStream) r3;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[])>($r9);
+
+        $r1 = (java.io.OutputStream) r3;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(int)>(58);
+
+        $r20 = new java.lang.StringBuilder;
+
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r15 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>(l0);
+
+        $r15 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("");
+
+        r8 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r9 = virtualinvoke r8.<java.lang.String: byte[] getBytes()>();
+
+        $r1 = (java.io.OutputStream) r3;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[])>($r9);
+
+     label68:
+        $r17 = <com.loopj.android.http.AsyncHttpClient: com.loopj.android.http.LogInterface log>;
+
+        $r20 = new java.lang.StringBuilder;
+
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        $r15 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Uploaded JSON in ");
+
+        l0 = l0 / 1000L;
+
+        $d0 = (double) l0;
+
+        $d0 = staticinvoke <java.lang.Math: double floor(double)>($d0);
+
+        $r15 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(double)>($d0);
+
+        $r15 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" seconds");
+
+        r8 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        interfaceinvoke $r17.<com.loopj.android.http.LogInterface: void i(java.lang.String,java.lang.String)>("JsonStreamerEntity", r8);
+
+     label69:
+        $r1 = (java.io.OutputStream) r3;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(int)>(125);
+
+        $r1 = (java.io.OutputStream) r3;
+
+        virtualinvoke $r1.<java.io.OutputStream: void flush()>();
+
+        $r1 = (java.io.OutputStream) r3;
+
+        staticinvoke <com.loopj.android.http.AsyncHttpClient: void silentCloseOutputStream(java.io.OutputStream)>($r1);
+
+        return;
+
+        catch java.lang.Throwable from label04 to label05 with label19;
+        catch java.lang.Throwable from label06 to label07 with label19;
+        catch java.lang.Throwable from label10 to label11 with label19;
+        catch java.lang.Throwable from label12 to label13 with label19;
+        catch java.lang.Throwable from label14 to label15 with label19;
+        catch java.lang.Throwable from label16 to label18 with label19;
+        catch java.lang.Throwable from label22 to label23 with label19;
+        catch java.lang.Throwable from label24 to label25 with label19;
+        catch java.lang.Throwable from label26 to label27 with label19;
+        catch java.lang.Throwable from label28 to label29 with label19;
+        catch java.lang.Throwable from label30 to label31 with label19;
+        catch java.lang.Throwable from label32 to label33 with label19;
+        catch java.lang.Throwable from label34 to label35 with label19;
+        catch java.lang.Throwable from label36 to label37 with label19;
+        catch java.lang.Throwable from label38 to label39 with label19;
+        catch java.lang.Throwable from label40 to label42 with label19;
+        catch java.lang.Throwable from label43 to label44 with label19;
+        catch java.lang.Throwable from label45 to label46 with label19;
+        catch java.lang.Throwable from label47 to label48 with label19;
+        catch java.lang.Throwable from label48 to label49 with label19;
+        catch java.lang.Throwable from label50 to label51 with label19;
+        catch java.lang.Throwable from label52 to label53 with label19;
+        catch java.lang.Throwable from label53 to label54 with label19;
+        catch java.lang.Throwable from label55 to label56 with label19;
+        catch java.lang.Throwable from label57 to label58 with label19;
+        catch java.lang.Throwable from label58 to label59 with label19;
+        catch java.lang.Throwable from label60 to label61 with label19;
+        catch java.lang.Throwable from label62 to label63 with label19;
+        catch java.lang.Throwable from label63 to label64 with label19;
+        catch java.lang.Throwable from label65 to label66 with label19;
+    }

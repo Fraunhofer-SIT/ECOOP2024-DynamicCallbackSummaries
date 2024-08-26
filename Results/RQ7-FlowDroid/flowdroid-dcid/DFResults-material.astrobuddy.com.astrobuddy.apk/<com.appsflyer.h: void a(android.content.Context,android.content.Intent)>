@@ -1,0 +1,103 @@
+    public final void a(android.content.Context, android.content.Intent)
+    {
+        android.content.SharedPreferences$Editor $r8;
+        com.appsflyer.h r0;
+        android.content.Context $r1;
+        android.content.Intent $r2;
+        android.content.SharedPreferences $r7;
+        com.appsflyer.p $r4;
+        java.lang.StringBuilder $r5;
+        java.lang.String $r3, $r6;
+        boolean $z0;
+
+        r0 := @this: com.appsflyer.h;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $r2 := @parameter1: android.content.Intent;
+
+        $r3 = virtualinvoke $r2.<android.content.Intent: java.lang.String getStringExtra(java.lang.String)>("shouldMonitor");
+
+        if $r3 == null goto label1;
+
+        staticinvoke <com.appsflyer.a: void a(java.lang.String)>("Turning on monitoring.");
+
+        $r4 = staticinvoke <com.appsflyer.p: com.appsflyer.p a()>();
+
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean equals(java.lang.Object)>("true");
+
+        virtualinvoke $r4.<com.appsflyer.p: void a(java.lang.String,boolean)>("shouldMonitor", $z0);
+
+        $r3 = virtualinvoke $r1.<android.content.Context: java.lang.String getPackageName()>();
+
+        staticinvoke <com.appsflyer.h: void a(android.content.Context,java.lang.String,java.lang.String,java.lang.String)>($r1, null, "START_TRACKING", $r3);
+
+        return;
+
+     label1:
+        staticinvoke <com.appsflyer.a: void a(java.lang.String)>("****** onReceive called *******");
+
+        staticinvoke <com.appsflyer.h: void a(java.lang.String,java.lang.String,android.content.Context)>("******* onReceive: ", "", $r1);
+
+        $r4 = staticinvoke <com.appsflyer.p: com.appsflyer.p a()>();
+
+        virtualinvoke $r4.<com.appsflyer.p: void b()>();
+
+        $r3 = virtualinvoke $r2.<android.content.Intent: java.lang.String getStringExtra(java.lang.String)>("referrer");
+
+        $r5 = new java.lang.StringBuilder;
+
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>(java.lang.String)>("Play store referrer: ");
+
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.appsflyer.a: void a(java.lang.String)>($r6);
+
+        if $r3 == null goto label3;
+
+        $r6 = virtualinvoke $r2.<android.content.Intent: java.lang.String getStringExtra(java.lang.String)>("TestIntegrationMode");
+
+        if $r6 == null goto label2;
+
+        $z0 = virtualinvoke $r6.<java.lang.String: boolean equals(java.lang.Object)>("AppsFlyer_Test");
+
+        if $z0 == 0 goto label2;
+
+        $r7 = virtualinvoke $r1.<android.content.Context: android.content.SharedPreferences getSharedPreferences(java.lang.String,int)>("appsflyer-data", 0);
+
+        $r8 = interfaceinvoke $r7.<android.content.SharedPreferences: android.content.SharedPreferences$Editor edit()>();
+
+        interfaceinvoke $r8.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor clear()>();
+
+        staticinvoke <com.appsflyer.h: void a(android.content.SharedPreferences$Editor)>($r8);
+
+        $r4 = staticinvoke <com.appsflyer.p: com.appsflyer.p a()>();
+
+        virtualinvoke $r4.<com.appsflyer.p: void d()>();
+
+        specialinvoke r0.<com.appsflyer.h: void f()>();
+
+     label2:
+        staticinvoke <com.appsflyer.h: void a(java.lang.String,java.lang.String,android.content.Context)>("onReceive called. referrer: ", $r3, $r1);
+
+        staticinvoke <com.appsflyer.h: void b(android.content.Context,java.lang.String,java.lang.String)>($r1, "referrer", $r3);
+
+        $r4 = staticinvoke <com.appsflyer.p: com.appsflyer.p a()>();
+
+        virtualinvoke $r4.<com.appsflyer.p: void b(java.lang.String)>($r3);
+
+        $r4 = staticinvoke <com.appsflyer.p: com.appsflyer.p a()>();
+
+        $z0 = virtualinvoke $r4.<com.appsflyer.p: boolean c()>();
+
+        if $z0 == 0 goto label3;
+
+        staticinvoke <com.appsflyer.a: void a(java.lang.String)>("onReceive: isLaunchCalled");
+
+        specialinvoke r0.<com.appsflyer.h: void a(android.content.Context,java.lang.String,java.lang.String,java.lang.String,boolean)>($r1, null, null, $r3, 0);
+
+     label3:
+        return;
+    }

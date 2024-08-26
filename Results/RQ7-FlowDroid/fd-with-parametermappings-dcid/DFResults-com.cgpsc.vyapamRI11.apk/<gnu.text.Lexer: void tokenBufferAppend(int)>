@@ -1,0 +1,63 @@
+    public void tokenBufferAppend(int)
+    {
+        char $c3;
+        int $i0, i1, $i2;
+        char[] $r1, r2, $r3;
+        gnu.text.Lexer r0;
+
+        r0 := @this: gnu.text.Lexer;
+
+        $i0 := @parameter0: int;
+
+        i1 = $i0;
+
+        if $i0 < 65536 goto label1;
+
+        i1 = $i0 - 65536;
+
+        i1 = i1 >> 10;
+
+        i1 = i1 + 55296;
+
+        virtualinvoke r0.<gnu.text.Lexer: void tokenBufferAppend(int)>(i1);
+
+        $i0 = $i0 & 1023;
+
+        i1 = $i0 + 56320;
+
+     label1:
+        $i0 = r0.<gnu.text.Lexer: int tokenBufferLength>;
+
+        $r1 = r0.<gnu.text.Lexer: char[] tokenBuffer>;
+
+        r2 = $r1;
+
+        $r3 = r0.<gnu.text.Lexer: char[] tokenBuffer>;
+
+        $i2 = lengthof $r3;
+
+        if $i0 != $i2 goto label2;
+
+        $i2 = 2 * $i0;
+
+        r2 = newarray (char)[$i2];
+
+        r0.<gnu.text.Lexer: char[] tokenBuffer> = r2;
+
+        r2 = r0.<gnu.text.Lexer: char[] tokenBuffer>;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($r1, 0, r2, 0, $i0);
+
+        r2 = r0.<gnu.text.Lexer: char[] tokenBuffer>;
+
+     label2:
+        $c3 = (char) i1;
+
+        r2[$i0] = $c3;
+
+        $i0 = $i0 + 1;
+
+        r0.<gnu.text.Lexer: int tokenBufferLength> = $i0;
+
+        return;
+    }

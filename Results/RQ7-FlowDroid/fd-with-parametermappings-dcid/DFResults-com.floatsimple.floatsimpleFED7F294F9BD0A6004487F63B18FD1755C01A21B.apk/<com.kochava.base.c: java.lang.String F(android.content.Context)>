@@ -1,0 +1,50 @@
+    private static java.lang.String F(android.content.Context)
+    {
+        android.content.Context $r1;
+        java.lang.Object[] $r4;
+        android.content.SharedPreferences $r2;
+        java.lang.RuntimeException $r0;
+        java.lang.String $r3;
+        boolean $z0;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $r2 = staticinvoke <android.preference.PreferenceManager: android.content.SharedPreferences getDefaultSharedPreferences(android.content.Context)>($r1);
+
+     label1:
+        $r3 = interfaceinvoke $r2.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("IABUSPrivacy_String", "");
+
+     label2:
+        if $r3 == null goto label8;
+
+     label3:
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean isEmpty()>();
+
+     label4:
+        if $z0 != 0 goto label8;
+
+     label5:
+        $r3 = staticinvoke <com.kochava.base.ab: java.lang.String a(java.lang.String,int)>($r3, 128);
+
+     label6:
+        return $r3;
+
+     label7:
+        $r4 = newarray (java.lang.Object)[1];
+
+        $r4[0] = "Failed to read iab_usb value";
+
+        staticinvoke <com.kochava.base.Tracker: void a(int,java.lang.String,java.lang.String,java.lang.Object[])>(4, "DPT", "getIabUsp", $r4);
+
+     label8:
+        return null;
+
+     label9:
+        $r0 := @caughtexception;
+
+        goto label7;
+
+        catch java.lang.RuntimeException from label1 to label2 with label9;
+        catch java.lang.RuntimeException from label3 to label4 with label9;
+        catch java.lang.RuntimeException from label5 to label6 with label9;
+    }

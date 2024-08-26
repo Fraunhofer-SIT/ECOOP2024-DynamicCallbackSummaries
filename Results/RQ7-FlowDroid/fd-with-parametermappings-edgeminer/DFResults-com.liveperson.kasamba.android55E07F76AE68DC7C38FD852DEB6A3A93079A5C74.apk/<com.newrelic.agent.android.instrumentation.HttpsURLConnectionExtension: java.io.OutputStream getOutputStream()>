@@ -1,0 +1,44 @@
+    public java.io.OutputStream getOutputStream() throws java.io.IOException
+    {
+        java.io.OutputStream $r3;
+        java.lang.Throwable $r4;
+        javax.net.ssl.HttpsURLConnection $r2;
+        com.newrelic.agent.android.instrumentation.TransactionState $r1;
+        java.lang.Exception $r7;
+        com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension$2 $r6;
+        com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension r0;
+        com.newrelic.agent.android.instrumentation.io.CountingOutputStream $r5;
+
+        r0 := @this: com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension;
+
+        $r1 = specialinvoke r0.<com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension: com.newrelic.agent.android.instrumentation.TransactionState getTransactionState()>();
+
+        $r5 = new com.newrelic.agent.android.instrumentation.io.CountingOutputStream;
+
+        $r2 = r0.<com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension: javax.net.ssl.HttpsURLConnection impl>;
+
+     label1:
+        $r3 = virtualinvoke $r2.<javax.net.ssl.HttpsURLConnection: java.io.OutputStream getOutputStream()>();
+
+        specialinvoke $r5.<com.newrelic.agent.android.instrumentation.io.CountingOutputStream: void <init>(java.io.OutputStream)>($r3);
+
+     label2:
+        $r6 = new com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension$2;
+
+        specialinvoke $r6.<com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension$2: void <init>(com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension,com.newrelic.agent.android.instrumentation.TransactionState)>(r0, $r1);
+
+        virtualinvoke $r5.<com.newrelic.agent.android.instrumentation.io.CountingOutputStream: void addStreamCompleteListener(com.newrelic.agent.android.instrumentation.io.StreamCompleteListener)>($r6);
+
+        return $r5;
+
+     label3:
+        $r4 := @caughtexception;
+
+        $r7 = (java.lang.Exception) $r4;
+
+        specialinvoke r0.<com.newrelic.agent.android.instrumentation.HttpsURLConnectionExtension: void error(java.lang.Exception)>($r7);
+
+        throw $r4;
+
+        catch java.io.IOException from label1 to label2 with label3;
+    }

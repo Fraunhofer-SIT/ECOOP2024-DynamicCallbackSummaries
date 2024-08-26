@@ -1,0 +1,326 @@
+    public static void apply(boolean, java.lang.Object, java.lang.Object, java.lang.Object)
+    {
+        java.lang.Throwable $r12, $r18, $r20, $r22, $r23;
+        java.lang.Object[] $r17;
+        gnu.expr.Language $r4;
+        java.lang.String r3, r5, $r13;
+        gnu.bytecode.Field $r7;
+        java.lang.reflect.Method $r16;
+        boolean $z0, z1, $z2;
+        java.lang.Class[] $r15;
+        java.lang.RuntimeException $r21, $r25;
+        java.lang.reflect.Field $r8;
+        gnu.bytecode.Member $r11;
+        java.lang.Exception $r19;
+        java.lang.reflect.InvocationTargetException $r26;
+        java.lang.Object $r0, $r1, $r2, $r10;
+        java.lang.Class $r6, $r9;
+        java.lang.StringBuilder $r14, $r24;
+
+        $z0 := @parameter0: boolean;
+
+        $r0 := @parameter1: java.lang.Object;
+
+        $r1 := @parameter2: java.lang.Object;
+
+        $r2 := @parameter3: java.lang.Object;
+
+        $r4 = staticinvoke <gnu.expr.Language: gnu.expr.Language getDefaultLanguage()>();
+
+        z1 = 0;
+
+        $z2 = $r1 instanceof java.lang.String;
+
+        if $z2 != 0 goto label01;
+
+        $z2 = $r1 instanceof gnu.lists.FString;
+
+        if $z2 != 0 goto label01;
+
+        $z2 = $r1 instanceof gnu.mapping.Symbol;
+
+        if $z2 == 0 goto label07;
+
+     label01:
+        r3 = virtualinvoke $r1.<java.lang.Object: java.lang.String toString()>();
+
+        r5 = r3;
+
+        r3 = staticinvoke <gnu.expr.Compilation: java.lang.String mangleNameIfNeeded(java.lang.String)>(r3);
+
+        if $z0 == 0 goto label06;
+
+        $r6 = staticinvoke <gnu.kawa.reflect.SlotGet: java.lang.Class coerceToClass(java.lang.Object)>($r0);
+
+     label02:
+        $z0 = $r1 instanceof gnu.bytecode.Field;
+
+        if $z0 == 0 goto label08;
+
+        $r7 = (gnu.bytecode.Field) $r1;
+
+     label03:
+        $r8 = virtualinvoke $r7.<gnu.bytecode.Field: java.lang.reflect.Field getReflectField()>();
+
+     label04:
+        $r9 = virtualinvoke $r8.<java.lang.reflect.Field: java.lang.Class getType()>();
+
+        $r10 = virtualinvoke $r4.<gnu.expr.Language: java.lang.Object coerceFromObject(java.lang.Class,java.lang.Object)>($r9, $r2);
+
+        virtualinvoke $r8.<java.lang.reflect.Field: void set(java.lang.Object,java.lang.Object)>($r0, $r10);
+
+     label05:
+        return;
+
+     label06:
+        $r6 = virtualinvoke $r0.<java.lang.Object: java.lang.Class getClass()>();
+
+        goto label02;
+
+     label07:
+        $r11 = (gnu.bytecode.Member) $r1;
+
+        r3 = interfaceinvoke $r11.<gnu.bytecode.Member: java.lang.String getName()>();
+
+        r5 = r3;
+
+        $r6 = null;
+
+        goto label02;
+
+     label08:
+        $r8 = virtualinvoke $r6.<java.lang.Class: java.lang.reflect.Field getField(java.lang.String)>(r3);
+
+     label09:
+        goto label04;
+
+     label10:
+        $r12 := @caughtexception;
+
+     label11:
+        $z2 = $r1 instanceof gnu.bytecode.Method;
+
+        $z0 = $z2;
+
+        if $z2 == 0 goto label29;
+
+        $r13 = r3;
+
+     label12:
+        r3 = $r13;
+
+        if $z2 == 0 goto label15;
+
+     label13:
+        $z2 = virtualinvoke $r13.<java.lang.String: boolean startsWith(java.lang.String)>("set");
+
+     label14:
+        if $z2 != 0 goto label15;
+
+        $z0 = 0;
+
+     label15:
+        if $z0 == 0 goto label31;
+
+        $r24 = new java.lang.StringBuilder;
+
+     label16:
+        specialinvoke $r24.<java.lang.StringBuilder: void <init>()>();
+
+        $r14 = virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("get");
+
+        $r13 = virtualinvoke r3.<java.lang.String: java.lang.String substring(int)>(3);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r13 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label17:
+        $r15 = <gnu.kawa.reflect.SlotGet: java.lang.Class[] noClasses>;
+
+     label18:
+        $r16 = virtualinvoke $r6.<java.lang.Class: java.lang.reflect.Method getMethod(java.lang.String,java.lang.Class[])>($r13, $r15);
+
+     label19:
+        $r15 = newarray (java.lang.Class)[1];
+
+     label20:
+        $r9 = virtualinvoke $r16.<java.lang.reflect.Method: java.lang.Class getReturnType()>();
+
+     label21:
+        $r15[0] = $r9;
+
+     label22:
+        $r16 = virtualinvoke $r6.<java.lang.Class: java.lang.reflect.Method getMethod(java.lang.String,java.lang.Class[])>(r3, $r15);
+
+     label23:
+        $r17 = newarray (java.lang.Object)[1];
+
+        $r9 = $r15[0];
+
+     label24:
+        $r1 = virtualinvoke $r4.<gnu.expr.Language: java.lang.Object coerceFromObject(java.lang.Class,java.lang.Object)>($r9, $r2);
+
+     label25:
+        $r17[0] = $r1;
+
+     label26:
+        virtualinvoke $r16.<java.lang.reflect.Method: java.lang.Object invoke(java.lang.Object,java.lang.Object[])>($r0, $r17);
+
+     label27:
+        return;
+
+     label28:
+        $r18 := @caughtexception;
+
+        z1 = 1;
+
+        goto label11;
+
+     label29:
+        r3 = staticinvoke <gnu.expr.ClassExp: java.lang.String slotToMethodName(java.lang.String,java.lang.String)>("set", r5);
+
+     label30:
+        $r13 = r3;
+
+        goto label12;
+
+     label31:
+        $r13 = staticinvoke <gnu.expr.ClassExp: java.lang.String slotToMethodName(java.lang.String,java.lang.String)>("get", r5);
+
+     label32:
+        goto label17;
+
+     label33:
+        $r19 := @caughtexception;
+
+        if $z0 == 0 goto label38;
+
+        $r24 = new java.lang.StringBuilder;
+
+     label34:
+        specialinvoke $r24.<java.lang.StringBuilder: void <init>()>();
+
+        $r14 = virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("is");
+
+        $r13 = virtualinvoke r3.<java.lang.String: java.lang.String substring(int)>(3);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r13 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label35:
+        $r15 = <gnu.kawa.reflect.SlotGet: java.lang.Class[] noClasses>;
+
+     label36:
+        $r16 = virtualinvoke $r6.<java.lang.Class: java.lang.reflect.Method getMethod(java.lang.String,java.lang.Class[])>($r13, $r15);
+
+     label37:
+        goto label19;
+
+     label38:
+        $r13 = staticinvoke <gnu.expr.ClassExp: java.lang.String slotToMethodName(java.lang.String,java.lang.String)>("is", r5);
+
+     label39:
+        goto label35;
+
+     label40:
+        $r20 := @caughtexception;
+
+        $r26 = (java.lang.reflect.InvocationTargetException) $r20;
+
+        $r12 = virtualinvoke $r26.<java.lang.reflect.InvocationTargetException: java.lang.Throwable getTargetException()>();
+
+        $r21 = staticinvoke <gnu.mapping.WrappedException: java.lang.RuntimeException wrapIfNeeded(java.lang.Throwable)>($r12);
+
+        throw $r21;
+
+     label41:
+        $r22 := @caughtexception;
+
+        z1 = 1;
+
+     label42:
+        if z1 == 0 goto label44;
+
+        $r25 = new java.lang.RuntimeException;
+
+        $r24 = new java.lang.StringBuilder;
+
+        specialinvoke $r24.<java.lang.StringBuilder: void <init>()>();
+
+        $r14 = virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("illegal access for field ");
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r5);
+
+        r5 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r25.<java.lang.RuntimeException: void <init>(java.lang.String)>(r5);
+
+        throw $r25;
+
+     label43:
+        $r23 := @caughtexception;
+
+        goto label42;
+
+     label44:
+        $r25 = new java.lang.RuntimeException;
+
+        $r24 = new java.lang.StringBuilder;
+
+        specialinvoke $r24.<java.lang.StringBuilder: void <init>()>();
+
+        $r14 = virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("no such field ");
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r5);
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" in ");
+
+        r5 = virtualinvoke $r6.<java.lang.Class: java.lang.String getName()>();
+
+        $r14 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r5);
+
+        r5 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r25.<java.lang.RuntimeException: void <init>(java.lang.String)>(r5);
+
+        throw $r25;
+
+        catch java.lang.NoSuchFieldException from label03 to label04 with label10;
+        catch java.lang.NoSuchFieldException from label04 to label05 with label10;
+        catch java.lang.IllegalAccessException from label03 to label04 with label28;
+        catch java.lang.IllegalAccessException from label04 to label05 with label28;
+        catch java.lang.NoSuchFieldException from label08 to label09 with label10;
+        catch java.lang.IllegalAccessException from label08 to label09 with label28;
+        catch java.lang.reflect.InvocationTargetException from label13 to label14 with label40;
+        catch java.lang.IllegalAccessException from label13 to label14 with label41;
+        catch java.lang.NoSuchMethodException from label13 to label14 with label43;
+        catch java.lang.Exception from label16 to label17 with label33;
+        catch java.lang.Exception from label18 to label19 with label33;
+        catch java.lang.reflect.InvocationTargetException from label20 to label21 with label40;
+        catch java.lang.reflect.InvocationTargetException from label22 to label23 with label40;
+        catch java.lang.reflect.InvocationTargetException from label24 to label25 with label40;
+        catch java.lang.reflect.InvocationTargetException from label26 to label27 with label40;
+        catch java.lang.reflect.InvocationTargetException from label29 to label30 with label40;
+        catch java.lang.IllegalAccessException from label20 to label21 with label41;
+        catch java.lang.IllegalAccessException from label22 to label23 with label41;
+        catch java.lang.IllegalAccessException from label24 to label25 with label41;
+        catch java.lang.IllegalAccessException from label26 to label27 with label41;
+        catch java.lang.IllegalAccessException from label29 to label30 with label41;
+        catch java.lang.NoSuchMethodException from label20 to label21 with label43;
+        catch java.lang.NoSuchMethodException from label22 to label23 with label43;
+        catch java.lang.NoSuchMethodException from label24 to label25 with label43;
+        catch java.lang.NoSuchMethodException from label26 to label27 with label43;
+        catch java.lang.NoSuchMethodException from label29 to label30 with label43;
+        catch java.lang.Exception from label31 to label32 with label33;
+        catch java.lang.reflect.InvocationTargetException from label34 to label35 with label40;
+        catch java.lang.reflect.InvocationTargetException from label36 to label37 with label40;
+        catch java.lang.reflect.InvocationTargetException from label38 to label39 with label40;
+        catch java.lang.IllegalAccessException from label34 to label35 with label41;
+        catch java.lang.IllegalAccessException from label36 to label37 with label41;
+        catch java.lang.IllegalAccessException from label38 to label39 with label41;
+        catch java.lang.NoSuchMethodException from label34 to label35 with label43;
+        catch java.lang.NoSuchMethodException from label36 to label37 with label43;
+        catch java.lang.NoSuchMethodException from label38 to label39 with label43;
+    }

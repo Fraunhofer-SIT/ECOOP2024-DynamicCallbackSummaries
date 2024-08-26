@@ -1,0 +1,70 @@
+    public void run()
+    {
+        com.tune.ma.file.FileManager $r7;
+        com.tune.ma.configuration.TuneConfigurationManager $r4;
+        com.tune.http.Api $r2;
+        org.json.JSONObject $r3;
+        com.tune.ma.configuration.TuneConfigurationManager$GetConfigurationTask r0;
+        com.tune.ma.TuneManager $r1;
+        int $i0;
+        java.lang.StringBuilder $r5;
+        java.lang.String $r6;
+        boolean $z0;
+
+        r0 := @this: com.tune.ma.configuration.TuneConfigurationManager$GetConfigurationTask;
+
+        $r1 = staticinvoke <com.tune.ma.TuneManager: com.tune.ma.TuneManager getInstance()>();
+
+        $r2 = virtualinvoke $r1.<com.tune.ma.TuneManager: com.tune.http.Api getApi()>();
+
+        $r3 = interfaceinvoke $r2.<com.tune.http.Api: org.json.JSONObject getConfiguration()>();
+
+        if $r3 != null goto label1;
+
+        staticinvoke <com.tune.ma.utils.TuneDebugLog: void w(java.lang.String)>("Configuration response did not have any JSON");
+
+        return;
+
+     label1:
+        $i0 = virtualinvoke $r3.<org.json.JSONObject: int length()>();
+
+        if $i0 != 0 goto label2;
+
+        staticinvoke <com.tune.ma.utils.TuneDebugLog: void w(java.lang.String)>("Received empty configuration from the server -- not updating");
+
+        return;
+
+     label2:
+        $r4 = r0.<com.tune.ma.configuration.TuneConfigurationManager$GetConfigurationTask: com.tune.ma.configuration.TuneConfigurationManager tuneConfiguration>;
+
+        $z0 = staticinvoke <com.tune.ma.configuration.TuneConfigurationManager: boolean access$000(com.tune.ma.configuration.TuneConfigurationManager)>($r4);
+
+        if $z0 == 0 goto label3;
+
+        $r5 = new java.lang.StringBuilder;
+
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Got configuration:\n");
+
+        $r6 = staticinvoke <com.tune.ma.utils.TuneJsonUtils: java.lang.String getPrettyJson(org.json.JSONObject)>($r3);
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.tune.ma.utils.TuneDebugLog: void alwaysLog(java.lang.String)>($r6);
+
+     label3:
+        $r1 = staticinvoke <com.tune.ma.TuneManager: com.tune.ma.TuneManager getInstance()>();
+
+        $r7 = virtualinvoke $r1.<com.tune.ma.TuneManager: com.tune.ma.file.FileManager getFileManager()>();
+
+        interfaceinvoke $r7.<com.tune.ma.file.FileManager: void writeConfiguration(org.json.JSONObject)>($r3);
+
+        $r4 = r0.<com.tune.ma.configuration.TuneConfigurationManager$GetConfigurationTask: com.tune.ma.configuration.TuneConfigurationManager tuneConfiguration>;
+
+        virtualinvoke $r4.<com.tune.ma.configuration.TuneConfigurationManager: void updateConfigurationFromRemoteJson(org.json.JSONObject)>($r3);
+
+        return;
+    }

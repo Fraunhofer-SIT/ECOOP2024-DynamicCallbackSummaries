@@ -1,0 +1,239 @@
+    public static boolean verifyApkHash(java.lang.String)
+    {
+        java.lang.Throwable $r11;
+        byte[] $r3, $r4;
+        java.security.MessageDigest $r6;
+        java.util.ArrayList $r5;
+        java.util.zip.ZipFile $r1, $r2;
+        java.lang.String $r0, $r7;
+        boolean $z0;
+        java.lang.Exception $r8, $r10, $r12, $r13, $r14;
+        java.lang.StringBuilder $r9;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r1 = null;
+
+     label01:
+        $r2 = new java.util.zip.ZipFile;
+
+     label02:
+        specialinvoke $r2.<java.util.zip.ZipFile: void <init>(java.lang.String)>($r0);
+
+     label03:
+        $r3 = staticinvoke <com.huawei.hms.utils.ReadApkFileUtil: byte[] a(java.util.zip.ZipFile)>($r2);
+
+     label04:
+        $r4 = $r3;
+
+     label05:
+        $r5 = staticinvoke <com.huawei.hms.utils.ReadApkFileUtil: java.util.ArrayList a(byte[])>($r3);
+
+     label06:
+        if $r5 == null goto label09;
+
+     label07:
+        $r3 = staticinvoke <com.huawei.hms.utils.ReadApkFileUtil: byte[] a(java.util.ArrayList)>($r5);
+
+     label08:
+        $r4 = $r3;
+
+     label09:
+        $r6 = staticinvoke <java.security.MessageDigest: java.security.MessageDigest getInstance(java.lang.String)>("SHA-256");
+
+        virtualinvoke $r6.<java.security.MessageDigest: void update(byte[])>($r4);
+
+        $r3 = virtualinvoke $r6.<java.security.MessageDigest: byte[] digest()>();
+
+        $r0 = staticinvoke <com.huawei.hms.utils.ReadApkFileUtil: java.lang.String bytesToString(byte[])>($r3);
+
+     label10:
+        $r7 = <com.huawei.hms.utils.ReadApkFileUtil: java.lang.String e>;
+
+     label11:
+        if $r7 == null goto label19;
+
+     label12:
+        $r7 = <com.huawei.hms.utils.ReadApkFileUtil: java.lang.String e>;
+
+     label13:
+        $z0 = virtualinvoke $r7.<java.lang.Object: boolean equals(java.lang.Object)>($r0);
+
+     label14:
+        if $z0 == 0 goto label19;
+
+     label15:
+        virtualinvoke $r2.<java.util.zip.ZipFile: void close()>();
+
+     label16:
+        goto label18;
+
+     label17:
+        $r8 := @caughtexception;
+
+        $r0 = <com.huawei.hms.utils.ReadApkFileUtil: java.lang.String a>;
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("close stream Exception!");
+
+        $r7 = virtualinvoke $r8.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r7 = virtualinvoke $r9.<java.lang.Object: java.lang.String toString()>();
+
+        staticinvoke <com.huawei.hms.support.log.HMSLog: void i(java.lang.String,java.lang.String)>($r0, $r7);
+
+     label18:
+        return 1;
+
+     label19:
+        virtualinvoke $r2.<java.util.zip.ZipFile: void close()>();
+
+     label20:
+        goto label31;
+
+     label21:
+        $r10 := @caughtexception;
+
+        $r0 = <com.huawei.hms.utils.ReadApkFileUtil: java.lang.String a>;
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("close stream Exception!");
+
+        $r7 = virtualinvoke $r10.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r7 = virtualinvoke $r9.<java.lang.Object: java.lang.String toString()>();
+
+        staticinvoke <com.huawei.hms.support.log.HMSLog: void i(java.lang.String,java.lang.String)>($r0, $r7);
+
+        goto label31;
+
+     label22:
+        $r11 := @caughtexception;
+
+        goto label33;
+
+     label23:
+        $r12 := @caughtexception;
+
+        $r1 = $r2;
+
+        goto label26;
+
+     label24:
+        $r11 := @caughtexception;
+
+        goto label32;
+
+     label25:
+        $r12 := @caughtexception;
+
+     label26:
+        $r0 = <com.huawei.hms.utils.ReadApkFileUtil: java.lang.String a>;
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("verifyApkHash Exception!");
+
+        $r7 = virtualinvoke $r12.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r7 = virtualinvoke $r9.<java.lang.Object: java.lang.String toString()>();
+
+        staticinvoke <com.huawei.hms.support.log.HMSLog: void i(java.lang.String,java.lang.String)>($r0, $r7);
+
+     label27:
+        if $r1 == null goto label31;
+
+     label28:
+        virtualinvoke $r1.<java.util.zip.ZipFile: void close()>();
+
+     label29:
+        goto label31;
+
+     label30:
+        $r13 := @caughtexception;
+
+        $r0 = <com.huawei.hms.utils.ReadApkFileUtil: java.lang.String a>;
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("close stream Exception!");
+
+        $r7 = virtualinvoke $r13.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r7 = virtualinvoke $r9.<java.lang.Object: java.lang.String toString()>();
+
+        staticinvoke <com.huawei.hms.support.log.HMSLog: void i(java.lang.String,java.lang.String)>($r0, $r7);
+
+     label31:
+        return 0;
+
+     label32:
+        $r2 = $r1;
+
+     label33:
+        if $r2 == null goto label37;
+
+     label34:
+        virtualinvoke $r2.<java.util.zip.ZipFile: void close()>();
+
+     label35:
+        goto label37;
+
+     label36:
+        $r14 := @caughtexception;
+
+        $r0 = <com.huawei.hms.utils.ReadApkFileUtil: java.lang.String a>;
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("close stream Exception!");
+
+        $r7 = virtualinvoke $r14.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r7 = virtualinvoke $r9.<java.lang.Object: java.lang.String toString()>();
+
+        staticinvoke <com.huawei.hms.support.log.HMSLog: void i(java.lang.String,java.lang.String)>($r0, $r7);
+
+     label37:
+        throw $r11;
+
+        catch java.lang.Exception from label02 to label03 with label25;
+        catch java.lang.Throwable from label01 to label03 with label24;
+        catch java.lang.Exception from label03 to label04 with label23;
+        catch java.lang.Exception from label05 to label06 with label23;
+        catch java.lang.Exception from label07 to label08 with label23;
+        catch java.lang.Exception from label09 to label10 with label23;
+        catch java.lang.Exception from label13 to label14 with label23;
+        catch java.lang.Throwable from label03 to label04 with label22;
+        catch java.lang.Throwable from label05 to label06 with label22;
+        catch java.lang.Throwable from label07 to label08 with label22;
+        catch java.lang.Throwable from label09 to label11 with label22;
+        catch java.lang.Throwable from label12 to label14 with label22;
+        catch java.lang.Exception from label15 to label16 with label17;
+        catch java.lang.Exception from label19 to label20 with label21;
+        catch java.lang.Throwable from label26 to label27 with label24;
+        catch java.lang.Exception from label28 to label29 with label30;
+        catch java.lang.Exception from label34 to label35 with label36;
+    }

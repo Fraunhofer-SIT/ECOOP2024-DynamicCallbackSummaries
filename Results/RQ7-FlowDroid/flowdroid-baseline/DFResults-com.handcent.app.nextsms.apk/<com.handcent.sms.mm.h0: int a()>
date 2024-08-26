@@ -1,0 +1,184 @@
+    public final int a()
+    {
+        java.lang.Throwable $r14;
+        byte[] $r13;
+        java.io.BufferedInputStream $r11, $r16;
+        java.io.ByteArrayOutputStream $r17;
+        java.net.URL $r15;
+        android.net.Uri $r1;
+        java.net.URLConnection $r3;
+        java.util.Map $r5;
+        int $i0, $i1;
+        com.handcent.sms.mm.h0 r0;
+        java.lang.String $r2, $r10;
+        boolean $z0;
+        javax.net.ssl.HttpsURLConnection $r4;
+        java.util.Map$Entry $r9;
+        java.util.Iterator $r7;
+        java.util.Set $r6;
+        java.lang.Object $r8;
+        java.io.InputStream $r12;
+
+        r0 := @this: com.handcent.sms.mm.h0;
+
+     label01:
+        $r15 = new java.net.URL;
+
+     label02:
+        $r1 = r0.<com.handcent.sms.mm.h0: android.net.Uri b>;
+
+        $r2 = virtualinvoke $r1.<android.net.Uri: java.lang.String toString()>();
+
+        specialinvoke $r15.<java.net.URL: void <init>(java.lang.String)>($r2);
+
+        $r3 = virtualinvoke $r15.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r4 = (javax.net.ssl.HttpsURLConnection) $r3;
+
+     label03:
+        virtualinvoke $r4.<javax.net.ssl.HttpsURLConnection: void setReadTimeout(int)>(60000);
+
+     label04:
+        virtualinvoke $r4.<javax.net.ssl.HttpsURLConnection: void setConnectTimeout(int)>(60000);
+
+        virtualinvoke $r4.<javax.net.ssl.HttpsURLConnection: void setRequestMethod(java.lang.String)>("GET");
+
+        $r5 = r0.<com.handcent.sms.mm.h0: java.util.Map c>;
+
+        $r6 = interfaceinvoke $r5.<java.util.Map: java.util.Set entrySet()>();
+
+        $r7 = interfaceinvoke $r6.<java.util.Set: java.util.Iterator iterator()>();
+
+     label05:
+        $z0 = interfaceinvoke $r7.<java.util.Iterator: boolean hasNext()>();
+
+     label06:
+        if $z0 == 0 goto label09;
+
+     label07:
+        $r8 = interfaceinvoke $r7.<java.util.Iterator: java.lang.Object next()>();
+
+        $r9 = (java.util.Map$Entry) $r8;
+
+        $r8 = interfaceinvoke $r9.<java.util.Map$Entry: java.lang.Object getKey()>();
+
+        $r2 = virtualinvoke $r8.<java.lang.Object: java.lang.String toString()>();
+
+        $r8 = interfaceinvoke $r9.<java.util.Map$Entry: java.lang.Object getValue()>();
+
+        $r10 = virtualinvoke $r8.<java.lang.Object: java.lang.String toString()>();
+
+        virtualinvoke $r4.<javax.net.ssl.HttpsURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>($r2, $r10);
+
+     label08:
+        goto label05;
+
+     label09:
+        $i0 = virtualinvoke $r4.<javax.net.ssl.HttpsURLConnection: int getResponseCode()>();
+
+     label10:
+        if $i0 != 200 goto label24;
+
+     label11:
+        $r16 = new java.io.BufferedInputStream;
+
+     label12:
+        $r11 = $r16;
+
+     label13:
+        $r12 = virtualinvoke $r4.<javax.net.ssl.HttpsURLConnection: java.io.InputStream getInputStream()>();
+
+        specialinvoke $r16.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r12);
+
+     label14:
+        $r13 = newarray (byte)[1024];
+
+     label15:
+        $r17 = new java.io.ByteArrayOutputStream;
+
+     label16:
+        specialinvoke $r17.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label17:
+        $i1 = virtualinvoke $r16.<java.io.BufferedInputStream: int read(byte[])>($r13);
+
+     label18:
+        if $i1 == -1 goto label21;
+
+     label19:
+        virtualinvoke $r17.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r13, 0, $i1);
+
+     label20:
+        goto label17;
+
+     label21:
+        $r13 = virtualinvoke $r17.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        r0.<com.handcent.sms.mm.h0: byte[] a> = $r13;
+
+     label22:
+        goto label27;
+
+     label23:
+        $r14 := @caughtexception;
+
+        goto label30;
+
+     label24:
+        $r13 = newarray (byte)[0];
+
+     label25:
+        r0.<com.handcent.sms.mm.h0: byte[] a> = $r13;
+
+     label26:
+        $r11 = null;
+
+     label27:
+        staticinvoke <com.handcent.sms.mm.x: void m(java.io.Closeable)>($r11);
+
+        staticinvoke <com.handcent.sms.mm.x: void m(java.io.Closeable)>(null);
+
+        virtualinvoke $r4.<javax.net.ssl.HttpsURLConnection: void disconnect()>();
+
+        return $i0;
+
+     label28:
+        $r14 := @caughtexception;
+
+        $r11 = null;
+
+        goto label30;
+
+     label29:
+        $r14 := @caughtexception;
+
+        $r4 = null;
+
+        $r11 = null;
+
+     label30:
+        staticinvoke <com.handcent.sms.mm.x: void m(java.io.Closeable)>($r11);
+
+        staticinvoke <com.handcent.sms.mm.x: void m(java.io.Closeable)>(null);
+
+        if $r4 == null goto label31;
+
+        virtualinvoke $r4.<javax.net.ssl.HttpsURLConnection: void disconnect()>();
+
+     label31:
+        throw $r14;
+
+        catch java.lang.Throwable from label01 to label02 with label29;
+        catch java.lang.Throwable from label02 to label03 with label29;
+        catch java.lang.Throwable from label03 to label04 with label28;
+        catch java.lang.Throwable from label04 to label06 with label28;
+        catch java.lang.Throwable from label07 to label08 with label28;
+        catch java.lang.Throwable from label09 to label10 with label28;
+        catch java.lang.Throwable from label11 to label12 with label28;
+        catch java.lang.Throwable from label13 to label14 with label28;
+        catch java.lang.Throwable from label15 to label16 with label23;
+        catch java.lang.Throwable from label16 to label18 with label23;
+        catch java.lang.Throwable from label19 to label20 with label23;
+        catch java.lang.Throwable from label21 to label22 with label23;
+        catch java.lang.Throwable from label25 to label26 with label28;
+    }

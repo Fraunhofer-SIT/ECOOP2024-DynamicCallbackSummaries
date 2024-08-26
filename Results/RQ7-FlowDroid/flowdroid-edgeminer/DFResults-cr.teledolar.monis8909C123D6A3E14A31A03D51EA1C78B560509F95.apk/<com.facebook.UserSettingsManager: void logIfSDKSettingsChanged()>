@@ -1,0 +1,345 @@
+    private final void logIfSDKSettingsChanged()
+    {
+        java.lang.Throwable $r1, $r2, $r14;
+        android.content.SharedPreferences$Editor $r7;
+        android.content.Context $r4;
+        android.os.Bundle $r11, $r16;
+        android.content.pm.PackageManager $r8;
+        java.util.concurrent.atomic.AtomicBoolean $r3;
+        com.facebook.UserSettingsManager r0;
+        java.lang.String[] $r12;
+        int $i0, $i1, $i2, $i3, $i4, $i5;
+        java.lang.String $r9;
+        boolean $z0;
+        com.facebook.appevents.InternalAppEventsLogger $r15;
+        boolean[] $r13;
+        android.content.SharedPreferences $r6;
+        android.content.pm.ApplicationInfo $r10;
+        com.facebook.UserSettingsManager$UserSetting $r5;
+
+        r0 := @this: com.facebook.UserSettingsManager;
+
+        $z0 = staticinvoke <com.facebook.internal.instrument.crashshield.CrashShieldHandler: boolean isObjectCrashing(java.lang.Object)>(r0);
+
+        if $z0 == 0 goto label01;
+
+        return;
+
+     label01:
+        $r3 = <com.facebook.UserSettingsManager: java.util.concurrent.atomic.AtomicBoolean isInitialized>;
+
+        $z0 = virtualinvoke $r3.<java.util.concurrent.atomic.AtomicBoolean: boolean get()>();
+
+     label02:
+        if $z0 != 0 goto label03;
+
+        return;
+
+     label03:
+        $z0 = staticinvoke <com.facebook.FacebookSdk: boolean isInitialized()>();
+
+     label04:
+        if $z0 != 0 goto label05;
+
+        return;
+
+     label05:
+        $r4 = staticinvoke <com.facebook.FacebookSdk: android.content.Context getApplicationContext()>();
+
+        $r5 = <com.facebook.UserSettingsManager: com.facebook.UserSettingsManager$UserSetting autoInitEnabled>;
+
+        $z0 = virtualinvoke $r5.<com.facebook.UserSettingsManager$UserSetting: boolean getValue()>();
+
+     label06:
+        $i0 = 0;
+
+        if $z0 == 0 goto label07;
+
+        $z0 = 1;
+
+        goto label08;
+
+     label07:
+        $z0 = 0;
+
+     label08:
+        $i1 = $z0 << 0;
+
+     label09:
+        $r5 = <com.facebook.UserSettingsManager: com.facebook.UserSettingsManager$UserSetting autoLogAppEventsEnabled>;
+
+        $z0 = virtualinvoke $r5.<com.facebook.UserSettingsManager$UserSetting: boolean getValue()>();
+
+     label10:
+        if $z0 == 0 goto label11;
+
+        $z0 = 1;
+
+        goto label12;
+
+     label11:
+        $z0 = 0;
+
+     label12:
+        $i2 = $z0 << 1;
+
+        $i1 = $i1 | $i2;
+
+     label13:
+        $r5 = <com.facebook.UserSettingsManager: com.facebook.UserSettingsManager$UserSetting advertiserIDCollectionEnabled>;
+
+        $z0 = virtualinvoke $r5.<com.facebook.UserSettingsManager$UserSetting: boolean getValue()>();
+
+     label14:
+        if $z0 == 0 goto label15;
+
+        $z0 = 1;
+
+        goto label16;
+
+     label15:
+        $z0 = 0;
+
+     label16:
+        $i2 = $z0 << 2;
+
+        $i1 = $i1 | $i2;
+
+     label17:
+        $r5 = <com.facebook.UserSettingsManager: com.facebook.UserSettingsManager$UserSetting monitorEnabled>;
+
+        $z0 = virtualinvoke $r5.<com.facebook.UserSettingsManager$UserSetting: boolean getValue()>();
+
+     label18:
+        if $z0 == 0 goto label19;
+
+        $z0 = 1;
+
+        goto label20;
+
+     label19:
+        $z0 = 0;
+
+     label20:
+        $i2 = $z0 << 3;
+
+        $i1 = $i1 | $i2;
+
+     label21:
+        $r6 = <com.facebook.UserSettingsManager: android.content.SharedPreferences userSettingPref>;
+
+     label22:
+        if $r6 != null goto label24;
+
+     label23:
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void throwUninitializedPropertyAccessException(java.lang.String)>("userSettingPref");
+
+     label24:
+        $i2 = interfaceinvoke $r6.<android.content.SharedPreferences: int getInt(java.lang.String,int)>("com.facebook.sdk.USER_SETTINGS_BITMASK", 0);
+
+     label25:
+        if $i2 == $i1 goto label61;
+
+     label26:
+        $r6 = <com.facebook.UserSettingsManager: android.content.SharedPreferences userSettingPref>;
+
+     label27:
+        if $r6 != null goto label29;
+
+     label28:
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void throwUninitializedPropertyAccessException(java.lang.String)>("userSettingPref");
+
+     label29:
+        $r7 = interfaceinvoke $r6.<android.content.SharedPreferences: android.content.SharedPreferences$Editor edit()>();
+
+        $r7 = interfaceinvoke $r7.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putInt(java.lang.String,int)>("com.facebook.sdk.USER_SETTINGS_BITMASK", $i1);
+
+        interfaceinvoke $r7.<android.content.SharedPreferences$Editor: boolean commit()>();
+
+     label30:
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkNotNullExpressionValue(java.lang.Object,java.lang.String)>($r4, "ctx");
+
+        $r8 = virtualinvoke $r4.<android.content.Context: android.content.pm.PackageManager getPackageManager()>();
+
+        $r9 = virtualinvoke $r4.<android.content.Context: java.lang.String getPackageName()>();
+
+        $r10 = virtualinvoke $r8.<android.content.pm.PackageManager: android.content.pm.ApplicationInfo getApplicationInfo(java.lang.String,int)>($r9, 128);
+
+     label31:
+        if $r10 == null goto label34;
+
+     label32:
+        $r11 = $r10.<android.content.pm.ApplicationInfo: android.os.Bundle metaData>;
+
+     label33:
+        goto label35;
+
+     label34:
+        $r11 = null;
+
+     label35:
+        if $r11 == null goto label50;
+
+     label36:
+        $r12 = newarray (java.lang.String)[4];
+
+        $r12[0] = "com.facebook.sdk.AutoInitEnabled";
+
+        $r12[1] = "com.facebook.sdk.AutoLogAppEventsEnabled";
+
+        $r12[2] = "com.facebook.sdk.AdvertiserIDCollectionEnabled";
+
+        $r12[3] = "com.facebook.sdk.MonitorEnabled";
+
+     label37:
+        $r13 = newarray (boolean)[4];
+
+     label38:
+        $r13[0] = 1;
+
+        $r13[1] = 1;
+
+        $r13[2] = 1;
+
+        $r13[3] = 1;
+
+     label39:
+        $i0 = 0;
+
+        $i3 = 0;
+
+        $i4 = 0;
+
+     label40:
+        if $i0 >= 4 goto label53;
+
+     label41:
+        $r11 = $r10.<android.content.pm.ApplicationInfo: android.os.Bundle metaData>;
+
+        $r9 = $r12[$i0];
+
+     label42:
+        $z0 = virtualinvoke $r11.<android.os.Bundle: boolean containsKey(java.lang.String)>($r9);
+
+     label43:
+        if $z0 == 0 goto label44;
+
+        $z0 = 1;
+
+        goto label45;
+
+     label44:
+        $z0 = 0;
+
+     label45:
+        $i5 = $z0 << $i0;
+
+        $i4 = $i4 | $i5;
+
+     label46:
+        $r11 = $r10.<android.content.pm.ApplicationInfo: android.os.Bundle metaData>;
+
+        $r9 = $r12[$i0];
+
+        $z0 = $r13[$i0];
+
+     label47:
+        $z0 = virtualinvoke $r11.<android.os.Bundle: boolean getBoolean(java.lang.String,boolean)>($r9, $z0);
+
+     label48:
+        $i5 = (int) $z0;
+
+        $i5 = $i5 << $i0;
+
+        $i3 = $i3 | $i5;
+
+        $i0 = $i0 + 1;
+
+        goto label40;
+
+     label49:
+        $i0 = $i3;
+
+        goto label52;
+
+     label50:
+        $i3 = 0;
+
+        goto label54;
+
+     label51:
+        $i4 = 0;
+
+     label52:
+        $i3 = $i0;
+
+     label53:
+        $i0 = $i4;
+
+     label54:
+        $r15 = new com.facebook.appevents.InternalAppEventsLogger;
+
+     label55:
+        specialinvoke $r15.<com.facebook.appevents.InternalAppEventsLogger: void <init>(android.content.Context)>($r4);
+
+        $r16 = new android.os.Bundle;
+
+     label56:
+        specialinvoke $r16.<android.os.Bundle: void <init>()>();
+
+        virtualinvoke $r16.<android.os.Bundle: void putInt(java.lang.String,int)>("usage", $i0);
+
+        virtualinvoke $r16.<android.os.Bundle: void putInt(java.lang.String,int)>("initial", $i3);
+
+        virtualinvoke $r16.<android.os.Bundle: void putInt(java.lang.String,int)>("previous", $i2);
+
+        virtualinvoke $r16.<android.os.Bundle: void putInt(java.lang.String,int)>("current", $i1);
+
+        virtualinvoke $r15.<com.facebook.appevents.InternalAppEventsLogger: void logChangedSettingsEvent(android.os.Bundle)>($r16);
+
+     label57:
+        return;
+
+     label58:
+        $r14 := @caughtexception;
+
+        staticinvoke <com.facebook.internal.instrument.crashshield.CrashShieldHandler: void handleThrowable(java.lang.Throwable,java.lang.Object)>($r14, r0);
+
+        return;
+
+     label59:
+        $r1 := @caughtexception;
+
+        goto label51;
+
+     label60:
+        $r2 := @caughtexception;
+
+        goto label49;
+
+     label61:
+        return;
+
+        catch java.lang.Throwable from label01 to label02 with label58;
+        catch java.lang.Throwable from label03 to label04 with label58;
+        catch java.lang.Throwable from label05 to label06 with label58;
+        catch java.lang.Throwable from label09 to label10 with label58;
+        catch java.lang.Throwable from label13 to label14 with label58;
+        catch java.lang.Throwable from label17 to label18 with label58;
+        catch java.lang.Throwable from label21 to label22 with label58;
+        catch java.lang.Throwable from label23 to label25 with label58;
+        catch java.lang.Throwable from label26 to label27 with label58;
+        catch java.lang.Throwable from label28 to label30 with label58;
+        catch android.content.pm.PackageManager$NameNotFoundException from label30 to label31 with label59;
+        catch java.lang.Throwable from label30 to label31 with label58;
+        catch java.lang.Throwable from label32 to label33 with label58;
+        catch java.lang.Throwable from label36 to label37 with label58;
+        catch java.lang.Throwable from label38 to label39 with label58;
+        catch android.content.pm.PackageManager$NameNotFoundException from label42 to label43 with label60;
+        catch android.content.pm.PackageManager$NameNotFoundException from label47 to label48 with label60;
+        catch java.lang.Throwable from label41 to label43 with label58;
+        catch java.lang.Throwable from label46 to label48 with label58;
+        catch java.lang.Throwable from label54 to label55 with label58;
+        catch java.lang.Throwable from label55 to label56 with label58;
+        catch java.lang.Throwable from label56 to label57 with label58;
+    }

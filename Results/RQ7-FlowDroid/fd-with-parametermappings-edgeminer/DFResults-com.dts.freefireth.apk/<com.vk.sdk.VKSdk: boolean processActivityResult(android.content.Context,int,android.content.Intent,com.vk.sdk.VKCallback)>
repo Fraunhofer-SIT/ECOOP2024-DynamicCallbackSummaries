@@ -1,0 +1,150 @@
+    static boolean processActivityResult(android.content.Context, int, android.content.Intent, com.vk.sdk.VKCallback)
+    {
+        android.content.Context $r0;
+        android.os.Bundle $r8;
+        com.vk.sdk.VKCallback r2;
+        android.content.Intent $r1;
+        long $l1;
+        java.util.HashMap $r16;
+        com.vk.sdk.VKSdk$CheckTokenResult $r7;
+        com.vk.sdk.api.VKError $r3, $r15;
+        java.util.Map $r6;
+        int $i0;
+        com.vk.sdk.VKAccessToken $r13;
+        java.lang.String $r5, $r12;
+        boolean $z0;
+        java.util.Iterator $r10;
+        com.vk.sdk.api.VKRequest $r14;
+        java.util.Set $r9;
+        java.lang.Object r4, $r11;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $i0 := @parameter1: int;
+
+        $r1 := @parameter2: android.content.Intent;
+
+        r2 := @parameter3: com.vk.sdk.VKCallback;
+
+        if $i0 != -1 goto label01;
+
+        if $r1 != null goto label03;
+
+     label01:
+        if r2 == null goto label02;
+
+        $r15 = new com.vk.sdk.api.VKError;
+
+        specialinvoke $r15.<com.vk.sdk.api.VKError: void <init>(int)>(-102);
+
+        interfaceinvoke r2.<com.vk.sdk.VKCallback: void onError(com.vk.sdk.api.VKError)>($r15);
+
+     label02:
+        staticinvoke <com.vk.sdk.VKSdk: void updateLoginState(android.content.Context)>($r0);
+
+        return 0;
+
+     label03:
+        r4 = null;
+
+        $z0 = virtualinvoke $r1.<android.content.Intent: boolean hasExtra(java.lang.String)>("extra-token-data");
+
+        if $z0 == 0 goto label06;
+
+        $r5 = virtualinvoke $r1.<android.content.Intent: java.lang.String getStringExtra(java.lang.String)>("extra-token-data");
+
+        r4 = staticinvoke <com.vk.sdk.util.VKUtil: java.util.Map explodeQueryString(java.lang.String)>($r5);
+
+     label04:
+        $r6 = (java.util.Map) r4;
+
+        $r7 = staticinvoke <com.vk.sdk.VKSdk: com.vk.sdk.VKSdk$CheckTokenResult checkAndSetToken(android.content.Context,java.util.Map)>($r0, $r6);
+
+        $r3 = $r7.<com.vk.sdk.VKSdk$CheckTokenResult: com.vk.sdk.api.VKError error>;
+
+        if $r3 == null goto label08;
+
+        if r2 == null goto label08;
+
+        $r3 = $r7.<com.vk.sdk.VKSdk$CheckTokenResult: com.vk.sdk.api.VKError error>;
+
+        interfaceinvoke r2.<com.vk.sdk.VKCallback: void onError(com.vk.sdk.api.VKError)>($r3);
+
+     label05:
+        <com.vk.sdk.VKSdk: java.util.ArrayList requestedPermissions> = null;
+
+        staticinvoke <com.vk.sdk.VKSdk: void updateLoginState(android.content.Context)>($r0);
+
+        return 1;
+
+     label06:
+        $r8 = virtualinvoke $r1.<android.content.Intent: android.os.Bundle getExtras()>();
+
+        if $r8 == null goto label04;
+
+        $r16 = new java.util.HashMap;
+
+        r4 = $r16;
+
+        specialinvoke $r16.<java.util.HashMap: void <init>()>();
+
+        $r8 = virtualinvoke $r1.<android.content.Intent: android.os.Bundle getExtras()>();
+
+        $r9 = virtualinvoke $r8.<android.os.Bundle: java.util.Set keySet()>();
+
+        $r10 = interfaceinvoke $r9.<java.util.Set: java.util.Iterator iterator()>();
+
+     label07:
+        $z0 = interfaceinvoke $r10.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label04;
+
+        $r11 = interfaceinvoke $r10.<java.util.Iterator: java.lang.Object next()>();
+
+        $r5 = (java.lang.String) $r11;
+
+        $r8 = virtualinvoke $r1.<android.content.Intent: android.os.Bundle getExtras()>();
+
+        $r11 = virtualinvoke $r8.<android.os.Bundle: java.lang.Object get(java.lang.String)>($r5);
+
+        $r12 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r11);
+
+        $r6 = (java.util.Map) $r16;
+
+        interfaceinvoke $r6.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($r5, $r12);
+
+        goto label07;
+
+     label08:
+        $r13 = $r7.<com.vk.sdk.VKSdk$CheckTokenResult: com.vk.sdk.VKAccessToken token>;
+
+        if $r13 == null goto label05;
+
+        $r13 = $r7.<com.vk.sdk.VKSdk$CheckTokenResult: com.vk.sdk.VKAccessToken oldToken>;
+
+        if $r13 == null goto label10;
+
+        $l1 = virtualinvoke $r1.<android.content.Intent: long getLongExtra(java.lang.String,long)>("extra-validation-request", 0L);
+
+        $r14 = staticinvoke <com.vk.sdk.api.VKRequest: com.vk.sdk.api.VKRequest getRegisteredRequest(long)>($l1);
+
+        if $r14 == null goto label09;
+
+        virtualinvoke $r14.<com.vk.sdk.api.VKRequest: void unregisterObject()>();
+
+        virtualinvoke $r14.<com.vk.sdk.api.VKRequest: void repeat()>();
+
+     label09:
+        if r2 == null goto label05;
+
+        $r13 = $r7.<com.vk.sdk.VKSdk$CheckTokenResult: com.vk.sdk.VKAccessToken token>;
+
+        interfaceinvoke r2.<com.vk.sdk.VKCallback: void onResult(java.lang.Object)>($r13);
+
+        goto label05;
+
+     label10:
+        staticinvoke <com.vk.sdk.VKSdk: void trackVisitor(com.vk.sdk.api.VKRequest$VKRequestListener)>(null);
+
+        goto label09;
+    }

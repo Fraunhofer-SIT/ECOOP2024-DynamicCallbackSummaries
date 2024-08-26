@@ -1,0 +1,184 @@
+    public final void accept(java.lang.Object)
+    {
+        byte[] $r5;
+        java.io.ByteArrayOutputStream $r4;
+        java.nio.ByteBuffer $r1, $r6;
+        byte $b3, $b4;
+        o.serializeAnchor$asInterface r0;
+        int $i0, $i1, $i2, $i5;
+        boolean $z0;
+        double $d0, $d1;
+        o.level $r3;
+        float $f0, $f1;
+        java.lang.Object $r2;
+        com.adeya.android.application.service.audio.AudioRecorderFile$setDefaultImpl $r8;
+        com.adeya.android.application.service.media.audio.opus.NativeOpus $r7;
+
+        r0 := @this: o.serializeAnchor$asInterface;
+
+        $r2 := @parameter0: java.lang.Object;
+
+        $r3 = r0.<o.serializeAnchor$asInterface: o.level getDefaultImpl>;
+
+        $r4 = r0.<o.serializeAnchor$asInterface: java.io.ByteArrayOutputStream asInterface>;
+
+        $r5 = (byte[]) $r2;
+
+        $i0 = lengthof $r5;
+
+        $r6 = staticinvoke <java.nio.ByteBuffer: java.nio.ByteBuffer allocateDirect(int)>($i0);
+
+        virtualinvoke $r6.<java.nio.ByteBuffer: java.nio.ByteBuffer put(byte[])>($r5);
+
+        virtualinvoke $r6.<java.nio.ByteBuffer: java.nio.Buffer rewind()>();
+
+     label01:
+        $z0 = virtualinvoke $r6.<java.nio.Buffer: boolean hasRemaining()>();
+
+        if $z0 == 0 goto label05;
+
+        $i0 = virtualinvoke $r6.<java.nio.Buffer: int remaining()>();
+
+        $r1 = $r3.<o.level: java.nio.ByteBuffer getDefaultImpl>;
+
+        $i1 = virtualinvoke $r1.<java.nio.Buffer: int remaining()>();
+
+        if $i0 <= $i1 goto label02;
+
+        $i0 = virtualinvoke $r6.<java.nio.Buffer: int limit()>();
+
+        $r1 = $r3.<o.level: java.nio.ByteBuffer getDefaultImpl>;
+
+        $i1 = virtualinvoke $r1.<java.nio.Buffer: int remaining()>();
+
+        $i2 = virtualinvoke $r6.<java.nio.Buffer: int position()>();
+
+        $i1 = $i1 + $i2;
+
+        virtualinvoke $r6.<java.nio.ByteBuffer: java.nio.Buffer limit(int)>($i1);
+
+        goto label03;
+
+     label02:
+        $i0 = -1;
+
+     label03:
+        $r1 = $r3.<o.level: java.nio.ByteBuffer getDefaultImpl>;
+
+        virtualinvoke $r1.<java.nio.ByteBuffer: java.nio.ByteBuffer put(java.nio.ByteBuffer)>($r6);
+
+        $r1 = $r3.<o.level: java.nio.ByteBuffer getDefaultImpl>;
+
+        $i1 = virtualinvoke $r1.<java.nio.Buffer: int position()>();
+
+        $r1 = $r3.<o.level: java.nio.ByteBuffer getDefaultImpl>;
+
+        $i2 = virtualinvoke $r1.<java.nio.Buffer: int limit()>();
+
+        if $i1 != $i2 goto label04;
+
+        $r1 = $r3.<o.level: java.nio.ByteBuffer getDefaultImpl>;
+
+        $i1 = virtualinvoke $r1.<java.nio.Buffer: int limit()>();
+
+        $r7 = $r3.<o.level: com.adeya.android.application.service.media.audio.opus.NativeOpus IconCompatParcelizer>;
+
+        $r1 = $r3.<o.level: java.nio.ByteBuffer getDefaultImpl>;
+
+        $i1 = virtualinvoke $r7.<com.adeya.android.application.service.media.audio.opus.NativeOpus: int writeFrame(java.nio.ByteBuffer,int)>($r1, $i1);
+
+        if $i1 == 0 goto label04;
+
+        $r1 = $r3.<o.level: java.nio.ByteBuffer getDefaultImpl>;
+
+        virtualinvoke $r1.<java.nio.ByteBuffer: java.nio.Buffer rewind()>();
+
+     label04:
+        if $i0 == -1 goto label01;
+
+        virtualinvoke $r6.<java.nio.ByteBuffer: java.nio.Buffer limit(int)>($i0);
+
+        goto label01;
+
+     label05:
+        virtualinvoke $r4.<java.io.OutputStream: void write(byte[])>($r5);
+
+        $i0 = lengthof $r5;
+
+        $d0 = 0.0;
+
+        $i1 = 0;
+
+     label06:
+        if $i1 >= $i0 goto label07;
+
+        $b3 = $r5[$i1];
+
+        $b4 = $r5[$i1];
+
+        $i2 = (int) $b3;
+
+        $i5 = (int) $b4;
+
+        $i2 = $i2 * $i5;
+
+        $d1 = (double) $i2;
+
+        $d0 = $d0 + $d1;
+
+        $i1 = $i1 + 1;
+
+        goto label06;
+
+     label07:
+        $f0 = 0.0F;
+
+        if $i0 <= 0 goto label08;
+
+        $d1 = (double) $i0;
+
+        $d0 = $d0 / $d1;
+
+        $f1 = (float) $d0;
+
+        goto label09;
+
+     label08:
+        $f1 = 0.0F;
+
+     label09:
+        $f1 = $f1 - 2000.0F;
+
+        $b3 = $f1 cmpg 0.0F;
+
+        $i0 = (int) $b3;
+
+        if $i0 < 0 goto label10;
+
+        $f0 = 2.6666667F * $f1;
+
+     label10:
+        $d0 = (double) $f0;
+
+        $d0 = staticinvoke <java.lang.Math: double pow(double,double)>($d0, 5.0);
+
+        $f0 = (float) $d0;
+
+        $d0 = staticinvoke <java.lang.Math: double pow(double,double)>(3200.0, 4.0);
+
+        $f1 = (float) $d0;
+
+        $f0 = $f0 / $f1;
+
+        $d0 = (double) $f0;
+
+        $d0 = staticinvoke <java.lang.Math: double sqrt(double)>($d0);
+
+        $f0 = (float) $d0;
+
+        $r8 = $r3.<o.level: com.adeya.android.application.service.audio.AudioRecorderFile$setDefaultImpl MediaBrowserCompat$CustomActionResultReceiver>;
+
+        interfaceinvoke $r8.<com.adeya.android.application.service.audio.AudioRecorderFile$setDefaultImpl: void asBinder(float)>($f0);
+
+        return;
+    }

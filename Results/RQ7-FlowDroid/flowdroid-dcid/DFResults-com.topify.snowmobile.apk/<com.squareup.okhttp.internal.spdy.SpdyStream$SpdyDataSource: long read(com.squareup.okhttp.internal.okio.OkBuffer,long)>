@@ -1,0 +1,215 @@
+    public long read(com.squareup.okhttp.internal.okio.OkBuffer, long) throws java.io.IOException
+    {
+        java.lang.Throwable $r12, $r13;
+        long $l0, $l2, $l4;
+        com.squareup.okhttp.internal.spdy.SpdyStream $r4, $r7;
+        byte $b1;
+        int $i3;
+        java.lang.String $r3;
+        com.squareup.okhttp.internal.spdy.SpdyStream$SpdyDataSource r0;
+        java.lang.IllegalArgumentException $r15;
+        com.squareup.okhttp.internal.spdy.SpdyConnection $r8, $r10, $r11;
+        com.squareup.okhttp.internal.okio.OkBuffer $r1, $r5, $r6;
+        com.squareup.okhttp.internal.spdy.Settings $r9;
+        java.lang.StringBuilder $r2, $r14;
+
+        r0 := @this: com.squareup.okhttp.internal.spdy.SpdyStream$SpdyDataSource;
+
+        $r1 := @parameter0: com.squareup.okhttp.internal.okio.OkBuffer;
+
+        $l0 := @parameter1: long;
+
+        $i3 = (int) 1;
+
+        if $i3 >= 0 goto label01;
+
+        $r15 = new java.lang.IllegalArgumentException;
+
+        $r14 = new java.lang.StringBuilder;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        $r2 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("byteCount < 0: ");
+
+        $r2 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>(2048L);
+
+        $r3 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r15.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>($r3);
+
+        throw $r15;
+
+     label01:
+        $r4 = r0.<com.squareup.okhttp.internal.spdy.SpdyStream$SpdyDataSource: com.squareup.okhttp.internal.spdy.SpdyStream this$0>;
+
+        entermonitor $r4;
+
+     label02:
+        specialinvoke r0.<com.squareup.okhttp.internal.spdy.SpdyStream$SpdyDataSource: void waitUntilReadable()>();
+
+        specialinvoke r0.<com.squareup.okhttp.internal.spdy.SpdyStream$SpdyDataSource: void checkNotClosed()>();
+
+        $r5 = r0.<com.squareup.okhttp.internal.spdy.SpdyStream$SpdyDataSource: com.squareup.okhttp.internal.okio.OkBuffer readBuffer>;
+
+        $l2 = virtualinvoke $r5.<com.squareup.okhttp.internal.okio.OkBuffer: long size()>();
+
+        $b1 = $l2 cmp 0L;
+
+        if $b1 != 0 goto label04;
+
+        exitmonitor $r4;
+
+     label03:
+        return -1L;
+
+     label04:
+        $r5 = r0.<com.squareup.okhttp.internal.spdy.SpdyStream$SpdyDataSource: com.squareup.okhttp.internal.okio.OkBuffer readBuffer>;
+
+        $r6 = r0.<com.squareup.okhttp.internal.spdy.SpdyStream$SpdyDataSource: com.squareup.okhttp.internal.okio.OkBuffer readBuffer>;
+
+        $l2 = virtualinvoke $r6.<com.squareup.okhttp.internal.okio.OkBuffer: long size()>();
+
+        $l0 = staticinvoke <java.lang.Math: long min(long,long)>(2048L, $l2);
+
+        $l0 = virtualinvoke $r5.<com.squareup.okhttp.internal.okio.OkBuffer: long read(com.squareup.okhttp.internal.okio.OkBuffer,long)>($r1, $l0);
+
+        $r7 = r0.<com.squareup.okhttp.internal.spdy.SpdyStream$SpdyDataSource: com.squareup.okhttp.internal.spdy.SpdyStream this$0>;
+
+        $l2 = $r7.<com.squareup.okhttp.internal.spdy.SpdyStream: long unacknowledgedBytesRead>;
+
+        $l2 = $l2 + $l0;
+
+        $r7.<com.squareup.okhttp.internal.spdy.SpdyStream: long unacknowledgedBytesRead> = $l2;
+
+        $r7 = r0.<com.squareup.okhttp.internal.spdy.SpdyStream$SpdyDataSource: com.squareup.okhttp.internal.spdy.SpdyStream this$0>;
+
+        $l2 = $r7.<com.squareup.okhttp.internal.spdy.SpdyStream: long unacknowledgedBytesRead>;
+
+        $r7 = r0.<com.squareup.okhttp.internal.spdy.SpdyStream$SpdyDataSource: com.squareup.okhttp.internal.spdy.SpdyStream this$0>;
+
+        $r8 = staticinvoke <com.squareup.okhttp.internal.spdy.SpdyStream: com.squareup.okhttp.internal.spdy.SpdyConnection access$500(com.squareup.okhttp.internal.spdy.SpdyStream)>($r7);
+
+        $r9 = $r8.<com.squareup.okhttp.internal.spdy.SpdyConnection: com.squareup.okhttp.internal.spdy.Settings peerSettings>;
+
+        $i3 = virtualinvoke $r9.<com.squareup.okhttp.internal.spdy.Settings: int getInitialWindowSize(int)>(65536);
+
+        $i3 = $i3 / 2;
+
+        $l4 = (long) $i3;
+
+        $b1 = $l2 cmp $l4;
+
+        $i3 = (int) $b1;
+
+        if $i3 < 0 goto label05;
+
+        $r7 = r0.<com.squareup.okhttp.internal.spdy.SpdyStream$SpdyDataSource: com.squareup.okhttp.internal.spdy.SpdyStream this$0>;
+
+        $r8 = staticinvoke <com.squareup.okhttp.internal.spdy.SpdyStream: com.squareup.okhttp.internal.spdy.SpdyConnection access$500(com.squareup.okhttp.internal.spdy.SpdyStream)>($r7);
+
+        $r7 = r0.<com.squareup.okhttp.internal.spdy.SpdyStream$SpdyDataSource: com.squareup.okhttp.internal.spdy.SpdyStream this$0>;
+
+        $i3 = staticinvoke <com.squareup.okhttp.internal.spdy.SpdyStream: int access$600(com.squareup.okhttp.internal.spdy.SpdyStream)>($r7);
+
+        $r7 = r0.<com.squareup.okhttp.internal.spdy.SpdyStream$SpdyDataSource: com.squareup.okhttp.internal.spdy.SpdyStream this$0>;
+
+        $l2 = $r7.<com.squareup.okhttp.internal.spdy.SpdyStream: long unacknowledgedBytesRead>;
+
+        virtualinvoke $r8.<com.squareup.okhttp.internal.spdy.SpdyConnection: void writeWindowUpdateLater(int,long)>($i3, $l2);
+
+        $r7 = r0.<com.squareup.okhttp.internal.spdy.SpdyStream$SpdyDataSource: com.squareup.okhttp.internal.spdy.SpdyStream this$0>;
+
+        $r7.<com.squareup.okhttp.internal.spdy.SpdyStream: long unacknowledgedBytesRead> = 0L;
+
+     label05:
+        exitmonitor $r4;
+
+     label06:
+        $r4 = r0.<com.squareup.okhttp.internal.spdy.SpdyStream$SpdyDataSource: com.squareup.okhttp.internal.spdy.SpdyStream this$0>;
+
+        $r8 = staticinvoke <com.squareup.okhttp.internal.spdy.SpdyStream: com.squareup.okhttp.internal.spdy.SpdyConnection access$500(com.squareup.okhttp.internal.spdy.SpdyStream)>($r4);
+
+        entermonitor $r8;
+
+     label07:
+        $r4 = r0.<com.squareup.okhttp.internal.spdy.SpdyStream$SpdyDataSource: com.squareup.okhttp.internal.spdy.SpdyStream this$0>;
+
+        $r10 = staticinvoke <com.squareup.okhttp.internal.spdy.SpdyStream: com.squareup.okhttp.internal.spdy.SpdyConnection access$500(com.squareup.okhttp.internal.spdy.SpdyStream)>($r4);
+
+        $l2 = $r10.<com.squareup.okhttp.internal.spdy.SpdyConnection: long unacknowledgedBytesRead>;
+
+        $l2 = $l2 + $l0;
+
+        $r10.<com.squareup.okhttp.internal.spdy.SpdyConnection: long unacknowledgedBytesRead> = $l2;
+
+        $r4 = r0.<com.squareup.okhttp.internal.spdy.SpdyStream$SpdyDataSource: com.squareup.okhttp.internal.spdy.SpdyStream this$0>;
+
+        $r10 = staticinvoke <com.squareup.okhttp.internal.spdy.SpdyStream: com.squareup.okhttp.internal.spdy.SpdyConnection access$500(com.squareup.okhttp.internal.spdy.SpdyStream)>($r4);
+
+        $l2 = $r10.<com.squareup.okhttp.internal.spdy.SpdyConnection: long unacknowledgedBytesRead>;
+
+        $r4 = r0.<com.squareup.okhttp.internal.spdy.SpdyStream$SpdyDataSource: com.squareup.okhttp.internal.spdy.SpdyStream this$0>;
+
+        $r10 = staticinvoke <com.squareup.okhttp.internal.spdy.SpdyStream: com.squareup.okhttp.internal.spdy.SpdyConnection access$500(com.squareup.okhttp.internal.spdy.SpdyStream)>($r4);
+
+        $r9 = $r10.<com.squareup.okhttp.internal.spdy.SpdyConnection: com.squareup.okhttp.internal.spdy.Settings peerSettings>;
+
+        $i3 = virtualinvoke $r9.<com.squareup.okhttp.internal.spdy.Settings: int getInitialWindowSize(int)>(65536);
+
+        $i3 = $i3 / 2;
+
+        $l4 = (long) $i3;
+
+        $b1 = $l2 cmp $l4;
+
+        $i3 = (int) $b1;
+
+        if $i3 < 0 goto label08;
+
+        $r4 = r0.<com.squareup.okhttp.internal.spdy.SpdyStream$SpdyDataSource: com.squareup.okhttp.internal.spdy.SpdyStream this$0>;
+
+        $r10 = staticinvoke <com.squareup.okhttp.internal.spdy.SpdyStream: com.squareup.okhttp.internal.spdy.SpdyConnection access$500(com.squareup.okhttp.internal.spdy.SpdyStream)>($r4);
+
+        $r4 = r0.<com.squareup.okhttp.internal.spdy.SpdyStream$SpdyDataSource: com.squareup.okhttp.internal.spdy.SpdyStream this$0>;
+
+        $r11 = staticinvoke <com.squareup.okhttp.internal.spdy.SpdyStream: com.squareup.okhttp.internal.spdy.SpdyConnection access$500(com.squareup.okhttp.internal.spdy.SpdyStream)>($r4);
+
+        $l2 = $r11.<com.squareup.okhttp.internal.spdy.SpdyConnection: long unacknowledgedBytesRead>;
+
+        virtualinvoke $r10.<com.squareup.okhttp.internal.spdy.SpdyConnection: void writeWindowUpdateLater(int,long)>(0, $l2);
+
+        $r4 = r0.<com.squareup.okhttp.internal.spdy.SpdyStream$SpdyDataSource: com.squareup.okhttp.internal.spdy.SpdyStream this$0>;
+
+        $r10 = staticinvoke <com.squareup.okhttp.internal.spdy.SpdyStream: com.squareup.okhttp.internal.spdy.SpdyConnection access$500(com.squareup.okhttp.internal.spdy.SpdyStream)>($r4);
+
+        $r10.<com.squareup.okhttp.internal.spdy.SpdyConnection: long unacknowledgedBytesRead> = 0L;
+
+     label08:
+        exitmonitor $r8;
+
+     label09:
+        return $l0;
+
+     label10:
+        $r12 := @caughtexception;
+
+        exitmonitor $r8;
+
+     label11:
+        throw $r12;
+
+     label12:
+        $r13 := @caughtexception;
+
+     label13:
+        exitmonitor $r4;
+
+     label14:
+        throw $r13;
+
+        catch java.lang.Throwable from label02 to label03 with label12;
+        catch java.lang.Throwable from label04 to label06 with label12;
+        catch java.lang.Throwable from label07 to label09 with label10;
+        catch java.lang.Throwable from label10 to label11 with label10;
+        catch java.lang.Throwable from label13 to label14 with label12;
+    }

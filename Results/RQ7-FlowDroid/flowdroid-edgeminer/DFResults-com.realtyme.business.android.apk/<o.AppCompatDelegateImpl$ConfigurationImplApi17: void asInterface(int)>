@@ -1,0 +1,127 @@
+    private void asInterface(int)
+    {
+        java.lang.Throwable $r7, $r10;
+        android.content.Context $r2;
+        byte[] $r6;
+        o.AppCompatDelegateImpl$ConfigurationImplApi17$asInterface $r14;
+        android.media.MediaPlayer $r1, $r12;
+        java.util.Timer $r11;
+        long $l2;
+        android.content.res.AssetManager $r4;
+        int $i0, $i1;
+        java.lang.String $r9;
+        o.AppCompatDelegateImpl$ConfigurationImplApi17 r0;
+        java.io.FileOutputStream $r13;
+        java.io.File $r3;
+        java.io.InputStream $r5;
+        o.scaleMatrix$default $r8;
+
+        r0 := @this: o.AppCompatDelegateImpl$ConfigurationImplApi17;
+
+        $i0 := @parameter0: int;
+
+        $r12 = new android.media.MediaPlayer;
+
+        specialinvoke $r12.<android.media.MediaPlayer: void <init>()>();
+
+        r0.<o.AppCompatDelegateImpl$ConfigurationImplApi17: android.media.MediaPlayer onLaunch> = $r12;
+
+        $r2 = r0.<o.AppCompatDelegateImpl$ConfigurationImplApi17: android.content.Context RatingCompat>;
+
+        $r3 = virtualinvoke $r2.<android.content.Context: java.io.File getFileStreamPath(java.lang.String)>("tmp_data");
+
+        $r2 = r0.<o.AppCompatDelegateImpl$ConfigurationImplApi17: android.content.Context RatingCompat>;
+
+     label01:
+        $r4 = virtualinvoke $r2.<android.content.Context: android.content.res.AssetManager getAssets()>();
+
+        $r5 = virtualinvoke $r4.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>("c");
+
+     label02:
+        $r13 = new java.io.FileOutputStream;
+
+     label03:
+        specialinvoke $r13.<java.io.FileOutputStream: void <init>(java.io.File)>($r3);
+
+     label04:
+        $r6 = newarray (byte)[1024];
+
+     label05:
+        $i1 = virtualinvoke $r5.<java.io.InputStream: int read(byte[])>($r6);
+
+     label06:
+        if $i1 == -1 goto label09;
+
+     label07:
+        virtualinvoke $r13.<java.io.OutputStream: void write(byte[],int,int)>($r6, 0, $i1);
+
+        $i1 = virtualinvoke $r5.<java.io.InputStream: int read(byte[])>($r6);
+
+     label08:
+        goto label06;
+
+     label09:
+        virtualinvoke $r13.<java.io.OutputStream: void close()>();
+
+        virtualinvoke $r5.<java.io.InputStream: void close()>();
+
+     label10:
+        goto label12;
+
+     label11:
+        $r7 := @caughtexception;
+
+        $r8 = r0.<o.AppCompatDelegate$NightMode: o.scaleMatrix$default MediaBrowserCompat$MediaItem>;
+
+        virtualinvoke $r8.<o.scaleMatrix$default: void asBinder(java.lang.Object)>($r7);
+
+     label12:
+        $r1 = r0.<o.AppCompatDelegateImpl$ConfigurationImplApi17: android.media.MediaPlayer onLaunch>;
+
+     label13:
+        $r9 = virtualinvoke $r3.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r1.<android.media.MediaPlayer: void setDataSource(java.lang.String)>($r9);
+
+     label14:
+        $r1 = r0.<o.AppCompatDelegateImpl$ConfigurationImplApi17: android.media.MediaPlayer onLaunch>;
+
+     label15:
+        virtualinvoke $r1.<android.media.MediaPlayer: void setAudioStreamType(int)>(0);
+
+     label16:
+        $r1 = r0.<o.AppCompatDelegateImpl$ConfigurationImplApi17: android.media.MediaPlayer onLaunch>;
+
+     label17:
+        virtualinvoke $r1.<android.media.MediaPlayer: void prepare()>();
+
+     label18:
+        goto label20;
+
+     label19:
+        $r10 := @caughtexception;
+
+        virtualinvoke $r10.<java.lang.Throwable: void printStackTrace()>();
+
+     label20:
+        $r11 = r0.<o.AppCompatDelegateImpl$ConfigurationImplApi17: java.util.Timer ComponentActivity$3>;
+
+        $r14 = new o.AppCompatDelegateImpl$ConfigurationImplApi17$asInterface;
+
+        specialinvoke $r14.<o.AppCompatDelegateImpl$ConfigurationImplApi17$asInterface: void <init>(o.AppCompatDelegateImpl$ConfigurationImplApi17,byte)>(r0, 0);
+
+        $l2 = (long) $i0;
+
+        virtualinvoke $r11.<java.util.Timer: void schedule(java.util.TimerTask,long)>($r14, $l2);
+
+        return;
+
+        catch java.io.IOException from label01 to label02 with label11;
+        catch java.io.IOException from label03 to label04 with label11;
+        catch java.io.IOException from label05 to label06 with label11;
+        catch java.io.IOException from label07 to label08 with label11;
+        catch java.io.IOException from label09 to label10 with label11;
+        catch java.io.IOException from label13 to label14 with label19;
+        catch java.io.IOException from label15 to label16 with label19;
+        catch java.io.IOException from label17 to label18 with label19;
+    }

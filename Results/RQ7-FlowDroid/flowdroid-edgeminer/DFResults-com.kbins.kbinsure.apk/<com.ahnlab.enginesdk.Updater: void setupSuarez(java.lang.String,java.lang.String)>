@@ -1,0 +1,541 @@
+    private void setupSuarez(java.lang.String, java.lang.String) throws java.io.IOException
+    {
+        byte[] $r10;
+        java.util.Date $r22, $r32;
+        byte $b3;
+        java.util.Locale $r12;
+        com.ahnlab.enginesdk.Updater r0;
+        java.lang.SecurityException $r34;
+        java.util.zip.ZipEntry $r19;
+        boolean $z0;
+        java.lang.StringBuilder $r30;
+        java.lang.Throwable $r4, $r5, $r6, $r7, $r8, $r9, $r26, $r27;
+        android.content.Context $r15;
+        java.util.zip.ZipInputStream $r18, $r29;
+        java.text.SimpleDateFormat $r11, $r14, $r28;
+        long $l0, $l1, $l2, $l5;
+        android.content.res.AssetManager $r16;
+        int $i4;
+        java.lang.String $r1, $r2, $r13, $r21, $r23;
+        java.io.FileOutputStream $r25, $r33;
+        java.io.IOException $r31;
+        java.io.File $r3, $r20, $r24;
+        java.io.InputStream $r17;
+
+        r0 := @this: com.ahnlab.enginesdk.Updater;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r20 = new java.io.File;
+
+        $r3 = $r20;
+
+        specialinvoke $r20.<java.io.File: void <init>(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r20.<java.io.File: java.lang.String getCanonicalPath()>();
+
+        $r10 = newarray (byte)[1024];
+
+        $r14 = new java.text.SimpleDateFormat;
+
+        $r11 = $r14;
+
+        $r12 = staticinvoke <java.util.Locale: java.util.Locale getDefault()>();
+
+        $r13 = staticinvoke <com.stealien.const: java.lang.String S1(int)>(808);
+
+        specialinvoke $r14.<java.text.SimpleDateFormat: void <init>(java.lang.String,java.util.Locale)>($r13, $r12);
+
+        $r28 = new java.text.SimpleDateFormat;
+
+        $r12 = staticinvoke <java.util.Locale: java.util.Locale getDefault()>();
+
+        $r13 = staticinvoke <com.stealien.const: java.lang.String S1(int)>(809);
+
+        specialinvoke $r28.<java.text.SimpleDateFormat: void <init>(java.lang.String,java.util.Locale)>($r13, $r12);
+
+     label01:
+        $r15 = r0.<com.ahnlab.enginesdk.Updater: android.content.Context context>;
+
+        $r16 = virtualinvoke $r15.<android.content.Context: android.content.res.AssetManager getAssets()>();
+
+        $r17 = virtualinvoke $r16.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>($r2);
+
+     label02:
+        $r29 = new java.util.zip.ZipInputStream;
+
+     label03:
+        $r18 = $r29;
+
+     label04:
+        specialinvoke $r29.<java.util.zip.ZipInputStream: void <init>(java.io.InputStream)>($r17);
+
+     label05:
+        $r19 = virtualinvoke $r29.<java.util.zip.ZipInputStream: java.util.zip.ZipEntry getNextEntry()>();
+
+     label06:
+        if $r19 == null goto label65;
+
+     label07:
+        $r30 = new java.lang.StringBuilder;
+
+     label08:
+        specialinvoke $r30.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r2 = <java.io.File: java.lang.String separator>;
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r19.<java.util.zip.ZipEntry: java.lang.String getName()>();
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r30.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r24 = new java.io.File;
+
+     label09:
+        $r20 = $r24;
+
+     label10:
+        specialinvoke $r24.<java.io.File: void <init>(java.lang.String)>($r2);
+
+        $r13 = virtualinvoke $r24.<java.io.File: java.lang.String getCanonicalPath()>();
+
+        $z0 = virtualinvoke $r13.<java.lang.String: boolean startsWith(java.lang.String)>($r1);
+
+     label11:
+        if $z0 == 0 goto label63;
+
+     label12:
+        $z0 = virtualinvoke $r19.<java.util.zip.ZipEntry: boolean isDirectory()>();
+
+     label13:
+        $r21 = staticinvoke <com.stealien.const: java.lang.String S1(int)>(810);
+
+        $r13 = staticinvoke <com.stealien.const: java.lang.String S1(int)>(811);
+
+        if $z0 == 0 goto label22;
+
+     label14:
+        $z0 = virtualinvoke $r24.<java.io.File: boolean exists()>();
+
+     label15:
+        if $z0 != 0 goto label21;
+
+     label16:
+        $z0 = virtualinvoke $r24.<java.io.File: boolean mkdirs()>();
+
+     label17:
+        if $z0 != 0 goto label21;
+
+     label18:
+        $r31 = new java.io.IOException;
+
+     label19:
+        $r30 = new java.lang.StringBuilder;
+
+     label20:
+        specialinvoke $r30.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r21);
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r1 = virtualinvoke $r30.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r31.<java.io.IOException: void <init>(java.lang.String)>($r1);
+
+        throw $r31;
+
+     label21:
+        $r21 = $r1;
+
+        goto label55;
+
+     label22:
+        $l0 = virtualinvoke $r19.<java.util.zip.ZipEntry: long getTime()>();
+
+     label23:
+        $l1 = $l0;
+
+     label24:
+        $r32 = new java.util.Date;
+
+     label25:
+        specialinvoke $r32.<java.util.Date: void <init>(long)>($l0);
+
+        $r23 = virtualinvoke $r11.<java.text.SimpleDateFormat: java.lang.String format(java.util.Date)>($r32);
+
+        $r30 = new java.lang.StringBuilder;
+
+     label26:
+        specialinvoke $r30.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r23);
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" +0900");
+
+        $r23 = virtualinvoke $r30.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label27:
+        $r22 = virtualinvoke $r28.<java.text.SimpleDateFormat: java.util.Date parse(java.lang.String)>($r23);
+
+        $l0 = virtualinvoke $r22.<java.util.Date: long getTime()>();
+
+     label28:
+        $l1 = $l0;
+
+     label29:
+        $z0 = virtualinvoke $r20.<java.io.File: boolean exists()>();
+
+     label30:
+        if $z0 == 0 goto label35;
+
+     label31:
+        $l0 = virtualinvoke $r20.<java.io.File: long length()>();
+
+        $l2 = virtualinvoke $r19.<java.util.zip.ZipEntry: long getSize()>();
+
+     label32:
+        $b3 = $l0 cmp $l2;
+
+        if $b3 != 0 goto label35;
+
+     label33:
+        virtualinvoke $r29.<java.util.zip.ZipInputStream: void closeEntry()>();
+
+     label34:
+        goto label05;
+
+     label35:
+        $r24 = virtualinvoke $r20.<java.io.File: java.io.File getParentFile()>();
+
+        $z0 = virtualinvoke $r24.<java.io.File: boolean exists()>();
+
+     label36:
+        if $z0 != 0 goto label42;
+
+     label37:
+        $r24 = virtualinvoke $r20.<java.io.File: java.io.File getParentFile()>();
+
+        $z0 = virtualinvoke $r24.<java.io.File: boolean mkdirs()>();
+
+     label38:
+        if $z0 != 0 goto label42;
+
+     label39:
+        $r31 = new java.io.IOException;
+
+     label40:
+        $r30 = new java.lang.StringBuilder;
+
+     label41:
+        specialinvoke $r30.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r21);
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r1 = virtualinvoke $r30.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r31.<java.io.IOException: void <init>(java.lang.String)>($r1);
+
+        throw $r31;
+
+     label42:
+        $r33 = new java.io.FileOutputStream;
+
+     label43:
+        $r25 = $r33;
+
+     label44:
+        specialinvoke $r33.<java.io.FileOutputStream: void <init>(java.io.File)>($r20);
+
+     label45:
+        $l0 = virtualinvoke $r19.<java.util.zip.ZipEntry: long getSize()>();
+
+     label46:
+        $l2 = 0L;
+
+     label47:
+        $i4 = virtualinvoke $r29.<java.util.zip.ZipInputStream: int read(byte[])>($r10);
+
+     label48:
+        $r21 = $r1;
+
+        if $i4 == -1 goto label51;
+
+     label49:
+        virtualinvoke $r33.<java.io.FileOutputStream: void write(byte[],int,int)>($r10, 0, $i4);
+
+     label50:
+        $l5 = (long) $i4;
+
+        $l2 = $l2 + $l5;
+
+        goto label47;
+
+     label51:
+        $b3 = $l0 cmp $l2;
+
+        if $b3 != 0 goto label59;
+
+     label52:
+        $z0 = virtualinvoke $r20.<java.io.File: boolean setLastModified(long)>($l1);
+
+     label53:
+        if $z0 == 0 goto label56;
+
+     label54:
+        virtualinvoke $r29.<java.util.zip.ZipInputStream: void closeEntry()>();
+
+        virtualinvoke $r33.<java.io.FileOutputStream: void close()>();
+
+     label55:
+        $r1 = $r21;
+
+        goto label05;
+
+     label56:
+        $r31 = new java.io.IOException;
+
+     label57:
+        $r30 = new java.lang.StringBuilder;
+
+     label58:
+        specialinvoke $r30.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Failed to set modified time(");
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r1 = virtualinvoke $r30.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r31.<java.io.IOException: void <init>(java.lang.String)>($r1);
+
+        throw $r31;
+
+     label59:
+        $r31 = new java.io.IOException;
+
+     label60:
+        $r30 = new java.lang.StringBuilder;
+
+     label61:
+        specialinvoke $r30.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Failed to copy file(");
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r13);
+
+        $r1 = virtualinvoke $r30.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r31.<java.io.IOException: void <init>(java.lang.String)>($r1);
+
+        throw $r31;
+
+     label62:
+        $r26 := @caughtexception;
+
+        goto label73;
+
+     label63:
+        $r34 = new java.lang.SecurityException;
+
+     label64:
+        specialinvoke $r34.<java.lang.SecurityException: void <init>(java.lang.String)>("zip path traversal vulnerability found!");
+
+        throw $r34;
+
+     label65:
+        virtualinvoke $r29.<java.util.zip.ZipInputStream: void close()>();
+
+     label66:
+        if $r17 == null goto label92;
+
+     label67:
+        virtualinvoke $r17.<java.io.InputStream: void close()>();
+
+     label68:
+        return;
+
+     label69:
+        $r26 := @caughtexception;
+
+        $r25 = null;
+
+        goto label73;
+
+     label70:
+        $r26 := @caughtexception;
+
+        $r25 = null;
+
+        goto label72;
+
+     label71:
+        $r26 := @caughtexception;
+
+        $r25 = null;
+
+        $r17 = null;
+
+     label72:
+        $r18 = null;
+
+     label73:
+        $r30 = new java.lang.StringBuilder;
+
+     label74:
+        specialinvoke $r30.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("setupSuarez error. ");
+
+        $r1 = virtualinvoke $r26.<java.lang.Throwable: java.lang.String toString()>();
+
+        virtualinvoke $r30.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r30.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.ahnlab.enginesdk.SDKLogger: int normalLog(java.lang.String,java.lang.String)>("UP", $r1);
+
+     label75:
+        throw $r26;
+
+     label76:
+        $r27 := @caughtexception;
+
+        $z0 = 1;
+
+        goto label78;
+
+     label77:
+        $r27 := @caughtexception;
+
+        $z0 = 0;
+
+     label78:
+        if $r18 == null goto label80;
+
+     label79:
+        virtualinvoke $r18.<java.util.zip.ZipInputStream: void close()>();
+
+     label80:
+        if $r17 == null goto label82;
+
+     label81:
+        virtualinvoke $r17.<java.io.InputStream: void close()>();
+
+     label82:
+        if $r25 == null goto label84;
+
+     label83:
+        virtualinvoke $r25.<java.io.FileOutputStream: void close()>();
+
+     label84:
+        if $z0 == 0 goto label85;
+
+        $z0 = virtualinvoke $r3.<java.io.File: boolean exists()>();
+
+        if $z0 == 0 goto label85;
+
+        staticinvoke <com.ahnlab.enginesdk.SDKUtils: boolean delete(java.io.File)>($r3);
+
+     label85:
+        throw $r27;
+
+     label86:
+        $r4 := @caughtexception;
+
+        goto label29;
+
+     label87:
+        $r5 := @caughtexception;
+
+        goto label66;
+
+     label88:
+        $r6 := @caughtexception;
+
+        return;
+
+     label89:
+        $r7 := @caughtexception;
+
+        goto label80;
+
+     label90:
+        $r8 := @caughtexception;
+
+        goto label82;
+
+     label91:
+        $r9 := @caughtexception;
+
+        goto label84;
+
+     label92:
+        return;
+
+        catch java.lang.Throwable from label01 to label02 with label71;
+        catch java.lang.Throwable from label02 to label03 with label70;
+        catch java.lang.Throwable from label04 to label05 with label70;
+        catch java.lang.Throwable from label05 to label06 with label69;
+        catch java.lang.Throwable from label07 to label08 with label69;
+        catch java.lang.Throwable from label08 to label09 with label69;
+        catch java.lang.Throwable from label10 to label11 with label69;
+        catch java.lang.Throwable from label12 to label13 with label69;
+        catch java.lang.Throwable from label14 to label15 with label69;
+        catch java.lang.Throwable from label16 to label17 with label69;
+        catch java.lang.Throwable from label18 to label19 with label69;
+        catch java.lang.Throwable from label19 to label20 with label69;
+        catch java.lang.Throwable from label20 to label21 with label69;
+        catch java.lang.Throwable from label22 to label23 with label69;
+        catch java.lang.Throwable from label24 to label25 with label69;
+        catch java.lang.Throwable from label25 to label26 with label69;
+        catch java.lang.Throwable from label26 to label27 with label69;
+        catch java.text.ParseException from label27 to label28 with label86;
+        catch java.lang.Throwable from label27 to label28 with label69;
+        catch java.lang.Throwable from label29 to label30 with label69;
+        catch java.lang.Throwable from label31 to label32 with label69;
+        catch java.lang.Throwable from label33 to label34 with label69;
+        catch java.lang.Throwable from label35 to label36 with label69;
+        catch java.lang.Throwable from label37 to label38 with label69;
+        catch java.lang.Throwable from label39 to label40 with label69;
+        catch java.lang.Throwable from label40 to label41 with label69;
+        catch java.lang.Throwable from label41 to label43 with label69;
+        catch java.lang.Throwable from label44 to label45 with label69;
+        catch java.lang.Throwable from label45 to label46 with label62;
+        catch java.lang.Throwable from label47 to label48 with label62;
+        catch java.lang.Throwable from label49 to label50 with label62;
+        catch java.lang.Throwable from label52 to label53 with label62;
+        catch java.lang.Throwable from label54 to label55 with label62;
+        catch java.lang.Throwable from label56 to label57 with label62;
+        catch java.lang.Throwable from label57 to label58 with label62;
+        catch java.lang.Throwable from label58 to label60 with label62;
+        catch java.lang.Throwable from label60 to label61 with label62;
+        catch java.lang.Throwable from label61 to label62 with label62;
+        catch java.lang.Throwable from label63 to label64 with label69;
+        catch java.lang.Throwable from label64 to label65 with label69;
+        catch java.io.IOException from label65 to label66 with label87;
+        catch java.io.IOException from label67 to label68 with label88;
+        catch java.lang.Throwable from label73 to label74 with label77;
+        catch java.lang.Throwable from label74 to label75 with label77;
+        catch java.lang.Throwable from label75 to label76 with label76;
+        catch java.io.IOException from label79 to label80 with label89;
+        catch java.io.IOException from label81 to label82 with label90;
+        catch java.io.IOException from label83 to label84 with label91;
+    }

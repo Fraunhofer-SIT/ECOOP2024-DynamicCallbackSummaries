@@ -1,0 +1,256 @@
+    private static int pathZip(java.io.File, java.lang.String, java.util.zip.ZipOutputStream, int, int)
+    {
+        java.util.zip.ZipOutputStream $r2;
+        java.lang.Throwable $r7, $r8, $r9, $r10, $r11, $r12, $r13;
+        byte[] $r5;
+        java.io.BufferedInputStream $r15;
+        long $l4;
+        com.sec.android.app.sbrowser.backup.SmartSwitchUtil $r6;
+        int $i0, $i1, $i2, $i3;
+        java.lang.String $r1, $r3;
+        java.util.zip.ZipEntry $r16;
+        boolean $z0;
+        java.io.IOException $r17;
+        java.io.FileInputStream $r14;
+        java.io.File $r0;
+        java.io.File[] $r4;
+
+        $r0 := @parameter0: java.io.File;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r2 := @parameter2: java.util.zip.ZipOutputStream;
+
+        $i1 := @parameter3: int;
+
+        $i0 := @parameter4: int;
+
+        $z0 = virtualinvoke $r0.<java.io.File: boolean isDirectory()>();
+
+        $i2 = 0;
+
+        if $z0 == 0 goto label03;
+
+        $r3 = virtualinvoke $r0.<java.io.File: java.lang.String getName()>();
+
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>(".metadata");
+
+        if $z0 == 0 goto label01;
+
+        return $i1;
+
+     label01:
+        $r4 = virtualinvoke $r0.<java.io.File: java.io.File[] listFiles()>();
+
+        if $r4 == null goto label50;
+
+        $i3 = lengthof $r4;
+
+     label02:
+        if $i2 >= $i3 goto label50;
+
+        $r0 = $r4[$i2];
+
+        $i1 = staticinvoke <com.sec.android.app.sbrowser.backup.BackupRestoreFileUtil: int pathZip(java.io.File,java.lang.String,java.util.zip.ZipOutputStream,int,int)>($r0, $r1, $r2, $i1, $i0);
+
+        $i2 = $i2 + 1;
+
+        goto label02;
+
+     label03:
+        $r14 = new java.io.FileInputStream;
+
+     label04:
+        specialinvoke $r14.<java.io.FileInputStream: void <init>(java.io.File)>($r0);
+
+     label05:
+        $r15 = new java.io.BufferedInputStream;
+
+     label06:
+        specialinvoke $r15.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r14);
+
+     label07:
+        $r3 = virtualinvoke $r0.<java.io.File: java.lang.String getPath()>();
+
+        $i2 = virtualinvoke $r1.<java.lang.String: int length()>();
+
+     label08:
+        $i2 = $i2 + 1;
+
+     label09:
+        $i3 = virtualinvoke $r3.<java.lang.String: int length()>();
+
+        $r1 = virtualinvoke $r3.<java.lang.String: java.lang.String substring(int,int)>($i2, $i3);
+
+        $r16 = new java.util.zip.ZipEntry;
+
+     label10:
+        specialinvoke $r16.<java.util.zip.ZipEntry: void <init>(java.lang.String)>($r1);
+
+        $l4 = virtualinvoke $r0.<java.io.File: long lastModified()>();
+
+        virtualinvoke $r16.<java.util.zip.ZipEntry: void setTime(long)>($l4);
+
+        virtualinvoke $r2.<java.util.zip.ZipOutputStream: void putNextEntry(java.util.zip.ZipEntry)>($r16);
+
+     label11:
+        $r5 = newarray (byte)[4096];
+
+     label12:
+        $i2 = virtualinvoke $r15.<java.io.BufferedInputStream: int read(byte[],int,int)>($r5, 0, 4096);
+
+     label13:
+        if $i2 == -1 goto label16;
+
+     label14:
+        virtualinvoke $r2.<java.util.zip.ZipOutputStream: void write(byte[],int,int)>($r5, 0, $i2);
+
+     label15:
+        goto label12;
+
+     label16:
+        virtualinvoke $r2.<java.util.zip.ZipOutputStream: void closeEntry()>();
+
+     label17:
+        $i1 = $i1 + 1;
+
+        if $i0 <= 0 goto label23;
+
+        $i2 = $i1 % 50;
+
+        if $i2 != 0 goto label23;
+
+     label18:
+        $r6 = staticinvoke <com.sec.android.app.sbrowser.backup.SmartSwitchUtil: com.sec.android.app.sbrowser.backup.SmartSwitchUtil getInstance()>();
+
+     label19:
+        $i2 = $i1 * 80;
+
+     label20:
+        $i0 = $i2 / $i0;
+
+     label21:
+        $i0 = $i0 + 10;
+
+     label22:
+        virtualinvoke $r6.<com.sec.android.app.sbrowser.backup.SmartSwitchUtil: void sendBackupProgress(int)>($i0);
+
+     label23:
+        if $r15 == null goto label25;
+
+     label24:
+        virtualinvoke $r15.<java.io.BufferedInputStream: void close()>();
+
+     label25:
+        if $r14 == null goto label50;
+
+     label26:
+        virtualinvoke $r14.<java.io.FileInputStream: void close()>();
+
+     label27:
+        return $i1;
+
+     label28:
+        $r7 := @caughtexception;
+
+     label29:
+        throw $r7;
+
+     label30:
+        $r8 := @caughtexception;
+
+        if $r15 == null goto label37;
+
+        if $r7 == null goto label36;
+
+     label31:
+        virtualinvoke $r15.<java.io.BufferedInputStream: void close()>();
+
+     label32:
+        goto label37;
+
+     label33:
+        $r9 := @caughtexception;
+
+     label34:
+        virtualinvoke $r7.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r9);
+
+     label35:
+        goto label37;
+
+     label36:
+        virtualinvoke $r15.<java.io.BufferedInputStream: void close()>();
+
+     label37:
+        throw $r8;
+
+     label38:
+        $r10 := @caughtexception;
+
+        goto label41;
+
+     label39:
+        $r11 := @caughtexception;
+
+     label40:
+        throw $r11;
+
+     label41:
+        if $r14 == null goto label48;
+
+        if $r11 == null goto label47;
+
+     label42:
+        virtualinvoke $r14.<java.io.FileInputStream: void close()>();
+
+     label43:
+        goto label48;
+
+     label44:
+        $r12 := @caughtexception;
+
+     label45:
+        virtualinvoke $r11.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r12);
+
+     label46:
+        goto label48;
+
+     label47:
+        virtualinvoke $r14.<java.io.FileInputStream: void close()>();
+
+     label48:
+        throw $r10;
+
+     label49:
+        $r13 := @caughtexception;
+
+        $r17 = (java.io.IOException) $r13;
+
+        virtualinvoke $r17.<java.io.IOException: void printStackTrace()>();
+
+     label50:
+        return $i1;
+
+        catch java.io.IOException from label04 to label05 with label49;
+        catch java.lang.Throwable from label05 to label06 with label39;
+        catch java.lang.Throwable from label06 to label07 with label39;
+        catch java.lang.Throwable from label07 to label08 with label28;
+        catch java.lang.Throwable from label09 to label10 with label28;
+        catch java.lang.Throwable from label10 to label11 with label28;
+        catch java.lang.Throwable from label12 to label13 with label28;
+        catch java.lang.Throwable from label14 to label15 with label28;
+        catch java.lang.Throwable from label16 to label17 with label28;
+        catch java.lang.Throwable from label18 to label19 with label28;
+        catch java.lang.Throwable from label20 to label21 with label28;
+        catch java.lang.Throwable from label22 to label23 with label28;
+        catch java.lang.Throwable from label24 to label25 with label39;
+        catch java.io.IOException from label26 to label27 with label49;
+        catch java.lang.Throwable from label29 to label30 with label30;
+        catch java.lang.Throwable from label31 to label32 with label33;
+        catch java.lang.Throwable from label34 to label35 with label39;
+        catch java.lang.Throwable from label36 to label38 with label39;
+        catch java.lang.Throwable from label40 to label41 with label38;
+        catch java.lang.Throwable from label42 to label43 with label44;
+        catch java.io.IOException from label45 to label46 with label49;
+        catch java.io.IOException from label47 to label49 with label49;
+    }

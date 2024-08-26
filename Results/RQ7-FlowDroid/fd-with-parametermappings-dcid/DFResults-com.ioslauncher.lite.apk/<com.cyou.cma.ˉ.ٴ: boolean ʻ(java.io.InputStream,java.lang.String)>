@@ -1,0 +1,438 @@
+    private static boolean \u02bb(java.io.InputStream, java.lang.String)
+    {
+        byte[] $r8;
+        java.io.BufferedInputStream $r34;
+        java.util.zip.ZipEntry $r2;
+        boolean $z0;
+        java.lang.Exception $r11, $r13, $r14, $r17, $r19, $r21, $r23, $r25, $r27, $r30, $r32;
+        java.lang.StringBuilder $r5, $r36;
+        java.lang.Throwable $r9, $r15;
+        java.util.zip.ZipInputStream $r35;
+        java.lang.Error $r12, $r16, $r18, $r20, $r22, $r24, $r26, $r28, $r29, $r31, $r33;
+        int $i0;
+        java.lang.String $r1, $r3, $r6;
+        java.io.FileOutputStream $r37;
+        java.io.File $r4, $r7;
+        java.io.FileDescriptor $r10;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r35 = new java.util.zip.ZipInputStream;
+
+        $r34 = new java.io.BufferedInputStream;
+
+        specialinvoke $r34.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r0);
+
+        specialinvoke $r35.<java.util.zip.ZipInputStream: void <init>(java.io.InputStream)>($r34);
+
+     label01:
+        $r2 = virtualinvoke $r35.<java.util.zip.ZipInputStream: java.util.zip.ZipEntry getNextEntry()>();
+
+     label02:
+        if $r2 == null goto label62;
+
+     label03:
+        $r3 = virtualinvoke $r2.<java.util.zip.ZipEntry: java.lang.String getName()>();
+
+        $z0 = virtualinvoke $r2.<java.util.zip.ZipEntry: boolean isDirectory()>();
+
+     label04:
+        if $z0 == 0 goto label12;
+
+     label05:
+        $r7 = new java.io.File;
+
+     label06:
+        $r36 = new java.lang.StringBuilder;
+
+     label07:
+        specialinvoke $r36.<java.lang.StringBuilder: void <init>()>();
+
+        $r5 = virtualinvoke $r36.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+     label08:
+        $r6 = <java.io.File: java.lang.String separator>;
+
+     label09:
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r7.<java.io.File: void <init>(java.lang.String)>($r3);
+
+        virtualinvoke $r7.<java.io.File: boolean mkdirs()>();
+
+     label10:
+        $r2 = virtualinvoke $r35.<java.util.zip.ZipInputStream: java.util.zip.ZipEntry getNextEntry()>();
+
+     label11:
+        goto label02;
+
+     label12:
+        $r7 = new java.io.File;
+
+     label13:
+        $r4 = $r7;
+
+     label14:
+        $r36 = new java.lang.StringBuilder;
+
+     label15:
+        specialinvoke $r36.<java.lang.StringBuilder: void <init>()>();
+
+        $r5 = virtualinvoke $r36.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+     label16:
+        $r6 = <java.io.File: java.lang.String separator>;
+
+     label17:
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r7.<java.io.File: void <init>(java.lang.String)>($r3);
+
+        $r7 = virtualinvoke $r7.<java.io.File: java.io.File getParentFile()>();
+
+        $z0 = virtualinvoke $r7.<java.io.File: boolean exists()>();
+
+     label18:
+        if $z0 != 0 goto label20;
+
+     label19:
+        virtualinvoke $r7.<java.io.File: boolean mkdirs()>();
+
+     label20:
+        $r37 = new java.io.FileOutputStream;
+
+     label21:
+        specialinvoke $r37.<java.io.FileOutputStream: void <init>(java.io.File)>($r4);
+
+     label22:
+        $r8 = newarray (byte)[1024];
+
+     label23:
+        $i0 = virtualinvoke $r35.<java.util.zip.ZipInputStream: int read(byte[])>($r8);
+
+     label24:
+        if $i0 == -1 goto label36;
+
+     label25:
+        virtualinvoke $r37.<java.io.FileOutputStream: void write(byte[],int,int)>($r8, 0, $i0);
+
+     label26:
+        goto label23;
+
+     label27:
+        $r9 := @caughtexception;
+
+     label28:
+        virtualinvoke $r37.<java.io.FileOutputStream: void flush()>();
+
+     label29:
+        $r10 = virtualinvoke $r37.<java.io.FileOutputStream: java.io.FileDescriptor getFD()>();
+
+        virtualinvoke $r10.<java.io.FileDescriptor: void sync()>();
+
+     label30:
+        virtualinvoke $r37.<java.io.FileOutputStream: void close()>();
+
+        throw $r9;
+
+     label31:
+        $r11 := @caughtexception;
+
+     label32:
+        virtualinvoke $r11.<java.lang.Exception: void printStackTrace()>();
+
+     label33:
+        virtualinvoke $r35.<java.util.zip.ZipInputStream: void closeEntry()>();
+
+     label34:
+        virtualinvoke $r35.<java.util.zip.ZipInputStream: void close()>();
+
+     label35:
+        return 0;
+
+     label36:
+        virtualinvoke $r37.<java.io.FileOutputStream: void flush()>();
+
+     label37:
+        $r10 = virtualinvoke $r37.<java.io.FileOutputStream: java.io.FileDescriptor getFD()>();
+
+        virtualinvoke $r10.<java.io.FileDescriptor: void sync()>();
+
+     label38:
+        virtualinvoke $r37.<java.io.FileOutputStream: void close()>();
+
+     label39:
+        goto label10;
+
+     label40:
+        $r12 := @caughtexception;
+
+     label41:
+        virtualinvoke $r12.<java.lang.Error: void printStackTrace()>();
+
+     label42:
+        virtualinvoke $r35.<java.util.zip.ZipInputStream: void closeEntry()>();
+
+     label43:
+        virtualinvoke $r35.<java.util.zip.ZipInputStream: void close()>();
+
+     label44:
+        return 0;
+
+     label45:
+        $r13 := @caughtexception;
+
+        virtualinvoke $r13.<java.lang.Exception: void printStackTrace()>();
+
+        return 0;
+
+     label46:
+        $r14 := @caughtexception;
+
+     label47:
+        virtualinvoke $r14.<java.lang.Exception: void printStackTrace()>();
+
+     label48:
+        goto label38;
+
+     label49:
+        $r15 := @caughtexception;
+
+     label50:
+        virtualinvoke $r35.<java.util.zip.ZipInputStream: void closeEntry()>();
+
+     label51:
+        virtualinvoke $r35.<java.util.zip.ZipInputStream: void close()>();
+
+     label52:
+        throw $r15;
+
+     label53:
+        $r16 := @caughtexception;
+
+     label54:
+        virtualinvoke $r16.<java.lang.Error: void printStackTrace()>();
+
+     label55:
+        goto label38;
+
+     label56:
+        $r17 := @caughtexception;
+
+     label57:
+        virtualinvoke $r17.<java.lang.Exception: void printStackTrace()>();
+
+     label58:
+        goto label30;
+
+     label59:
+        $r18 := @caughtexception;
+
+     label60:
+        virtualinvoke $r18.<java.lang.Error: void printStackTrace()>();
+
+     label61:
+        goto label30;
+
+     label62:
+        virtualinvoke $r35.<java.util.zip.ZipInputStream: void closeEntry()>();
+
+     label63:
+        virtualinvoke $r35.<java.util.zip.ZipInputStream: void close()>();
+
+     label64:
+        return 1;
+
+     label65:
+        $r19 := @caughtexception;
+
+        virtualinvoke $r19.<java.lang.Exception: void printStackTrace()>();
+
+        goto label63;
+
+     label66:
+        $r20 := @caughtexception;
+
+        virtualinvoke $r20.<java.lang.Error: void printStackTrace()>();
+
+        goto label63;
+
+     label67:
+        $r21 := @caughtexception;
+
+        virtualinvoke $r21.<java.lang.Exception: void printStackTrace()>();
+
+        goto label64;
+
+     label68:
+        $r22 := @caughtexception;
+
+        virtualinvoke $r22.<java.lang.Error: void printStackTrace()>();
+
+        goto label64;
+
+     label69:
+        $r23 := @caughtexception;
+
+        virtualinvoke $r23.<java.lang.Exception: void printStackTrace()>();
+
+        goto label34;
+
+     label70:
+        $r24 := @caughtexception;
+
+        virtualinvoke $r24.<java.lang.Error: void printStackTrace()>();
+
+        goto label34;
+
+     label71:
+        $r25 := @caughtexception;
+
+        virtualinvoke $r25.<java.lang.Exception: void printStackTrace()>();
+
+        return 0;
+
+     label72:
+        $r26 := @caughtexception;
+
+        virtualinvoke $r26.<java.lang.Error: void printStackTrace()>();
+
+        return 0;
+
+     label73:
+        $r27 := @caughtexception;
+
+        virtualinvoke $r27.<java.lang.Exception: void printStackTrace()>();
+
+        goto label43;
+
+     label74:
+        $r28 := @caughtexception;
+
+        virtualinvoke $r28.<java.lang.Error: void printStackTrace()>();
+
+        goto label43;
+
+     label75:
+        $r29 := @caughtexception;
+
+        virtualinvoke $r29.<java.lang.Error: void printStackTrace()>();
+
+        return 0;
+
+     label76:
+        $r30 := @caughtexception;
+
+        virtualinvoke $r30.<java.lang.Exception: void printStackTrace()>();
+
+        goto label51;
+
+     label77:
+        $r31 := @caughtexception;
+
+        virtualinvoke $r31.<java.lang.Error: void printStackTrace()>();
+
+        goto label51;
+
+     label78:
+        $r32 := @caughtexception;
+
+        virtualinvoke $r32.<java.lang.Exception: void printStackTrace()>();
+
+        goto label52;
+
+     label79:
+        $r33 := @caughtexception;
+
+        virtualinvoke $r33.<java.lang.Error: void printStackTrace()>();
+
+        goto label52;
+
+        catch java.lang.Exception from label01 to label02 with label31;
+        catch java.lang.Exception from label03 to label04 with label31;
+        catch java.lang.Exception from label07 to label08 with label31;
+        catch java.lang.Exception from label09 to label11 with label31;
+        catch java.lang.Exception from label15 to label16 with label31;
+        catch java.lang.Exception from label17 to label18 with label31;
+        catch java.lang.Exception from label19 to label20 with label31;
+        catch java.lang.Exception from label21 to label22 with label31;
+        catch java.lang.Error from label01 to label02 with label40;
+        catch java.lang.Error from label03 to label04 with label40;
+        catch java.lang.Error from label05 to label06 with label40;
+        catch java.lang.Error from label06 to label07 with label40;
+        catch java.lang.Error from label07 to label11 with label40;
+        catch java.lang.Error from label12 to label13 with label40;
+        catch java.lang.Error from label14 to label15 with label40;
+        catch java.lang.Error from label15 to label18 with label40;
+        catch java.lang.Error from label19 to label21 with label40;
+        catch java.lang.Error from label21 to label22 with label40;
+        catch java.lang.Throwable from label01 to label02 with label49;
+        catch java.lang.Throwable from label03 to label04 with label49;
+        catch java.lang.Throwable from label07 to label08 with label49;
+        catch java.lang.Throwable from label09 to label11 with label49;
+        catch java.lang.Throwable from label15 to label16 with label49;
+        catch java.lang.Throwable from label17 to label18 with label49;
+        catch java.lang.Throwable from label19 to label20 with label49;
+        catch java.lang.Throwable from label21 to label22 with label49;
+        catch java.lang.Throwable from label23 to label24 with label27;
+        catch java.lang.Throwable from label25 to label26 with label27;
+        catch java.lang.Exception from label28 to label29 with label31;
+        catch java.lang.Error from label28 to label29 with label40;
+        catch java.lang.Throwable from label28 to label29 with label49;
+        catch java.lang.Exception from label29 to label30 with label56;
+        catch java.lang.Error from label29 to label30 with label59;
+        catch java.lang.Throwable from label29 to label30 with label49;
+        catch java.lang.Exception from label30 to label31 with label31;
+        catch java.lang.Error from label30 to label31 with label40;
+        catch java.lang.Throwable from label30 to label31 with label49;
+        catch java.lang.Throwable from label32 to label33 with label49;
+        catch java.lang.Exception from label33 to label34 with label69;
+        catch java.lang.Error from label33 to label34 with label70;
+        catch java.lang.Exception from label34 to label35 with label71;
+        catch java.lang.Error from label34 to label35 with label72;
+        catch java.lang.Exception from label36 to label37 with label31;
+        catch java.lang.Error from label36 to label37 with label40;
+        catch java.lang.Throwable from label36 to label37 with label49;
+        catch java.lang.Exception from label37 to label38 with label46;
+        catch java.lang.Error from label37 to label38 with label53;
+        catch java.lang.Throwable from label37 to label38 with label49;
+        catch java.lang.Exception from label38 to label39 with label31;
+        catch java.lang.Error from label38 to label39 with label40;
+        catch java.lang.Throwable from label38 to label39 with label49;
+        catch java.lang.Throwable from label41 to label42 with label49;
+        catch java.lang.Exception from label42 to label43 with label73;
+        catch java.lang.Error from label42 to label43 with label74;
+        catch java.lang.Exception from label43 to label44 with label45;
+        catch java.lang.Error from label43 to label44 with label75;
+        catch java.lang.Exception from label47 to label48 with label31;
+        catch java.lang.Error from label47 to label48 with label40;
+        catch java.lang.Throwable from label47 to label48 with label49;
+        catch java.lang.Exception from label50 to label51 with label76;
+        catch java.lang.Error from label50 to label51 with label77;
+        catch java.lang.Exception from label51 to label52 with label78;
+        catch java.lang.Error from label51 to label52 with label79;
+        catch java.lang.Exception from label54 to label55 with label31;
+        catch java.lang.Exception from label57 to label58 with label31;
+        catch java.lang.Exception from label60 to label61 with label31;
+        catch java.lang.Error from label54 to label55 with label40;
+        catch java.lang.Error from label57 to label58 with label40;
+        catch java.lang.Error from label60 to label61 with label40;
+        catch java.lang.Throwable from label54 to label55 with label49;
+        catch java.lang.Throwable from label57 to label58 with label49;
+        catch java.lang.Throwable from label60 to label61 with label49;
+        catch java.lang.Exception from label62 to label63 with label65;
+        catch java.lang.Error from label62 to label63 with label66;
+        catch java.lang.Exception from label63 to label64 with label67;
+        catch java.lang.Error from label63 to label64 with label68;
+    }

@@ -1,0 +1,278 @@
+    public static android.graphics.Bitmap getSignatureFromFile(java.lang.String, android.content.Context)
+    {
+        java.lang.Throwable $r14, $r15, $r16, $r17, $r18;
+        android.content.Context $r7;
+        byte[] $r12;
+        java.io.ByteArrayOutputStream $r8, $r9;
+        byte $b2;
+        int $i0, $i1;
+        java.lang.String $r6;
+        boolean $z0;
+        java.io.FileInputStream $r10, $r11;
+        java.lang.Exception $r0, $r1, $r2, $r3, $r4, $r5;
+        android.graphics.Bitmap $r13;
+
+        $r6 := @parameter0: java.lang.String;
+
+        $r7 := @parameter1: android.content.Context;
+
+        $z0 = 1;
+
+        $r8 = null;
+
+     label01:
+        $r9 = new java.io.ByteArrayOutputStream;
+
+     label02:
+        specialinvoke $r9.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label03:
+        $r10 = virtualinvoke $r7.<android.content.Context: java.io.FileInputStream openFileInput(java.lang.String)>($r6);
+
+     label04:
+        $r11 = $r10;
+
+        $r12 = newarray (byte)[2048];
+
+     label05:
+        $i0 = virtualinvoke $r10.<java.io.InputStream: int read(byte[])>($r12);
+
+     label06:
+        if $i0 < 0 goto label09;
+
+     label07:
+        virtualinvoke $r9.<java.io.OutputStream: void write(byte[],int,int)>($r12, 0, $i0);
+
+     label08:
+        goto label05;
+
+     label09:
+        $r12 = virtualinvoke $r9.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label10:
+        $i0 = lengthof $r12;
+
+     label11:
+        $r13 = staticinvoke <android.graphics.BitmapFactory: android.graphics.Bitmap decodeByteArray(byte[],int,int)>($r12, 0, $i0);
+
+     label12:
+        virtualinvoke $r9.<java.io.OutputStream: void flush()>();
+
+        virtualinvoke $r9.<java.io.OutputStream: void close()>();
+
+     label13:
+        if $r10 != null goto label14;
+
+        $z0 = 0;
+
+     label14:
+        if $z0 == 0 goto label48;
+
+        $i0 = <com.greensky.creditapp.utils.GreenSkyUtil: int onNmeaMessage>;
+
+        $i0 = $i0 + 101;
+
+        $i1 = $i0 % 128;
+
+        <com.greensky.creditapp.utils.GreenSkyUtil: int onLocationChanged> = $i1;
+
+        $i0 = $i0 % 2;
+
+        if $i0 != 0 goto label19;
+
+     label15:
+        virtualinvoke $r10.<java.io.InputStream: void close()>();
+
+     label16:
+        specialinvoke $r8.<java.lang.Object: int hashCode()>();
+
+     label17:
+        return $r13;
+
+     label18:
+        $r14 := @caughtexception;
+
+        throw $r14;
+
+     label19:
+        virtualinvoke $r10.<java.io.InputStream: void close()>();
+
+     label20:
+        return $r13;
+
+     label21:
+        $r15 := @caughtexception;
+
+        goto label26;
+
+     label22:
+        $r16 := @caughtexception;
+
+        $r10 = null;
+
+        $r8 = $r9;
+
+        goto label34;
+
+     label23:
+        $r15 := @caughtexception;
+
+        $r11 = null;
+
+        goto label26;
+
+     label24:
+        $r16 := @caughtexception;
+
+        $r10 = null;
+
+        goto label34;
+
+     label25:
+        $r17 := @caughtexception;
+
+        $r15 = $r17;
+
+        $r11 = null;
+
+        $r9 = null;
+
+     label26:
+        $r6 = virtualinvoke $r15.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        staticinvoke <com.greensky.creditapp.utils.GLogger: void e(java.lang.String,java.lang.String)>("GreenSkyUtils", $r6);
+
+     label27:
+        if $r9 == null goto label28;
+
+        $z0 = 0;
+
+     label28:
+        if $z0 != 0 goto label30;
+
+     label29:
+        virtualinvoke $r9.<java.io.OutputStream: void flush()>();
+
+        virtualinvoke $r9.<java.io.OutputStream: void close()>();
+
+     label30:
+        if $r11 == null goto label32;
+
+     label31:
+        virtualinvoke $r11.<java.io.InputStream: void close()>();
+
+     label32:
+        $i0 = <com.greensky.creditapp.utils.GreenSkyUtil: int onNmeaMessage>;
+
+        $i0 = $i0 + 51;
+
+        $i0 = $i0 % 128;
+
+        <com.greensky.creditapp.utils.GreenSkyUtil: int onLocationChanged> = $i0;
+
+        return null;
+
+     label33:
+        $r18 := @caughtexception;
+
+        $r8 = $r9;
+
+        $r10 = $r11;
+
+        $r16 = $r18;
+
+     label34:
+        if $r8 == null goto label35;
+
+        $b2 = 74;
+
+        goto label36;
+
+     label35:
+        $b2 = 15;
+
+     label36:
+        if $b2 != 74 goto label38;
+
+        $i0 = <com.greensky.creditapp.utils.GreenSkyUtil: int onNmeaMessage>;
+
+        $i0 = $i0 + 63;
+
+        $i0 = $i0 % 128;
+
+        <com.greensky.creditapp.utils.GreenSkyUtil: int onLocationChanged> = $i0;
+
+     label37:
+        virtualinvoke $r8.<java.io.OutputStream: void flush()>();
+
+        virtualinvoke $r8.<java.io.OutputStream: void close()>();
+
+     label38:
+        if $r10 != null goto label39;
+
+        $z0 = 0;
+
+     label39:
+        if $z0 == 0 goto label41;
+
+     label40:
+        virtualinvoke $r10.<java.io.InputStream: void close()>();
+
+     label41:
+        throw $r16;
+
+     label42:
+        $r0 := @caughtexception;
+
+        return $r13;
+
+     label43:
+        $r1 := @caughtexception;
+
+        return $r13;
+
+     label44:
+        $r2 := @caughtexception;
+
+        return $r13;
+
+     label45:
+        $r3 := @caughtexception;
+
+        return $r13;
+
+     label46:
+        $r4 := @caughtexception;
+
+        goto label32;
+
+     label47:
+        $r5 := @caughtexception;
+
+        goto label41;
+
+     label48:
+        return $r13;
+
+        catch java.io.IOException from label02 to label03 with label25;
+        catch java.lang.Throwable from label01 to label03 with label24;
+        catch java.io.IOException from label03 to label04 with label23;
+        catch java.lang.Throwable from label03 to label04 with label22;
+        catch java.io.IOException from label05 to label06 with label21;
+        catch java.io.IOException from label07 to label08 with label21;
+        catch java.io.IOException from label09 to label10 with label21;
+        catch java.io.IOException from label11 to label12 with label21;
+        catch java.lang.Throwable from label05 to label06 with label33;
+        catch java.lang.Throwable from label07 to label08 with label33;
+        catch java.lang.Throwable from label09 to label12 with label33;
+        catch java.lang.Exception from label12 to label13 with label42;
+        catch java.lang.Exception from label15 to label16 with label43;
+        catch java.lang.Exception from label16 to label17 with label44;
+        catch java.lang.Throwable from label16 to label17 with label18;
+        catch java.lang.Exception from label19 to label20 with label45;
+        catch java.lang.Throwable from label26 to label27 with label33;
+        catch java.lang.Exception from label29 to label30 with label46;
+        catch java.lang.Exception from label31 to label32 with label46;
+        catch java.lang.Exception from label37 to label38 with label47;
+        catch java.lang.Exception from label40 to label41 with label47;
+    }

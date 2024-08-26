@@ -1,0 +1,405 @@
+    protected boolean writeToOutputStream()
+    {
+        java.net.HttpURLConnection $r6;
+        byte[] $r19;
+        com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTaskHandle $r20;
+        android.net.Uri $r16;
+        java.lang.Integer $r21;
+        java.util.Map $r7;
+        com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequestMethod $r4, $r5;
+        android.net.Uri$Builder $r24;
+        boolean $z0;
+        java.util.Set $r8;
+        java.lang.Exception r1;
+        float $f0, $f1;
+        java.lang.Throwable $r22;
+        com.adobe.creativesdk.foundation.internal.utils.logging.Level $r14;
+        int i0, $i1, $i2, i3;
+        java.lang.String $r12, $r13;
+        com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse $r23;
+        java.io.OutputStream r2, $r18;
+        java.util.Map$Entry r11;
+        com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest $r3;
+        java.util.Iterator $r9;
+        com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask r0;
+        java.lang.Object $r10;
+        java.lang.Class $r15;
+        java.io.InputStream $r17;
+
+        r0 := @this: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask;
+
+        r2 = null;
+
+     label01:
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest request>;
+
+        $r4 = virtualinvoke $r3.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequestMethod getRequestMethod()>();
+
+     label02:
+        $r5 = <com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequestMethod: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequestMethod AdobeNetworkHttpRequestMethodPOST>;
+
+     label03:
+        if $r4 != $r5 goto label56;
+
+     label04:
+        $r6 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: java.net.HttpURLConnection urlConnection>;
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+     label05:
+        $r24 = new android.net.Uri$Builder;
+
+     label06:
+        specialinvoke $r24.<android.net.Uri$Builder: void <init>()>();
+
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest request>;
+
+        $r7 = virtualinvoke $r3.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest: java.util.Map getQueryParams()>();
+
+     label07:
+        if $r7 == null goto label19;
+
+     label08:
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest request>;
+
+        $r7 = virtualinvoke $r3.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest: java.util.Map getQueryParams()>();
+
+        $r8 = interfaceinvoke $r7.<java.util.Map: java.util.Set entrySet()>();
+
+        $r9 = interfaceinvoke $r8.<java.util.Set: java.util.Iterator iterator()>();
+
+     label09:
+        $z0 = interfaceinvoke $r9.<java.util.Iterator: boolean hasNext()>();
+
+     label10:
+        if $z0 == 0 goto label19;
+
+     label11:
+        $r10 = interfaceinvoke $r9.<java.util.Iterator: java.lang.Object next()>();
+
+        r11 = (java.util.Map$Entry) $r10;
+
+        $r10 = interfaceinvoke r11.<java.util.Map$Entry: java.lang.Object getKey()>();
+
+        $r12 = (java.lang.String) $r10;
+
+        $r10 = interfaceinvoke r11.<java.util.Map$Entry: java.lang.Object getValue()>();
+
+        $r13 = (java.lang.String) $r10;
+
+        virtualinvoke $r24.<android.net.Uri$Builder: android.net.Uri$Builder appendQueryParameter(java.lang.String,java.lang.String)>($r12, $r13);
+
+     label12:
+        goto label09;
+
+     label13:
+        r1 := @caughtexception;
+
+     label14:
+        $r14 = <com.adobe.creativesdk.foundation.internal.utils.logging.Level: com.adobe.creativesdk.foundation.internal.utils.logging.Level ERROR>;
+
+     label15:
+        $r15 = class "Lcom/adobe/creativesdk/foundation/internal/net/AdobeNetworkHttpTask;";
+
+     label16:
+        $r12 = virtualinvoke $r15.<java.lang.Class: java.lang.String getName()>();
+
+        staticinvoke <com.adobe.creativesdk.foundation.internal.utils.logging.AdobeLogger: void log(com.adobe.creativesdk.foundation.internal.utils.logging.Level,java.lang.String,java.lang.String,java.lang.Throwable)>($r14, $r12, "Error during io operation", r1);
+
+     label17:
+        staticinvoke <org.apache.commons.io.IOUtils: void closeQuietly(java.io.OutputStream)>(r2);
+
+     label18:
+        return 0;
+
+     label19:
+        $r16 = virtualinvoke $r24.<android.net.Uri$Builder: android.net.Uri build()>();
+
+        $r12 = virtualinvoke $r16.<android.net.Uri: java.lang.String toString()>();
+
+     label20:
+        $r13 = $r12;
+
+     label21:
+        $z0 = virtualinvoke $r12.<java.lang.String: boolean isEmpty()>();
+
+     label22:
+        if $z0 != 0 goto label25;
+
+     label23:
+        $r12 = virtualinvoke $r12.<java.lang.String: java.lang.String substring(int)>(1);
+
+     label24:
+        $r13 = $r12;
+
+     label25:
+        $z0 = virtualinvoke $r13.<java.lang.String: boolean isEmpty()>();
+
+     label26:
+        if $z0 == 0 goto label29;
+
+     label27:
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest request>;
+
+        $r17 = virtualinvoke $r3.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest: java.io.InputStream getBodyStream()>();
+
+     label28:
+        if $r17 == null goto label55;
+
+     label29:
+        $r6 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: java.net.HttpURLConnection urlConnection>;
+
+        $r18 = virtualinvoke $r6.<java.net.HttpURLConnection: java.io.OutputStream getOutputStream()>();
+
+     label30:
+        r2 = $r18;
+
+     label31:
+        $z0 = virtualinvoke $r13.<java.lang.String: boolean isEmpty()>();
+
+     label32:
+        if $z0 != 0 goto label34;
+
+     label33:
+        $r19 = virtualinvoke $r13.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8");
+
+        virtualinvoke $r18.<java.io.OutputStream: void write(byte[])>($r19);
+
+     label34:
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest request>;
+
+        $r17 = virtualinvoke $r3.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest: java.io.InputStream getBodyStream()>();
+
+     label35:
+        if $r17 == null goto label55;
+
+     label36:
+        $i1 = virtualinvoke $r17.<java.io.InputStream: int available()>();
+
+     label37:
+        if $i1 <= 0 goto label55;
+
+     label38:
+        $i1 = virtualinvoke $r17.<java.io.InputStream: int available()>();
+
+     label39:
+        $r19 = newarray (byte)[32768];
+
+     label40:
+        $i2 = virtualinvoke $r17.<java.io.InputStream: int read(byte[],int,int)>($r19, 0, 32768);
+
+     label41:
+        i3 = $i2;
+
+        $i2 = 0;
+
+     label42:
+        if i3 <= 0 goto label54;
+
+     label43:
+        $r20 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTaskHandle requestHandler>;
+
+        $z0 = virtualinvoke $r20.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTaskHandle: boolean isCancelled()>();
+
+     label44:
+        if $z0 == 0 goto label47;
+
+     label45:
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest request>;
+
+        virtualinvoke $r3.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest: void closeStream()>();
+
+     label46:
+        staticinvoke <org.apache.commons.io.IOUtils: void closeQuietly(java.io.OutputStream)>($r18);
+
+        return 0;
+
+     label47:
+        virtualinvoke $r18.<java.io.OutputStream: void write(byte[],int,int)>($r19, 0, i3);
+
+        virtualinvoke $r18.<java.io.OutputStream: void flush()>();
+
+     label48:
+        $i2 = $i2 + i3;
+
+     label49:
+        i0 = virtualinvoke $r17.<java.io.InputStream: int read(byte[],int,int)>($r19, 0, 32768);
+
+     label50:
+        i3 = i0;
+
+        $f0 = (float) $i2;
+
+        $f1 = (float) $i1;
+
+        $f0 = $f0 / $f1;
+
+        $f0 = $f0 * 100.0F;
+
+        i0 = (int) $f0;
+
+     label51:
+        $r21 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(i0);
+
+        virtualinvoke r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: void onProgressUpdate(java.lang.Integer)>($r21);
+
+     label52:
+        goto label42;
+
+     label53:
+        $r22 := @caughtexception;
+
+        staticinvoke <org.apache.commons.io.IOUtils: void closeQuietly(java.io.OutputStream)>(r2);
+
+        throw $r22;
+
+     label54:
+        $r23 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse response>;
+
+        virtualinvoke $r23.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpResponse: void setBytesSent(int)>($i2);
+
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest request>;
+
+        virtualinvoke $r3.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest: void closeStream()>();
+
+     label55:
+        staticinvoke <org.apache.commons.io.IOUtils: void closeQuietly(java.io.OutputStream)>(r2);
+
+        return 1;
+
+     label56:
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest request>;
+
+        $r4 = virtualinvoke $r3.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequestMethod getRequestMethod()>();
+
+     label57:
+        $r5 = <com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequestMethod: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequestMethod AdobeNetworkHttpRequestMethodPUT>;
+
+     label58:
+        if $r4 != $r5 goto label72;
+
+     label59:
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest request>;
+
+        $r17 = virtualinvoke $r3.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest: java.io.InputStream getBodyStream()>();
+
+     label60:
+        if $r17 == null goto label71;
+
+     label61:
+        $r6 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: java.net.HttpURLConnection urlConnection>;
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+        $r6 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: java.net.HttpURLConnection urlConnection>;
+
+        $r18 = virtualinvoke $r6.<java.net.HttpURLConnection: java.io.OutputStream getOutputStream()>();
+
+     label62:
+        r2 = $r18;
+
+     label63:
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest request>;
+
+        $r17 = virtualinvoke $r3.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest: java.io.InputStream getBodyStream()>();
+
+     label64:
+        $r19 = newarray (byte)[32768];
+
+     label65:
+        $i1 = virtualinvoke $r17.<java.io.InputStream: int read(byte[],int,int)>($r19, 0, 32768);
+
+     label66:
+        if $i1 <= 0 goto label70;
+
+     label67:
+        virtualinvoke $r18.<java.io.OutputStream: void write(byte[],int,int)>($r19, 0, $i1);
+
+     label68:
+        $i1 = virtualinvoke $r17.<java.io.InputStream: int read(byte[],int,int)>($r19, 0, 32768);
+
+     label69:
+        goto label66;
+
+     label70:
+        virtualinvoke $r18.<java.io.OutputStream: void flush()>();
+
+        $r3 = r0.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpTask: com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest request>;
+
+        virtualinvoke $r3.<com.adobe.creativesdk.foundation.internal.net.AdobeNetworkHttpRequest: void closeStream()>();
+
+     label71:
+        staticinvoke <org.apache.commons.io.IOUtils: void closeQuietly(java.io.OutputStream)>(r2);
+
+        return 1;
+
+     label72:
+        staticinvoke <org.apache.commons.io.IOUtils: void closeQuietly(java.io.OutputStream)>(null);
+
+        goto label18;
+
+        catch java.lang.Exception from label01 to label02 with label13;
+        catch java.lang.Exception from label04 to label05 with label13;
+        catch java.lang.Exception from label06 to label07 with label13;
+        catch java.lang.Exception from label08 to label10 with label13;
+        catch java.lang.Exception from label11 to label12 with label13;
+        catch java.lang.Throwable from label01 to label03 with label53;
+        catch java.lang.Throwable from label04 to label06 with label53;
+        catch java.lang.Throwable from label06 to label07 with label53;
+        catch java.lang.Throwable from label08 to label10 with label53;
+        catch java.lang.Throwable from label11 to label12 with label53;
+        catch java.lang.Throwable from label14 to label15 with label53;
+        catch java.lang.Throwable from label16 to label17 with label53;
+        catch java.lang.Exception from label19 to label20 with label13;
+        catch java.lang.Exception from label21 to label22 with label13;
+        catch java.lang.Exception from label23 to label24 with label13;
+        catch java.lang.Exception from label25 to label26 with label13;
+        catch java.lang.Exception from label27 to label28 with label13;
+        catch java.lang.Exception from label29 to label30 with label13;
+        catch java.lang.Exception from label31 to label32 with label13;
+        catch java.lang.Exception from label33 to label35 with label13;
+        catch java.lang.Exception from label36 to label37 with label13;
+        catch java.lang.Exception from label38 to label39 with label13;
+        catch java.lang.Exception from label39 to label40 with label13;
+        catch java.lang.Exception from label40 to label41 with label13;
+        catch java.lang.Exception from label43 to label44 with label13;
+        catch java.lang.Exception from label45 to label46 with label13;
+        catch java.lang.Throwable from label19 to label20 with label53;
+        catch java.lang.Throwable from label21 to label22 with label53;
+        catch java.lang.Throwable from label23 to label24 with label53;
+        catch java.lang.Throwable from label25 to label26 with label53;
+        catch java.lang.Throwable from label27 to label28 with label53;
+        catch java.lang.Throwable from label29 to label30 with label53;
+        catch java.lang.Throwable from label31 to label32 with label53;
+        catch java.lang.Throwable from label33 to label35 with label53;
+        catch java.lang.Throwable from label36 to label37 with label53;
+        catch java.lang.Throwable from label38 to label39 with label53;
+        catch java.lang.Throwable from label40 to label41 with label53;
+        catch java.lang.Throwable from label43 to label44 with label53;
+        catch java.lang.Throwable from label45 to label46 with label53;
+        catch java.lang.Exception from label47 to label48 with label13;
+        catch java.lang.Exception from label49 to label50 with label13;
+        catch java.lang.Exception from label51 to label52 with label13;
+        catch java.lang.Throwable from label47 to label48 with label53;
+        catch java.lang.Throwable from label49 to label50 with label53;
+        catch java.lang.Throwable from label51 to label52 with label53;
+        catch java.lang.Exception from label54 to label55 with label13;
+        catch java.lang.Throwable from label54 to label55 with label53;
+        catch java.lang.Exception from label56 to label57 with label13;
+        catch java.lang.Exception from label59 to label60 with label13;
+        catch java.lang.Exception from label61 to label62 with label13;
+        catch java.lang.Exception from label63 to label64 with label13;
+        catch java.lang.Exception from label64 to label65 with label13;
+        catch java.lang.Exception from label65 to label66 with label13;
+        catch java.lang.Exception from label67 to label68 with label13;
+        catch java.lang.Exception from label68 to label69 with label13;
+        catch java.lang.Exception from label70 to label71 with label13;
+        catch java.lang.Throwable from label56 to label58 with label53;
+        catch java.lang.Throwable from label59 to label60 with label53;
+        catch java.lang.Throwable from label61 to label62 with label53;
+        catch java.lang.Throwable from label63 to label64 with label53;
+        catch java.lang.Throwable from label65 to label66 with label53;
+        catch java.lang.Throwable from label67 to label68 with label53;
+        catch java.lang.Throwable from label68 to label69 with label53;
+        catch java.lang.Throwable from label70 to label71 with label53;
+    }

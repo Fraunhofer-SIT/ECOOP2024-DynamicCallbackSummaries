@@ -1,0 +1,802 @@
+    void a(java.util.List, com.tencent.android.tpush.stat.k)
+    {
+        org.apache.http.impl.client.DefaultHttpClient $r15;
+        java.net.HttpURLConnection $r28;
+        byte[] $r12;
+        java.net.URL $r22;
+        org.json.JSONObject $r27;
+        java.io.DataOutputStream $r25;
+        boolean $z0;
+        java.util.List $r1;
+        java.lang.StringBuilder $r3, $r4;
+        java.util.zip.GZIPOutputStream $r24;
+        java.lang.Throwable $r19, $r21;
+        android.content.Context $r7;
+        java.io.DataInputStream $r26;
+        java.io.ByteArrayOutputStream $r23;
+        java.nio.charset.Charset $r20;
+        java.net.URLConnection $r11;
+        int $i0, $i1, $i2;
+        java.lang.String $r6, $r8, $r10;
+        java.io.OutputStream $r17;
+        com.tencent.android.tpush.stat.g $r13;
+        com.tencent.android.tpush.stat.k $r2;
+        org.apache.http.params.HttpParams $r16;
+        java.lang.Object $r5;
+        com.tencent.android.tpush.stat.a.d $r9;
+        com.tencent.android.tpush.stat.m r0;
+        org.apache.http.HttpHost $r14;
+        java.io.InputStream $r18;
+
+        r0 := @this: com.tencent.android.tpush.stat.m;
+
+        $r1 := @parameter0: java.util.List;
+
+        $r2 := @parameter1: com.tencent.android.tpush.stat.k;
+
+        $i0 = 0;
+
+        if $r1 == null goto label132;
+
+        $z0 = interfaceinvoke $r1.<java.util.List: boolean isEmpty()>();
+
+        if $z0 == 0 goto label001;
+
+        return;
+
+     label001:
+        $i1 = interfaceinvoke $r1.<java.util.List: int size()>();
+
+     label002:
+        $r3 = r0.<com.tencent.android.tpush.stat.m: java.lang.StringBuilder e>;
+
+        $r4 = r0.<com.tencent.android.tpush.stat.m: java.lang.StringBuilder e>;
+
+        $i2 = virtualinvoke $r4.<java.lang.StringBuilder: int length()>();
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder delete(int,int)>(0, $i2);
+
+        $r3 = r0.<com.tencent.android.tpush.stat.m: java.lang.StringBuilder e>;
+
+     label003:
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("[");
+
+     label004:
+        if $i0 >= $i1 goto label010;
+
+     label005:
+        $r3 = r0.<com.tencent.android.tpush.stat.m: java.lang.StringBuilder e>;
+
+        $r5 = interfaceinvoke $r1.<java.util.List: java.lang.Object get(int)>($i0);
+
+        $r6 = virtualinvoke $r5.<java.lang.Object: java.lang.String toString()>();
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+     label006:
+        $i2 = $i1 + -1;
+
+        if $i0 == $i2 goto label009;
+
+     label007:
+        $r3 = r0.<com.tencent.android.tpush.stat.m: java.lang.StringBuilder e>;
+
+     label008:
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(",");
+
+     label009:
+        $i0 = $i0 + 1;
+
+        goto label004;
+
+     label010:
+        $r3 = r0.<com.tencent.android.tpush.stat.m: java.lang.StringBuilder e>;
+
+     label011:
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("]");
+
+        $r3 = r0.<com.tencent.android.tpush.stat.m: java.lang.StringBuilder e>;
+
+        $r6 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $i0 = virtualinvoke $r6.<java.lang.String: int length()>();
+
+        $r7 = <com.tencent.android.tpush.stat.m: android.content.Context c>;
+
+        $r8 = staticinvoke <com.tencent.bigdata.baseapi.XGApiConfig: java.lang.String getStatServerAddr(android.content.Context)>($r7);
+
+        $z0 = staticinvoke <com.tencent.android.tpush.stat.j: boolean c()>();
+
+     label012:
+        if $z0 == 0 goto label018;
+
+     label013:
+        $r9 = <com.tencent.android.tpush.stat.m: com.tencent.android.tpush.stat.a.d a>;
+
+        $r4 = new java.lang.StringBuilder;
+
+     label014:
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+     label015:
+        $r3 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("[");
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+     label016:
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("]Send request(");
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+     label017:
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("bytes), content:");
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r10 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r9.<com.tencent.android.tpush.stat.a.d: void d(java.lang.Object)>($r10);
+
+     label018:
+        $r22 = new java.net.URL;
+
+     label019:
+        specialinvoke $r22.<java.net.URL: void <init>(java.lang.String)>($r8);
+
+        $r8 = virtualinvoke $r22.<java.net.URL: java.lang.String getProtocol()>();
+
+        $r8 = virtualinvoke $r8.<java.lang.String: java.lang.String toLowerCase()>();
+
+     label020:
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean equals(java.lang.Object)>("https");
+
+     label021:
+        if $z0 == 0 goto label073;
+
+     label022:
+        $r11 = virtualinvoke $r22.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r5 = (javax.net.ssl.HttpsURLConnection) $r11;
+
+     label023:
+        $r28 = (java.net.HttpURLConnection) $r5;
+
+        virtualinvoke $r28.<java.net.HttpURLConnection: void setReadTimeout(int)>(10000);
+
+        $r28 = (java.net.HttpURLConnection) $r5;
+
+        virtualinvoke $r28.<java.net.HttpURLConnection: void setConnectTimeout(int)>(15000);
+
+        $r28 = (java.net.HttpURLConnection) $r5;
+
+        virtualinvoke $r28.<java.net.HttpURLConnection: void setDoInput(boolean)>(1);
+
+        $r28 = (java.net.HttpURLConnection) $r5;
+
+        virtualinvoke $r28.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+        $r28 = (java.net.HttpURLConnection) $r5;
+
+        virtualinvoke $r28.<java.net.HttpURLConnection: void setUseCaches(boolean)>(0);
+
+     label024:
+        $r28 = (java.net.HttpURLConnection) $r5;
+
+        virtualinvoke $r28.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+     label025:
+        $r28 = (java.net.HttpURLConnection) $r5;
+
+        virtualinvoke $r28.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Connection", "Keep-Alive");
+
+     label026:
+        $r28 = (java.net.HttpURLConnection) $r5;
+
+        virtualinvoke $r28.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Accept-Encoding", "gzip");
+
+        $r23 = new java.io.ByteArrayOutputStream;
+
+     label027:
+        specialinvoke $r23.<java.io.ByteArrayOutputStream: void <init>(int)>($i0);
+
+     label028:
+        $r12 = virtualinvoke $r6.<java.lang.String: byte[] getBytes(java.lang.String)>("utf8");
+
+        $i0 = lengthof $r12;
+
+        $r24 = new java.util.zip.GZIPOutputStream;
+
+     label029:
+        specialinvoke $r24.<java.util.zip.GZIPOutputStream: void <init>(java.io.OutputStream)>($r23);
+
+        virtualinvoke $r24.<java.util.zip.GZIPOutputStream: void write(byte[])>($r12);
+
+        virtualinvoke $r24.<java.util.zip.GZIPOutputStream: void close()>();
+
+        $r12 = virtualinvoke $r23.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $z0 = staticinvoke <com.tencent.android.tpush.stat.j: boolean c()>();
+
+     label030:
+        if $z0 == 0 goto label036;
+
+     label031:
+        $r9 = <com.tencent.android.tpush.stat.m: com.tencent.android.tpush.stat.a.d a>;
+
+        $r4 = new java.lang.StringBuilder;
+
+     label032:
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+     label033:
+        $r3 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("before Gzip:");
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+     label034:
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" bytes, after Gzip:");
+
+        $i0 = lengthof $r12;
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+     label035:
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" bytes");
+
+        $r6 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r9.<com.tencent.android.tpush.stat.a.d: void a(java.lang.Object)>($r6);
+
+     label036:
+        $r28 = (java.net.HttpURLConnection) $r5;
+
+        virtualinvoke $r28.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Encoding", "gzip");
+
+        $r7 = <com.tencent.android.tpush.stat.m: android.content.Context c>;
+
+        $r13 = staticinvoke <com.tencent.android.tpush.stat.g: com.tencent.android.tpush.stat.g a(android.content.Context)>($r7);
+
+        $r14 = virtualinvoke $r13.<com.tencent.android.tpush.stat.g: org.apache.http.HttpHost b()>();
+
+     label037:
+        if $r14 != null goto label075;
+
+     label038:
+        $r15 = r0.<com.tencent.android.tpush.stat.m: org.apache.http.impl.client.DefaultHttpClient d>;
+
+        $r16 = virtualinvoke $r15.<org.apache.http.impl.client.DefaultHttpClient: org.apache.http.params.HttpParams getParams()>();
+
+     label039:
+        interfaceinvoke $r16.<org.apache.http.params.HttpParams: boolean removeParameter(java.lang.String)>("http.route.default-proxy");
+
+     label040:
+        $r25 = new java.io.DataOutputStream;
+
+     label041:
+        $r28 = (java.net.HttpURLConnection) $r5;
+
+        $r17 = virtualinvoke $r28.<java.net.HttpURLConnection: java.io.OutputStream getOutputStream()>();
+
+        specialinvoke $r25.<java.io.DataOutputStream: void <init>(java.io.OutputStream)>($r17);
+
+        virtualinvoke $r25.<java.io.DataOutputStream: void write(byte[])>($r12);
+
+        virtualinvoke $r25.<java.io.DataOutputStream: void flush()>();
+
+        $r28 = (java.net.HttpURLConnection) $r5;
+
+        $i0 = virtualinvoke $r28.<java.net.HttpURLConnection: int getResponseCode()>();
+
+        $r28 = (java.net.HttpURLConnection) $r5;
+
+        $r6 = virtualinvoke $r28.<java.net.HttpURLConnection: java.lang.String getResponseMessage()>();
+
+        $r28 = (java.net.HttpURLConnection) $r5;
+
+        $i1 = virtualinvoke $r28.<java.net.HttpURLConnection: int getContentLength()>();
+
+        $z0 = staticinvoke <com.tencent.android.tpush.stat.j: boolean c()>();
+
+     label042:
+        if $z0 == 0 goto label048;
+
+     label043:
+        $r9 = <com.tencent.android.tpush.stat.m: com.tencent.android.tpush.stat.a.d a>;
+
+        $r4 = new java.lang.StringBuilder;
+
+     label044:
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+     label045:
+        $r3 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("http recv response status code:");
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+     label046:
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", responseMsg:");
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+     label047:
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(",contentLength:");
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r8 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r9.<com.tencent.android.tpush.stat.a.d: void d(java.lang.Object)>($r8);
+
+     label048:
+        $r28 = (java.net.HttpURLConnection) $r5;
+
+        $r8 = virtualinvoke $r28.<java.net.HttpURLConnection: java.lang.String getHeaderField(java.lang.String)>("Content-Encoding");
+
+        $r9 = <com.tencent.android.tpush.stat.m: com.tencent.android.tpush.stat.a.d a>;
+
+        $r4 = new java.lang.StringBuilder;
+
+     label049:
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+     label050:
+        $r3 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("respContentEncoding:");
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+     label051:
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(",contentLength:");
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+     label052:
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(",responseCode:");
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r10 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r9.<com.tencent.android.tpush.stat.a.d: void d(java.lang.Object)>($r10);
+
+     label053:
+        if $i0 != 200 goto label124;
+
+     label054:
+        $r28 = (java.net.HttpURLConnection) $r5;
+
+        $r18 = virtualinvoke $r28.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+        $r26 = new java.io.DataInputStream;
+
+     label055:
+        specialinvoke $r26.<java.io.DataInputStream: void <init>(java.io.InputStream)>($r18);
+
+        $r12 = newarray (byte)[$i1];
+
+        virtualinvoke $r26.<java.io.DataInputStream: void readFully(byte[])>($r12);
+
+        virtualinvoke $r18.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r26.<java.io.DataInputStream: void close()>();
+
+     label056:
+        $r6 = "";
+
+     label057:
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r8);
+
+     label058:
+        if $z0 == 0 goto label090;
+
+     label059:
+        $r9 = <com.tencent.android.tpush.stat.m: com.tencent.android.tpush.stat.a.d a>;
+
+        $r4 = new java.lang.StringBuilder;
+
+     label060:
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+     label061:
+        $r3 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("http get response data:");
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("");
+
+        $r6 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r9.<com.tencent.android.tpush.stat.a.d: void d(java.lang.Object)>($r6);
+
+        $r27 = new org.json.JSONObject;
+
+     label062:
+        specialinvoke $r27.<org.json.JSONObject: void <init>(java.lang.String)>("");
+
+        specialinvoke r0.<com.tencent.android.tpush.stat.m: void a(org.json.JSONObject)>($r27);
+
+     label063:
+        if $r2 == null goto label068;
+
+     label064:
+        $i0 = virtualinvoke $r27.<org.json.JSONObject: int optInt(java.lang.String)>("ret");
+
+     label065:
+        if $i0 != 0 goto label087;
+
+     label066:
+        $r9 = <com.tencent.android.tpush.stat.m: com.tencent.android.tpush.stat.a.d a>;
+
+     label067:
+        virtualinvoke $r9.<com.tencent.android.tpush.stat.a.d: void d(java.lang.Object)>("data upload ok.");
+
+        interfaceinvoke $r2.<com.tencent.android.tpush.stat.k: void a()>();
+
+     label068:
+        virtualinvoke $r25.<java.io.DataOutputStream: void close()>();
+
+        virtualinvoke $r23.<java.io.ByteArrayOutputStream: void close()>();
+
+     label069:
+        $r19 = null;
+
+     label070:
+        if $r19 == null goto label132;
+
+        $r9 = <com.tencent.android.tpush.stat.m: com.tencent.android.tpush.stat.a.d a>;
+
+        virtualinvoke $r9.<com.tencent.android.tpush.stat.a.d: void b(java.lang.Throwable)>($r19);
+
+        if $r2 == null goto label072;
+
+     label071:
+        interfaceinvoke $r2.<com.tencent.android.tpush.stat.k: void b()>();
+
+     label072:
+        $z0 = $r19 instanceof java.lang.OutOfMemoryError;
+
+        if $z0 == 0 goto label132;
+
+        r0.<com.tencent.android.tpush.stat.m: java.lang.StringBuilder e> = null;
+
+        staticinvoke <java.lang.System: void gc()>();
+
+        $r4 = new java.lang.StringBuilder;
+
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>(int)>(2048);
+
+        r0.<com.tencent.android.tpush.stat.m: java.lang.StringBuilder e> = $r4;
+
+        return;
+
+     label073:
+        $r11 = virtualinvoke $r22.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r5 = (java.net.HttpURLConnection) $r11;
+
+     label074:
+        goto label023;
+
+     label075:
+        $z0 = staticinvoke <com.tencent.android.tpush.stat.j: boolean c()>();
+
+     label076:
+        if $z0 == 0 goto label080;
+
+     label077:
+        $r9 = <com.tencent.android.tpush.stat.m: com.tencent.android.tpush.stat.a.d a>;
+
+        $r4 = new java.lang.StringBuilder;
+
+     label078:
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+     label079:
+        $r3 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("proxy:");
+
+        $r6 = virtualinvoke $r14.<org.apache.http.HttpHost: java.lang.String toHostString()>();
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r6 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r9.<com.tencent.android.tpush.stat.a.d: void a(java.lang.Object)>($r6);
+
+     label080:
+        $r15 = r0.<com.tencent.android.tpush.stat.m: org.apache.http.impl.client.DefaultHttpClient d>;
+
+        $r16 = virtualinvoke $r15.<org.apache.http.impl.client.DefaultHttpClient: org.apache.http.params.HttpParams getParams()>();
+
+     label081:
+        interfaceinvoke $r16.<org.apache.http.params.HttpParams: org.apache.http.params.HttpParams setParameter(java.lang.String,java.lang.Object)>("http.route.default-proxy", $r14);
+
+     label082:
+        $r6 = <com.tencent.android.tpush.stat.j: java.lang.String h>;
+
+        $r28 = (java.net.HttpURLConnection) $r5;
+
+        virtualinvoke $r28.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("X-Online-Host", $r6);
+
+     label083:
+        $r28 = (java.net.HttpURLConnection) $r5;
+
+        virtualinvoke $r28.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Accept", "*/*");
+
+     label084:
+        $r28 = (java.net.HttpURLConnection) $r5;
+
+        virtualinvoke $r28.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Type", "json");
+
+     label085:
+        goto label040;
+
+     label086:
+        $r19 := @caughtexception;
+
+        goto label070;
+
+     label087:
+        $r9 = <com.tencent.android.tpush.stat.m: com.tencent.android.tpush.stat.a.d a>;
+
+     label088:
+        virtualinvoke $r9.<com.tencent.android.tpush.stat.a.d: void c(java.lang.Object)>("response error data.");
+
+        interfaceinvoke $r2.<com.tencent.android.tpush.stat.k: void b()>();
+
+     label089:
+        goto label068;
+
+     label090:
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>("gzip,rc4");
+
+     label091:
+        if $z0 == 0 goto label103;
+
+     label092:
+        $r12 = staticinvoke <com.tencent.android.tpush.stat.a.c: byte[] a(byte[])>($r12);
+
+        $r12 = staticinvoke <com.tencent.android.tpush.encrypt.b: byte[] a(byte[])>($r12);
+
+        $r8 = new java.lang.String;
+
+     label093:
+        $r6 = $r8;
+
+     label094:
+        $r20 = staticinvoke <java.nio.charset.Charset: java.nio.charset.Charset forName(java.lang.String)>("UTF-8");
+
+        specialinvoke $r8.<java.lang.String: void <init>(byte[],java.nio.charset.Charset)>($r12, $r20);
+
+     label095:
+        $r27 = new org.json.JSONObject;
+
+     label096:
+        specialinvoke $r27.<org.json.JSONObject: void <init>(java.lang.String)>($r6);
+
+        specialinvoke r0.<com.tencent.android.tpush.stat.m: void a(org.json.JSONObject)>($r27);
+
+     label097:
+        if $r2 == null goto label068;
+
+     label098:
+        $i0 = virtualinvoke $r27.<org.json.JSONObject: int optInt(java.lang.String)>("ret");
+
+     label099:
+        if $i0 != 0 goto label121;
+
+     label100:
+        $r9 = <com.tencent.android.tpush.stat.m: com.tencent.android.tpush.stat.a.d a>;
+
+     label101:
+        virtualinvoke $r9.<com.tencent.android.tpush.stat.a.d: void d(java.lang.Object)>("data upload ok.");
+
+        interfaceinvoke $r2.<com.tencent.android.tpush.stat.k: void a()>();
+
+     label102:
+        goto label068;
+
+     label103:
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>("rc4,gzip");
+
+     label104:
+        if $z0 == 0 goto label109;
+
+     label105:
+        $r12 = staticinvoke <com.tencent.android.tpush.encrypt.b: byte[] a(byte[])>($r12);
+
+        $r12 = staticinvoke <com.tencent.android.tpush.stat.a.c: byte[] a(byte[])>($r12);
+
+        $r8 = new java.lang.String;
+
+     label106:
+        $r6 = $r8;
+
+     label107:
+        $r20 = staticinvoke <java.nio.charset.Charset: java.nio.charset.Charset forName(java.lang.String)>("UTF-8");
+
+        specialinvoke $r8.<java.lang.String: void <init>(byte[],java.nio.charset.Charset)>($r12, $r20);
+
+     label108:
+        goto label095;
+
+     label109:
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>("gzip");
+
+     label110:
+        if $z0 == 0 goto label115;
+
+     label111:
+        $r12 = staticinvoke <com.tencent.android.tpush.stat.a.c: byte[] a(byte[])>($r12);
+
+        $r8 = new java.lang.String;
+
+     label112:
+        $r6 = $r8;
+
+     label113:
+        $r20 = staticinvoke <java.nio.charset.Charset: java.nio.charset.Charset forName(java.lang.String)>("UTF-8");
+
+        specialinvoke $r8.<java.lang.String: void <init>(byte[],java.nio.charset.Charset)>($r12, $r20);
+
+     label114:
+        goto label095;
+
+     label115:
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>("rc4");
+
+     label116:
+        if $z0 == 0 goto label095;
+
+     label117:
+        $r12 = staticinvoke <com.tencent.android.tpush.encrypt.b: byte[] a(byte[])>($r12);
+
+        $r8 = new java.lang.String;
+
+     label118:
+        $r6 = $r8;
+
+     label119:
+        $r20 = staticinvoke <java.nio.charset.Charset: java.nio.charset.Charset forName(java.lang.String)>("UTF-8");
+
+        specialinvoke $r8.<java.lang.String: void <init>(byte[],java.nio.charset.Charset)>($r12, $r20);
+
+     label120:
+        goto label095;
+
+     label121:
+        $r9 = <com.tencent.android.tpush.stat.m: com.tencent.android.tpush.stat.a.d a>;
+
+     label122:
+        virtualinvoke $r9.<com.tencent.android.tpush.stat.a.d: void c(java.lang.Object)>("response error data.");
+
+        interfaceinvoke $r2.<com.tencent.android.tpush.stat.k: void b()>();
+
+     label123:
+        goto label068;
+
+     label124:
+        $r9 = <com.tencent.android.tpush.stat.m: com.tencent.android.tpush.stat.a.d a>;
+
+        $r4 = new java.lang.StringBuilder;
+
+     label125:
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+     label126:
+        $r3 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Server response error code:");
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+     label127:
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", error:");
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r6 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r9.<com.tencent.android.tpush.stat.a.d: void c(java.lang.Object)>($r6);
+
+     label128:
+        if $r2 == null goto label068;
+
+     label129:
+        interfaceinvoke $r2.<com.tencent.android.tpush.stat.k: void b()>();
+
+     label130:
+        goto label068;
+
+     label131:
+        $r21 := @caughtexception;
+
+        $r9 = <com.tencent.android.tpush.stat.m: com.tencent.android.tpush.stat.a.d a>;
+
+        virtualinvoke $r9.<com.tencent.android.tpush.stat.a.d: void a(java.lang.Throwable)>($r21);
+
+        goto label072;
+
+     label132:
+        return;
+
+        catch java.lang.Throwable from label002 to label003 with label086;
+        catch java.lang.Throwable from label003 to label004 with label086;
+        catch java.lang.Throwable from label005 to label006 with label086;
+        catch java.lang.Throwable from label007 to label008 with label086;
+        catch java.lang.Throwable from label008 to label009 with label086;
+        catch java.lang.Throwable from label010 to label011 with label086;
+        catch java.lang.Throwable from label011 to label012 with label086;
+        catch java.lang.Throwable from label013 to label014 with label086;
+        catch java.lang.Throwable from label014 to label015 with label086;
+        catch java.lang.Throwable from label015 to label016 with label086;
+        catch java.lang.Throwable from label016 to label017 with label086;
+        catch java.lang.Throwable from label017 to label019 with label086;
+        catch java.lang.Throwable from label019 to label020 with label086;
+        catch java.lang.Throwable from label020 to label021 with label086;
+        catch java.lang.Throwable from label022 to label024 with label086;
+        catch java.lang.Throwable from label024 to label025 with label086;
+        catch java.lang.Throwable from label025 to label026 with label086;
+        catch java.lang.Throwable from label026 to label027 with label086;
+        catch java.lang.Throwable from label027 to label028 with label086;
+        catch java.lang.Throwable from label028 to label029 with label086;
+        catch java.lang.Throwable from label029 to label030 with label086;
+        catch java.lang.Throwable from label031 to label032 with label086;
+        catch java.lang.Throwable from label032 to label033 with label086;
+        catch java.lang.Throwable from label033 to label034 with label086;
+        catch java.lang.Throwable from label034 to label035 with label086;
+        catch java.lang.Throwable from label035 to label036 with label086;
+        catch java.lang.Throwable from label036 to label037 with label086;
+        catch java.lang.Throwable from label038 to label039 with label086;
+        catch java.lang.Throwable from label039 to label041 with label086;
+        catch java.lang.Throwable from label041 to label042 with label086;
+        catch java.lang.Throwable from label043 to label044 with label086;
+        catch java.lang.Throwable from label044 to label045 with label086;
+        catch java.lang.Throwable from label045 to label046 with label086;
+        catch java.lang.Throwable from label046 to label047 with label086;
+        catch java.lang.Throwable from label047 to label048 with label086;
+        catch java.lang.Throwable from label048 to label049 with label086;
+        catch java.lang.Throwable from label049 to label050 with label086;
+        catch java.lang.Throwable from label050 to label051 with label086;
+        catch java.lang.Throwable from label051 to label052 with label086;
+        catch java.lang.Throwable from label052 to label053 with label086;
+        catch java.lang.Throwable from label054 to label055 with label086;
+        catch java.lang.Throwable from label055 to label056 with label086;
+        catch java.lang.Throwable from label057 to label058 with label086;
+        catch java.lang.Throwable from label059 to label060 with label086;
+        catch java.lang.Throwable from label060 to label061 with label086;
+        catch java.lang.Throwable from label061 to label062 with label086;
+        catch java.lang.Throwable from label062 to label063 with label086;
+        catch java.lang.Throwable from label064 to label065 with label086;
+        catch java.lang.Throwable from label066 to label067 with label086;
+        catch java.lang.Throwable from label067 to label069 with label086;
+        catch java.lang.Throwable from label071 to label072 with label131;
+        catch java.lang.Throwable from label073 to label074 with label086;
+        catch java.lang.Throwable from label075 to label076 with label086;
+        catch java.lang.Throwable from label077 to label078 with label086;
+        catch java.lang.Throwable from label078 to label079 with label086;
+        catch java.lang.Throwable from label079 to label081 with label086;
+        catch java.lang.Throwable from label081 to label082 with label086;
+        catch java.lang.Throwable from label082 to label083 with label086;
+        catch java.lang.Throwable from label083 to label084 with label086;
+        catch java.lang.Throwable from label084 to label085 with label086;
+        catch java.lang.Throwable from label087 to label088 with label086;
+        catch java.lang.Throwable from label088 to label089 with label086;
+        catch java.lang.Throwable from label090 to label091 with label086;
+        catch java.lang.Throwable from label092 to label093 with label086;
+        catch java.lang.Throwable from label094 to label096 with label086;
+        catch java.lang.Throwable from label096 to label097 with label086;
+        catch java.lang.Throwable from label098 to label099 with label086;
+        catch java.lang.Throwable from label100 to label101 with label086;
+        catch java.lang.Throwable from label101 to label102 with label086;
+        catch java.lang.Throwable from label103 to label104 with label086;
+        catch java.lang.Throwable from label105 to label106 with label086;
+        catch java.lang.Throwable from label107 to label108 with label086;
+        catch java.lang.Throwable from label109 to label110 with label086;
+        catch java.lang.Throwable from label111 to label112 with label086;
+        catch java.lang.Throwable from label113 to label114 with label086;
+        catch java.lang.Throwable from label115 to label116 with label086;
+        catch java.lang.Throwable from label117 to label118 with label086;
+        catch java.lang.Throwable from label119 to label120 with label086;
+        catch java.lang.Throwable from label121 to label122 with label086;
+        catch java.lang.Throwable from label122 to label123 with label086;
+        catch java.lang.Throwable from label124 to label125 with label086;
+        catch java.lang.Throwable from label125 to label126 with label086;
+        catch java.lang.Throwable from label126 to label127 with label086;
+        catch java.lang.Throwable from label127 to label128 with label086;
+        catch java.lang.Throwable from label129 to label130 with label086;
+    }

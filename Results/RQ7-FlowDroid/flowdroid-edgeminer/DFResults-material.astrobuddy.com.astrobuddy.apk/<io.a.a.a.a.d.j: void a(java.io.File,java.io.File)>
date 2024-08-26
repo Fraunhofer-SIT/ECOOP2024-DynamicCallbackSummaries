@@ -1,0 +1,65 @@
+    private void a(java.io.File, java.io.File)
+    {
+        java.io.OutputStream $r3, $r4;
+        java.lang.Throwable $r7;
+        byte[] $r6;
+        java.io.FileInputStream $r5;
+        java.io.File $r1, $r2;
+        io.a.a.a.a.d.j r0;
+
+        r0 := @this: io.a.a.a.a.d.j;
+
+        $r1 := @parameter0: java.io.File;
+
+        $r2 := @parameter1: java.io.File;
+
+        $r4 = null;
+
+     label1:
+        $r5 = new java.io.FileInputStream;
+
+        specialinvoke $r5.<java.io.FileInputStream: void <init>(java.io.File)>($r1);
+
+     label2:
+        $r3 = virtualinvoke r0.<io.a.a.a.a.d.j: java.io.OutputStream a(java.io.File)>($r2);
+
+     label3:
+        $r4 = $r3;
+
+        $r6 = newarray (byte)[1024];
+
+     label4:
+        staticinvoke <io.a.a.a.a.b.l: void a(java.io.InputStream,java.io.OutputStream,byte[])>($r5, $r3, $r6);
+
+     label5:
+        staticinvoke <io.a.a.a.a.b.l: void a(java.io.Closeable,java.lang.String)>($r5, "Failed to close file input stream");
+
+        staticinvoke <io.a.a.a.a.b.l: void a(java.io.Closeable,java.lang.String)>($r3, "Failed to close output stream");
+
+        virtualinvoke $r1.<java.io.File: boolean delete()>();
+
+        return;
+
+     label6:
+        $r7 := @caughtexception;
+
+        $r5 = null;
+
+     label7:
+        staticinvoke <io.a.a.a.a.b.l: void a(java.io.Closeable,java.lang.String)>($r5, "Failed to close file input stream");
+
+        staticinvoke <io.a.a.a.a.b.l: void a(java.io.Closeable,java.lang.String)>($r4, "Failed to close output stream");
+
+        virtualinvoke $r1.<java.io.File: boolean delete()>();
+
+        throw $r7;
+
+     label8:
+        $r7 := @caughtexception;
+
+        goto label7;
+
+        catch java.lang.Throwable from label1 to label2 with label6;
+        catch java.lang.Throwable from label2 to label3 with label8;
+        catch java.lang.Throwable from label4 to label5 with label8;
+    }

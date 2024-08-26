@@ -1,0 +1,68 @@
+    private java.lang.String encrypt(java.lang.String, java.lang.String) throws java.lang.Exception
+    {
+        android.content.Context $r4;
+        java.lang.String[] $r6;
+        com.tms.sdk.api.APIManager r0;
+        org.json.JSONObject $r3;
+        java.lang.String $r1, $r2, $r5;
+        boolean $z0;
+        com.tms.sdk.api.APIException $r7;
+
+        r0 := @this: com.tms.sdk.api.APIManager;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $z0 = specialinvoke r0.<com.tms.sdk.api.APIManager: boolean isDefaultEncKey(java.lang.String)>($r1);
+
+        if $z0 == 0 goto label1;
+
+        $r1 = staticinvoke <com.tms.sdk.common.util.TMSUtil: java.lang.String a()>();
+
+        $r1 = staticinvoke <com.tms.sdk.common.c.e: java.lang.String a(java.lang.String,java.lang.String)>($r2, $r1);
+
+        return $r1;
+
+     label1:
+        $r3 = new org.json.JSONObject;
+
+        specialinvoke $r3.<org.json.JSONObject: void <init>()>();
+
+        $r4 = r0.<com.tms.sdk.api.APIManager: android.content.Context mContext>;
+
+        $r5 = staticinvoke <com.tms.sdk.common.util.TMSUtil: java.lang.String g(android.content.Context)>($r4);
+
+        $r4 = r0.<com.tms.sdk.api.APIManager: android.content.Context mContext>;
+
+        $r1 = staticinvoke <com.tms.sdk.common.util.TMSUtil: java.lang.String e(android.content.Context)>($r4);
+
+        $r6 = newarray (java.lang.String)[2];
+
+        $r6[0] = $r5;
+
+        $r6[1] = $r1;
+
+        $z0 = staticinvoke <com.tms.sdk.common.util.StringUtil: boolean isEmptyArr(java.lang.String[])>($r6);
+
+        if $z0 != 0 goto label2;
+
+        virtualinvoke $r3.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("id", $r5);
+
+        $r2 = staticinvoke <com.tms.sdk.common.c.e: java.lang.String a(java.lang.String,java.lang.String)>($r2, $r1);
+
+        virtualinvoke $r3.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("data", $r2);
+
+        $r2 = virtualinvoke $r3.<org.json.JSONObject: java.lang.String toString()>();
+
+        $r1 = staticinvoke <com.tms.sdk.common.c.e: java.lang.String a(java.lang.String,java.lang.String)>($r2, $r1);
+
+        return $r1;
+
+     label2:
+        $r7 = new com.tms.sdk.api.APIException;
+
+        specialinvoke $r7.<com.tms.sdk.api.APIException: void <init>(java.lang.String,java.lang.String)>("901", "appUserId or encKey is null, have to call deviceCert before");
+
+        throw $r7;
+    }

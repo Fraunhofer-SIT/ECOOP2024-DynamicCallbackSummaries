@@ -1,0 +1,155 @@
+    public void onClick(android.view.View)
+    {
+        java.lang.Throwable r3;
+        byte[] r2;
+        android.net.Uri $r14;
+        android.content.Intent r4, $r18;
+        java.util.HashMap $r7;
+        int $i0;
+        android.view.View $r1;
+        java.lang.String $r9, $r10;
+        yad.bekheir.music.Ayat $r5;
+        yad.bekheir.music.Ayat$4 r0;
+        java.io.FileOutputStream $r17;
+        java.io.IOException $r19;
+        java.io.File $r11, $r16;
+        java.lang.Object $r8;
+        java.lang.StringBuilder $r12, $r15;
+        android.content.res.Resources $r6;
+        java.io.InputStream $r13;
+
+        r0 := @this: yad.bekheir.music.Ayat$4;
+
+        $r1 := @parameter0: android.view.View;
+
+        $r5 = r0.<yad.bekheir.music.Ayat$4: yad.bekheir.music.Ayat this$0>;
+
+        $r6 = virtualinvoke $r5.<yad.bekheir.music.Ayat: android.content.res.Resources getResources()>();
+
+        $r7 = <yad.bekheir.music.Ayat: java.util.HashMap book>;
+
+        $r8 = virtualinvoke $r7.<java.util.HashMap: java.lang.Object get(java.lang.Object)>("save");
+
+        $r9 = virtualinvoke $r8.<java.lang.Object: java.lang.String toString()>();
+
+        $r5 = r0.<yad.bekheir.music.Ayat$4: yad.bekheir.music.Ayat this$0>;
+
+        $r10 = virtualinvoke $r5.<yad.bekheir.music.Ayat: java.lang.String getPackageName()>();
+
+        $i0 = virtualinvoke $r6.<android.content.res.Resources: int getIdentifier(java.lang.String,java.lang.String,java.lang.String)>($r9, "raw", $r10);
+
+        $r16 = new java.io.File;
+
+        $r5 = r0.<yad.bekheir.music.Ayat$4: yad.bekheir.music.Ayat this$0>;
+
+        $r11 = virtualinvoke $r5.<yad.bekheir.music.Ayat: java.io.File getExternalFilesDir(java.lang.String)>(null);
+
+        $r15 = new java.lang.StringBuilder;
+
+        $r7 = <yad.bekheir.music.Ayat: java.util.HashMap book>;
+
+        $r8 = virtualinvoke $r7.<java.util.HashMap: java.lang.Object get(java.lang.Object)>("save");
+
+        $r9 = virtualinvoke $r8.<java.lang.Object: java.lang.String toString()>();
+
+        $r9 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r9);
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>(java.lang.String)>($r9);
+
+        $r12 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".mp3");
+
+        $r9 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r16.<java.io.File: void <init>(java.io.File,java.lang.String)>($r11, $r9);
+
+        $r5 = r0.<yad.bekheir.music.Ayat$4: yad.bekheir.music.Ayat this$0>;
+
+     label01:
+        $r6 = virtualinvoke $r5.<yad.bekheir.music.Ayat: android.content.res.Resources getResources()>();
+
+        $r13 = virtualinvoke $r6.<android.content.res.Resources: java.io.InputStream openRawResource(int)>($i0);
+
+     label02:
+        $r17 = new java.io.FileOutputStream;
+
+     label03:
+        specialinvoke $r17.<java.io.FileOutputStream: void <init>(java.io.File)>($r16);
+
+     label04:
+        r2 = newarray (byte)[1024];
+
+     label05:
+        $i0 = virtualinvoke $r13.<java.io.InputStream: int read(byte[])>(r2);
+
+     label06:
+        if $i0 > 0 goto label10;
+
+     label07:
+        virtualinvoke $r13.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r17.<java.io.FileOutputStream: void close()>();
+
+     label08:
+        $r5 = r0.<yad.bekheir.music.Ayat$4: yad.bekheir.music.Ayat this$0>;
+
+        $r14 = staticinvoke <android.support.v4.content.FileProvider: android.net.Uri getUriForFile(android.content.Context,java.lang.String,java.io.File)>($r5, "yad.bekheir.music.fileprovider", $r16);
+
+        $r18 = new android.content.Intent;
+
+        specialinvoke $r18.<android.content.Intent: void <init>(java.lang.String)>("android.intent.action.SEND");
+
+        virtualinvoke $r18.<android.content.Intent: android.content.Intent setType(java.lang.String)>("audio/*");
+
+        virtualinvoke $r18.<android.content.Intent: android.content.Intent addFlags(int)>(1);
+
+        $i0 = <android.os.Build$VERSION: int SDK_INT>;
+
+        if $i0 < 24 goto label13;
+
+        virtualinvoke $r18.<android.content.Intent: android.content.Intent putExtra(java.lang.String,android.os.Parcelable)>("android.intent.extra.STREAM", $r14);
+
+     label09:
+        $r5 = r0.<yad.bekheir.music.Ayat$4: yad.bekheir.music.Ayat this$0>;
+
+        r4 = staticinvoke <android.content.Intent: android.content.Intent createChooser(android.content.Intent,java.lang.CharSequence)>($r18, "\u0627\u0634\u062a\u0631\u0627\u06a9 \u0635\u062f\u0627");
+
+        virtualinvoke $r5.<yad.bekheir.music.Ayat: void startActivity(android.content.Intent)>(r4);
+
+        return;
+
+     label10:
+        virtualinvoke $r17.<java.io.FileOutputStream: void write(byte[],int,int)>(r2, 0, $i0);
+
+     label11:
+        goto label05;
+
+     label12:
+        r3 := @caughtexception;
+
+        $r19 = (java.io.IOException) r3;
+
+        virtualinvoke $r19.<java.io.IOException: void printStackTrace()>();
+
+        goto label08;
+
+     label13:
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>(java.lang.String)>("file://");
+
+        $r12 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r16);
+
+        $r9 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r14 = staticinvoke <android.net.Uri: android.net.Uri parse(java.lang.String)>($r9);
+
+        virtualinvoke $r18.<android.content.Intent: android.content.Intent putExtra(java.lang.String,android.os.Parcelable)>("android.intent.extra.STREAM", $r14);
+
+        goto label09;
+
+        catch java.io.IOException from label01 to label02 with label12;
+        catch java.io.IOException from label03 to label04 with label12;
+        catch java.io.IOException from label05 to label06 with label12;
+        catch java.io.IOException from label07 to label08 with label12;
+        catch java.io.IOException from label10 to label11 with label12;
+    }

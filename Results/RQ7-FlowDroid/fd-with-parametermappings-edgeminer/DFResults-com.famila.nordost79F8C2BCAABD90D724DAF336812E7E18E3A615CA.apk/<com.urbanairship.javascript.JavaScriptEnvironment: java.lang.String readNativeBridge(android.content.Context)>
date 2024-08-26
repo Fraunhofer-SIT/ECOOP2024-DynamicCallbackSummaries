@@ -1,0 +1,86 @@
+    private static java.lang.String readNativeBridge(android.content.Context) throws java.io.IOException
+    {
+        java.lang.Throwable $r7;
+        android.content.Context $r0;
+        byte[] $r3;
+        java.lang.Object[] $r6;
+        java.io.ByteArrayOutputStream $r9;
+        java.lang.Exception $r5, $r8;
+        int $i0;
+        java.lang.String $r4;
+        android.content.res.Resources $r1;
+        java.io.InputStream $r2;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 = virtualinvoke $r0.<android.content.Context: android.content.res.Resources getResources()>();
+
+        $i0 = <com.urbanairship.R$raw: int ua_native_bridge>;
+
+        $r2 = virtualinvoke $r1.<android.content.res.Resources: java.io.InputStream openRawResource(int)>($i0);
+
+        $r9 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r9.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r3 = newarray (byte)[1024];
+
+     label01:
+        $i0 = virtualinvoke $r2.<java.io.InputStream: int read(byte[])>($r3);
+
+     label02:
+        if $i0 == -1 goto label05;
+
+     label03:
+        virtualinvoke $r9.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r3, 0, $i0);
+
+     label04:
+        goto label01;
+
+     label05:
+        $r4 = virtualinvoke $r9.<java.io.ByteArrayOutputStream: java.lang.String toString()>();
+
+     label06:
+        virtualinvoke $r2.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r9.<java.io.ByteArrayOutputStream: void close()>();
+
+     label07:
+        return $r4;
+
+     label08:
+        $r5 := @caughtexception;
+
+        $r6 = newarray (java.lang.Object)[0];
+
+        staticinvoke <com.urbanairship.Logger: void debug(java.lang.Throwable,java.lang.String,java.lang.Object[])>($r5, "Failed to close streams", $r6);
+
+        return $r4;
+
+     label09:
+        $r7 := @caughtexception;
+
+     label10:
+        virtualinvoke $r2.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r9.<java.io.ByteArrayOutputStream: void close()>();
+
+     label11:
+        goto label13;
+
+     label12:
+        $r8 := @caughtexception;
+
+        $r6 = newarray (java.lang.Object)[0];
+
+        staticinvoke <com.urbanairship.Logger: void debug(java.lang.Throwable,java.lang.String,java.lang.Object[])>($r8, "Failed to close streams", $r6);
+
+     label13:
+        throw $r7;
+
+        catch java.lang.Throwable from label01 to label02 with label09;
+        catch java.lang.Throwable from label03 to label04 with label09;
+        catch java.lang.Throwable from label05 to label06 with label09;
+        catch java.lang.Exception from label06 to label07 with label08;
+        catch java.lang.Exception from label10 to label11 with label12;
+    }

@@ -1,0 +1,393 @@
+    public java.io.ByteArrayOutputStream a(java.lang.String, java.util.List, boolean, com.applovin.impl.sdk.d.e)
+    {
+        java.net.HttpURLConnection $r14;
+        java.lang.Throwable $r19, $r20;
+        byte[] $r18;
+        java.io.ByteArrayOutputStream $r12, $r22;
+        java.net.URL $r23;
+        java.lang.Integer $r15;
+        com.applovin.impl.sdk.d.e $r4;
+        com.applovin.impl.sdk.r $r6;
+        com.applovin.impl.sdk.p r0;
+        java.net.URLConnection $r13;
+        int $i0;
+        java.lang.Boolean $r10;
+        java.lang.String $r2, $r11;
+        com.applovin.impl.sdk.k $r7;
+        boolean $z0;
+        com.applovin.impl.sdk.c.b $r8;
+        java.lang.Exception $r1;
+        java.util.List $r3;
+        java.lang.Object $r9;
+        java.lang.StringBuilder $r21;
+        java.io.InputStream $r5, $r16, $r17;
+
+        r0 := @this: com.applovin.impl.sdk.p;
+
+        $r2 := @parameter0: java.lang.String;
+
+        $r3 := @parameter1: java.util.List;
+
+        $z0 := @parameter2: boolean;
+
+        $r4 := @parameter3: com.applovin.impl.sdk.d.e;
+
+        $r5 = null;
+
+        if $z0 == 0 goto label01;
+
+        $z0 = staticinvoke <com.applovin.impl.sdk.utils.Utils: boolean isDomainWhitelisted(java.lang.String,java.util.List)>($r2, $r3);
+
+        if $z0 != 0 goto label01;
+
+        $r6 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.r c>;
+
+        $r21 = new java.lang.StringBuilder;
+
+        specialinvoke $r21.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Domain is not whitelisted, skipping precache for url: ");
+
+        virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r6.<com.applovin.impl.sdk.r: void b(java.lang.String,java.lang.String)>("FileManager", $r2);
+
+        return null;
+
+     label01:
+        $r7 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.k b>;
+
+        $r8 = <com.applovin.impl.sdk.c.b: com.applovin.impl.sdk.c.b cW>;
+
+        $r9 = virtualinvoke $r7.<com.applovin.impl.sdk.k: java.lang.Object a(com.applovin.impl.sdk.c.b)>($r8);
+
+        $r10 = (java.lang.Boolean) $r9;
+
+        $z0 = virtualinvoke $r10.<java.lang.Boolean: boolean booleanValue()>();
+
+        if $z0 == 0 goto label02;
+
+        $z0 = virtualinvoke $r2.<java.lang.String: boolean contains(java.lang.CharSequence)>("https://");
+
+        if $z0 != 0 goto label02;
+
+        $r6 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.r c>;
+
+        virtualinvoke $r6.<com.applovin.impl.sdk.r: void d(java.lang.String,java.lang.String)>("FileManager", "Plaintext HTTP operation requested; upgrading to HTTPS due to universal SSL setting...");
+
+        $r2 = virtualinvoke $r2.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("http://", "https://");
+
+     label02:
+        $r6 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.r c>;
+
+        $r21 = new java.lang.StringBuilder;
+
+        specialinvoke $r21.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Loading ");
+
+        virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("...");
+
+        $r11 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r6.<com.applovin.impl.sdk.r: void b(java.lang.String,java.lang.String)>("FileManager", $r11);
+
+     label03:
+        $r22 = new java.io.ByteArrayOutputStream;
+
+     label04:
+        $r12 = $r22;
+
+     label05:
+        specialinvoke $r22.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label06:
+        $r23 = new java.net.URL;
+
+     label07:
+        specialinvoke $r23.<java.net.URL: void <init>(java.lang.String)>($r2);
+
+        $r13 = virtualinvoke $r23.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r9 = staticinvoke <com.google.firebase.perf.network.FirebasePerfUrlConnection: java.lang.Object instrument(java.lang.Object)>($r13);
+
+     label08:
+        $r13 = (java.net.URLConnection) $r9;
+
+        $r14 = (java.net.HttpURLConnection) $r13;
+
+     label09:
+        $r7 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.k b>;
+
+        $r8 = <com.applovin.impl.sdk.c.b: com.applovin.impl.sdk.c.b cU>;
+
+     label10:
+        $r9 = virtualinvoke $r7.<com.applovin.impl.sdk.k: java.lang.Object a(com.applovin.impl.sdk.c.b)>($r8);
+
+     label11:
+        $r15 = (java.lang.Integer) $r9;
+
+     label12:
+        $i0 = virtualinvoke $r15.<java.lang.Integer: int intValue()>();
+
+        virtualinvoke $r14.<java.net.HttpURLConnection: void setConnectTimeout(int)>($i0);
+
+     label13:
+        $r7 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.k b>;
+
+        $r8 = <com.applovin.impl.sdk.c.b: com.applovin.impl.sdk.c.b cV>;
+
+     label14:
+        $r9 = virtualinvoke $r7.<com.applovin.impl.sdk.k: java.lang.Object a(com.applovin.impl.sdk.c.b)>($r8);
+
+     label15:
+        $r15 = (java.lang.Integer) $r9;
+
+     label16:
+        $i0 = virtualinvoke $r15.<java.lang.Integer: int intValue()>();
+
+        virtualinvoke $r14.<java.net.HttpURLConnection: void setReadTimeout(int)>($i0);
+
+        virtualinvoke $r14.<java.net.HttpURLConnection: void setDefaultUseCaches(boolean)>(1);
+
+        virtualinvoke $r14.<java.net.HttpURLConnection: void setUseCaches(boolean)>(1);
+
+        virtualinvoke $r14.<java.net.HttpURLConnection: void setAllowUserInteraction(boolean)>(0);
+
+        virtualinvoke $r14.<java.net.HttpURLConnection: void setInstanceFollowRedirects(boolean)>(1);
+
+        $i0 = staticinvoke <com.safedk.android.internal.partials.AppLovinNetworkBridge: int httpUrlConnectionGetResponseCode(java.net.HttpURLConnection)>($r14);
+
+        virtualinvoke $r4.<com.applovin.impl.sdk.d.e: void a(int)>($i0);
+
+     label17:
+        if $i0 < 200 goto label31;
+
+        if $i0 >= 300 goto label31;
+
+     label18:
+        $r16 = staticinvoke <com.safedk.android.internal.partials.AppLovinNetworkBridge: java.io.InputStream urlConnectionGetInputStream(java.net.URLConnection)>($r14);
+
+     label19:
+        $r17 = $r16;
+
+        $r18 = newarray (byte)[1024];
+
+     label20:
+        $i0 = virtualinvoke $r16.<java.io.InputStream: int read(byte[],int,int)>($r18, 0, 1024);
+
+     label21:
+        if $i0 < 0 goto label27;
+
+     label22:
+        virtualinvoke $r22.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r18, 0, $i0);
+
+     label23:
+        goto label20;
+
+     label24:
+        $r7 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.k b>;
+
+     label25:
+        staticinvoke <com.applovin.impl.sdk.utils.Utils: void close(java.io.Closeable,com.applovin.impl.sdk.k)>($r22, $r7);
+
+     label26:
+        $r7 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.k b>;
+
+        staticinvoke <com.applovin.impl.sdk.utils.Utils: void close(java.io.Closeable,com.applovin.impl.sdk.k)>($r16, $r7);
+
+        $r7 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.k b>;
+
+        staticinvoke <com.applovin.impl.sdk.utils.Utils: void close(java.io.Closeable,com.applovin.impl.sdk.k)>($r22, $r7);
+
+        $r7 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.k b>;
+
+        staticinvoke <com.applovin.impl.sdk.utils.Utils: void disconnect(java.net.HttpURLConnection,com.applovin.impl.sdk.k)>($r14, $r7);
+
+        return null;
+
+     label27:
+        $r6 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.r c>;
+
+        $r21 = new java.lang.StringBuilder;
+
+     label28:
+        specialinvoke $r21.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Loaded resource at ");
+
+        virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r11 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r6.<com.applovin.impl.sdk.r: void b(java.lang.String,java.lang.String)>("FileManager", $r11);
+
+     label29:
+        $r7 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.k b>;
+
+        staticinvoke <com.applovin.impl.sdk.utils.Utils: void close(java.io.Closeable,com.applovin.impl.sdk.k)>($r16, $r7);
+
+        $r7 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.k b>;
+
+        staticinvoke <com.applovin.impl.sdk.utils.Utils: void close(java.io.Closeable,com.applovin.impl.sdk.k)>($r22, $r7);
+
+        $r7 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.k b>;
+
+        staticinvoke <com.applovin.impl.sdk.utils.Utils: void disconnect(java.net.HttpURLConnection,com.applovin.impl.sdk.k)>($r14, $r7);
+
+        return $r22;
+
+     label30:
+        $r19 := @caughtexception;
+
+        goto label39;
+
+     label31:
+        $r7 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.k b>;
+
+        staticinvoke <com.applovin.impl.sdk.utils.Utils: void close(java.io.Closeable,com.applovin.impl.sdk.k)>(null, $r7);
+
+        $r7 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.k b>;
+
+        staticinvoke <com.applovin.impl.sdk.utils.Utils: void close(java.io.Closeable,com.applovin.impl.sdk.k)>($r22, $r7);
+
+        $r7 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.k b>;
+
+        staticinvoke <com.applovin.impl.sdk.utils.Utils: void disconnect(java.net.HttpURLConnection,com.applovin.impl.sdk.k)>($r14, $r7);
+
+        return null;
+
+     label32:
+        $r20 := @caughtexception;
+
+        goto label43;
+
+     label33:
+        $r19 := @caughtexception;
+
+        $r17 = null;
+
+        goto label39;
+
+     label34:
+        $r20 := @caughtexception;
+
+        $r14 = null;
+
+        goto label43;
+
+     label35:
+        $r19 := @caughtexception;
+
+        $r14 = null;
+
+        goto label38;
+
+     label36:
+        $r20 := @caughtexception;
+
+        $r12 = null;
+
+        $r14 = null;
+
+        goto label43;
+
+     label37:
+        $r19 := @caughtexception;
+
+        $r12 = null;
+
+        $r14 = null;
+
+     label38:
+        $r17 = null;
+
+     label39:
+        $r6 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.r c>;
+
+        $r21 = new java.lang.StringBuilder;
+
+     label40:
+        specialinvoke $r21.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Error loading ");
+
+        virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r6.<com.applovin.impl.sdk.r: void b(java.lang.String,java.lang.String,java.lang.Throwable)>("FileManager", $r2, $r19);
+
+        $r1 = (java.lang.Exception) $r19;
+
+        virtualinvoke $r4.<com.applovin.impl.sdk.d.e: void a(java.lang.Exception)>($r1);
+
+     label41:
+        $r7 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.k b>;
+
+        staticinvoke <com.applovin.impl.sdk.utils.Utils: void close(java.io.Closeable,com.applovin.impl.sdk.k)>($r17, $r7);
+
+        $r7 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.k b>;
+
+        staticinvoke <com.applovin.impl.sdk.utils.Utils: void close(java.io.Closeable,com.applovin.impl.sdk.k)>($r12, $r7);
+
+        $r7 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.k b>;
+
+        staticinvoke <com.applovin.impl.sdk.utils.Utils: void disconnect(java.net.HttpURLConnection,com.applovin.impl.sdk.k)>($r14, $r7);
+
+        return null;
+
+     label42:
+        $r20 := @caughtexception;
+
+        $r5 = $r17;
+
+     label43:
+        $r7 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.k b>;
+
+        staticinvoke <com.applovin.impl.sdk.utils.Utils: void close(java.io.Closeable,com.applovin.impl.sdk.k)>($r5, $r7);
+
+        $r7 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.k b>;
+
+        staticinvoke <com.applovin.impl.sdk.utils.Utils: void close(java.io.Closeable,com.applovin.impl.sdk.k)>($r12, $r7);
+
+        $r7 = r0.<com.applovin.impl.sdk.p: com.applovin.impl.sdk.k b>;
+
+        staticinvoke <com.applovin.impl.sdk.utils.Utils: void disconnect(java.net.HttpURLConnection,com.applovin.impl.sdk.k)>($r14, $r7);
+
+        throw $r20;
+
+     label44:
+        $r1 := @caughtexception;
+
+        goto label24;
+
+        catch java.io.IOException from label05 to label06 with label37;
+        catch java.lang.Throwable from label03 to label04 with label36;
+        catch java.lang.Throwable from label05 to label06 with label36;
+        catch java.io.IOException from label07 to label08 with label35;
+        catch java.lang.Throwable from label06 to label07 with label34;
+        catch java.lang.Throwable from label07 to label09 with label34;
+        catch java.io.IOException from label10 to label11 with label33;
+        catch java.io.IOException from label12 to label13 with label33;
+        catch java.io.IOException from label14 to label15 with label33;
+        catch java.io.IOException from label16 to label17 with label33;
+        catch java.io.IOException from label18 to label19 with label33;
+        catch java.lang.Throwable from label09 to label17 with label32;
+        catch java.lang.Throwable from label18 to label19 with label32;
+        catch java.io.IOException from label20 to label21 with label30;
+        catch java.lang.Throwable from label20 to label21 with label42;
+        catch java.lang.Exception from label22 to label23 with label44;
+        catch java.lang.Throwable from label22 to label23 with label42;
+        catch java.io.IOException from label25 to label26 with label30;
+        catch java.lang.Throwable from label24 to label26 with label42;
+        catch java.io.IOException from label28 to label29 with label30;
+        catch java.lang.Throwable from label27 to label28 with label42;
+        catch java.lang.Throwable from label28 to label29 with label42;
+        catch java.lang.Throwable from label39 to label40 with label42;
+        catch java.lang.Throwable from label40 to label41 with label42;
+    }

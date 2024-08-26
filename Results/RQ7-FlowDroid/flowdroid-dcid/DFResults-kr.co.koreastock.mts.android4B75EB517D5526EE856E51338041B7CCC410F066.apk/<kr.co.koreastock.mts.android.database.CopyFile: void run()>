@@ -1,0 +1,154 @@
+    public void run()
+    {
+        byte[] $r1;
+        android.content.Context $r7;
+        java.io.BufferedInputStream $r13;
+        kr.co.koreastock.mts.android.database.CopyFile r0;
+        java.io.BufferedOutputStream $r15;
+        android.content.res.AssetManager $r8;
+        int $i0;
+        java.lang.String $r5;
+        boolean $z0;
+        java.io.FileOutputStream $r14;
+        kr.co.koreastock.mts.android.database.DatabaseCheckListener $r3;
+        java.io.File $r2, $r4, $r6, $r12;
+        java.lang.Exception $r10;
+        java.lang.StringBuilder $r11;
+        java.io.InputStream $r9;
+
+        r0 := @this: kr.co.koreastock.mts.android.database.CopyFile;
+
+        $r2 = r0.<kr.co.koreastock.mts.android.database.CopyFile: java.io.File mFile>;
+
+        $z0 = virtualinvoke $r2.<java.io.File: boolean exists()>();
+
+        if $z0 == 0 goto label01;
+
+        $r3 = r0.<kr.co.koreastock.mts.android.database.CopyFile: kr.co.koreastock.mts.android.database.DatabaseCheckListener mDatabaseCheckListener>;
+
+        interfaceinvoke $r3.<kr.co.koreastock.mts.android.database.DatabaseCheckListener: void onDatabaseCheckeFinish(int)>(1);
+
+        return;
+
+     label01:
+        $r6 = new java.io.File;
+
+        $r2 = $r6;
+
+        $r4 = r0.<kr.co.koreastock.mts.android.database.CopyFile: java.io.File mFile>;
+
+        $r5 = virtualinvoke $r4.<java.io.File: java.lang.String getParent()>();
+
+        specialinvoke $r6.<java.io.File: void <init>(java.lang.String)>($r5);
+
+        $r12 = new java.io.File;
+
+        $r11 = new java.lang.StringBuilder;
+
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>()>();
+
+        $r6 = r0.<kr.co.koreastock.mts.android.database.CopyFile: java.io.File mFile>;
+
+        $r5 = virtualinvoke $r6.<java.io.File: java.lang.String getParent()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        $r5 = r0.<kr.co.koreastock.mts.android.database.CopyFile: java.lang.String DB_NAME>;
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r12.<java.io.File: void <init>(java.lang.String)>($r5);
+
+     label02:
+        $z0 = virtualinvoke $r2.<java.io.File: boolean exists()>();
+
+     label03:
+        if $z0 != 0 goto label05;
+
+     label04:
+        virtualinvoke $r2.<java.io.File: boolean mkdir()>();
+
+     label05:
+        $r7 = r0.<kr.co.koreastock.mts.android.database.CopyFile: android.content.Context context>;
+
+        $r8 = virtualinvoke $r7.<android.content.Context: android.content.res.AssetManager getAssets()>();
+
+        $r5 = r0.<kr.co.koreastock.mts.android.database.CopyFile: java.lang.String DB_NAME>;
+
+        $r9 = virtualinvoke $r8.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>($r5);
+
+     label06:
+        $r13 = new java.io.BufferedInputStream;
+
+     label07:
+        specialinvoke $r13.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r9);
+
+     label08:
+        $r14 = new java.io.FileOutputStream;
+
+     label09:
+        specialinvoke $r14.<java.io.FileOutputStream: void <init>(java.io.File)>($r12);
+
+     label10:
+        $r15 = new java.io.BufferedOutputStream;
+
+     label11:
+        specialinvoke $r15.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r14);
+
+     label12:
+        $r1 = newarray (byte)[4096];
+
+     label13:
+        $i0 = virtualinvoke $r13.<java.io.BufferedInputStream: int read(byte[],int,int)>($r1, 0, 4096);
+
+     label14:
+        if $i0 == -1 goto label17;
+
+     label15:
+        virtualinvoke $r15.<java.io.BufferedOutputStream: void write(byte[],int,int)>($r1, 0, $i0);
+
+     label16:
+        goto label13;
+
+     label17:
+        virtualinvoke $r15.<java.io.BufferedOutputStream: void flush()>();
+
+        virtualinvoke $r15.<java.io.BufferedOutputStream: void close()>();
+
+        virtualinvoke $r14.<java.io.FileOutputStream: void close()>();
+
+        virtualinvoke $r13.<java.io.BufferedInputStream: void close()>();
+
+        virtualinvoke $r9.<java.io.InputStream: void close()>();
+
+        $r3 = r0.<kr.co.koreastock.mts.android.database.CopyFile: kr.co.koreastock.mts.android.database.DatabaseCheckListener mDatabaseCheckListener>;
+
+        interfaceinvoke $r3.<kr.co.koreastock.mts.android.database.DatabaseCheckListener: void onDatabaseCheckeFinish(int)>(1);
+
+     label18:
+        return;
+
+     label19:
+        $r10 := @caughtexception;
+
+        $r3 = r0.<kr.co.koreastock.mts.android.database.CopyFile: kr.co.koreastock.mts.android.database.DatabaseCheckListener mDatabaseCheckListener>;
+
+        interfaceinvoke $r3.<kr.co.koreastock.mts.android.database.DatabaseCheckListener: void onDatabaseCheckeFinish(int)>(2);
+
+        virtualinvoke $r10.<java.lang.Exception: void printStackTrace()>();
+
+        return;
+
+        catch java.lang.Exception from label02 to label03 with label19;
+        catch java.lang.Exception from label04 to label06 with label19;
+        catch java.lang.Exception from label07 to label08 with label19;
+        catch java.lang.Exception from label09 to label10 with label19;
+        catch java.lang.Exception from label11 to label12 with label19;
+        catch java.lang.Exception from label13 to label14 with label19;
+        catch java.lang.Exception from label15 to label16 with label19;
+        catch java.lang.Exception from label17 to label18 with label19;
+    }

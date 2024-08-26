@@ -1,0 +1,43 @@
+    public static java.lang.Number toExact(java.lang.Number)
+    {
+        gnu.math.Numeric $r1;
+        java.lang.Number $r0;
+        gnu.math.RatNum $r2;
+        boolean $z0;
+        double $d0;
+
+        $r0 := @parameter0: java.lang.Number;
+
+        $z0 = $r0 instanceof gnu.math.Numeric;
+
+        if $z0 == 0 goto label1;
+
+        $r1 = (gnu.math.Numeric) $r0;
+
+        $r1 = virtualinvoke $r1.<gnu.math.Numeric: gnu.math.Numeric toExact()>();
+
+        return $r1;
+
+     label1:
+        $z0 = $r0 instanceof java.lang.Double;
+
+        if $z0 != 0 goto label2;
+
+        $z0 = $r0 instanceof java.lang.Float;
+
+        if $z0 != 0 goto label2;
+
+        $z0 = $r0 instanceof java.math.BigDecimal;
+
+        if $z0 == 0 goto label3;
+
+     label2:
+        $d0 = virtualinvoke $r0.<java.lang.Number: double doubleValue()>();
+
+        $r2 = staticinvoke <gnu.math.DFloNum: gnu.math.RatNum toExact(double)>($d0);
+
+        return $r2;
+
+     label3:
+        return $r0;
+    }

@@ -1,0 +1,115 @@
+    public void startSession()
+    {
+        android.content.SharedPreferences$Editor $r4;
+        android.content.Context $r5;
+        java.lang.IllegalStateException $r11;
+        com.chartboost.sdk.Chartboost$1 $r13;
+        com.chartboost.sdk.Libraries.e$g[] $r8;
+        long $l0, $l1;
+        byte $b2;
+        int $i3;
+        java.lang.String $r6, $r7;
+        com.chartboost.sdk.Libraries.e$g $r9;
+        double $d0;
+        com.chartboost.sdk.Libraries.e$a $r1;
+        com.chartboost.sdk.Chartboost$b $r2;
+        android.content.SharedPreferences $r3;
+        com.chartboost.sdk.Chartboost r0;
+        com.chartboost.sdk.impl.k $r12;
+        com.chartboost.sdk.impl.j $r10;
+
+        r0 := @this: com.chartboost.sdk.Chartboost;
+
+        $r2 = r0.<com.chartboost.sdk.Chartboost: com.chartboost.sdk.Chartboost$b a>;
+
+        if $r2 != null goto label1;
+
+        $r11 = new java.lang.IllegalStateException;
+
+        specialinvoke $r11.<java.lang.IllegalStateException: void <init>(java.lang.String)>("The context must be set through the Chartboost method onCreate() before calling startSession().");
+
+        throw $r11;
+
+     label1:
+        $l0 = staticinvoke <java.lang.System: long nanoTime()>();
+
+        $d0 = (double) $l0;
+
+        $d0 = $d0 / 1000000.0;
+
+        $l0 = (long) $d0;
+
+        $l1 = r0.<com.chartboost.sdk.Chartboost: long x>;
+
+        $l1 = $l0 - $l1;
+
+        $b2 = $l1 cmp 10000L;
+
+        $i3 = (int) $b2;
+
+        if $i3 >= 0 goto label2;
+
+        return;
+
+     label2:
+        $l1 = r0.<com.chartboost.sdk.Chartboost: long y>;
+
+        $l1 = $l0 - $l1;
+
+        $b2 = $l1 cmp 60000L;
+
+        $i3 = (int) $b2;
+
+        if $i3 < 0 goto label3;
+
+        r0.<com.chartboost.sdk.Chartboost: long y> = $l0;
+
+        $r3 = staticinvoke <com.chartboost.sdk.Libraries.d: android.content.SharedPreferences a()>();
+
+        $i3 = interfaceinvoke $r3.<android.content.SharedPreferences: int getInt(java.lang.String,int)>("cbPrefSessionCount", 0);
+
+        $i3 = $i3 + 1;
+
+        $r4 = interfaceinvoke $r3.<android.content.SharedPreferences: android.content.SharedPreferences$Editor edit()>();
+
+        interfaceinvoke $r4.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putInt(java.lang.String,int)>("cbPrefSessionCount", $i3);
+
+        interfaceinvoke $r4.<android.content.SharedPreferences$Editor: boolean commit()>();
+
+        $r12 = new com.chartboost.sdk.impl.k;
+
+        specialinvoke $r12.<com.chartboost.sdk.impl.k: void <init>(java.lang.String)>("api/install");
+
+        $r2 = r0.<com.chartboost.sdk.Chartboost: com.chartboost.sdk.Chartboost$b a>;
+
+        $r5 = virtualinvoke $r2.<com.chartboost.sdk.Chartboost$b: android.content.Context b()>();
+
+        virtualinvoke $r12.<com.chartboost.sdk.impl.k: void a(android.content.Context)>($r5);
+
+        $r6 = virtualinvoke r0.<com.chartboost.sdk.Chartboost: java.lang.String getAppID()>();
+
+        $r7 = virtualinvoke r0.<com.chartboost.sdk.Chartboost: java.lang.String getAppSignature()>();
+
+        virtualinvoke $r12.<com.chartboost.sdk.impl.k: void b(java.lang.String,java.lang.String)>($r6, $r7);
+
+        $r8 = newarray (com.chartboost.sdk.Libraries.e$g)[1];
+
+        $r1 = <com.chartboost.sdk.impl.j: com.chartboost.sdk.Libraries.e$a a>;
+
+        $r9 = staticinvoke <com.chartboost.sdk.Libraries.e: com.chartboost.sdk.Libraries.e$g a(java.lang.String,com.chartboost.sdk.Libraries.e$a)>("status", $r1);
+
+        $r8[0] = $r9;
+
+        virtualinvoke $r12.<com.chartboost.sdk.impl.k: void a(com.chartboost.sdk.Libraries.e$g[])>($r8);
+
+        $r10 = r0.<com.chartboost.sdk.Chartboost: com.chartboost.sdk.impl.j b>;
+
+        $r13 = new com.chartboost.sdk.Chartboost$1;
+
+        specialinvoke $r13.<com.chartboost.sdk.Chartboost$1: void <init>(com.chartboost.sdk.Chartboost)>(r0);
+
+        virtualinvoke $r10.<com.chartboost.sdk.impl.j: void a(com.chartboost.sdk.impl.k,com.chartboost.sdk.impl.j$b)>($r12, $r13);
+
+     label3:
+        return;
+    }

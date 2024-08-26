@@ -1,0 +1,529 @@
+    private void \u02ca(java.net.URL, java.lang.String, java.lang.String, java.lang.ref.WeakReference, java.lang.String, boolean) throws java.io.IOException
+    {
+        java.net.HttpURLConnection $r12;
+        byte[] $r13;
+        com.appsflyer.AppsFlyerConversionListener $r8;
+        java.net.URL $r1;
+        android.net.Uri $r20;
+        com.appsflyer.AppsFlyerLib r0;
+        org.json.JSONObject $r22;
+        byte $b3;
+        java.util.Map $r30;
+        boolean $z0, $z1;
+        com.appsflyer.cache.CacheManager $r21;
+        java.util.concurrent.ScheduledThreadPoolExecutor $r24;
+        com.appsflyer.y $r9;
+        java.lang.Throwable $r26, $r27, $r31;
+        android.content.Context $r7;
+        com.appsflyer.k $r32;
+        com.appsflyer.AppsFlyerProperties $r18;
+        com.appsflyer.AFExecutor $r23;
+        long $l1, $l2;
+        com.appsflyer.d $r34;
+        java.net.URLConnection $r11;
+        int $i0, $i4;
+        java.util.concurrent.ScheduledExecutorService $r29;
+        java.io.OutputStreamWriter $r14, $r33;
+        java.lang.String $r2, $r3, $r5, $r10, $r16, $r19;
+        java.lang.ref.WeakReference $r4, $r36;
+        java.lang.Void[] $r28;
+        java.io.OutputStream $r15;
+        com.appsflyer.AppsFlyerLib$c $r38;
+        com.appsflyer.AppsFlyerLib$a $r35;
+        com.appsflyer.u$c $r37;
+        java.util.concurrent.TimeUnit $r25;
+        android.content.SharedPreferences $r17;
+        java.lang.Object $r6;
+
+        r0 := @this: com.appsflyer.AppsFlyerLib;
+
+        $r1 := @parameter0: java.net.URL;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r3 := @parameter2: java.lang.String;
+
+        $r4 := @parameter3: java.lang.ref.WeakReference;
+
+        $r5 := @parameter4: java.lang.String;
+
+        $z0 := @parameter5: boolean;
+
+        $r6 = virtualinvoke $r4.<java.lang.ref.Reference: java.lang.Object get()>();
+
+        $r7 = (android.content.Context) $r6;
+
+        if $z0 == 0 goto label44;
+
+        $r8 = <com.appsflyer.AppsFlyerLib: com.appsflyer.AppsFlyerConversionListener \u02cf\u0971>;
+
+        if $r8 == null goto label44;
+
+        $z1 = 1;
+
+     label01:
+        $r9 = staticinvoke <com.appsflyer.y: com.appsflyer.y \u02cb()>();
+
+        $r10 = virtualinvoke $r1.<java.lang.Object: java.lang.String toString()>();
+
+        virtualinvoke $r9.<com.appsflyer.y: void \u02ce(java.lang.String,java.lang.String)>($r10, $r2);
+
+        $r11 = virtualinvoke $r1.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r12 = (java.net.HttpURLConnection) $r11;
+
+     label02:
+        virtualinvoke $r12.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+        $r13 = virtualinvoke $r2.<java.lang.String: byte[] getBytes()>();
+
+        $i0 = lengthof $r13;
+
+        $r10 = staticinvoke <java.lang.String: java.lang.String valueOf(int)>($i0);
+
+        virtualinvoke $r12.<java.net.URLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Length", $r10);
+
+        virtualinvoke $r12.<java.net.URLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Type", "application/json");
+
+        virtualinvoke $r12.<java.net.URLConnection: void setConnectTimeout(int)>(10000);
+
+        virtualinvoke $r12.<java.net.URLConnection: void setDoOutput(boolean)>(1);
+
+     label03:
+        $r33 = new java.io.OutputStreamWriter;
+
+     label04:
+        $r14 = $r33;
+
+     label05:
+        $r15 = virtualinvoke $r12.<java.net.URLConnection: java.io.OutputStream getOutputStream()>();
+
+        specialinvoke $r33.<java.io.OutputStreamWriter: void <init>(java.io.OutputStream,java.lang.String)>($r15, "UTF-8");
+
+     label06:
+        virtualinvoke $r33.<java.io.Writer: void write(java.lang.String)>($r2);
+
+     label07:
+        virtualinvoke $r33.<java.io.Writer: void close()>();
+
+        $i0 = virtualinvoke $r12.<java.net.HttpURLConnection: int getResponseCode()>();
+
+        $r2 = staticinvoke <com.appsflyer.AppsFlyerLib: java.lang.String \u02ce(java.net.HttpURLConnection)>($r12);
+
+        $r9 = staticinvoke <com.appsflyer.y: com.appsflyer.y \u02cb()>();
+
+        $r10 = virtualinvoke $r1.<java.lang.Object: java.lang.String toString()>();
+
+        virtualinvoke $r9.<com.appsflyer.y: void \u02ce(java.lang.String,int,java.lang.String)>($r10, $i0, $r2);
+
+     label08:
+        $r10 = "response code: ";
+
+     label09:
+        $r16 = staticinvoke <java.lang.String: java.lang.String valueOf(int)>($i0);
+
+        $r10 = virtualinvoke $r10.<java.lang.String: java.lang.String concat(java.lang.String)>($r16);
+
+        staticinvoke <com.appsflyer.AFLogger: void afInfoLog(java.lang.String)>($r10);
+
+        $r10 = staticinvoke <java.lang.Integer: java.lang.String toString(int)>($i0);
+
+        staticinvoke <com.appsflyer.AppsFlyerLib: void \u02cb(android.content.Context,java.lang.String,java.lang.String,java.lang.String)>($r7, "AppsFlyer_4.8.11", "SERVER_RESPONSE_CODE", $r10);
+
+        $r17 = virtualinvoke $r7.<android.content.Context: android.content.SharedPreferences getSharedPreferences(java.lang.String,int)>("appsflyer-data", 0);
+
+     label10:
+        if $i0 != 200 goto label32;
+
+     label11:
+        $r6 = virtualinvoke $r4.<java.lang.ref.Reference: java.lang.Object get()>();
+
+     label12:
+        if $r6 == null goto label14;
+
+        if $z0 == 0 goto label14;
+
+     label13:
+        $l1 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        r0.<com.appsflyer.AppsFlyerLib: long \u037a> = $l1;
+
+     label14:
+        $r18 = staticinvoke <com.appsflyer.AppsFlyerProperties: com.appsflyer.AppsFlyerProperties getInstance()>();
+
+        $r10 = virtualinvoke $r18.<com.appsflyer.AppsFlyerProperties: java.lang.String getString(java.lang.String)>("afUninstallToken");
+
+     label15:
+        if $r10 == null goto label52;
+
+        $r16 = "Uninstall Token exists: ";
+
+     label16:
+        $r19 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r10);
+
+        $r16 = virtualinvoke $r16.<java.lang.String: java.lang.String concat(java.lang.String)>($r19);
+
+        staticinvoke <com.appsflyer.AFLogger: void afDebugLog(java.lang.String)>($r16);
+
+        $z0 = interfaceinvoke $r17.<android.content.SharedPreferences: boolean getBoolean(java.lang.String,boolean)>("sentRegisterRequestToAF", 0);
+
+     label17:
+        if $z0 != 0 goto label20;
+
+        $r16 = "Resending Uninstall token to AF servers: ";
+
+     label18:
+        $r19 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r10);
+
+        $r16 = virtualinvoke $r16.<java.lang.String: java.lang.String concat(java.lang.String)>($r19);
+
+        staticinvoke <com.appsflyer.AFLogger: void afDebugLog(java.lang.String)>($r16);
+
+        $r34 = new com.appsflyer.d;
+
+     label19:
+        specialinvoke $r34.<com.appsflyer.d: void <init>(java.lang.String)>($r10);
+
+        staticinvoke <com.appsflyer.u: void \u0971(android.content.Context,com.appsflyer.d)>($r7, $r34);
+
+     label20:
+        $r20 = r0.<com.appsflyer.AppsFlyerLib: android.net.Uri \u02bf>;
+
+     label21:
+        if $r20 == null goto label23;
+
+     label22:
+        r0.<com.appsflyer.AppsFlyerLib: android.net.Uri \u02bf> = null;
+
+     label23:
+        if $r5 == null goto label25;
+
+     label24:
+        $r21 = staticinvoke <com.appsflyer.cache.CacheManager: com.appsflyer.cache.CacheManager getInstance()>();
+
+        virtualinvoke $r21.<com.appsflyer.cache.CacheManager: void deleteRequest(java.lang.String,android.content.Context)>($r5, $r7);
+
+     label25:
+        $r6 = virtualinvoke $r4.<java.lang.ref.Reference: java.lang.Object get()>();
+
+     label26:
+        if $r6 == null goto label31;
+
+        if $r5 != null goto label31;
+
+     label27:
+        staticinvoke <com.appsflyer.AppsFlyerLib: void \u0971(android.content.Context,java.lang.String,java.lang.String)>($r7, "sentSuccessfully", "true");
+
+        $z0 = r0.<com.appsflyer.AppsFlyerLib: boolean \u0971\u141d>;
+
+     label28:
+        if $z0 != 0 goto label31;
+
+     label29:
+        $l1 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $l2 = r0.<com.appsflyer.AppsFlyerLib: long \u141d\u0971>;
+
+     label30:
+        $l1 = $l1 - $l2;
+
+        $b3 = $l1 cmp 15000L;
+
+        $i0 = (int) $b3;
+
+        if $i0 >= 0 goto label58;
+
+     label31:
+        $r22 = staticinvoke <com.appsflyer.ServerConfigHandler: org.json.JSONObject \u02cb(java.lang.String)>($r2);
+
+        $z0 = virtualinvoke $r22.<org.json.JSONObject: boolean optBoolean(java.lang.String,boolean)>("send_background", 0);
+
+        r0.<com.appsflyer.AppsFlyerLib: boolean \u02cb\u141d> = $z0;
+
+     label32:
+        $i0 = interfaceinvoke $r17.<android.content.SharedPreferences: int getInt(java.lang.String,int)>("appsflyerConversionDataRequestRetries", 0);
+
+        $l1 = interfaceinvoke $r17.<android.content.SharedPreferences: long getLong(java.lang.String,long)>("appsflyerConversionDataCacheExpiration", 0L);
+
+     label33:
+        $b3 = $l1 cmp 0L;
+
+        if $b3 == 0 goto label37;
+
+     label34:
+        $l2 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+     label35:
+        $l1 = $l2 - $l1;
+
+        $b3 = $l1 cmp 5184000000L;
+
+        $i4 = (int) $b3;
+
+        if $i4 <= 0 goto label37;
+
+     label36:
+        staticinvoke <com.appsflyer.AppsFlyerLib: void \u0971(android.content.Context,java.lang.String,java.lang.String)>($r7, "attributionId", null);
+
+        staticinvoke <com.appsflyer.AppsFlyerLib: void \u02ca(android.content.Context,java.lang.String,long)>($r7, "appsflyerConversionDataCacheExpiration", 0L);
+
+     label37:
+        $r2 = interfaceinvoke $r17.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("attributionId", null);
+
+     label38:
+        if $r2 != null goto label63;
+
+        if $r3 == null goto label63;
+
+        if $z1 == 0 goto label63;
+
+     label39:
+        $r8 = <com.appsflyer.AppsFlyerLib: com.appsflyer.AppsFlyerConversionListener \u02cf\u0971>;
+
+     label40:
+        if $r8 == null goto label63;
+
+        if $i0 > 5 goto label63;
+
+     label41:
+        $r23 = staticinvoke <com.appsflyer.AFExecutor: com.appsflyer.AFExecutor getInstance()>();
+
+        $r24 = virtualinvoke $r23.<com.appsflyer.AFExecutor: java.util.concurrent.ScheduledThreadPoolExecutor \u0971()>();
+
+        $r35 = new com.appsflyer.AppsFlyerLib$a;
+
+     label42:
+        $r7 = virtualinvoke $r7.<android.content.Context: android.content.Context getApplicationContext()>();
+
+        specialinvoke $r35.<com.appsflyer.AppsFlyerLib$a: void <init>(com.appsflyer.AppsFlyerLib,android.content.Context,java.lang.String,java.util.concurrent.ScheduledExecutorService)>(r0, $r7, $r3, $r24);
+
+        $r25 = <java.util.concurrent.TimeUnit: java.util.concurrent.TimeUnit MILLISECONDS>;
+
+        staticinvoke <com.appsflyer.AppsFlyerLib: void \u02ce(java.util.concurrent.ScheduledExecutorService,java.lang.Runnable,long,java.util.concurrent.TimeUnit)>($r24, $r35, 10L, $r25);
+
+     label43:
+        if $r12 == null goto label88;
+
+        virtualinvoke $r12.<java.net.HttpURLConnection: void disconnect()>();
+
+        return;
+
+     label44:
+        $z1 = 0;
+
+        goto label01;
+
+     label45:
+        $r26 := @caughtexception;
+
+        $r14 = null;
+
+     label46:
+        if $r14 == null goto label48;
+
+     label47:
+        virtualinvoke $r14.<java.io.Writer: void close()>();
+
+     label48:
+        throw $r26;
+
+     label49:
+        $r27 := @caughtexception;
+
+     label50:
+        if $r12 == null goto label51;
+
+        virtualinvoke $r12.<java.net.HttpURLConnection: void disconnect()>();
+
+     label51:
+        throw $r27;
+
+     label52:
+        $r18 = staticinvoke <com.appsflyer.AppsFlyerProperties: com.appsflyer.AppsFlyerProperties getInstance()>();
+
+        $r10 = virtualinvoke $r18.<com.appsflyer.AppsFlyerProperties: java.lang.String getString(java.lang.String)>("gcmProjectNumber");
+
+     label53:
+        if $r10 == null goto label20;
+
+     label54:
+        staticinvoke <com.appsflyer.AFLogger: void afDebugLog(java.lang.String)>("GCM Project number exists. Fetching token and sending to AF servers");
+
+        $r36 = new java.lang.ref.WeakReference;
+
+     label55:
+        specialinvoke $r36.<java.lang.ref.WeakReference: void <init>(java.lang.Object)>($r7);
+
+        $r37 = new com.appsflyer.u$c;
+
+     label56:
+        specialinvoke $r37.<com.appsflyer.u$c: void <init>(java.lang.ref.WeakReference)>($r36);
+
+        $r28 = newarray (java.lang.Void)[0];
+
+        virtualinvoke $r37.<android.os.AsyncTask: android.os.AsyncTask execute(java.lang.Object[])>($r28);
+
+     label57:
+        goto label20;
+
+     label58:
+        $r29 = r0.<com.appsflyer.AppsFlyerLib: java.util.concurrent.ScheduledExecutorService \u0971\u02cb>;
+
+     label59:
+        if $r29 != null goto label31;
+
+     label60:
+        $r23 = staticinvoke <com.appsflyer.AFExecutor: com.appsflyer.AFExecutor getInstance()>();
+
+        $r24 = virtualinvoke $r23.<com.appsflyer.AFExecutor: java.util.concurrent.ScheduledThreadPoolExecutor \u0971()>();
+
+        r0.<com.appsflyer.AppsFlyerLib: java.util.concurrent.ScheduledExecutorService \u0971\u02cb> = $r24;
+
+        $r38 = new com.appsflyer.AppsFlyerLib$c;
+
+     label61:
+        specialinvoke $r38.<com.appsflyer.AppsFlyerLib$c: void <init>(com.appsflyer.AppsFlyerLib,android.content.Context)>(r0, $r7);
+
+        $r29 = r0.<com.appsflyer.AppsFlyerLib: java.util.concurrent.ScheduledExecutorService \u0971\u02cb>;
+
+        $r25 = <java.util.concurrent.TimeUnit: java.util.concurrent.TimeUnit SECONDS>;
+
+        staticinvoke <com.appsflyer.AppsFlyerLib: void \u02ce(java.util.concurrent.ScheduledExecutorService,java.lang.Runnable,long,java.util.concurrent.TimeUnit)>($r29, $r38, 1L, $r25);
+
+     label62:
+        goto label31;
+
+     label63:
+        if $r3 != null goto label66;
+
+     label64:
+        staticinvoke <com.appsflyer.AFLogger: void afWarnLog(java.lang.String)>("AppsFlyer dev key is missing.");
+
+     label65:
+        goto label43;
+
+     label66:
+        if $z1 == 0 goto label43;
+
+     label67:
+        $r8 = <com.appsflyer.AppsFlyerLib: com.appsflyer.AppsFlyerConversionListener \u02cf\u0971>;
+
+     label68:
+        if $r8 == null goto label43;
+
+     label69:
+        $r2 = interfaceinvoke $r17.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("attributionId", null);
+
+     label70:
+        if $r2 == null goto label43;
+
+     label71:
+        $i0 = staticinvoke <com.appsflyer.AppsFlyerLib: int \u02ca(android.content.SharedPreferences,java.lang.String,boolean)>($r17, "appsFlyerCount", 0);
+
+     label72:
+        if $i0 <= 1 goto label43;
+
+     label73:
+        $r30 = staticinvoke <com.appsflyer.AppsFlyerLib: java.util.Map \u02ca(android.content.Context)>($r7);
+
+     label74:
+        if $r30 == null goto label43;
+
+     label75:
+        $z0 = interfaceinvoke $r30.<java.util.Map: boolean containsKey(java.lang.Object)>("is_first_launch");
+
+     label76:
+        if $z0 != 0 goto label78;
+
+     label77:
+        $r2 = staticinvoke <java.lang.Boolean: java.lang.String toString(boolean)>(0);
+
+        interfaceinvoke $r30.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>("is_first_launch", $r2);
+
+     label78:
+        $r8 = <com.appsflyer.AppsFlyerLib: com.appsflyer.AppsFlyerConversionListener \u02cf\u0971>;
+
+        interfaceinvoke $r8.<com.appsflyer.AppsFlyerConversionListener: void onInstallConversionDataLoaded(java.util.Map)>($r30);
+
+     label79:
+        goto label43;
+
+     label80:
+        $r31 := @caughtexception;
+
+     label81:
+        $r2 = virtualinvoke $r31.<java.lang.Throwable: java.lang.String getLocalizedMessage()>();
+
+        staticinvoke <com.appsflyer.AFLogger: void afErrorLog(java.lang.String,java.lang.Throwable)>($r2, $r31);
+
+     label82:
+        goto label43;
+
+     label83:
+        $r32 := @caughtexception;
+
+     label84:
+        $r2 = virtualinvoke $r32.<java.lang.Throwable: java.lang.String getMessage()>();
+
+        staticinvoke <com.appsflyer.AFLogger: void afErrorLog(java.lang.String,java.lang.Throwable)>($r2, $r32);
+
+     label85:
+        goto label43;
+
+     label86:
+        $r27 := @caughtexception;
+
+        $r12 = null;
+
+        goto label50;
+
+     label87:
+        $r26 := @caughtexception;
+
+        goto label46;
+
+     label88:
+        return;
+
+        catch java.lang.Throwable from label01 to label02 with label86;
+        catch java.lang.Throwable from label02 to label03 with label49;
+        catch java.lang.Throwable from label03 to label04 with label45;
+        catch java.lang.Throwable from label05 to label06 with label45;
+        catch java.lang.Throwable from label06 to label07 with label87;
+        catch java.lang.Throwable from label07 to label08 with label49;
+        catch java.lang.Throwable from label09 to label10 with label49;
+        catch java.lang.Throwable from label11 to label12 with label49;
+        catch java.lang.Throwable from label13 to label15 with label49;
+        catch java.lang.Throwable from label16 to label17 with label49;
+        catch java.lang.Throwable from label18 to label19 with label49;
+        catch java.lang.Throwable from label19 to label21 with label49;
+        catch java.lang.Throwable from label22 to label23 with label49;
+        catch java.lang.Throwable from label24 to label26 with label49;
+        catch java.lang.Throwable from label27 to label28 with label49;
+        catch java.lang.Throwable from label29 to label30 with label49;
+        catch java.lang.Throwable from label31 to label33 with label49;
+        catch java.lang.Throwable from label34 to label35 with label49;
+        catch java.lang.Throwable from label36 to label38 with label49;
+        catch java.lang.Throwable from label39 to label40 with label49;
+        catch java.lang.Throwable from label41 to label42 with label49;
+        catch java.lang.Throwable from label42 to label43 with label49;
+        catch java.lang.Throwable from label47 to label49 with label49;
+        catch java.lang.Throwable from label52 to label53 with label49;
+        catch java.lang.Throwable from label54 to label55 with label49;
+        catch java.lang.Throwable from label55 to label56 with label49;
+        catch java.lang.Throwable from label56 to label57 with label49;
+        catch java.lang.Throwable from label58 to label59 with label49;
+        catch java.lang.Throwable from label60 to label61 with label49;
+        catch java.lang.Throwable from label61 to label62 with label49;
+        catch java.lang.Throwable from label64 to label65 with label49;
+        catch java.lang.Throwable from label67 to label68 with label49;
+        catch java.lang.Throwable from label69 to label70 with label49;
+        catch java.lang.Throwable from label71 to label72 with label49;
+        catch com.appsflyer.k from label73 to label74 with label83;
+        catch java.lang.Throwable from label73 to label74 with label49;
+        catch java.lang.Throwable from label75 to label76 with label80;
+        catch java.lang.Throwable from label77 to label79 with label80;
+        catch com.appsflyer.k from label81 to label82 with label83;
+        catch java.lang.Throwable from label81 to label82 with label49;
+        catch java.lang.Throwable from label84 to label85 with label49;
+    }

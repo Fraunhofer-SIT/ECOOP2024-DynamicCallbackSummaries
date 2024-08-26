@@ -1,0 +1,418 @@
+    private long downloadFile(java.lang.String, java.io.File) throws java.lang.Exception
+    {
+        java.net.HttpURLConnection $r7;
+        byte[] $r13;
+        com.gau.go.launcherex.theme.graphite.GoDownloadService$DownloadRunnable r0;
+        java.net.URL $r20;
+        com.gau.go.launcherex.theme.graphite.GoDownloadService $r3;
+        android.app.PendingIntent $r18;
+        java.net.Proxy $r22;
+        java.util.Locale $r12;
+        boolean $z0;
+        android.app.NotificationManager $r19;
+        java.net.InetSocketAddress $r21;
+        java.lang.Exception $r8, $r23;
+        android.app.Notification $r14;
+        java.lang.StringBuilder $r15, $r25;
+        java.lang.Throwable $r11;
+        android.content.Context $r4;
+        long $l2, $l4;
+        java.net.Proxy$Type $r5;
+        java.net.URLConnection $r6;
+        int $i0, $i1, $i3;
+        java.lang.String $r2, $r16, $r17;
+        java.io.FileOutputStream $r9, $r24;
+        java.io.File $r1;
+        java.io.InputStream $r10;
+
+        r0 := @this: com.gau.go.launcherex.theme.graphite.GoDownloadService$DownloadRunnable;
+
+        $r2 := @parameter0: java.lang.String;
+
+        $r1 := @parameter1: java.io.File;
+
+     label01:
+        $r20 = new java.net.URL;
+
+     label02:
+        specialinvoke $r20.<java.net.URL: void <init>(java.lang.String)>($r2);
+
+        $r3 = r0.<com.gau.go.launcherex.theme.graphite.GoDownloadService$DownloadRunnable: com.gau.go.launcherex.theme.graphite.GoDownloadService this$0>;
+
+        $r4 = virtualinvoke $r3.<com.gau.go.launcherex.theme.graphite.GoDownloadService: android.content.Context getApplicationContext()>();
+
+        $z0 = staticinvoke <com.gau.go.launcherex.theme.graphite.HttpMachine: boolean isCWWAPConnect(android.content.Context)>($r4);
+
+     label03:
+        if $z0 == 0 goto label24;
+
+     label04:
+        $r3 = r0.<com.gau.go.launcherex.theme.graphite.GoDownloadService$DownloadRunnable: com.gau.go.launcherex.theme.graphite.GoDownloadService this$0>;
+
+        $r4 = virtualinvoke $r3.<com.gau.go.launcherex.theme.graphite.GoDownloadService: android.content.Context getApplicationContext()>();
+
+        $i0 = staticinvoke <com.gau.go.launcherex.theme.graphite.HttpMachine: int getNetWorkType(android.content.Context)>($r4);
+
+     label05:
+        $i1 = <com.gau.go.launcherex.theme.graphite.HttpMachine: int NETTYPE_UNICOM>;
+
+     label06:
+        if $i0 == $i1 goto label24;
+
+     label07:
+        $r3 = r0.<com.gau.go.launcherex.theme.graphite.GoDownloadService$DownloadRunnable: com.gau.go.launcherex.theme.graphite.GoDownloadService this$0>;
+
+        $r4 = virtualinvoke $r3.<com.gau.go.launcherex.theme.graphite.GoDownloadService: android.content.Context getApplicationContext()>();
+
+        $r2 = staticinvoke <com.gau.go.launcherex.theme.graphite.HttpMachine: java.lang.String getProxyHost(android.content.Context)>($r4);
+
+        $r3 = r0.<com.gau.go.launcherex.theme.graphite.GoDownloadService$DownloadRunnable: com.gau.go.launcherex.theme.graphite.GoDownloadService this$0>;
+
+        $r4 = virtualinvoke $r3.<com.gau.go.launcherex.theme.graphite.GoDownloadService: android.content.Context getApplicationContext()>();
+
+        $i0 = staticinvoke <com.gau.go.launcherex.theme.graphite.HttpMachine: int getProxyPort(android.content.Context)>($r4);
+
+     label08:
+        $r22 = new java.net.Proxy;
+
+     label09:
+        $r5 = <java.net.Proxy$Type: java.net.Proxy$Type HTTP>;
+
+        $r21 = new java.net.InetSocketAddress;
+
+     label10:
+        specialinvoke $r21.<java.net.InetSocketAddress: void <init>(java.lang.String,int)>($r2, $i0);
+
+        specialinvoke $r22.<java.net.Proxy: void <init>(java.net.Proxy$Type,java.net.SocketAddress)>($r5, $r21);
+
+        $r6 = virtualinvoke $r20.<java.net.URL: java.net.URLConnection openConnection(java.net.Proxy)>($r22);
+
+        $r7 = (java.net.HttpURLConnection) $r6;
+
+     label11:
+        virtualinvoke $r7.<java.net.HttpURLConnection: void setConnectTimeout(int)>(60000);
+
+     label12:
+        virtualinvoke $r7.<java.net.HttpURLConnection: void setReadTimeout(int)>(60000);
+
+        virtualinvoke $r7.<java.net.HttpURLConnection: void setChunkedStreamingMode(int)>(4096);
+
+     label13:
+        virtualinvoke $r7.<java.net.HttpURLConnection: void setDoInput(boolean)>(1);
+
+        $i0 = virtualinvoke $r7.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label14:
+        if $i0 == 200 goto label28;
+
+     label15:
+        $r23 = new java.lang.Exception;
+
+     label16:
+        specialinvoke $r23.<java.lang.Exception: void <init>(java.lang.String)>("fail!");
+
+        throw $r23;
+
+     label17:
+        $r8 := @caughtexception;
+
+        $r9 = null;
+
+        $r10 = null;
+
+     label18:
+        virtualinvoke $r8.<java.lang.Exception: void printStackTrace()>();
+
+        throw $r8;
+
+     label19:
+        $r11 := @caughtexception;
+
+     label20:
+        if $r7 == null goto label21;
+
+        virtualinvoke $r7.<java.net.HttpURLConnection: void disconnect()>();
+
+     label21:
+        if $r10 == null goto label22;
+
+        virtualinvoke $r10.<java.io.InputStream: void close()>();
+
+     label22:
+        if $r9 == null goto label23;
+
+        virtualinvoke $r9.<java.io.FileOutputStream: void close()>();
+
+     label23:
+        throw $r11;
+
+     label24:
+        $r6 = virtualinvoke $r20.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r7 = (java.net.HttpURLConnection) $r6;
+
+     label25:
+        virtualinvoke $r7.<java.net.HttpURLConnection: void setConnectTimeout(int)>(45000);
+
+     label26:
+        virtualinvoke $r7.<java.net.HttpURLConnection: void setReadTimeout(int)>(45000);
+
+     label27:
+        goto label13;
+
+     label28:
+        $r10 = virtualinvoke $r7.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+     label29:
+        $i0 = virtualinvoke $r7.<java.net.HttpURLConnection: int getContentLength()>();
+
+        $r12 = staticinvoke <java.util.Locale: java.util.Locale getDefault()>();
+
+        $r2 = virtualinvoke $r12.<java.util.Locale: java.lang.String getLanguage()>();
+
+        $z0 = virtualinvoke $r2.<java.lang.String: boolean equals(java.lang.Object)>("zh");
+
+     label30:
+        if $z0 != 0 goto label61;
+
+        $r2 = "Downloading";
+
+     label31:
+        $r13 = newarray (byte)[4096];
+
+     label32:
+        $r24 = new java.io.FileOutputStream;
+
+     label33:
+        $r9 = $r24;
+
+     label34:
+        specialinvoke $r24.<java.io.FileOutputStream: void <init>(java.io.File,boolean)>($r1, 0);
+
+     label35:
+        $l2 = 0L;
+
+        $i1 = 0;
+
+     label36:
+        $i3 = virtualinvoke $r10.<java.io.InputStream: int read(byte[])>($r13);
+
+     label37:
+        if $i3 <= 0 goto label50;
+
+     label38:
+        virtualinvoke $r24.<java.io.FileOutputStream: void write(byte[],int,int)>($r13, 0, $i3);
+
+     label39:
+        $l4 = (long) $i3;
+
+        $l2 = $l2 + $l4;
+
+        $i3 = (int) $l2;
+
+        $i3 = $i3 * 100;
+
+     label40:
+        $i3 = $i3 / $i0;
+
+     label41:
+        if $i3 > $i1 goto label42;
+
+        if $i1 < 100 goto label36;
+
+     label42:
+        $i1 = $i1 + 5;
+
+     label43:
+        $r14 = r0.<com.gau.go.launcherex.theme.graphite.GoDownloadService$DownloadRunnable: android.app.Notification mUpdateNotification>;
+
+        $r3 = r0.<com.gau.go.launcherex.theme.graphite.GoDownloadService$DownloadRunnable: com.gau.go.launcherex.theme.graphite.GoDownloadService this$0>;
+
+     label44:
+        $r25 = new java.lang.StringBuilder;
+
+     label45:
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        $r15 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r15 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" - ");
+
+        $r16 = r0.<com.gau.go.launcherex.theme.graphite.GoDownloadService$DownloadRunnable: java.lang.String mDownloadFileName>;
+
+        $r15 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r16);
+
+        $r16 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label46:
+        $r25 = new java.lang.StringBuilder;
+
+     label47:
+        specialinvoke $r25.<java.lang.StringBuilder: void <init>()>();
+
+        $r15 = virtualinvoke $r25.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i3);
+
+        $r15 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("%");
+
+        $r17 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r18 = r0.<com.gau.go.launcherex.theme.graphite.GoDownloadService$DownloadRunnable: android.app.PendingIntent mUpdatePendingIntent>;
+
+        virtualinvoke $r14.<android.app.Notification: void setLatestEventInfo(android.content.Context,java.lang.CharSequence,java.lang.CharSequence,android.app.PendingIntent)>($r3, $r16, $r17, $r18);
+
+        $r3 = r0.<com.gau.go.launcherex.theme.graphite.GoDownloadService$DownloadRunnable: com.gau.go.launcherex.theme.graphite.GoDownloadService this$0>;
+
+        $r19 = staticinvoke <com.gau.go.launcherex.theme.graphite.GoDownloadService: android.app.NotificationManager access$100(com.gau.go.launcherex.theme.graphite.GoDownloadService)>($r3);
+
+        $i3 = r0.<com.gau.go.launcherex.theme.graphite.GoDownloadService$DownloadRunnable: int mNotifyId>;
+
+        $r14 = r0.<com.gau.go.launcherex.theme.graphite.GoDownloadService$DownloadRunnable: android.app.Notification mUpdateNotification>;
+
+        virtualinvoke $r19.<android.app.NotificationManager: void notify(int,android.app.Notification)>($i3, $r14);
+
+     label48:
+        goto label36;
+
+     label49:
+        $r8 := @caughtexception;
+
+        goto label18;
+
+     label50:
+        if $r7 == null goto label51;
+
+        virtualinvoke $r7.<java.net.HttpURLConnection: void disconnect()>();
+
+     label51:
+        if $r10 == null goto label52;
+
+        virtualinvoke $r10.<java.io.InputStream: void close()>();
+
+     label52:
+        if $r24 == null goto label62;
+
+        virtualinvoke $r24.<java.io.FileOutputStream: void close()>();
+
+        return $l2;
+
+     label53:
+        $r11 := @caughtexception;
+
+        $r9 = null;
+
+        $r7 = null;
+
+        $r10 = null;
+
+        goto label20;
+
+     label54:
+        $r11 := @caughtexception;
+
+        $r9 = null;
+
+        $r10 = null;
+
+        goto label20;
+
+     label55:
+        $r11 := @caughtexception;
+
+        $r9 = null;
+
+        $r10 = null;
+
+        goto label20;
+
+     label56:
+        $r11 := @caughtexception;
+
+        $r9 = null;
+
+        goto label20;
+
+     label57:
+        $r11 := @caughtexception;
+
+        goto label20;
+
+     label58:
+        $r8 := @caughtexception;
+
+        $r9 = null;
+
+        $r7 = null;
+
+        $r10 = null;
+
+        goto label18;
+
+     label59:
+        $r8 := @caughtexception;
+
+        $r9 = null;
+
+        $r10 = null;
+
+        goto label18;
+
+     label60:
+        $r8 := @caughtexception;
+
+        $r9 = null;
+
+        goto label18;
+
+     label61:
+        $r2 = "\u4e0b\u8f7d\u4e2d";
+
+        goto label31;
+
+     label62:
+        return $l2;
+
+        catch java.lang.Exception from label02 to label03 with label58;
+        catch java.lang.Exception from label04 to label05 with label58;
+        catch java.lang.Exception from label07 to label08 with label58;
+        catch java.lang.Exception from label10 to label11 with label58;
+        catch java.lang.Throwable from label01 to label02 with label53;
+        catch java.lang.Throwable from label02 to label03 with label53;
+        catch java.lang.Throwable from label04 to label06 with label53;
+        catch java.lang.Throwable from label07 to label09 with label53;
+        catch java.lang.Throwable from label09 to label10 with label53;
+        catch java.lang.Throwable from label10 to label11 with label53;
+        catch java.lang.Exception from label11 to label12 with label59;
+        catch java.lang.Exception from label12 to label13 with label59;
+        catch java.lang.Throwable from label11 to label12 with label54;
+        catch java.lang.Throwable from label12 to label13 with label54;
+        catch java.lang.Exception from label13 to label14 with label17;
+        catch java.lang.Exception from label16 to label17 with label17;
+        catch java.lang.Throwable from label13 to label14 with label55;
+        catch java.lang.Throwable from label15 to label16 with label55;
+        catch java.lang.Throwable from label16 to label17 with label55;
+        catch java.lang.Throwable from label18 to label19 with label19;
+        catch java.lang.Exception from label24 to label25 with label58;
+        catch java.lang.Throwable from label24 to label25 with label53;
+        catch java.lang.Exception from label25 to label26 with label59;
+        catch java.lang.Exception from label26 to label27 with label59;
+        catch java.lang.Throwable from label25 to label26 with label54;
+        catch java.lang.Throwable from label26 to label27 with label54;
+        catch java.lang.Exception from label28 to label29 with label17;
+        catch java.lang.Throwable from label28 to label29 with label55;
+        catch java.lang.Exception from label29 to label30 with label60;
+        catch java.lang.Exception from label34 to label35 with label60;
+        catch java.lang.Throwable from label29 to label30 with label56;
+        catch java.lang.Throwable from label32 to label33 with label56;
+        catch java.lang.Throwable from label34 to label35 with label56;
+        catch java.lang.Exception from label36 to label37 with label49;
+        catch java.lang.Exception from label38 to label39 with label49;
+        catch java.lang.Exception from label40 to label41 with label49;
+        catch java.lang.Exception from label43 to label44 with label49;
+        catch java.lang.Exception from label45 to label46 with label49;
+        catch java.lang.Exception from label47 to label48 with label49;
+        catch java.lang.Throwable from label36 to label37 with label57;
+        catch java.lang.Throwable from label38 to label39 with label57;
+        catch java.lang.Throwable from label43 to label45 with label57;
+        catch java.lang.Throwable from label45 to label47 with label57;
+        catch java.lang.Throwable from label47 to label48 with label57;
+    }

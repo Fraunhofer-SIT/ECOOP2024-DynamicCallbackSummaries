@@ -1,0 +1,243 @@
+    private void sendPostHttpRequestJsonHttp(org.json.JSONObject)
+    {
+        java.net.HttpURLConnection $r7;
+        java.lang.Throwable $r13;
+        byte[] $r11;
+        java.net.URL $r4;
+        org.json.JSONObject $r1;
+        java.net.URLConnection $r6;
+        int $i0;
+        java.lang.String $r5;
+        boolean $z0;
+        java.io.OutputStream $r3, $r12;
+        java.io.PrintStream $r9;
+        com.ljoy.chatbot.utils.HttpURLData r0;
+        java.lang.Exception $r14, $r15, $r16;
+        java.lang.StringBuilder $r8, $r10;
+        android.app.Activity $r2;
+
+        r0 := @this: com.ljoy.chatbot.utils.HttpURLData;
+
+        $r1 := @parameter0: org.json.JSONObject;
+
+        $r2 = staticinvoke <com.ljoy.chatbot.view.ChatServiceActivity: android.app.Activity getActivity()>();
+
+        if $r2 == null goto label28;
+
+        $z0 = staticinvoke <com.ljoy.chatbot.utils.ABMqttUtil: boolean isNetworkAvailable(android.content.Context)>($r2);
+
+        if $z0 == 0 goto label28;
+
+        $r3 = null;
+
+     label01:
+        $r4 = new java.net.URL;
+
+     label02:
+        $r5 = r0.<com.ljoy.chatbot.utils.HttpURLData: java.lang.String urlStr>;
+
+        specialinvoke $r4.<java.net.URL: void <init>(java.lang.String)>($r5);
+
+        $r6 = virtualinvoke $r4.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r7 = (java.net.HttpURLConnection) $r6;
+
+        r0.<com.ljoy.chatbot.utils.HttpURLData: java.net.HttpURLConnection urlConnection> = $r7;
+
+        virtualinvoke $r7.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+        $r7 = r0.<com.ljoy.chatbot.utils.HttpURLData: java.net.HttpURLConnection urlConnection>;
+
+        virtualinvoke $r7.<java.net.HttpURLConnection: void setConnectTimeout(int)>(30000);
+
+        $r7 = r0.<com.ljoy.chatbot.utils.HttpURLData: java.net.HttpURLConnection urlConnection>;
+
+        virtualinvoke $r7.<java.net.HttpURLConnection: void setReadTimeout(int)>(30000);
+
+     label03:
+        $r8 = new java.lang.StringBuilder;
+
+     label04:
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        $r5 = virtualinvoke $r1.<org.json.JSONObject: java.lang.String toString()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+     label05:
+        $r9 = <java.lang.System: java.io.PrintStream out>;
+
+        $r10 = new java.lang.StringBuilder;
+
+     label06:
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Elva sendPostHttpRequestJson req:");
+
+        $r5 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r9.<java.io.PrintStream: void println(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r11 = virtualinvoke $r5.<java.lang.String: byte[] getBytes()>();
+
+        $r7 = r0.<com.ljoy.chatbot.utils.HttpURLData: java.net.HttpURLConnection urlConnection>;
+
+        virtualinvoke $r7.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("accept", "*/*");
+
+        $r7 = r0.<com.ljoy.chatbot.utils.HttpURLData: java.net.HttpURLConnection urlConnection>;
+
+        virtualinvoke $r7.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Connection", "keep-alive");
+
+        $r7 = r0.<com.ljoy.chatbot.utils.HttpURLData: java.net.HttpURLConnection urlConnection>;
+
+        virtualinvoke $r7.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Type", "application/json");
+
+        $r7 = r0.<com.ljoy.chatbot.utils.HttpURLData: java.net.HttpURLConnection urlConnection>;
+
+     label07:
+        $i0 = lengthof $r11;
+
+     label08:
+        $r5 = staticinvoke <java.lang.Integer: java.lang.String toString(int)>($i0);
+
+        virtualinvoke $r7.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Length", $r5);
+
+        $r7 = r0.<com.ljoy.chatbot.utils.HttpURLData: java.net.HttpURLConnection urlConnection>;
+
+        virtualinvoke $r7.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("User-Agent", "Mozilla/5.0 (Windows NT 6.3; WOW64; rv:27.0) Gecko/20100101 Firefox/27.0");
+
+        $r7 = r0.<com.ljoy.chatbot.utils.HttpURLData: java.net.HttpURLConnection urlConnection>;
+
+        virtualinvoke $r7.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+        $r7 = r0.<com.ljoy.chatbot.utils.HttpURLData: java.net.HttpURLConnection urlConnection>;
+
+        virtualinvoke $r7.<java.net.HttpURLConnection: void setDoInput(boolean)>(1);
+
+        $r7 = r0.<com.ljoy.chatbot.utils.HttpURLData: java.net.HttpURLConnection urlConnection>;
+
+        $r12 = virtualinvoke $r7.<java.net.HttpURLConnection: java.io.OutputStream getOutputStream()>();
+
+     label09:
+        $r3 = $r12;
+
+     label10:
+        virtualinvoke $r12.<java.io.OutputStream: void write(byte[])>($r11);
+
+        virtualinvoke $r12.<java.io.OutputStream: void flush()>();
+
+     label11:
+        $r9 = <java.lang.System: java.io.PrintStream out>;
+
+        $r10 = new java.lang.StringBuilder;
+
+     label12:
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Elva sendPostHttpRequest:");
+
+        $r5 = r0.<com.ljoy.chatbot.utils.HttpURLData: java.lang.String urlStr>;
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("_");
+
+        $r5 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r9.<java.io.PrintStream: void println(java.lang.String)>($r5);
+
+     label13:
+        if $r12 == null goto label28;
+
+     label14:
+        virtualinvoke $r12.<java.io.OutputStream: void close()>();
+
+     label15:
+        return;
+
+     label16:
+        $r13 := @caughtexception;
+
+        goto label23;
+
+     label17:
+        $r14 := @caughtexception;
+
+     label18:
+        $r9 = <java.lang.System: java.io.PrintStream out>;
+
+        $r8 = new java.lang.StringBuilder;
+
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Elva: sendPostHttpRequestJson exception:");
+
+        $r5 = virtualinvoke $r14.<java.lang.Exception: java.lang.String toString()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r9.<java.io.PrintStream: void println(java.lang.String)>($r5);
+
+        virtualinvoke $r14.<java.lang.Exception: void printStackTrace()>();
+
+     label19:
+        if $r3 == null goto label28;
+
+     label20:
+        virtualinvoke $r3.<java.io.OutputStream: void close()>();
+
+     label21:
+        return;
+
+     label22:
+        $r15 := @caughtexception;
+
+        virtualinvoke $r15.<java.lang.Exception: void printStackTrace()>();
+
+        return;
+
+     label23:
+        if $r3 == null goto label27;
+
+     label24:
+        virtualinvoke $r3.<java.io.OutputStream: void close()>();
+
+     label25:
+        goto label27;
+
+     label26:
+        $r16 := @caughtexception;
+
+        virtualinvoke $r16.<java.lang.Exception: void printStackTrace()>();
+
+     label27:
+        throw $r13;
+
+     label28:
+        return;
+
+        catch java.lang.Exception from label02 to label03 with label17;
+        catch java.lang.Exception from label04 to label05 with label17;
+        catch java.lang.Exception from label06 to label09 with label17;
+        catch java.lang.Exception from label10 to label11 with label17;
+        catch java.lang.Exception from label12 to label13 with label17;
+        catch java.lang.Throwable from label01 to label07 with label16;
+        catch java.lang.Throwable from label08 to label09 with label16;
+        catch java.lang.Throwable from label10 to label13 with label16;
+        catch java.lang.Exception from label14 to label15 with label22;
+        catch java.lang.Throwable from label18 to label19 with label16;
+        catch java.lang.Exception from label20 to label21 with label22;
+        catch java.lang.Exception from label24 to label25 with label26;
+    }

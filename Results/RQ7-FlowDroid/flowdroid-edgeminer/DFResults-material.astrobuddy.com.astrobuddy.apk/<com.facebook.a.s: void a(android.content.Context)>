@@ -1,0 +1,126 @@
+    static void a(android.content.Context)
+    {
+        java.lang.Throwable $r11, $r12;
+        android.content.Context $r0;
+        com.facebook.av $r6;
+        java.io.FileOutputStream $r4;
+        java.lang.Exception $r7;
+        java.io.BufferedOutputStream $r3;
+        java.util.Map $r5;
+        java.lang.Object $r1;
+        java.io.ObjectOutputStream $r2;
+        java.lang.StringBuilder $r9;
+        java.lang.String $r8, $r10;
+        boolean $z0;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 = <com.facebook.a.s: java.lang.Object a>;
+
+        entermonitor $r1;
+
+     label01:
+        $z0 = <com.facebook.a.s: boolean b>;
+
+     label02:
+        if $z0 == 0 goto label10;
+
+     label03:
+        $r2 = new java.io.ObjectOutputStream;
+
+        $r3 = new java.io.BufferedOutputStream;
+
+     label04:
+        $r4 = virtualinvoke $r0.<android.content.Context: java.io.FileOutputStream openFileOutput(java.lang.String,int)>("AppEventsLogger.persistedsessioninfo", 0);
+
+        specialinvoke $r3.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r4);
+
+        specialinvoke $r2.<java.io.ObjectOutputStream: void <init>(java.io.OutputStream)>($r3);
+
+     label05:
+        $r5 = <com.facebook.a.s: java.util.Map d>;
+
+     label06:
+        virtualinvoke $r2.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>($r5);
+
+     label07:
+        <com.facebook.a.s: boolean b> = 0;
+
+        $r6 = <com.facebook.av: com.facebook.av e>;
+
+     label08:
+        staticinvoke <com.facebook.internal.bk: void a(com.facebook.av,java.lang.String,java.lang.String)>($r6, "AppEvents", "App session info saved");
+
+     label09:
+        staticinvoke <com.facebook.internal.cb: void a(java.io.Closeable)>($r2);
+
+     label10:
+        exitmonitor $r1;
+
+     label11:
+        return;
+
+     label12:
+        $r7 := @caughtexception;
+
+        $r2 = null;
+
+     label13:
+        $r8 = staticinvoke <com.facebook.a.o: java.lang.String e()>();
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>(java.lang.String)>("Got unexpected exception while writing app session info: ");
+
+        $r10 = virtualinvoke $r7.<java.lang.Exception: java.lang.String toString()>();
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int w(java.lang.String,java.lang.String)>($r8, $r10);
+
+     label14:
+        staticinvoke <com.facebook.internal.cb: void a(java.io.Closeable)>($r2);
+
+        goto label10;
+
+     label15:
+        $r11 := @caughtexception;
+
+        exitmonitor $r1;
+
+     label16:
+        throw $r11;
+
+     label17:
+        $r12 := @caughtexception;
+
+        $r2 = null;
+
+     label18:
+        staticinvoke <com.facebook.internal.cb: void a(java.io.Closeable)>($r2);
+
+        throw $r12;
+
+     label19:
+        $r12 := @caughtexception;
+
+        goto label18;
+
+     label20:
+        $r7 := @caughtexception;
+
+        goto label13;
+
+        catch java.lang.Throwable from label01 to label02 with label15;
+        catch java.lang.Exception from label04 to label05 with label12;
+        catch java.lang.Throwable from label03 to label05 with label17;
+        catch java.lang.Exception from label06 to label07 with label20;
+        catch java.lang.Exception from label08 to label09 with label20;
+        catch java.lang.Throwable from label05 to label09 with label19;
+        catch java.lang.Throwable from label09 to label11 with label15;
+        catch java.lang.Throwable from label13 to label14 with label19;
+        catch java.lang.Throwable from label14 to label16 with label15;
+        catch java.lang.Throwable from label18 to label19 with label15;
+    }

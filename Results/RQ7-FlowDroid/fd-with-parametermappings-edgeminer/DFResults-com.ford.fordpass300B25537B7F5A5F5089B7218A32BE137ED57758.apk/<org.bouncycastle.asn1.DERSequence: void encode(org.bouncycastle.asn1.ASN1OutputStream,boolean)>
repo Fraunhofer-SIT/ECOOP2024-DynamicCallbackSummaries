@@ -1,0 +1,106 @@
+    public void encode(org.bouncycastle.asn1.ASN1OutputStream, boolean) throws java.io.IOException
+    {
+        org.bouncycastle.asn1.ASN1Primitive $r6;
+        org.bouncycastle.asn1.ASN1OutputStream $r1;
+        org.bouncycastle.asn1.ASN1Encodable $r5;
+        org.bouncycastle.asn1.DERSequence r0;
+        int $i0, $i1, $i2, $i3, $i4;
+        org.bouncycastle.asn1.ASN1Encodable[] $r4;
+        org.bouncycastle.asn1.ASN1Primitive[] $r2;
+        boolean $z0;
+        org.bouncycastle.asn1.DEROutputStream $r3;
+
+        r0 := @this: org.bouncycastle.asn1.DERSequence;
+
+        $r1 := @parameter0: org.bouncycastle.asn1.ASN1OutputStream;
+
+        $z0 := @parameter1: boolean;
+
+        if $z0 == 0 goto label1;
+
+        virtualinvoke $r1.<org.bouncycastle.asn1.ASN1OutputStream: void write(int)>(48);
+
+     label1:
+        $r3 = virtualinvoke $r1.<org.bouncycastle.asn1.ASN1OutputStream: org.bouncycastle.asn1.DEROutputStream getDERSubStream()>();
+
+        $r4 = r0.<org.bouncycastle.asn1.ASN1Sequence: org.bouncycastle.asn1.ASN1Encodable[] elements>;
+
+        $i0 = lengthof $r4;
+
+        $i1 = r0.<org.bouncycastle.asn1.DERSequence: int bodyLength>;
+
+        $i2 = 0;
+
+        if $i1 >= 0 goto label2;
+
+        if $i0 <= 16 goto label4;
+
+     label2:
+        $i1 = specialinvoke r0.<org.bouncycastle.asn1.DERSequence: int getBodyLength()>();
+
+        virtualinvoke $r1.<org.bouncycastle.asn1.ASN1OutputStream: void writeLength(int)>($i1);
+
+     label3:
+        if $i2 >= $i0 goto label8;
+
+        $r4 = r0.<org.bouncycastle.asn1.ASN1Sequence: org.bouncycastle.asn1.ASN1Encodable[] elements>;
+
+        $r5 = $r4[$i2];
+
+        $r6 = interfaceinvoke $r5.<org.bouncycastle.asn1.ASN1Encodable: org.bouncycastle.asn1.ASN1Primitive toASN1Primitive()>();
+
+        $r6 = virtualinvoke $r6.<org.bouncycastle.asn1.ASN1Primitive: org.bouncycastle.asn1.ASN1Primitive toDERObject()>();
+
+        virtualinvoke $r6.<org.bouncycastle.asn1.ASN1Primitive: void encode(org.bouncycastle.asn1.ASN1OutputStream,boolean)>($r3, 1);
+
+        $i2 = $i2 + 1;
+
+        goto label3;
+
+     label4:
+        $r2 = newarray (org.bouncycastle.asn1.ASN1Primitive)[$i0];
+
+        $i1 = 0;
+
+        $i3 = 0;
+
+     label5:
+        if $i1 >= $i0 goto label6;
+
+        $r4 = r0.<org.bouncycastle.asn1.ASN1Sequence: org.bouncycastle.asn1.ASN1Encodable[] elements>;
+
+        $r5 = $r4[$i1];
+
+        $r6 = interfaceinvoke $r5.<org.bouncycastle.asn1.ASN1Encodable: org.bouncycastle.asn1.ASN1Primitive toASN1Primitive()>();
+
+        $r6 = virtualinvoke $r6.<org.bouncycastle.asn1.ASN1Primitive: org.bouncycastle.asn1.ASN1Primitive toDERObject()>();
+
+        $r2[$i1] = $r6;
+
+        $i4 = virtualinvoke $r6.<org.bouncycastle.asn1.ASN1Primitive: int encodedLength()>();
+
+        $i3 = $i3 + $i4;
+
+        $i1 = $i1 + 1;
+
+        goto label5;
+
+     label6:
+        r0.<org.bouncycastle.asn1.DERSequence: int bodyLength> = $i3;
+
+        virtualinvoke $r1.<org.bouncycastle.asn1.ASN1OutputStream: void writeLength(int)>($i3);
+
+     label7:
+        if $i2 >= $i0 goto label8;
+
+        $r6 = $r2[$i2];
+
+        virtualinvoke $r6.<org.bouncycastle.asn1.ASN1Primitive: void encode(org.bouncycastle.asn1.ASN1OutputStream,boolean)>($r3, 1);
+
+        $i2 = $i2 + 1;
+
+        goto label7;
+
+     label8:
+        return;
+    }

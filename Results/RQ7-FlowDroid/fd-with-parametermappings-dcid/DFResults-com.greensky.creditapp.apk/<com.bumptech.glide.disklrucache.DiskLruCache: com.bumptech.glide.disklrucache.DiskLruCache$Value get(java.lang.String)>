@@ -1,0 +1,138 @@
+    public final com.bumptech.glide.disklrucache.DiskLruCache$Value get(java.lang.String) throws java.io.IOException
+    {
+        java.lang.Throwable $r12;
+        java.util.concurrent.ThreadPoolExecutor $r9;
+        java.util.concurrent.Callable $r10;
+        long $l2;
+        java.util.LinkedHashMap $r3;
+        com.bumptech.glide.disklrucache.DiskLruCache r0;
+        long[] $r11;
+        com.bumptech.glide.disklrucache.DiskLruCache$Value $r1;
+        int $i0, $i1;
+        java.lang.String $r2;
+        boolean $z0;
+        java.io.File $r7;
+        java.io.Writer $r8;
+        java.lang.Object $r4;
+        java.io.File[] $r6;
+        com.bumptech.glide.disklrucache.DiskLruCache$Entry $r5;
+
+        r0 := @this: com.bumptech.glide.disklrucache.DiskLruCache;
+
+        $r2 := @parameter0: java.lang.String;
+
+        entermonitor r0;
+
+     label01:
+        specialinvoke r0.<com.bumptech.glide.disklrucache.DiskLruCache: void checkNotClosed()>();
+
+        $r3 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.util.LinkedHashMap lruEntries>;
+
+        $r4 = virtualinvoke $r3.<java.util.AbstractMap: java.lang.Object get(java.lang.Object)>($r2);
+
+        $r5 = (com.bumptech.glide.disklrucache.DiskLruCache$Entry) $r4;
+
+     label02:
+        if $r5 != null goto label03;
+
+        exitmonitor r0;
+
+        return null;
+
+     label03:
+        $z0 = staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$Entry: boolean access$700(com.bumptech.glide.disklrucache.DiskLruCache$Entry)>($r5);
+
+     label04:
+        if $z0 != 0 goto label05;
+
+        exitmonitor r0;
+
+        return null;
+
+     label05:
+        $r6 = $r5.<com.bumptech.glide.disklrucache.DiskLruCache$Entry: java.io.File[] cleanFiles>;
+
+        $i0 = lengthof $r6;
+
+        $i1 = 0;
+
+     label06:
+        if $i1 >= $i0 goto label09;
+
+        $r7 = $r6[$i1];
+
+        $z0 = virtualinvoke $r7.<java.io.File: boolean exists()>();
+
+     label07:
+        if $z0 != 0 goto label08;
+
+        exitmonitor r0;
+
+        return null;
+
+     label08:
+        $i1 = $i1 + 1;
+
+        goto label06;
+
+     label09:
+        $i0 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: int redundantOpCount>;
+
+        $i0 = $i0 + 1;
+
+        r0.<com.bumptech.glide.disklrucache.DiskLruCache: int redundantOpCount> = $i0;
+
+        $r8 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.Writer journalWriter>;
+
+        virtualinvoke $r8.<java.io.Writer: java.io.Writer append(java.lang.CharSequence)>("READ");
+
+        $r8 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.Writer journalWriter>;
+
+        virtualinvoke $r8.<java.io.Writer: java.io.Writer append(char)>(32);
+
+        $r8 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.Writer journalWriter>;
+
+        virtualinvoke $r8.<java.io.Writer: java.io.Writer append(java.lang.CharSequence)>($r2);
+
+        $r8 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.io.Writer journalWriter>;
+
+        virtualinvoke $r8.<java.io.Writer: java.io.Writer append(char)>(10);
+
+        $z0 = specialinvoke r0.<com.bumptech.glide.disklrucache.DiskLruCache: boolean journalRebuildRequired()>();
+
+        if $z0 == 0 goto label10;
+
+        $r9 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.util.concurrent.ThreadPoolExecutor executorService>;
+
+        $r10 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.util.concurrent.Callable cleanupCallable>;
+
+        virtualinvoke $r9.<java.util.concurrent.AbstractExecutorService: java.util.concurrent.Future submit(java.util.concurrent.Callable)>($r10);
+
+     label10:
+        $r1 = new com.bumptech.glide.disklrucache.DiskLruCache$Value;
+
+        $l2 = staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$Entry: long access$1300(com.bumptech.glide.disklrucache.DiskLruCache$Entry)>($r5);
+
+        $r6 = $r5.<com.bumptech.glide.disklrucache.DiskLruCache$Entry: java.io.File[] cleanFiles>;
+
+        $r11 = staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$Entry: long[] access$1100(com.bumptech.glide.disklrucache.DiskLruCache$Entry)>($r5);
+
+        specialinvoke $r1.<com.bumptech.glide.disklrucache.DiskLruCache$Value: void <init>(com.bumptech.glide.disklrucache.DiskLruCache,java.lang.String,long,java.io.File[],long[],com.bumptech.glide.disklrucache.DiskLruCache$1)>(r0, $r2, $l2, $r6, $r11, null);
+
+     label11:
+        exitmonitor r0;
+
+        return $r1;
+
+     label12:
+        $r12 := @caughtexception;
+
+        exitmonitor r0;
+
+        throw $r12;
+
+        catch java.lang.Throwable from label01 to label02 with label12;
+        catch java.lang.Throwable from label03 to label04 with label12;
+        catch java.lang.Throwable from label05 to label07 with label12;
+        catch java.lang.Throwable from label09 to label11 with label12;
+    }

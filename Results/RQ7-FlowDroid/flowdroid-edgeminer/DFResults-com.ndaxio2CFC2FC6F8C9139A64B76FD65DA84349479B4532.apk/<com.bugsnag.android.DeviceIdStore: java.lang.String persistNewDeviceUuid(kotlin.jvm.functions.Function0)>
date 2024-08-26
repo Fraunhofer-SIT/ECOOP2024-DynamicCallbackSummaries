@@ -1,0 +1,74 @@
+    private final java.lang.String persistNewDeviceUuid(kotlin.jvm.functions.Function0)
+    {
+        com.bugsnag.android.DeviceIdStore r0;
+        java.lang.Throwable $r7, $r8, $r9;
+        java.io.FileOutputStream $r3;
+        kotlin.jvm.functions.Function0 $r1;
+        java.io.File $r2;
+        com.bugsnag.android.Logger $r10;
+        java.io.Closeable $r5;
+        java.lang.String $r6;
+        java.nio.channels.FileChannel $r4;
+
+        r0 := @this: com.bugsnag.android.DeviceIdStore;
+
+        $r1 := @parameter0: kotlin.jvm.functions.Function0;
+
+        $r2 = r0.<com.bugsnag.android.DeviceIdStore: java.io.File file>;
+
+        $r3 = new java.io.FileOutputStream;
+
+     label01:
+        specialinvoke $r3.<java.io.FileOutputStream: void <init>(java.io.File)>($r2);
+
+        $r4 = virtualinvoke $r3.<java.io.FileOutputStream: java.nio.channels.FileChannel getChannel()>();
+
+     label02:
+        $r5 = (java.io.Closeable) $r4;
+
+     label03:
+        $r4 = (java.nio.channels.FileChannel) $r5;
+
+        $r6 = staticinvoke <runtime.Strings.StringIndexer: java.lang.String b08c60020(java.lang.String)>("10542");
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkExpressionValueIsNotNull(java.lang.Object,java.lang.String)>($r4, $r6);
+
+        $r6 = specialinvoke r0.<com.bugsnag.android.DeviceIdStore: java.lang.String persistNewDeviceIdWithLock(java.nio.channels.FileChannel,kotlin.jvm.functions.Function0)>($r4, $r1);
+
+     label04:
+        staticinvoke <kotlin.io.CloseableKt: void closeFinally(java.io.Closeable,java.lang.Throwable)>($r5, null);
+
+     label05:
+        return $r6;
+
+     label06:
+        $r7 := @caughtexception;
+
+     label07:
+        throw $r7;
+
+     label08:
+        $r8 := @caughtexception;
+
+     label09:
+        staticinvoke <kotlin.io.CloseableKt: void closeFinally(java.io.Closeable,java.lang.Throwable)>($r5, $r7);
+
+        throw $r8;
+
+     label10:
+        $r9 := @caughtexception;
+
+        $r10 = r0.<com.bugsnag.android.DeviceIdStore: com.bugsnag.android.Logger logger>;
+
+        $r6 = staticinvoke <runtime.Strings.StringIndexer: java.lang.String b08c60020(java.lang.String)>("10543");
+
+        interfaceinvoke $r10.<com.bugsnag.android.Logger: void w(java.lang.String,java.lang.Throwable)>($r6, $r9);
+
+        return null;
+
+        catch java.io.IOException from label01 to label02 with label10;
+        catch java.lang.Throwable from label03 to label04 with label06;
+        catch java.io.IOException from label04 to label05 with label10;
+        catch java.lang.Throwable from label07 to label08 with label08;
+        catch java.io.IOException from label09 to label10 with label10;
+    }

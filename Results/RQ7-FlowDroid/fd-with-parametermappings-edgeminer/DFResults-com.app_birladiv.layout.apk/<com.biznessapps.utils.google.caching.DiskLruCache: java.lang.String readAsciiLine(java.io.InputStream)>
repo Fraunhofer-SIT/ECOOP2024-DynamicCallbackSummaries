@@ -1,0 +1,57 @@
+    public static java.lang.String readAsciiLine(java.io.InputStream) throws java.io.IOException
+    {
+        int $i0, $i1;
+        char $c2;
+        java.lang.StringBuilder $r2;
+        java.lang.String $r1;
+        java.io.EOFException $r3;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $r2 = new java.lang.StringBuilder;
+
+        specialinvoke $r2.<java.lang.StringBuilder: void <init>(int)>(80);
+
+     label1:
+        $i0 = virtualinvoke $r0.<java.io.InputStream: int read()>();
+
+        if $i0 != -1 goto label2;
+
+        $r3 = new java.io.EOFException;
+
+        specialinvoke $r3.<java.io.EOFException: void <init>()>();
+
+        throw $r3;
+
+     label2:
+        if $i0 != 10 goto label4;
+
+        $i0 = virtualinvoke $r2.<java.lang.StringBuilder: int length()>();
+
+        if $i0 <= 0 goto label3;
+
+        $i1 = $i0 + -1;
+
+        $c2 = virtualinvoke $r2.<java.lang.StringBuilder: char charAt(int)>($i1);
+
+        $i1 = (int) $c2;
+
+        if $i1 != 13 goto label3;
+
+        $i0 = $i0 + -1;
+
+        virtualinvoke $r2.<java.lang.StringBuilder: void setLength(int)>($i0);
+
+     label3:
+        $r1 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        return $r1;
+
+     label4:
+        $c2 = (char) $i0;
+
+        virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>($c2);
+
+        goto label1;
+    }

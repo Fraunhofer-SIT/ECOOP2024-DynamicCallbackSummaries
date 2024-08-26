@@ -1,0 +1,82 @@
+    public void copyAttachedDatabase(android.content.Context, java.lang.String)
+    {
+        java.lang.Throwable r4;
+        android.content.Context $r1;
+        byte[] r3;
+        java.io.FileOutputStream r5;
+        java.io.File $r6, $r7;
+        android.content.res.AssetManager $r8;
+        int $i0;
+        java.lang.String $r2;
+        com.activeandroid.DatabaseHelper r0;
+        boolean $z0;
+        java.io.InputStream $r9;
+
+        r0 := @this: com.activeandroid.DatabaseHelper;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r6 = virtualinvoke $r1.<android.content.Context: java.io.File getDatabasePath(java.lang.String)>($r2);
+
+        $z0 = virtualinvoke $r6.<java.io.File: boolean exists()>();
+
+        if $z0 == 0 goto label01;
+
+        return;
+
+     label01:
+        $r7 = virtualinvoke $r6.<java.io.File: java.io.File getParentFile()>();
+
+        virtualinvoke $r7.<java.io.File: boolean mkdirs()>();
+
+     label02:
+        $r8 = virtualinvoke $r1.<android.content.Context: android.content.res.AssetManager getAssets()>();
+
+        $r9 = virtualinvoke $r8.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>($r2);
+
+     label03:
+        r5 = new java.io.FileOutputStream;
+
+     label04:
+        specialinvoke r5.<java.io.FileOutputStream: void <init>(java.io.File)>($r6);
+
+     label05:
+        r3 = newarray (byte)[8192];
+
+     label06:
+        $i0 = virtualinvoke $r9.<java.io.InputStream: int read(byte[],int,int)>(r3, 0, 8192);
+
+     label07:
+        if $i0 <= 0 goto label11;
+
+     label08:
+        virtualinvoke r5.<java.io.OutputStream: void write(byte[],int,int)>(r3, 0, $i0);
+
+     label09:
+        goto label06;
+
+     label10:
+        r4 := @caughtexception;
+
+        staticinvoke <com.activeandroid.util.Log: int e(java.lang.String,java.lang.Throwable)>("Failed to open file", r4);
+
+        return;
+
+     label11:
+        virtualinvoke r5.<java.io.OutputStream: void flush()>();
+
+        virtualinvoke r5.<java.io.OutputStream: void close()>();
+
+        virtualinvoke $r9.<java.io.InputStream: void close()>();
+
+     label12:
+        return;
+
+        catch java.io.IOException from label02 to label03 with label10;
+        catch java.io.IOException from label04 to label05 with label10;
+        catch java.io.IOException from label06 to label07 with label10;
+        catch java.io.IOException from label08 to label09 with label10;
+        catch java.io.IOException from label11 to label12 with label10;
+    }

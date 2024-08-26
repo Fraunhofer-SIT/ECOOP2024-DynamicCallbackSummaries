@@ -1,0 +1,54 @@
+    private void write(java.io.InputStream, java.io.OutputStream, com.amazonaws.http.UrlHttpClient$CurlBuilder, java.nio.ByteBuffer) throws java.io.IOException
+    {
+        java.io.OutputStream $r2;
+        java.lang.Throwable $r5;
+        byte[] $r6;
+        java.nio.ByteBuffer $r4;
+        com.amazonaws.http.UrlHttpClient r0;
+        com.amazonaws.http.UrlHttpClient$CurlBuilder $r3;
+        int $i0;
+        java.io.InputStream $r1;
+
+        r0 := @this: com.amazonaws.http.UrlHttpClient;
+
+        $r1 := @parameter0: java.io.InputStream;
+
+        $r2 := @parameter1: java.io.OutputStream;
+
+        $r3 := @parameter2: com.amazonaws.http.UrlHttpClient$CurlBuilder;
+
+        $r4 := @parameter3: java.nio.ByteBuffer;
+
+        $r6 = newarray (byte)[8192];
+
+     label1:
+        $i0 = virtualinvoke $r1.<java.io.InputStream: int read(byte[])>($r6);
+
+        if $i0 == -1 goto label6;
+
+        if $r4 == null goto label5;
+
+     label2:
+        virtualinvoke $r4.<java.nio.ByteBuffer: java.nio.ByteBuffer put(byte[],int,int)>($r6, 0, $i0);
+
+     label3:
+        goto label5;
+
+     label4:
+        virtualinvoke $r3.<com.amazonaws.http.UrlHttpClient$CurlBuilder: com.amazonaws.http.UrlHttpClient$CurlBuilder setContentOverflow(boolean)>(1);
+
+     label5:
+        virtualinvoke $r2.<java.io.OutputStream: void write(byte[],int,int)>($r6, 0, $i0);
+
+        goto label1;
+
+     label6:
+        return;
+
+     label7:
+        $r5 := @caughtexception;
+
+        goto label4;
+
+        catch java.nio.BufferOverflowException from label2 to label3 with label7;
+    }

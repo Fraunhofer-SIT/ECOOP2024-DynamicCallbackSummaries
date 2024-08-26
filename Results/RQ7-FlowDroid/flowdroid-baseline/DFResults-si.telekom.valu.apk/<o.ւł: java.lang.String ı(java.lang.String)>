@@ -1,0 +1,236 @@
+    public static java.lang.String \u0131(java.lang.String)
+    {
+        java.lang.Throwable $r0, $r1, $r11;
+        byte[] $r5;
+        javax.crypto.spec.SecretKeySpec $r4;
+        java.lang.String[] $r7;
+        javax.crypto.Cipher $r3;
+        java.lang.NullPointerException r13;
+        javax.crypto.spec.IvParameterSpec $r6;
+        byte $b2;
+        int $i0, $i1;
+        java.lang.String $r2, $r8, $r9;
+        java.lang.Exception $r12;
+        java.lang.StringBuilder $r10;
+
+        $r2 := @parameter0: java.lang.String;
+
+     label01:
+        $r3 = staticinvoke <javax.crypto.Cipher: javax.crypto.Cipher getInstance(java.lang.String)>("AES/CBC/PKCS7Padding");
+
+     label02:
+        $r4 = new javax.crypto.spec.SecretKeySpec;
+
+        $r5 = <o.\u0582\u0142: byte[] \u0399>;
+
+     label03:
+        specialinvoke $r4.<javax.crypto.spec.SecretKeySpec: void <init>(byte[],java.lang.String)>($r5, "AES");
+
+     label04:
+        $r6 = new javax.crypto.spec.IvParameterSpec;
+
+        $r5 = <o.\u0582\u0142: byte[] \u0269>;
+
+     label05:
+        specialinvoke $r6.<javax.crypto.spec.IvParameterSpec: void <init>(byte[])>($r5);
+
+        virtualinvoke $r3.<javax.crypto.Cipher: void init(int,java.security.Key,java.security.spec.AlgorithmParameterSpec)>(2, $r4, $r6);
+
+        $r5 = staticinvoke <android.util.Base64: byte[] decode(java.lang.String,int)>($r2, 2);
+
+     label06:
+        $r7 = newarray (java.lang.String)[1];
+
+        $r8 = "Encrypted string: ";
+
+     label07:
+        $r9 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r2);
+
+        $r8 = virtualinvoke $r8.<java.lang.String: java.lang.String concat(java.lang.String)>($r9);
+
+     label08:
+        $r7[0] = $r8;
+
+     label09:
+        staticinvoke <o.\u0533: void \u0131(java.lang.String,java.lang.String[])>("aesDecrypt", $r7);
+
+     label10:
+        $r7 = newarray (java.lang.String)[1];
+
+        $r10 = new java.lang.StringBuilder;
+
+     label11:
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>(java.lang.String)>("Encrypted bytes: ");
+
+        $r8 = staticinvoke <com.margento.valu.util.CryptoUtil: java.lang.String \u0269(byte[])>($r5);
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r8 = virtualinvoke $r10.<java.lang.Object: java.lang.String toString()>();
+
+     label12:
+        $r7[0] = $r8;
+
+     label13:
+        staticinvoke <o.\u0533: void \u0131(java.lang.String,java.lang.String[])>("aesDecrypt", $r7);
+
+        $r5 = virtualinvoke $r3.<javax.crypto.Cipher: byte[] doFinal(byte[])>($r5);
+
+     label14:
+        $r7 = newarray (java.lang.String)[1];
+
+        $r10 = new java.lang.StringBuilder;
+
+     label15:
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>(java.lang.String)>("Plain bytes: ");
+
+        $r8 = staticinvoke <com.margento.valu.util.CryptoUtil: java.lang.String \u0269(byte[])>($r5);
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r8 = virtualinvoke $r10.<java.lang.Object: java.lang.String toString()>();
+
+     label16:
+        $r7[0] = $r8;
+
+     label17:
+        staticinvoke <o.\u0533: void \u0131(java.lang.String,java.lang.String[])>("aesDecrypt", $r7);
+
+     label18:
+        $r7 = newarray (java.lang.String)[1];
+
+        $r10 = new java.lang.StringBuilder;
+
+     label19:
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>(java.lang.String)>("Plain: ");
+
+     label20:
+        $r8 = new java.lang.String;
+
+     label21:
+        specialinvoke $r8.<java.lang.String: void <init>(byte[])>($r5);
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r8 = virtualinvoke $r10.<java.lang.Object: java.lang.String toString()>();
+
+     label22:
+        $r7[0] = $r8;
+
+     label23:
+        staticinvoke <o.\u0533: void \u0131(java.lang.String,java.lang.String[])>("aesDecrypt", $r7);
+
+     label24:
+        $r8 = new java.lang.String;
+
+     label25:
+        specialinvoke $r8.<java.lang.String: void <init>(byte[])>($r5);
+
+     label26:
+        $i0 = <o.\u0582\u0142: int \u03b9>;
+
+        $i0 = $i0 + 67;
+
+        $i1 = $i0 % 128;
+
+        <o.\u0582\u0142: int \u0131> = $i1;
+
+        $i0 = $i0 % 2;
+
+        if $i0 != 0 goto label27;
+
+        $b2 = 75;
+
+        goto label28;
+
+     label27:
+        $b2 = 73;
+
+     label28:
+        if $b2 == 75 goto label29;
+
+        return $r8;
+
+     label29:
+        r13 = new java.lang.NullPointerException;
+
+        specialinvoke r13.<java.lang.NullPointerException: void <init>(java.lang.String)>("This statement would have triggered an Exception: specialinvoke $u1#3.<java.lang.Object: int hashCode()>()");
+
+        throw r13;
+
+     label30:
+        $r11 := @caughtexception;
+
+        throw $r11;
+
+     label31:
+        $r12 := @caughtexception;
+
+        staticinvoke <o.\u044f\u0131: void \u03b9(java.lang.String)>("aesDecrypt (Did not decrypt shared pref data!)");
+
+        staticinvoke <o.\u044f\u0131: void \u0399(java.lang.Throwable)>($r12);
+
+        return null;
+
+     label32:
+        $r7 = newarray (java.lang.String)[1];
+
+        $r8 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r2);
+
+        $r9 = "Can not decrypt: ";
+
+        $r8 = virtualinvoke $r9.<java.lang.String: java.lang.String concat(java.lang.String)>($r8);
+
+        $r7[0] = $r8;
+
+        staticinvoke <o.\u0533: void \u0131(java.lang.String,java.lang.String[])>("aesDecrypt", $r7);
+
+        return $r2;
+
+     label33:
+        $r0 := @caughtexception;
+
+        goto label32;
+
+     label34:
+        $r1 := @caughtexception;
+
+        goto label32;
+
+        catch javax.crypto.BadPaddingException from label01 to label02 with label33;
+        catch javax.crypto.BadPaddingException from label03 to label04 with label33;
+        catch javax.crypto.BadPaddingException from label05 to label06 with label33;
+        catch javax.crypto.BadPaddingException from label07 to label08 with label33;
+        catch javax.crypto.BadPaddingException from label09 to label10 with label33;
+        catch javax.crypto.BadPaddingException from label11 to label12 with label33;
+        catch javax.crypto.BadPaddingException from label13 to label14 with label33;
+        catch javax.crypto.BadPaddingException from label15 to label16 with label33;
+        catch javax.crypto.BadPaddingException from label17 to label18 with label33;
+        catch javax.crypto.BadPaddingException from label19 to label20 with label33;
+        catch javax.crypto.BadPaddingException from label21 to label22 with label33;
+        catch javax.crypto.BadPaddingException from label23 to label24 with label33;
+        catch javax.crypto.BadPaddingException from label25 to label26 with label33;
+        catch javax.crypto.IllegalBlockSizeException from label01 to label02 with label34;
+        catch javax.crypto.IllegalBlockSizeException from label03 to label04 with label34;
+        catch javax.crypto.IllegalBlockSizeException from label05 to label06 with label34;
+        catch javax.crypto.IllegalBlockSizeException from label07 to label08 with label34;
+        catch javax.crypto.IllegalBlockSizeException from label09 to label10 with label34;
+        catch javax.crypto.IllegalBlockSizeException from label11 to label12 with label34;
+        catch javax.crypto.IllegalBlockSizeException from label13 to label14 with label34;
+        catch javax.crypto.IllegalBlockSizeException from label15 to label16 with label34;
+        catch javax.crypto.IllegalBlockSizeException from label17 to label18 with label34;
+        catch javax.crypto.IllegalBlockSizeException from label19 to label20 with label34;
+        catch javax.crypto.IllegalBlockSizeException from label21 to label22 with label34;
+        catch javax.crypto.IllegalBlockSizeException from label23 to label24 with label34;
+        catch javax.crypto.IllegalBlockSizeException from label25 to label26 with label34;
+        catch java.lang.Exception from label01 to label02 with label31;
+        catch java.lang.Exception from label03 to label04 with label31;
+        catch java.lang.Exception from label05 to label06 with label31;
+        catch java.lang.Exception from label07 to label10 with label31;
+        catch java.lang.Exception from label11 to label14 with label31;
+        catch java.lang.Exception from label15 to label18 with label31;
+        catch java.lang.Exception from label19 to label20 with label31;
+        catch java.lang.Exception from label21 to label24 with label31;
+        catch java.lang.Exception from label25 to label26 with label31;
+        catch java.lang.Throwable from label29 to label30 with label30;
+    }

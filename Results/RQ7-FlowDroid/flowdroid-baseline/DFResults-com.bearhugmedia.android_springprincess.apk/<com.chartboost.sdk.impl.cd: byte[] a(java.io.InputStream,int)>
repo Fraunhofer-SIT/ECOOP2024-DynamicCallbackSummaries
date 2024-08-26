@@ -1,0 +1,83 @@
+    public static byte[] a(java.io.InputStream, int) throws java.io.IOException
+    {
+        byte[] $r3;
+        java.io.IOException $r6;
+        java.lang.IllegalArgumentException $r5;
+        int $i0, $i1, $i2;
+        java.lang.StringBuilder $r1, $r4;
+        java.lang.String $r2;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $i0 := @parameter1: int;
+
+        $i1 = 0;
+
+        if $i0 >= 0 goto label1;
+
+        $r5 = new java.lang.IllegalArgumentException;
+
+        $r4 = new java.lang.StringBuilder;
+
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+        $r1 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Size must be equal or greater than zero: ");
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r2 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r5.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>($r2);
+
+        throw $r5;
+
+     label1:
+        if $i0 != 0 goto label2;
+
+        $r3 = newarray (byte)[0];
+
+        return $r3;
+
+     label2:
+        $r3 = newarray (byte)[$i0];
+
+     label3:
+        if $i1 >= $i0 goto label4;
+
+        $i2 = $i0 - $i1;
+
+        $i2 = virtualinvoke $r0.<java.io.InputStream: int read(byte[],int,int)>($r3, $i1, $i2);
+
+        if $i2 == -1 goto label4;
+
+        $i1 = $i1 + $i2;
+
+        goto label3;
+
+     label4:
+        if $i1 == $i0 goto label5;
+
+        $r6 = new java.io.IOException;
+
+        $r4 = new java.lang.StringBuilder;
+
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+        $r1 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Unexpected readed size. current: ");
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", excepted: ");
+
+        $r1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r2 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r6.<java.io.IOException: void <init>(java.lang.String)>($r2);
+
+        throw $r6;
+
+     label5:
+        return $r3;
+    }

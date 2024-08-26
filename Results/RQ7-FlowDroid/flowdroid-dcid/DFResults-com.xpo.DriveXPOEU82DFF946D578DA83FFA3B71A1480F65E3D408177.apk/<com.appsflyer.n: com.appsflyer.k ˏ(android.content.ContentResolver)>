@@ -1,0 +1,78 @@
+    static com.appsflyer.k \u02cf(android.content.ContentResolver)
+    {
+        java.lang.Throwable $r6;
+        com.appsflyer.k $r4;
+        com.appsflyer.AppsFlyerProperties $r1;
+        android.content.ContentResolver $r0;
+        com.appsflyer.k$b $r5;
+        int $i0;
+        java.lang.String $r2, $r3;
+        boolean $z0;
+
+        $r0 := @parameter0: android.content.ContentResolver;
+
+        if $r0 != null goto label1;
+
+        return null;
+
+     label1:
+        $r1 = staticinvoke <com.appsflyer.AppsFlyerProperties: com.appsflyer.AppsFlyerProperties getInstance()>();
+
+        $r2 = virtualinvoke $r1.<com.appsflyer.AppsFlyerProperties: java.lang.String getString(java.lang.String)>("amazon_aid");
+
+        if $r2 != null goto label7;
+
+        $r2 = <android.os.Build: java.lang.String MANUFACTURER>;
+
+        $r3 = "Amazon";
+
+        $z0 = virtualinvoke $r3.<java.lang.Object: boolean equals(java.lang.Object)>($r2);
+
+        if $z0 == 0 goto label7;
+
+        $i0 = staticinvoke <android.provider.Settings$Secure: int getInt(android.content.ContentResolver,java.lang.String,int)>($r0, "limit_ad_tracking", 2);
+
+        if $i0 != 0 goto label2;
+
+        $r2 = staticinvoke <android.provider.Settings$Secure: java.lang.String getString(android.content.ContentResolver,java.lang.String)>($r0, "advertising_id");
+
+        $r4 = new com.appsflyer.k;
+
+        $r5 = <com.appsflyer.k$b: com.appsflyer.k$b \u02ce>;
+
+        specialinvoke $r4.<com.appsflyer.k: void <init>(com.appsflyer.k$b,java.lang.String,boolean)>($r5, $r2, 0);
+
+        return $r4;
+
+     label2:
+        if $i0 != 2 goto label3;
+
+        return null;
+
+     label3:
+        $r2 = staticinvoke <android.provider.Settings$Secure: java.lang.String getString(android.content.ContentResolver,java.lang.String)>($r0, "advertising_id");
+
+     label4:
+        goto label6;
+
+     label5:
+        $r6 := @caughtexception;
+
+        staticinvoke <com.appsflyer.AFLogger: void afErrorLog(java.lang.String,java.lang.Throwable)>("Couldn\'t fetch Amazon Advertising ID (Ad-Tracking is limited!)", $r6);
+
+        $r2 = "";
+
+     label6:
+        $r4 = new com.appsflyer.k;
+
+        $r5 = <com.appsflyer.k$b: com.appsflyer.k$b \u02ce>;
+
+        specialinvoke $r4.<com.appsflyer.k: void <init>(com.appsflyer.k$b,java.lang.String,boolean)>($r5, $r2, 1);
+
+        return $r4;
+
+     label7:
+        return null;
+
+        catch java.lang.Throwable from label3 to label4 with label5;
+    }

@@ -1,0 +1,185 @@
+    private static void a(java.io.File, java.io.File)
+    {
+        java.lang.Throwable $r6, $r7, $r8, $r9;
+        byte[] $r3;
+        java.io.BufferedInputStream $r11;
+        java.io.BufferedOutputStream $r5, $r13;
+        int $i0;
+        java.io.OutputStream $r16;
+        java.io.FileOutputStream $r12;
+        java.io.IOException $r15;
+        java.io.FileInputStream $r10;
+        java.io.File $r0, $r1;
+        java.lang.Object $r2, $r4;
+        java.io.InputStream $r14;
+
+        $r0 := @parameter0: java.io.File;
+
+        $r1 := @parameter1: java.io.File;
+
+        $r2 = null;
+
+        $r3 = newarray (byte)[8192];
+
+     label01:
+        $r11 = new java.io.BufferedInputStream;
+
+     label02:
+        $r4 = $r11;
+
+     label03:
+        $r10 = new java.io.FileInputStream;
+
+     label04:
+        specialinvoke $r10.<java.io.FileInputStream: void <init>(java.io.File)>($r0);
+
+        specialinvoke $r11.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r10);
+
+     label05:
+        $r13 = new java.io.BufferedOutputStream;
+
+     label06:
+        $r5 = $r13;
+
+     label07:
+        $r12 = new java.io.FileOutputStream;
+
+     label08:
+        specialinvoke $r12.<java.io.FileOutputStream: void <init>(java.io.File)>($r1);
+
+        specialinvoke $r13.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r12);
+
+     label09:
+        $r14 = (java.io.InputStream) $r11;
+
+     label10:
+        $i0 = virtualinvoke $r14.<java.io.InputStream: int read(byte[])>($r3);
+
+     label11:
+        if $i0 == -1 goto label22;
+
+     label12:
+        virtualinvoke $r13.<java.io.OutputStream: void write(byte[],int,int)>($r3, 0, $i0);
+
+     label13:
+        goto label09;
+
+     label14:
+        $r6 := @caughtexception;
+
+        $r2 = $r11;
+
+     label15:
+        $r15 = (java.io.IOException) $r6;
+
+        virtualinvoke $r15.<java.io.IOException: void printStackTrace()>();
+
+        throw $r6;
+
+     label16:
+        $r7 := @caughtexception;
+
+        $r4 = $r2;
+
+        $r2 = $r5;
+
+     label17:
+        if $r4 == null goto label19;
+
+        $r14 = (java.io.InputStream) $r4;
+
+     label18:
+        virtualinvoke $r14.<java.io.InputStream: void close()>();
+
+     label19:
+        if $r2 == null goto label21;
+
+        $r16 = (java.io.OutputStream) $r2;
+
+     label20:
+        virtualinvoke $r16.<java.io.OutputStream: void close()>();
+
+     label21:
+        throw $r7;
+
+     label22:
+        $r14 = (java.io.InputStream) $r11;
+
+     label23:
+        virtualinvoke $r14.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r13.<java.io.OutputStream: void close()>();
+
+     label24:
+        return;
+
+     label25:
+        $r8 := @caughtexception;
+
+        $r15 = (java.io.IOException) $r8;
+
+        virtualinvoke $r15.<java.io.IOException: void printStackTrace()>();
+
+        throw $r8;
+
+     label26:
+        $r9 := @caughtexception;
+
+        $r15 = (java.io.IOException) $r9;
+
+        virtualinvoke $r15.<java.io.IOException: void printStackTrace()>();
+
+        throw $r9;
+
+     label27:
+        $r7 := @caughtexception;
+
+        $r4 = null;
+
+        goto label17;
+
+     label28:
+        $r7 := @caughtexception;
+
+        goto label17;
+
+     label29:
+        $r7 := @caughtexception;
+
+        $r2 = $r13;
+
+        goto label17;
+
+     label30:
+        $r6 := @caughtexception;
+
+        $r5 = null;
+
+        goto label15;
+
+     label31:
+        $r6 := @caughtexception;
+
+        $r5 = null;
+
+        $r2 = $r11;
+
+        goto label15;
+
+        catch java.io.IOException from label04 to label05 with label30;
+        catch java.lang.Throwable from label01 to label02 with label27;
+        catch java.lang.Throwable from label03 to label04 with label27;
+        catch java.lang.Throwable from label04 to label05 with label27;
+        catch java.io.IOException from label08 to label09 with label31;
+        catch java.lang.Throwable from label05 to label06 with label28;
+        catch java.lang.Throwable from label07 to label08 with label28;
+        catch java.lang.Throwable from label08 to label09 with label28;
+        catch java.io.IOException from label10 to label11 with label14;
+        catch java.io.IOException from label12 to label13 with label14;
+        catch java.lang.Throwable from label09 to label11 with label29;
+        catch java.lang.Throwable from label12 to label13 with label29;
+        catch java.lang.Throwable from label15 to label16 with label16;
+        catch java.io.IOException from label18 to label19 with label26;
+        catch java.io.IOException from label20 to label21 with label26;
+        catch java.io.IOException from label23 to label24 with label25;
+    }

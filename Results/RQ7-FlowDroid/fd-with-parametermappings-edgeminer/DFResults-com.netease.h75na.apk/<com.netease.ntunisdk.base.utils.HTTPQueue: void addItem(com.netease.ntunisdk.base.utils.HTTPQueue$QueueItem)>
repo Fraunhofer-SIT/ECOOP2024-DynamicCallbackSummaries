@@ -1,0 +1,108 @@
+    public void addItem(com.netease.ntunisdk.base.utils.HTTPQueue$QueueItem)
+    {
+        com.netease.ntunisdk.base.utils.HTTPQueue$QueueItem $r1;
+        java.util.concurrent.LinkedBlockingQueue $r5;
+        java.lang.Exception $r8;
+        com.netease.ntunisdk.base.utils.HTTPQueue r0;
+        int $i0;
+        java.lang.StringBuilder $r3;
+        java.lang.String $r2, $r4;
+        java.util.concurrent.ExecutorService $r6;
+        boolean $z0;
+        com.netease.ntunisdk.base.utils.HTTPQueue$QueueItemRunnable $r7;
+
+        r0 := @this: com.netease.ntunisdk.base.utils.HTTPQueue;
+
+        $r1 := @parameter0: com.netease.ntunisdk.base.utils.HTTPQueue$QueueItem;
+
+        $r2 = r0.<com.netease.ntunisdk.base.utils.HTTPQueue: java.lang.String TAG>;
+
+        $r3 = new java.lang.StringBuilder;
+
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>(java.lang.String)>("addItem, item=");
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r1);
+
+        $r4 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.ntunisdk.base.UniSdkUtils: void d(java.lang.String,java.lang.String)>($r2, $r4);
+
+        $r5 = r0.<com.netease.ntunisdk.base.utils.HTTPQueue: java.util.concurrent.LinkedBlockingQueue linkedQueue>;
+
+        if $r5 == null goto label8;
+
+        $i0 = virtualinvoke $r5.<java.util.concurrent.LinkedBlockingQueue: int size()>();
+
+        if $i0 > 100 goto label8;
+
+        $r6 = r0.<com.netease.ntunisdk.base.utils.HTTPQueue: java.util.concurrent.ExecutorService m_executorService>;
+
+        if $r6 == null goto label7;
+
+        $z0 = interfaceinvoke $r6.<java.util.concurrent.ExecutorService: boolean isShutdown()>();
+
+        if $z0 != 0 goto label6;
+
+        $r6 = r0.<com.netease.ntunisdk.base.utils.HTTPQueue: java.util.concurrent.ExecutorService m_executorService>;
+
+        $z0 = interfaceinvoke $r6.<java.util.concurrent.ExecutorService: boolean isTerminated()>();
+
+        if $z0 != 0 goto label6;
+
+     label1:
+        $r6 = r0.<com.netease.ntunisdk.base.utils.HTTPQueue: java.util.concurrent.ExecutorService m_executorService>;
+
+     label2:
+        $r7 = new com.netease.ntunisdk.base.utils.HTTPQueue$QueueItemRunnable;
+
+     label3:
+        specialinvoke $r7.<com.netease.ntunisdk.base.utils.HTTPQueue$QueueItemRunnable: void <init>(com.netease.ntunisdk.base.utils.HTTPQueue,com.netease.ntunisdk.base.utils.HTTPQueue$QueueItem)>(r0, $r1);
+
+        interfaceinvoke $r6.<java.util.concurrent.ExecutorService: void execute(java.lang.Runnable)>($r7);
+
+     label4:
+        return;
+
+     label5:
+        $r8 := @caughtexception;
+
+        $r2 = r0.<com.netease.ntunisdk.base.utils.HTTPQueue: java.lang.String TAG>;
+
+        $r3 = new java.lang.StringBuilder;
+
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>(java.lang.String)>("ExecutorService.execute exception:");
+
+        $r4 = virtualinvoke $r8.<java.lang.Exception: java.lang.String getMessage()>();
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        $r4 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.ntunisdk.base.UniSdkUtils: void e(java.lang.String,java.lang.String)>($r2, $r4);
+
+        return;
+
+     label6:
+        $r2 = r0.<com.netease.ntunisdk.base.utils.HTTPQueue: java.lang.String TAG>;
+
+        staticinvoke <com.netease.ntunisdk.base.UniSdkUtils: void e(java.lang.String,java.lang.String)>($r2, "ExecutorService have shutdown");
+
+        return;
+
+     label7:
+        $r2 = r0.<com.netease.ntunisdk.base.utils.HTTPQueue: java.lang.String TAG>;
+
+        staticinvoke <com.netease.ntunisdk.base.UniSdkUtils: void e(java.lang.String,java.lang.String)>($r2, "ExecutorService null");
+
+        return;
+
+     label8:
+        $r2 = r0.<com.netease.ntunisdk.base.utils.HTTPQueue: java.lang.String TAG>;
+
+        staticinvoke <com.netease.ntunisdk.base.UniSdkUtils: void d(java.lang.String,java.lang.String)>($r2, "linkedQueue full");
+
+        return;
+
+        catch java.lang.Exception from label1 to label2 with label5;
+        catch java.lang.Exception from label3 to label4 with label5;
+    }

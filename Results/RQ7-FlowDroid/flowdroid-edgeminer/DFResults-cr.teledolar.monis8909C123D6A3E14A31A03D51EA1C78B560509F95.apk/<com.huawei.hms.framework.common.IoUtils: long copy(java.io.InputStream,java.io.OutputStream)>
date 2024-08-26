@@ -1,0 +1,47 @@
+    public static long copy(java.io.InputStream, java.io.OutputStream)
+    {
+        java.io.OutputStream $r1;
+        byte[] $r2;
+        long $l1, $l3;
+        java.io.IOException $r3;
+        byte $b2;
+        int $i0, $i4;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $r1 := @parameter1: java.io.OutputStream;
+
+        $r2 = newarray (byte)[4096];
+
+        $l1 = 0L;
+
+     label1:
+        $i0 = virtualinvoke $r0.<java.io.InputStream: int read(byte[])>($r2);
+
+        if -1 == $i0 goto label3;
+
+        $b2 = $l1 cmp 16777216L;
+
+        $i4 = (int) $b2;
+
+        if $i4 > 0 goto label2;
+
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[],int,int)>($r2, 0, $i0);
+
+        $l3 = (long) $i0;
+
+        $l1 = $l1 + $l3;
+
+        goto label1;
+
+     label2:
+        $r3 = new java.io.IOException;
+
+        specialinvoke $r3.<java.io.IOException: void <init>(java.lang.String)>("input data too large for byte.");
+
+        throw $r3;
+
+     label3:
+        return $l1;
+    }

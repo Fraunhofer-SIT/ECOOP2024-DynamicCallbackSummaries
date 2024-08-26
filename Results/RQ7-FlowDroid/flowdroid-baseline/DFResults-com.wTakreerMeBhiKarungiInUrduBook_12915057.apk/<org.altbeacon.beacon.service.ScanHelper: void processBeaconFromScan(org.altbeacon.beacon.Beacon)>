@@ -1,0 +1,140 @@
+    private void processBeaconFromScan(org.altbeacon.beacon.Beacon)
+    {
+        java.lang.Throwable $r16;
+        java.lang.Object[] $r1;
+        org.altbeacon.beacon.Region $r14;
+        java.util.Map $r8, $r9;
+        org.altbeacon.beacon.service.ExtraDataBeaconTracker $r6;
+        org.altbeacon.beacon.service.ScanHelper r0;
+        java.lang.String $r4, $r5;
+        boolean $z0;
+        org.altbeacon.beacon.service.RangeState $r15;
+        java.util.Iterator $r12;
+        org.altbeacon.beacon.Beacon $r2;
+        java.util.Set $r10;
+        java.util.List $r11;
+        java.lang.Object $r13;
+        org.altbeacon.beacon.service.Stats $r3;
+        org.altbeacon.beacon.service.MonitoringStatus $r7;
+
+        r0 := @this: org.altbeacon.beacon.service.ScanHelper;
+
+        $r2 := @parameter0: org.altbeacon.beacon.Beacon;
+
+        $r3 = staticinvoke <org.altbeacon.beacon.service.Stats: org.altbeacon.beacon.service.Stats getInstance()>();
+
+        $z0 = virtualinvoke $r3.<org.altbeacon.beacon.service.Stats: boolean isEnabled()>();
+
+        if $z0 == 0 goto label01;
+
+        $r3 = staticinvoke <org.altbeacon.beacon.service.Stats: org.altbeacon.beacon.service.Stats getInstance()>();
+
+        virtualinvoke $r3.<org.altbeacon.beacon.service.Stats: void log(org.altbeacon.beacon.Beacon)>($r2);
+
+     label01:
+        $z0 = staticinvoke <org.altbeacon.beacon.logging.LogManager: boolean isVerboseLoggingEnabled()>();
+
+        if $z0 == 0 goto label02;
+
+        $r4 = <org.altbeacon.beacon.service.ScanHelper: java.lang.String TAG>;
+
+        $r1 = newarray (java.lang.Object)[1];
+
+        $r5 = virtualinvoke $r2.<org.altbeacon.beacon.Beacon: java.lang.String toString()>();
+
+        $r1[0] = $r5;
+
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>($r4, "beacon detected : %s", $r1);
+
+     label02:
+        $r6 = r0.<org.altbeacon.beacon.service.ScanHelper: org.altbeacon.beacon.service.ExtraDataBeaconTracker mExtraDataBeaconTracker>;
+
+        $r2 = virtualinvoke $r6.<org.altbeacon.beacon.service.ExtraDataBeaconTracker: org.altbeacon.beacon.Beacon track(org.altbeacon.beacon.Beacon)>($r2);
+
+        if $r2 != null goto label03;
+
+        $z0 = staticinvoke <org.altbeacon.beacon.logging.LogManager: boolean isVerboseLoggingEnabled()>();
+
+        if $z0 == 0 goto label10;
+
+        $r4 = <org.altbeacon.beacon.service.ScanHelper: java.lang.String TAG>;
+
+        $r1 = newarray (java.lang.Object)[0];
+
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>($r4, "not processing detections for GATT extra data beacon", $r1);
+
+        return;
+
+     label03:
+        $r7 = r0.<org.altbeacon.beacon.service.ScanHelper: org.altbeacon.beacon.service.MonitoringStatus mMonitoringStatus>;
+
+        virtualinvoke $r7.<org.altbeacon.beacon.service.MonitoringStatus: void updateNewlyInsideInRegionsContaining(org.altbeacon.beacon.Beacon)>($r2);
+
+        $r4 = <org.altbeacon.beacon.service.ScanHelper: java.lang.String TAG>;
+
+        $r1 = newarray (java.lang.Object)[0];
+
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>($r4, "looking for ranging region matches for this beacon", $r1);
+
+        $r8 = r0.<org.altbeacon.beacon.service.ScanHelper: java.util.Map mRangedRegionState>;
+
+        entermonitor $r8;
+
+     label04:
+        $r9 = r0.<org.altbeacon.beacon.service.ScanHelper: java.util.Map mRangedRegionState>;
+
+        $r10 = interfaceinvoke $r9.<java.util.Map: java.util.Set keySet()>();
+
+        $r11 = specialinvoke r0.<org.altbeacon.beacon.service.ScanHelper: java.util.List matchingRegions(org.altbeacon.beacon.Beacon,java.util.Collection)>($r2, $r10);
+
+        $r12 = interfaceinvoke $r11.<java.util.List: java.util.Iterator iterator()>();
+
+     label05:
+        $z0 = interfaceinvoke $r12.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label06;
+
+        $r13 = interfaceinvoke $r12.<java.util.Iterator: java.lang.Object next()>();
+
+        $r14 = (org.altbeacon.beacon.Region) $r13;
+
+        $r4 = <org.altbeacon.beacon.service.ScanHelper: java.lang.String TAG>;
+
+        $r1 = newarray (java.lang.Object)[1];
+
+        $r1[0] = $r14;
+
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>($r4, "matches ranging region: %s", $r1);
+
+        $r9 = r0.<org.altbeacon.beacon.service.ScanHelper: java.util.Map mRangedRegionState>;
+
+        $r13 = interfaceinvoke $r9.<java.util.Map: java.lang.Object get(java.lang.Object)>($r14);
+
+        $r15 = (org.altbeacon.beacon.service.RangeState) $r13;
+
+        if $r15 == null goto label05;
+
+        virtualinvoke $r15.<org.altbeacon.beacon.service.RangeState: void addBeacon(org.altbeacon.beacon.Beacon)>($r2);
+
+        goto label05;
+
+     label06:
+        exitmonitor $r8;
+
+     label07:
+        return;
+
+     label08:
+        $r16 := @caughtexception;
+
+        exitmonitor $r8;
+
+     label09:
+        throw $r16;
+
+     label10:
+        return;
+
+        catch java.lang.Throwable from label04 to label07 with label08;
+        catch java.lang.Throwable from label08 to label09 with label08;
+    }

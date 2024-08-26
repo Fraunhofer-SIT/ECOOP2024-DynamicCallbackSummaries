@@ -1,0 +1,124 @@
+    private static boolean pathUnzip(java.util.zip.ZipInputStream, java.io.File)
+    {
+        java.lang.Throwable $r3, $r4, $r5, $r6;
+        byte[] $r2;
+        java.util.zip.ZipInputStream $r0;
+        java.io.FileOutputStream $r7;
+        java.io.IOException $r8;
+        java.io.File $r1;
+        int $i0, $i1;
+
+        $r0 := @parameter0: java.util.zip.ZipInputStream;
+
+        $r1 := @parameter1: java.io.File;
+
+        $r7 = new java.io.FileOutputStream;
+
+     label01:
+        specialinvoke $r7.<java.io.FileOutputStream: void <init>(java.io.File)>($r1);
+
+     label02:
+        $r2 = newarray (byte)[4096];
+
+        $i1 = 0;
+
+     label03:
+        $i0 = virtualinvoke $r0.<java.util.zip.ZipInputStream: int read(byte[])>($r2);
+
+     label04:
+        if $i0 == -1 goto label10;
+
+        if $i0 != 0 goto label07;
+
+        $i1 = $i1 + 1;
+
+        if $i1 != 50 goto label08;
+
+        if $r7 == null goto label25;
+
+     label05:
+        virtualinvoke $r7.<java.io.FileOutputStream: void close()>();
+
+     label06:
+        return 0;
+
+     label07:
+        $i1 = 0;
+
+     label08:
+        virtualinvoke $r7.<java.io.FileOutputStream: void write(byte[],int,int)>($r2, 0, $i0);
+
+     label09:
+        goto label03;
+
+     label10:
+        if $r7 == null goto label26;
+
+     label11:
+        virtualinvoke $r7.<java.io.FileOutputStream: void close()>();
+
+     label12:
+        return 1;
+
+     label13:
+        $r3 := @caughtexception;
+
+        goto label16;
+
+     label14:
+        $r4 := @caughtexception;
+
+     label15:
+        throw $r4;
+
+     label16:
+        if $r7 == null goto label23;
+
+        if $r4 == null goto label22;
+
+     label17:
+        virtualinvoke $r7.<java.io.FileOutputStream: void close()>();
+
+     label18:
+        goto label23;
+
+     label19:
+        $r5 := @caughtexception;
+
+     label20:
+        virtualinvoke $r4.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r5);
+
+     label21:
+        goto label23;
+
+     label22:
+        virtualinvoke $r7.<java.io.FileOutputStream: void close()>();
+
+     label23:
+        throw $r3;
+
+     label24:
+        $r6 := @caughtexception;
+
+        $r8 = (java.io.IOException) $r6;
+
+        virtualinvoke $r8.<java.io.IOException: void printStackTrace()>();
+
+        return 1;
+
+     label25:
+        return 0;
+
+     label26:
+        return 1;
+
+        catch java.io.IOException from label01 to label02 with label24;
+        catch java.lang.Throwable from label03 to label04 with label14;
+        catch java.io.IOException from label05 to label06 with label24;
+        catch java.lang.Throwable from label08 to label09 with label14;
+        catch java.io.IOException from label11 to label12 with label24;
+        catch java.lang.Throwable from label15 to label16 with label13;
+        catch java.lang.Throwable from label17 to label18 with label19;
+        catch java.io.IOException from label20 to label21 with label24;
+        catch java.io.IOException from label22 to label24 with label24;
+    }

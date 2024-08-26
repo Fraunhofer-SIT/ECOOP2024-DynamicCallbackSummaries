@@ -1,0 +1,245 @@
+    public static java.lang.Object apply(gnu.text.LineBufferedReader, java.lang.String) throws java.io.IOException
+    {
+        java.lang.Object[] $r5;
+        gnu.mapping.Values $r8;
+        char $c5;
+        gnu.lists.FString $r4, $r7;
+        byte b3;
+        java.lang.StringBuffer $r6;
+        gnu.text.LineBufferedReader $r0;
+        int $i0, i1, $i2, $i4;
+        char[] $r3;
+        java.lang.Object $r2;
+        java.lang.String $r1;
+
+        $r0 := @parameter0: gnu.text.LineBufferedReader;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $i0 = virtualinvoke $r0.<gnu.text.LineBufferedReader: int read()>();
+
+        if $i0 >= 0 goto label01;
+
+        $r2 = <gnu.expr.Special: java.lang.Object eof>;
+
+        return $r2;
+
+     label01:
+        $i0 = $r0.<gnu.text.LineBufferedReader: int pos>;
+
+        $i0 = $i0 + -1;
+
+        i1 = $i0;
+
+        $i2 = $r0.<gnu.text.LineBufferedReader: int limit>;
+
+        $r3 = $r0.<gnu.text.LineBufferedReader: char[] buffer>;
+
+        b3 = -1;
+
+     label02:
+        if i1 >= $i2 goto label11;
+
+        $i4 = i1;
+
+        i1 = i1 + 1;
+
+        $c5 = $r3[$i4];
+
+        $i4 = (int) $c5;
+
+        if $i4 == 13 goto label03;
+
+        $i4 = (int) $c5;
+
+        if $i4 != 10 goto label02;
+
+     label03:
+        i1 = i1 + -1;
+
+        if $r1 == "trim" goto label04;
+
+        if $r1 != "peek" goto label10;
+
+     label04:
+        if $r1 != "peek" goto label05;
+
+        b3 = 0;
+
+     label05:
+        $i4 = (int) $c5;
+
+        if $i4 != 10 goto label08;
+
+        b3 = 1;
+
+     label06:
+        $i2 = i1 + b3;
+
+        $r0.<gnu.text.LineBufferedReader: int pos> = $i2;
+
+     label07:
+        $r4 = new gnu.lists.FString;
+
+        i1 = i1 - $i0;
+
+        specialinvoke $r4.<gnu.lists.FString: void <init>(char[],int,int)>($r3, $i0, i1);
+
+        return $r4;
+
+     label08:
+        $i4 = i1 + 1;
+
+        if $i4 >= $i2 goto label11;
+
+        $i2 = i1 + 1;
+
+        $c5 = $r3[$i2];
+
+        $i2 = (int) $c5;
+
+        if $i2 != 10 goto label09;
+
+        b3 = 2;
+
+        goto label06;
+
+     label09:
+        b3 = 1;
+
+        goto label06;
+
+     label10:
+        if $r1 != "concat" goto label11;
+
+        $i2 = (int) $c5;
+
+        if $i2 != 10 goto label11;
+
+        i1 = i1 + 1;
+
+        $r0.<gnu.text.LineBufferedReader: int pos> = i1;
+
+        goto label07;
+
+     label11:
+        $r6 = new java.lang.StringBuffer;
+
+        specialinvoke $r6.<java.lang.StringBuffer: void <init>(int)>(100);
+
+        if i1 <= $i0 goto label12;
+
+        $i2 = i1 - $i0;
+
+        virtualinvoke $r6.<java.lang.StringBuffer: java.lang.StringBuffer append(char[],int,int)>($r3, $i0, $i2);
+
+     label12:
+        $r0.<gnu.text.LineBufferedReader: int pos> = i1;
+
+        if $r1 != "peek" goto label15;
+
+        $c5 = 80;
+
+     label13:
+        virtualinvoke $r0.<gnu.text.LineBufferedReader: void readLine(java.lang.StringBuffer,char)>($r6, $c5);
+
+        $i0 = virtualinvoke $r6.<java.lang.StringBuffer: int length()>();
+
+        i1 = $i0;
+
+        if $r1 != "split" goto label14;
+
+        if $i0 != 0 goto label18;
+
+        b3 = 0;
+
+     label14:
+        $r4 = new gnu.lists.FString;
+
+        specialinvoke $r4.<gnu.lists.FString: void <init>(java.lang.StringBuffer,int,int)>($r6, 0, i1);
+
+        if $r1 != "split" goto label23;
+
+        $r7 = new gnu.lists.FString;
+
+        $i0 = i1 - b3;
+
+        specialinvoke $r7.<gnu.lists.FString: void <init>(java.lang.StringBuffer,int,int)>($r6, $i0, b3);
+
+        $r5 = newarray (java.lang.Object)[2];
+
+        $r5[0] = $r4;
+
+        $r5[1] = $r7;
+
+        $r8 = new gnu.mapping.Values;
+
+        specialinvoke $r8.<gnu.mapping.Values: void <init>(java.lang.Object[])>($r5);
+
+        return $r8;
+
+     label15:
+        if $r1 == "concat" goto label16;
+
+        if $r1 != "split" goto label17;
+
+     label16:
+        $c5 = 65;
+
+        goto label13;
+
+     label17:
+        $c5 = 73;
+
+        goto label13;
+
+     label18:
+        i1 = $i0 + -1;
+
+        $c5 = virtualinvoke $r6.<java.lang.StringBuffer: char charAt(int)>(i1);
+
+        i1 = (int) $c5;
+
+        if i1 != 13 goto label20;
+
+        b3 = 1;
+
+     label19:
+        i1 = $i0 - b3;
+
+        goto label14;
+
+     label20:
+        i1 = (int) $c5;
+
+        if i1 == 10 goto label21;
+
+        b3 = 0;
+
+        goto label19;
+
+     label21:
+        i1 = (int) $c5;
+
+        if i1 <= 2 goto label22;
+
+        i1 = $i0 + -2;
+
+        $c5 = virtualinvoke $r6.<java.lang.StringBuffer: char charAt(int)>(i1);
+
+        i1 = (int) $c5;
+
+        if i1 != 13 goto label22;
+
+        b3 = 2;
+
+        goto label19;
+
+     label22:
+        b3 = 1;
+
+        goto label19;
+
+     label23:
+        return $r4;
+    }

@@ -1,0 +1,123 @@
+    public static void inspectAndInstrumentResponse(com.newrelic.agent.android.instrumentation.TransactionState, java.net.HttpURLConnection)
+    {
+        java.net.HttpURLConnection $r1;
+        java.lang.Throwable $r6, $r7;
+        java.lang.IllegalStateException $r10;
+        java.io.IOException $r9;
+        com.newrelic.agent.android.instrumentation.TransactionState $r0;
+        java.lang.NullPointerException $r4;
+        com.newrelic.agent.android.logging.AgentLog $r5;
+        int $i0, $i1, $i2;
+        java.lang.StringBuilder $r8;
+        java.lang.String $r2, $r3;
+
+        $r0 := @parameter0: com.newrelic.agent.android.instrumentation.TransactionState;
+
+        $r1 := @parameter1: java.net.HttpURLConnection;
+
+        $r2 = null;
+
+        $i0 = -1;
+
+        $i1 = 0;
+
+     label01:
+        $i2 = virtualinvoke $r1.<java.net.HttpURLConnection: int getContentLength()>();
+
+     label02:
+        $i0 = $i2;
+
+     label03:
+        $i2 = virtualinvoke $r1.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label04:
+        $i1 = $i2;
+
+     label05:
+        $r3 = virtualinvoke $r1.<java.net.HttpURLConnection: java.lang.String getHeaderField(java.lang.String)>("X-NewRelic-App-Data");
+
+     label06:
+        $r2 = $r3;
+
+        goto label10;
+
+     label07:
+        $r4 := @caughtexception;
+
+        $r5 = <com.newrelic.agent.android.instrumentation.TransactionStateUtil: com.newrelic.agent.android.logging.AgentLog log>;
+
+        $r8 = new java.lang.StringBuilder;
+
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Failed to retrieve response code due to underlying (Harmony?) NPE");
+
+        $r3 = virtualinvoke $r4.<java.lang.NullPointerException: java.lang.String getLocalizedMessage()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        interfaceinvoke $r5.<com.newrelic.agent.android.logging.AgentLog: void error(java.lang.String)>($r3);
+
+        goto label10;
+
+     label08:
+        $r6 := @caughtexception;
+
+        $r5 = <com.newrelic.agent.android.instrumentation.TransactionStateUtil: com.newrelic.agent.android.logging.AgentLog log>;
+
+        $r8 = new java.lang.StringBuilder;
+
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Failed to retrieve response data due to an I/O exception: ");
+
+        $r9 = (java.io.IOException) $r6;
+
+        $r3 = virtualinvoke $r9.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        interfaceinvoke $r5.<com.newrelic.agent.android.logging.AgentLog: void debug(java.lang.String)>($r3);
+
+        goto label10;
+
+     label09:
+        $r7 := @caughtexception;
+
+        $r5 = <com.newrelic.agent.android.instrumentation.TransactionStateUtil: com.newrelic.agent.android.logging.AgentLog log>;
+
+        $r8 = new java.lang.StringBuilder;
+
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Failed to retrieve response data on a closed connection: ");
+
+        $r10 = (java.lang.IllegalStateException) $r7;
+
+        $r3 = virtualinvoke $r10.<java.lang.IllegalStateException: java.lang.String getLocalizedMessage()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        interfaceinvoke $r5.<com.newrelic.agent.android.logging.AgentLog: void debug(java.lang.String)>($r3);
+
+     label10:
+        staticinvoke <com.newrelic.agent.android.instrumentation.TransactionStateUtil: void inspectAndInstrumentResponse(com.newrelic.agent.android.instrumentation.TransactionState,java.lang.String,int,int)>($r0, $r2, $i0, $i1);
+
+        return;
+
+        catch java.lang.IllegalStateException from label01 to label02 with label09;
+        catch java.lang.IllegalStateException from label03 to label04 with label09;
+        catch java.lang.IllegalStateException from label05 to label06 with label09;
+        catch java.io.IOException from label01 to label02 with label08;
+        catch java.io.IOException from label03 to label04 with label08;
+        catch java.io.IOException from label05 to label06 with label08;
+        catch java.lang.NullPointerException from label01 to label02 with label07;
+        catch java.lang.NullPointerException from label03 to label04 with label07;
+        catch java.lang.NullPointerException from label05 to label06 with label07;
+    }

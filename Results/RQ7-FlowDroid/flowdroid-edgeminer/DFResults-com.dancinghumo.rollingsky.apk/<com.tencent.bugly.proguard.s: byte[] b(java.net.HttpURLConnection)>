@@ -1,0 +1,130 @@
+    private static byte[] b(java.net.HttpURLConnection)
+    {
+        java.net.HttpURLConnection $r0;
+        java.lang.Throwable $r5, $r6, $r7, $r8, $r9;
+        byte[] $r4;
+        java.io.BufferedInputStream $r1;
+        java.io.ByteArrayOutputStream $r3;
+        int $i0;
+        java.io.InputStream $r2;
+        boolean $z0;
+
+        $r0 := @parameter0: java.net.HttpURLConnection;
+
+        if $r0 != null goto label01;
+
+        return null;
+
+     label01:
+        $r1 = new java.io.BufferedInputStream;
+
+        $r2 = virtualinvoke $r0.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+        specialinvoke $r1.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r2);
+
+     label02:
+        $r3 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r3.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label03:
+        $r4 = newarray (byte)[1024];
+
+     label04:
+        $i0 = virtualinvoke $r1.<java.io.BufferedInputStream: int read(byte[])>($r4);
+
+     label05:
+        if $i0 <= 0 goto label08;
+
+     label06:
+        virtualinvoke $r3.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r4, 0, $i0);
+
+     label07:
+        goto label04;
+
+     label08:
+        virtualinvoke $r3.<java.io.ByteArrayOutputStream: void flush()>();
+
+        $r4 = virtualinvoke $r3.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label09:
+        virtualinvoke $r1.<java.io.BufferedInputStream: void close()>();
+
+     label10:
+        return $r4;
+
+     label11:
+        $r5 := @caughtexception;
+
+        virtualinvoke $r5.<java.lang.Throwable: void printStackTrace()>();
+
+        return $r4;
+
+     label12:
+        $r6 := @caughtexception;
+
+        goto label14;
+
+     label13:
+        $r6 := @caughtexception;
+
+        $r1 = null;
+
+     label14:
+        $z0 = staticinvoke <com.tencent.bugly.proguard.x: boolean a(java.lang.Throwable)>($r6);
+
+     label15:
+        if $z0 != 0 goto label17;
+
+     label16:
+        virtualinvoke $r6.<java.lang.Throwable: void printStackTrace()>();
+
+     label17:
+        if $r1 == null goto label26;
+
+     label18:
+        virtualinvoke $r1.<java.io.BufferedInputStream: void close()>();
+
+     label19:
+        return null;
+
+     label20:
+        $r7 := @caughtexception;
+
+        virtualinvoke $r7.<java.lang.Throwable: void printStackTrace()>();
+
+        return null;
+
+     label21:
+        $r8 := @caughtexception;
+
+        if $r1 == null goto label25;
+
+     label22:
+        virtualinvoke $r1.<java.io.BufferedInputStream: void close()>();
+
+     label23:
+        goto label25;
+
+     label24:
+        $r9 := @caughtexception;
+
+        virtualinvoke $r9.<java.lang.Throwable: void printStackTrace()>();
+
+     label25:
+        throw $r8;
+
+     label26:
+        return null;
+
+        catch java.lang.Throwable from label01 to label02 with label13;
+        catch java.lang.Throwable from label02 to label03 with label12;
+        catch java.lang.Throwable from label04 to label05 with label12;
+        catch java.lang.Throwable from label06 to label07 with label12;
+        catch java.lang.Throwable from label08 to label09 with label12;
+        catch java.lang.Throwable from label09 to label10 with label11;
+        catch java.lang.Throwable from label14 to label15 with label21;
+        catch java.lang.Throwable from label16 to label17 with label21;
+        catch java.lang.Throwable from label18 to label19 with label20;
+        catch java.lang.Throwable from label22 to label23 with label24;
+    }

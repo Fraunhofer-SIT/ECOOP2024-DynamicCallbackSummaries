@@ -1,0 +1,190 @@
+    void readToken(int, char, gnu.kawa.lispexpr.ReadTable) throws java.io.IOException, gnu.text.SyntaxException
+    {
+        gnu.kawa.lispexpr.ReadTable $r1;
+        gnu.kawa.lispexpr.LispReader r0;
+        char $c0;
+        int $i1, $i2, $i3, $i4, $i5;
+        gnu.kawa.lispexpr.ReadTableEntry $r2, $r4;
+        gnu.text.LineBufferedReader $r3;
+        boolean $z0, $z1;
+
+        r0 := @this: gnu.kawa.lispexpr.LispReader;
+
+        $i1 := @parameter0: int;
+
+        $c0 := @parameter1: char;
+
+        $r1 := @parameter2: gnu.kawa.lispexpr.ReadTable;
+
+        $z0 = 0;
+
+        $i2 = 0;
+
+     label01:
+        if $i1 >= 0 goto label02;
+
+        if $z0 == 0 goto label20;
+
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void eofError(java.lang.String)>("unexpected EOF between escapes");
+
+     label02:
+        $r2 = virtualinvoke $r1.<gnu.kawa.lispexpr.ReadTable: gnu.kawa.lispexpr.ReadTableEntry lookup(int)>($i1);
+
+        $i3 = virtualinvoke $r2.<gnu.kawa.lispexpr.ReadTableEntry: int getKind()>();
+
+        $i4 = $i3;
+
+        if $i3 != 0 goto label05;
+
+        if $z0 == 0 goto label03;
+
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void tokenBufferAppend(int)>(65535);
+
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void tokenBufferAppend(int)>($i1);
+
+        goto label18;
+
+     label03:
+        if $i1 != 125 goto label04;
+
+        $i2 = $i2 + -1;
+
+        if $i2 < 0 goto label04;
+
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void tokenBufferAppend(int)>($i1);
+
+        goto label18;
+
+     label04:
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void unread(int)>($i1);
+
+        return;
+
+     label05:
+        $c0 = $r1.<gnu.kawa.lispexpr.ReadTable: char postfixLookupOperator>;
+
+        $i3 = (int) $c0;
+
+        if $i1 != $i3 goto label07;
+
+        if $z0 != 0 goto label07;
+
+        $r3 = r0.<gnu.kawa.lispexpr.LispReader: gnu.text.LineBufferedReader port>;
+
+        $i3 = virtualinvoke $r3.<gnu.text.LineBufferedReader: int peek()>();
+
+        $c0 = $r1.<gnu.kawa.lispexpr.ReadTable: char postfixLookupOperator>;
+
+        $i5 = (int) $c0;
+
+        if $i3 != $i5 goto label06;
+
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void unread(int)>($i1);
+
+        return;
+
+     label06:
+        $z1 = virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: boolean validPostfixLookupStart(int,gnu.kawa.lispexpr.ReadTable)>($i3, $r1);
+
+        if $z1 == 0 goto label07;
+
+        $i4 = 5;
+
+     label07:
+        if $i4 != 3 goto label11;
+
+        $i4 = virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: int read()>();
+
+        $i1 = $i4;
+
+        if $i4 >= 0 goto label08;
+
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void eofError(java.lang.String)>("unexpected EOF after single escape");
+
+     label08:
+        $z1 = $r1.<gnu.kawa.lispexpr.ReadTable: boolean hexEscapeAfterBackslash>;
+
+        if $z1 == 0 goto label10;
+
+        if $i4 == 120 goto label09;
+
+        if $i4 != 88 goto label10;
+
+     label09:
+        $i1 = virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: int readHexEscape()>();
+
+     label10:
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void tokenBufferAppend(int)>(65535);
+
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void tokenBufferAppend(int)>($i1);
+
+        r0.<gnu.kawa.lispexpr.LispReader: boolean seenEscapes> = 1;
+
+        goto label18;
+
+     label11:
+        if $i4 != 4 goto label12;
+
+        r0.<gnu.kawa.lispexpr.LispReader: boolean seenEscapes> = 1;
+
+        $z0 = $z0 ^ 1;
+
+        goto label18;
+
+     label12:
+        if $z0 == 0 goto label13;
+
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void tokenBufferAppend(int)>(65535);
+
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void tokenBufferAppend(int)>($i1);
+
+        goto label18;
+
+     label13:
+        if $i4 == 1 goto label19;
+
+        if $i4 == 2 goto label16;
+
+        if $i4 == 4 goto label15;
+
+        if $i4 == 5 goto label14;
+
+        if $i4 == 6 goto label17;
+
+        goto label18;
+
+     label14:
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void unread(int)>($i1);
+
+        return;
+
+     label15:
+        r0.<gnu.kawa.lispexpr.LispReader: boolean seenEscapes> = 1;
+
+        $z0 = 1;
+
+        goto label18;
+
+     label16:
+        if $i1 != 123 goto label17;
+
+        $r4 = <gnu.kawa.lispexpr.ReadTableEntry: gnu.kawa.lispexpr.ReadTableEntry brace>;
+
+        if $r2 != $r4 goto label17;
+
+        $i2 = $i2 + 1;
+
+     label17:
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void tokenBufferAppend(int)>($i1);
+
+     label18:
+        $i1 = virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: int read()>();
+
+        goto label01;
+
+     label19:
+        virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: void unread(int)>($i1);
+
+     label20:
+        return;
+    }

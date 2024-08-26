@@ -1,0 +1,132 @@
+    public void onResult(com.google.android.gms.drive.DriveApi$DriveContentsResult)
+    {
+        java.lang.Throwable $r8, $r9, $r10, $r11;
+        byte[] $r7;
+        it.webxperience.googleDrive.GoogleDriveDownload$1 r0;
+        it.webxperience.googleDrive.GoogleDriveDownload $r3;
+        com.google.android.gms.drive.DriveApi$DriveContentsResult $r1;
+        int $i0;
+        java.lang.String $r4;
+        boolean $z0;
+        java.io.FileOutputStream $r13;
+        java.io.IOException $r15;
+        com.google.android.gms.drive.DriveContents $r5;
+        java.io.File $r12;
+        java.io.FileNotFoundException $r14;
+        com.google.android.gms.common.api.Status $r2;
+        java.io.InputStream $r6;
+
+        r0 := @this: it.webxperience.googleDrive.GoogleDriveDownload$1;
+
+        $r1 := @parameter0: com.google.android.gms.drive.DriveApi$DriveContentsResult;
+
+        $r2 = interfaceinvoke $r1.<com.google.android.gms.drive.DriveApi$DriveContentsResult: com.google.android.gms.common.api.Status getStatus()>();
+
+        $z0 = virtualinvoke $r2.<com.google.android.gms.common.api.Status: boolean isSuccess()>();
+
+        if $z0 != 0 goto label01;
+
+        $r3 = r0.<it.webxperience.googleDrive.GoogleDriveDownload$1: it.webxperience.googleDrive.GoogleDriveDownload this$0>;
+
+        virtualinvoke $r3.<it.webxperience.googleDrive.GoogleDriveDownload: void onDownloadResult(boolean,java.lang.String)>(0, "Error while trying to download file contents");
+
+        return;
+
+     label01:
+        $r12 = new java.io.File;
+
+        $r3 = r0.<it.webxperience.googleDrive.GoogleDriveDownload$1: it.webxperience.googleDrive.GoogleDriveDownload this$0>;
+
+        $r4 = staticinvoke <it.webxperience.googleDrive.GoogleDriveDownload: java.lang.String access$0(it.webxperience.googleDrive.GoogleDriveDownload)>($r3);
+
+        specialinvoke $r12.<java.io.File: void <init>(java.lang.String)>($r4);
+
+     label02:
+        $r5 = interfaceinvoke $r1.<com.google.android.gms.drive.DriveApi$DriveContentsResult: com.google.android.gms.drive.DriveContents getDriveContents()>();
+
+        $r6 = interfaceinvoke $r5.<com.google.android.gms.drive.DriveContents: java.io.InputStream getInputStream()>();
+
+     label03:
+        $r13 = new java.io.FileOutputStream;
+
+     label04:
+        specialinvoke $r13.<java.io.FileOutputStream: void <init>(java.io.File)>($r12);
+
+     label05:
+        $r7 = newarray (byte)[1024];
+
+     label06:
+        $i0 = virtualinvoke $r6.<java.io.InputStream: int read(byte[])>($r7);
+
+     label07:
+        if $i0 > 0 goto label10;
+
+        $z0 = 1;
+
+     label08:
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r13.<java.io.OutputStream: void close()>();
+
+     label09:
+        $r3 = r0.<it.webxperience.googleDrive.GoogleDriveDownload$1: it.webxperience.googleDrive.GoogleDriveDownload this$0>;
+
+        virtualinvoke $r3.<it.webxperience.googleDrive.GoogleDriveDownload: void onDownloadResult(boolean,java.lang.String)>($z0, null);
+
+        return;
+
+     label10:
+        virtualinvoke $r13.<java.io.OutputStream: void write(byte[],int,int)>($r7, 0, $i0);
+
+     label11:
+        goto label06;
+
+     label12:
+        $r8 := @caughtexception;
+
+        $z0 = 0;
+
+        $r9 = $r8;
+
+     label13:
+        $r14 = (java.io.FileNotFoundException) $r9;
+
+        virtualinvoke $r14.<java.io.FileNotFoundException: void printStackTrace()>();
+
+        goto label09;
+
+     label14:
+        $r10 := @caughtexception;
+
+        $z0 = 0;
+
+        $r11 = $r10;
+
+     label15:
+        $r15 = (java.io.IOException) $r11;
+
+        virtualinvoke $r15.<java.io.IOException: void printStackTrace()>();
+
+        goto label09;
+
+     label16:
+        $r11 := @caughtexception;
+
+        goto label15;
+
+     label17:
+        $r9 := @caughtexception;
+
+        goto label13;
+
+        catch java.io.FileNotFoundException from label02 to label03 with label12;
+        catch java.io.FileNotFoundException from label04 to label05 with label12;
+        catch java.io.FileNotFoundException from label06 to label07 with label12;
+        catch java.io.IOException from label02 to label03 with label14;
+        catch java.io.IOException from label04 to label05 with label14;
+        catch java.io.IOException from label06 to label07 with label14;
+        catch java.io.FileNotFoundException from label08 to label09 with label17;
+        catch java.io.IOException from label08 to label09 with label16;
+        catch java.io.FileNotFoundException from label10 to label11 with label12;
+        catch java.io.IOException from label10 to label11 with label14;
+    }

@@ -1,0 +1,152 @@
+    public static void update(android.content.Context, java.lang.String, java.io.Serializable)
+    {
+        java.lang.Throwable $r12, $r13, $r15;
+        android.content.Context $r1;
+        java.lang.Object[] $r14;
+        androidx.room.RoomDatabase$Builder $r6;
+        long $l0, $l1;
+        com.jumio.persistence.room.ModelDatabase $r4, $r8;
+        com.jumio.persistence.room.ModelRow $r0;
+        java.lang.String $r2, $r11;
+        com.jumio.persistence.room.ModelDao $r9;
+        androidx.room.RoomDatabase $r7;
+        com.jumio.sdk.models.CredentialsModel$SessionKey $r5;
+        java.io.Serializable $r3;
+        java.lang.StringBuilder $r10;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r3 := @parameter2: java.io.Serializable;
+
+        entermonitor class "Lcom/jumio/persistence/DataAccess;";
+
+        if $r3 != null goto label01;
+
+        exitmonitor class "Lcom/jumio/persistence/DataAccess;";
+
+        return;
+
+     label01:
+        $l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+     label02:
+        $r4 = null;
+
+     label03:
+        $r0 = new com.jumio.persistence.room.ModelRow;
+
+        specialinvoke $r0.<com.jumio.persistence.room.ModelRow: void <init>()>();
+
+        virtualinvoke $r0.<com.jumio.persistence.room.ModelRow: void setKey(java.lang.String)>($r2);
+
+        $r5 = staticinvoke <com.jumio.persistence.DataAccess: com.jumio.sdk.models.CredentialsModel$SessionKey getSessionKey(android.content.Context)>($r1);
+
+        virtualinvoke $r0.<com.jumio.persistence.room.ModelRow: void serialize(java.io.Serializable,com.jumio.sdk.models.CredentialsModel$SessionKey)>($r3, $r5);
+
+        $r6 = staticinvoke <androidx.room.Room: androidx.room.RoomDatabase$Builder databaseBuilder(android.content.Context,java.lang.Class,java.lang.String)>($r1, class "Lcom/jumio/persistence/room/ModelDatabase;", "objectpool");
+
+        $r6 = virtualinvoke $r6.<androidx.room.RoomDatabase$Builder: androidx.room.RoomDatabase$Builder allowMainThreadQueries()>();
+
+        $r7 = virtualinvoke $r6.<androidx.room.RoomDatabase$Builder: androidx.room.RoomDatabase build()>();
+
+        $r8 = (com.jumio.persistence.room.ModelDatabase) $r7;
+
+     label04:
+        $r9 = virtualinvoke $r8.<com.jumio.persistence.room.ModelDatabase: com.jumio.persistence.room.ModelDao daoAccess()>();
+
+        interfaceinvoke $r9.<com.jumio.persistence.room.ModelDao: void removeModel(java.lang.String)>($r2);
+
+        $r9 = virtualinvoke $r8.<com.jumio.persistence.room.ModelDatabase: com.jumio.persistence.room.ModelDao daoAccess()>();
+
+        interfaceinvoke $r9.<com.jumio.persistence.room.ModelDao: void insertModel(com.jumio.persistence.room.ModelRow)>($r0);
+
+     label05:
+        if $r8 == null goto label07;
+
+     label06:
+        virtualinvoke $r8.<androidx.room.RoomDatabase: void close()>();
+
+     label07:
+        $l1 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+     label08:
+        $l0 = $l1 - $l0;
+
+     label09:
+        $r10 = new java.lang.StringBuilder;
+
+     label10:
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("storing ");
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("took ");
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ms");
+
+        $r11 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.jumio.commons.log.Log: void v(java.lang.String,java.lang.String)>("DataAccess", $r11);
+
+     label11:
+        goto label19;
+
+     label12:
+        $r12 := @caughtexception;
+
+        $r4 = $r8;
+
+        goto label14;
+
+     label13:
+        $r12 := @caughtexception;
+
+     label14:
+        if $r4 == null goto label16;
+
+     label15:
+        virtualinvoke $r4.<androidx.room.RoomDatabase: void close()>();
+
+     label16:
+        throw $r12;
+
+     label17:
+        $r13 := @caughtexception;
+
+     label18:
+        $r14 = newarray (java.lang.Object)[1];
+
+        $r14[0] = $r2;
+
+        $r2 = staticinvoke <java.lang.String: java.lang.String format(java.lang.String,java.lang.Object[])>("Error persisting %s", $r14);
+
+        staticinvoke <com.jumio.commons.log.Log: void w(java.lang.String,java.lang.String,java.lang.Throwable)>("DataAccess", $r2, $r13);
+
+     label19:
+        exitmonitor class "Lcom/jumio/persistence/DataAccess;";
+
+        return;
+
+     label20:
+        $r15 := @caughtexception;
+
+        exitmonitor class "Lcom/jumio/persistence/DataAccess;";
+
+        throw $r15;
+
+        catch java.lang.Throwable from label01 to label02 with label20;
+        catch java.lang.Throwable from label03 to label04 with label13;
+        catch java.lang.Throwable from label04 to label05 with label12;
+        catch java.io.IOException from label06 to label08 with label17;
+        catch java.lang.Throwable from label06 to label08 with label20;
+        catch java.io.IOException from label10 to label11 with label17;
+        catch java.io.IOException from label15 to label17 with label17;
+        catch java.lang.Throwable from label09 to label17 with label20;
+        catch java.lang.Throwable from label18 to label19 with label20;
+    }

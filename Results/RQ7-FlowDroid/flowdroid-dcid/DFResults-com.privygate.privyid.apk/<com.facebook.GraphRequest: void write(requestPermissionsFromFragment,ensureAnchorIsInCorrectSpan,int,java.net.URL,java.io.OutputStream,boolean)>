@@ -1,0 +1,136 @@
+    private static void write(requestPermissionsFromFragment, ensureAnchorIsInCorrectSpan, int, java.net.URL, java.io.OutputStream, boolean) throws java.io.IOException, org.json.JSONException
+    {
+        android.os.Bundle $r7;
+        allocateRequestIndex $r14;
+        java.net.URL $r3;
+        java.util.HashMap $r6;
+        requestPermissionsFromFragment $r1;
+        org.json.JSONObject $r13;
+        int $i0;
+        java.lang.String $r11;
+        boolean $z0;
+        java.io.OutputStream $r4;
+        java.util.Iterator $r9;
+        java.util.Set $r8;
+        com.facebook.GraphRequest$MediaBrowserCompat$SearchResultReceiver $r0;
+        com.facebook.GraphRequest$MediaBrowserCompat$CustomActionResultReceiver $r12;
+        java.lang.Object $r10;
+        ensureAnchorIsInCorrectSpan $r2;
+        com.facebook.GraphRequest $r5;
+
+        $r1 := @parameter0: requestPermissionsFromFragment;
+
+        $r2 := @parameter1: ensureAnchorIsInCorrectSpan;
+
+        $i0 := @parameter2: int;
+
+        $r3 := @parameter3: java.net.URL;
+
+        $r4 := @parameter4: java.io.OutputStream;
+
+        $z0 := @parameter5: boolean;
+
+        $r0 = new com.facebook.GraphRequest$MediaBrowserCompat$SearchResultReceiver;
+
+        specialinvoke $r0.<com.facebook.GraphRequest$MediaBrowserCompat$SearchResultReceiver: void <init>(java.io.OutputStream,ensureAnchorIsInCorrectSpan,boolean)>($r4, $r2, $z0);
+
+        if $i0 != 1 goto label5;
+
+        $r5 = virtualinvoke $r1.<requestPermissionsFromFragment: com.facebook.GraphRequest setContrast(int)>(0);
+
+        $r6 = new java.util.HashMap;
+
+        specialinvoke $r6.<java.util.HashMap: void <init>()>();
+
+        $r7 = $r5.<com.facebook.GraphRequest: android.os.Bundle NativeAnnotationMapping>;
+
+        $r8 = virtualinvoke $r7.<android.os.Bundle: java.util.Set keySet()>();
+
+        $r9 = interfaceinvoke $r8.<java.util.Set: java.util.Iterator iterator()>();
+
+     label1:
+        $z0 = interfaceinvoke $r9.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label2;
+
+        $r10 = interfaceinvoke $r9.<java.util.Iterator: java.lang.Object next()>();
+
+        $r11 = (java.lang.String) $r10;
+
+        $r7 = $r5.<com.facebook.GraphRequest: android.os.Bundle NativeAnnotationMapping>;
+
+        $r10 = virtualinvoke $r7.<android.os.Bundle: java.lang.Object get(java.lang.String)>($r11);
+
+        $z0 = staticinvoke <com.facebook.GraphRequest: boolean getInflater(java.lang.Object)>($r10);
+
+        if $z0 == 0 goto label1;
+
+        $r12 = new com.facebook.GraphRequest$MediaBrowserCompat$CustomActionResultReceiver;
+
+        specialinvoke $r12.<com.facebook.GraphRequest$MediaBrowserCompat$CustomActionResultReceiver: void <init>(com.facebook.GraphRequest,java.lang.Object)>($r5, $r10);
+
+        interfaceinvoke $r6.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($r11, $r12);
+
+        goto label1;
+
+     label2:
+        if $r2 == null goto label3;
+
+        virtualinvoke $r2.<ensureAnchorIsInCorrectSpan: void append(java.lang.String)>("  Parameters:\n");
+
+     label3:
+        $r7 = $r5.<com.facebook.GraphRequest: android.os.Bundle NativeAnnotationMapping>;
+
+        staticinvoke <com.facebook.GraphRequest: void MediaBrowserCompat$CustomActionResultReceiver(android.os.Bundle,com.facebook.GraphRequest$MediaBrowserCompat$SearchResultReceiver,com.facebook.GraphRequest)>($r7, $r0, $r5);
+
+        if $r2 == null goto label4;
+
+        virtualinvoke $r2.<ensureAnchorIsInCorrectSpan: void append(java.lang.String)>("  Attachments:\n");
+
+     label4:
+        staticinvoke <com.facebook.GraphRequest: void read(java.util.Map,com.facebook.GraphRequest$MediaBrowserCompat$SearchResultReceiver)>($r6, $r0);
+
+        $r13 = $r5.<com.facebook.GraphRequest: org.json.JSONObject native_refreshCacheForPage>;
+
+        if $r13 == null goto label8;
+
+        $r11 = virtualinvoke $r3.<java.net.URL: java.lang.String getPath()>();
+
+        staticinvoke <com.facebook.GraphRequest: void MediaBrowserCompat$CustomActionResultReceiver(org.json.JSONObject,java.lang.String,com.facebook.GraphRequest$write)>($r13, $r11, $r0);
+
+        return;
+
+     label5:
+        $r11 = staticinvoke <com.facebook.GraphRequest: java.lang.String IconCompatParcelizer(requestPermissionsFromFragment)>($r1);
+
+        $z0 = staticinvoke <computeVerticalScrollOffset: boolean setDefaultActionButtonContentDescription(java.lang.String)>($r11);
+
+        if $z0 != 0 goto label7;
+
+        virtualinvoke $r0.<com.facebook.GraphRequest$MediaBrowserCompat$SearchResultReceiver: void RatingCompat(java.lang.String,java.lang.String)>("batch_app_id", $r11);
+
+        $r6 = new java.util.HashMap;
+
+        specialinvoke $r6.<java.util.HashMap: void <init>()>();
+
+        staticinvoke <com.facebook.GraphRequest: void RemoteActionCompatParcelizer(com.facebook.GraphRequest$MediaBrowserCompat$SearchResultReceiver,java.util.Collection,java.util.Map)>($r0, $r1, $r6);
+
+        if $r2 == null goto label6;
+
+        virtualinvoke $r2.<ensureAnchorIsInCorrectSpan: void append(java.lang.String)>("  Attachments:\n");
+
+     label6:
+        staticinvoke <com.facebook.GraphRequest: void read(java.util.Map,com.facebook.GraphRequest$MediaBrowserCompat$SearchResultReceiver)>($r6, $r0);
+
+        return;
+
+     label7:
+        $r14 = new allocateRequestIndex;
+
+        specialinvoke $r14.<allocateRequestIndex: void <init>(java.lang.String)>("App ID was not specified at the request or Settings.");
+
+        throw $r14;
+
+     label8:
+        return;
+    }

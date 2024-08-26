@@ -1,0 +1,127 @@
+    public void initDiskCache()
+    {
+        java.lang.Throwable r2, $r9;
+        com.biznessapps.utils.google.caching.ImageCache$ImageCacheParams $r5;
+        long $l0, $l1;
+        byte $b3;
+        int $i2;
+        java.lang.String $r8;
+        com.biznessapps.utils.google.caching.DiskLruCache $r4;
+        boolean $z0;
+        com.biznessapps.utils.google.caching.ImageCache r0;
+        java.io.File r1;
+        java.lang.Object $r3, $r6;
+        java.lang.StringBuilder $r7, $r10;
+
+        r0 := @this: com.biznessapps.utils.google.caching.ImageCache;
+
+        $r3 = r0.<com.biznessapps.utils.google.caching.ImageCache: java.lang.Object mDiskCacheLock>;
+
+        entermonitor $r3;
+
+     label01:
+        $r4 = r0.<com.biznessapps.utils.google.caching.ImageCache: com.biznessapps.utils.google.caching.DiskLruCache mDiskLruCache>;
+
+        if $r4 == null goto label02;
+
+        $r4 = r0.<com.biznessapps.utils.google.caching.ImageCache: com.biznessapps.utils.google.caching.DiskLruCache mDiskLruCache>;
+
+        $z0 = virtualinvoke $r4.<com.biznessapps.utils.google.caching.DiskLruCache: boolean isClosed()>();
+
+        if $z0 == 0 goto label08;
+
+     label02:
+        $r5 = r0.<com.biznessapps.utils.google.caching.ImageCache: com.biznessapps.utils.google.caching.ImageCache$ImageCacheParams mCacheParams>;
+
+        r1 = $r5.<com.biznessapps.utils.google.caching.ImageCache$ImageCacheParams: java.io.File diskCacheDir>;
+
+        $r5 = r0.<com.biznessapps.utils.google.caching.ImageCache: com.biznessapps.utils.google.caching.ImageCache$ImageCacheParams mCacheParams>;
+
+        $z0 = $r5.<com.biznessapps.utils.google.caching.ImageCache$ImageCacheParams: boolean diskCacheEnabled>;
+
+        if $z0 == 0 goto label08;
+
+        if r1 == null goto label08;
+
+        $z0 = virtualinvoke r1.<java.io.File: boolean exists()>();
+
+        if $z0 != 0 goto label03;
+
+        virtualinvoke r1.<java.io.File: boolean mkdirs()>();
+
+     label03:
+        $l1 = staticinvoke <com.biznessapps.utils.google.caching.ImageCache: long getUsableSpace(java.io.File)>(r1);
+
+        $r5 = r0.<com.biznessapps.utils.google.caching.ImageCache: com.biznessapps.utils.google.caching.ImageCache$ImageCacheParams mCacheParams>;
+
+        $i2 = $r5.<com.biznessapps.utils.google.caching.ImageCache$ImageCacheParams: int diskCacheSize>;
+
+     label04:
+        $l0 = (long) $i2;
+
+        $b3 = $l1 cmp $l0;
+
+        $i2 = (int) $b3;
+
+        if $i2 <= 0 goto label08;
+
+     label05:
+        $r5 = r0.<com.biznessapps.utils.google.caching.ImageCache: com.biznessapps.utils.google.caching.ImageCache$ImageCacheParams mCacheParams>;
+
+        $i2 = $r5.<com.biznessapps.utils.google.caching.ImageCache$ImageCacheParams: int diskCacheSize>;
+
+        $l0 = (long) $i2;
+
+     label06:
+        $r4 = staticinvoke <com.biznessapps.utils.google.caching.DiskLruCache: com.biznessapps.utils.google.caching.DiskLruCache open(java.io.File,int,int,long)>(r1, 1, 1, $l0);
+
+     label07:
+        r0.<com.biznessapps.utils.google.caching.ImageCache: com.biznessapps.utils.google.caching.DiskLruCache mDiskLruCache> = $r4;
+
+     label08:
+        r0.<com.biznessapps.utils.google.caching.ImageCache: boolean mDiskCacheStarting> = 0;
+
+        $r6 = r0.<com.biznessapps.utils.google.caching.ImageCache: java.lang.Object mDiskCacheLock>;
+
+        virtualinvoke $r6.<java.lang.Object: void notifyAll()>();
+
+        exitmonitor $r3;
+
+     label09:
+        return;
+
+     label10:
+        r2 := @caughtexception;
+
+        $r5 = r0.<com.biznessapps.utils.google.caching.ImageCache: com.biznessapps.utils.google.caching.ImageCache$ImageCacheParams mCacheParams>;
+
+        $r5.<com.biznessapps.utils.google.caching.ImageCache$ImageCacheParams: java.io.File diskCacheDir> = null;
+
+        $r10 = new java.lang.StringBuilder;
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        $r7 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("initDiskCache - ");
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>(r2);
+
+        $r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("ImageCache", $r8);
+
+        goto label08;
+
+     label11:
+        $r9 := @caughtexception;
+
+        exitmonitor $r3;
+
+     label12:
+        throw $r9;
+
+        catch java.lang.Throwable from label01 to label04 with label11;
+        catch java.io.IOException from label06 to label07 with label10;
+        catch java.lang.Throwable from label05 to label08 with label11;
+        catch java.lang.Throwable from label08 to label09 with label11;
+        catch java.lang.Throwable from label10 to label12 with label11;
+    }

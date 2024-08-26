@@ -1,0 +1,164 @@
+    public void put(com.bumptech.glide.load.Key, com.bumptech.glide.load.engine.cache.DiskCache$Writer)
+    {
+        java.lang.Throwable $r1, $r2, $r3, $r15, $r17;
+        java.lang.IllegalStateException $r16;
+        com.bumptech.glide.load.engine.cache.DiskCache$Writer $r5;
+        com.bumptech.glide.load.engine.cache.SafeKeyGenerator $r6;
+        com.bumptech.glide.disklrucache.DiskLruCache $r11;
+        com.bumptech.glide.load.Key $r4;
+        com.bumptech.glide.disklrucache.DiskLruCache$Value $r12;
+        java.lang.String $r7, $r10;
+        boolean $z0;
+        com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper r0;
+        java.io.File $r14;
+        com.bumptech.glide.disklrucache.DiskLruCache$Editor $r13;
+        com.bumptech.glide.load.engine.cache.DiskCacheWriteLocker $r8;
+        java.lang.StringBuilder $r9;
+
+        r0 := @this: com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
+
+        $r4 := @parameter0: com.bumptech.glide.load.Key;
+
+        $r5 := @parameter1: com.bumptech.glide.load.engine.cache.DiskCache$Writer;
+
+        $r6 = r0.<com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper: com.bumptech.glide.load.engine.cache.SafeKeyGenerator safeKeyGenerator>;
+
+        $r7 = virtualinvoke $r6.<com.bumptech.glide.load.engine.cache.SafeKeyGenerator: java.lang.String getSafeKey(com.bumptech.glide.load.Key)>($r4);
+
+        $r8 = r0.<com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper: com.bumptech.glide.load.engine.cache.DiskCacheWriteLocker writeLocker>;
+
+        virtualinvoke $r8.<com.bumptech.glide.load.engine.cache.DiskCacheWriteLocker: void acquire(java.lang.String)>($r7);
+
+     label01:
+        $z0 = staticinvoke <android.util.Log: boolean isLoggable(java.lang.String,int)>("DiskLruCacheWrapper", 2);
+
+     label02:
+        if $z0 == 0 goto label04;
+
+     label03:
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Put: Obtained: ");
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" for for Key: ");
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r4);
+
+        $r10 = virtualinvoke $r9.<java.lang.Object: java.lang.String toString()>();
+
+        staticinvoke <com.fullstory.instrumentation.InstrumentInjector: int log_v(java.lang.String,java.lang.String)>("DiskLruCacheWrapper", $r10);
+
+     label04:
+        $r11 = specialinvoke r0.<com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper: com.bumptech.glide.disklrucache.DiskLruCache getDiskCache()>();
+
+        $r12 = virtualinvoke $r11.<com.bumptech.glide.disklrucache.DiskLruCache: com.bumptech.glide.disklrucache.DiskLruCache$Value get(java.lang.String)>($r7);
+
+     label05:
+        if $r12 == null goto label07;
+
+     label06:
+        $r8 = r0.<com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper: com.bumptech.glide.load.engine.cache.DiskCacheWriteLocker writeLocker>;
+
+        virtualinvoke $r8.<com.bumptech.glide.load.engine.cache.DiskCacheWriteLocker: void release(java.lang.String)>($r7);
+
+        return;
+
+     label07:
+        $r13 = virtualinvoke $r11.<com.bumptech.glide.disklrucache.DiskLruCache: com.bumptech.glide.disklrucache.DiskLruCache$Editor edit(java.lang.String)>($r7);
+
+     label08:
+        if $r13 == null goto label16;
+
+     label09:
+        $r14 = virtualinvoke $r13.<com.bumptech.glide.disklrucache.DiskLruCache$Editor: java.io.File getFile(int)>(0);
+
+        $z0 = interfaceinvoke $r5.<com.bumptech.glide.load.engine.cache.DiskCache$Writer: boolean write(java.io.File)>($r14);
+
+     label10:
+        if $z0 == 0 goto label12;
+
+     label11:
+        virtualinvoke $r13.<com.bumptech.glide.disklrucache.DiskLruCache$Editor: void commit()>();
+
+     label12:
+        virtualinvoke $r13.<com.bumptech.glide.disklrucache.DiskLruCache$Editor: void abortUnlessCommitted()>();
+
+     label13:
+        goto label06;
+
+     label14:
+        $r15 := @caughtexception;
+
+     label15:
+        virtualinvoke $r13.<com.bumptech.glide.disklrucache.DiskLruCache$Editor: void abortUnlessCommitted()>();
+
+        throw $r15;
+
+     label16:
+        $r16 = new java.lang.IllegalStateException;
+
+        $r9 = new java.lang.StringBuilder;
+
+     label17:
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Had two simultaneous puts for: ");
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r10 = virtualinvoke $r9.<java.lang.Object: java.lang.String toString()>();
+
+        specialinvoke $r16.<java.lang.IllegalStateException: void <init>(java.lang.String)>($r10);
+
+     label18:
+        throw $r16;
+
+     label19:
+        staticinvoke <android.util.Log: boolean isLoggable(java.lang.String,int)>("DiskLruCacheWrapper", 5);
+
+     label20:
+        goto label06;
+
+     label21:
+        $r17 := @caughtexception;
+
+        $r8 = r0.<com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper: com.bumptech.glide.load.engine.cache.DiskCacheWriteLocker writeLocker>;
+
+        virtualinvoke $r8.<com.bumptech.glide.load.engine.cache.DiskCacheWriteLocker: void release(java.lang.String)>($r7);
+
+        throw $r17;
+
+     label22:
+        $r1 := @caughtexception;
+
+        goto label19;
+
+     label23:
+        $r2 := @caughtexception;
+
+        goto label19;
+
+     label24:
+        $r3 := @caughtexception;
+
+        goto label19;
+
+        catch java.lang.Throwable from label01 to label02 with label21;
+        catch java.lang.Throwable from label03 to label04 with label21;
+        catch java.io.IOException from label04 to label05 with label22;
+        catch java.lang.Throwable from label04 to label05 with label21;
+        catch java.io.IOException from label07 to label08 with label23;
+        catch java.lang.Throwable from label07 to label08 with label21;
+        catch java.lang.Throwable from label09 to label10 with label14;
+        catch java.lang.Throwable from label11 to label12 with label14;
+        catch java.io.IOException from label12 to label13 with label24;
+        catch java.io.IOException from label15 to label16 with label24;
+        catch java.io.IOException from label17 to label18 with label24;
+        catch java.lang.Throwable from label12 to label13 with label21;
+        catch java.lang.Throwable from label15 to label19 with label21;
+        catch java.lang.Throwable from label19 to label20 with label21;
+    }

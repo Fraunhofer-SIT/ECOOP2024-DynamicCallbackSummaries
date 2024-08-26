@@ -1,0 +1,119 @@
+    public void <init>(android.content.pm.PackageManager, android.content.pm.ResolveInfo, com.cyou.cma.clauncher.\u02c6\u02cb)
+    {
+        java.lang.Throwable $r10;
+        android.content.pm.PackageManager $r1;
+        long $l1;
+        android.content.pm.PackageInfo $r9;
+        android.content.pm.ActivityInfo $r4;
+        int $i0;
+        java.lang.String $r6, $r8;
+        boolean $z0;
+        android.content.ComponentName $r7, $r12;
+        android.content.pm.ResolveInfo $r2;
+        java.lang.StringBuilder $r11, $r13;
+        com.cyou.cma.clauncher.\u0640 r0;
+        com.cyou.cma.clauncher.\u02c6\u02cb $r3;
+        android.content.pm.ApplicationInfo $r5;
+
+        r0 := @this: com.cyou.cma.clauncher.\u0640;
+
+        $r1 := @parameter0: android.content.pm.PackageManager;
+
+        $r2 := @parameter1: android.content.pm.ResolveInfo;
+
+        $r3 := @parameter2: com.cyou.cma.clauncher.\u02c6\u02cb;
+
+        specialinvoke r0.<com.cyou.cma.clauncher.\u02bd\u1d35: void <init>()>();
+
+        r0.<com.cyou.cma.clauncher.\u0640: int \u02c6> = 0;
+
+        r0.<com.cyou.cma.clauncher.\u0640: int \u02ca> = -1;
+
+        $r4 = $r2.<android.content.pm.ResolveInfo: android.content.pm.ActivityInfo activityInfo>;
+
+        $r5 = $r4.<android.content.pm.ActivityInfo: android.content.pm.ApplicationInfo applicationInfo>;
+
+        $r6 = $r5.<android.content.pm.ApplicationInfo: java.lang.String packageName>;
+
+        $r12 = new android.content.ComponentName;
+
+        $r4 = $r2.<android.content.pm.ResolveInfo: android.content.pm.ActivityInfo activityInfo>;
+
+        $r8 = $r4.<android.content.pm.ActivityInfo: java.lang.String name>;
+
+        specialinvoke $r12.<android.content.ComponentName: void <init>(java.lang.String,java.lang.String)>($r6, $r8);
+
+        r0.<com.cyou.cma.clauncher.\u0640: android.content.ComponentName \u02be> = $r12;
+
+        $r7 = r0.<com.cyou.cma.clauncher.\u0640: android.content.ComponentName \u02be>;
+
+        virtualinvoke r0.<com.cyou.cma.clauncher.\u0640: void \u02bb(android.content.ComponentName)>($r7);
+
+     label1:
+        $r5 = virtualinvoke $r1.<android.content.pm.PackageManager: android.content.pm.ApplicationInfo getApplicationInfo(java.lang.String,int)>($r6, 0);
+
+     label2:
+        $i0 = $r5.<android.content.pm.ApplicationInfo: int flags>;
+
+        r0.<com.cyou.cma.clauncher.\u0640: int \u02c8> = $i0;
+
+        $i0 = $i0 & 1;
+
+        if $i0 != 0 goto label3;
+
+        $i0 = r0.<com.cyou.cma.clauncher.\u0640: int \u02c6>;
+
+        $i0 = $i0 | 1;
+
+        r0.<com.cyou.cma.clauncher.\u0640: int \u02c6> = $i0;
+
+     label3:
+        $r9 = virtualinvoke $r1.<android.content.pm.PackageManager: android.content.pm.PackageInfo getPackageInfo(java.lang.String,int)>($r6, 0);
+
+     label4:
+        $l1 = $r9.<android.content.pm.PackageInfo: long firstInstallTime>;
+
+        r0.<com.cyou.cma.clauncher.\u0640: long \u02bd> = $l1;
+
+     label5:
+        $r8 = <com.cyou.cma.\u02bc: java.lang.String \u02bc>;
+
+        $z0 = virtualinvoke $r6.<java.lang.String: boolean startsWith(java.lang.String)>($r8);
+
+        if $z0 == 0 goto label6;
+
+        $i0 = r0.<com.cyou.cma.clauncher.\u0640: int \u02c6>;
+
+        $i0 = $i0 & -2;
+
+        r0.<com.cyou.cma.clauncher.\u0640: int \u02c6> = $i0;
+
+        $i0 = r0.<com.cyou.cma.clauncher.\u0640: int \u02c6>;
+
+        $i0 = $i0 & -3;
+
+        r0.<com.cyou.cma.clauncher.\u0640: int \u02c6> = $i0;
+
+     label6:
+        virtualinvoke $r3.<com.cyou.cma.clauncher.\u02c6\u02cb: void \u02bb(com.cyou.cma.clauncher.\u0640,android.content.pm.ResolveInfo)>(r0, $r2);
+
+        return;
+
+     label7:
+        $r10 := @caughtexception;
+
+        $r13 = new java.lang.StringBuilder;
+
+        specialinvoke $r13.<java.lang.StringBuilder: void <init>(java.lang.String)>("PackageManager.getApplicationInfo failed for ");
+
+        $r11 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r8 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("Launcher2.ApplicationInfo", $r8);
+
+        goto label5;
+
+        catch android.content.pm.PackageManager$NameNotFoundException from label1 to label2 with label7;
+        catch android.content.pm.PackageManager$NameNotFoundException from label3 to label4 with label7;
+    }

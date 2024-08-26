@@ -1,0 +1,103 @@
+    private void writeInitialPartsTo(com.crashlytics.android.core.CodedOutputStream, java.lang.String) throws java.io.IOException
+    {
+        com.crashlytics.android.core.CrashlyticsController r0;
+        java.lang.String[] $r3;
+        java.io.File $r10;
+        com.crashlytics.android.core.CodedOutputStream $r1;
+        h.a.a.a.k $r9;
+        int $i0, $i1, $i2;
+        java.lang.StringBuilder $r6;
+        java.lang.String $r2, $r4, $r7;
+        com.crashlytics.android.core.CrashlyticsController$FileNameContainsFilter $r5;
+        java.io.File[] $r8;
+
+        r0 := @this: com.crashlytics.android.core.CrashlyticsController;
+
+        $r1 := @parameter0: com.crashlytics.android.core.CodedOutputStream;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r3 = <com.crashlytics.android.core.CrashlyticsController: java.lang.String[] INITIAL_SESSION_PART_TAGS>;
+
+        $i0 = lengthof $r3;
+
+        $i1 = 0;
+
+     label1:
+        if $i1 >= $i0 goto label4;
+
+        $r4 = $r3[$i1];
+
+        $r5 = new com.crashlytics.android.core.CrashlyticsController$FileNameContainsFilter;
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".cls");
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r5.<com.crashlytics.android.core.CrashlyticsController$FileNameContainsFilter: void <init>(java.lang.String)>($r7);
+
+        $r8 = specialinvoke r0.<com.crashlytics.android.core.CrashlyticsController: java.io.File[] listFilesMatching(java.io.FilenameFilter)>($r5);
+
+        $i2 = lengthof $r8;
+
+        if $i2 != 0 goto label2;
+
+        $r9 = staticinvoke <h.a.a.a.c: h.a.a.a.k p()>();
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Can\'t find ");
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" data for session ID ");
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r4 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        interfaceinvoke $r9.<h.a.a.a.k: void e(java.lang.String,java.lang.String,java.lang.Throwable)>("CrashlyticsCore", $r4, null);
+
+        goto label3;
+
+     label2:
+        $r9 = staticinvoke <h.a.a.a.c: h.a.a.a.k p()>();
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Collecting ");
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" data for session ID ");
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r4 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        interfaceinvoke $r9.<h.a.a.a.k: void d(java.lang.String,java.lang.String)>("CrashlyticsCore", $r4);
+
+        $r10 = $r8[0];
+
+        staticinvoke <com.crashlytics.android.core.CrashlyticsController: void writeToCosFromFile(com.crashlytics.android.core.CodedOutputStream,java.io.File)>($r1, $r10);
+
+     label3:
+        $i1 = $i1 + 1;
+
+        goto label1;
+
+     label4:
+        return;
+    }

@@ -1,0 +1,76 @@
+    static void a(android.content.Context, java.lang.String, java.lang.String) throws java.io.IOException
+    {
+        com.netease.mpay.oversea.l.b $r4;
+        android.content.Context $r0;
+        byte[] $r8;
+        java.io.FileOutputStream $r7;
+        java.io.IOException $r9;
+        java.io.File $r3;
+        android.content.res.AssetManager $r5;
+        int $i0;
+        java.lang.String $r1, $r2;
+        boolean $z0;
+        java.io.InputStream $r6;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r2 := @parameter2: java.lang.String;
+
+        if $r1 == null goto label4;
+
+        $r3 = new java.io.File;
+
+        specialinvoke $r3.<java.io.File: void <init>(java.lang.String)>($r1);
+
+        $z0 = virtualinvoke $r3.<java.io.File: boolean exists()>();
+
+        if $z0 == 0 goto label1;
+
+        $r4 = staticinvoke <com.netease.mpay.oversea.l.b: com.netease.mpay.oversea.l.b b()>();
+
+        $z0 = virtualinvoke $r4.<com.netease.mpay.oversea.l.b: boolean h()>();
+
+        if $z0 == 0 goto label1;
+
+        return;
+
+     label1:
+        $r5 = virtualinvoke $r0.<android.content.Context: android.content.res.AssetManager getAssets()>();
+
+        $r6 = virtualinvoke $r5.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>($r2);
+
+        $r7 = new java.io.FileOutputStream;
+
+        specialinvoke $r7.<java.io.FileOutputStream: void <init>(java.lang.String)>($r1);
+
+        $r8 = newarray (byte)[1024];
+
+        $i0 = virtualinvoke $r6.<java.io.InputStream: int read(byte[])>($r8);
+
+     label2:
+        if $i0 <= 0 goto label3;
+
+        virtualinvoke $r7.<java.io.FileOutputStream: void write(byte[],int,int)>($r8, 0, $i0);
+
+        $i0 = virtualinvoke $r6.<java.io.InputStream: int read(byte[])>($r8);
+
+        goto label2;
+
+     label3:
+        virtualinvoke $r7.<java.io.FileOutputStream: void flush()>();
+
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r7.<java.io.FileOutputStream: void close()>();
+
+        return;
+
+     label4:
+        $r9 = new java.io.IOException;
+
+        specialinvoke $r9.<java.io.IOException: void <init>(java.lang.String)>("file path is null");
+
+        throw $r9;
+    }

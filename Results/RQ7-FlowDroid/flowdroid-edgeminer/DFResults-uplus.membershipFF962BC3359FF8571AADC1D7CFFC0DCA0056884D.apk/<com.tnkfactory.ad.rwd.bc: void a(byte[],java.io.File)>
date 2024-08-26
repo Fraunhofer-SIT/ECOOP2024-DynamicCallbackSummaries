@@ -1,0 +1,113 @@
+    public static void a(byte[], java.io.File)
+    {
+        java.lang.Throwable $r0, $r1, $r2, $r7;
+        byte[] $r3;
+        java.io.FileOutputStream $r5, $r6;
+        java.io.File $r4;
+        java.lang.Exception $r8;
+        java.lang.StringBuilder $r9;
+        java.lang.String $r10;
+
+        $r3 := @parameter0: byte[];
+
+        $r4 := @parameter1: java.io.File;
+
+        $r5 = null;
+
+     label01:
+        $r6 = new java.io.FileOutputStream;
+
+     label02:
+        specialinvoke $r6.<java.io.FileOutputStream: void <init>(java.io.File)>($r4);
+
+     label03:
+        virtualinvoke $r6.<java.io.FileOutputStream: void write(byte[])>($r3);
+
+     label04:
+        virtualinvoke $r6.<java.io.FileOutputStream: void close()>();
+
+     label05:
+        return;
+
+     label06:
+        $r7 := @caughtexception;
+
+        $r5 = $r6;
+
+        goto label14;
+
+     label07:
+        $r8 := @caughtexception;
+
+        $r5 = $r6;
+
+        goto label10;
+
+     label08:
+        $r7 := @caughtexception;
+
+        goto label14;
+
+     label09:
+        $r8 := @caughtexception;
+
+     label10:
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("fad : error writing to file ");
+
+        $r10 = virtualinvoke $r8.<java.lang.Exception: java.lang.String toString()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r10 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.tnkfactory.ad.Logger: void e(java.lang.String)>($r10);
+
+     label11:
+        if $r5 == null goto label20;
+
+     label12:
+        virtualinvoke $r5.<java.io.FileOutputStream: void close()>();
+
+     label13:
+        return;
+
+     label14:
+        if $r5 == null goto label16;
+
+     label15:
+        virtualinvoke $r5.<java.io.FileOutputStream: void close()>();
+
+     label16:
+        throw $r7;
+
+     label17:
+        $r0 := @caughtexception;
+
+        return;
+
+     label18:
+        $r1 := @caughtexception;
+
+        return;
+
+     label19:
+        $r2 := @caughtexception;
+
+        goto label16;
+
+     label20:
+        return;
+
+        catch java.lang.Exception from label02 to label03 with label09;
+        catch java.lang.Throwable from label01 to label03 with label08;
+        catch java.lang.Exception from label03 to label04 with label07;
+        catch java.lang.Throwable from label03 to label04 with label06;
+        catch java.io.IOException from label04 to label05 with label17;
+        catch java.lang.Throwable from label10 to label11 with label08;
+        catch java.io.IOException from label12 to label13 with label18;
+        catch java.io.IOException from label15 to label16 with label19;
+    }

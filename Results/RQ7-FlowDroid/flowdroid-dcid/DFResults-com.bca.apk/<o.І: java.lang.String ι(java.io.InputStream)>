@@ -1,0 +1,63 @@
+    public static java.lang.String \u03b9(java.io.InputStream)
+    {
+        java.lang.Throwable $r0, $r1, $r5;
+        byte[] $r3;
+        java.io.ByteArrayOutputStream $r6;
+        int $i0;
+        java.lang.String $r4;
+        java.io.InputStream $r2;
+
+        $r2 := @parameter0: java.io.InputStream;
+
+        $r6 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r6.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r3 = newarray (byte)[1024];
+
+     label01:
+        $i0 = virtualinvoke $r2.<java.io.InputStream: int read(byte[])>($r3);
+
+     label02:
+        if $i0 == -1 goto label05;
+
+     label03:
+        virtualinvoke $r6.<java.io.OutputStream: void write(byte[],int,int)>($r3, 0, $i0);
+
+     label04:
+        goto label01;
+
+     label05:
+        $r4 = virtualinvoke $r6.<java.io.ByteArrayOutputStream: java.lang.String toString(java.lang.String)>("UTF-8");
+
+     label06:
+        interfaceinvoke $r6.<java.io.Closeable: void close()>();
+
+     label07:
+        return $r4;
+
+     label08:
+        $r5 := @caughtexception;
+
+     label09:
+        interfaceinvoke $r6.<java.io.Closeable: void close()>();
+
+     label10:
+        throw $r5;
+
+     label11:
+        $r0 := @caughtexception;
+
+        return $r4;
+
+     label12:
+        $r1 := @caughtexception;
+
+        goto label10;
+
+        catch java.lang.Throwable from label01 to label02 with label08;
+        catch java.lang.Throwable from label03 to label04 with label08;
+        catch java.lang.Throwable from label05 to label06 with label08;
+        catch java.io.IOException from label06 to label07 with label11;
+        catch java.io.IOException from label09 to label10 with label12;
+    }

@@ -1,0 +1,65 @@
+    public void onInterstitialFailed(com.mopub.mobileads.MoPubErrorCode)
+    {
+        java.lang.Object[] $r3;
+        com.mopub.mobileads.CustomEventInterstitialAdapter$CustomEventInterstitialAdapterListener $r6;
+        int $i0;
+        com.mopub.mobileads.MoPubErrorCode $r1;
+        com.mopub.common.logging.MoPubLog$SdkLogEvent $r2;
+        com.mopub.mobileads.CustomEventInterstitialAdapter r0;
+        java.lang.StringBuilder $r4;
+        java.lang.String $r5;
+        boolean $z0;
+
+        r0 := @this: com.mopub.mobileads.CustomEventInterstitialAdapter;
+
+        $r1 := @parameter0: com.mopub.mobileads.MoPubErrorCode;
+
+        $z0 = virtualinvoke r0.<com.mopub.mobileads.CustomEventInterstitialAdapter: boolean isInvalidated()>();
+
+        if $z0 == 0 goto label1;
+
+        return;
+
+     label1:
+        if $r1 != null goto label2;
+
+        $r1 = <com.mopub.mobileads.MoPubErrorCode: com.mopub.mobileads.MoPubErrorCode UNSPECIFIED>;
+
+     label2:
+        $r2 = <com.mopub.common.logging.MoPubLog$SdkLogEvent: com.mopub.common.logging.MoPubLog$SdkLogEvent CUSTOM>;
+
+        $r3 = newarray (java.lang.Object)[1];
+
+        $r4 = new java.lang.StringBuilder;
+
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("onInterstitialFailed() failed with code ");
+
+        $i0 = virtualinvoke $r1.<com.mopub.mobileads.MoPubErrorCode: int getIntCode()>();
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" and message ");
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r1);
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r3[0] = $r5;
+
+        staticinvoke <com.mopub.common.logging.MoPubLog: void log(com.mopub.common.logging.MoPubLog$MPLogEventType,java.lang.Object[])>($r2, $r3);
+
+        $r6 = r0.<com.mopub.mobileads.CustomEventInterstitialAdapter: com.mopub.mobileads.CustomEventInterstitialAdapter$CustomEventInterstitialAdapterListener mCustomEventInterstitialAdapterListener>;
+
+        if $r6 == null goto label3;
+
+        specialinvoke r0.<com.mopub.mobileads.CustomEventInterstitialAdapter: void cancelTimeout()>();
+
+        $r6 = r0.<com.mopub.mobileads.CustomEventInterstitialAdapter: com.mopub.mobileads.CustomEventInterstitialAdapter$CustomEventInterstitialAdapterListener mCustomEventInterstitialAdapterListener>;
+
+        interfaceinvoke $r6.<com.mopub.mobileads.CustomEventInterstitialAdapter$CustomEventInterstitialAdapterListener: void onCustomEventInterstitialFailed(com.mopub.mobileads.MoPubErrorCode)>($r1);
+
+     label3:
+        return;
+    }

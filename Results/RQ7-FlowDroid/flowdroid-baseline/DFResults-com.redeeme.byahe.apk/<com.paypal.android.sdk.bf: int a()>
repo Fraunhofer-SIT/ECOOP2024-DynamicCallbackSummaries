@@ -1,0 +1,173 @@
+    public final int a()
+    {
+        java.lang.Throwable $r15;
+        byte[] $r14;
+        java.io.BufferedInputStream $r2, $r17;
+        java.io.ByteArrayOutputStream $r18;
+        java.net.URL $r16;
+        android.net.Uri $r3;
+        java.net.URLConnection $r5;
+        java.util.Map $r7;
+        int $i0, $i1;
+        java.lang.String $r4, $r12;
+        boolean $z0;
+        javax.net.ssl.HttpsURLConnection $r1, $r6;
+        java.util.Map$Entry $r11;
+        java.util.Iterator $r9;
+        com.paypal.android.sdk.bf r0;
+        java.util.Set $r8;
+        java.lang.Object $r10;
+        java.io.InputStream $r13;
+
+        r0 := @this: com.paypal.android.sdk.bf;
+
+        $r1 = null;
+
+        $r2 = null;
+
+     label01:
+        $r16 = new java.net.URL;
+
+     label02:
+        $r3 = r0.<com.paypal.android.sdk.bf: android.net.Uri b>;
+
+        $r4 = virtualinvoke $r3.<android.net.Uri: java.lang.String toString()>();
+
+        specialinvoke $r16.<java.net.URL: void <init>(java.lang.String)>($r4);
+
+        $r5 = virtualinvoke $r16.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r6 = (javax.net.ssl.HttpsURLConnection) $r5;
+
+     label03:
+        $r1 = $r6;
+
+     label04:
+        virtualinvoke $r6.<javax.net.ssl.HttpsURLConnection: void setReadTimeout(int)>(60000);
+
+     label05:
+        virtualinvoke $r6.<javax.net.ssl.HttpsURLConnection: void setConnectTimeout(int)>(60000);
+
+        virtualinvoke $r6.<javax.net.ssl.HttpsURLConnection: void setRequestMethod(java.lang.String)>("GET");
+
+        $r7 = r0.<com.paypal.android.sdk.bf: java.util.Map c>;
+
+        $r8 = interfaceinvoke $r7.<java.util.Map: java.util.Set entrySet()>();
+
+        $r9 = interfaceinvoke $r8.<java.util.Set: java.util.Iterator iterator()>();
+
+     label06:
+        $z0 = interfaceinvoke $r9.<java.util.Iterator: boolean hasNext()>();
+
+     label07:
+        if $z0 == 0 goto label10;
+
+     label08:
+        $r10 = interfaceinvoke $r9.<java.util.Iterator: java.lang.Object next()>();
+
+        $r11 = (java.util.Map$Entry) $r10;
+
+        $r10 = interfaceinvoke $r11.<java.util.Map$Entry: java.lang.Object getKey()>();
+
+        $r4 = virtualinvoke $r10.<java.lang.Object: java.lang.String toString()>();
+
+        $r10 = interfaceinvoke $r11.<java.util.Map$Entry: java.lang.Object getValue()>();
+
+        $r12 = virtualinvoke $r10.<java.lang.Object: java.lang.String toString()>();
+
+        virtualinvoke $r6.<javax.net.ssl.HttpsURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>($r4, $r12);
+
+     label09:
+        goto label06;
+
+     label10:
+        $i0 = virtualinvoke $r6.<javax.net.ssl.HttpsURLConnection: int getResponseCode()>();
+
+     label11:
+        if $i0 != 200 goto label24;
+
+     label12:
+        $r17 = new java.io.BufferedInputStream;
+
+     label13:
+        $r13 = virtualinvoke $r6.<javax.net.ssl.HttpsURLConnection: java.io.InputStream getInputStream()>();
+
+        specialinvoke $r17.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r13);
+
+     label14:
+        $r2 = $r17;
+
+        $r14 = newarray (byte)[1024];
+
+     label15:
+        $r18 = new java.io.ByteArrayOutputStream;
+
+     label16:
+        specialinvoke $r18.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label17:
+        $i1 = virtualinvoke $r17.<java.io.BufferedInputStream: int read(byte[])>($r14);
+
+     label18:
+        if $i1 == -1 goto label21;
+
+     label19:
+        virtualinvoke $r18.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r14, 0, $i1);
+
+     label20:
+        goto label17;
+
+     label21:
+        $r14 = virtualinvoke $r18.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        r0.<com.paypal.android.sdk.bf: byte[] a> = $r14;
+
+     label22:
+        staticinvoke <com.paypal.android.sdk.aw: void a(java.io.Closeable)>($r2);
+
+        staticinvoke <com.paypal.android.sdk.aw: void a(java.io.Closeable)>(null);
+
+        if $r6 == null goto label23;
+
+        virtualinvoke $r6.<javax.net.ssl.HttpsURLConnection: void disconnect()>();
+
+     label23:
+        return $i0;
+
+     label24:
+        $r14 = newarray (byte)[0];
+
+     label25:
+        r0.<com.paypal.android.sdk.bf: byte[] a> = $r14;
+
+     label26:
+        goto label22;
+
+     label27:
+        $r15 := @caughtexception;
+
+        staticinvoke <com.paypal.android.sdk.aw: void a(java.io.Closeable)>($r2);
+
+        staticinvoke <com.paypal.android.sdk.aw: void a(java.io.Closeable)>(null);
+
+        if $r1 == null goto label28;
+
+        virtualinvoke $r1.<javax.net.ssl.HttpsURLConnection: void disconnect()>();
+
+     label28:
+        throw $r15;
+
+        catch java.lang.Throwable from label01 to label02 with label27;
+        catch java.lang.Throwable from label02 to label03 with label27;
+        catch java.lang.Throwable from label04 to label05 with label27;
+        catch java.lang.Throwable from label05 to label07 with label27;
+        catch java.lang.Throwable from label08 to label09 with label27;
+        catch java.lang.Throwable from label10 to label11 with label27;
+        catch java.lang.Throwable from label12 to label13 with label27;
+        catch java.lang.Throwable from label13 to label14 with label27;
+        catch java.lang.Throwable from label15 to label16 with label27;
+        catch java.lang.Throwable from label16 to label18 with label27;
+        catch java.lang.Throwable from label19 to label20 with label27;
+        catch java.lang.Throwable from label21 to label22 with label27;
+        catch java.lang.Throwable from label25 to label26 with label27;
+    }

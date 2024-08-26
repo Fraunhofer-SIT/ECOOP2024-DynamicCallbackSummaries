@@ -1,0 +1,128 @@
+    public android.location.Location a()
+    {
+        java.lang.Throwable $r1, $r2;
+        android.content.Context $r5;
+        long $l0;
+        com.yandex.metrica.impl.ob.mk r0;
+        java.lang.String $r10, $r12;
+        boolean $z0, $z1, $z2;
+        java.util.Iterator $r7;
+        java.util.Set $r11;
+        java.util.List $r6;
+        com.yandex.metrica.impl.ob.nq $r4;
+        java.lang.Object $r9;
+        android.location.Location $r8, $r13;
+        android.location.LocationManager $r3;
+
+        r0 := @this: com.yandex.metrica.impl.ob.mk;
+
+        $r3 = r0.<com.yandex.metrica.impl.ob.mk: android.location.LocationManager c>;
+
+        if $r3 == null goto label16;
+
+        $r4 = r0.<com.yandex.metrica.impl.ob.mk: com.yandex.metrica.impl.ob.nq d>;
+
+        $r5 = r0.<com.yandex.metrica.impl.ob.mk: android.content.Context b>;
+
+        $z0 = virtualinvoke $r4.<com.yandex.metrica.impl.ob.nq: boolean a(android.content.Context)>($r5);
+
+        $r4 = r0.<com.yandex.metrica.impl.ob.mk: com.yandex.metrica.impl.ob.nq d>;
+
+        $r5 = r0.<com.yandex.metrica.impl.ob.mk: android.content.Context b>;
+
+        $z1 = virtualinvoke $r4.<com.yandex.metrica.impl.ob.nq: boolean b(android.content.Context)>($r5);
+
+     label01:
+        $r3 = r0.<com.yandex.metrica.impl.ob.mk: android.location.LocationManager c>;
+
+        $r6 = virtualinvoke $r3.<android.location.LocationManager: java.util.List getAllProviders()>();
+
+     label02:
+        goto label04;
+
+     label03:
+        $r6 = null;
+
+     label04:
+        if $r6 == null goto label16;
+
+        $r7 = interfaceinvoke $r6.<java.util.List: java.util.Iterator iterator()>();
+
+        $r8 = null;
+
+     label05:
+        $z2 = interfaceinvoke $r7.<java.util.Iterator: boolean hasNext()>();
+
+        if $z2 == 0 goto label13;
+
+        $r9 = interfaceinvoke $r7.<java.util.Iterator: java.lang.Object next()>();
+
+        $r10 = (java.lang.String) $r9;
+
+        $r11 = <com.yandex.metrica.impl.ob.mk: java.util.Set a>;
+
+        $z2 = interfaceinvoke $r11.<java.util.Set: boolean contains(java.lang.Object)>($r10);
+
+        if $z2 != 0 goto label05;
+
+        if $z0 == 0 goto label11;
+
+        $r12 = "passive";
+
+     label06:
+        $z2 = virtualinvoke $r12.<java.lang.String: boolean equals(java.lang.Object)>($r10);
+
+     label07:
+        if $z2 == 0 goto label08;
+
+        if $z1 == 0 goto label11;
+
+     label08:
+        $r3 = r0.<com.yandex.metrica.impl.ob.mk: android.location.LocationManager c>;
+
+        $r13 = virtualinvoke $r3.<android.location.LocationManager: android.location.Location getLastKnownLocation(java.lang.String)>($r10);
+
+     label09:
+        goto label12;
+
+     label10:
+        $r13 = null;
+
+        goto label12;
+
+     label11:
+        $r13 = null;
+
+     label12:
+        if $r13 == null goto label05;
+
+        $l0 = <com.yandex.metrica.impl.ob.mi: long a>;
+
+        $z2 = staticinvoke <com.yandex.metrica.impl.ob.mi: boolean a(android.location.Location,android.location.Location,long,long)>($r13, $r8, $l0, 200L);
+
+        if $z2 == 0 goto label05;
+
+        $r8 = $r13;
+
+        goto label05;
+
+     label13:
+        return $r8;
+
+     label14:
+        $r1 := @caughtexception;
+
+        goto label03;
+
+     label15:
+        $r2 := @caughtexception;
+
+        goto label10;
+
+     label16:
+        return null;
+
+        catch java.lang.Throwable from label01 to label02 with label14;
+        catch java.lang.Throwable from label06 to label07 with label15;
+        catch java.lang.Throwable from label08 to label09 with label15;
+    }

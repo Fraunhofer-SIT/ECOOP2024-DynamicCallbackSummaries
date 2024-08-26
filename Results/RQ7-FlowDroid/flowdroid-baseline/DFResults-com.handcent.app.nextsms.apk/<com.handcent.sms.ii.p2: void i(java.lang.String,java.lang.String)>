@@ -1,0 +1,297 @@
+    public static void i(java.lang.String, java.lang.String) throws java.lang.Exception
+    {
+        android.content.Context $r2;
+        byte[] $r12;
+        java.util.zip.ZipInputStream $r14;
+        android.net.Uri $r4;
+        android.content.ContentResolver $r3;
+        int $i0;
+        java.lang.String $r0, $r1, $r8, $r9;
+        java.util.zip.ZipEntry $r7;
+        boolean $z0, $z1;
+        java.io.FileOutputStream $r16;
+        java.io.FileInputStream $r13;
+        java.io.File $r10, $r11;
+        java.lang.Object $r6;
+        java.lang.StringBuilder $r15;
+        java.io.InputStream $r5;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $z0 = virtualinvoke $r0.<java.lang.String: boolean startsWith(java.lang.String)>("content://");
+
+        if $z0 == 0 goto label01;
+
+        $r2 = staticinvoke <com.handcent.nextsms.MmsApp: android.content.Context e()>();
+
+        $r3 = virtualinvoke $r2.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+        $r4 = staticinvoke <android.net.Uri: android.net.Uri parse(java.lang.String)>($r0);
+
+        $r6 = virtualinvoke $r3.<android.content.ContentResolver: java.io.InputStream openInputStream(android.net.Uri)>($r4);
+
+        goto label02;
+
+     label01:
+        $r13 = new java.io.FileInputStream;
+
+        specialinvoke $r13.<java.io.FileInputStream: void <init>(java.lang.String)>($r0);
+
+        $r6 = $r13;
+
+     label02:
+        $r14 = new java.util.zip.ZipInputStream;
+
+        $r5 = (java.io.InputStream) $r6;
+
+        specialinvoke $r14.<java.util.zip.ZipInputStream: void <init>(java.io.InputStream)>($r5);
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>(null);
+
+     label03:
+        $r7 = virtualinvoke $r14.<java.util.zip.ZipInputStream: java.util.zip.ZipEntry getNextEntry()>();
+
+        if $r7 == null goto label13;
+
+        $r0 = virtualinvoke $r7.<java.util.zip.ZipEntry: java.lang.String getName()>();
+
+        $r0 = virtualinvoke $r0.<java.lang.String: java.lang.String replaceAll(java.lang.String,java.lang.String)>("\\\\", "/");
+
+        if $z0 == 0 goto label07;
+
+        $z1 = virtualinvoke $r0.<java.lang.String: boolean startsWith(java.lang.String)>("list_");
+
+        if $z1 == 0 goto label04;
+
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        $r1 = staticinvoke <com.handcent.sms.fg.k: java.lang.String P0(int)>(0);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        $r1 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        goto label07;
+
+     label04:
+        $z1 = virtualinvoke $r0.<java.lang.String: boolean startsWith(java.lang.String)>("cov_");
+
+        if $z1 == 0 goto label05;
+
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        $r1 = staticinvoke <com.handcent.sms.fg.k: java.lang.String P0(int)>(1);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        $r1 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        goto label07;
+
+     label05:
+        $z1 = virtualinvoke $r0.<java.lang.String: boolean startsWith(java.lang.String)>("pop_");
+
+        if $z1 == 0 goto label06;
+
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        $r1 = staticinvoke <com.handcent.sms.fg.k: java.lang.String P0(int)>(2);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        $r1 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        goto label07;
+
+     label06:
+        staticinvoke <com.handcent.sms.yc.r1: void c(java.lang.String,java.lang.String)>("ZipUtil", "unknow skinpage, error");
+
+        goto label03;
+
+     label07:
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        $r8 = staticinvoke <com.handcent.sms.fg.k: java.lang.String N0()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        $r8 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.handcent.sms.ri.n: boolean c(java.lang.String)>($r1);
+
+        staticinvoke <com.handcent.sms.ri.n: boolean c(java.lang.String)>($r8);
+
+        $z1 = virtualinvoke $r7.<java.util.zip.ZipEntry: boolean isDirectory()>();
+
+        if $z1 == 0 goto label08;
+
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r9 = <java.io.File: java.lang.String separator>;
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r1 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r9 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r8 = $r9;
+
+        $i0 = virtualinvoke $r0.<java.lang.String: int length()>();
+
+        $i0 = $i0 - 1;
+
+        virtualinvoke $r0.<java.lang.String: java.lang.String substring(int,int)>(0, $i0);
+
+        $r11 = new java.io.File;
+
+        specialinvoke $r11.<java.io.File: void <init>(java.lang.String)>($r9);
+
+        virtualinvoke $r11.<java.io.File: boolean mkdirs()>();
+
+        goto label12;
+
+     label08:
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r9 = <java.io.File: java.lang.String separator>;
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        $r1 = staticinvoke <com.handcent.sms.ii.f2: java.lang.String a(java.lang.String)>($r0);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        $r0 = staticinvoke <com.handcent.sms.ii.f2: java.lang.String a(java.lang.String)>($r0);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r0 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r8 = $r0;
+
+        $r11 = new java.io.File;
+
+        $r10 = $r11;
+
+        specialinvoke $r11.<java.io.File: void <init>(java.lang.String)>($r0);
+
+        $r11 = virtualinvoke $r11.<java.io.File: java.io.File getParentFile()>();
+
+        $z1 = virtualinvoke $r11.<java.io.File: boolean exists()>();
+
+        if $z1 != 0 goto label09;
+
+        $r11 = virtualinvoke $r10.<java.io.File: java.io.File getParentFile()>();
+
+        virtualinvoke $r11.<java.io.File: boolean mkdirs()>();
+
+     label09:
+        $r11 = virtualinvoke $r10.<java.io.File: java.io.File getParentFile()>();
+
+        $z1 = virtualinvoke $r11.<java.io.File: boolean exists()>();
+
+        if $z1 == 0 goto label03;
+
+        virtualinvoke $r10.<java.io.File: boolean createNewFile()>();
+
+        $r16 = new java.io.FileOutputStream;
+
+        specialinvoke $r16.<java.io.FileOutputStream: void <init>(java.io.File)>($r10);
+
+        $r12 = newarray (byte)[2097152];
+
+     label10:
+        $i0 = virtualinvoke $r14.<java.util.zip.ZipInputStream: int read(byte[])>($r12);
+
+        if $i0 == -1 goto label11;
+
+        virtualinvoke $r16.<java.io.FileOutputStream: void write(byte[],int,int)>($r12, 0, $i0);
+
+        goto label10;
+
+     label11:
+        virtualinvoke $r16.<java.io.FileOutputStream: void close()>();
+
+     label12:
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("finish unzip compressOutPutPath: ");
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r0 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.handcent.sms.yc.r1: void c(java.lang.String,java.lang.String)>("unZipThemeFolder", $r0);
+
+        $z1 = staticinvoke <com.handcent.sms.fg.k: boolean P(java.lang.String,java.lang.String)>($r8, $r1);
+
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("finish deCompressResult: ");
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(boolean)>($z1);
+
+        $r0 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.handcent.sms.yc.r1: void c(java.lang.String,java.lang.String)>("unZipThemeFolder", $r0);
+
+        goto label03;
+
+     label13:
+        virtualinvoke $r14.<java.util.zip.ZipInputStream: void close()>();
+
+        return;
+    }

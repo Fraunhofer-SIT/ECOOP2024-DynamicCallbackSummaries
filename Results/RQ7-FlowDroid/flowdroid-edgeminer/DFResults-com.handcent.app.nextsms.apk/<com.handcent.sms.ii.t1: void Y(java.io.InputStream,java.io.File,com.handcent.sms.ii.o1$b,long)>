@@ -1,0 +1,85 @@
+    private static void Y(java.io.InputStream, java.io.File, com.handcent.sms.ii.o1$b, long) throws java.lang.Exception
+    {
+        byte[] $r2;
+        java.io.FileOutputStream $r5;
+        long $l0, $l1, $l3;
+        java.io.File $r3;
+        com.handcent.sms.ii.o1$b $r1;
+        int $i2;
+        java.lang.StringBuilder $r6;
+        java.lang.String $r4;
+        java.io.InputStream $r0;
+        double $d0, $d1, $d2;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $r3 := @parameter1: java.io.File;
+
+        $r1 := @parameter2: com.handcent.sms.ii.o1$b;
+
+        $l0 := @parameter3: long;
+
+        $r4 = virtualinvoke $r3.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        staticinvoke <com.handcent.sms.ri.n: boolean c(java.lang.String)>($r4);
+
+        $r5 = new java.io.FileOutputStream;
+
+        specialinvoke $r5.<java.io.FileOutputStream: void <init>(java.io.File)>($r3);
+
+        $r2 = newarray (byte)[8192];
+
+        $l1 = 0L;
+
+     label1:
+        $i2 = virtualinvoke $r0.<java.io.InputStream: int read(byte[],int,int)>($r2, 0, 8192);
+
+        if $i2 == -1 goto label2;
+
+        virtualinvoke $r5.<java.io.OutputStream: void write(byte[],int,int)>($r2, 0, $i2);
+
+        $l3 = (long) $i2;
+
+        $l1 = $l1 + $l3;
+
+        $d0 = (double) $l1;
+
+        staticinvoke <java.lang.Double: boolean isNaN(double)>($d0);
+
+        $d1 = 100.0 * $d0;
+
+        $d2 = (double) $l0;
+
+        staticinvoke <java.lang.Double: boolean isNaN(double)>($d2);
+
+        $d1 = $d1 / $d2;
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("temp=");
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(double)>($d0);
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(",length");
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+
+        $r4 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.handcent.sms.yc.r1: void c(java.lang.String,java.lang.String)>("", $r4);
+
+        if $r1 == null goto label1;
+
+        interfaceinvoke $r1.<com.handcent.sms.ii.o1$b: void b(double)>($d1);
+
+        goto label1;
+
+     label2:
+        virtualinvoke $r5.<java.io.OutputStream: void close()>();
+
+        virtualinvoke $r0.<java.io.InputStream: void close()>();
+
+        return;
+    }

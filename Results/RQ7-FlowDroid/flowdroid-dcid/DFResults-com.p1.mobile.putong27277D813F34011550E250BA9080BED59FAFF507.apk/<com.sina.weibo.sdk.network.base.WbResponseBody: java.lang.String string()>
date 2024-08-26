@@ -1,0 +1,72 @@
+    public java.lang.String string() throws com.sina.weibo.sdk.network.exception.RequestException
+    {
+        java.lang.Throwable $r4;
+        byte[] $r1;
+        java.io.ByteArrayOutputStream $r5;
+        java.io.IOException $r8;
+        com.sina.weibo.sdk.network.exception.RequestException $r7;
+        int $i0;
+        java.lang.String $r3, $r6;
+        com.sina.weibo.sdk.network.base.WbResponseBody r0;
+        java.io.InputStream $r2;
+
+        r0 := @this: com.sina.weibo.sdk.network.base.WbResponseBody;
+
+        $r5 = new java.io.ByteArrayOutputStream;
+
+     label01:
+        specialinvoke $r5.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label02:
+        $r1 = newarray (byte)[1024];
+
+     label03:
+        $r2 = r0.<com.sina.weibo.sdk.network.base.WbResponseBody: java.io.InputStream inputStream>;
+
+     label04:
+        $i0 = virtualinvoke $r2.<java.io.InputStream: int read(byte[])>($r1);
+
+     label05:
+        if $i0 == -1 goto label08;
+
+     label06:
+        virtualinvoke $r5.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r1, 0, $i0);
+
+     label07:
+        goto label03;
+
+     label08:
+        $r2 = r0.<com.sina.weibo.sdk.network.base.WbResponseBody: java.io.InputStream inputStream>;
+
+     label09:
+        virtualinvoke $r2.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r5.<java.io.ByteArrayOutputStream: void close()>();
+
+        $r1 = virtualinvoke $r5.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label10:
+        $r6 = new java.lang.String;
+
+        specialinvoke $r6.<java.lang.String: void <init>(byte[])>($r1);
+
+        return $r6;
+
+     label11:
+        $r4 := @caughtexception;
+
+        $r7 = new com.sina.weibo.sdk.network.exception.RequestException;
+
+        $r8 = (java.io.IOException) $r4;
+
+        $r3 = virtualinvoke $r8.<java.io.IOException: java.lang.String toString()>();
+
+        specialinvoke $r7.<com.sina.weibo.sdk.network.exception.RequestException: void <init>(java.lang.String)>($r3);
+
+        throw $r7;
+
+        catch java.io.IOException from label01 to label02 with label11;
+        catch java.io.IOException from label04 to label05 with label11;
+        catch java.io.IOException from label06 to label07 with label11;
+        catch java.io.IOException from label09 to label10 with label11;
+    }

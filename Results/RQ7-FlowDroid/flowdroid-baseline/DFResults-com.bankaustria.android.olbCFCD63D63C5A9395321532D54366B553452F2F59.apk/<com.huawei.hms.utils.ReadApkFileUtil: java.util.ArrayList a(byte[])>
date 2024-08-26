@@ -1,0 +1,159 @@
+    public static java.util.ArrayList a(byte[])
+    {
+        java.lang.Throwable $r1, $r2, $r3, $r4, $r12, $r13, $r14, $r15, $r16, $r17;
+        byte[] $r5;
+        java.util.ArrayList $r8;
+        java.nio.charset.Charset $r0;
+        java.io.ByteArrayInputStream $r9;
+        java.lang.String $r6, $r7;
+        boolean $z0;
+        java.io.InputStreamReader $r11;
+        java.io.BufferedReader $r10;
+
+        $r5 := @parameter0: byte[];
+
+        if $r5 != null goto label02;
+
+        $r6 = <com.huawei.hms.utils.ReadApkFileUtil: java.lang.String a>;
+
+        $r7 = "manifest is null\uff01";
+
+     label01:
+        staticinvoke <com.huawei.hms.support.log.HMSLog: void e(java.lang.String,java.lang.String)>($r6, $r7);
+
+        return null;
+
+     label02:
+        $r8 = new java.util.ArrayList;
+
+        specialinvoke $r8.<java.util.ArrayList: void <init>()>();
+
+        $r9 = new java.io.ByteArrayInputStream;
+
+     label03:
+        specialinvoke $r9.<java.io.ByteArrayInputStream: void <init>(byte[])>($r5);
+
+     label04:
+        $r10 = new java.io.BufferedReader;
+
+        $r11 = new java.io.InputStreamReader;
+
+        $r0 = <java.nio.charset.StandardCharsets: java.nio.charset.Charset UTF_8>;
+
+        specialinvoke $r11.<java.io.InputStreamReader: void <init>(java.io.InputStream,java.nio.charset.Charset)>($r9, $r0);
+
+        specialinvoke $r10.<java.io.BufferedReader: void <init>(java.io.Reader)>($r11);
+
+     label05:
+        $z0 = staticinvoke <com.huawei.hms.utils.ReadApkFileUtil: boolean a(java.io.BufferedReader,java.util.ArrayList)>($r10, $r8);
+
+     label06:
+        if $z0 != 0 goto label10;
+
+     label07:
+        virtualinvoke $r10.<java.io.BufferedReader: void close()>();
+
+     label08:
+        virtualinvoke $r9.<java.io.ByteArrayInputStream: void close()>();
+
+     label09:
+        return null;
+
+     label10:
+        virtualinvoke $r10.<java.io.BufferedReader: void close()>();
+
+     label11:
+        virtualinvoke $r9.<java.io.ByteArrayInputStream: void close()>();
+
+     label12:
+        return $r8;
+
+     label13:
+        $r12 := @caughtexception;
+
+     label14:
+        throw $r12;
+
+     label15:
+        $r13 := @caughtexception;
+
+     label16:
+        virtualinvoke $r10.<java.io.BufferedReader: void close()>();
+
+     label17:
+        goto label20;
+
+     label18:
+        $r14 := @caughtexception;
+
+     label19:
+        virtualinvoke $r12.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r14);
+
+     label20:
+        throw $r13;
+
+     label21:
+        $r15 := @caughtexception;
+
+     label22:
+        throw $r15;
+
+     label23:
+        $r16 := @caughtexception;
+
+     label24:
+        virtualinvoke $r9.<java.io.ByteArrayInputStream: void close()>();
+
+     label25:
+        goto label28;
+
+     label26:
+        $r17 := @caughtexception;
+
+     label27:
+        virtualinvoke $r15.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r17);
+
+     label28:
+        throw $r16;
+
+     label29:
+        $r6 = <com.huawei.hms.utils.ReadApkFileUtil: java.lang.String a>;
+
+        $r7 = "getManifestLinesArrary IOException!";
+
+        goto label01;
+
+     label30:
+        $r1 := @caughtexception;
+
+        goto label29;
+
+     label31:
+        $r2 := @caughtexception;
+
+        goto label29;
+
+     label32:
+        $r3 := @caughtexception;
+
+        goto label29;
+
+     label33:
+        $r4 := @caughtexception;
+
+        goto label29;
+
+        catch java.io.IOException from label03 to label04 with label30;
+        catch java.lang.Throwable from label04 to label05 with label21;
+        catch java.lang.Throwable from label05 to label06 with label13;
+        catch java.lang.Throwable from label07 to label08 with label21;
+        catch java.io.IOException from label08 to label09 with label31;
+        catch java.lang.Throwable from label10 to label11 with label21;
+        catch java.io.IOException from label11 to label12 with label32;
+        catch java.lang.Throwable from label14 to label15 with label15;
+        catch java.lang.Throwable from label16 to label17 with label18;
+        catch java.lang.Throwable from label19 to label21 with label21;
+        catch java.lang.Throwable from label22 to label23 with label23;
+        catch java.lang.Throwable from label24 to label25 with label26;
+        catch java.io.IOException from label27 to label29 with label33;
+    }

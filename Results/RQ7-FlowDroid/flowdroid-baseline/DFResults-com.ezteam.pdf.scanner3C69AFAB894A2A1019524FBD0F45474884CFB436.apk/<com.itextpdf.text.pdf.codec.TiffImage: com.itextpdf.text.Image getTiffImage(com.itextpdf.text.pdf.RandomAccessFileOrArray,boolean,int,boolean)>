@@ -1,0 +1,734 @@
+    public static com.itextpdf.text.Image getTiffImage(com.itextpdf.text.pdf.RandomAccessFileOrArray, boolean, int, boolean)
+    {
+        com.itextpdf.text.pdf.codec.TIFFField $r2;
+        byte[] r5, r7;
+        com.itextpdf.text.ExceptionConverter $r20;
+        com.itextpdf.text.exceptions.InvalidImageException r9;
+        com.itextpdf.text.pdf.codec.TIFFDirectory $r17;
+        byte b9, b11;
+        boolean z0, z1, z2, $z3;
+        com.itextpdf.text.pdf.codec.TIFFFaxDecoder $r18;
+        java.lang.Exception r16;
+        com.itextpdf.text.pdf.codec.CCITTG4Encoder r6, r8;
+        float f0, f1, f2;
+        com.itextpdf.text.pdf.ICC_Profile $r12;
+        java.lang.Object[] r14;
+        long $l1, $l3, l10, l13;
+        short s12;
+        long[] $r3, $r4;
+        int i0, i2, i4, i5, $i6, $i7, i8, i14, i15, i16, i17;
+        java.lang.String $r15;
+        com.itextpdf.text.pdf.RandomAccessFileOrArray r0;
+        java.lang.RuntimeException r10, r11, r13;
+        java.lang.IllegalArgumentException $r19;
+        com.itextpdf.text.Image $r1;
+
+        r0 := @parameter0: com.itextpdf.text.pdf.RandomAccessFileOrArray;
+
+        z0 := @parameter1: boolean;
+
+        i0 := @parameter2: int;
+
+        z1 := @parameter3: boolean;
+
+        z2 = 0;
+
+        $r17 = new com.itextpdf.text.pdf.codec.TIFFDirectory;
+
+     label001:
+        specialinvoke $r17.<com.itextpdf.text.pdf.codec.TIFFDirectory: void <init>(com.itextpdf.text.pdf.RandomAccessFileOrArray,int)>(r0, 0);
+
+        $z3 = virtualinvoke $r17.<com.itextpdf.text.pdf.codec.TIFFDirectory: boolean isTagPresent(int)>(322);
+
+     label002:
+        if $z3 != 0 goto label135;
+
+     label003:
+        $l1 = virtualinvoke $r17.<com.itextpdf.text.pdf.codec.TIFFDirectory: long getFieldAsLong(int)>(259);
+
+     label004:
+        i2 = (int) $l1;
+
+        lookupswitch(i2)
+        {
+            case 2: goto label007;
+            case 3: goto label007;
+            case 4: goto label007;
+            case 32771: goto label007;
+            default: goto label005;
+        };
+
+     label005:
+        $r1 = staticinvoke <com.itextpdf.text.pdf.codec.TiffImage: com.itextpdf.text.Image getTiffImageColor(com.itextpdf.text.pdf.codec.TIFFDirectory,com.itextpdf.text.pdf.RandomAccessFileOrArray)>($r17, r0);
+
+     label006:
+        return $r1;
+
+     label007:
+        $z3 = virtualinvoke $r17.<com.itextpdf.text.pdf.codec.TIFFDirectory: boolean isTagPresent(int)>(274);
+
+     label008:
+        if $z3 == 0 goto label014;
+
+     label009:
+        $l1 = virtualinvoke $r17.<com.itextpdf.text.pdf.codec.TIFFDirectory: long getFieldAsLong(int)>(274);
+
+     label010:
+        i0 = (int) $l1;
+
+        if i0 == 3 goto label013;
+
+        if i0 == 4 goto label013;
+
+        if i0 == 5 goto label012;
+
+        if i0 == 8 goto label012;
+
+        if i0 == 6 goto label011;
+
+        if i0 != 7 goto label014;
+
+     label011:
+        f1 = -1.5707964F;
+
+        goto label015;
+
+     label012:
+        f1 = 1.5707964F;
+
+        goto label015;
+
+     label013:
+        f1 = 3.1415927F;
+
+        goto label015;
+
+     label014:
+        f1 = 0.0F;
+
+     label015:
+        $l1 = 0L;
+
+     label016:
+        $l3 = virtualinvoke $r17.<com.itextpdf.text.pdf.codec.TIFFDirectory: long getFieldAsLong(int)>(257);
+
+     label017:
+        i4 = (int) $l3;
+
+     label018:
+        $l3 = virtualinvoke $r17.<com.itextpdf.text.pdf.codec.TIFFDirectory: long getFieldAsLong(int)>(256);
+
+     label019:
+        i0 = (int) $l3;
+
+        f2 = 0.0F;
+
+     label020:
+        $z3 = virtualinvoke $r17.<com.itextpdf.text.pdf.codec.TIFFDirectory: boolean isTagPresent(int)>(296);
+
+     label021:
+        if $z3 == 0 goto label024;
+
+     label022:
+        $l3 = virtualinvoke $r17.<com.itextpdf.text.pdf.codec.TIFFDirectory: long getFieldAsLong(int)>(296);
+
+     label023:
+        i5 = (int) $l3;
+
+        goto label025;
+
+     label024:
+        i5 = 2;
+
+     label025:
+        $r2 = virtualinvoke $r17.<com.itextpdf.text.pdf.codec.TIFFDirectory: com.itextpdf.text.pdf.codec.TIFFField getField(int)>(282);
+
+        $i6 = staticinvoke <com.itextpdf.text.pdf.codec.TiffImage: int getDpi(com.itextpdf.text.pdf.codec.TIFFField,int)>($r2, i5);
+
+        $r2 = virtualinvoke $r17.<com.itextpdf.text.pdf.codec.TIFFDirectory: com.itextpdf.text.pdf.codec.TIFFField getField(int)>(283);
+
+        $i7 = staticinvoke <com.itextpdf.text.pdf.codec.TiffImage: int getDpi(com.itextpdf.text.pdf.codec.TIFFField,int)>($r2, i5);
+
+     label026:
+        if i5 != 1 goto label028;
+
+        if $i7 == 0 goto label027;
+
+        f2 = (float) $i6;
+
+        f0 = (float) $i7;
+
+        f2 = f2 / f0;
+
+     label027:
+        $i7 = 0;
+
+        $i6 = 0;
+
+        goto label029;
+
+     label028:
+        f2 = 0.0F;
+
+     label029:
+        $z3 = virtualinvoke $r17.<com.itextpdf.text.pdf.codec.TIFFDirectory: boolean isTagPresent(int)>(278);
+
+     label030:
+        if $z3 == 0 goto label033;
+
+     label031:
+        $l3 = virtualinvoke $r17.<com.itextpdf.text.pdf.codec.TIFFDirectory: long getFieldAsLong(int)>(278);
+
+     label032:
+        i5 = (int) $l3;
+
+        goto label034;
+
+     label033:
+        i5 = i4;
+
+     label034:
+        if i5 <= 0 goto label035;
+
+        if i5 <= i4 goto label036;
+
+     label035:
+        i5 = i4;
+
+     label036:
+        $r3 = staticinvoke <com.itextpdf.text.pdf.codec.TiffImage: long[] getArrayLongShort(com.itextpdf.text.pdf.codec.TIFFDirectory,int)>($r17, 273);
+
+        $r4 = staticinvoke <com.itextpdf.text.pdf.codec.TiffImage: long[] getArrayLongShort(com.itextpdf.text.pdf.codec.TIFFDirectory,int)>($r17, 279);
+
+     label037:
+        if $r4 == null goto label046;
+
+     label038:
+        i8 = lengthof $r4;
+
+     label039:
+        if i8 != 1 goto label051;
+
+     label040:
+        $l3 = $r4[0];
+
+     label041:
+        b9 = $l3 cmp 0L;
+
+        if b9 == 0 goto label046;
+
+     label042:
+        $l3 = $r4[0];
+
+        l10 = $r3[0];
+
+     label043:
+        $l3 = $l3 + l10;
+
+     label044:
+        l10 = virtualinvoke r0.<com.itextpdf.text.pdf.RandomAccessFileOrArray: long length()>();
+
+     label045:
+        b9 = $l3 cmp l10;
+
+        i8 = (int) b9;
+
+        if i8 <= 0 goto label051;
+
+     label046:
+        if i4 != i5 goto label051;
+
+        $r4 = newarray (long)[1];
+
+     label047:
+        $l3 = virtualinvoke r0.<com.itextpdf.text.pdf.RandomAccessFileOrArray: long length()>();
+
+     label048:
+        l10 = $r3[0];
+
+     label049:
+        i8 = (int) l10;
+
+        l10 = (long) i8;
+
+        $l3 = $l3 - l10;
+
+     label050:
+        $r4[0] = $l3;
+
+     label051:
+        $r2 = virtualinvoke $r17.<com.itextpdf.text.pdf.codec.TIFFDirectory: com.itextpdf.text.pdf.codec.TIFFField getField(int)>(266);
+
+     label052:
+        if $r2 == null goto label055;
+
+     label053:
+        $l3 = virtualinvoke $r2.<com.itextpdf.text.pdf.codec.TIFFField: long getAsLong(int)>(0);
+
+     label054:
+        goto label056;
+
+     label055:
+        $l3 = 1L;
+
+     label056:
+        b9 = 0;
+
+     label057:
+        $z3 = virtualinvoke $r17.<com.itextpdf.text.pdf.codec.TIFFDirectory: boolean isTagPresent(int)>(262);
+
+     label058:
+        if $z3 == 0 goto label061;
+
+     label059:
+        l10 = virtualinvoke $r17.<com.itextpdf.text.pdf.codec.TIFFDirectory: long getFieldAsLong(int)>(262);
+
+     label060:
+        b11 = l10 cmp 1L;
+
+        if b11 != 0 goto label061;
+
+        b9 = 1;
+
+     label061:
+        lookupswitch(i2)
+        {
+            case 2: goto label077;
+            case 3: goto label068;
+            case 4: goto label063;
+            case 32771: goto label077;
+            default: goto label062;
+        };
+
+     label062:
+        s12 = 0;
+
+        l10 = 0L;
+
+        goto label078;
+
+     label063:
+        $r2 = virtualinvoke $r17.<com.itextpdf.text.pdf.codec.TIFFDirectory: com.itextpdf.text.pdf.codec.TIFFField getField(int)>(293);
+
+     label064:
+        if $r2 == null goto label067;
+
+     label065:
+        l10 = virtualinvoke $r2.<com.itextpdf.text.pdf.codec.TIFFField: long getAsLong(int)>(0);
+
+     label066:
+        s12 = 256;
+
+        goto label078;
+
+     label067:
+        s12 = 256;
+
+        l10 = 0L;
+
+        goto label078;
+
+     label068:
+        b9 = b9 | 12;
+
+     label069:
+        $r2 = virtualinvoke $r17.<com.itextpdf.text.pdf.codec.TIFFDirectory: com.itextpdf.text.pdf.codec.TIFFField getField(int)>(292);
+
+     label070:
+        if $r2 == null goto label076;
+
+     label071:
+        l10 = virtualinvoke $r2.<com.itextpdf.text.pdf.codec.TIFFField: long getAsLong(int)>(0);
+
+     label072:
+        $l1 = l10;
+
+        l13 = l10 & 1L;
+
+        b11 = l13 cmp 0L;
+
+        if b11 == 0 goto label073;
+
+        s12 = 258;
+
+        goto label074;
+
+     label073:
+        s12 = 257;
+
+     label074:
+        l10 = l10 & 4L;
+
+        b11 = l10 cmp 0L;
+
+        if b11 == 0 goto label075;
+
+        l10 = 0L;
+
+        b9 = b9 | 2;
+
+        goto label078;
+
+     label075:
+        l10 = 0L;
+
+        goto label078;
+
+     label076:
+        s12 = 257;
+
+        l10 = 0L;
+
+        goto label078;
+
+     label077:
+        s12 = 257;
+
+        l10 = 0L;
+
+        b9 = b9 | 10;
+
+        goto label078;
+
+     label078:
+        r8 = new com.itextpdf.text.pdf.codec.CCITTG4Encoder;
+
+        r6 = r8;
+
+     label079:
+        specialinvoke r8.<com.itextpdf.text.pdf.codec.CCITTG4Encoder: void <init>(int)>(i0);
+
+     label080:
+        i14 = 0;
+
+        i8 = i4;
+
+     label081:
+        i15 = lengthof $r3;
+
+     label082:
+        if i14 >= i15 goto label119;
+
+        i15 = $i6;
+
+     label083:
+        l13 = $r4[i14];
+
+     label084:
+        i16 = (int) l13;
+
+     label085:
+        r5 = newarray (byte)[i16];
+
+     label086:
+        f0 = f2;
+
+     label087:
+        l13 = $r3[i14];
+
+        virtualinvoke r0.<com.itextpdf.text.pdf.RandomAccessFileOrArray: void seek(long)>(l13);
+
+        virtualinvoke r0.<com.itextpdf.text.pdf.RandomAccessFileOrArray: void readFully(byte[])>(r5);
+
+        i16 = staticinvoke <java.lang.Math: int min(int,int)>(i5, i8);
+
+     label088:
+        $r18 = new com.itextpdf.text.pdf.codec.TIFFFaxDecoder;
+
+     label089:
+        specialinvoke $r18.<com.itextpdf.text.pdf.codec.TIFFFaxDecoder: void <init>(long,int,int)>($l3, i0, i16);
+
+        virtualinvoke $r18.<com.itextpdf.text.pdf.codec.TIFFFaxDecoder: void setRecoverFromImageError(boolean)>(z2);
+
+     label090:
+        i17 = i0 + 7;
+
+        i17 = i17 / 8;
+
+        i17 = i17 * i16;
+
+     label091:
+        r7 = newarray (byte)[i17];
+
+     label092:
+        lookupswitch(i2)
+        {
+            case 2: goto label115;
+            case 3: goto label100;
+            case 4: goto label094;
+            case 32771: goto label115;
+            default: goto label093;
+        };
+
+     label093:
+        r8 = r6;
+
+        goto label118;
+
+     label094:
+        virtualinvoke $r18.<com.itextpdf.text.pdf.codec.TIFFFaxDecoder: void decodeT6(byte[],byte[],int,int,long)>(r7, r5, 0, i16, l10);
+
+     label095:
+        goto label097;
+
+     label096:
+        r9 := @caughtexception;
+
+        if z2 == 0 goto label099;
+
+     label097:
+        virtualinvoke r6.<com.itextpdf.text.pdf.codec.CCITTG4Encoder: void fax4Encode(byte[],int)>(r7, i16);
+
+     label098:
+        r8 = r6;
+
+        $i6 = i15;
+
+        f2 = f0;
+
+        goto label118;
+
+     label099:
+        throw r9;
+
+     label100:
+        virtualinvoke $r18.<com.itextpdf.text.pdf.codec.TIFFFaxDecoder: void decode2D(byte[],byte[],int,int,long)>(r7, r5, 0, i16, $l1);
+
+     label101:
+        goto label104;
+
+     label102:
+        r10 := @caughtexception;
+
+        $l1 = $l1 ^ 4L;
+
+     label103:
+        virtualinvoke $r18.<com.itextpdf.text.pdf.codec.TIFFFaxDecoder: void decode2D(byte[],byte[],int,int,long)>(r7, r5, 0, i16, $l1);
+
+     label104:
+        virtualinvoke r6.<com.itextpdf.text.pdf.codec.CCITTG4Encoder: void fax4Encode(byte[],int)>(r7, i16);
+
+     label105:
+        r8 = r6;
+
+        $i6 = i15;
+
+        f2 = f0;
+
+        goto label118;
+
+     label106:
+        r11 := @caughtexception;
+
+        if z2 == 0 goto label114;
+
+        if i5 == 1 goto label113;
+
+     label107:
+        $l1 = $r4[0];
+
+     label108:
+        i2 = (int) $l1;
+
+     label109:
+        r5 = newarray (byte)[i2];
+
+        $l1 = $r3[0];
+
+        virtualinvoke r0.<com.itextpdf.text.pdf.RandomAccessFileOrArray: void seek(long)>($l1);
+
+        virtualinvoke r0.<com.itextpdf.text.pdf.RandomAccessFileOrArray: void readFully(byte[])>(r5);
+
+        $r1 = staticinvoke <com.itextpdf.text.Image: com.itextpdf.text.Image getInstance(int,int,boolean,int,int,byte[])>(i0, i4, 0, s12, b9, r5);
+
+        virtualinvoke $r1.<com.itextpdf.text.Image: void setInverted(boolean)>(1);
+
+        virtualinvoke $r1.<com.itextpdf.text.Image: void setDpi(int,int)>(i15, $i7);
+
+        virtualinvoke $r1.<com.itextpdf.text.Image: void setXYRatio(float)>(f0);
+
+        virtualinvoke $r1.<com.itextpdf.text.Image: void setOriginalType(int)>(5);
+
+     label110:
+        b9 = f1 cmpl 0.0F;
+
+        if b9 == 0 goto label112;
+
+     label111:
+        virtualinvoke $r1.<com.itextpdf.text.Image: void setInitialRotation(float)>(f1);
+
+     label112:
+        return $r1;
+
+     label113:
+        throw r10;
+
+     label114:
+        throw r10;
+
+     label115:
+        virtualinvoke $r18.<com.itextpdf.text.pdf.codec.TIFFFaxDecoder: void decode1D(byte[],byte[],int,int)>(r7, r5, 0, i16);
+
+     label116:
+        r8 = r6;
+
+     label117:
+        virtualinvoke r6.<com.itextpdf.text.pdf.codec.CCITTG4Encoder: void fax4Encode(byte[],int)>(r7, i16);
+
+     label118:
+        i8 = i8 - i5;
+
+        r6 = r8;
+
+        z2 = 0;
+
+        i14 = i14 + 1;
+
+        goto label081;
+
+     label119:
+        i2 = $i6;
+
+        $i6 = $i7;
+
+     label120:
+        r5 = virtualinvoke r6.<com.itextpdf.text.pdf.codec.CCITTG4Encoder: byte[] close()>();
+
+     label121:
+        b9 = b9 & 1;
+
+     label122:
+        $r1 = staticinvoke <com.itextpdf.text.Image: com.itextpdf.text.Image getInstance(int,int,boolean,int,int,byte[])>(i0, i4, 0, 256, b9, r5);
+
+     label123:
+        virtualinvoke $r1.<com.itextpdf.text.Image: void setDpi(int,int)>(i2, $i6);
+
+        virtualinvoke $r1.<com.itextpdf.text.Image: void setXYRatio(float)>(f2);
+
+     label124:
+        z0 = virtualinvoke $r17.<com.itextpdf.text.pdf.codec.TIFFDirectory: boolean isTagPresent(int)>(34675);
+
+     label125:
+        if z0 == 0 goto label131;
+
+     label126:
+        $r2 = virtualinvoke $r17.<com.itextpdf.text.pdf.codec.TIFFDirectory: com.itextpdf.text.pdf.codec.TIFFField getField(int)>(34675);
+
+        r5 = virtualinvoke $r2.<com.itextpdf.text.pdf.codec.TIFFField: byte[] getAsBytes()>();
+
+        $r12 = staticinvoke <com.itextpdf.text.pdf.ICC_Profile: com.itextpdf.text.pdf.ICC_Profile getInstance(byte[])>(r5);
+
+        i0 = virtualinvoke $r12.<com.itextpdf.text.pdf.ICC_Profile: int getNumComponents()>();
+
+     label127:
+        if i0 != 1 goto label131;
+
+     label128:
+        virtualinvoke $r1.<com.itextpdf.text.Image: void tagICC(com.itextpdf.text.pdf.ICC_Profile)>($r12);
+
+     label129:
+        goto label131;
+
+     label130:
+        r13 := @caughtexception;
+
+     label131:
+        virtualinvoke $r1.<com.itextpdf.text.Image: void setOriginalType(int)>(5);
+
+     label132:
+        b9 = f1 cmpl 0.0F;
+
+        if b9 == 0 goto label138;
+
+     label133:
+        virtualinvoke $r1.<com.itextpdf.text.Image: void setInitialRotation(float)>(f1);
+
+     label134:
+        return $r1;
+
+     label135:
+        $r19 = new java.lang.IllegalArgumentException;
+
+        r14 = newarray (java.lang.Object)[0];
+
+     label136:
+        $r15 = staticinvoke <com.itextpdf.text.error_messages.MessageLocalization: java.lang.String getComposedMessage(java.lang.String,java.lang.Object[])>("tiles.are.not.supported", r14);
+
+        specialinvoke $r19.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>($r15);
+
+        throw $r19;
+
+     label137:
+        r16 := @caughtexception;
+
+        $r20 = new com.itextpdf.text.ExceptionConverter;
+
+        specialinvoke $r20.<com.itextpdf.text.ExceptionConverter: void <init>(java.lang.Exception)>(r16);
+
+        throw $r20;
+
+     label138:
+        return $r1;
+
+        catch java.lang.Exception from label001 to label002 with label137;
+        catch java.lang.Exception from label003 to label004 with label137;
+        catch java.lang.Exception from label005 to label006 with label137;
+        catch java.lang.Exception from label007 to label008 with label137;
+        catch java.lang.Exception from label009 to label010 with label137;
+        catch java.lang.Exception from label016 to label017 with label137;
+        catch java.lang.Exception from label018 to label019 with label137;
+        catch java.lang.Exception from label020 to label021 with label137;
+        catch java.lang.Exception from label022 to label023 with label137;
+        catch java.lang.Exception from label025 to label026 with label137;
+        catch java.lang.Exception from label029 to label030 with label137;
+        catch java.lang.Exception from label031 to label032 with label137;
+        catch java.lang.Exception from label036 to label037 with label137;
+        catch java.lang.Exception from label038 to label039 with label137;
+        catch java.lang.Exception from label040 to label041 with label137;
+        catch java.lang.Exception from label042 to label043 with label137;
+        catch java.lang.Exception from label044 to label045 with label137;
+        catch java.lang.Exception from label047 to label048 with label137;
+        catch java.lang.Exception from label048 to label049 with label137;
+        catch java.lang.Exception from label050 to label051 with label137;
+        catch java.lang.Exception from label051 to label052 with label137;
+        catch java.lang.Exception from label053 to label054 with label137;
+        catch java.lang.Exception from label057 to label058 with label137;
+        catch java.lang.Exception from label059 to label060 with label137;
+        catch java.lang.Exception from label063 to label064 with label137;
+        catch java.lang.Exception from label065 to label066 with label137;
+        catch java.lang.Exception from label069 to label070 with label137;
+        catch java.lang.Exception from label071 to label072 with label137;
+        catch java.lang.Exception from label079 to label080 with label137;
+        catch java.lang.Exception from label081 to label082 with label137;
+        catch java.lang.Exception from label083 to label084 with label137;
+        catch java.lang.Exception from label085 to label086 with label137;
+        catch java.lang.Exception from label087 to label088 with label137;
+        catch java.lang.Exception from label089 to label090 with label137;
+        catch java.lang.Exception from label091 to label092 with label137;
+        catch com.itextpdf.text.exceptions.InvalidImageException from label094 to label095 with label096;
+        catch java.lang.Exception from label094 to label095 with label137;
+        catch java.lang.Exception from label097 to label098 with label137;
+        catch java.lang.Exception from label099 to label100 with label137;
+        catch java.lang.RuntimeException from label100 to label101 with label102;
+        catch java.lang.Exception from label100 to label101 with label137;
+        catch java.lang.RuntimeException from label103 to label104 with label106;
+        catch java.lang.Exception from label103 to label104 with label137;
+        catch java.lang.Exception from label104 to label105 with label137;
+        catch java.lang.Exception from label107 to label108 with label137;
+        catch java.lang.Exception from label109 to label110 with label137;
+        catch java.lang.Exception from label111 to label112 with label137;
+        catch java.lang.Exception from label113 to label115 with label137;
+        catch java.lang.Exception from label115 to label116 with label137;
+        catch java.lang.Exception from label117 to label118 with label137;
+        catch java.lang.Exception from label120 to label121 with label137;
+        catch java.lang.Exception from label122 to label123 with label137;
+        catch java.lang.Exception from label123 to label124 with label137;
+        catch java.lang.Exception from label124 to label125 with label137;
+        catch java.lang.RuntimeException from label126 to label127 with label130;
+        catch java.lang.RuntimeException from label128 to label129 with label130;
+        catch java.lang.Exception from label126 to label127 with label137;
+        catch java.lang.Exception from label128 to label129 with label137;
+        catch java.lang.Exception from label131 to label132 with label137;
+        catch java.lang.Exception from label133 to label134 with label137;
+        catch java.lang.Exception from label136 to label137 with label137;
+    }

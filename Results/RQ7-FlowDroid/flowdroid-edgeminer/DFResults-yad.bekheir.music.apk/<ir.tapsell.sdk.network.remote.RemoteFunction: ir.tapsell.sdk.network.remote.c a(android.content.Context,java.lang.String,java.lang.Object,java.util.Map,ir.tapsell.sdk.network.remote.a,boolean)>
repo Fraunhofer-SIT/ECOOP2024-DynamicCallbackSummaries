@@ -1,0 +1,95 @@
+    private ir.tapsell.sdk.network.remote.c a(android.content.Context, java.lang.String, java.lang.Object, java.util.Map, ir.tapsell.sdk.network.remote.a, boolean)
+    {
+        java.lang.Throwable $r8, $r11;
+        android.content.Context $r1;
+        ir.tapsell.sdk.network.remote.RemoteFunction r0;
+        ir.tapsell.sdk.network.remote.RemoteFunction$3 $r9;
+        java.util.concurrent.Future $r10;
+        java.util.Map $r4;
+        java.lang.Object $r3;
+        ir.tapsell.sdk.network.remote.a $r5;
+        java.lang.String $r2;
+        ir.tapsell.sdk.network.remote.c $r7;
+        java.util.concurrent.ExecutorService $r6;
+        boolean $z0, $z1;
+
+        r0 := @this: ir.tapsell.sdk.network.remote.RemoteFunction;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r3 := @parameter2: java.lang.Object;
+
+        $r4 := @parameter3: java.util.Map;
+
+        $r5 := @parameter4: ir.tapsell.sdk.network.remote.a;
+
+        $z0 := @parameter5: boolean;
+
+     label01:
+        $z1 = virtualinvoke r0.<ir.tapsell.sdk.network.remote.RemoteFunction: boolean a(android.content.Context)>($r1);
+
+     label02:
+        if $z1 != 0 goto label07;
+
+        if $r5 == null goto label04;
+
+     label03:
+        interfaceinvoke $r5.<ir.tapsell.sdk.network.remote.a: void a()>();
+
+     label04:
+        $r7 = staticinvoke <ir.tapsell.sdk.network.remote.c: ir.tapsell.sdk.network.remote.c a()>();
+
+     label05:
+        return $r7;
+
+     label06:
+        $r8 := @caughtexception;
+
+        staticinvoke <ir.tapsell.sdk.d.a: void a(java.lang.Throwable)>($r8);
+
+     label07:
+        $r6 = r0.<ir.tapsell.sdk.network.remote.RemoteFunction: java.util.concurrent.ExecutorService c>;
+
+        if $r6 != null goto label08;
+
+        $r6 = staticinvoke <java.util.concurrent.Executors: java.util.concurrent.ExecutorService newFixedThreadPool(int)>(10);
+
+        r0.<ir.tapsell.sdk.network.remote.RemoteFunction: java.util.concurrent.ExecutorService c> = $r6;
+
+     label08:
+        $r6 = r0.<ir.tapsell.sdk.network.remote.RemoteFunction: java.util.concurrent.ExecutorService c>;
+
+        $r9 = new ir.tapsell.sdk.network.remote.RemoteFunction$3;
+
+        specialinvoke $r9.<ir.tapsell.sdk.network.remote.RemoteFunction$3: void <init>(ir.tapsell.sdk.network.remote.RemoteFunction,java.lang.String,java.lang.Object,java.util.Map,ir.tapsell.sdk.network.remote.a)>(r0, $r2, $r3, $r4, $r5);
+
+        $r10 = interfaceinvoke $r6.<java.util.concurrent.ExecutorService: java.util.concurrent.Future submit(java.util.concurrent.Callable)>($r9);
+
+        if $z0 == 0 goto label12;
+
+     label09:
+        $r3 = interfaceinvoke $r10.<java.util.concurrent.Future: java.lang.Object get()>();
+
+        $r7 = (ir.tapsell.sdk.network.remote.c) $r3;
+
+     label10:
+        return $r7;
+
+     label11:
+        $r11 := @caughtexception;
+
+        staticinvoke <ir.tapsell.sdk.d.a: void a(java.lang.Throwable)>($r11);
+
+        $r7 = staticinvoke <ir.tapsell.sdk.network.remote.c: ir.tapsell.sdk.network.remote.c a(java.lang.Throwable)>($r11);
+
+        return $r7;
+
+     label12:
+        return null;
+
+        catch java.lang.Throwable from label01 to label02 with label06;
+        catch java.lang.Throwable from label03 to label05 with label06;
+        catch java.lang.Throwable from label09 to label10 with label11;
+    }

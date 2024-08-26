@@ -1,0 +1,143 @@
+    public static void anyValidIdentifierName(java.lang.String, java.lang.String)
+    {
+        java.lang.Throwable $r8;
+        byte[] $r3;
+        java.util.zip.ZipInputStream $r10;
+        int $i0;
+        java.lang.String $r0, $r1, $r5;
+        java.util.zip.ZipEntry $r4;
+        boolean $z0;
+        java.io.FileOutputStream $r13;
+        java.io.IOException $r14;
+        java.io.FileInputStream $r9;
+        java.io.File $r2, $r7, $r12;
+        java.lang.StringBuilder $r6, $r11;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r0 := @parameter1: java.lang.String;
+
+        $r7 = new java.io.File;
+
+        specialinvoke $r7.<java.io.File: void <init>(java.lang.String)>($r0);
+
+        $z0 = virtualinvoke $r7.<java.io.File: boolean exists()>();
+
+        if $z0 != 0 goto label01;
+
+        virtualinvoke $r7.<java.io.File: boolean mkdirs()>();
+
+     label01:
+        $r3 = newarray (byte)[1024];
+
+        $r9 = new java.io.FileInputStream;
+
+     label02:
+        specialinvoke $r9.<java.io.FileInputStream: void <init>(java.lang.String)>($r1);
+
+     label03:
+        $r10 = new java.util.zip.ZipInputStream;
+
+     label04:
+        specialinvoke $r10.<java.util.zip.ZipInputStream: void <init>(java.io.InputStream)>($r9);
+
+        $r4 = virtualinvoke $r10.<java.util.zip.ZipInputStream: java.util.zip.ZipEntry getNextEntry()>();
+
+     label05:
+        if $r4 == null goto label21;
+
+     label06:
+        $r5 = virtualinvoke $r4.<java.util.zip.ZipEntry: java.lang.String getName()>();
+
+     label07:
+        $r7 = new java.io.File;
+
+        $r2 = $r7;
+
+        $r11 = new java.lang.StringBuilder;
+
+     label08:
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>()>();
+
+        $r6 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder insert(int,java.lang.String)>(0, $r0);
+
+     label09:
+        $r1 = <java.io.File: java.lang.String separator>;
+
+     label10:
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r1 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r7.<java.io.File: void <init>(java.lang.String)>($r1);
+
+     label11:
+        $r12 = new java.io.File;
+
+     label12:
+        $r1 = virtualinvoke $r2.<java.io.File: java.lang.String getParent()>();
+
+        specialinvoke $r12.<java.io.File: void <init>(java.lang.String)>($r1);
+
+        virtualinvoke $r12.<java.io.File: boolean mkdirs()>();
+
+     label13:
+        $r13 = new java.io.FileOutputStream;
+
+     label14:
+        specialinvoke $r13.<java.io.FileOutputStream: void <init>(java.io.File)>($r2);
+
+     label15:
+        $i0 = virtualinvoke $r10.<java.util.zip.ZipInputStream: int read(byte[])>($r3);
+
+     label16:
+        if $i0 <= 0 goto label19;
+
+     label17:
+        virtualinvoke $r13.<java.io.FileOutputStream: void write(byte[],int,int)>($r3, 0, $i0);
+
+     label18:
+        goto label15;
+
+     label19:
+        virtualinvoke $r13.<java.io.FileOutputStream: void close()>();
+
+        virtualinvoke $r10.<java.util.zip.ZipInputStream: void closeEntry()>();
+
+        $r4 = virtualinvoke $r10.<java.util.zip.ZipInputStream: java.util.zip.ZipEntry getNextEntry()>();
+
+     label20:
+        goto label05;
+
+     label21:
+        virtualinvoke $r10.<java.util.zip.ZipInputStream: void closeEntry()>();
+
+        virtualinvoke $r10.<java.util.zip.ZipInputStream: void close()>();
+
+        virtualinvoke $r9.<java.io.FileInputStream: void close()>();
+
+     label22:
+        return;
+
+     label23:
+        $r8 := @caughtexception;
+
+        $r14 = (java.io.IOException) $r8;
+
+        virtualinvoke $r14.<java.io.IOException: void printStackTrace()>();
+
+        return;
+
+        catch java.io.IOException from label02 to label03 with label23;
+        catch java.io.IOException from label04 to label05 with label23;
+        catch java.io.IOException from label06 to label07 with label23;
+        catch java.io.IOException from label08 to label09 with label23;
+        catch java.io.IOException from label10 to label11 with label23;
+        catch java.io.IOException from label12 to label13 with label23;
+        catch java.io.IOException from label14 to label16 with label23;
+        catch java.io.IOException from label17 to label18 with label23;
+        catch java.io.IOException from label19 to label20 with label23;
+        catch java.io.IOException from label21 to label22 with label23;
+    }

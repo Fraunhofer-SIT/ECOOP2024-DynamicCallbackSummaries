@@ -1,0 +1,307 @@
+    public static java.io.File a(java.lang.String, java.util.List, java.lang.String, java.lang.String, java.lang.String)
+    {
+        byte[] $r19, $r21;
+        long $l0;
+        javax.crypto.Cipher $r16;
+        java.util.ArrayList $r5;
+        org.json.JSONObject $r6, $r12;
+        byte $b3;
+        int $i1, $i2;
+        java.lang.String $r0, $r2, $r3, $r4, $r13, $r14;
+        javax.crypto.CipherOutputStream $r17;
+        boolean $z0;
+        java.util.Iterator $r8;
+        java.io.FileOutputStream $r18;
+        java.io.FileInputStream $r22;
+        java.io.File $r11, $r15;
+        java.lang.Exception $r23;
+        java.util.List $r1;
+        java.lang.Object $r9;
+        com.megvii.meglive_sdk.result.LivenessFile $r10;
+        java.lang.StringBuilder $r20;
+        org.json.JSONArray $r7;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r1 := @parameter1: java.util.List;
+
+        $r2 := @parameter2: java.lang.String;
+
+        $r3 := @parameter3: java.lang.String;
+
+        $r4 := @parameter4: java.lang.String;
+
+        $r5 = new java.util.ArrayList;
+
+     label01:
+        specialinvoke $r5.<java.util.ArrayList: void <init>()>();
+
+     label02:
+        $r6 = new org.json.JSONObject;
+
+     label03:
+        specialinvoke $r6.<org.json.JSONObject: void <init>()>();
+
+        virtualinvoke $r6.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("livenessType", $r0);
+
+     label04:
+        $r7 = new org.json.JSONArray;
+
+     label05:
+        specialinvoke $r7.<org.json.JSONArray: void <init>()>();
+
+        $r8 = interfaceinvoke $r1.<java.util.List: java.util.Iterator iterator()>();
+
+     label06:
+        $z0 = interfaceinvoke $r8.<java.util.Iterator: boolean hasNext()>();
+
+     label07:
+        if $z0 == 0 goto label16;
+
+     label08:
+        $r9 = interfaceinvoke $r8.<java.util.Iterator: java.lang.Object next()>();
+
+        $r10 = (com.megvii.meglive_sdk.result.LivenessFile) $r9;
+
+     label09:
+        $r11 = new java.io.File;
+
+     label10:
+        $r0 = virtualinvoke $r10.<com.megvii.meglive_sdk.result.LivenessFile: java.lang.String getPath()>();
+
+        specialinvoke $r11.<java.io.File: void <init>(java.lang.String)>($r0);
+
+        $z0 = virtualinvoke $r11.<java.io.File: boolean exists()>();
+
+     label11:
+        if $z0 == 0 goto label06;
+
+     label12:
+        interfaceinvoke $r5.<java.util.List: boolean add(java.lang.Object)>($r11);
+
+     label13:
+        $r12 = new org.json.JSONObject;
+
+     label14:
+        specialinvoke $r12.<org.json.JSONObject: void <init>()>();
+
+        $l0 = virtualinvoke $r11.<java.io.File: long length()>();
+
+        virtualinvoke $r12.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,long)>("length", $l0);
+
+        $r0 = virtualinvoke $r10.<com.megvii.meglive_sdk.result.LivenessFile: java.lang.String getFileType()>();
+
+        virtualinvoke $r12.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("fileType", $r0);
+
+        $r0 = virtualinvoke $r10.<com.megvii.meglive_sdk.result.LivenessFile: java.lang.String getActionType()>();
+
+        virtualinvoke $r12.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("actionType", $r0);
+
+        virtualinvoke $r7.<org.json.JSONArray: org.json.JSONArray put(java.lang.Object)>($r12);
+
+     label15:
+        goto label06;
+
+     label16:
+        virtualinvoke $r6.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("file", $r7);
+
+        $r0 = virtualinvoke $r6.<org.json.JSONObject: java.lang.String toString()>();
+
+     label17:
+        $r13 = "jsonRecord=";
+
+     label18:
+        $r14 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r0);
+
+        $r13 = virtualinvoke $r13.<java.lang.String: java.lang.String concat(java.lang.String)>($r14);
+
+        staticinvoke <com.megvii.meglive_sdk.i.o: void a(java.lang.String,java.lang.String)>("RecordFinish", $r13);
+
+     label19:
+        $r15 = new java.io.File;
+
+     label20:
+        specialinvoke $r15.<java.io.File: void <init>(java.lang.String)>($r2);
+
+        $z0 = virtualinvoke $r15.<java.io.File: boolean exists()>();
+
+     label21:
+        if $z0 != 0 goto label23;
+
+     label22:
+        virtualinvoke $r15.<java.io.File: boolean mkdirs()>();
+
+     label23:
+        $r11 = new java.io.File;
+
+     label24:
+        specialinvoke $r11.<java.io.File: void <init>(java.io.File,java.lang.String)>($r15, "liveness_file.megvii");
+
+        $z0 = virtualinvoke $r11.<java.io.File: boolean exists()>();
+
+     label25:
+        if $z0 == 0 goto label27;
+
+     label26:
+        virtualinvoke $r11.<java.io.File: boolean delete()>();
+
+     label27:
+        $r16 = staticinvoke <com.megvii.meglive_sdk.i.l: javax.crypto.Cipher a(java.lang.String,int)>($r4, 1);
+
+     label28:
+        $r17 = new javax.crypto.CipherOutputStream;
+
+        $r18 = new java.io.FileOutputStream;
+
+     label29:
+        specialinvoke $r18.<java.io.FileOutputStream: void <init>(java.io.File)>($r11);
+
+        specialinvoke $r17.<javax.crypto.CipherOutputStream: void <init>(java.io.OutputStream,javax.crypto.Cipher)>($r18, $r16);
+
+        $r19 = virtualinvoke $r0.<java.lang.String: byte[] getBytes()>();
+
+     label30:
+        $r20 = new java.lang.StringBuilder;
+
+     label31:
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>(java.lang.String)>("de jsonLength :");
+
+        $i1 = lengthof $r19;
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i1);
+
+        $r2 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.megvii.meglive_sdk.i.o: void c(java.lang.String,java.lang.String)>("RecordFinish", $r2);
+
+     label32:
+        $r2 = "de jsonString :";
+
+     label33:
+        $r0 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r0);
+
+        $r0 = virtualinvoke $r2.<java.lang.String: java.lang.String concat(java.lang.String)>($r0);
+
+        staticinvoke <com.megvii.meglive_sdk.i.o: void c(java.lang.String,java.lang.String)>("RecordFinish", $r0);
+
+        $i1 = lengthof $r19;
+
+     label34:
+        $r21 = newarray (byte)[4];
+
+        $i2 = $i1 >>> 24;
+
+        $b3 = (byte) $i2;
+
+     label35:
+        $r21[0] = $b3;
+
+     label36:
+        $i2 = $i1 >>> 16;
+
+        $b3 = (byte) $i2;
+
+     label37:
+        $r21[1] = $b3;
+
+     label38:
+        $i2 = $i1 >>> 8;
+
+        $b3 = (byte) $i2;
+
+     label39:
+        $r21[2] = $b3;
+
+     label40:
+        $b3 = (byte) $i1;
+
+     label41:
+        $r21[3] = $b3;
+
+        virtualinvoke $r17.<javax.crypto.CipherOutputStream: void write(byte[])>($r21);
+
+        virtualinvoke $r17.<javax.crypto.CipherOutputStream: void write(byte[])>($r19);
+
+     label42:
+        $r19 = newarray (byte)[102400];
+
+     label43:
+        $r8 = interfaceinvoke $r5.<java.util.List: java.util.Iterator iterator()>();
+
+     label44:
+        $z0 = interfaceinvoke $r8.<java.util.Iterator: boolean hasNext()>();
+
+     label45:
+        if $z0 == 0 goto label55;
+
+     label46:
+        $r9 = interfaceinvoke $r8.<java.util.Iterator: java.lang.Object next()>();
+
+        $r15 = (java.io.File) $r9;
+
+     label47:
+        $r22 = new java.io.FileInputStream;
+
+     label48:
+        specialinvoke $r22.<java.io.FileInputStream: void <init>(java.io.File)>($r15);
+
+     label49:
+        $i1 = virtualinvoke $r22.<java.io.FileInputStream: int read(byte[])>($r19);
+
+     label50:
+        if $i1 <= 0 goto label53;
+
+     label51:
+        virtualinvoke $r17.<javax.crypto.CipherOutputStream: void write(byte[],int,int)>($r19, 0, $i1);
+
+     label52:
+        goto label49;
+
+     label53:
+        staticinvoke <com.megvii.meglive_sdk.i.l: void a(java.io.Closeable)>($r22);
+
+     label54:
+        goto label44;
+
+     label55:
+        virtualinvoke $r17.<javax.crypto.CipherOutputStream: void flush()>();
+
+        virtualinvoke $r17.<javax.crypto.CipherOutputStream: void close()>();
+
+     label56:
+        return $r11;
+
+     label57:
+        $r23 := @caughtexception;
+
+        staticinvoke <com.megvii.meglive_sdk.i.l: void a(java.lang.Exception)>($r23);
+
+        return null;
+
+        catch java.lang.Exception from label01 to label02 with label57;
+        catch java.lang.Exception from label03 to label04 with label57;
+        catch java.lang.Exception from label05 to label07 with label57;
+        catch java.lang.Exception from label08 to label09 with label57;
+        catch java.lang.Exception from label10 to label11 with label57;
+        catch java.lang.Exception from label12 to label13 with label57;
+        catch java.lang.Exception from label14 to label15 with label57;
+        catch java.lang.Exception from label16 to label17 with label57;
+        catch java.lang.Exception from label18 to label19 with label57;
+        catch java.lang.Exception from label20 to label21 with label57;
+        catch java.lang.Exception from label22 to label23 with label57;
+        catch java.lang.Exception from label24 to label25 with label57;
+        catch java.lang.Exception from label26 to label28 with label57;
+        catch java.lang.Exception from label29 to label30 with label57;
+        catch java.lang.Exception from label31 to label32 with label57;
+        catch java.lang.Exception from label33 to label34 with label57;
+        catch java.lang.Exception from label35 to label36 with label57;
+        catch java.lang.Exception from label37 to label38 with label57;
+        catch java.lang.Exception from label39 to label40 with label57;
+        catch java.lang.Exception from label41 to label42 with label57;
+        catch java.lang.Exception from label43 to label45 with label57;
+        catch java.lang.Exception from label46 to label47 with label57;
+        catch java.lang.Exception from label48 to label50 with label57;
+        catch java.lang.Exception from label51 to label52 with label57;
+        catch java.lang.Exception from label53 to label54 with label57;
+        catch java.lang.Exception from label55 to label56 with label57;
+    }

@@ -1,0 +1,146 @@
+    public static boolean o0(java.io.File, java.io.InputStream, boolean)
+    {
+        java.lang.Throwable $r5, $r6;
+        byte[] $r3;
+        java.lang.Object[] $r4;
+        java.io.FileOutputStream $r7;
+        java.io.IOException $r10;
+        java.io.File $r1;
+        java.io.BufferedOutputStream $r2, $r8;
+        int $i0;
+        java.io.Closeable[] $r9;
+        java.io.InputStream $r0;
+        boolean $z0, $z1;
+
+        $r1 := @parameter0: java.io.File;
+
+        $r0 := @parameter1: java.io.InputStream;
+
+        $z0 := @parameter2: boolean;
+
+        if $r1 == null goto label20;
+
+        if $r0 != null goto label01;
+
+        return 0;
+
+     label01:
+        $z1 = staticinvoke <com.handcent.sms.ri.c: boolean n(java.io.File)>($r1);
+
+        if $z1 != 0 goto label02;
+
+        return 0;
+
+     label02:
+        $r2 = null;
+
+     label03:
+        $r8 = new java.io.BufferedOutputStream;
+
+     label04:
+        $r7 = new java.io.FileOutputStream;
+
+     label05:
+        specialinvoke $r7.<java.io.FileOutputStream: void <init>(java.io.File,boolean)>($r1, 0);
+
+        specialinvoke $r8.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r7);
+
+     label06:
+        $i0 = <com.handcent.sms.ri.c: int a>;
+
+        $r3 = newarray (byte)[$i0];
+
+     label07:
+        $i0 = <com.handcent.sms.ri.c: int a>;
+
+     label08:
+        $i0 = virtualinvoke $r0.<java.io.InputStream: int read(byte[],int,int)>($r3, 0, $i0);
+
+     label09:
+        if $i0 == -1 goto label12;
+
+     label10:
+        virtualinvoke $r8.<java.io.OutputStream: void write(byte[],int,int)>($r3, 0, $i0);
+
+     label11:
+        goto label07;
+
+     label12:
+        $r4 = newarray (java.io.Closeable)[2];
+
+        $r4[0] = $r0;
+
+        $r4[1] = $r8;
+
+        $r9 = (java.io.Closeable[]) $r4;
+
+        staticinvoke <com.handcent.sms.ri.c: void a(java.io.Closeable[])>($r9);
+
+        return 1;
+
+     label13:
+        $r5 := @caughtexception;
+
+        $r2 = $r8;
+
+        goto label19;
+
+     label14:
+        $r6 := @caughtexception;
+
+        $r2 = $r8;
+
+        goto label17;
+
+     label15:
+        $r5 := @caughtexception;
+
+        goto label19;
+
+     label16:
+        $r6 := @caughtexception;
+
+     label17:
+        $r10 = (java.io.IOException) $r6;
+
+        virtualinvoke $r10.<java.io.IOException: void printStackTrace()>();
+
+     label18:
+        $r4 = newarray (java.io.Closeable)[2];
+
+        $r4[0] = $r0;
+
+        $r4[1] = $r2;
+
+        $r9 = (java.io.Closeable[]) $r4;
+
+        staticinvoke <com.handcent.sms.ri.c: void a(java.io.Closeable[])>($r9);
+
+        return 0;
+
+     label19:
+        $r4 = newarray (java.io.Closeable)[2];
+
+        $r4[0] = $r0;
+
+        $r4[1] = $r2;
+
+        $r9 = (java.io.Closeable[]) $r4;
+
+        staticinvoke <com.handcent.sms.ri.c: void a(java.io.Closeable[])>($r9);
+
+        throw $r5;
+
+     label20:
+        return 0;
+
+        catch java.io.IOException from label05 to label06 with label16;
+        catch java.lang.Throwable from label03 to label04 with label15;
+        catch java.lang.Throwable from label04 to label05 with label15;
+        catch java.lang.Throwable from label05 to label06 with label15;
+        catch java.io.IOException from label08 to label09 with label14;
+        catch java.io.IOException from label10 to label11 with label14;
+        catch java.lang.Throwable from label06 to label09 with label13;
+        catch java.lang.Throwable from label10 to label11 with label13;
+        catch java.lang.Throwable from label17 to label18 with label15;
+    }

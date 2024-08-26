@@ -1,0 +1,187 @@
+    public void loadNotes(java.lang.String)
+    {
+        java.lang.Throwable $r17;
+        android.content.Context $r7;
+        java.util.HashMap $r4;
+        java.lang.String[] r10;
+        long $l1, $l2;
+        me.edu.HolyBibleNBG51_Horlanda.Bible r0;
+        android.database.sqlite.SQLiteDatabase $r8;
+        java.lang.Long $r13, $r14, $r16;
+        int $i0;
+        me.edu.HolyBibleNBG51_Horlanda.Bible$Note $r15;
+        java.lang.String $r1, $r3, $r12;
+        boolean $z0;
+        android.database.Cursor r9, $r11;
+        java.lang.Exception r2;
+        me.edu.HolyBibleNBG51_Horlanda.Bible$AnnotationsDatabaseHelper $r6;
+        android.database.sqlite.SQLiteOpenHelper $r5;
+
+        r0 := @this: me.edu.HolyBibleNBG51_Horlanda.Bible;
+
+        $r1 := @parameter0: java.lang.String;
+
+        if $r1 != null goto label01;
+
+        return;
+
+     label01:
+        $r3 = r0.<me.edu.HolyBibleNBG51_Horlanda.Bible: java.lang.String osis>;
+
+        if $r3 == null goto label02;
+
+        $r3 = r0.<me.edu.HolyBibleNBG51_Horlanda.Bible: java.lang.String osis>;
+
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean equals(java.lang.Object)>($r1);
+
+        if $z0 != 0 goto label22;
+
+     label02:
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Bible: java.lang.String osis> = $r1;
+
+        $r4 = r0.<me.edu.HolyBibleNBG51_Horlanda.Bible: java.util.HashMap notes>;
+
+        virtualinvoke $r4.<java.util.HashMap: void clear()>();
+
+        $r5 = r0.<me.edu.HolyBibleNBG51_Horlanda.Bible: android.database.sqlite.SQLiteOpenHelper mOpenHelper>;
+
+        if $r5 != null goto label03;
+
+        $r6 = new me.edu.HolyBibleNBG51_Horlanda.Bible$AnnotationsDatabaseHelper;
+
+        $r7 = <me.edu.HolyBibleNBG51_Horlanda.Bible: android.content.Context mContext>;
+
+        specialinvoke $r6.<me.edu.HolyBibleNBG51_Horlanda.Bible$AnnotationsDatabaseHelper: void <init>(me.edu.HolyBibleNBG51_Horlanda.Bible,android.content.Context)>(r0, $r7);
+
+        r0.<me.edu.HolyBibleNBG51_Horlanda.Bible: android.database.sqlite.SQLiteOpenHelper mOpenHelper> = $r6;
+
+     label03:
+        $r5 = r0.<me.edu.HolyBibleNBG51_Horlanda.Bible: android.database.sqlite.SQLiteOpenHelper mOpenHelper>;
+
+        $r8 = virtualinvoke $r5.<android.database.sqlite.SQLiteOpenHelper: android.database.sqlite.SQLiteDatabase getReadableDatabase()>();
+
+        $z0 = specialinvoke r0.<me.edu.HolyBibleNBG51_Horlanda.Bible: boolean isDatabaseIntegrityOk(android.database.sqlite.SQLiteDatabase)>($r8);
+
+        if $z0 == 0 goto label22;
+
+        r9 = null;
+
+     label04:
+        r10 = newarray (java.lang.String)[2];
+
+     label05:
+        r10[0] = $r1;
+
+        r10[1] = "note";
+
+     label06:
+        $r11 = virtualinvoke $r8.<android.database.sqlite.SQLiteDatabase: android.database.Cursor query(java.lang.String,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String,java.lang.String,java.lang.String)>("annotations", null, "osis = ? and type = ?", r10, null, null, null);
+
+     label07:
+        r9 = $r11;
+
+     label08:
+        if $r11 == null goto label22;
+
+     label09:
+        $z0 = interfaceinvoke $r11.<android.database.Cursor: boolean moveToNext()>();
+
+     label10:
+        if $z0 != 0 goto label11;
+
+        if $r11 == null goto label22;
+
+        interfaceinvoke $r11.<android.database.Cursor: void close()>();
+
+        return;
+
+     label11:
+        $i0 = interfaceinvoke $r11.<android.database.Cursor: int getColumnIndex(java.lang.String)>("_id");
+
+        $i0 = interfaceinvoke $r11.<android.database.Cursor: int getInt(int)>($i0);
+
+     label12:
+        $l1 = (long) $i0;
+
+     label13:
+        $i0 = interfaceinvoke $r11.<android.database.Cursor: int getColumnIndex(java.lang.String)>("verse");
+
+        $r1 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        $i0 = interfaceinvoke $r11.<android.database.Cursor: int getColumnIndex(java.lang.String)>("verses");
+
+        $r3 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        $i0 = interfaceinvoke $r11.<android.database.Cursor: int getColumnIndex(java.lang.String)>("content");
+
+        $r12 = interfaceinvoke $r11.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        $i0 = interfaceinvoke $r11.<android.database.Cursor: int getColumnIndex(java.lang.String)>("content");
+
+        $l2 = interfaceinvoke $r11.<android.database.Cursor: long getLong(int)>($i0);
+
+        $r13 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>($l2);
+
+        $i0 = interfaceinvoke $r11.<android.database.Cursor: int getColumnIndex(java.lang.String)>("updatetime");
+
+        $l2 = interfaceinvoke $r11.<android.database.Cursor: long getLong(int)>($i0);
+
+        $r14 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>($l2);
+
+        $r4 = r0.<me.edu.HolyBibleNBG51_Horlanda.Bible: java.util.HashMap notes>;
+
+     label14:
+        $r15 = new me.edu.HolyBibleNBG51_Horlanda.Bible$Note;
+
+     label15:
+        $r16 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>($l1);
+
+        $l1 = virtualinvoke $r13.<java.lang.Long: long longValue()>();
+
+        $l2 = virtualinvoke $r14.<java.lang.Long: long longValue()>();
+
+        specialinvoke $r15.<me.edu.HolyBibleNBG51_Horlanda.Bible$Note: void <init>(me.edu.HolyBibleNBG51_Horlanda.Bible,java.lang.Long,java.lang.String,java.lang.String,java.lang.String,long,long)>(r0, $r16, $r1, $r3, $r12, $l1, $l2);
+
+        virtualinvoke $r4.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>($r1, $r15);
+
+     label16:
+        goto label08;
+
+     label17:
+        r2 := @caughtexception;
+
+     label18:
+        virtualinvoke r2.<java.lang.Exception: void printStackTrace()>();
+
+     label19:
+        if r9 == null goto label22;
+
+        interfaceinvoke r9.<android.database.Cursor: void close()>();
+
+        return;
+
+     label20:
+        $r17 := @caughtexception;
+
+        if r9 == null goto label21;
+
+        interfaceinvoke r9.<android.database.Cursor: void close()>();
+
+     label21:
+        throw $r17;
+
+     label22:
+        return;
+
+        catch java.lang.Exception from label05 to label07 with label17;
+        catch java.lang.Exception from label09 to label10 with label17;
+        catch java.lang.Throwable from label04 to label05 with label20;
+        catch java.lang.Throwable from label06 to label07 with label20;
+        catch java.lang.Throwable from label09 to label10 with label20;
+        catch java.lang.Exception from label11 to label12 with label17;
+        catch java.lang.Exception from label13 to label14 with label17;
+        catch java.lang.Exception from label15 to label16 with label17;
+        catch java.lang.Throwable from label11 to label12 with label20;
+        catch java.lang.Throwable from label13 to label16 with label20;
+        catch java.lang.Throwable from label18 to label19 with label20;
+    }

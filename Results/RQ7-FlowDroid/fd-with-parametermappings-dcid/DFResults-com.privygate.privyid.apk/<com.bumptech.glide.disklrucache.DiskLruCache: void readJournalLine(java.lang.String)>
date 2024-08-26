@@ -1,0 +1,151 @@
+    private void readJournalLine(java.lang.String) throws java.io.IOException
+    {
+        java.lang.String[] $r7;
+        java.util.LinkedHashMap $r4;
+        com.bumptech.glide.disklrucache.DiskLruCache r0;
+        int $i0, $i1, $i2;
+        java.lang.String $r1, $r2, $r3;
+        boolean $z0;
+        java.io.IOException $r11;
+        com.bumptech.glide.disklrucache.DiskLruCache$Editor $r9;
+        com.bumptech.glide.disklrucache.DiskLruCache$read $r6, $r8;
+        java.lang.Object $r5;
+        java.lang.StringBuilder $r10;
+
+        r0 := @this: com.bumptech.glide.disklrucache.DiskLruCache;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $i0 = virtualinvoke $r1.<java.lang.String: int indexOf(int)>(32);
+
+        if $i0 == -1 goto label7;
+
+        $i1 = $i0 + 1;
+
+        $i2 = virtualinvoke $r1.<java.lang.String: int indexOf(int,int)>(32, $i1);
+
+        if $i2 != -1 goto label1;
+
+        $r2 = virtualinvoke $r1.<java.lang.String: java.lang.String substring(int)>($i1);
+
+        $r3 = $r2;
+
+        if $i0 != 6 goto label2;
+
+        $z0 = virtualinvoke $r1.<java.lang.String: boolean startsWith(java.lang.String)>("REMOVE");
+
+        if $z0 == 0 goto label2;
+
+        $r4 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.util.LinkedHashMap lruEntries>;
+
+        virtualinvoke $r4.<java.util.LinkedHashMap: java.lang.Object remove(java.lang.Object)>($r2);
+
+        return;
+
+     label1:
+        $r3 = virtualinvoke $r1.<java.lang.String: java.lang.String substring(int,int)>($i1, $i2);
+
+     label2:
+        $r4 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.util.LinkedHashMap lruEntries>;
+
+        $r5 = virtualinvoke $r4.<java.util.LinkedHashMap: java.lang.Object get(java.lang.Object)>($r3);
+
+        $r6 = (com.bumptech.glide.disklrucache.DiskLruCache$read) $r5;
+
+        if $r6 != null goto label3;
+
+        $r8 = new com.bumptech.glide.disklrucache.DiskLruCache$read;
+
+        $r6 = $r8;
+
+        specialinvoke $r8.<com.bumptech.glide.disklrucache.DiskLruCache$read: void <init>(com.bumptech.glide.disklrucache.DiskLruCache,java.lang.String,com.bumptech.glide.disklrucache.DiskLruCache$5)>(r0, $r3, null);
+
+        $r4 = r0.<com.bumptech.glide.disklrucache.DiskLruCache: java.util.LinkedHashMap lruEntries>;
+
+        virtualinvoke $r4.<java.util.LinkedHashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>($r3, $r8);
+
+     label3:
+        if $i2 == -1 goto label4;
+
+        if $i0 != 5 goto label4;
+
+        $z0 = virtualinvoke $r1.<java.lang.String: boolean startsWith(java.lang.String)>("CLEAN");
+
+        if $z0 == 0 goto label4;
+
+        $i0 = $i2 + 1;
+
+        $r1 = virtualinvoke $r1.<java.lang.String: java.lang.String substring(int)>($i0);
+
+        $r7 = virtualinvoke $r1.<java.lang.String: java.lang.String[] split(java.lang.String)>(" ");
+
+        staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$read: boolean IconCompatParcelizer(com.bumptech.glide.disklrucache.DiskLruCache$read,boolean)>($r6, 1);
+
+        staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$read: com.bumptech.glide.disklrucache.DiskLruCache$Editor read(com.bumptech.glide.disklrucache.DiskLruCache$read,com.bumptech.glide.disklrucache.DiskLruCache$Editor)>($r6, null);
+
+        staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$read: void RemoteActionCompatParcelizer(com.bumptech.glide.disklrucache.DiskLruCache$read,java.lang.String[])>($r6, $r7);
+
+        return;
+
+     label4:
+        if $i2 != -1 goto label6;
+
+        if $i0 != 5 goto label5;
+
+        $z0 = virtualinvoke $r1.<java.lang.String: boolean startsWith(java.lang.String)>("DIRTY");
+
+        if $z0 == 0 goto label5;
+
+        $r9 = new com.bumptech.glide.disklrucache.DiskLruCache$Editor;
+
+        specialinvoke $r9.<com.bumptech.glide.disklrucache.DiskLruCache$Editor: void <init>(com.bumptech.glide.disklrucache.DiskLruCache,com.bumptech.glide.disklrucache.DiskLruCache$read,com.bumptech.glide.disklrucache.DiskLruCache$5)>(r0, $r6, null);
+
+        staticinvoke <com.bumptech.glide.disklrucache.DiskLruCache$read: com.bumptech.glide.disklrucache.DiskLruCache$Editor read(com.bumptech.glide.disklrucache.DiskLruCache$read,com.bumptech.glide.disklrucache.DiskLruCache$Editor)>($r6, $r9);
+
+        return;
+
+     label5:
+        if $i2 != -1 goto label6;
+
+        if $i0 != 4 goto label6;
+
+        $z0 = virtualinvoke $r1.<java.lang.String: boolean startsWith(java.lang.String)>("READ");
+
+        if $z0 == 0 goto label6;
+
+        return;
+
+     label6:
+        $r10 = new java.lang.StringBuilder;
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("unexpected journal line: ");
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r11 = new java.io.IOException;
+
+        $r1 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r11.<java.io.IOException: void <init>(java.lang.String)>($r1);
+
+        throw $r11;
+
+     label7:
+        $r10 = new java.lang.StringBuilder;
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("unexpected journal line: ");
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r11 = new java.io.IOException;
+
+        $r1 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r11.<java.io.IOException: void <init>(java.lang.String)>($r1);
+
+        throw $r11;
+    }

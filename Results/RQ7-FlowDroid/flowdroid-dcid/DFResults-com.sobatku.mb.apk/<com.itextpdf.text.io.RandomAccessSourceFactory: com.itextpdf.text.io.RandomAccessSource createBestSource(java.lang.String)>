@@ -1,0 +1,144 @@
+    public final com.itextpdf.text.io.RandomAccessSource createBestSource(java.lang.String)
+    {
+        java.lang.Throwable $r1, $r2, $r11;
+        java.io.RandomAccessFile $r8;
+        java.net.URL $r6;
+        java.io.FileInputStream $r7;
+        java.lang.RuntimeException $r10;
+        java.io.File $r4;
+        com.itextpdf.text.io.RandomAccessSourceFactory r0;
+        java.lang.String $r3;
+        com.itextpdf.text.io.RandomAccessSource $r5;
+        java.nio.channels.FileChannel $r9;
+        boolean $z0;
+
+        r0 := @this: com.itextpdf.text.io.RandomAccessSourceFactory;
+
+        $r3 := @parameter0: java.lang.String;
+
+        $r4 = new java.io.File;
+
+        specialinvoke $r4.<java.io.File: void <init>(java.lang.String)>($r3);
+
+        $z0 = virtualinvoke $r4.<java.io.File: boolean canRead()>();
+
+        if $z0 != 0 goto label02;
+
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean startsWith(java.lang.String)>("file:/");
+
+        if $z0 != 0 goto label01;
+
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean startsWith(java.lang.String)>("http://");
+
+        if $z0 != 0 goto label01;
+
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean startsWith(java.lang.String)>("https://");
+
+        if $z0 != 0 goto label01;
+
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean startsWith(java.lang.String)>("jar:");
+
+        if $z0 != 0 goto label01;
+
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean startsWith(java.lang.String)>("wsjar:");
+
+        if $z0 != 0 goto label01;
+
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean startsWith(java.lang.String)>("wsjar:");
+
+        if $z0 != 0 goto label01;
+
+        $z0 = virtualinvoke $r3.<java.lang.String: boolean startsWith(java.lang.String)>("vfszip:");
+
+        if $z0 != 0 goto label01;
+
+        $r5 = specialinvoke r0.<com.itextpdf.text.io.RandomAccessSourceFactory: com.itextpdf.text.io.RandomAccessSource createByReadingToMemory(java.lang.String)>($r3);
+
+        return $r5;
+
+     label01:
+        $r6 = new java.net.URL;
+
+        specialinvoke $r6.<java.net.URL: void <init>(java.lang.String)>($r3);
+
+        $r5 = virtualinvoke r0.<com.itextpdf.text.io.RandomAccessSourceFactory: com.itextpdf.text.io.RandomAccessSource createSource(java.net.URL)>($r6);
+
+        return $r5;
+
+     label02:
+        $z0 = r0.<com.itextpdf.text.io.RandomAccessSourceFactory: boolean forceRead>;
+
+        if $z0 == 0 goto label03;
+
+        $r7 = new java.io.FileInputStream;
+
+        specialinvoke $r7.<java.io.FileInputStream: void <init>(java.lang.String)>($r3);
+
+        $r5 = specialinvoke r0.<com.itextpdf.text.io.RandomAccessSourceFactory: com.itextpdf.text.io.RandomAccessSource createByReadingToMemory(java.io.InputStream)>($r7);
+
+        return $r5;
+
+     label03:
+        $z0 = r0.<com.itextpdf.text.io.RandomAccessSourceFactory: boolean exclusivelyLockFile>;
+
+        if $z0 == 0 goto label04;
+
+        $r3 = "rw";
+
+        goto label05;
+
+     label04:
+        $r3 = "r";
+
+     label05:
+        $r8 = new java.io.RandomAccessFile;
+
+        specialinvoke $r8.<java.io.RandomAccessFile: void <init>(java.io.File,java.lang.String)>($r4, $r3);
+
+        $z0 = r0.<com.itextpdf.text.io.RandomAccessSourceFactory: boolean exclusivelyLockFile>;
+
+        if $z0 == 0 goto label06;
+
+        $r9 = virtualinvoke $r8.<java.io.RandomAccessFile: java.nio.channels.FileChannel getChannel()>();
+
+        virtualinvoke $r9.<java.nio.channels.FileChannel: java.nio.channels.FileLock lock()>();
+
+     label06:
+        $r5 = virtualinvoke r0.<com.itextpdf.text.io.RandomAccessSourceFactory: com.itextpdf.text.io.RandomAccessSource createBestSource(java.io.RandomAccessFile)>($r8);
+
+     label07:
+        return $r5;
+
+     label08:
+        $r10 := @caughtexception;
+
+     label09:
+        virtualinvoke $r8.<java.io.RandomAccessFile: void close()>();
+
+     label10:
+        throw $r10;
+
+     label11:
+        $r11 := @caughtexception;
+
+     label12:
+        virtualinvoke $r8.<java.io.RandomAccessFile: void close()>();
+
+     label13:
+        throw $r11;
+
+     label14:
+        $r1 := @caughtexception;
+
+        goto label10;
+
+     label15:
+        $r2 := @caughtexception;
+
+        goto label13;
+
+        catch java.io.IOException from label06 to label07 with label11;
+        catch java.lang.RuntimeException from label06 to label07 with label08;
+        catch java.io.IOException from label09 to label10 with label14;
+        catch java.io.IOException from label12 to label13 with label15;
+    }

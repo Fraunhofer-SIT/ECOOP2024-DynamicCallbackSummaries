@@ -1,0 +1,296 @@
+    private org.json.JSONObject makePostRequest(java.lang.String, java.util.List, java.lang.String, boolean)
+    {
+        java.net.HttpURLConnection $r6;
+        java.lang.Throwable r11;
+        java.lang.Object[] $r13;
+        com.beetalk.sdk.networking.HttpParam r9;
+        java.lang.Integer $r14;
+        org.json.JSONException r17;
+        org.json.JSONObject r15, $r23;
+        int $i0;
+        java.io.OutputStreamWriter $r19;
+        java.lang.String $r1, $r3, $r5, $r10;
+        com.beetalk.sdk.networking.SimpleNetworkClient r0;
+        boolean $z0, $z1;
+        java.io.OutputStream $r12;
+        java.util.Iterator $r7;
+        java.io.BufferedWriter $r20;
+        java.io.InputStreamReader $r21;
+        java.lang.Exception $r24;
+        java.util.List r2;
+        java.lang.StringBuilder r4, $r18;
+        java.lang.Object $r8;
+        java.io.BufferedReader $r22;
+        java.io.InputStream $r16;
+
+        r0 := @this: com.beetalk.sdk.networking.SimpleNetworkClient;
+
+        $r1 := @parameter0: java.lang.String;
+
+        r2 := @parameter1: java.util.List;
+
+        $r3 := @parameter2: java.lang.String;
+
+        $z0 := @parameter3: boolean;
+
+        $r18 = new java.lang.StringBuilder;
+
+     label01:
+        specialinvoke $r18.<java.lang.StringBuilder: void <init>()>();
+
+        r4 = virtualinvoke $r18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("--> POST ");
+
+        r4 = virtualinvoke r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r5 = virtualinvoke r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke r0.<com.beetalk.sdk.networking.SimpleNetworkClient: void log(java.lang.String)>($r5);
+
+        $r6 = staticinvoke <com.beetalk.sdk.networking.HttpFactory: java.net.HttpURLConnection newConnection(java.lang.String)>($r1);
+
+     label02:
+        if $r6 != null goto label05;
+
+     label03:
+        specialinvoke r0.<com.beetalk.sdk.networking.SimpleNetworkClient: void log(java.lang.String)>("--> END POST Failed to build connection.");
+
+     label04:
+        return null;
+
+     label05:
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+     label06:
+        if r2 == null goto label21;
+
+     label07:
+        $r7 = interfaceinvoke r2.<java.util.List: java.util.Iterator iterator()>();
+
+     label08:
+        $z1 = interfaceinvoke $r7.<java.util.Iterator: boolean hasNext()>();
+
+     label09:
+        if $z1 == 0 goto label21;
+
+     label10:
+        $r8 = interfaceinvoke $r7.<java.util.Iterator: java.lang.Object next()>();
+
+     label11:
+        r9 = (com.beetalk.sdk.networking.HttpParam) $r8;
+
+        $r5 = r9.<com.beetalk.sdk.networking.HttpParam: java.lang.String key>;
+
+        $r10 = r9.<com.beetalk.sdk.networking.HttpParam: java.lang.String value>;
+
+     label12:
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>($r5, $r10);
+
+     label13:
+        $r18 = new java.lang.StringBuilder;
+
+     label14:
+        specialinvoke $r18.<java.lang.StringBuilder: void <init>()>();
+
+     label15:
+        $r5 = r9.<com.beetalk.sdk.networking.HttpParam: java.lang.String key>;
+
+     label16:
+        r4 = virtualinvoke $r18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        r4 = virtualinvoke r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(": ");
+
+     label17:
+        $r5 = r9.<com.beetalk.sdk.networking.HttpParam: java.lang.String value>;
+
+     label18:
+        r4 = virtualinvoke r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke r0.<com.beetalk.sdk.networking.SimpleNetworkClient: void log(java.lang.String)>($r5);
+
+     label19:
+        goto label08;
+
+     label20:
+        r11 := @caughtexception;
+
+        $r24 = (java.lang.Exception) r11;
+
+        staticinvoke <com.beetalk.sdk.helper.BBLogger: void e(java.lang.Exception)>($r24);
+
+        specialinvoke r0.<com.beetalk.sdk.networking.SimpleNetworkClient: void log(java.lang.String)>("<-- END HTTP Failed to get response");
+
+        return null;
+
+     label21:
+        specialinvoke r0.<com.beetalk.sdk.networking.SimpleNetworkClient: void log(java.lang.String)>($r3);
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+        $r12 = virtualinvoke $r6.<java.net.HttpURLConnection: java.io.OutputStream getOutputStream()>();
+
+     label22:
+        $r20 = new java.io.BufferedWriter;
+
+        $r19 = new java.io.OutputStreamWriter;
+
+     label23:
+        specialinvoke $r19.<java.io.OutputStreamWriter: void <init>(java.io.OutputStream,java.lang.String)>($r12, "UTF-8");
+
+        specialinvoke $r20.<java.io.BufferedWriter: void <init>(java.io.Writer)>($r19);
+
+        virtualinvoke $r20.<java.io.BufferedWriter: void write(java.lang.String)>($r3);
+
+        virtualinvoke $r20.<java.io.BufferedWriter: void flush()>();
+
+        virtualinvoke $r20.<java.io.BufferedWriter: void close()>();
+
+        virtualinvoke $r12.<java.io.OutputStream: void close()>();
+
+        specialinvoke r0.<com.beetalk.sdk.networking.SimpleNetworkClient: void log(java.lang.String)>("--> END POST");
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void connect()>();
+
+        $i0 = virtualinvoke $r6.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label24:
+        $r13 = newarray (java.lang.Object)[1];
+
+     label25:
+        $r14 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+     label26:
+        $r13[0] = $r14;
+
+     label27:
+        staticinvoke <com.beetalk.sdk.helper.BBLogger: void i(java.lang.String,java.lang.Object[])>("request code %d", $r13);
+
+     label28:
+        $r18 = new java.lang.StringBuilder;
+
+     label29:
+        specialinvoke $r18.<java.lang.StringBuilder: void <init>()>();
+
+        r4 = virtualinvoke $r18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("<-- ");
+
+        r4 = virtualinvoke r4.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        r4 = virtualinvoke r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ");
+
+        r4 = virtualinvoke r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke r0.<com.beetalk.sdk.networking.SimpleNetworkClient: void log(java.lang.String)>($r1);
+
+        specialinvoke r0.<com.beetalk.sdk.networking.SimpleNetworkClient: void logResponseHeaders(java.net.HttpURLConnection)>($r6);
+
+     label30:
+        r15 = null;
+
+        if $i0 == 200 goto label31;
+
+        if $z0 == 0 goto label46;
+
+     label31:
+        $r16 = virtualinvoke $r6.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+     label32:
+        $r22 = new java.io.BufferedReader;
+
+        $r21 = new java.io.InputStreamReader;
+
+     label33:
+        specialinvoke $r21.<java.io.InputStreamReader: void <init>(java.io.InputStream)>($r16);
+
+        specialinvoke $r22.<java.io.BufferedReader: void <init>(java.io.Reader)>($r21);
+
+     label34:
+        $r18 = new java.lang.StringBuilder;
+
+        r4 = $r18;
+
+     label35:
+        specialinvoke $r18.<java.lang.StringBuilder: void <init>()>();
+
+     label36:
+        $r1 = virtualinvoke $r22.<java.io.BufferedReader: java.lang.String readLine()>();
+
+     label37:
+        if $r1 == null goto label40;
+
+     label38:
+        virtualinvoke r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+     label39:
+        goto label36;
+
+     label40:
+        virtualinvoke $r22.<java.io.BufferedReader: void close()>();
+
+        $r1 = virtualinvoke r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label41:
+        $r13 = newarray (java.lang.Object)[0];
+
+     label42:
+        staticinvoke <com.beetalk.sdk.helper.BBLogger: void d(java.lang.String,java.lang.Object[])>($r1, $r13);
+
+        $r1 = virtualinvoke r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke r0.<com.beetalk.sdk.networking.SimpleNetworkClient: void log(java.lang.String)>($r1);
+
+     label43:
+        $r23 = new org.json.JSONObject;
+
+     label44:
+        $r1 = virtualinvoke r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r23.<org.json.JSONObject: void <init>(java.lang.String)>($r1);
+
+     label45:
+        r15 = $r23;
+
+     label46:
+        virtualinvoke $r6.<java.net.HttpURLConnection: void disconnect()>();
+
+        specialinvoke r0.<com.beetalk.sdk.networking.SimpleNetworkClient: void log(java.lang.String)>("<-- END HTTP");
+
+     label47:
+        return r15;
+
+     label48:
+        r17 := @caughtexception;
+
+     label49:
+        staticinvoke <com.beetalk.sdk.helper.BBLogger: void e(java.lang.Exception)>(r17);
+
+     label50:
+        goto label46;
+
+        catch java.io.IOException from label01 to label02 with label20;
+        catch java.io.IOException from label03 to label04 with label20;
+        catch java.io.IOException from label05 to label06 with label20;
+        catch java.io.IOException from label07 to label09 with label20;
+        catch java.io.IOException from label10 to label11 with label20;
+        catch java.io.IOException from label12 to label13 with label20;
+        catch java.io.IOException from label14 to label15 with label20;
+        catch java.io.IOException from label16 to label17 with label20;
+        catch java.io.IOException from label18 to label19 with label20;
+        catch java.io.IOException from label21 to label22 with label20;
+        catch java.io.IOException from label23 to label24 with label20;
+        catch java.io.IOException from label25 to label26 with label20;
+        catch java.io.IOException from label27 to label28 with label20;
+        catch java.io.IOException from label29 to label30 with label20;
+        catch java.io.IOException from label31 to label32 with label20;
+        catch java.io.IOException from label33 to label34 with label20;
+        catch java.io.IOException from label35 to label37 with label20;
+        catch java.io.IOException from label38 to label39 with label20;
+        catch java.io.IOException from label40 to label41 with label20;
+        catch java.io.IOException from label42 to label43 with label20;
+        catch org.json.JSONException from label44 to label45 with label48;
+        catch java.io.IOException from label44 to label45 with label20;
+        catch java.io.IOException from label46 to label47 with label20;
+        catch java.io.IOException from label49 to label50 with label20;
+    }

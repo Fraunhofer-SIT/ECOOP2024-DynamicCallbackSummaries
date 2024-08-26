@@ -1,0 +1,74 @@
+    public static void writeNonFatalEventsTo(com.crashlytics.android.core.CodedOutputStream, java.io.File[], java.lang.String)
+    {
+        java.lang.Object[] $r7;
+        java.io.File $r4;
+        java.lang.Exception $r9;
+        com.crashlytics.android.core.CodedOutputStream $r0;
+        j.a.a.a.k $r5;
+        java.util.Locale $r6;
+        int $i0, $i1;
+        java.lang.String $r2, $r8;
+        java.util.Comparator $r3;
+        java.io.File[] $r1;
+
+        $r0 := @parameter0: com.crashlytics.android.core.CodedOutputStream;
+
+        $r1 := @parameter1: java.io.File[];
+
+        $r2 := @parameter2: java.lang.String;
+
+        $r3 = <j.a.a.a.m.b.i: java.util.Comparator d>;
+
+        staticinvoke <java.util.Arrays: void sort(java.lang.Object[],java.util.Comparator)>($r1, $r3);
+
+        $i0 = lengthof $r1;
+
+        $i1 = 0;
+
+     label1:
+        if $i1 >= $i0 goto label8;
+
+        $r4 = $r1[$i1];
+
+     label2:
+        $r5 = staticinvoke <j.a.a.a.c: j.a.a.a.k p()>();
+
+     label3:
+        $r6 = <java.util.Locale: java.util.Locale US>;
+
+        $r7 = newarray (java.lang.Object)[2];
+
+     label4:
+        $r7[0] = $r2;
+
+        $r8 = virtualinvoke $r4.<java.io.File: java.lang.String getName()>();
+
+        $r7[1] = $r8;
+
+        $r8 = staticinvoke <java.lang.String: java.lang.String format(java.util.Locale,java.lang.String,java.lang.Object[])>($r6, "Found Non Fatal for session ID %s in %s ", $r7);
+
+        interfaceinvoke $r5.<j.a.a.a.k: void d(java.lang.String,java.lang.String)>("CrashlyticsCore", $r8);
+
+        staticinvoke <com.crashlytics.android.core.CrashlyticsController: void writeToCosFromFile(com.crashlytics.android.core.CodedOutputStream,java.io.File)>($r0, $r4);
+
+     label5:
+        goto label7;
+
+     label6:
+        $r9 := @caughtexception;
+
+        $r5 = staticinvoke <j.a.a.a.c: j.a.a.a.k p()>();
+
+        interfaceinvoke $r5.<j.a.a.a.k: void e(java.lang.String,java.lang.String,java.lang.Throwable)>("CrashlyticsCore", "Error writting non-fatal to session.", $r9);
+
+     label7:
+        $i1 = $i1 + 1;
+
+        goto label1;
+
+     label8:
+        return;
+
+        catch java.lang.Exception from label2 to label3 with label6;
+        catch java.lang.Exception from label4 to label5 with label6;
+    }

@@ -1,0 +1,76 @@
+    private void sendBody(java.io.OutputStream, long) throws java.io.IOException
+    {
+        java.io.OutputStream $r1;
+        byte[] $r2;
+        fi.iki.elonen.NanoHTTPD$Response r0;
+        long $l0, $l3;
+        byte $b2;
+        int $i1;
+        boolean $z0;
+        java.io.InputStream $r3;
+
+        r0 := @this: fi.iki.elonen.NanoHTTPD$Response;
+
+        $r1 := @parameter0: java.io.OutputStream;
+
+        $l0 := @parameter1: long;
+
+        $i1 = (int) 16384L;
+
+        $r2 = newarray (byte)[$i1];
+
+        $b2 = $l0 cmp -1L;
+
+        if $b2 != 0 goto label1;
+
+        $z0 = 1;
+
+        goto label2;
+
+     label1:
+        $z0 = 0;
+
+     label2:
+        $b2 = $l0 cmp 0L;
+
+        $i1 = (int) $b2;
+
+        if $i1 > 0 goto label3;
+
+        if $z0 == 0 goto label7;
+
+     label3:
+        if $z0 == 0 goto label4;
+
+        $l3 = 16384L;
+
+        goto label5;
+
+     label4:
+        $l3 = staticinvoke <java.lang.Math: long min(long,long)>($l0, 16384L);
+
+     label5:
+        $r3 = r0.<fi.iki.elonen.NanoHTTPD$Response: java.io.InputStream data>;
+
+        $i1 = (int) $l3;
+
+        $i1 = virtualinvoke $r3.<java.io.InputStream: int read(byte[],int,int)>($r2, 0, $i1);
+
+        if $i1 > 0 goto label6;
+
+        return;
+
+     label6:
+        virtualinvoke $r1.<java.io.OutputStream: void write(byte[],int,int)>($r2, 0, $i1);
+
+        if $z0 != 0 goto label2;
+
+        $l3 = (long) $i1;
+
+        $l0 = $l0 - $l3;
+
+        goto label2;
+
+     label7:
+        return;
+    }

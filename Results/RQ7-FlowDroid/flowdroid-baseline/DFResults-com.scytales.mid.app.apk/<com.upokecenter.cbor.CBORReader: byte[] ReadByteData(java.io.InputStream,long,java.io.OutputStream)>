@@ -1,0 +1,208 @@
+    private static byte[] ReadByteData(java.io.InputStream, long, java.io.OutputStream) throws java.io.IOException
+    {
+        java.lang.Throwable $r1, $r2, $r6;
+        byte[] $r0;
+        java.io.ByteArrayOutputStream $r5, $r10;
+        long $l0, $l1;
+        byte $b2;
+        int $i3, $i4, $i5;
+        java.lang.String $r8;
+        boolean $z0;
+        java.io.OutputStream $r4;
+        com.upokecenter.cbor.CBORException $r9;
+        o.dci $r7;
+        java.lang.StringBuilder $r11;
+        java.io.InputStream $r3;
+
+        $r3 := @parameter0: java.io.InputStream;
+
+        $l0 := @parameter1: long;
+
+        $r4 := @parameter2: java.io.OutputStream;
+
+        $l1 = $l0 >> 63;
+
+        $b2 = $l1 cmp 0L;
+
+        if $b2 != 0 goto label24;
+
+        $b2 = $l0 cmp 2147483647L;
+
+        $i3 = (int) $b2;
+
+        if $i3 > 0 goto label24;
+
+        $z0 = staticinvoke <com.upokecenter.cbor.PropertyMap: boolean ExceedsKnownLength(java.io.InputStream,long)>($r3, $l0);
+
+        if $z0 != 0 goto label23;
+
+        $b2 = $l0 cmp 65536L;
+
+        $r5 = null;
+
+        $i3 = (int) $b2;
+
+        if $i3 > 0 goto label03;
+
+        $i3 = (int) $l0;
+
+        $r0 = newarray (byte)[$i3];
+
+        $i4 = virtualinvoke $r3.<java.io.InputStream: int read(byte[],int,int)>($r0, 0, $i3);
+
+        if $i4 != $i3 goto label02;
+
+        if $r4 == null goto label01;
+
+        virtualinvoke $r4.<java.io.OutputStream: void write(byte[],int,int)>($r0, 0, $i3);
+
+        return null;
+
+     label01:
+        return $r0;
+
+     label02:
+        $r9 = new com.upokecenter.cbor.CBORException;
+
+        specialinvoke $r9.<com.upokecenter.cbor.CBORException: void <init>(java.lang.String)>("Premature end of stream");
+
+        throw $r9;
+
+     label03:
+        $r0 = newarray (byte)[65536];
+
+        $i3 = (int) $l0;
+
+        if $r4 == null goto label06;
+
+     label04:
+        if $i3 <= 0 goto label27;
+
+        $i4 = staticinvoke <java.lang.Math: int min(int,int)>(65536, $i3);
+
+        $i5 = virtualinvoke $r3.<java.io.InputStream: int read(byte[],int,int)>($r0, 0, $i4);
+
+        if $i5 != $i4 goto label05;
+
+        virtualinvoke $r4.<java.io.OutputStream: void write(byte[],int,int)>($r0, 0, $i4);
+
+        $i3 = $i3 - $i4;
+
+        goto label04;
+
+     label05:
+        $r9 = new com.upokecenter.cbor.CBORException;
+
+        specialinvoke $r9.<com.upokecenter.cbor.CBORException: void <init>(java.lang.String)>("Premature end of stream");
+
+        throw $r9;
+
+     label06:
+        $r10 = new java.io.ByteArrayOutputStream;
+
+     label07:
+        specialinvoke $r10.<java.io.ByteArrayOutputStream: void <init>(int)>(65536);
+
+     label08:
+        if $i3 <= 0 goto label15;
+
+     label09:
+        $i4 = staticinvoke <java.lang.Math: int min(int,int)>(65536, $i3);
+
+        $i5 = virtualinvoke $r3.<java.io.InputStream: int read(byte[],int,int)>($r0, 0, $i4);
+
+     label10:
+        if $i5 != $i4 goto label13;
+
+     label11:
+        virtualinvoke $r10.<java.io.OutputStream: void write(byte[],int,int)>($r0, 0, $i4);
+
+     label12:
+        $i3 = $i3 - $i4;
+
+        goto label08;
+
+     label13:
+        $r9 = new com.upokecenter.cbor.CBORException;
+
+     label14:
+        specialinvoke $r9.<com.upokecenter.cbor.CBORException: void <init>(java.lang.String)>("Premature end of stream");
+
+        throw $r9;
+
+     label15:
+        $r0 = virtualinvoke $r10.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label16:
+        virtualinvoke $r10.<java.io.OutputStream: void close()>();
+
+     label17:
+        return $r0;
+
+     label18:
+        $r6 := @caughtexception;
+
+        $r5 = $r10;
+
+        goto label20;
+
+     label19:
+        $r6 := @caughtexception;
+
+     label20:
+        if $r5 == null goto label22;
+
+     label21:
+        virtualinvoke $r5.<java.io.OutputStream: void close()>();
+
+     label22:
+        throw $r6;
+
+     label23:
+        $r9 = new com.upokecenter.cbor.CBORException;
+
+        specialinvoke $r9.<com.upokecenter.cbor.CBORException: void <init>(java.lang.String)>("Premature end of stream");
+
+        throw $r9;
+
+     label24:
+        $r9 = new com.upokecenter.cbor.CBORException;
+
+        $r11 = new java.lang.StringBuilder;
+
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>(java.lang.String)>("Length");
+
+        $r7 = staticinvoke <com.upokecenter.cbor.CBORReader: o.dci ToUnsignedBigInteger(long)>($l0);
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r7);
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" is bigger than supported ");
+
+        $r8 = virtualinvoke $r11.<java.lang.Object: java.lang.String toString()>();
+
+        specialinvoke $r9.<com.upokecenter.cbor.CBORException: void <init>(java.lang.String)>($r8);
+
+        throw $r9;
+
+     label25:
+        $r1 := @caughtexception;
+
+        return $r0;
+
+     label26:
+        $r2 := @caughtexception;
+
+        goto label22;
+
+     label27:
+        return null;
+
+        catch java.lang.Throwable from label06 to label07 with label19;
+        catch java.lang.Throwable from label07 to label08 with label19;
+        catch java.lang.Throwable from label09 to label10 with label18;
+        catch java.lang.Throwable from label11 to label12 with label18;
+        catch java.lang.Throwable from label13 to label14 with label18;
+        catch java.lang.Throwable from label14 to label16 with label18;
+        catch java.io.IOException from label16 to label17 with label25;
+        catch java.io.IOException from label21 to label22 with label26;
+    }

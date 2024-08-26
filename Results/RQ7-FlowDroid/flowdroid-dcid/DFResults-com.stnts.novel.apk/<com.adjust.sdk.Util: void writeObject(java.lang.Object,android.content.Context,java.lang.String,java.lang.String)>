@@ -1,0 +1,150 @@
+    public static void writeObject(java.lang.Object, android.content.Context, java.lang.String, java.lang.String)
+    {
+        java.lang.Throwable $r2;
+        android.content.Context $r4;
+        java.lang.Object[] $r1;
+        java.io.FileOutputStream $r6;
+        java.lang.Exception $r9, $r10;
+        java.io.BufferedOutputStream $r11;
+        java.io.Closeable $r13;
+        com.adjust.sdk.ILogger $r8;
+        java.lang.Object $r3, $r7;
+        java.io.ObjectOutputStream $r12;
+        java.lang.String $r0, $r5;
+
+        $r3 := @parameter0: java.lang.Object;
+
+        $r4 := @parameter1: android.content.Context;
+
+        $r5 := @parameter2: java.lang.String;
+
+        $r0 := @parameter3: java.lang.String;
+
+     label01:
+        $r6 = virtualinvoke $r4.<android.content.Context: java.io.FileOutputStream openFileOutput(java.lang.String,int)>($r5, 0);
+
+     label02:
+        $r7 = $r6;
+
+        $r11 = new java.io.BufferedOutputStream;
+
+     label03:
+        specialinvoke $r11.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r6);
+
+     label04:
+        $r12 = new java.io.ObjectOutputStream;
+
+        $r7 = $r12;
+
+     label05:
+        specialinvoke $r12.<java.io.ObjectOutputStream: void <init>(java.io.OutputStream)>($r11);
+
+     label06:
+        $r12 = (java.io.ObjectOutputStream) $r12;
+
+     label07:
+        virtualinvoke $r12.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>($r3);
+
+        $r8 = staticinvoke <com.adjust.sdk.Util: com.adjust.sdk.ILogger getLogger()>();
+
+     label08:
+        $r1 = newarray (java.lang.Object)[2];
+
+     label09:
+        $r1[0] = $r0;
+
+        $r1[1] = $r3;
+
+     label10:
+        interfaceinvoke $r8.<com.adjust.sdk.ILogger: void debug(java.lang.String,java.lang.Object[])>("Wrote %s: %s", $r1);
+
+     label11:
+        goto label20;
+
+     label12:
+        $r8 = staticinvoke <com.adjust.sdk.Util: com.adjust.sdk.ILogger getLogger()>();
+
+     label13:
+        $r1 = newarray (java.lang.Object)[1];
+
+     label14:
+        $r1[0] = $r0;
+
+        interfaceinvoke $r8.<com.adjust.sdk.ILogger: void error(java.lang.String,java.lang.Object[])>("Failed to serialize %s", $r1);
+
+     label15:
+        goto label20;
+
+     label16:
+        $r9 := @caughtexception;
+
+        $r7 = $r11;
+
+        goto label19;
+
+     label17:
+        $r9 := @caughtexception;
+
+        goto label19;
+
+     label18:
+        $r9 := @caughtexception;
+
+        $r7 = null;
+
+     label19:
+        $r8 = staticinvoke <com.adjust.sdk.Util: com.adjust.sdk.ILogger getLogger()>();
+
+        $r1 = newarray (java.lang.Object)[2];
+
+        $r1[0] = $r0;
+
+        $r1[1] = $r9;
+
+        interfaceinvoke $r8.<com.adjust.sdk.ILogger: void error(java.lang.String,java.lang.Object[])>("Failed to open %s for writing (%s)", $r1);
+
+     label20:
+        if $r7 == null goto label25;
+
+     label21:
+        $r13 = (java.io.Closeable) $r7;
+
+        interfaceinvoke $r13.<java.io.Closeable: void close()>();
+
+     label22:
+        return;
+
+     label23:
+        $r10 := @caughtexception;
+
+        $r8 = staticinvoke <com.adjust.sdk.Util: com.adjust.sdk.ILogger getLogger()>();
+
+        $r1 = newarray (java.lang.Object)[2];
+
+        $r1[0] = $r0;
+
+        $r1[1] = $r10;
+
+        interfaceinvoke $r8.<com.adjust.sdk.ILogger: void error(java.lang.String,java.lang.Object[])>("Failed to close %s file for writing (%s)", $r1);
+
+        return;
+
+     label24:
+        $r2 := @caughtexception;
+
+        goto label12;
+
+     label25:
+        return;
+
+        catch java.lang.Exception from label01 to label02 with label18;
+        catch java.lang.Exception from label03 to label04 with label17;
+        catch java.lang.Exception from label05 to label06 with label16;
+        catch java.io.NotSerializableException from label07 to label08 with label24;
+        catch java.io.NotSerializableException from label10 to label11 with label24;
+        catch java.lang.Exception from label06 to label08 with label17;
+        catch java.lang.Exception from label09 to label11 with label17;
+        catch java.lang.Exception from label12 to label13 with label17;
+        catch java.lang.Exception from label14 to label15 with label17;
+        catch java.lang.Exception from label21 to label22 with label23;
+    }

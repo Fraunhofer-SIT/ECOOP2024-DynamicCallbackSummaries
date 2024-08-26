@@ -1,0 +1,49 @@
+    public static void onActivityResumed(android.app.Activity)
+    {
+        android.content.Context $r5;
+        long $l0;
+        com.facebook.appevents.internal.ActivityLifecycleTracker$4 $r0;
+        java.util.concurrent.atomic.AtomicInteger $r3;
+        java.util.concurrent.ScheduledExecutorService $r6;
+        java.lang.String $r4;
+        java.lang.ref.WeakReference $r2;
+        android.app.Activity $r1;
+
+        $r1 := @parameter0: android.app.Activity;
+
+        $r2 = new java.lang.ref.WeakReference;
+
+        specialinvoke $r2.<java.lang.ref.WeakReference: void <init>(java.lang.Object)>($r1);
+
+        <com.facebook.appevents.internal.ActivityLifecycleTracker: java.lang.ref.WeakReference currActivity> = $r2;
+
+        $r3 = <com.facebook.appevents.internal.ActivityLifecycleTracker: java.util.concurrent.atomic.AtomicInteger foregroundActivityCount>;
+
+        virtualinvoke $r3.<java.util.concurrent.atomic.AtomicInteger: int incrementAndGet()>();
+
+        staticinvoke <com.facebook.appevents.internal.ActivityLifecycleTracker: void cancelCurrentTask()>();
+
+        $l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        <com.facebook.appevents.internal.ActivityLifecycleTracker: long currentActivityAppearTime> = $l0;
+
+        $r4 = staticinvoke <com.facebook.internal.Utility: java.lang.String getActivityName(android.content.Context)>($r1);
+
+        staticinvoke <com.facebook.appevents.codeless.CodelessManager: void onActivityResumed(android.app.Activity)>($r1);
+
+        staticinvoke <com.facebook.appevents.aam.MetadataIndexer: void onActivityResumed(android.app.Activity)>($r1);
+
+        staticinvoke <com.facebook.appevents.suggestedevents.SuggestedEventsManager: void trackActivity(android.app.Activity)>($r1);
+
+        $r5 = virtualinvoke $r1.<android.app.Activity: android.content.Context getApplicationContext()>();
+
+        $r0 = new com.facebook.appevents.internal.ActivityLifecycleTracker$4;
+
+        specialinvoke $r0.<com.facebook.appevents.internal.ActivityLifecycleTracker$4: void <init>(long,java.lang.String,android.content.Context)>($l0, $r4, $r5);
+
+        $r6 = <com.facebook.appevents.internal.ActivityLifecycleTracker: java.util.concurrent.ScheduledExecutorService singleThreadExecutor>;
+
+        interfaceinvoke $r6.<java.util.concurrent.ScheduledExecutorService: void execute(java.lang.Runnable)>($r0);
+
+        return;
+    }

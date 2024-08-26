@@ -1,0 +1,332 @@
+    public static long E(android.net.Uri, java.lang.String, java.lang.String)
+    {
+        java.lang.Throwable $r10, $r13, $r14, $r15, $r16, $r17, $r18, $r19, $r20, $r21, $r22;
+        byte[] $r12;
+        android.net.Uri $r0;
+        long $l0, $l2;
+        android.content.ContentResolver $r5;
+        int $i1;
+        java.lang.String $r1, $r2;
+        boolean $z0;
+        java.io.FileOutputStream $r11, $r24;
+        com.handcent.nextsms.MmsApp $r4;
+        java.io.FileInputStream $r7;
+        java.io.File $r8, $r9;
+        java.lang.Object $r3;
+        java.lang.StringBuilder $r23;
+        java.io.InputStream $r6;
+
+        $r0 := @parameter0: android.net.Uri;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r2 := @parameter2: java.lang.String;
+
+        $r3 = null;
+
+     label01:
+        $r4 = staticinvoke <com.handcent.nextsms.MmsApp: com.handcent.nextsms.MmsApp d()>();
+
+        $r5 = virtualinvoke $r4.<android.app.Application: android.content.ContentResolver getContentResolver()>();
+
+        $r6 = virtualinvoke $r5.<android.content.ContentResolver: java.io.InputStream openInputStream(android.net.Uri)>($r0);
+
+     label02:
+        $z0 = $r6 instanceof java.io.FileInputStream;
+
+     label03:
+        if $z0 == 0 goto label29;
+
+     label04:
+        $r7 = (java.io.FileInputStream) $r6;
+
+     label05:
+        staticinvoke <com.handcent.sms.ri.n: boolean c(java.lang.String)>($r1);
+
+     label06:
+        $r9 = new java.io.File;
+
+     label07:
+        $r8 = $r9;
+
+     label08:
+        specialinvoke $r9.<java.io.File: void <init>(java.lang.String)>($r1);
+
+        $r9 = virtualinvoke $r9.<java.io.File: java.io.File getParentFile()>();
+
+        $z0 = virtualinvoke $r9.<java.io.File: boolean exists()>();
+
+     label09:
+        if $z0 != 0 goto label18;
+
+     label10:
+        $z0 = virtualinvoke $r9.<java.io.File: boolean mkdirs()>();
+
+     label11:
+        if $z0 != 0 goto label18;
+
+     label12:
+        $r23 = new java.lang.StringBuilder;
+
+     label13:
+        specialinvoke $r23.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r23.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("[MMS] copyPart: mkdirs for ");
+
+        $r1 = virtualinvoke $r9.<java.io.File: java.lang.String getPath()>();
+
+        virtualinvoke $r23.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r23.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" failed!");
+
+        $r1 = virtualinvoke $r23.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.handcent.sms.yc.r1: void e(java.lang.String,java.lang.String)>("", $r1);
+
+     label14:
+        if $r6 == null goto label62;
+
+     label15:
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+     label16:
+        return 0L;
+
+     label17:
+        $r10 := @caughtexception;
+
+        staticinvoke <com.handcent.sms.yc.r1: int d(java.lang.String,java.lang.String,java.lang.Throwable)>("", "IOException caught while closing stream", $r10);
+
+        return 0L;
+
+     label18:
+        $r24 = new java.io.FileOutputStream;
+
+     label19:
+        $r11 = $r24;
+
+     label20:
+        specialinvoke $r24.<java.io.FileOutputStream: void <init>(java.io.File)>($r8);
+
+     label21:
+        $r12 = newarray (byte)[8000];
+
+        $l0 = 0L;
+
+     label22:
+        $i1 = virtualinvoke $r7.<java.io.FileInputStream: int read(byte[])>($r12);
+
+     label23:
+        if $i1 == -1 goto label26;
+
+        $l2 = (long) $i1;
+
+        $l0 = $l0 + $l2;
+
+     label24:
+        virtualinvoke $r24.<java.io.FileOutputStream: void write(byte[],int,int)>($r12, 0, $i1);
+
+     label25:
+        goto label22;
+
+     label26:
+        $r3 = $r24;
+
+        goto label30;
+
+     label27:
+        $r13 := @caughtexception;
+
+        $r3 = $r6;
+
+        $r14 = $r13;
+
+        goto label53;
+
+     label28:
+        $r15 := @caughtexception;
+
+        $r3 = $r6;
+
+        $r16 = $r15;
+
+        goto label43;
+
+     label29:
+        $l0 = 0L;
+
+     label30:
+        if $r6 == null goto label34;
+
+     label31:
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+     label32:
+        goto label34;
+
+     label33:
+        $r17 := @caughtexception;
+
+        staticinvoke <com.handcent.sms.yc.r1: int d(java.lang.String,java.lang.String,java.lang.Throwable)>("", "IOException caught while closing stream", $r17);
+
+        return 0L;
+
+     label34:
+        if $r3 == null goto label38;
+
+        $r11 = (java.io.FileOutputStream) $r3;
+
+     label35:
+        virtualinvoke $r11.<java.io.FileOutputStream: void close()>();
+
+     label36:
+        return $l0;
+
+     label37:
+        $r18 := @caughtexception;
+
+        staticinvoke <com.handcent.sms.yc.r1: int d(java.lang.String,java.lang.String,java.lang.Throwable)>("", "IOException caught while closing stream", $r18);
+
+        return 0L;
+
+     label38:
+        return $l0;
+
+     label39:
+        $r14 := @caughtexception;
+
+        $r3 = $r6;
+
+        $r11 = null;
+
+        goto label53;
+
+     label40:
+        $r16 := @caughtexception;
+
+        $r3 = $r6;
+
+        $r11 = null;
+
+        goto label43;
+
+     label41:
+        $r14 := @caughtexception;
+
+        $r11 = null;
+
+        goto label53;
+
+     label42:
+        $r16 := @caughtexception;
+
+        $r11 = null;
+
+     label43:
+        staticinvoke <com.handcent.sms.yc.r1: int d(java.lang.String,java.lang.String,java.lang.Throwable)>("", "IOException caught while opening or reading stream", $r16);
+
+     label44:
+        if $r3 == null goto label48;
+
+        $r6 = (java.io.InputStream) $r3;
+
+     label45:
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+     label46:
+        goto label48;
+
+     label47:
+        $r19 := @caughtexception;
+
+        staticinvoke <com.handcent.sms.yc.r1: int d(java.lang.String,java.lang.String,java.lang.Throwable)>("", "IOException caught while closing stream", $r19);
+
+        return 0L;
+
+     label48:
+        if $r11 == null goto label62;
+
+     label49:
+        virtualinvoke $r11.<java.io.FileOutputStream: void close()>();
+
+     label50:
+        return 0L;
+
+     label51:
+        $r20 := @caughtexception;
+
+        staticinvoke <com.handcent.sms.yc.r1: int d(java.lang.String,java.lang.String,java.lang.Throwable)>("", "IOException caught while closing stream", $r20);
+
+        return 0L;
+
+     label52:
+        $r14 := @caughtexception;
+
+     label53:
+        if $r3 == null goto label57;
+
+        $r6 = (java.io.InputStream) $r3;
+
+     label54:
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+     label55:
+        goto label57;
+
+     label56:
+        $r21 := @caughtexception;
+
+        staticinvoke <com.handcent.sms.yc.r1: int d(java.lang.String,java.lang.String,java.lang.Throwable)>("", "IOException caught while closing stream", $r21);
+
+        return 0L;
+
+     label57:
+        if $r11 == null goto label61;
+
+     label58:
+        virtualinvoke $r11.<java.io.FileOutputStream: void close()>();
+
+     label59:
+        goto label61;
+
+     label60:
+        $r22 := @caughtexception;
+
+        staticinvoke <com.handcent.sms.yc.r1: int d(java.lang.String,java.lang.String,java.lang.Throwable)>("", "IOException caught while closing stream", $r22);
+
+        return 0L;
+
+     label61:
+        throw $r14;
+
+     label62:
+        return 0L;
+
+        catch java.io.IOException from label01 to label02 with label42;
+        catch java.lang.Throwable from label01 to label02 with label41;
+        catch java.io.IOException from label05 to label06 with label40;
+        catch java.io.IOException from label08 to label09 with label40;
+        catch java.io.IOException from label10 to label11 with label40;
+        catch java.io.IOException from label13 to label14 with label40;
+        catch java.lang.Throwable from label02 to label03 with label39;
+        catch java.lang.Throwable from label04 to label07 with label39;
+        catch java.lang.Throwable from label08 to label09 with label39;
+        catch java.lang.Throwable from label10 to label11 with label39;
+        catch java.lang.Throwable from label12 to label13 with label39;
+        catch java.lang.Throwable from label13 to label14 with label39;
+        catch java.io.IOException from label15 to label16 with label17;
+        catch java.io.IOException from label20 to label21 with label40;
+        catch java.lang.Throwable from label18 to label19 with label39;
+        catch java.lang.Throwable from label20 to label21 with label39;
+        catch java.io.IOException from label22 to label23 with label28;
+        catch java.io.IOException from label24 to label25 with label28;
+        catch java.lang.Throwable from label22 to label23 with label27;
+        catch java.lang.Throwable from label24 to label25 with label27;
+        catch java.io.IOException from label31 to label32 with label33;
+        catch java.io.IOException from label35 to label36 with label37;
+        catch java.lang.Throwable from label43 to label44 with label52;
+        catch java.io.IOException from label45 to label46 with label47;
+        catch java.io.IOException from label49 to label50 with label51;
+        catch java.io.IOException from label54 to label55 with label56;
+        catch java.io.IOException from label58 to label59 with label60;
+    }

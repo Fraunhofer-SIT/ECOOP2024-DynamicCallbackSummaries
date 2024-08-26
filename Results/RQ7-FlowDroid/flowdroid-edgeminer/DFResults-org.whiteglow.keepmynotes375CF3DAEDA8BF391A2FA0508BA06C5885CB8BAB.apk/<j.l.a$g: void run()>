@@ -1,0 +1,256 @@
+    public void run()
+    {
+        java.net.HttpURLConnection $r23;
+        j.l.a$g r0;
+        java.util.Date $r9;
+        java.net.URL $r19;
+        java.lang.Runnable $r27;
+        org.json.JSONObject $r1;
+        java.lang.Long $r12;
+        java.util.Locale $r20;
+        boolean $z0;
+        java.util.Collection $r14;
+        java.lang.Exception $r28;
+        f.b.a.a.a $r6;
+        j.b.a $r17;
+        android.content.Context $r2;
+        java.lang.Object[] $r21;
+        java.text.SimpleDateFormat $r10;
+        long $l0;
+        j.l.a$g$a $r7;
+        f.b.a.a.a$b $r5;
+        java.net.URLConnection $r22;
+        int $i1, $i2;
+        java.io.OutputStreamWriter $r26;
+        java.lang.String $r4, $r8, $r11, $r18;
+        java.io.OutputStream $r24;
+        java.util.Iterator $r15;
+        java.io.BufferedWriter $r25;
+        k.c.b $r29;
+        android.content.SharedPreferences $r3;
+        java.lang.Object $r16;
+        org.json.JSONArray $r13;
+
+        r0 := @this: j.l.a$g;
+
+     label01:
+        $r2 = staticinvoke <j.b.b: android.content.Context o()>();
+
+        $r3 = staticinvoke <android.preference.PreferenceManager: android.content.SharedPreferences getDefaultSharedPreferences(android.content.Context)>($r2);
+
+        $r4 = interfaceinvoke $r3.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("rfrr", null);
+
+        $z0 = interfaceinvoke $r3.<android.content.SharedPreferences: boolean getBoolean(java.lang.String,boolean)>("rfrrrsb", 0);
+
+     label02:
+        if $r4 != null goto label07;
+
+        if $z0 != 0 goto label07;
+
+     label03:
+        $r2 = staticinvoke <j.b.b: android.content.Context o()>();
+
+        $r5 = staticinvoke <f.b.a.a.a: f.b.a.a.a$b c(android.content.Context)>($r2);
+
+        $r6 = virtualinvoke $r5.<f.b.a.a.a$b: f.b.a.a.a a()>();
+
+     label04:
+        $r7 = new j.l.a$g$a;
+
+     label05:
+        specialinvoke $r7.<j.l.a$g$a: void <init>(j.l.a$g,f.b.a.a.a,android.content.SharedPreferences)>(r0, $r6, $r3);
+
+        virtualinvoke $r6.<f.b.a.a.a: void d(f.b.a.a.c)>($r7);
+
+     label06:
+        return;
+
+     label07:
+        $r8 = staticinvoke <j.l.r: java.lang.String B0()>();
+
+     label08:
+        $r9 = new java.util.Date;
+
+     label09:
+        $l0 = interfaceinvoke $r3.<android.content.SharedPreferences: long getLong(java.lang.String,long)>("instt", -1L);
+
+        specialinvoke $r9.<java.util.Date: void <init>(long)>($l0);
+
+     label10:
+        $r10 = new java.text.SimpleDateFormat;
+
+     label11:
+        specialinvoke $r10.<java.text.SimpleDateFormat: void <init>(java.lang.String)>("yyyyMMdd");
+
+        $r11 = virtualinvoke $r10.<java.text.SimpleDateFormat: java.lang.String format(java.util.Date)>($r9);
+
+        $r12 = staticinvoke <java.lang.Long: java.lang.Long valueOf(java.lang.String)>($r11);
+
+        $r2 = staticinvoke <j.b.b: android.content.Context o()>();
+
+        $r11 = virtualinvoke $r2.<android.content.Context: java.lang.String getPackageName()>();
+
+     label12:
+        $r13 = new org.json.JSONArray;
+
+     label13:
+        specialinvoke $r13.<org.json.JSONArray: void <init>()>();
+
+        $r14 = r0.<j.l.a$g: java.util.Collection a>;
+
+        $r15 = interfaceinvoke $r14.<java.util.Collection: java.util.Iterator iterator()>();
+
+     label14:
+        $i1 = 0;
+
+     label15:
+        $z0 = interfaceinvoke $r15.<java.util.Iterator: boolean hasNext()>();
+
+     label16:
+        if $z0 == 0 goto label26;
+
+     label17:
+        $r16 = interfaceinvoke $r15.<java.util.Iterator: java.lang.Object next()>();
+
+        $r17 = (j.b.a) $r16;
+
+     label18:
+        $r1 = new org.json.JSONObject;
+
+     label19:
+        specialinvoke $r1.<org.json.JSONObject: void <init>()>();
+
+        $r18 = $r17.<j.b.a: java.lang.String a>;
+
+        virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("adType", $r18);
+
+        $r18 = $r17.<j.b.a: java.lang.String b>;
+
+     label20:
+        if $r18 == null goto label22;
+
+     label21:
+        virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("adNetwork", $r18);
+
+     label22:
+        if $r4 == null goto label24;
+
+     label23:
+        virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("referrer", $r4);
+
+     label24:
+        virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("country", $r8);
+
+        virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("installDateAsNumber", $r12);
+
+        virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("packageName", $r11);
+
+        $i2 = $r17.<j.b.a: int c>;
+
+        virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,int)>("numberOfImpressions", $i2);
+
+        $i2 = $r17.<j.b.a: int d>;
+
+        virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,int)>("numberOfClicks", $i2);
+
+        virtualinvoke $r13.<org.json.JSONArray: org.json.JSONArray put(int,java.lang.Object)>($i1, $r1);
+
+     label25:
+        $i1 = $i1 + 1;
+
+        goto label15;
+
+     label26:
+        $r19 = new java.net.URL;
+
+        $r20 = <java.util.Locale: java.util.Locale ENGLISH>;
+
+        $r21 = newarray (java.lang.Object)[1];
+
+        $r4 = <j.f.y: java.lang.String a>;
+
+     label27:
+        $r21[0] = $r4;
+
+        $r4 = staticinvoke <java.lang.String: java.lang.String format(java.util.Locale,java.lang.String,java.lang.Object[])>($r20, "https://%s/ads-tracking", $r21);
+
+        specialinvoke $r19.<java.net.URL: void <init>(java.lang.String)>($r4);
+
+        $r22 = virtualinvoke $r19.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r23 = (java.net.HttpURLConnection) $r22;
+
+        virtualinvoke $r23.<java.net.HttpURLConnection: void setReadTimeout(int)>(9999);
+
+        virtualinvoke $r23.<java.net.HttpURLConnection: void setConnectTimeout(int)>(18000);
+
+        virtualinvoke $r23.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+        virtualinvoke $r23.<java.net.HttpURLConnection: void setDoInput(boolean)>(1);
+
+        virtualinvoke $r23.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+        virtualinvoke $r23.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Type", "application/json");
+
+        virtualinvoke $r23.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Accept", "application/json");
+
+        $r24 = virtualinvoke $r23.<java.net.HttpURLConnection: java.io.OutputStream getOutputStream()>();
+
+     label28:
+        $r25 = new java.io.BufferedWriter;
+
+        $r26 = new java.io.OutputStreamWriter;
+
+     label29:
+        specialinvoke $r26.<java.io.OutputStreamWriter: void <init>(java.io.OutputStream,java.lang.String)>($r24, "UTF-8");
+
+        specialinvoke $r25.<java.io.BufferedWriter: void <init>(java.io.Writer)>($r26);
+
+        $r4 = virtualinvoke $r13.<org.json.JSONArray: java.lang.String toString()>();
+
+        virtualinvoke $r25.<java.io.BufferedWriter: void write(java.lang.String)>($r4);
+
+        virtualinvoke $r25.<java.io.BufferedWriter: void flush()>();
+
+        virtualinvoke $r25.<java.io.BufferedWriter: void close()>();
+
+        virtualinvoke $r24.<java.io.OutputStream: void close()>();
+
+        virtualinvoke $r23.<java.net.HttpURLConnection: int getResponseCode()>();
+
+        $r27 = r0.<j.l.a$g: java.lang.Runnable b>;
+
+        interfaceinvoke $r27.<java.lang.Runnable: void run()>();
+
+     label30:
+        return;
+
+     label31:
+        $r28 := @caughtexception;
+
+        $z0 = staticinvoke <j.b.b: boolean s()>();
+
+        if $z0 == 0 goto label32;
+
+        $r29 = staticinvoke <j.l.a: k.c.b a()>();
+
+        interfaceinvoke $r29.<k.c.b: void b(java.lang.String,java.lang.Throwable)>("", $r28);
+
+     label32:
+        return;
+
+        catch java.lang.Exception from label01 to label02 with label31;
+        catch java.lang.Exception from label03 to label04 with label31;
+        catch java.lang.Exception from label05 to label06 with label31;
+        catch java.lang.Exception from label07 to label08 with label31;
+        catch java.lang.Exception from label09 to label10 with label31;
+        catch java.lang.Exception from label11 to label12 with label31;
+        catch java.lang.Exception from label13 to label14 with label31;
+        catch java.lang.Exception from label15 to label16 with label31;
+        catch java.lang.Exception from label17 to label18 with label31;
+        catch java.lang.Exception from label19 to label20 with label31;
+        catch java.lang.Exception from label21 to label22 with label31;
+        catch java.lang.Exception from label23 to label25 with label31;
+        catch java.lang.Exception from label27 to label28 with label31;
+        catch java.lang.Exception from label29 to label30 with label31;
+    }

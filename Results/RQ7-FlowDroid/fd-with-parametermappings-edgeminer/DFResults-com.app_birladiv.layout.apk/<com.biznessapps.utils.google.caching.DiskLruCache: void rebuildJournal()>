@@ -1,0 +1,166 @@
+    private void rebuildJournal() throws java.io.IOException
+    {
+        java.lang.Throwable $r13;
+        com.biznessapps.utils.google.caching.DiskLruCache$Entry r10;
+        com.biznessapps.utils.google.caching.DiskLruCache$Editor $r11;
+        java.util.LinkedHashMap $r6;
+        int $i0;
+        java.lang.String $r5;
+        com.biznessapps.utils.google.caching.DiskLruCache r0;
+        boolean $z0;
+        java.util.Iterator $r8;
+        java.io.BufferedWriter r1;
+        java.util.Collection $r7;
+        java.io.FileWriter $r3;
+        java.io.File $r4, $r14;
+        java.io.Writer $r2;
+        java.lang.Object $r9;
+        java.lang.StringBuilder $r12;
+
+        r0 := @this: com.biznessapps.utils.google.caching.DiskLruCache;
+
+        entermonitor r0;
+
+     label1:
+        $r2 = r0.<com.biznessapps.utils.google.caching.DiskLruCache: java.io.Writer journalWriter>;
+
+        if $r2 == null goto label2;
+
+        $r2 = r0.<com.biznessapps.utils.google.caching.DiskLruCache: java.io.Writer journalWriter>;
+
+        virtualinvoke $r2.<java.io.Writer: void close()>();
+
+     label2:
+        r1 = new java.io.BufferedWriter;
+
+        $r3 = new java.io.FileWriter;
+
+        $r4 = r0.<com.biznessapps.utils.google.caching.DiskLruCache: java.io.File journalFileTmp>;
+
+        specialinvoke $r3.<java.io.FileWriter: void <init>(java.io.File)>($r4);
+
+        specialinvoke r1.<java.io.BufferedWriter: void <init>(java.io.Writer,int)>($r3, 8192);
+
+        virtualinvoke r1.<java.io.Writer: void write(java.lang.String)>("libcore.io.DiskLruCache");
+
+        virtualinvoke r1.<java.io.Writer: void write(java.lang.String)>("\n");
+
+        virtualinvoke r1.<java.io.Writer: void write(java.lang.String)>("1");
+
+        virtualinvoke r1.<java.io.Writer: void write(java.lang.String)>("\n");
+
+        $i0 = r0.<com.biznessapps.utils.google.caching.DiskLruCache: int appVersion>;
+
+        $r5 = staticinvoke <java.lang.Integer: java.lang.String toString(int)>($i0);
+
+        virtualinvoke r1.<java.io.Writer: void write(java.lang.String)>($r5);
+
+        virtualinvoke r1.<java.io.Writer: void write(java.lang.String)>("\n");
+
+        $i0 = r0.<com.biznessapps.utils.google.caching.DiskLruCache: int valueCount>;
+
+        $r5 = staticinvoke <java.lang.Integer: java.lang.String toString(int)>($i0);
+
+        virtualinvoke r1.<java.io.Writer: void write(java.lang.String)>($r5);
+
+        virtualinvoke r1.<java.io.Writer: void write(java.lang.String)>("\n");
+
+        virtualinvoke r1.<java.io.Writer: void write(java.lang.String)>("\n");
+
+        $r6 = r0.<com.biznessapps.utils.google.caching.DiskLruCache: java.util.LinkedHashMap lruEntries>;
+
+        $r7 = virtualinvoke $r6.<java.util.LinkedHashMap: java.util.Collection values()>();
+
+        $r8 = interfaceinvoke $r7.<java.util.Collection: java.util.Iterator iterator()>();
+
+     label3:
+        $z0 = interfaceinvoke $r8.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label7;
+
+        $r9 = interfaceinvoke $r8.<java.util.Iterator: java.lang.Object next()>();
+
+        r10 = (com.biznessapps.utils.google.caching.DiskLruCache$Entry) $r9;
+
+        $r11 = staticinvoke <com.biznessapps.utils.google.caching.DiskLruCache$Entry: com.biznessapps.utils.google.caching.DiskLruCache$Editor access$700(com.biznessapps.utils.google.caching.DiskLruCache$Entry)>(r10);
+
+        if $r11 == null goto label6;
+
+        $r12 = new java.lang.StringBuilder;
+
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>()>();
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("DIRTY ");
+
+        $r5 = staticinvoke <com.biznessapps.utils.google.caching.DiskLruCache$Entry: java.lang.String access$1100(com.biznessapps.utils.google.caching.DiskLruCache$Entry)>(r10);
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(10);
+
+        $r5 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke r1.<java.io.Writer: void write(java.lang.String)>($r5);
+
+     label4:
+        goto label3;
+
+     label5:
+        $r13 := @caughtexception;
+
+        exitmonitor r0;
+
+        throw $r13;
+
+     label6:
+        $r12 = new java.lang.StringBuilder;
+
+        specialinvoke $r12.<java.lang.StringBuilder: void <init>()>();
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("CLEAN ");
+
+        $r5 = staticinvoke <com.biznessapps.utils.google.caching.DiskLruCache$Entry: java.lang.String access$1100(com.biznessapps.utils.google.caching.DiskLruCache$Entry)>(r10);
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke r10.<com.biznessapps.utils.google.caching.DiskLruCache$Entry: java.lang.String getLengths()>();
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r12 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>(10);
+
+        $r5 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke r1.<java.io.Writer: void write(java.lang.String)>($r5);
+
+        goto label3;
+
+     label7:
+        virtualinvoke r1.<java.io.Writer: void close()>();
+
+        $r4 = r0.<com.biznessapps.utils.google.caching.DiskLruCache: java.io.File journalFileTmp>;
+
+        $r14 = r0.<com.biznessapps.utils.google.caching.DiskLruCache: java.io.File journalFile>;
+
+        virtualinvoke $r4.<java.io.File: boolean renameTo(java.io.File)>($r14);
+
+        r1 = new java.io.BufferedWriter;
+
+        $r3 = new java.io.FileWriter;
+
+        $r4 = r0.<com.biznessapps.utils.google.caching.DiskLruCache: java.io.File journalFile>;
+
+        specialinvoke $r3.<java.io.FileWriter: void <init>(java.io.File,boolean)>($r4, 1);
+
+        specialinvoke r1.<java.io.BufferedWriter: void <init>(java.io.Writer,int)>($r3, 8192);
+
+        r0.<com.biznessapps.utils.google.caching.DiskLruCache: java.io.Writer journalWriter> = r1;
+
+     label8:
+        exitmonitor r0;
+
+        return;
+
+        catch java.lang.Throwable from label1 to label4 with label5;
+        catch java.lang.Throwable from label6 to label8 with label5;
+    }

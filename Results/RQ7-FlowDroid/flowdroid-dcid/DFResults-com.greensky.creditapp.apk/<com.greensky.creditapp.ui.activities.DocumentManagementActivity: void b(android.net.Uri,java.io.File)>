@@ -1,0 +1,155 @@
+    private final void b(android.net.Uri, java.io.File) throws java.io.IOException
+    {
+        java.lang.Throwable $r11, $r12, $r13, $r14;
+        byte[] $r4;
+        android.net.Uri $r2;
+        android.content.ContentResolver $r5;
+        int $i0;
+        boolean $z0;
+        com.greensky.creditapp.ui.activities.DocumentManagementActivity r0;
+        kotlin.jvm.internal.Ref$IntRef $r1;
+        java.io.FileOutputStream $r8;
+        java.io.File $r3;
+        kotlin.Unit $r10;
+        java.io.Closeable $r7, $r9;
+        java.io.InputStream $r6;
+
+        r0 := @this: com.greensky.creditapp.ui.activities.DocumentManagementActivity;
+
+        $r2 := @parameter0: android.net.Uri;
+
+        $r3 := @parameter1: java.io.File;
+
+        $r4 = newarray (byte)[1024];
+
+        $r1 = new kotlin.jvm.internal.Ref$IntRef;
+
+        specialinvoke $r1.<kotlin.jvm.internal.Ref$IntRef: void <init>()>();
+
+        $r5 = virtualinvoke r0.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+        $r6 = virtualinvoke $r5.<android.content.ContentResolver: java.io.InputStream openInputStream(android.net.Uri)>($r2);
+
+        $r7 = (java.io.Closeable) $r6;
+
+     label01:
+        $r6 = (java.io.InputStream) $r7;
+
+        $r8 = new java.io.FileOutputStream;
+
+        specialinvoke $r8.<java.io.FileOutputStream: void <init>(java.io.File)>($r3);
+
+        $r9 = (java.io.Closeable) $r8;
+
+     label02:
+        $r8 = (java.io.FileOutputStream) $r9;
+
+     label03:
+        $i0 = <com.greensky.creditapp.ui.activities.DocumentManagementActivity: int onLocationChanged>;
+
+        $i0 = $i0 + 115;
+
+        $i0 = $i0 % 128;
+
+        <com.greensky.creditapp.ui.activities.DocumentManagementActivity: int onNmeaMessage> = $i0;
+
+     label04:
+        if $r6 != null goto label05;
+
+        $z0 = 0;
+
+        goto label06;
+
+     label05:
+        $z0 = 1;
+
+     label06:
+        if $z0 != 0 goto label08;
+
+        $i0 = <com.greensky.creditapp.ui.activities.DocumentManagementActivity: int onNmeaMessage>;
+
+        $i0 = $i0 + 1;
+
+        $i0 = $i0 % 128;
+
+        <com.greensky.creditapp.ui.activities.DocumentManagementActivity: int onLocationChanged> = $i0;
+
+     label07:
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void throwNpe()>();
+
+     label08:
+        $i0 = virtualinvoke $r6.<java.io.InputStream: int read(byte[])>($r4);
+
+        $r1.<kotlin.jvm.internal.Ref$IntRef: int element> = $i0;
+
+     label09:
+        if $i0 <= 0 goto label10;
+
+        $z0 = 1;
+
+        goto label11;
+
+     label10:
+        $z0 = 0;
+
+     label11:
+        if $z0 == 1 goto label15;
+
+     label12:
+        $r10 = <kotlin.Unit: kotlin.Unit INSTANCE>;
+
+     label13:
+        staticinvoke <kotlin.io.CloseableKt: void closeFinally(java.io.Closeable,java.lang.Throwable)>($r9, null);
+
+        $r10 = <kotlin.Unit: kotlin.Unit INSTANCE>;
+
+     label14:
+        staticinvoke <kotlin.io.CloseableKt: void closeFinally(java.io.Closeable,java.lang.Throwable)>($r7, null);
+
+        return;
+
+     label15:
+        $i0 = $r1.<kotlin.jvm.internal.Ref$IntRef: int element>;
+
+        virtualinvoke $r8.<java.io.OutputStream: void write(byte[],int,int)>($r4, 0, $i0);
+
+     label16:
+        goto label04;
+
+     label17:
+        $r11 := @caughtexception;
+
+     label18:
+        throw $r11;
+
+     label19:
+        $r12 := @caughtexception;
+
+     label20:
+        staticinvoke <kotlin.io.CloseableKt: void closeFinally(java.io.Closeable,java.lang.Throwable)>($r9, $r11);
+
+        throw $r12;
+
+     label21:
+        $r13 := @caughtexception;
+
+     label22:
+        throw $r13;
+
+     label23:
+        $r14 := @caughtexception;
+
+        staticinvoke <kotlin.io.CloseableKt: void closeFinally(java.io.Closeable,java.lang.Throwable)>($r7, $r13);
+
+        throw $r14;
+
+        catch java.lang.Throwable from label01 to label02 with label21;
+        catch java.lang.Throwable from label02 to label03 with label17;
+        catch java.lang.Throwable from label07 to label09 with label17;
+        catch java.lang.Throwable from label12 to label13 with label17;
+        catch java.lang.Throwable from label13 to label14 with label21;
+        catch java.lang.Throwable from label15 to label16 with label17;
+        catch java.lang.Throwable from label18 to label19 with label19;
+        catch java.lang.Throwable from label20 to label21 with label21;
+        catch java.lang.Throwable from label22 to label23 with label23;
+    }

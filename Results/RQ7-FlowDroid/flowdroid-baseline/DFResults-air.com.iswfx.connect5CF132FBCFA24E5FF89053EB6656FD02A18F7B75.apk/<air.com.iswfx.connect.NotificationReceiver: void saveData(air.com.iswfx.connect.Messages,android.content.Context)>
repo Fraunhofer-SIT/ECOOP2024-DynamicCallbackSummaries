@@ -1,0 +1,131 @@
+    private void saveData(air.com.iswfx.connect.Messages, android.content.Context)
+    {
+        java.lang.Throwable $r8, $r10, $r12, $r13;
+        android.content.Context $r2;
+        air.com.iswfx.connect.NotificationReceiver r0;
+        java.io.ObjectOutputStream $r11;
+        java.lang.String $r6;
+        air.com.iswfx.connect.Messages $r1;
+        boolean $z0;
+        java.io.FileOutputStream $r9;
+        char $c0;
+        java.io.File $r3, $r5;
+        java.lang.StringBuilder $r4;
+        java.lang.Object $r7;
+
+        r0 := @this: air.com.iswfx.connect.NotificationReceiver;
+
+        $r1 := @parameter0: air.com.iswfx.connect.Messages;
+
+        $r2 := @parameter1: android.content.Context;
+
+        $r3 = new java.io.File;
+
+        $r4 = new java.lang.StringBuilder;
+
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+        $r5 = virtualinvoke $r2.<android.content.Context: java.io.File getFilesDir()>();
+
+        $r6 = virtualinvoke $r5.<java.io.File: java.lang.String getPath()>();
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $c0 = <java.io.File: char separatorChar>;
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>($c0);
+
+        $r7 = <com.dukascopy.dukascopyextension.Extension: java.lang.Object FILE_NAME>;
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r7);
+
+        $r6 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r3.<java.io.File: void <init>(java.lang.String)>($r6);
+
+        $z0 = virtualinvoke $r3.<java.io.File: boolean exists()>();
+
+        if $z0 != 0 goto label04;
+
+     label01:
+        virtualinvoke $r3.<java.io.File: boolean createNewFile()>();
+
+     label02:
+        goto label04;
+
+     label03:
+        $r8 := @caughtexception;
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("DukascopyExtension", "error crit", $r8);
+
+     label04:
+        $r6 = virtualinvoke $r3.<java.io.File: java.lang.String getName()>();
+
+        $r9 = virtualinvoke $r2.<android.content.Context: java.io.FileOutputStream openFileOutput(java.lang.String,int)>($r6, 0);
+
+     label05:
+        goto label07;
+
+     label06:
+        $r10 := @caughtexception;
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("DukascopyExtension", "error crit", $r10);
+
+        $r9 = null;
+
+     label07:
+        if $r9 == null goto label11;
+
+        $r11 = new java.io.ObjectOutputStream;
+
+     label08:
+        specialinvoke $r11.<java.io.ObjectOutputStream: void <init>(java.io.OutputStream)>($r9);
+
+        virtualinvoke $r11.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>($r1);
+
+        virtualinvoke $r11.<java.io.ObjectOutputStream: void close()>();
+
+     label09:
+        goto label12;
+
+     label10:
+        $r12 := @caughtexception;
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("DukascopyExtension", "error crit", $r12);
+
+        goto label12;
+
+     label11:
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("DukascopyExtension", "error crit 2");
+
+     label12:
+        if $r9 == null goto label16;
+
+     label13:
+        virtualinvoke $r9.<java.io.FileOutputStream: void close()>();
+
+     label14:
+        return;
+
+     label15:
+        $r13 := @caughtexception;
+
+        goto label18;
+
+     label16:
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("DukascopyExtension", "error crit 3");
+
+     label17:
+        return;
+
+     label18:
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("DukascopyExtension", "error crit", $r13);
+
+        return;
+
+        catch java.io.IOException from label01 to label02 with label03;
+        catch java.io.FileNotFoundException from label04 to label05 with label06;
+        catch java.io.IOException from label08 to label09 with label10;
+        catch java.io.IOException from label13 to label14 with label15;
+        catch java.io.IOException from label16 to label17 with label15;
+    }

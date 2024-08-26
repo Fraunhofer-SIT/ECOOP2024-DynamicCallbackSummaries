@@ -1,0 +1,69 @@
+    public static void saveDataFromByteArray(byte[], java.io.File)
+    {
+        java.lang.Throwable $r4, $r5, $r6;
+        byte[] $r1;
+        java.io.FileOutputStream $r0;
+        java.io.File $r2;
+        java.io.BufferedOutputStream $r3;
+
+        $r1 := @parameter0: byte[];
+
+        $r2 := @parameter1: java.io.File;
+
+        $r3 = new java.io.BufferedOutputStream;
+
+        $r0 = new java.io.FileOutputStream;
+
+        specialinvoke $r0.<java.io.FileOutputStream: void <init>(java.io.File)>($r2);
+
+        specialinvoke $r3.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r0);
+
+     label01:
+        virtualinvoke $r3.<java.io.BufferedOutputStream: void write(byte[])>($r1);
+
+     label02:
+        if $r3 == null goto label11;
+
+        virtualinvoke $r3.<java.io.BufferedOutputStream: void close()>();
+
+        return;
+
+     label03:
+        $r4 := @caughtexception;
+
+     label04:
+        throw $r4;
+
+     label05:
+        $r5 := @caughtexception;
+
+        if $r3 == null goto label10;
+
+        if $r4 == null goto label09;
+
+     label06:
+        virtualinvoke $r3.<java.io.BufferedOutputStream: void close()>();
+
+     label07:
+        goto label10;
+
+     label08:
+        $r6 := @caughtexception;
+
+        virtualinvoke $r4.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r6);
+
+        goto label10;
+
+     label09:
+        virtualinvoke $r3.<java.io.BufferedOutputStream: void close()>();
+
+     label10:
+        throw $r5;
+
+     label11:
+        return;
+
+        catch java.lang.Throwable from label01 to label02 with label03;
+        catch java.lang.Throwable from label04 to label05 with label05;
+        catch java.lang.Throwable from label06 to label07 with label08;
+    }

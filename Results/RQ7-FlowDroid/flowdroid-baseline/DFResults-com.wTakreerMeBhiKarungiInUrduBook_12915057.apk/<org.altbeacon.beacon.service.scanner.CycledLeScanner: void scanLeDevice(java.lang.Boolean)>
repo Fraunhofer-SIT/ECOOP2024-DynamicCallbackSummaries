@@ -1,0 +1,338 @@
+    protected void scanLeDevice(java.lang.Boolean)
+    {
+        java.lang.Throwable $r2, $r3;
+        java.lang.Object[] $r1;
+        long $l0, $l1;
+        android.os.Handler $r11;
+        int $i2;
+        java.lang.Boolean $r4;
+        java.lang.String $r7;
+        boolean $z0;
+        org.altbeacon.beacon.service.scanner.CycledLeScanner r0;
+        android.bluetooth.BluetoothAdapter $r5;
+        org.altbeacon.bluetooth.BluetoothCrashResolver $r8;
+        java.lang.Exception $r9, $r10;
+        java.lang.StringBuilder $r6;
+
+        r0 := @this: org.altbeacon.beacon.service.scanner.CycledLeScanner;
+
+        $r4 := @parameter0: java.lang.Boolean;
+
+        r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: boolean mScanCyclerStarted> = 1;
+
+     label01:
+        $r5 = virtualinvoke r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: android.bluetooth.BluetoothAdapter getBluetoothAdapter()>();
+
+     label02:
+        if $r5 != null goto label04;
+
+        $r1 = newarray (java.lang.Object)[0];
+
+     label03:
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void e(java.lang.String,java.lang.String,java.lang.Object[])>("CycledLeScanner", "No Bluetooth adapter.  beaconService cannot scan.", $r1);
+
+     label04:
+        $z0 = r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: boolean mScanningEnabled>;
+
+        if $z0 == 0 goto label62;
+
+     label05:
+        $z0 = virtualinvoke $r4.<java.lang.Boolean: boolean booleanValue()>();
+
+     label06:
+        if $z0 == 0 goto label62;
+
+     label07:
+        $z0 = virtualinvoke r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: boolean deferScanIfNeeded()>();
+
+     label08:
+        if $z0 == 0 goto label09;
+
+        return;
+
+     label09:
+        $r1 = newarray (java.lang.Object)[0];
+
+     label10:
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>("CycledLeScanner", "starting a new scan cycle", $r1);
+
+     label11:
+        $z0 = r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: boolean mScanning>;
+
+        if $z0 == 0 goto label18;
+
+        $z0 = r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: boolean mScanningPaused>;
+
+        if $z0 != 0 goto label18;
+
+        $z0 = r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: boolean mRestartNeeded>;
+
+        if $z0 != 0 goto label18;
+
+        $r6 = new java.lang.StringBuilder;
+
+     label12:
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("We are already scanning and have been for ");
+
+        $l0 = staticinvoke <android.os.SystemClock: long elapsedRealtime()>();
+
+     label13:
+        $l1 = r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: long mCurrentScanStartTime>;
+
+        $l0 = $l0 - $l1;
+
+     label14:
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" millis");
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label15:
+        $r1 = newarray (java.lang.Object)[0];
+
+     label16:
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>("CycledLeScanner", $r7, $r1);
+
+     label17:
+        goto label56;
+
+     label18:
+        r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: boolean mScanning> = 1;
+
+        r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: boolean mScanningPaused> = 0;
+
+     label19:
+        $r5 = virtualinvoke r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: android.bluetooth.BluetoothAdapter getBluetoothAdapter()>();
+
+     label20:
+        if $r5 == null goto label56;
+
+     label21:
+        $r5 = virtualinvoke r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: android.bluetooth.BluetoothAdapter getBluetoothAdapter()>();
+
+        $z0 = virtualinvoke $r5.<android.bluetooth.BluetoothAdapter: boolean isEnabled()>();
+
+     label22:
+        if $z0 == 0 goto label51;
+
+     label23:
+        $r8 = r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: org.altbeacon.bluetooth.BluetoothCrashResolver mBluetoothCrashResolver>;
+
+     label24:
+        if $r8 == null goto label29;
+
+     label25:
+        $r8 = r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: org.altbeacon.bluetooth.BluetoothCrashResolver mBluetoothCrashResolver>;
+
+        $z0 = virtualinvoke $r8.<org.altbeacon.bluetooth.BluetoothCrashResolver: boolean isRecoveryInProgress()>();
+
+     label26:
+        if $z0 == 0 goto label29;
+
+        $r1 = newarray (java.lang.Object)[0];
+
+     label27:
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void w(java.lang.String,java.lang.String,java.lang.Object[])>("CycledLeScanner", "Skipping scan because crash recovery is in progress.", $r1);
+
+     label28:
+        goto label49;
+
+     label29:
+        $z0 = r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: boolean mScanningEnabled>;
+
+     label30:
+        if $z0 == 0 goto label47;
+
+     label31:
+        $z0 = r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: boolean mRestartNeeded>;
+
+     label32:
+        if $z0 == 0 goto label37;
+
+     label33:
+        r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: boolean mRestartNeeded> = 0;
+
+     label34:
+        $r1 = newarray (java.lang.Object)[0];
+
+     label35:
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>("CycledLeScanner", "restarting a bluetooth le scan", $r1);
+
+     label36:
+        goto label39;
+
+     label37:
+        $r1 = newarray (java.lang.Object)[0];
+
+     label38:
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>("CycledLeScanner", "starting a new bluetooth le scan", $r1);
+
+     label39:
+        $i2 = <android.os.Build$VERSION: int SDK_INT>;
+
+        if $i2 < 23 goto label42;
+
+     label40:
+        $z0 = specialinvoke r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: boolean checkLocationPermission()>();
+
+     label41:
+        if $z0 == 0 goto label49;
+
+     label42:
+        $l0 = staticinvoke <android.os.SystemClock: long elapsedRealtime()>();
+
+        r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: long mCurrentScanStartTime> = $l0;
+
+        virtualinvoke r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: void startScan()>();
+
+     label43:
+        goto label49;
+
+     label44:
+        $r9 := @caughtexception;
+
+        $r1 = newarray (java.lang.Object)[0];
+
+     label45:
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void e(java.lang.Throwable,java.lang.String,java.lang.String,java.lang.Object[])>($r9, "CycledLeScanner", "Internal Android exception scanning for beacons", $r1);
+
+     label46:
+        goto label49;
+
+     label47:
+        $r1 = newarray (java.lang.Object)[0];
+
+     label48:
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>("CycledLeScanner", "Scanning unnecessary - no monitoring or ranging active.", $r1);
+
+     label49:
+        $l0 = staticinvoke <android.os.SystemClock: long elapsedRealtime()>();
+
+        r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: long mLastScanCycleStartTime> = $l0;
+
+     label50:
+        goto label56;
+
+     label51:
+        $r1 = newarray (java.lang.Object)[0];
+
+     label52:
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>("CycledLeScanner", "Bluetooth is disabled.  Cannot scan for beacons.", $r1);
+
+     label53:
+        goto label56;
+
+     label54:
+        $r10 := @caughtexception;
+
+        $r1 = newarray (java.lang.Object)[0];
+
+     label55:
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void e(java.lang.Throwable,java.lang.String,java.lang.String,java.lang.Object[])>($r10, "CycledLeScanner", "Exception starting Bluetooth scan.  Perhaps Bluetooth is disabled or unavailable?", $r1);
+
+     label56:
+        $l0 = staticinvoke <android.os.SystemClock: long elapsedRealtime()>();
+
+     label57:
+        $l1 = r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: long mScanPeriod>;
+
+        $l0 = $l0 + $l1;
+
+        r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: long mScanCycleStopTime> = $l0;
+
+     label58:
+        virtualinvoke r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: void scheduleScanCycleStop()>();
+
+     label59:
+        $r1 = newarray (java.lang.Object)[0];
+
+     label60:
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>("CycledLeScanner", "Scan started", $r1);
+
+     label61:
+        return;
+
+     label62:
+        $r1 = newarray (java.lang.Object)[0];
+
+     label63:
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void d(java.lang.String,java.lang.String,java.lang.Object[])>("CycledLeScanner", "disabling scan", $r1);
+
+     label64:
+        r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: boolean mScanning> = 0;
+
+        r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: boolean mScanCyclerStarted> = 0;
+
+     label65:
+        virtualinvoke r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: void stopScan()>();
+
+     label66:
+        r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: long mCurrentScanStartTime> = 0L;
+
+     label67:
+        $l0 = staticinvoke <android.os.SystemClock: long elapsedRealtime()>();
+
+     label68:
+        r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: long mLastScanCycleEndTime> = $l0;
+
+        $r11 = r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: android.os.Handler mHandler>;
+
+     label69:
+        virtualinvoke $r11.<android.os.Handler: void removeCallbacksAndMessages(java.lang.Object)>(null);
+
+        specialinvoke r0.<org.altbeacon.beacon.service.scanner.CycledLeScanner: void finishScanCycle()>();
+
+     label70:
+        return;
+
+     label71:
+        $r1 = newarray (java.lang.Object)[0];
+
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void w(java.lang.String,java.lang.String,java.lang.Object[])>("CycledLeScanner", "SecurityException working accessing bluetooth.", $r1);
+
+        return;
+
+     label72:
+        $r2 := @caughtexception;
+
+        goto label71;
+
+     label73:
+        $r3 := @caughtexception;
+
+        goto label71;
+
+        catch java.lang.SecurityException from label01 to label02 with label72;
+        catch java.lang.SecurityException from label03 to label04 with label72;
+        catch java.lang.SecurityException from label05 to label06 with label72;
+        catch java.lang.SecurityException from label07 to label08 with label72;
+        catch java.lang.SecurityException from label10 to label11 with label72;
+        catch java.lang.SecurityException from label12 to label13 with label72;
+        catch java.lang.SecurityException from label14 to label15 with label72;
+        catch java.lang.SecurityException from label16 to label17 with label72;
+        catch java.lang.Exception from label19 to label20 with label54;
+        catch java.lang.Exception from label21 to label22 with label54;
+        catch java.lang.Exception from label23 to label24 with label54;
+        catch java.lang.Exception from label25 to label26 with label54;
+        catch java.lang.Exception from label27 to label28 with label54;
+        catch java.lang.Exception from label29 to label30 with label54;
+        catch java.lang.Exception from label31 to label32 with label54;
+        catch java.lang.Exception from label33 to label34 with label54;
+        catch java.lang.Exception from label35 to label36 with label54;
+        catch java.lang.Exception from label38 to label39 with label54;
+        catch java.lang.Exception from label40 to label41 with label44;
+        catch java.lang.Exception from label42 to label43 with label44;
+        catch java.lang.Exception from label45 to label46 with label54;
+        catch java.lang.Exception from label48 to label50 with label54;
+        catch java.lang.Exception from label52 to label53 with label54;
+        catch java.lang.SecurityException from label55 to label57 with label73;
+        catch java.lang.SecurityException from label58 to label59 with label73;
+        catch java.lang.SecurityException from label60 to label61 with label73;
+        catch java.lang.SecurityException from label63 to label64 with label73;
+        catch java.lang.SecurityException from label65 to label66 with label73;
+        catch java.lang.SecurityException from label67 to label68 with label73;
+        catch java.lang.SecurityException from label69 to label70 with label73;
+    }

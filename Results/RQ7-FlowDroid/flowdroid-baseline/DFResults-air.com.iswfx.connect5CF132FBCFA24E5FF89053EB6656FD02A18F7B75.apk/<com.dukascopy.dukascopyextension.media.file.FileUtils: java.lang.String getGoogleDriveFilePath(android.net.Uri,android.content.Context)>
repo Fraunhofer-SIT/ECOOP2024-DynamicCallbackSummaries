@@ -1,0 +1,93 @@
+    private static java.lang.String getGoogleDriveFilePath(android.net.Uri, android.content.Context)
+    {
+        android.content.Context $r1;
+        byte[] $r7;
+        android.net.Uri $r0;
+        java.io.FileOutputStream $r10;
+        long $l2;
+        java.io.File $r5, $r9;
+        java.lang.Exception $r8;
+        android.content.ContentResolver $r2;
+        int $i0, $i1;
+        java.lang.String $r4;
+        android.database.Cursor $r3;
+        java.io.InputStream $r6;
+
+        $r0 := @parameter0: android.net.Uri;
+
+        $r1 := @parameter1: android.content.Context;
+
+        $r2 = virtualinvoke $r1.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+        $r3 = virtualinvoke $r2.<android.content.ContentResolver: android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String)>($r0, null, null, null, null);
+
+        $i0 = interfaceinvoke $r3.<android.database.Cursor: int getColumnIndex(java.lang.String)>("_display_name");
+
+        $i1 = interfaceinvoke $r3.<android.database.Cursor: int getColumnIndex(java.lang.String)>("_size");
+
+        interfaceinvoke $r3.<android.database.Cursor: boolean moveToFirst()>();
+
+        $r4 = interfaceinvoke $r3.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        $l2 = interfaceinvoke $r3.<android.database.Cursor: long getLong(int)>($i1);
+
+        staticinvoke <java.lang.Long: java.lang.String toString(long)>($l2);
+
+        $r9 = new java.io.File;
+
+        $r5 = virtualinvoke $r1.<android.content.Context: java.io.File getCacheDir()>();
+
+        specialinvoke $r9.<java.io.File: void <init>(java.io.File,java.lang.String)>($r5, $r4);
+
+     label01:
+        $r2 = virtualinvoke $r1.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+        $r6 = virtualinvoke $r2.<android.content.ContentResolver: java.io.InputStream openInputStream(android.net.Uri)>($r0);
+
+     label02:
+        $r10 = new java.io.FileOutputStream;
+
+     label03:
+        specialinvoke $r10.<java.io.FileOutputStream: void <init>(java.io.File)>($r9);
+
+        $i0 = virtualinvoke $r6.<java.io.InputStream: int available()>();
+
+        $i0 = staticinvoke <java.lang.Math: int min(int,int)>($i0, 1048576);
+
+        $r7 = newarray (byte)[$i0];
+
+     label04:
+        $i0 = virtualinvoke $r6.<java.io.InputStream: int read(byte[])>($r7);
+
+     label05:
+        if $i0 == -1 goto label08;
+
+     label06:
+        virtualinvoke $r10.<java.io.FileOutputStream: void write(byte[],int,int)>($r7, 0, $i0);
+
+     label07:
+        goto label04;
+
+     label08:
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r10.<java.io.FileOutputStream: void close()>();
+
+     label09:
+        goto label11;
+
+     label10:
+        $r8 := @caughtexception;
+
+        virtualinvoke $r8.<java.lang.Exception: void printStackTrace()>();
+
+     label11:
+        $r4 = virtualinvoke $r9.<java.io.File: java.lang.String getPath()>();
+
+        return $r4;
+
+        catch java.lang.Exception from label01 to label02 with label10;
+        catch java.lang.Exception from label03 to label05 with label10;
+        catch java.lang.Exception from label06 to label07 with label10;
+        catch java.lang.Exception from label08 to label09 with label10;
+    }

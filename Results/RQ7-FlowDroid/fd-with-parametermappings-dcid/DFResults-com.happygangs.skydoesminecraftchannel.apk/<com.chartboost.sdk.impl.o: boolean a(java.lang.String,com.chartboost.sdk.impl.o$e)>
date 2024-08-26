@@ -1,0 +1,137 @@
+    protected boolean a(java.lang.String, com.chartboost.sdk.impl.o$e) throws java.io.IOException
+    {
+        java.lang.Throwable $r10;
+        byte[] $r7;
+        int $i0;
+        java.lang.String $r1;
+        com.chartboost.sdk.impl.o$e $r2;
+        com.chartboost.sdk.impl.o$d $r3;
+        com.chartboost.sdk.impl.o r0;
+        java.io.FileOutputStream $r6, $r15;
+        java.io.File $r5;
+        java.lang.Exception $r8, $r9, $r11, $r12, $r13;
+        java.lang.StringBuilder $r4, $r14;
+
+        r0 := @this: com.chartboost.sdk.impl.o;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: com.chartboost.sdk.impl.o$e;
+
+        $r3 = r0.<com.chartboost.sdk.impl.o: com.chartboost.sdk.impl.o$d b>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        $r1 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r1);
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>(java.lang.String)>($r1);
+
+        $r4 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".png");
+
+        $r1 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r5 = virtualinvoke $r3.<com.chartboost.sdk.impl.o$d: java.io.File a(java.lang.String)>($r1);
+
+        if $r5 != null goto label01;
+
+        return 0;
+
+     label01:
+        $r15 = new java.io.FileOutputStream;
+
+     label02:
+        $r6 = $r15;
+
+     label03:
+        specialinvoke $r15.<java.io.FileOutputStream: void <init>(java.io.File)>($r5);
+
+     label04:
+        $r7 = newarray (byte)[4096];
+
+     label05:
+        $i0 = virtualinvoke $r2.<com.chartboost.sdk.impl.o$e: int read(byte[])>($r7);
+
+     label06:
+        if $i0 != -1 goto label09;
+
+        if $r15 == null goto label08;
+
+     label07:
+        virtualinvoke $r15.<java.io.FileOutputStream: void close()>();
+
+     label08:
+        return 1;
+
+     label09:
+        virtualinvoke $r15.<java.io.FileOutputStream: void write(byte[],int,int)>($r7, 0, $i0);
+
+     label10:
+        goto label05;
+
+     label11:
+        $r8 := @caughtexception;
+
+     label12:
+        if $r6 == null goto label24;
+
+     label13:
+        virtualinvoke $r6.<java.io.FileOutputStream: void close()>();
+
+     label14:
+        return 0;
+
+     label15:
+        $r9 := @caughtexception;
+
+        return 0;
+
+     label16:
+        $r10 := @caughtexception;
+
+        $r6 = null;
+
+     label17:
+        if $r6 == null goto label19;
+
+     label18:
+        virtualinvoke $r6.<java.io.FileOutputStream: void close()>();
+
+     label19:
+        throw $r10;
+
+     label20:
+        $r11 := @caughtexception;
+
+        goto label08;
+
+     label21:
+        $r12 := @caughtexception;
+
+        goto label19;
+
+     label22:
+        $r10 := @caughtexception;
+
+        goto label17;
+
+     label23:
+        $r13 := @caughtexception;
+
+        $r6 = null;
+
+        goto label12;
+
+     label24:
+        return 0;
+
+        catch java.lang.Exception from label03 to label04 with label23;
+        catch java.lang.Throwable from label01 to label02 with label16;
+        catch java.lang.Throwable from label03 to label04 with label16;
+        catch java.lang.Exception from label05 to label06 with label11;
+        catch java.lang.Throwable from label05 to label06 with label22;
+        catch java.lang.Exception from label07 to label08 with label20;
+        catch java.lang.Exception from label09 to label10 with label11;
+        catch java.lang.Throwable from label09 to label10 with label22;
+        catch java.lang.Exception from label13 to label14 with label15;
+        catch java.lang.Exception from label18 to label19 with label21;
+    }

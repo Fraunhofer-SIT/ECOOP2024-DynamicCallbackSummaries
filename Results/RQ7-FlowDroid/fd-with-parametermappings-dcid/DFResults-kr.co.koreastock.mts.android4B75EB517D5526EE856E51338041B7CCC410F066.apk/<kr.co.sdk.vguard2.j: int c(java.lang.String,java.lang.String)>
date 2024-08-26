@@ -1,0 +1,287 @@
+    private int c(java.lang.String, java.lang.String)
+    {
+        java.lang.Throwable $r4, $r5, $r7, $r8, $r9, $r10, $r20;
+        byte[] $r18;
+        byte $b0;
+        int $i1;
+        java.lang.String $r11, $r12;
+        boolean $z0;
+        java.io.PrintStream $r19;
+        java.io.FileOutputStream $r17;
+        kr.co.sdk.vguard2.j r0;
+        java.io.FileInputStream $r13, $r16;
+        java.lang.Exception $r1, $r2, $r3, $r6;
+        java.io.File $r14, $r15;
+
+        r0 := @this: kr.co.sdk.vguard2.j;
+
+        $r11 := @parameter0: java.lang.String;
+
+        $r12 := @parameter1: java.lang.String;
+
+        if $r11 == null goto label47;
+
+        $z0 = virtualinvoke $r11.<java.lang.String: boolean equals(java.lang.Object)>("");
+
+        if $z0 != 0 goto label47;
+
+        if $r12 == null goto label46;
+
+        $z0 = virtualinvoke $r12.<java.lang.String: boolean equals(java.lang.Object)>("");
+
+        if $z0 != 0 goto label46;
+
+        $b0 = 1;
+
+        $r13 = null;
+
+     label01:
+        $r14 = new java.io.File;
+
+     label02:
+        specialinvoke $r14.<java.io.File: void <init>(java.lang.String)>($r11);
+
+     label03:
+        $r15 = new java.io.File;
+
+     label04:
+        specialinvoke $r15.<java.io.File: void <init>(java.lang.String)>($r12);
+
+     label05:
+        $r16 = new java.io.FileInputStream;
+
+     label06:
+        specialinvoke $r16.<java.io.FileInputStream: void <init>(java.io.File)>($r14);
+
+     label07:
+        $r17 = new java.io.FileOutputStream;
+
+     label08:
+        specialinvoke $r17.<java.io.FileOutputStream: void <init>(java.io.File,boolean)>($r15, 0);
+
+     label09:
+        $r18 = newarray (byte)[1024];
+
+     label10:
+        $i1 = virtualinvoke $r16.<java.io.InputStream: int read(byte[])>($r18);
+
+     label11:
+        if $i1 > 0 goto label19;
+
+     label12:
+        virtualinvoke $r17.<java.io.OutputStream: void flush()>();
+
+     label13:
+        virtualinvoke $r16.<java.io.InputStream: void close()>();
+
+     label14:
+        goto label16;
+
+     label15:
+        $r19 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $r19.<java.io.PrintStream: void println(java.lang.String)>("Exception - filecopy error position 2");
+
+        $b0 = 0;
+
+     label16:
+        virtualinvoke $r17.<java.io.OutputStream: void close()>();
+
+     label17:
+        return $b0;
+
+     label18:
+        $r19 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $r19.<java.io.PrintStream: void println(java.lang.String)>("Exception - filecopy error position 3");
+
+        return 0;
+
+     label19:
+        virtualinvoke $r17.<java.io.OutputStream: void write(byte[],int,int)>($r18, 0, $i1);
+
+     label20:
+        goto label10;
+
+     label21:
+        $r20 := @caughtexception;
+
+        goto label23;
+
+     label22:
+        $r20 := @caughtexception;
+
+        $r17 = null;
+
+     label23:
+        $r13 = $r16;
+
+        goto label37;
+
+     label24:
+        $r17 = null;
+
+     label25:
+        $r13 = $r16;
+
+        goto label28;
+
+     label26:
+        $r20 := @caughtexception;
+
+        $r17 = null;
+
+        goto label37;
+
+     label27:
+        $r17 = null;
+
+     label28:
+        $r19 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $r19.<java.io.PrintStream: void println(java.lang.String)>("Exception - filecopy error position 1");
+
+     label29:
+        if $r13 == null goto label33;
+
+     label30:
+        virtualinvoke $r13.<java.io.InputStream: void close()>();
+
+     label31:
+        goto label33;
+
+     label32:
+        $r19 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $r19.<java.io.PrintStream: void println(java.lang.String)>("Exception - filecopy error position 2");
+
+     label33:
+        if $r17 == null goto label58;
+
+     label34:
+        virtualinvoke $r17.<java.io.OutputStream: void close()>();
+
+     label35:
+        return 0;
+
+     label36:
+        $r20 := @caughtexception;
+
+     label37:
+        if $r13 == null goto label41;
+
+     label38:
+        virtualinvoke $r13.<java.io.InputStream: void close()>();
+
+     label39:
+        goto label41;
+
+     label40:
+        $r19 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $r19.<java.io.PrintStream: void println(java.lang.String)>("Exception - filecopy error position 2");
+
+     label41:
+        if $r17 == null goto label45;
+
+     label42:
+        virtualinvoke $r17.<java.io.OutputStream: void close()>();
+
+     label43:
+        goto label45;
+
+     label44:
+        $r19 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $r19.<java.io.PrintStream: void println(java.lang.String)>("Exception - filecopy error position 3");
+
+     label45:
+        throw $r20;
+
+     label46:
+        $r19 = <java.lang.System: java.io.PrintStream err>;
+
+        virtualinvoke $r19.<java.io.PrintStream: void println(java.lang.String)>("File name is not Available, return error");
+
+        return 0;
+
+     label47:
+        $r19 = <java.lang.System: java.io.PrintStream err>;
+
+        virtualinvoke $r19.<java.io.PrintStream: void println(java.lang.String)>("File name is not Available, return error");
+
+        return 0;
+
+     label48:
+        $r1 := @caughtexception;
+
+        goto label27;
+
+     label49:
+        $r2 := @caughtexception;
+
+        goto label24;
+
+     label50:
+        $r3 := @caughtexception;
+
+        goto label25;
+
+     label51:
+        $r4 := @caughtexception;
+
+        goto label15;
+
+     label52:
+        $r5 := @caughtexception;
+
+        goto label18;
+
+     label53:
+        $r6 := @caughtexception;
+
+        goto label25;
+
+     label54:
+        $r7 := @caughtexception;
+
+        goto label32;
+
+     label55:
+        $r8 := @caughtexception;
+
+        goto label18;
+
+     label56:
+        $r9 := @caughtexception;
+
+        goto label40;
+
+     label57:
+        $r10 := @caughtexception;
+
+        goto label44;
+
+     label58:
+        return 0;
+
+        catch java.lang.Exception from label02 to label03 with label48;
+        catch java.lang.Exception from label04 to label05 with label48;
+        catch java.lang.Exception from label06 to label07 with label48;
+        catch java.lang.Throwable from label01 to label07 with label26;
+        catch java.lang.Exception from label08 to label09 with label49;
+        catch java.lang.Throwable from label07 to label09 with label22;
+        catch java.lang.Exception from label10 to label11 with label50;
+        catch java.lang.Exception from label12 to label13 with label50;
+        catch java.lang.Throwable from label10 to label11 with label21;
+        catch java.lang.Throwable from label12 to label13 with label21;
+        catch java.io.IOException from label13 to label14 with label51;
+        catch java.io.IOException from label16 to label17 with label52;
+        catch java.lang.Exception from label19 to label20 with label53;
+        catch java.lang.Throwable from label19 to label20 with label21;
+        catch java.lang.Throwable from label28 to label29 with label36;
+        catch java.io.IOException from label30 to label31 with label54;
+        catch java.io.IOException from label34 to label35 with label55;
+        catch java.io.IOException from label38 to label39 with label56;
+        catch java.io.IOException from label42 to label43 with label57;
+    }

@@ -1,0 +1,56 @@
+    public java.lang.Void call() throws java.lang.Exception
+    {
+        com.facebook.appevents.AppEventsLogger $r7;
+        android.content.Context $r5;
+        com.facebook.Profile $r3;
+        com.facebook.AccessTokenManager $r1;
+        com.facebook.FacebookSdk$InitializeCallback $r4;
+        com.facebook.FacebookSdk$4 r0;
+        com.facebook.ProfileManager $r2;
+        java.lang.String $r6;
+        boolean $z0;
+
+        r0 := @this: com.facebook.FacebookSdk$4;
+
+        $r1 = staticinvoke <com.facebook.AccessTokenManager: com.facebook.AccessTokenManager getInstance()>();
+
+        virtualinvoke $r1.<com.facebook.AccessTokenManager: boolean loadCurrentAccessToken()>();
+
+        $r2 = staticinvoke <com.facebook.ProfileManager: com.facebook.ProfileManager getInstance()>();
+
+        virtualinvoke $r2.<com.facebook.ProfileManager: boolean loadCurrentProfile()>();
+
+        $z0 = staticinvoke <com.facebook.AccessToken: boolean isCurrentAccessTokenActive()>();
+
+        if $z0 == 0 goto label1;
+
+        $r3 = staticinvoke <com.facebook.Profile: com.facebook.Profile getCurrentProfile()>();
+
+        if $r3 != null goto label1;
+
+        staticinvoke <com.facebook.Profile: void fetchProfileForCurrentAccessToken()>();
+
+     label1:
+        $r4 = r0.<com.facebook.FacebookSdk$4: com.facebook.FacebookSdk$InitializeCallback val$callback>;
+
+        if $r4 == null goto label2;
+
+        interfaceinvoke $r4.<com.facebook.FacebookSdk$InitializeCallback: void onInitialized()>();
+
+     label2:
+        $r5 = staticinvoke <com.facebook.FacebookSdk: android.content.Context access$000()>();
+
+        $r6 = staticinvoke <com.facebook.FacebookSdk: java.lang.String access$100()>();
+
+        staticinvoke <com.facebook.appevents.AppEventsLogger: void initializeLib(android.content.Context,java.lang.String)>($r5, $r6);
+
+        $r5 = r0.<com.facebook.FacebookSdk$4: android.content.Context val$applicationContext>;
+
+        $r5 = virtualinvoke $r5.<android.content.Context: android.content.Context getApplicationContext()>();
+
+        $r7 = staticinvoke <com.facebook.appevents.AppEventsLogger: com.facebook.appevents.AppEventsLogger newLogger(android.content.Context)>($r5);
+
+        virtualinvoke $r7.<com.facebook.appevents.AppEventsLogger: void flush()>();
+
+        return null;
+    }

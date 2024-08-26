@@ -1,0 +1,103 @@
+    public int read(byte[], int, int) throws java.io.IOException
+    {
+        byte[] $r1, $r2;
+        cz.msebera.android.httpclient.impl.io.HttpTransportMetricsImpl $r4;
+        cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer r0;
+        long $l4;
+        int $i0, $i1, $i2, $i3;
+        boolean $z0;
+        java.io.InputStream $r3;
+
+        r0 := @this: cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer;
+
+        $r1 := @parameter0: byte[];
+
+        $i0 := @parameter1: int;
+
+        $i1 := @parameter2: int;
+
+        if $r1 != null goto label1;
+
+        return 0;
+
+     label1:
+        $z0 = virtualinvoke r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: boolean hasBufferedData()>();
+
+        if $z0 == 0 goto label2;
+
+        $i2 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: int bufferlen>;
+
+        $i3 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: int bufferpos>;
+
+        $i2 = $i2 - $i3;
+
+        $i1 = staticinvoke <java.lang.Math: int min(int,int)>($i1, $i2);
+
+        $r2 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: byte[] buffer>;
+
+        $i2 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: int bufferpos>;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($r2, $i2, $r1, $i0, $i1);
+
+        $i0 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: int bufferpos>;
+
+        $i0 = $i0 + $i1;
+
+        r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: int bufferpos> = $i0;
+
+        return $i1;
+
+     label2:
+        $i2 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: int minChunkLimit>;
+
+        if $i1 <= $i2 goto label4;
+
+        $r3 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: java.io.InputStream instream>;
+
+        $i0 = virtualinvoke $r3.<java.io.InputStream: int read(byte[],int,int)>($r1, $i0, $i1);
+
+        if $i0 <= 0 goto label3;
+
+        $r4 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: cz.msebera.android.httpclient.impl.io.HttpTransportMetricsImpl metrics>;
+
+        $l4 = (long) $i0;
+
+        virtualinvoke $r4.<cz.msebera.android.httpclient.impl.io.HttpTransportMetricsImpl: void incrementBytesTransferred(long)>($l4);
+
+     label3:
+        return $i0;
+
+     label4:
+        $z0 = virtualinvoke r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: boolean hasBufferedData()>();
+
+        if $z0 != 0 goto label5;
+
+        $i2 = virtualinvoke r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: int fillBuffer()>();
+
+        if $i2 != -1 goto label4;
+
+        return -1;
+
+     label5:
+        $i2 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: int bufferlen>;
+
+        $i3 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: int bufferpos>;
+
+        $i2 = $i2 - $i3;
+
+        $i1 = staticinvoke <java.lang.Math: int min(int,int)>($i1, $i2);
+
+        $r2 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: byte[] buffer>;
+
+        $i2 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: int bufferpos>;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($r2, $i2, $r1, $i0, $i1);
+
+        $i0 = r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: int bufferpos>;
+
+        $i0 = $i0 + $i1;
+
+        r0.<cz.msebera.android.httpclient.impl.io.AbstractSessionInputBuffer: int bufferpos> = $i0;
+
+        return $i1;
+    }

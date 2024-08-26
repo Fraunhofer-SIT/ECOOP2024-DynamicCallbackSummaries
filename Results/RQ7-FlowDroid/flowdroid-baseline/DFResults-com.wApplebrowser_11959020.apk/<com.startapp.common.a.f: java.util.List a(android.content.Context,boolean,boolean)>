@@ -1,0 +1,92 @@
+    public static java.util.List a(android.content.Context, boolean, boolean)
+    {
+        java.lang.Throwable $r1, $r2;
+        android.content.Context $r4;
+        java.util.Iterator $r6;
+        java.lang.Exception $r3;
+        java.util.ArrayList $r0;
+        java.lang.Object $r7;
+        java.util.Queue $r5;
+        java.lang.String $r9;
+        android.location.Location $r10;
+        android.location.LocationManager $r8;
+        boolean $z0, $z1;
+
+        $r4 := @parameter0: android.content.Context;
+
+        $z0 := @parameter1: boolean;
+
+        $z1 := @parameter2: boolean;
+
+        $r0 = new java.util.ArrayList;
+
+        specialinvoke $r0.<java.util.ArrayList: void <init>()>();
+
+        $r5 = staticinvoke <com.startapp.common.a.f: java.util.Queue b(android.content.Context,boolean,boolean)>($r4, $z0, $z1);
+
+        $r6 = interfaceinvoke $r5.<java.util.Queue: java.util.Iterator iterator()>();
+
+     label01:
+        $z0 = interfaceinvoke $r6.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label11;
+
+     label02:
+        $r7 = virtualinvoke $r4.<android.content.Context: java.lang.Object getSystemService(java.lang.String)>("location");
+
+     label03:
+        $r8 = (android.location.LocationManager) $r7;
+
+     label04:
+        if $r8 != null goto label05;
+
+        return null;
+
+     label05:
+        $r7 = interfaceinvoke $r6.<java.util.Iterator: java.lang.Object next()>();
+
+     label06:
+        $r9 = (java.lang.String) $r7;
+
+     label07:
+        $r10 = virtualinvoke $r8.<android.location.LocationManager: android.location.Location getLastKnownLocation(java.lang.String)>($r9);
+
+     label08:
+        if $r10 == null goto label01;
+
+     label09:
+        interfaceinvoke $r0.<java.util.List: boolean add(java.lang.Object)>($r10);
+
+     label10:
+        goto label01;
+
+     label11:
+        return $r0;
+
+     label12:
+        $r1 := @caughtexception;
+
+        goto label01;
+
+     label13:
+        $r2 := @caughtexception;
+
+        goto label01;
+
+     label14:
+        $r3 := @caughtexception;
+
+        goto label01;
+
+        catch java.lang.SecurityException from label02 to label03 with label12;
+        catch java.lang.SecurityException from label05 to label06 with label12;
+        catch java.lang.SecurityException from label07 to label08 with label12;
+        catch java.lang.SecurityException from label09 to label10 with label12;
+        catch java.lang.IllegalArgumentException from label02 to label03 with label13;
+        catch java.lang.IllegalArgumentException from label05 to label06 with label13;
+        catch java.lang.IllegalArgumentException from label07 to label08 with label13;
+        catch java.lang.IllegalArgumentException from label09 to label10 with label13;
+        catch java.lang.Exception from label02 to label04 with label14;
+        catch java.lang.Exception from label05 to label08 with label14;
+        catch java.lang.Exception from label09 to label10 with label14;
+    }

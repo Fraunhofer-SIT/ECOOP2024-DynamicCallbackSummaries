@@ -1,0 +1,93 @@
+    public java.lang.Object readObject() throws java.io.IOException, gnu.text.SyntaxException
+    {
+        gnu.mapping.InPort $r3;
+        java.lang.Throwable $r6;
+        gnu.kawa.lispexpr.ReadTable $r4;
+        gnu.mapping.Values $r1;
+        gnu.kawa.lispexpr.LispReader r0;
+        char $c0;
+        gnu.text.LineBufferedReader $r2;
+        int $i1, $i2, $i3, $i4;
+        java.lang.Object $r5;
+
+        r0 := @this: gnu.kawa.lispexpr.LispReader;
+
+        $r2 = r0.<gnu.kawa.lispexpr.LispReader: gnu.text.LineBufferedReader port>;
+
+        $r3 = (gnu.mapping.InPort) $r2;
+
+        $c0 = $r3.<gnu.mapping.InPort: char readState>;
+
+        $i1 = r0.<gnu.kawa.lispexpr.LispReader: int tokenBufferLength>;
+
+        $r2 = r0.<gnu.kawa.lispexpr.LispReader: gnu.text.LineBufferedReader port>;
+
+        $r3 = (gnu.mapping.InPort) $r2;
+
+        $r3.<gnu.mapping.InPort: char readState> = 32;
+
+     label01:
+        $r4 = staticinvoke <gnu.kawa.lispexpr.ReadTable: gnu.kawa.lispexpr.ReadTable getCurrent()>();
+
+     label02:
+        $r2 = r0.<gnu.kawa.lispexpr.LispReader: gnu.text.LineBufferedReader port>;
+
+        $i2 = virtualinvoke $r2.<gnu.text.LineBufferedReader: int getLineNumber()>();
+
+        $r2 = r0.<gnu.kawa.lispexpr.LispReader: gnu.text.LineBufferedReader port>;
+
+        $i3 = virtualinvoke $r2.<gnu.text.LineBufferedReader: int getColumnNumber()>();
+
+        $r2 = r0.<gnu.kawa.lispexpr.LispReader: gnu.text.LineBufferedReader port>;
+
+        $i4 = virtualinvoke $r2.<gnu.text.LineBufferedReader: int read()>();
+
+     label03:
+        if $i4 >= 0 goto label06;
+
+     label04:
+        $r5 = <gnu.lists.Sequence: java.lang.Object eofValue>;
+
+     label05:
+        r0.<gnu.kawa.lispexpr.LispReader: int tokenBufferLength> = $i1;
+
+        $r2 = r0.<gnu.kawa.lispexpr.LispReader: gnu.text.LineBufferedReader port>;
+
+        $r3 = (gnu.mapping.InPort) $r2;
+
+        $r3.<gnu.mapping.InPort: char readState> = $c0;
+
+        return $r5;
+
+     label06:
+        $r5 = virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: java.lang.Object readValues(int,gnu.kawa.lispexpr.ReadTable)>($i4, $r4);
+
+        $r1 = <gnu.mapping.Values: gnu.mapping.Values empty>;
+
+     label07:
+        if $r5 == $r1 goto label02;
+
+     label08:
+        $r5 = virtualinvoke r0.<gnu.kawa.lispexpr.LispReader: java.lang.Object handlePostfix(java.lang.Object,gnu.kawa.lispexpr.ReadTable,int,int)>($r5, $r4, $i2, $i3);
+
+     label09:
+        goto label05;
+
+     label10:
+        $r6 := @caughtexception;
+
+        r0.<gnu.kawa.lispexpr.LispReader: int tokenBufferLength> = $i1;
+
+        $r2 = r0.<gnu.kawa.lispexpr.LispReader: gnu.text.LineBufferedReader port>;
+
+        $r3 = (gnu.mapping.InPort) $r2;
+
+        $r3.<gnu.mapping.InPort: char readState> = $c0;
+
+        throw $r6;
+
+        catch java.lang.Throwable from label01 to label03 with label10;
+        catch java.lang.Throwable from label04 to label05 with label10;
+        catch java.lang.Throwable from label06 to label07 with label10;
+        catch java.lang.Throwable from label08 to label09 with label10;
+    }

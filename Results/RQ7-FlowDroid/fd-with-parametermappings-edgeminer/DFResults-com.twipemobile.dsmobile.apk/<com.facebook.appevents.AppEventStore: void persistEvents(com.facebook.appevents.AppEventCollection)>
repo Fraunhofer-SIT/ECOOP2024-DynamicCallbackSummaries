@@ -1,0 +1,83 @@
+    public static void persistEvents(com.facebook.appevents.AppEventCollection)
+    {
+        java.lang.Throwable $r8, $r9;
+        java.util.Iterator $r3;
+        java.util.Set $r2;
+        com.facebook.appevents.SessionEventsState $r6;
+        java.util.List $r7;
+        com.facebook.appevents.AccessTokenAppIdPair $r5;
+        java.lang.Object $r4;
+        com.facebook.appevents.AppEventCollection $r0;
+        boolean $z0;
+        com.facebook.appevents.PersistedEvents $r1;
+
+        $r0 := @parameter0: com.facebook.appevents.AppEventCollection;
+
+        entermonitor class "Lcom/facebook/appevents/AppEventStore;";
+
+     label01:
+        $z0 = staticinvoke <com.facebook.internal.instrument.crashshield.CrashShieldHandler: boolean isObjectCrashing(java.lang.Object)>(class "Lcom/facebook/appevents/AppEventStore;");
+
+     label02:
+        if $z0 == 0 goto label03;
+
+        exitmonitor class "Lcom/facebook/appevents/AppEventStore;";
+
+        return;
+
+     label03:
+        staticinvoke <com.facebook.appevents.internal.AppEventUtility: void assertIsNotMainThread()>();
+
+        $r1 = staticinvoke <com.facebook.appevents.AppEventStore: com.facebook.appevents.PersistedEvents readAndClearStore()>();
+
+        $r2 = virtualinvoke $r0.<com.facebook.appevents.AppEventCollection: java.util.Set keySet()>();
+
+        $r3 = interfaceinvoke $r2.<java.util.Set: java.util.Iterator iterator()>();
+
+     label04:
+        $z0 = interfaceinvoke $r3.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label05;
+
+        $r4 = interfaceinvoke $r3.<java.util.Iterator: java.lang.Object next()>();
+
+        $r5 = (com.facebook.appevents.AccessTokenAppIdPair) $r4;
+
+        $r6 = virtualinvoke $r0.<com.facebook.appevents.AppEventCollection: com.facebook.appevents.SessionEventsState get(com.facebook.appevents.AccessTokenAppIdPair)>($r5);
+
+        $r7 = virtualinvoke $r6.<com.facebook.appevents.SessionEventsState: java.util.List getEventsToPersist()>();
+
+        virtualinvoke $r1.<com.facebook.appevents.PersistedEvents: void addEvents(com.facebook.appevents.AccessTokenAppIdPair,java.util.List)>($r5, $r7);
+
+        goto label04;
+
+     label05:
+        staticinvoke <com.facebook.appevents.AppEventStore: void saveEventsToDisk(com.facebook.appevents.PersistedEvents)>($r1);
+
+     label06:
+        exitmonitor class "Lcom/facebook/appevents/AppEventStore;";
+
+        return;
+
+     label07:
+        $r8 := @caughtexception;
+
+     label08:
+        staticinvoke <com.facebook.internal.instrument.crashshield.CrashShieldHandler: void handleThrowable(java.lang.Throwable,java.lang.Object)>($r8, class "Lcom/facebook/appevents/AppEventStore;");
+
+     label09:
+        exitmonitor class "Lcom/facebook/appevents/AppEventStore;";
+
+        return;
+
+     label10:
+        $r9 := @caughtexception;
+
+        exitmonitor class "Lcom/facebook/appevents/AppEventStore;";
+
+        throw $r9;
+
+        catch java.lang.Throwable from label01 to label02 with label10;
+        catch java.lang.Throwable from label03 to label06 with label07;
+        catch java.lang.Throwable from label08 to label09 with label10;
+    }

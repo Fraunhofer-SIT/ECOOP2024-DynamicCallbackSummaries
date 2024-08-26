@@ -1,0 +1,136 @@
+    public static java.lang.String a(java.lang.String, android.content.Context)
+    {
+        java.lang.Throwable $r0, $r1, $r10;
+        android.content.Context $r3;
+        byte[] $r8;
+        java.lang.Object[] $r11;
+        java.io.ByteArrayOutputStream $r12;
+        android.content.res.AssetManager $r5;
+        int $i0;
+        java.lang.String $r2, $r9, $r13;
+        boolean $z0;
+        java.io.InputStream $r4, $r6, $r7;
+
+        $r2 := @parameter0: java.lang.String;
+
+        $r3 := @parameter1: android.content.Context;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r2);
+
+        if $z0 == 0 goto label01;
+
+        $r2 = <com.huawei.hms.framework.network.grs.c.c: java.lang.String a>;
+
+        staticinvoke <com.huawei.hms.framework.common.Logger: void w(java.lang.String,java.lang.Object)>($r2, "getConfigContent fileName is null.");
+
+        return "";
+
+     label01:
+        $r4 = null;
+
+        $r12 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r12.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label02:
+        $r5 = virtualinvoke $r3.<android.content.Context: android.content.res.AssetManager getAssets()>();
+
+        $r6 = virtualinvoke $r5.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>($r2);
+
+     label03:
+        $r7 = $r6;
+
+        $r8 = newarray (byte)[8192];
+
+     label04:
+        $i0 = virtualinvoke $r6.<java.io.InputStream: int read(byte[])>($r8);
+
+     label05:
+        if $i0 == -1 goto label08;
+
+     label06:
+        virtualinvoke $r12.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r8, 0, $i0);
+
+     label07:
+        goto label04;
+
+     label08:
+        virtualinvoke $r12.<java.io.ByteArrayOutputStream: void flush()>();
+
+     label09:
+        $r13 = new java.lang.String;
+
+     label10:
+        $r8 = virtualinvoke $r12.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        specialinvoke $r13.<java.lang.String: void <init>(byte[],java.lang.String)>($r8, "UTF-8");
+
+     label11:
+        staticinvoke <com.huawei.hms.framework.network.grs.c.c: void a(java.io.OutputStream)>($r12);
+
+        staticinvoke <com.huawei.hms.framework.network.grs.c.c: void a(java.io.InputStream)>($r6);
+
+        return $r13;
+
+     label12:
+        $r10 := @caughtexception;
+
+        goto label17;
+
+     label13:
+        $r4 = $r6;
+
+        goto label15;
+
+     label14:
+        $r10 := @caughtexception;
+
+        $r7 = $r4;
+
+        goto label17;
+
+     label15:
+        $r9 = <com.huawei.hms.framework.network.grs.c.c: java.lang.String a>;
+
+        $r11 = newarray (java.lang.Object)[1];
+
+        $r11[0] = $r2;
+
+        staticinvoke <com.huawei.hms.framework.common.Logger: void w(java.lang.String,java.lang.String,java.lang.Object[])>($r9, "local config file is not exist.filename is {%s}", $r11);
+
+     label16:
+        staticinvoke <com.huawei.hms.framework.network.grs.c.c: void a(java.io.OutputStream)>($r12);
+
+        staticinvoke <com.huawei.hms.framework.network.grs.c.c: void a(java.io.InputStream)>($r4);
+
+        return "";
+
+     label17:
+        staticinvoke <com.huawei.hms.framework.network.grs.c.c: void a(java.io.OutputStream)>($r12);
+
+        staticinvoke <com.huawei.hms.framework.network.grs.c.c: void a(java.io.InputStream)>($r7);
+
+        throw $r10;
+
+     label18:
+        $r0 := @caughtexception;
+
+        goto label15;
+
+     label19:
+        $r1 := @caughtexception;
+
+        goto label13;
+
+        catch java.io.IOException from label02 to label03 with label18;
+        catch java.lang.Throwable from label02 to label03 with label14;
+        catch java.io.IOException from label04 to label05 with label19;
+        catch java.io.IOException from label06 to label07 with label19;
+        catch java.io.IOException from label08 to label09 with label19;
+        catch java.io.IOException from label10 to label11 with label19;
+        catch java.lang.Throwable from label04 to label05 with label12;
+        catch java.lang.Throwable from label06 to label07 with label12;
+        catch java.lang.Throwable from label08 to label10 with label12;
+        catch java.lang.Throwable from label10 to label11 with label12;
+        catch java.lang.Throwable from label15 to label16 with label14;
+    }

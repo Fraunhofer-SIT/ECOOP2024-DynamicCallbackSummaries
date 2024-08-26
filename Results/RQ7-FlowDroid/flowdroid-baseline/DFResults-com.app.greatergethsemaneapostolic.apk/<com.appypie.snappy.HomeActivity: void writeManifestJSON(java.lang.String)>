@@ -1,0 +1,104 @@
+    private void writeManifestJSON(java.lang.String)
+    {
+        com.appypie.snappy.utils.AppHeaderBG $r9;
+        java.lang.Throwable $r10;
+        android.content.Context $r4;
+        java.io.BufferedWriter $r8;
+        java.io.FileWriter $r7;
+        com.appypie.snappy.HomeActivity r0;
+        java.io.File $r2, $r5;
+        java.lang.StringBuilder $r3;
+        java.lang.String $r1, $r6;
+        boolean $z0;
+
+        r0 := @this: com.appypie.snappy.HomeActivity;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 = new java.io.File;
+
+        $r3 = new java.lang.StringBuilder;
+
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>()>();
+
+        $r4 = virtualinvoke r0.<com.appypie.snappy.HomeActivity: android.content.Context getApplicationContext()>();
+
+        $r5 = virtualinvoke $r4.<android.content.Context: java.io.File getFilesDir()>();
+
+        $r6 = virtualinvoke $r5.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/files/");
+
+        $r6 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r2.<java.io.File: void <init>(java.lang.String,java.lang.String)>($r6, "manifast.json");
+
+     label01:
+        $z0 = virtualinvoke $r2.<java.io.File: boolean exists()>();
+
+     label02:
+        if $z0 != 0 goto label04;
+
+     label03:
+        virtualinvoke $r2.<java.io.File: boolean createNewFile()>();
+
+     label04:
+        $r7 = new java.io.FileWriter;
+
+     label05:
+        $r2 = virtualinvoke $r2.<java.io.File: java.io.File getAbsoluteFile()>();
+
+        specialinvoke $r7.<java.io.FileWriter: void <init>(java.io.File)>($r2);
+
+     label06:
+        $r8 = new java.io.BufferedWriter;
+
+     label07:
+        specialinvoke $r8.<java.io.BufferedWriter: void <init>(java.io.Writer)>($r7);
+
+        virtualinvoke $r8.<java.io.BufferedWriter: void write(java.lang.String)>($r1);
+
+        virtualinvoke $r8.<java.io.BufferedWriter: void close()>();
+
+        staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>("UpdateJSON ", "initManifestFile");
+
+        specialinvoke r0.<com.appypie.snappy.HomeActivity: void initManifestFile(java.lang.String)>($r1);
+
+        specialinvoke r0.<com.appypie.snappy.HomeActivity: void checkAdvtDetails()>();
+
+     label08:
+        $r9 = new com.appypie.snappy.utils.AppHeaderBG;
+
+     label09:
+        specialinvoke $r9.<com.appypie.snappy.utils.AppHeaderBG: void <init>(android.content.Context)>(r0);
+
+        virtualinvoke $r9.<com.appypie.snappy.utils.AppHeaderBG: void getScreenResolution(android.content.Context)>(r0);
+
+     label10:
+        return;
+
+     label11:
+        $r10 := @caughtexception;
+
+        $r3 = new java.lang.StringBuilder;
+
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("file writting error ");
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r10);
+
+        $r1 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("error", $r1);
+
+        return;
+
+        catch java.io.IOException from label01 to label02 with label11;
+        catch java.io.IOException from label03 to label04 with label11;
+        catch java.io.IOException from label05 to label06 with label11;
+        catch java.io.IOException from label07 to label08 with label11;
+        catch java.io.IOException from label09 to label10 with label11;
+    }

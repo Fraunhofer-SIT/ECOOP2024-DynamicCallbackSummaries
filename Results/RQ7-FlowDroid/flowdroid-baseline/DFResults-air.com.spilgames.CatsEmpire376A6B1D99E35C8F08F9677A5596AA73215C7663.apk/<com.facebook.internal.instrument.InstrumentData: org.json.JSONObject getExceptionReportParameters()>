@@ -1,0 +1,88 @@
+    private final org.json.JSONObject getExceptionReportParameters()
+    {
+        org.json.JSONException $r1;
+        org.json.JSONObject $r2;
+        java.lang.Long $r4;
+        com.facebook.internal.instrument.InstrumentData r0;
+        com.facebook.internal.instrument.InstrumentData$Type $r5;
+        java.lang.String $r3;
+
+        r0 := @this: com.facebook.internal.instrument.InstrumentData;
+
+        $r2 = new org.json.JSONObject;
+
+        specialinvoke $r2.<org.json.JSONObject: void <init>()>();
+
+        $r3 = <android.os.Build$VERSION: java.lang.String RELEASE>;
+
+     label01:
+        virtualinvoke $r2.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("device_os_version", $r3);
+
+     label02:
+        $r3 = <android.os.Build: java.lang.String MODEL>;
+
+     label03:
+        virtualinvoke $r2.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("device_model", $r3);
+
+     label04:
+        $r3 = r0.<com.facebook.internal.instrument.InstrumentData: java.lang.String appVersion>;
+
+        if $r3 == null goto label06;
+
+     label05:
+        virtualinvoke $r2.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("app_version", $r3);
+
+     label06:
+        $r4 = r0.<com.facebook.internal.instrument.InstrumentData: java.lang.Long timestamp>;
+
+        if $r4 == null goto label08;
+
+     label07:
+        virtualinvoke $r2.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("timestamp", $r4);
+
+     label08:
+        $r3 = r0.<com.facebook.internal.instrument.InstrumentData: java.lang.String cause>;
+
+        if $r3 == null goto label10;
+
+     label09:
+        virtualinvoke $r2.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("reason", $r3);
+
+     label10:
+        $r3 = r0.<com.facebook.internal.instrument.InstrumentData: java.lang.String stackTrace>;
+
+        if $r3 == null goto label12;
+
+     label11:
+        virtualinvoke $r2.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("callstack", $r3);
+
+     label12:
+        $r5 = r0.<com.facebook.internal.instrument.InstrumentData: com.facebook.internal.instrument.InstrumentData$Type type>;
+
+        if $r5 == null goto label17;
+
+     label13:
+        virtualinvoke $r2.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("type", $r5);
+
+     label14:
+        return $r2;
+
+     label15:
+        return null;
+
+     label16:
+        $r1 := @caughtexception;
+
+        goto label15;
+
+     label17:
+        return $r2;
+
+        catch org.json.JSONException from label01 to label02 with label16;
+        catch org.json.JSONException from label03 to label04 with label16;
+        catch org.json.JSONException from label05 to label06 with label16;
+        catch org.json.JSONException from label07 to label08 with label16;
+        catch org.json.JSONException from label09 to label10 with label16;
+        catch org.json.JSONException from label11 to label12 with label16;
+        catch org.json.JSONException from label13 to label14 with label16;
+    }

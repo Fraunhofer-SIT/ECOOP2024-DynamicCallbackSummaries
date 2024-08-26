@@ -1,0 +1,226 @@
+    private boolean a(java.io.InputStream, java.io.OutputStream) throws java.lang.Exception
+    {
+        java.net.HttpURLConnection $r7;
+        java.lang.Throwable $r11, $r13;
+        byte[] $r5;
+        java.io.BufferedInputStream $r3, $r4, $r14;
+        java.io.ByteArrayOutputStream $r10;
+        java.net.URL $r8;
+        com.adcolony.sdk.p r0;
+        int $i0, $i1, $i2;
+        java.lang.String $r9;
+        boolean $z0;
+        java.io.OutputStream $r2;
+        java.lang.Exception $r6, $r12;
+        java.lang.StringBuilder $r15;
+        java.io.InputStream $r1;
+
+        r0 := @this: com.adcolony.sdk.p;
+
+        $r1 := @parameter0: java.io.InputStream;
+
+        $r2 := @parameter1: java.io.OutputStream;
+
+        $r3 = null;
+
+     label01:
+        $r14 = new java.io.BufferedInputStream;
+
+     label02:
+        $r4 = $r14;
+
+     label03:
+        specialinvoke $r14.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r1);
+
+     label04:
+        $r5 = newarray (byte)[4096];
+
+     label05:
+        $i0 = virtualinvoke $r14.<java.io.BufferedInputStream: int read(byte[],int,int)>($r5, 0, 4096);
+
+     label06:
+        if $i0 == -1 goto label18;
+
+     label07:
+        $i1 = r0.<com.adcolony.sdk.p: int q>;
+
+     label08:
+        $i1 = $i1 + $i0;
+
+     label09:
+        r0.<com.adcolony.sdk.p: int q> = $i1;
+
+        $z0 = r0.<com.adcolony.sdk.p: boolean j>;
+
+     label10:
+        if $z0 == 0 goto label16;
+
+     label11:
+        $i2 = r0.<com.adcolony.sdk.p: int i>;
+
+     label12:
+        if $i1 <= $i2 goto label16;
+
+     label13:
+        $r12 = new java.lang.Exception;
+
+     label14:
+        $r15 = new java.lang.StringBuilder;
+
+     label15:
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Data exceeds expected maximum (");
+
+        $i0 = r0.<com.adcolony.sdk.p: int q>;
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        $i0 = r0.<com.adcolony.sdk.p: int i>;
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("): ");
+
+        $r7 = r0.<com.adcolony.sdk.p: java.net.HttpURLConnection d>;
+
+        $r8 = virtualinvoke $r7.<java.net.HttpURLConnection: java.net.URL getURL()>();
+
+        $r9 = virtualinvoke $r8.<java.net.URL: java.lang.String toString()>();
+
+        virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        $r9 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r12.<java.lang.Exception: void <init>(java.lang.String)>($r9);
+
+        throw $r12;
+
+     label16:
+        virtualinvoke $r2.<java.io.OutputStream: void write(byte[],int,int)>($r5, 0, $i0);
+
+     label17:
+        goto label05;
+
+     label18:
+        $r9 = r0.<com.adcolony.sdk.p: java.lang.String h>;
+
+     label19:
+        if $r9 == null goto label24;
+
+     label20:
+        $z0 = virtualinvoke $r9.<java.lang.String: boolean isEmpty()>();
+
+     label21:
+        if $z0 != 0 goto label24;
+
+     label22:
+        $r9 = r0.<com.adcolony.sdk.p: java.lang.String h>;
+
+     label23:
+        goto label25;
+
+     label24:
+        $r9 = "UTF-8";
+
+     label25:
+        $z0 = $r2 instanceof java.io.ByteArrayOutputStream;
+
+     label26:
+        if $z0 == 0 goto label28;
+
+     label27:
+        $r10 = (java.io.ByteArrayOutputStream) $r2;
+
+        $r9 = virtualinvoke $r10.<java.io.ByteArrayOutputStream: java.lang.String toString(java.lang.String)>($r9);
+
+        r0.<com.adcolony.sdk.p: java.lang.String o> = $r9;
+
+     label28:
+        if $r2 == null goto label29;
+
+        virtualinvoke $r2.<java.io.OutputStream: void close()>();
+
+     label29:
+        if $r1 == null goto label30;
+
+        virtualinvoke $r1.<java.io.InputStream: void close()>();
+
+     label30:
+        virtualinvoke $r14.<java.io.BufferedInputStream: void close()>();
+
+        return 1;
+
+     label31:
+        $r6 := @caughtexception;
+
+        goto label34;
+
+     label32:
+        $r11 := @caughtexception;
+
+        goto label36;
+
+     label33:
+        $r12 := @caughtexception;
+
+        $r4 = null;
+
+        $r6 = $r12;
+
+     label34:
+        throw $r6;
+
+     label35:
+        $r13 := @caughtexception;
+
+        $r11 = $r13;
+
+        $r3 = $r4;
+
+     label36:
+        if $r2 == null goto label37;
+
+        virtualinvoke $r2.<java.io.OutputStream: void close()>();
+
+     label37:
+        if $r1 == null goto label38;
+
+        virtualinvoke $r1.<java.io.InputStream: void close()>();
+
+     label38:
+        if $r3 == null goto label39;
+
+        virtualinvoke $r3.<java.io.BufferedInputStream: void close()>();
+
+     label39:
+        throw $r11;
+
+        catch java.lang.Exception from label03 to label04 with label33;
+        catch java.lang.Throwable from label01 to label02 with label32;
+        catch java.lang.Throwable from label03 to label04 with label32;
+        catch java.lang.Exception from label05 to label06 with label31;
+        catch java.lang.Exception from label07 to label08 with label31;
+        catch java.lang.Exception from label09 to label10 with label31;
+        catch java.lang.Exception from label11 to label12 with label31;
+        catch java.lang.Exception from label15 to label17 with label31;
+        catch java.lang.Exception from label18 to label19 with label31;
+        catch java.lang.Exception from label20 to label21 with label31;
+        catch java.lang.Exception from label22 to label23 with label31;
+        catch java.lang.Throwable from label05 to label06 with label35;
+        catch java.lang.Throwable from label07 to label08 with label35;
+        catch java.lang.Throwable from label09 to label10 with label35;
+        catch java.lang.Throwable from label11 to label12 with label35;
+        catch java.lang.Throwable from label13 to label14 with label35;
+        catch java.lang.Throwable from label14 to label15 with label35;
+        catch java.lang.Throwable from label15 to label17 with label35;
+        catch java.lang.Throwable from label18 to label19 with label35;
+        catch java.lang.Throwable from label20 to label21 with label35;
+        catch java.lang.Throwable from label22 to label23 with label35;
+        catch java.lang.Exception from label27 to label28 with label31;
+        catch java.lang.Throwable from label25 to label26 with label35;
+        catch java.lang.Throwable from label27 to label28 with label35;
+        catch java.lang.Throwable from label34 to label35 with label35;
+    }

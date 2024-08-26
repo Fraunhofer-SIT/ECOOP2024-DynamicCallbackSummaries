@@ -1,0 +1,35 @@
+    public static byte[] readFileToByteArray(java.io.File) throws java.io.IOException
+    {
+        java.lang.Throwable $r4;
+        byte[] $r3;
+        java.io.FileInputStream r1, $r2;
+        java.io.File $r0;
+
+        $r0 := @parameter0: java.io.File;
+
+        r1 = null;
+
+     label1:
+        $r2 = staticinvoke <com.parse.ParseFileUtils: java.io.FileInputStream openInputStream(java.io.File)>($r0);
+
+     label2:
+        r1 = $r2;
+
+     label3:
+        $r3 = staticinvoke <com.parse.ParseIOUtils: byte[] toByteArray(java.io.InputStream)>($r2);
+
+     label4:
+        staticinvoke <com.parse.ParseIOUtils: void closeQuietly(java.io.InputStream)>($r2);
+
+        return $r3;
+
+     label5:
+        $r4 := @caughtexception;
+
+        staticinvoke <com.parse.ParseIOUtils: void closeQuietly(java.io.InputStream)>(r1);
+
+        throw $r4;
+
+        catch java.lang.Throwable from label1 to label2 with label5;
+        catch java.lang.Throwable from label3 to label4 with label5;
+    }

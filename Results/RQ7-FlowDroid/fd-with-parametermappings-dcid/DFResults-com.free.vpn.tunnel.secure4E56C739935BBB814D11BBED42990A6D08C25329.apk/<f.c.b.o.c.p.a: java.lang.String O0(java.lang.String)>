@@ -1,0 +1,84 @@
+    public static java.lang.String O0(java.lang.String)
+    {
+        java.lang.Throwable $r5;
+        byte[] $r4;
+        java.io.ByteArrayOutputStream $r6;
+        java.io.IOException $r8;
+        android.content.res.AssetManager $r2;
+        android.app.Application $r1;
+        int $i0;
+        java.lang.String $r0, $r7;
+        java.io.InputStream $r3;
+
+        $r0 := @parameter0: java.lang.String;
+
+     label01:
+        $r1 = staticinvoke <f.c.b.o.c.m.i: android.app.Application b()>();
+
+        $r2 = virtualinvoke $r1.<android.app.Application: android.content.res.AssetManager getAssets()>();
+
+        $r3 = virtualinvoke $r2.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>($r0);
+
+     label02:
+        $r6 = new java.io.ByteArrayOutputStream;
+
+     label03:
+        specialinvoke $r6.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label04:
+        $r4 = newarray (byte)[1024];
+
+     label05:
+        $i0 = virtualinvoke $r3.<java.io.InputStream: int read(byte[])>($r4);
+
+     label06:
+        if $i0 == -1 goto label09;
+
+     label07:
+        virtualinvoke $r6.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r4, 0, $i0);
+
+     label08:
+        goto label05;
+
+     label09:
+        $r7 = new java.lang.String;
+
+        $r0 = $r7;
+
+     label10:
+        $r4 = virtualinvoke $r6.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        specialinvoke $r7.<java.lang.String: void <init>(byte[])>($r4);
+
+     label11:
+        virtualinvoke $r3.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r6.<java.io.ByteArrayOutputStream: void close()>();
+
+     label12:
+        return $r7;
+
+     label13:
+        $r5 := @caughtexception;
+
+        goto label15;
+
+     label14:
+        $r5 := @caughtexception;
+
+        $r0 = null;
+
+     label15:
+        $r8 = (java.io.IOException) $r5;
+
+        virtualinvoke $r8.<java.io.IOException: void printStackTrace()>();
+
+        return $r0;
+
+        catch java.io.IOException from label01 to label02 with label14;
+        catch java.io.IOException from label03 to label04 with label14;
+        catch java.io.IOException from label05 to label06 with label14;
+        catch java.io.IOException from label07 to label08 with label14;
+        catch java.io.IOException from label10 to label11 with label14;
+        catch java.io.IOException from label11 to label12 with label13;
+    }

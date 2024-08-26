@@ -1,0 +1,156 @@
+    public final void writeObject(java.lang.String, java.lang.Object, com.facebook.GraphRequest)
+    {
+        java.lang.Throwable $r16;
+        byte[] $r10;
+        android.os.ParcelFileDescriptor $r12;
+        android.net.Uri $r11;
+        java.lang.NullPointerException $r6;
+        java.lang.String $r1, $r8;
+        com.facebook.GraphRequest$Companion $r7;
+        com.facebook.RequestOutputStream $r5;
+        boolean $z0;
+        com.facebook.GraphRequest$ParcelableResourceWithMimeType $r13;
+        java.io.OutputStream $r4;
+        android.os.Parcelable $r14;
+        com.facebook.GraphRequest$Serializer r0;
+        java.lang.RuntimeException $r15;
+        android.graphics.Bitmap $r9;
+        java.lang.Object $r2;
+        com.facebook.GraphRequest $r3;
+
+        r0 := @this: com.facebook.GraphRequest$Serializer;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: java.lang.Object;
+
+        $r3 := @parameter2: com.facebook.GraphRequest;
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkNotNullParameter(java.lang.Object,java.lang.String)>($r1, "key");
+
+        $r4 = r0.<com.facebook.GraphRequest$Serializer: java.io.OutputStream outputStream>;
+
+        $z0 = $r4 instanceof com.facebook.RequestOutputStream;
+
+        if $z0 == 0 goto label02;
+
+        if $r4 == null goto label01;
+
+        $r5 = (com.facebook.RequestOutputStream) $r4;
+
+        interfaceinvoke $r5.<com.facebook.RequestOutputStream: void setCurrentRequest(com.facebook.GraphRequest)>($r3);
+
+        goto label02;
+
+     label01:
+        $r6 = new java.lang.NullPointerException;
+
+        specialinvoke $r6.<java.lang.NullPointerException: void <init>(java.lang.String)>("null cannot be cast to non-null type com.facebook.RequestOutputStream");
+
+        throw $r6;
+
+     label02:
+        $r7 = <com.facebook.GraphRequest: com.facebook.GraphRequest$Companion Companion>;
+
+        $z0 = staticinvoke <com.facebook.GraphRequest$Companion: boolean access$isSupportedParameterType(com.facebook.GraphRequest$Companion,java.lang.Object)>($r7, $r2);
+
+        if $z0 == 0 goto label03;
+
+        $r7 = <com.facebook.GraphRequest: com.facebook.GraphRequest$Companion Companion>;
+
+        $r8 = staticinvoke <com.facebook.GraphRequest$Companion: java.lang.String access$parameterToString(com.facebook.GraphRequest$Companion,java.lang.Object)>($r7, $r2);
+
+        virtualinvoke r0.<com.facebook.GraphRequest$Serializer: void writeString(java.lang.String,java.lang.String)>($r1, $r8);
+
+        return;
+
+     label03:
+        $z0 = $r2 instanceof android.graphics.Bitmap;
+
+        if $z0 == 0 goto label04;
+
+        $r9 = (android.graphics.Bitmap) $r2;
+
+        virtualinvoke r0.<com.facebook.GraphRequest$Serializer: void writeBitmap(java.lang.String,android.graphics.Bitmap)>($r1, $r9);
+
+        return;
+
+     label04:
+        $z0 = $r2 instanceof byte[];
+
+        if $z0 == 0 goto label05;
+
+        $r10 = (byte[]) $r2;
+
+        virtualinvoke r0.<com.facebook.GraphRequest$Serializer: void writeBytes(java.lang.String,byte[])>($r1, $r10);
+
+        return;
+
+     label05:
+        $z0 = $r2 instanceof android.net.Uri;
+
+        if $z0 == 0 goto label06;
+
+        $r11 = (android.net.Uri) $r2;
+
+        virtualinvoke r0.<com.facebook.GraphRequest$Serializer: void writeContentUri(java.lang.String,android.net.Uri,java.lang.String)>($r1, $r11, null);
+
+        return;
+
+     label06:
+        $z0 = $r2 instanceof android.os.ParcelFileDescriptor;
+
+        if $z0 == 0 goto label07;
+
+        $r12 = (android.os.ParcelFileDescriptor) $r2;
+
+        virtualinvoke r0.<com.facebook.GraphRequest$Serializer: void writeFile(java.lang.String,android.os.ParcelFileDescriptor,java.lang.String)>($r1, $r12, null);
+
+        return;
+
+     label07:
+        $z0 = $r2 instanceof com.facebook.GraphRequest$ParcelableResourceWithMimeType;
+
+        if $z0 == 0 goto label10;
+
+        $r13 = (com.facebook.GraphRequest$ParcelableResourceWithMimeType) $r2;
+
+        $r14 = virtualinvoke $r13.<com.facebook.GraphRequest$ParcelableResourceWithMimeType: android.os.Parcelable getResource()>();
+
+        $r8 = virtualinvoke $r13.<com.facebook.GraphRequest$ParcelableResourceWithMimeType: java.lang.String getMimeType()>();
+
+        $z0 = $r14 instanceof android.os.ParcelFileDescriptor;
+
+        if $z0 == 0 goto label08;
+
+        $r12 = (android.os.ParcelFileDescriptor) $r14;
+
+        virtualinvoke r0.<com.facebook.GraphRequest$Serializer: void writeFile(java.lang.String,android.os.ParcelFileDescriptor,java.lang.String)>($r1, $r12, $r8);
+
+        return;
+
+     label08:
+        $z0 = $r14 instanceof android.net.Uri;
+
+        if $z0 == 0 goto label09;
+
+        $r11 = (android.net.Uri) $r14;
+
+        virtualinvoke r0.<com.facebook.GraphRequest$Serializer: void writeContentUri(java.lang.String,android.net.Uri,java.lang.String)>($r1, $r11, $r8);
+
+        return;
+
+     label09:
+        $r15 = specialinvoke r0.<com.facebook.GraphRequest$Serializer: java.lang.RuntimeException getInvalidTypeError()>();
+
+        $r16 = (java.lang.Throwable) $r15;
+
+        throw $r16;
+
+     label10:
+        $r15 = specialinvoke r0.<com.facebook.GraphRequest$Serializer: java.lang.RuntimeException getInvalidTypeError()>();
+
+        $r16 = (java.lang.Throwable) $r15;
+
+        throw $r16;
+    }

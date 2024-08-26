@@ -1,0 +1,115 @@
+    public byte[] a(java.io.InputStream) throws java.io.IOException
+    {
+        java.lang.Throwable $r4, $r5, $r6, $r7, $r8;
+        byte[] $r3;
+        java.io.ByteArrayOutputStream $r2, $r9;
+        l.cia r0;
+        int $i0;
+        java.io.InputStream $r1;
+
+        r0 := @this: l.cia;
+
+        $r1 := @parameter0: java.io.InputStream;
+
+        $r2 = null;
+
+        $r3 = newarray (byte)[4096];
+
+     label01:
+        $r9 = new java.io.ByteArrayOutputStream;
+
+     label02:
+        specialinvoke $r9.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label03:
+        $i0 = virtualinvoke $r1.<java.io.InputStream: int read(byte[])>($r3);
+
+     label04:
+        if $i0 == -1 goto label07;
+
+     label05:
+        virtualinvoke $r9.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r3, 0, $i0);
+
+     label06:
+        goto label03;
+
+     label07:
+        virtualinvoke $r9.<java.io.ByteArrayOutputStream: void close()>();
+
+     label08:
+        goto label10;
+
+     label09:
+        $r4 := @caughtexception;
+
+        staticinvoke <l.kqk: void a(java.lang.Throwable)>($r4);
+
+     label10:
+        if $r1 == null goto label14;
+
+     label11:
+        virtualinvoke $r1.<java.io.InputStream: void close()>();
+
+     label12:
+        goto label14;
+
+     label13:
+        $r5 := @caughtexception;
+
+        staticinvoke <l.kqk: void a(java.lang.Throwable)>($r5);
+
+     label14:
+        $r3 = virtualinvoke $r9.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        return $r3;
+
+     label15:
+        $r6 := @caughtexception;
+
+        $r2 = $r9;
+
+        goto label17;
+
+     label16:
+        $r6 := @caughtexception;
+
+     label17:
+        if $r2 == null goto label21;
+
+     label18:
+        virtualinvoke $r2.<java.io.ByteArrayOutputStream: void close()>();
+
+     label19:
+        goto label21;
+
+     label20:
+        $r7 := @caughtexception;
+
+        staticinvoke <l.kqk: void a(java.lang.Throwable)>($r7);
+
+     label21:
+        if $r1 == null goto label25;
+
+     label22:
+        virtualinvoke $r1.<java.io.InputStream: void close()>();
+
+     label23:
+        goto label25;
+
+     label24:
+        $r8 := @caughtexception;
+
+        staticinvoke <l.kqk: void a(java.lang.Throwable)>($r8);
+
+     label25:
+        throw $r6;
+
+        catch java.lang.Throwable from label01 to label02 with label16;
+        catch java.lang.Throwable from label02 to label03 with label16;
+        catch java.lang.Throwable from label03 to label04 with label15;
+        catch java.lang.Throwable from label05 to label06 with label15;
+        catch java.io.IOException from label07 to label08 with label09;
+        catch java.io.IOException from label11 to label12 with label13;
+        catch java.io.IOException from label18 to label19 with label20;
+        catch java.io.IOException from label22 to label23 with label24;
+    }

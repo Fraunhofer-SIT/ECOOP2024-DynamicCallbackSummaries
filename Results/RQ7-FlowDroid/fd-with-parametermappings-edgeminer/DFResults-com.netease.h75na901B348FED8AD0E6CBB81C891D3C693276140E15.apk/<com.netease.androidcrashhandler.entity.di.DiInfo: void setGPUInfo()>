@@ -1,0 +1,189 @@
+    private void setGPUInfo()
+    {
+        android.content.Context $r16;
+        android.app.ActivityManager $r17;
+        javax.microedition.khronos.egl.EGL10 $r6;
+        android.content.pm.ConfigurationInfo $r18;
+        javax.microedition.khronos.egl.EGL $r5;
+        javax.microedition.khronos.egl.EGLConfig[] $r9;
+        javax.microedition.khronos.opengles.GL $r13;
+        org.json.JSONObject $r4;
+        int[] $r1, $r2, $r3;
+        int $i0;
+        javax.microedition.khronos.opengles.GL10 $r14;
+        java.lang.String $r15;
+        javax.microedition.khronos.egl.EGLSurface $r12;
+        com.netease.androidcrashhandler.entity.di.DiInfo r0;
+        java.lang.Exception $r19;
+        javax.microedition.khronos.egl.EGLConfig $r10;
+        java.lang.Object $r7;
+        javax.microedition.khronos.egl.EGLDisplay $r8;
+        java.lang.StringBuilder $r20;
+        javax.microedition.khronos.egl.EGLContext $r11;
+
+        r0 := @this: com.netease.androidcrashhandler.entity.di.DiInfo;
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", "DiInfo [setGPUInfo] start");
+
+        $r1 = newarray (int)[2];
+
+        $r2 = newarray (int)[5];
+
+        $r2[0] = 12375;
+
+        $r2[1] = 100;
+
+        $r2[2] = 12374;
+
+        $r2[3] = 100;
+
+        $r2[4] = 12344;
+
+        $r3 = newarray (int)[13];
+
+        $r3[0] = 12325;
+
+        $r3[1] = 0;
+
+        $r3[2] = 12326;
+
+        $r3[3] = 0;
+
+        $r3[4] = 12324;
+
+        $r3[5] = 8;
+
+        $r3[6] = 12323;
+
+        $r3[7] = 8;
+
+        $r3[8] = 12322;
+
+        $r3[9] = 8;
+
+        $r3[10] = 12321;
+
+        $r3[11] = 8;
+
+        $r3[12] = 12344;
+
+     label1:
+        $r4 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mDiInfoJson>;
+
+        virtualinvoke $r4.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("gl_renderer", "unknow");
+
+        $r4 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mDiInfoJson>;
+
+        virtualinvoke $r4.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("gl_vendor", "unknow");
+
+        $r4 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mDiInfoJson>;
+
+        virtualinvoke $r4.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("gl_version", "unknow");
+
+        $r4 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mDiInfoJson>;
+
+        virtualinvoke $r4.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("gpu", "unknow");
+
+        $r5 = staticinvoke <javax.microedition.khronos.egl.EGLContext: javax.microedition.khronos.egl.EGL getEGL()>();
+
+        $r6 = (javax.microedition.khronos.egl.EGL10) $r5;
+
+     label2:
+        $r7 = <javax.microedition.khronos.egl.EGL10: java.lang.Object EGL_DEFAULT_DISPLAY>;
+
+     label3:
+        $r8 = interfaceinvoke $r6.<javax.microedition.khronos.egl.EGL10: javax.microedition.khronos.egl.EGLDisplay eglGetDisplay(java.lang.Object)>($r7);
+
+        interfaceinvoke $r6.<javax.microedition.khronos.egl.EGL10: boolean eglInitialize(javax.microedition.khronos.egl.EGLDisplay,int[])>($r8, $r1);
+
+     label4:
+        $r1 = newarray (int)[1];
+
+     label5:
+        interfaceinvoke $r6.<javax.microedition.khronos.egl.EGL10: boolean eglChooseConfig(javax.microedition.khronos.egl.EGLDisplay,int[],javax.microedition.khronos.egl.EGLConfig[],int,int[])>($r8, $r3, null, 0, $r1);
+
+        $i0 = $r1[0];
+
+        $r9 = newarray (javax.microedition.khronos.egl.EGLConfig)[$i0];
+
+        interfaceinvoke $r6.<javax.microedition.khronos.egl.EGL10: boolean eglChooseConfig(javax.microedition.khronos.egl.EGLDisplay,int[],javax.microedition.khronos.egl.EGLConfig[],int,int[])>($r8, $r3, $r9, $i0, $r1);
+
+        $r10 = $r9[0];
+
+     label6:
+        $r11 = <javax.microedition.khronos.egl.EGL10: javax.microedition.khronos.egl.EGLContext EGL_NO_CONTEXT>;
+
+     label7:
+        $r11 = interfaceinvoke $r6.<javax.microedition.khronos.egl.EGL10: javax.microedition.khronos.egl.EGLContext eglCreateContext(javax.microedition.khronos.egl.EGLDisplay,javax.microedition.khronos.egl.EGLConfig,javax.microedition.khronos.egl.EGLContext,int[])>($r8, $r10, $r11, null);
+
+        $r12 = interfaceinvoke $r6.<javax.microedition.khronos.egl.EGL10: javax.microedition.khronos.egl.EGLSurface eglCreatePbufferSurface(javax.microedition.khronos.egl.EGLDisplay,javax.microedition.khronos.egl.EGLConfig,int[])>($r8, $r10, $r2);
+
+        interfaceinvoke $r6.<javax.microedition.khronos.egl.EGL10: boolean eglMakeCurrent(javax.microedition.khronos.egl.EGLDisplay,javax.microedition.khronos.egl.EGLSurface,javax.microedition.khronos.egl.EGLSurface,javax.microedition.khronos.egl.EGLContext)>($r8, $r12, $r12, $r11);
+
+        $r13 = virtualinvoke $r11.<javax.microedition.khronos.egl.EGLContext: javax.microedition.khronos.opengles.GL getGL()>();
+
+        $r14 = (javax.microedition.khronos.opengles.GL10) $r13;
+
+        $r4 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mDiInfoJson>;
+
+        $r15 = interfaceinvoke $r14.<javax.microedition.khronos.opengles.GL10: java.lang.String glGetString(int)>(7937);
+
+        virtualinvoke $r4.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("gl_renderer", $r15);
+
+        $r4 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mDiInfoJson>;
+
+        $r15 = interfaceinvoke $r14.<javax.microedition.khronos.opengles.GL10: java.lang.String glGetString(int)>(7936);
+
+        virtualinvoke $r4.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("gl_vendor", $r15);
+
+        $r16 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: android.content.Context mContext>;
+
+        $r7 = virtualinvoke $r16.<android.content.Context: java.lang.Object getSystemService(java.lang.String)>("activity");
+
+        $r17 = (android.app.ActivityManager) $r7;
+
+        $r18 = virtualinvoke $r17.<android.app.ActivityManager: android.content.pm.ConfigurationInfo getDeviceConfigurationInfo()>();
+
+        $i0 = $r18.<android.content.pm.ConfigurationInfo: int reqGlEsVersion>;
+
+        $r15 = staticinvoke <java.lang.Integer: java.lang.String toString(int,int)>($i0, 16);
+
+        $r4 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mDiInfoJson>;
+
+        virtualinvoke $r4.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("gl_version", $r15);
+
+        $r4 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mDiInfoJson>;
+
+        $r15 = interfaceinvoke $r14.<javax.microedition.khronos.opengles.GL10: java.lang.String glGetString(int)>(7937);
+
+        virtualinvoke $r4.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("gpu", $r15);
+
+     label8:
+        return;
+
+     label9:
+        $r19 := @caughtexception;
+
+        $r20 = new java.lang.StringBuilder;
+
+        specialinvoke $r20.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("DiInfo [setGPUInfo] Exception=");
+
+        $r15 = virtualinvoke $r19.<java.lang.Exception: java.lang.String toString()>();
+
+        virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r15);
+
+        $r15 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void w(java.lang.String,java.lang.String)>("trace", $r15);
+
+        virtualinvoke $r19.<java.lang.Exception: void printStackTrace()>();
+
+        return;
+
+        catch java.lang.Exception from label1 to label2 with label9;
+        catch java.lang.Exception from label3 to label4 with label9;
+        catch java.lang.Exception from label5 to label6 with label9;
+        catch java.lang.Exception from label7 to label8 with label9;
+    }

@@ -1,0 +1,857 @@
+    public static java.lang.String getSBBS(android.content.Context, boolean, boolean, boolean)
+    {
+        byte[] $r7;
+        byte $b1;
+        boolean $z0, $z1, $z2, $z3, $z4, $z5;
+        java.lang.Exception $r1, $r2, $r12, $r14, $r20;
+        java.lang.StringBuilder $r22;
+        java.lang.Throwable $r11, $r13, $r19;
+        android.content.Context $r0;
+        java.lang.String[] $r8;
+        long $l0;
+        java.lang.StringBuffer $r21;
+        android.telephony.TelephonyManager $r10;
+        int $i2;
+        java.lang.String $r3, $r4, $r5, $r6, $r16;
+        java.io.FileOutputStream $r24;
+        java.io.FileInputStream $r23;
+        java.io.File $r15, $r17, $r18;
+        java.lang.Object $r9;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $z0 := @parameter1: boolean;
+
+        $z1 := @parameter2: boolean;
+
+        $z2 := @parameter3: boolean;
+
+        $r21 = new java.lang.StringBuffer;
+
+        specialinvoke $r21.<java.lang.StringBuffer: void <init>()>();
+
+        if $z0 == 0 goto label001;
+
+        virtualinvoke $r21.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("|");
+
+     label001:
+        $r3 = "";
+
+        if $r0 != null goto label002;
+
+        if $z0 == 0 goto label137;
+
+        return "|||||";
+
+     label002:
+        if $z1 == 0 goto label004;
+
+        if $z0 == 0 goto label003;
+
+        $r4 = <io.dcloud.common.util.TelephonyUtil: java.lang.String sOriginalImeiAndBakInfo>;
+
+        $z3 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r4);
+
+        if $z3 != 0 goto label003;
+
+        $r3 = <io.dcloud.common.util.TelephonyUtil: java.lang.String sOriginalImeiAndBakInfo>;
+
+        return $r3;
+
+     label003:
+        $r4 = <io.dcloud.common.util.TelephonyUtil: java.lang.String sImei>;
+
+        $z3 = staticinvoke <io.dcloud.common.util.TelephonyUtil: boolean isUnValid(java.lang.String)>($r4);
+
+        if $z3 != 0 goto label006;
+
+        if $z0 != 0 goto label006;
+
+        $r3 = <io.dcloud.common.util.TelephonyUtil: java.lang.String sImei>;
+
+        return $r3;
+
+     label004:
+        if $z0 == 0 goto label005;
+
+        $r4 = <io.dcloud.common.util.TelephonyUtil: java.lang.String sImeiAndBakInfo>;
+
+        $z3 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r4);
+
+        if $z3 != 0 goto label005;
+
+        $r3 = <io.dcloud.common.util.TelephonyUtil: java.lang.String sImeiAndBakInfo>;
+
+        return $r3;
+
+     label005:
+        $r4 = <io.dcloud.common.util.TelephonyUtil: java.lang.String sImei>;
+
+        $z3 = staticinvoke <io.dcloud.common.util.TelephonyUtil: boolean isUnValid(java.lang.String)>($r4);
+
+        if $z3 != 0 goto label006;
+
+        if $z0 != 0 goto label006;
+
+        $r3 = <io.dcloud.common.util.TelephonyUtil: java.lang.String sImei>;
+
+        return $r3;
+
+     label006:
+        $r4 = <io.dcloud.common.util.TelephonyUtil: java.lang.String sImei>;
+
+        $z3 = staticinvoke <io.dcloud.common.util.TelephonyUtil: boolean isUnValid(java.lang.String)>($r4);
+
+        if $z3 != 0 goto label007;
+
+        if $z0 != 0 goto label007;
+
+        $r3 = <io.dcloud.common.util.TelephonyUtil: java.lang.String sImei>;
+
+        return $r3;
+
+     label007:
+        if $z2 == 0 goto label035;
+
+     label008:
+        $r4 = staticinvoke <io.dcloud.common.adapter.util.SP: java.lang.String getBundleData(android.content.Context,java.lang.String,java.lang.String)>($r0, "pdr", "_dpush_uuid_");
+
+        $z3 = staticinvoke <io.dcloud.common.util.TelephonyUtil: boolean isUnValid(java.lang.String)>($r4);
+
+     label009:
+        if $z3 != 0 goto label014;
+
+        if $z0 == 0 goto label014;
+
+        if $z1 == 0 goto label010;
+
+        if $z0 == 0 goto label138;
+
+        $r3 = <io.dcloud.common.util.TelephonyUtil: java.lang.String sImei>;
+
+        virtualinvoke $r21.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r3);
+
+        virtualinvoke $r21.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("|");
+
+        return $r4;
+
+     label010:
+        $r5 = staticinvoke <io.dcloud.h.a: java.lang.String b()>();
+
+        $r6 = staticinvoke <io.dcloud.h.a: java.lang.String a()>();
+
+        $r7 = staticinvoke <io.dcloud.common.util.AESUtil: byte[] encrypt(java.lang.String,java.lang.String,java.lang.String)>($r5, $r6, $r4);
+
+        $r4 = staticinvoke <android.util.Base64: java.lang.String encodeToString(byte[],int)>($r7, 2);
+
+        $r4 = staticinvoke <java.net.URLEncoder: java.lang.String encode(java.lang.String)>($r4);
+
+     label011:
+        $r22 = new java.lang.StringBuilder;
+
+     label012:
+        specialinvoke $r22.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("&ie=1");
+
+        $r4 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label013:
+        if $z0 == 0 goto label138;
+
+        $r3 = <io.dcloud.common.util.TelephonyUtil: java.lang.String sImei>;
+
+        virtualinvoke $r21.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r3);
+
+        virtualinvoke $r21.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("|");
+
+        return $r4;
+
+     label014:
+        $r8 = staticinvoke <io.dcloud.common.util.TelephonyUtil: java.lang.String[] getMultiIMEI(android.content.Context)>($r0);
+
+     label015:
+        if $r8 == null goto label024;
+
+     label016:
+        $r22 = new java.lang.StringBuilder;
+
+     label017:
+        specialinvoke $r22.<java.lang.StringBuilder: void <init>()>();
+
+     label018:
+        $r4 = $r8[0];
+
+     label019:
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(",");
+
+     label020:
+        $r4 = $r8[1];
+
+     label021:
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        $r4 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label022:
+        <io.dcloud.common.util.TelephonyUtil: java.lang.String sImei> = $r4;
+
+     label023:
+        goto label026;
+
+     label024:
+        $r9 = virtualinvoke $r0.<android.content.Context: java.lang.Object getSystemService(java.lang.String)>("phone");
+
+        $r10 = (android.telephony.TelephonyManager) $r9;
+
+        $r4 = virtualinvoke $r10.<android.telephony.TelephonyManager: java.lang.String getDeviceId()>();
+
+     label025:
+        <io.dcloud.common.util.TelephonyUtil: java.lang.String sImei> = $r4;
+
+     label026:
+        if $z0 == 0 goto label037;
+
+        goto label032;
+
+     label027:
+        $r11 := @caughtexception;
+
+        goto label033;
+
+     label028:
+        $r12 := @caughtexception;
+
+     label029:
+        $r4 = <io.dcloud.common.util.TelephonyUtil: java.lang.String TAG>;
+
+        $r22 = new java.lang.StringBuilder;
+
+     label030:
+        specialinvoke $r22.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("getIMEI exception==");
+
+        $r5 = virtualinvoke $r12.<java.lang.Exception: java.lang.String getMessage()>();
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <io.dcloud.common.adapter.util.Logger: void e(java.lang.String,java.lang.String)>($r4, $r5);
+
+     label031:
+        if $z0 == 0 goto label037;
+
+     label032:
+        $r4 = <io.dcloud.common.util.TelephonyUtil: java.lang.String sImei>;
+
+        virtualinvoke $r21.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r4);
+
+        virtualinvoke $r21.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("|");
+
+        goto label036;
+
+     label033:
+        if $z0 == 0 goto label034;
+
+        $r3 = <io.dcloud.common.util.TelephonyUtil: java.lang.String sImei>;
+
+        virtualinvoke $r21.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r3);
+
+        virtualinvoke $r21.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("|");
+
+     label034:
+        throw $r11;
+
+     label035:
+        virtualinvoke $r21.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("|");
+
+     label036:
+        if $z0 == 0 goto label037;
+
+        virtualinvoke $r21.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("|");
+
+     label037:
+        $r4 = <io.dcloud.common.util.TelephonyUtil: java.lang.String sImei>;
+
+        $z3 = staticinvoke <io.dcloud.common.util.TelephonyUtil: boolean isUnValid(java.lang.String)>($r4);
+
+        if $z3 != 0 goto label038;
+
+        if $z0 != 0 goto label038;
+
+        $r3 = <io.dcloud.common.util.TelephonyUtil: java.lang.String sImei>;
+
+        return $r3;
+
+     label038:
+        if $z2 == 0 goto label055;
+
+     label039:
+        $r4 = staticinvoke <io.dcloud.common.util.TelephonyUtil: java.lang.String getAId(android.content.Context)>($r0);
+
+     label040:
+        $r5 = $r4;
+
+        if $z3 == 0 goto label044;
+
+     label041:
+        <io.dcloud.common.util.TelephonyUtil: java.lang.String sImei> = $r4;
+
+     label042:
+        goto label044;
+
+     label043:
+        $r13 := @caughtexception;
+
+        goto label051;
+
+     label044:
+        if $z0 == 0 goto label056;
+
+        $z3 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r4);
+
+        if $z3 == 0 goto label050;
+
+        goto label049;
+
+     label045:
+        $r13 := @caughtexception;
+
+        $r4 = null;
+
+        goto label052;
+
+     label046:
+        $r14 := @caughtexception;
+
+        $r5 = null;
+
+     label047:
+        virtualinvoke $r14.<java.lang.Exception: void printStackTrace()>();
+
+     label048:
+        if $z0 == 0 goto label056;
+
+        $z3 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>(null);
+
+        if $z3 == 0 goto label050;
+
+     label049:
+        $r5 = "";
+
+     label050:
+        virtualinvoke $r21.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r5);
+
+        virtualinvoke $r21.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("|");
+
+        goto label056;
+
+     label051:
+        $r4 = $r5;
+
+     label052:
+        if $z0 == 0 goto label054;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r4);
+
+        if $z0 != 0 goto label053;
+
+        $r3 = $r4;
+
+     label053:
+        virtualinvoke $r21.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r3);
+
+        virtualinvoke $r21.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("|");
+
+     label054:
+        throw $r13;
+
+     label055:
+        virtualinvoke $r21.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("|");
+
+     label056:
+        $r4 = <io.dcloud.common.util.TelephonyUtil: java.lang.String sImei>;
+
+        $z3 = staticinvoke <io.dcloud.common.util.TelephonyUtil: boolean isUnValid(java.lang.String)>($r4);
+
+        if $z3 != 0 goto label057;
+
+        if $z0 != 0 goto label057;
+
+        $r3 = <io.dcloud.common.util.TelephonyUtil: java.lang.String sImei>;
+
+        return $r3;
+
+     label057:
+        $z4 = staticinvoke <io.dcloud.common.util.FileUtil: boolean needMediaStoreOpenFile(android.content.Context)>($r0);
+
+     label058:
+        $r22 = new java.lang.StringBuilder;
+
+     label059:
+        specialinvoke $r22.<java.lang.StringBuilder: void <init>()>();
+
+        $r15 = virtualinvoke $r0.<android.content.Context: java.io.File getFilesDir()>();
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r15);
+
+     label060:
+        $r5 = <java.io.File: java.lang.String separator>;
+
+     label061:
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".imei.txt");
+
+        $r6 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label062:
+        $r4 = $r6;
+
+     label063:
+        $r17 = new java.io.File;
+
+     label064:
+        $r15 = $r17;
+
+     label065:
+        specialinvoke $r17.<java.io.File: void <init>(java.lang.String)>($r6);
+
+        $z5 = virtualinvoke $r17.<java.io.File: boolean exists()>();
+
+     label066:
+        if $z5 != 0 goto label073;
+
+     label067:
+        $r22 = new java.lang.StringBuilder;
+
+     label068:
+        specialinvoke $r22.<java.lang.StringBuilder: void <init>()>();
+
+        $r15 = virtualinvoke $r0.<android.content.Context: java.io.File getFilesDir()>();
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r15);
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".DC4278477faeb9.txt");
+
+        $r6 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label069:
+        $r4 = $r6;
+
+     label070:
+        $r17 = new java.io.File;
+
+     label071:
+        $r15 = $r17;
+
+     label072:
+        specialinvoke $r17.<java.io.File: void <init>(java.lang.String)>($r6);
+
+     label073:
+        $r6 = "mounted";
+
+     label074:
+        $r16 = staticinvoke <android.os.Environment: java.lang.String getExternalStorageState()>();
+
+        $z5 = virtualinvoke $r6.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>($r16);
+
+     label075:
+        if $z5 == 0 goto label090;
+
+        if $z4 != 0 goto label090;
+
+     label076:
+        $r22 = new java.lang.StringBuilder;
+
+     label077:
+        specialinvoke $r22.<java.lang.StringBuilder: void <init>()>();
+
+        $r17 = staticinvoke <android.os.Environment: java.io.File getExternalStorageDirectory()>();
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r17);
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".imei.txt");
+
+        $r16 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label078:
+        $r6 = $r16;
+
+     label079:
+        $r18 = new java.io.File;
+
+     label080:
+        $r17 = $r18;
+
+     label081:
+        specialinvoke $r18.<java.io.File: void <init>(java.lang.String)>($r16);
+
+        $z5 = virtualinvoke $r18.<java.io.File: boolean exists()>();
+
+     label082:
+        if $z5 != 0 goto label091;
+
+     label083:
+        $r22 = new java.lang.StringBuilder;
+
+     label084:
+        specialinvoke $r22.<java.lang.StringBuilder: void <init>()>();
+
+        $r17 = staticinvoke <android.os.Environment: java.io.File getExternalStorageDirectory()>();
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r17);
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        virtualinvoke $r22.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".DC4278477faeb9.txt");
+
+        $r5 = virtualinvoke $r22.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label085:
+        $r6 = $r5;
+
+     label086:
+        $r18 = new java.io.File;
+
+     label087:
+        $r17 = $r18;
+
+     label088:
+        specialinvoke $r18.<java.io.File: void <init>(java.lang.String)>($r5);
+
+     label089:
+        goto label091;
+
+     label090:
+        $r6 = null;
+
+        $r17 = null;
+
+     label091:
+        $z5 = virtualinvoke $r15.<java.io.File: boolean isDirectory()>();
+
+     label092:
+        if $z5 == 0 goto label094;
+
+     label093:
+        virtualinvoke $r15.<java.io.File: boolean delete()>();
+
+     label094:
+        if $r17 == null goto label118;
+
+     label095:
+        $z5 = virtualinvoke $r17.<java.io.File: boolean exists()>();
+
+     label096:
+        if $z5 == 0 goto label118;
+
+     label097:
+        $l0 = virtualinvoke $r17.<java.io.File: long length()>();
+
+     label098:
+        $b1 = $l0 cmp 0L;
+
+        $i2 = (int) $b1;
+
+        if $i2 <= 0 goto label118;
+
+        if $z4 == 0 goto label101;
+
+     label099:
+        $i2 = <android.os.Build$VERSION: int SDK_INT>;
+
+     label100:
+        if $i2 < 29 goto label101;
+
+        $r5 = null;
+
+        goto label103;
+
+     label101:
+        $r23 = new java.io.FileInputStream;
+
+     label102:
+        specialinvoke $r23.<java.io.FileInputStream: void <init>(java.io.File)>($r17);
+
+        $r5 = staticinvoke <io.dcloud.common.util.IOUtil: java.lang.String toString(java.io.InputStream)>($r23);
+
+     label103:
+        $z4 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r5);
+
+     label104:
+        if $z4 != 0 goto label112;
+
+     label105:
+        $r18 = virtualinvoke $r15.<java.io.File: java.io.File getParentFile()>();
+
+        $z4 = virtualinvoke $r18.<java.io.File: boolean exists()>();
+
+     label106:
+        if $z4 != 0 goto label108;
+
+     label107:
+        $r18 = virtualinvoke $r15.<java.io.File: java.io.File getParentFile()>();
+
+        virtualinvoke $r18.<java.io.File: boolean mkdirs()>();
+
+        virtualinvoke $r15.<java.io.File: boolean createNewFile()>();
+
+     label108:
+        $r24 = new java.io.FileOutputStream;
+
+     label109:
+        specialinvoke $r24.<java.io.FileOutputStream: void <init>(java.io.File)>($r15);
+
+        $r7 = virtualinvoke $r5.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke $r24.<java.io.FileOutputStream: void write(byte[])>($r7);
+
+        virtualinvoke $r24.<java.io.FileOutputStream: void flush()>();
+
+        virtualinvoke $r24.<java.io.FileOutputStream: void close()>();
+
+     label110:
+        goto label112;
+
+     label111:
+        $r5 = null;
+
+     label112:
+        $z4 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r5);
+
+     label113:
+        if $z4 == 0 goto label120;
+
+     label114:
+        $r4 = staticinvoke <io.dcloud.common.util.TelephonyUtil: java.lang.String savePublicFile(java.io.File,java.io.File,java.lang.String,java.lang.String,android.content.Context)>($r15, $r17, $r4, $r6, $r0);
+
+     label115:
+        goto label119;
+
+     label116:
+        $r19 := @caughtexception;
+
+        goto label132;
+
+     label117:
+        $r20 := @caughtexception;
+
+        goto label125;
+
+     label118:
+        $r4 = staticinvoke <io.dcloud.common.util.TelephonyUtil: java.lang.String savePublicFile(java.io.File,java.io.File,java.lang.String,java.lang.String,android.content.Context)>($r15, $r17, $r4, $r6, $r0);
+
+     label119:
+        $r5 = $r4;
+
+     label120:
+        if $z3 == 0 goto label122;
+
+        if $z2 == 0 goto label122;
+
+     label121:
+        <io.dcloud.common.util.TelephonyUtil: java.lang.String sImei> = $r5;
+
+     label122:
+        if $z0 == 0 goto label129;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r5);
+
+        if $z0 == 0 goto label127;
+
+        goto label128;
+
+     label123:
+        $r19 := @caughtexception;
+
+        $r5 = null;
+
+        goto label132;
+
+     label124:
+        $r20 := @caughtexception;
+
+        $r5 = null;
+
+     label125:
+        virtualinvoke $r20.<java.lang.Exception: void printStackTrace()>();
+
+     label126:
+        if $z0 == 0 goto label129;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r5);
+
+        if $z0 != 0 goto label128;
+
+     label127:
+        $r3 = virtualinvoke $r5.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("\n", "");
+
+     label128:
+        virtualinvoke $r21.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r3);
+
+        virtualinvoke $r21.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("|");
+
+     label129:
+        $r3 = staticinvoke <io.dcloud.h.a: java.lang.String b()>();
+
+        $r4 = staticinvoke <io.dcloud.h.a: java.lang.String a()>();
+
+        $r5 = virtualinvoke $r21.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        $r7 = staticinvoke <io.dcloud.common.util.AESUtil: byte[] encrypt(java.lang.String,java.lang.String,java.lang.String)>($r3, $r4, $r5);
+
+        $r3 = staticinvoke <android.util.Base64: java.lang.String encodeToString(byte[],int)>($r7, 2);
+
+        $r3 = staticinvoke <java.net.URLEncoder: java.lang.String encode(java.lang.String)>($r3);
+
+        $r3 = staticinvoke <a.a: java.lang.String g(java.lang.String,java.lang.String)>($r3, "&ie=1");
+
+        if $z2 == 0 goto label131;
+
+        <io.dcloud.common.util.TelephonyUtil: java.lang.String sImeiAndBakInfo> = $r3;
+
+        $r3 = virtualinvoke $r21.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        <io.dcloud.common.util.TelephonyUtil: java.lang.String sOriginalImeiAndBakInfo> = $r3;
+
+        if $z1 == 0 goto label130;
+
+        return $r3;
+
+     label130:
+        $r3 = <io.dcloud.common.util.TelephonyUtil: java.lang.String sImeiAndBakInfo>;
+
+        return $r3;
+
+     label131:
+        if $z1 == 0 goto label139;
+
+        $r3 = virtualinvoke $r21.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        return $r3;
+
+     label132:
+        if $z0 == 0 goto label134;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r5);
+
+        if $z0 != 0 goto label133;
+
+        $r3 = virtualinvoke $r5.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>("\n", "");
+
+     label133:
+        virtualinvoke $r21.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r3);
+
+        virtualinvoke $r21.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>("|");
+
+     label134:
+        throw $r19;
+
+     label135:
+        $r1 := @caughtexception;
+
+        goto label111;
+
+     label136:
+        $r2 := @caughtexception;
+
+        goto label112;
+
+     label137:
+        return "";
+
+     label138:
+        return $r4;
+
+     label139:
+        return $r3;
+
+        catch java.lang.Exception from label008 to label009 with label028;
+        catch java.lang.Throwable from label008 to label009 with label027;
+        catch java.lang.Exception from label010 to label011 with label028;
+        catch java.lang.Exception from label012 to label013 with label028;
+        catch java.lang.Throwable from label010 to label012 with label027;
+        catch java.lang.Throwable from label012 to label013 with label027;
+        catch java.lang.Exception from label014 to label015 with label028;
+        catch java.lang.Exception from label017 to label022 with label028;
+        catch java.lang.Exception from label024 to label025 with label028;
+        catch java.lang.Throwable from label014 to label015 with label027;
+        catch java.lang.Throwable from label016 to label017 with label027;
+        catch java.lang.Throwable from label017 to label018 with label027;
+        catch java.lang.Throwable from label019 to label020 with label027;
+        catch java.lang.Throwable from label021 to label023 with label027;
+        catch java.lang.Throwable from label024 to label026 with label027;
+        catch java.lang.Throwable from label029 to label030 with label027;
+        catch java.lang.Throwable from label030 to label031 with label027;
+        catch java.lang.Exception from label039 to label040 with label046;
+        catch java.lang.Throwable from label039 to label040 with label045;
+        catch java.lang.Throwable from label041 to label042 with label043;
+        catch java.lang.Throwable from label047 to label048 with label043;
+        catch java.lang.Exception from label057 to label058 with label124;
+        catch java.lang.Exception from label059 to label060 with label124;
+        catch java.lang.Exception from label061 to label062 with label124;
+        catch java.lang.Exception from label065 to label066 with label124;
+        catch java.lang.Throwable from label057 to label059 with label123;
+        catch java.lang.Throwable from label059 to label062 with label123;
+        catch java.lang.Throwable from label063 to label064 with label123;
+        catch java.lang.Throwable from label065 to label066 with label123;
+        catch java.lang.Exception from label068 to label069 with label124;
+        catch java.lang.Exception from label072 to label073 with label124;
+        catch java.lang.Throwable from label067 to label068 with label123;
+        catch java.lang.Throwable from label068 to label069 with label123;
+        catch java.lang.Throwable from label070 to label071 with label123;
+        catch java.lang.Throwable from label072 to label073 with label123;
+        catch java.lang.Exception from label074 to label075 with label124;
+        catch java.lang.Exception from label077 to label078 with label124;
+        catch java.lang.Exception from label081 to label082 with label124;
+        catch java.lang.Exception from label084 to label085 with label124;
+        catch java.lang.Exception from label088 to label089 with label124;
+        catch java.lang.Exception from label091 to label092 with label124;
+        catch java.lang.Exception from label093 to label094 with label124;
+        catch java.lang.Exception from label095 to label096 with label124;
+        catch java.lang.Exception from label097 to label098 with label124;
+        catch java.lang.Throwable from label074 to label075 with label123;
+        catch java.lang.Throwable from label076 to label077 with label123;
+        catch java.lang.Throwable from label077 to label078 with label123;
+        catch java.lang.Throwable from label079 to label080 with label123;
+        catch java.lang.Throwable from label081 to label082 with label123;
+        catch java.lang.Throwable from label083 to label084 with label123;
+        catch java.lang.Throwable from label084 to label085 with label123;
+        catch java.lang.Throwable from label086 to label087 with label123;
+        catch java.lang.Throwable from label088 to label089 with label123;
+        catch java.lang.Throwable from label091 to label092 with label123;
+        catch java.lang.Throwable from label093 to label094 with label123;
+        catch java.lang.Throwable from label095 to label096 with label123;
+        catch java.lang.Throwable from label097 to label098 with label123;
+        catch java.lang.Exception from label102 to label103 with label135;
+        catch java.lang.Throwable from label099 to label100 with label123;
+        catch java.lang.Throwable from label101 to label102 with label123;
+        catch java.lang.Throwable from label102 to label103 with label123;
+        catch java.lang.Exception from label103 to label104 with label136;
+        catch java.lang.Exception from label105 to label106 with label136;
+        catch java.lang.Exception from label107 to label108 with label136;
+        catch java.lang.Exception from label109 to label110 with label136;
+        catch java.lang.Throwable from label103 to label104 with label116;
+        catch java.lang.Throwable from label105 to label106 with label116;
+        catch java.lang.Throwable from label107 to label109 with label116;
+        catch java.lang.Throwable from label109 to label110 with label116;
+        catch java.lang.Exception from label112 to label113 with label117;
+        catch java.lang.Exception from label114 to label115 with label117;
+        catch java.lang.Throwable from label112 to label113 with label116;
+        catch java.lang.Throwable from label114 to label115 with label116;
+        catch java.lang.Exception from label118 to label119 with label124;
+        catch java.lang.Throwable from label118 to label119 with label123;
+        catch java.lang.Throwable from label121 to label122 with label116;
+        catch java.lang.Throwable from label125 to label126 with label116;
+    }

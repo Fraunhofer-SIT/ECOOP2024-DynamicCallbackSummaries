@@ -1,0 +1,91 @@
+    void error(java.lang.Exception)
+    {
+        java.net.HttpURLConnection $r4;
+        com.newrelic.agent.android.measurement.http.HttpTransactionMeasurement $r12;
+        com.newrelic.agent.android.instrumentation.io.CountingInputStream $r8;
+        com.newrelic.agent.android.api.common.TransactionData $r5;
+        com.newrelic.agent.android.instrumentation.TransactionState $r3;
+        java.lang.Exception $r2, $r10;
+        com.newrelic.agent.android.instrumentation.HttpURLConnectionExtension r0;
+        com.newrelic.agent.android.logging.AgentLog $r11;
+        java.lang.StringBuilder $r1;
+        java.lang.String $r6, $r9;
+        boolean $z0;
+        java.io.InputStream $r7;
+
+        r0 := @this: com.newrelic.agent.android.instrumentation.HttpURLConnectionExtension;
+
+        $r2 := @parameter0: java.lang.Exception;
+
+        $r3 = virtualinvoke r0.<com.newrelic.agent.android.instrumentation.HttpURLConnectionExtension: com.newrelic.agent.android.instrumentation.TransactionState getTransactionState()>();
+
+        staticinvoke <com.newrelic.agent.android.instrumentation.TransactionStateUtil: void setErrorCodeFromException(com.newrelic.agent.android.instrumentation.TransactionState,java.lang.Exception)>($r3, $r2);
+
+        $z0 = virtualinvoke $r3.<com.newrelic.agent.android.instrumentation.TransactionState: boolean isComplete()>();
+
+        if $z0 != 0 goto label7;
+
+        $r4 = r0.<com.newrelic.agent.android.instrumentation.HttpURLConnectionExtension: java.net.HttpURLConnection impl>;
+
+        staticinvoke <com.newrelic.agent.android.instrumentation.TransactionStateUtil: void inspectAndInstrumentResponse(com.newrelic.agent.android.instrumentation.TransactionState,java.net.HttpURLConnection)>($r3, $r4);
+
+        $r5 = virtualinvoke $r3.<com.newrelic.agent.android.instrumentation.TransactionState: com.newrelic.agent.android.api.common.TransactionData end()>();
+
+        if $r5 == null goto label7;
+
+        $r6 = virtualinvoke $r2.<java.lang.Exception: java.lang.String toString()>();
+
+     label1:
+        $r7 = virtualinvoke r0.<com.newrelic.agent.android.instrumentation.HttpURLConnectionExtension: java.io.InputStream getErrorStream()>();
+
+     label2:
+        if $r7 == null goto label6;
+
+        $z0 = $r7 instanceof com.newrelic.agent.android.instrumentation.io.CountingInputStream;
+
+        if $z0 == 0 goto label6;
+
+     label3:
+        $r8 = (com.newrelic.agent.android.instrumentation.io.CountingInputStream) $r7;
+
+        $r9 = virtualinvoke $r8.<com.newrelic.agent.android.instrumentation.io.CountingInputStream: java.lang.String getBufferAsString()>();
+
+     label4:
+        $r6 = $r9;
+
+        goto label6;
+
+     label5:
+        $r10 := @caughtexception;
+
+        $r11 = <com.newrelic.agent.android.instrumentation.HttpURLConnectionExtension: com.newrelic.agent.android.logging.AgentLog log>;
+
+        $r1 = new java.lang.StringBuilder;
+
+        specialinvoke $r1.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("HttpsURLConnectionExtension.error: ");
+
+        $r9 = virtualinvoke $r10.<java.lang.Exception: java.lang.String toString()>();
+
+        virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        $r9 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        interfaceinvoke $r11.<com.newrelic.agent.android.logging.AgentLog: void error(java.lang.String)>($r9);
+
+     label6:
+        virtualinvoke $r5.<com.newrelic.agent.android.api.common.TransactionData: void setResponseBody(java.lang.String)>($r6);
+
+        $r12 = new com.newrelic.agent.android.measurement.http.HttpTransactionMeasurement;
+
+        specialinvoke $r12.<com.newrelic.agent.android.measurement.http.HttpTransactionMeasurement: void <init>(com.newrelic.agent.android.api.common.TransactionData)>($r5);
+
+        staticinvoke <com.newrelic.agent.android.TaskQueue: void queue(java.lang.Object)>($r12);
+
+     label7:
+        return;
+
+        catch java.lang.Exception from label1 to label2 with label5;
+        catch java.lang.Exception from label3 to label4 with label5;
+    }

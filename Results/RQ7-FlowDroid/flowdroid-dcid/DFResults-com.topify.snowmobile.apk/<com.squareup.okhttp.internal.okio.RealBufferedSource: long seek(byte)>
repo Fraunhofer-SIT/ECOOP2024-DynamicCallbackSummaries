@@ -1,0 +1,49 @@
+    public long seek(byte) throws java.io.IOException
+    {
+        long l1, $l3;
+        java.io.EOFException $r3;
+        com.squareup.okhttp.internal.okio.OkBuffer $r1;
+        com.squareup.okhttp.internal.okio.Source $r2;
+        byte $b0, $b2;
+        com.squareup.okhttp.internal.okio.RealBufferedSource r0;
+
+        r0 := @this: com.squareup.okhttp.internal.okio.RealBufferedSource;
+
+        $b0 := @parameter0: byte;
+
+        specialinvoke r0.<com.squareup.okhttp.internal.okio.RealBufferedSource: void checkNotClosed()>();
+
+        l1 = 0L;
+
+     label1:
+        $r1 = r0.<com.squareup.okhttp.internal.okio.RealBufferedSource: com.squareup.okhttp.internal.okio.OkBuffer buffer>;
+
+        l1 = virtualinvoke $r1.<com.squareup.okhttp.internal.okio.OkBuffer: long indexOf(byte,long)>(0, l1);
+
+        $b2 = l1 cmp -1L;
+
+        if $b2 != 0 goto label2;
+
+        $r1 = r0.<com.squareup.okhttp.internal.okio.RealBufferedSource: com.squareup.okhttp.internal.okio.OkBuffer buffer>;
+
+        l1 = $r1.<com.squareup.okhttp.internal.okio.OkBuffer: long size>;
+
+        $r2 = r0.<com.squareup.okhttp.internal.okio.RealBufferedSource: com.squareup.okhttp.internal.okio.Source source>;
+
+        $r1 = r0.<com.squareup.okhttp.internal.okio.RealBufferedSource: com.squareup.okhttp.internal.okio.OkBuffer buffer>;
+
+        $l3 = interfaceinvoke $r2.<com.squareup.okhttp.internal.okio.Source: long read(com.squareup.okhttp.internal.okio.OkBuffer,long)>($r1, 2048L);
+
+        $b2 = $l3 cmp -1L;
+
+        if $b2 != 0 goto label1;
+
+        $r3 = new java.io.EOFException;
+
+        specialinvoke $r3.<java.io.EOFException: void <init>()>();
+
+        throw $r3;
+
+     label2:
+        return l1;
+    }

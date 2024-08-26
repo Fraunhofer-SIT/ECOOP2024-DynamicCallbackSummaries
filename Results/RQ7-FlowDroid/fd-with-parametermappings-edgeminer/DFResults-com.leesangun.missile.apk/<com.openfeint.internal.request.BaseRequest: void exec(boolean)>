@@ -1,0 +1,190 @@
+    public final void exec(boolean)
+    {
+        byte[] $r6;
+        com.openfeint.internal.OpenFeintInternal $r11;
+        com.openfeint.internal.request.BaseRequest$1 $r17;
+        org.apache.http.client.methods.HttpUriRequest $r2;
+        com.openfeint.internal.resource.ServerException r5, $r13;
+        com.openfeint.internal.request.BaseRequest r0;
+        int $i0;
+        org.apache.http.impl.client.AbstractHttpClient $r12;
+        java.net.URI $r3;
+        java.lang.String $r4, $r8;
+        boolean $z0, $z1;
+        java.io.PrintStream $r9;
+        java.lang.Exception r1, $r14;
+        org.apache.http.protocol.BasicHttpContext $r16;
+        java.lang.StringBuilder $r7, $r15;
+        java.lang.Class $r10;
+
+        r0 := @this: com.openfeint.internal.request.BaseRequest;
+
+        $z0 := @parameter0: boolean;
+
+        $r2 = virtualinvoke r0.<com.openfeint.internal.request.BaseRequest: org.apache.http.client.methods.HttpUriRequest generateRequest()>();
+
+        r0.<com.openfeint.internal.request.BaseRequest: org.apache.http.client.methods.HttpUriRequest mRequest> = $r2;
+
+        $i0 = virtualinvoke r0.<com.openfeint.internal.request.BaseRequest: int numRetries()>();
+
+        r0.<com.openfeint.internal.request.BaseRequest: int mRetriesLeft> = $i0;
+
+        r0.<com.openfeint.internal.request.BaseRequest: byte[] mResponseBody> = null;
+
+        r0.<com.openfeint.internal.request.BaseRequest: int mResponseCode> = 0;
+
+        r0.<com.openfeint.internal.request.BaseRequest: org.apache.http.HttpResponse response_> = null;
+
+        $r2 = r0.<com.openfeint.internal.request.BaseRequest: org.apache.http.client.methods.HttpUriRequest mRequest>;
+
+        $r3 = interfaceinvoke $r2.<org.apache.http.client.methods.HttpUriRequest: java.net.URI getURI()>();
+
+        $r4 = virtualinvoke $r3.<java.net.URI: java.lang.String getPath()>();
+
+        $z1 = virtualinvoke $r4.<java.lang.String: boolean contains(java.lang.CharSequence)>("//");
+
+        if $z1 == 0 goto label13;
+
+        $r13 = new com.openfeint.internal.resource.ServerException;
+
+        specialinvoke $r13.<com.openfeint.internal.resource.ServerException: void <init>()>();
+
+        $r13.<com.openfeint.internal.resource.ServerException: java.lang.String exceptionClass> = "RequestError";
+
+        $i0 = staticinvoke <com.openfeint.internal.RR: int string(java.lang.String)>("of_malformed_request_error");
+
+        $r4 = staticinvoke <com.openfeint.internal.OpenFeintInternal: java.lang.String getRString(int)>($i0);
+
+        $r13.<com.openfeint.internal.resource.ServerException: java.lang.String message> = $r4;
+
+        $r13.<com.openfeint.internal.resource.ServerException: boolean needsDeveloperAttention> = 1;
+
+        specialinvoke r0.<com.openfeint.internal.request.BaseRequest: void fakeServerException(com.openfeint.internal.resource.ServerException)>($r13);
+
+     label01:
+        $i0 = r0.<com.openfeint.internal.request.BaseRequest: int mResponseCode>;
+
+        $r6 = r0.<com.openfeint.internal.request.BaseRequest: byte[] mResponseBody>;
+
+        virtualinvoke r0.<com.openfeint.internal.request.BaseRequest: void onResponseOffMainThread(int,byte[])>($i0, $r6);
+
+        return;
+
+     label02:
+        if $z0 == 0 goto label08;
+
+     label03:
+        r0.<com.openfeint.internal.request.BaseRequest: int mRetriesLeft> = 0;
+
+     label04:
+        $r14 = new java.lang.Exception;
+
+     label05:
+        specialinvoke $r14.<java.lang.Exception: void <init>(java.lang.String)>("Forced failure");
+
+        throw $r14;
+
+     label06:
+        r1 := @caughtexception;
+
+        $r4 = <com.openfeint.internal.request.BaseRequest: java.lang.String TAG>;
+
+        $r15 = new java.lang.StringBuilder;
+
+        specialinvoke $r15.<java.lang.StringBuilder: void <init>(java.lang.String)>("Error executing request \'");
+
+        $r8 = virtualinvoke r0.<com.openfeint.internal.request.BaseRequest: java.lang.String path()>();
+
+        $r7 = virtualinvoke $r15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\'.");
+
+        $r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.openfeint.internal.logcat.OFLog: void e(java.lang.String,java.lang.String)>($r4, $r8);
+
+        $r9 = <java.lang.System: java.io.PrintStream err>;
+
+        virtualinvoke r1.<java.lang.Exception: void printStackTrace(java.io.PrintStream)>($r9);
+
+        r0.<com.openfeint.internal.request.BaseRequest: byte[] mResponseBody> = null;
+
+        r0.<com.openfeint.internal.request.BaseRequest: int mResponseCode> = 0;
+
+        r0.<com.openfeint.internal.request.BaseRequest: org.apache.http.HttpResponse response_> = null;
+
+        $i0 = r0.<com.openfeint.internal.request.BaseRequest: int mRetriesLeft>;
+
+        $i0 = $i0 + -1;
+
+        r0.<com.openfeint.internal.request.BaseRequest: int mRetriesLeft> = $i0;
+
+        if $i0 >= 0 goto label13;
+
+        $r13 = new com.openfeint.internal.resource.ServerException;
+
+        r5 = $r13;
+
+        specialinvoke $r13.<com.openfeint.internal.resource.ServerException: void <init>()>();
+
+        $r10 = virtualinvoke r1.<java.lang.Object: java.lang.Class getClass()>();
+
+        $r4 = virtualinvoke $r10.<java.lang.Class: java.lang.String getName()>();
+
+        $r13.<com.openfeint.internal.resource.ServerException: java.lang.String exceptionClass> = $r4;
+
+        $r4 = virtualinvoke r1.<java.lang.Exception: java.lang.String getMessage()>();
+
+        $r13.<com.openfeint.internal.resource.ServerException: java.lang.String message> = $r4;
+
+        $r4 = $r13.<com.openfeint.internal.resource.ServerException: java.lang.String message>;
+
+        if $r4 != null goto label07;
+
+        $i0 = staticinvoke <com.openfeint.internal.RR: int string(java.lang.String)>("of_unknown_server_error");
+
+        $r4 = staticinvoke <com.openfeint.internal.OpenFeintInternal: java.lang.String getRString(int)>($i0);
+
+        $r13.<com.openfeint.internal.resource.ServerException: java.lang.String message> = $r4;
+
+     label07:
+        specialinvoke r0.<com.openfeint.internal.request.BaseRequest: void fakeServerException(com.openfeint.internal.resource.ServerException)>(r5);
+
+        goto label01;
+
+     label08:
+        $r11 = staticinvoke <com.openfeint.internal.OpenFeintInternal: com.openfeint.internal.OpenFeintInternal getInstance()>();
+
+        $r12 = virtualinvoke $r11.<com.openfeint.internal.OpenFeintInternal: org.apache.http.impl.client.AbstractHttpClient getClient()>();
+
+     label09:
+        $r16 = new org.apache.http.protocol.BasicHttpContext;
+
+     label10:
+        specialinvoke $r16.<org.apache.http.protocol.BasicHttpContext: void <init>()>();
+
+     label11:
+        $r17 = new com.openfeint.internal.request.BaseRequest$1;
+
+     label12:
+        specialinvoke $r17.<com.openfeint.internal.request.BaseRequest$1: void <init>(com.openfeint.internal.request.BaseRequest,org.apache.http.protocol.HttpContext)>(r0, $r16);
+
+        $r2 = r0.<com.openfeint.internal.request.BaseRequest: org.apache.http.client.methods.HttpUriRequest mRequest>;
+
+        virtualinvoke $r12.<org.apache.http.impl.client.AbstractHttpClient: java.lang.Object execute(org.apache.http.client.methods.HttpUriRequest,org.apache.http.client.ResponseHandler,org.apache.http.protocol.HttpContext)>($r2, $r17, $r16);
+
+        r0.<com.openfeint.internal.request.BaseRequest: org.apache.http.client.methods.HttpUriRequest mRequest> = null;
+
+     label13:
+        $r6 = r0.<com.openfeint.internal.request.BaseRequest: byte[] mResponseBody>;
+
+        if $r6 == null goto label02;
+
+        goto label01;
+
+        catch java.lang.Exception from label03 to label04 with label06;
+        catch java.lang.Exception from label05 to label06 with label06;
+        catch java.lang.Exception from label08 to label09 with label06;
+        catch java.lang.Exception from label10 to label11 with label06;
+        catch java.lang.Exception from label12 to label13 with label06;
+    }

@@ -1,0 +1,167 @@
+    public static final java.lang.String copyTo(android.net.Uri, android.content.Context)
+    {
+        android.content.Context $r2;
+        byte[] $r9;
+        java.lang.CharSequence $r6;
+        android.net.Uri $r1;
+        java.io.FileOutputStream $r11;
+        java.lang.Exception $r0;
+        java.io.File $r7, $r10;
+        android.content.ContentResolver $r3;
+        int $i0;
+        java.lang.String $r5;
+        android.database.Cursor $r4;
+        boolean $z0;
+        java.io.InputStream $r8;
+
+        $r1 := @parameter0: android.net.Uri;
+
+        $r2 := @parameter1: android.content.Context;
+
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkNotNullParameter(java.lang.Object,java.lang.String)>($r1, "$this$copyTo");
+
+        if $r2 == null goto label01;
+
+        $r3 = virtualinvoke $r2.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+        if $r3 == null goto label01;
+
+        $r4 = virtualinvoke $r3.<android.content.ContentResolver: android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String)>($r1, null, null, null, null);
+
+        goto label02;
+
+     label01:
+        $r4 = null;
+
+     label02:
+        if $r4 == null goto label03;
+
+        $i0 = interfaceinvoke $r4.<android.database.Cursor: int getColumnIndex(java.lang.String)>("_display_name");
+
+        goto label04;
+
+     label03:
+        $i0 = -1;
+
+     label04:
+        if $r4 == null goto label05;
+
+        interfaceinvoke $r4.<android.database.Cursor: boolean moveToFirst()>();
+
+     label05:
+        if $i0 != -1 goto label06;
+
+        if $r4 == null goto label27;
+
+        interfaceinvoke $r4.<android.database.Cursor: void close()>();
+
+        return null;
+
+     label06:
+        if $r4 == null goto label07;
+
+        $r5 = interfaceinvoke $r4.<android.database.Cursor: java.lang.String getString(int)>($i0);
+
+        goto label08;
+
+     label07:
+        $r5 = null;
+
+     label08:
+        if $r4 == null goto label09;
+
+        interfaceinvoke $r4.<android.database.Cursor: void close()>();
+
+     label09:
+        $r6 = (java.lang.CharSequence) $r5;
+
+        if $r6 == null goto label10;
+
+        $i0 = interfaceinvoke $r6.<java.lang.CharSequence: int length()>();
+
+        if $i0 == 0 goto label10;
+
+        $z0 = 0;
+
+        goto label11;
+
+     label10:
+        $z0 = 1;
+
+     label11:
+        if $z0 == 0 goto label12;
+
+        return null;
+
+     label12:
+        $r10 = new java.io.File;
+
+        $r7 = virtualinvoke $r2.<android.content.Context: java.io.File getCacheDir()>();
+
+        specialinvoke $r10.<java.io.File: void <init>(java.io.File,java.lang.String)>($r7, $r5);
+
+     label13:
+        $r3 = virtualinvoke $r2.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+        $r8 = virtualinvoke $r3.<android.content.ContentResolver: java.io.InputStream openInputStream(android.net.Uri)>($r1);
+
+     label14:
+        if $r8 == null goto label24;
+
+     label15:
+        staticinvoke <kotlin.jvm.internal.Intrinsics: void checkNotNullExpressionValue(java.lang.Object,java.lang.String)>($r8, "context.contentResolver.\u2026ream(this) ?: return null");
+
+     label16:
+        $r11 = new java.io.FileOutputStream;
+
+     label17:
+        specialinvoke $r11.<java.io.FileOutputStream: void <init>(java.io.File)>($r10);
+
+        $i0 = virtualinvoke $r8.<java.io.InputStream: int available()>();
+
+        $i0 = staticinvoke <kotlin.ranges.RangesKt: int coerceAtMost(int,int)>($i0, 1048576);
+
+        $r9 = newarray (byte)[$i0];
+
+     label18:
+        $i0 = virtualinvoke $r8.<java.io.InputStream: int read(byte[])>($r9);
+
+     label19:
+        if $i0 == -1 goto label22;
+
+     label20:
+        virtualinvoke $r11.<java.io.FileOutputStream: void write(byte[],int,int)>($r9, 0, $i0);
+
+     label21:
+        goto label18;
+
+     label22:
+        virtualinvoke $r8.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r11.<java.io.FileOutputStream: void close()>();
+
+     label23:
+        goto label25;
+
+     label24:
+        return null;
+
+     label25:
+        $r5 = virtualinvoke $r10.<java.io.File: java.lang.String getPath()>();
+
+        return $r5;
+
+     label26:
+        $r0 := @caughtexception;
+
+        goto label25;
+
+     label27:
+        return null;
+
+        catch java.lang.Exception from label13 to label14 with label26;
+        catch java.lang.Exception from label15 to label16 with label26;
+        catch java.lang.Exception from label17 to label19 with label26;
+        catch java.lang.Exception from label20 to label21 with label26;
+        catch java.lang.Exception from label22 to label23 with label26;
+    }

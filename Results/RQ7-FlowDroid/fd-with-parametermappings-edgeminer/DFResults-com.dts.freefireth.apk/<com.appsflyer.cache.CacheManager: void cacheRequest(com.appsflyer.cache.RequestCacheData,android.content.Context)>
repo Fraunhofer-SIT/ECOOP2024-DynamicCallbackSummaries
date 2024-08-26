@@ -1,0 +1,219 @@
+    public void cacheRequest(com.appsflyer.cache.RequestCacheData, android.content.Context)
+    {
+        java.lang.Throwable $r8, $r13, $r14, $r15, $r16, $r17;
+        android.content.Context $r2;
+        long $l1;
+        int $i0;
+        java.io.OutputStreamWriter $r3, $r11;
+        java.lang.String $r10;
+        com.appsflyer.cache.RequestCacheData $r1;
+        boolean $z0;
+        com.appsflyer.cache.CacheManager r0;
+        java.io.FileOutputStream $r12;
+        java.io.File $r4, $r5, $r9;
+        java.lang.Exception $r7, $r18;
+        java.io.File[] $r6;
+
+        r0 := @this: com.appsflyer.cache.CacheManager;
+
+        $r1 := @parameter0: com.appsflyer.cache.RequestCacheData;
+
+        $r2 := @parameter1: android.content.Context;
+
+        $r3 = null;
+
+     label01:
+        $r4 = new java.io.File;
+
+     label02:
+        $r5 = virtualinvoke $r2.<android.content.Context: java.io.File getFilesDir()>();
+
+        specialinvoke $r4.<java.io.File: void <init>(java.io.File,java.lang.String)>($r5, "AFRequestCache");
+
+        $z0 = virtualinvoke $r4.<java.io.File: boolean exists()>();
+
+     label03:
+        if $z0 != 0 goto label06;
+
+     label04:
+        virtualinvoke $r4.<java.io.File: boolean mkdir()>();
+
+     label05:
+        return;
+
+     label06:
+        $r6 = virtualinvoke $r4.<java.io.File: java.io.File[] listFiles()>();
+
+     label07:
+        if $r6 == null goto label18;
+
+     label08:
+        $i0 = lengthof $r6;
+
+     label09:
+        if $i0 <= 40 goto label18;
+
+     label10:
+        staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>("AppsFlyer_4.8.11", "reached cache limit, not caching request");
+
+     label11:
+        return;
+
+     label12:
+        $r7 := @caughtexception;
+
+     label13:
+        staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>("AppsFlyer_4.8.11", "Could not cache request");
+
+     label14:
+        if $r3 == null goto label35;
+
+     label15:
+        virtualinvoke $r3.<java.io.Writer: void close()>();
+
+     label16:
+        return;
+
+     label17:
+        $r8 := @caughtexception;
+
+        return;
+
+     label18:
+        staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>("AppsFlyer_4.8.11", "caching request...");
+
+     label19:
+        $r4 = new java.io.File;
+
+        $r5 = new java.io.File;
+
+     label20:
+        $r9 = virtualinvoke $r2.<android.content.Context: java.io.File getFilesDir()>();
+
+        specialinvoke $r5.<java.io.File: void <init>(java.io.File,java.lang.String)>($r9, "AFRequestCache");
+
+        $l1 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $r10 = staticinvoke <java.lang.Long: java.lang.String toString(long)>($l1);
+
+        specialinvoke $r4.<java.io.File: void <init>(java.io.File,java.lang.String)>($r5, $r10);
+
+        virtualinvoke $r4.<java.io.File: boolean createNewFile()>();
+
+     label21:
+        $r11 = new java.io.OutputStreamWriter;
+
+        $r12 = new java.io.FileOutputStream;
+
+     label22:
+        $r10 = virtualinvoke $r4.<java.io.File: java.lang.String getPath()>();
+
+        specialinvoke $r12.<java.io.FileOutputStream: void <init>(java.lang.String,boolean)>($r10, 1);
+
+        specialinvoke $r11.<java.io.OutputStreamWriter: void <init>(java.io.OutputStream)>($r12);
+
+     label23:
+        virtualinvoke $r11.<java.io.Writer: void write(java.lang.String)>("version=");
+
+        $r10 = virtualinvoke $r1.<com.appsflyer.cache.RequestCacheData: java.lang.String getVersion()>();
+
+        virtualinvoke $r11.<java.io.Writer: void write(java.lang.String)>($r10);
+
+        virtualinvoke $r11.<java.io.Writer: void write(int)>(10);
+
+        virtualinvoke $r11.<java.io.Writer: void write(java.lang.String)>("url=");
+
+        $r10 = virtualinvoke $r1.<com.appsflyer.cache.RequestCacheData: java.lang.String getRequestURL()>();
+
+        virtualinvoke $r11.<java.io.Writer: void write(java.lang.String)>($r10);
+
+        virtualinvoke $r11.<java.io.Writer: void write(int)>(10);
+
+        virtualinvoke $r11.<java.io.Writer: void write(java.lang.String)>("data=");
+
+        $r10 = virtualinvoke $r1.<com.appsflyer.cache.RequestCacheData: java.lang.String getPostData()>();
+
+        virtualinvoke $r11.<java.io.Writer: void write(java.lang.String)>($r10);
+
+        virtualinvoke $r11.<java.io.Writer: void write(int)>(10);
+
+        virtualinvoke $r11.<java.io.Writer: void flush()>();
+
+     label24:
+        virtualinvoke $r11.<java.io.Writer: void close()>();
+
+     label25:
+        return;
+
+     label26:
+        $r13 := @caughtexception;
+
+        return;
+
+     label27:
+        $r14 := @caughtexception;
+
+        $r8 = $r14;
+
+        $r3 = null;
+
+     label28:
+        if $r3 == null goto label30;
+
+     label29:
+        virtualinvoke $r3.<java.io.Writer: void close()>();
+
+     label30:
+        throw $r8;
+
+     label31:
+        $r15 := @caughtexception;
+
+        goto label30;
+
+     label32:
+        $r16 := @caughtexception;
+
+        $r8 = $r16;
+
+        $r3 = $r11;
+
+        goto label28;
+
+     label33:
+        $r17 := @caughtexception;
+
+        $r8 = $r17;
+
+        goto label28;
+
+     label34:
+        $r18 := @caughtexception;
+
+        $r3 = $r11;
+
+        goto label13;
+
+     label35:
+        return;
+
+        catch java.lang.Exception from label02 to label03 with label12;
+        catch java.lang.Exception from label04 to label05 with label12;
+        catch java.lang.Exception from label06 to label07 with label12;
+        catch java.lang.Exception from label08 to label09 with label12;
+        catch java.lang.Exception from label10 to label11 with label12;
+        catch java.lang.Throwable from label01 to label03 with label27;
+        catch java.lang.Throwable from label04 to label05 with label27;
+        catch java.lang.Throwable from label06 to label07 with label27;
+        catch java.lang.Throwable from label10 to label11 with label27;
+        catch java.lang.Throwable from label13 to label14 with label33;
+        catch java.io.IOException from label15 to label16 with label17;
+        catch java.lang.Exception from label18 to label19 with label12;
+        catch java.lang.Exception from label20 to label21 with label12;
+        catch java.lang.Exception from label22 to label23 with label12;
+        catch java.lang.Throwable from label18 to label23 with label27;
+        catch java.lang.Exception from label23 to label24 with label34;
+        catch java.lang.Throwable from label23 to label24 with label32;
+        catch java.io.IOException from label24 to label25 with label26;
+        catch java.io.IOException from label29 to label30 with label31;
+    }

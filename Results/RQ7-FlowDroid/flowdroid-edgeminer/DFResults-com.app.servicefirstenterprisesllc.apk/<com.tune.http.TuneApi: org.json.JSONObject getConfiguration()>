@@ -1,0 +1,93 @@
+    public org.json.JSONObject getConfiguration()
+    {
+        java.net.HttpURLConnection $r10;
+        java.lang.Object[] $r5;
+        android.net.Uri $r7;
+        com.tune.ma.configuration.TuneConfigurationManager $r3;
+        com.tune.http.TuneApi r0;
+        org.json.JSONObject $r11;
+        com.tune.ma.TuneManager $r2;
+        java.lang.StringBuilder $r9;
+        android.net.Uri$Builder $r1;
+        java.lang.String $r6, $r8;
+        com.tune.ma.profile.TuneUserProfile $r4;
+
+        r0 := @this: com.tune.http.TuneApi;
+
+        $r1 = new android.net.Uri$Builder;
+
+        specialinvoke $r1.<android.net.Uri$Builder: void <init>()>();
+
+        $r2 = staticinvoke <com.tune.ma.TuneManager: com.tune.ma.TuneManager getInstance()>();
+
+        virtualinvoke $r2.<com.tune.ma.TuneManager: com.tune.ma.configuration.TuneConfigurationManager getConfigurationManager()>();
+
+        $r2 = staticinvoke <com.tune.ma.TuneManager: com.tune.ma.TuneManager getInstance()>();
+
+        $r4 = virtualinvoke $r2.<com.tune.ma.TuneManager: com.tune.ma.profile.TuneUserProfile getProfileManager()>();
+
+        $r5 = newarray (java.lang.Object)[2];
+
+        $r5[0] = "v3";
+
+        $r6 = virtualinvoke $r4.<com.tune.ma.profile.TuneUserProfile: java.lang.String getAppId()>();
+
+        $r5[1] = $r6;
+
+        $r6 = staticinvoke <com.tune.ma.utils.TuneStringUtils: java.lang.String format(java.lang.String,java.lang.Object[])>("/sdk_api/%s/apps/%s/configuration", $r5);
+
+        virtualinvoke $r1.<android.net.Uri$Builder: android.net.Uri$Builder encodedPath(java.lang.String)>($r6);
+
+        $r6 = virtualinvoke $r4.<com.tune.ma.profile.TuneUserProfile: java.lang.String getProfileVariableValue(java.lang.String)>("os_version");
+
+        virtualinvoke $r1.<android.net.Uri$Builder: android.net.Uri$Builder appendQueryParameter(java.lang.String,java.lang.String)>("osVersion", $r6);
+
+        $r6 = virtualinvoke $r4.<com.tune.ma.profile.TuneUserProfile: java.lang.String getProfileVariableValue(java.lang.String)>("app_version");
+
+        virtualinvoke $r1.<android.net.Uri$Builder: android.net.Uri$Builder appendQueryParameter(java.lang.String,java.lang.String)>("appVersion", $r6);
+
+        $r6 = virtualinvoke $r4.<com.tune.ma.profile.TuneUserProfile: java.lang.String getProfileVariableValue(java.lang.String)>("sdk_version");
+
+        virtualinvoke $r1.<android.net.Uri$Builder: android.net.Uri$Builder appendQueryParameter(java.lang.String,java.lang.String)>("sdkVersion", $r6);
+
+        $r6 = virtualinvoke $r4.<com.tune.ma.profile.TuneUserProfile: java.lang.String getProfileVariableValue(java.lang.String)>("mat_id");
+
+        virtualinvoke $r1.<android.net.Uri$Builder: android.net.Uri$Builder appendQueryParameter(java.lang.String,java.lang.String)>("matId", $r6);
+
+        $r6 = virtualinvoke $r4.<com.tune.ma.profile.TuneUserProfile: java.lang.String getProfileVariableValue(java.lang.String)>("google_aid");
+
+        virtualinvoke $r1.<android.net.Uri$Builder: android.net.Uri$Builder appendQueryParameter(java.lang.String,java.lang.String)>("GAID", $r6);
+
+        $r7 = virtualinvoke $r1.<android.net.Uri$Builder: android.net.Uri build()>();
+
+        $r6 = virtualinvoke $r7.<android.net.Uri: java.lang.String toString()>();
+
+        $r2 = staticinvoke <com.tune.ma.TuneManager: com.tune.ma.TuneManager getInstance()>();
+
+        $r3 = virtualinvoke $r2.<com.tune.ma.TuneManager: com.tune.ma.configuration.TuneConfigurationManager getConfigurationManager()>();
+
+        $r8 = virtualinvoke $r3.<com.tune.ma.configuration.TuneConfigurationManager: java.lang.String getConfigurationHostPort()>();
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        $r6 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r10 = specialinvoke r0.<com.tune.http.TuneApi: java.net.HttpURLConnection buildUrlConnection(java.lang.String,java.lang.String)>($r6, "GET");
+
+        virtualinvoke $r10.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Accept", "application/json");
+
+        if $r10 == null goto label1;
+
+        $r11 = specialinvoke r0.<com.tune.http.TuneApi: org.json.JSONObject sendRequestAndReadResponse(java.net.HttpURLConnection)>($r10);
+
+        return $r11;
+
+     label1:
+        return null;
+    }

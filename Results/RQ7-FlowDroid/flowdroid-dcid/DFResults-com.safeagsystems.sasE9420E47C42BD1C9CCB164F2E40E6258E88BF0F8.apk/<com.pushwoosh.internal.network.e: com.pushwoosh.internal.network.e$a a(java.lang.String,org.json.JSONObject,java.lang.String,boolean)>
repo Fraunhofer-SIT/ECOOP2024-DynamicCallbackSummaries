@@ -1,0 +1,195 @@
+    private com.pushwoosh.internal.network.e$a a(java.lang.String, org.json.JSONObject, java.lang.String, boolean) throws java.lang.Exception
+    {
+        java.net.HttpURLConnection $r7;
+        java.lang.Throwable $r13, $r14, $r15;
+        byte[] $r9;
+        java.net.URL $r4;
+        org.json.JSONObject $r2, $r8;
+        java.net.URLConnection $r6;
+        int $i0, $i1;
+        com.pushwoosh.internal.network.e$a $r12;
+        java.lang.String $r1, $r3, $r11;
+        boolean $z0;
+        java.io.OutputStream $r10;
+        com.pushwoosh.internal.network.e r0;
+        com.pushwoosh.repository.RegistrationPrefs $r17;
+        java.lang.Exception $r16;
+        java.lang.StringBuilder $r5;
+
+        r0 := @this: com.pushwoosh.internal.network.e;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: org.json.JSONObject;
+
+        $r3 := @parameter2: java.lang.String;
+
+        $z0 := @parameter3: boolean;
+
+        $r4 = new java.net.URL;
+
+        $r5 = new java.lang.StringBuilder;
+
+     label01:
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r4.<java.net.URL: void <init>(java.lang.String)>($r3);
+
+        $r6 = virtualinvoke $r4.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r7 = (java.net.HttpURLConnection) $r6;
+
+        virtualinvoke $r7.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+        virtualinvoke $r7.<java.net.URLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Type", "application/json; charset=utf-8");
+
+        virtualinvoke $r7.<java.net.URLConnection: void setDoOutput(boolean)>(1);
+
+     label02:
+        $r8 = new org.json.JSONObject;
+
+     label03:
+        specialinvoke $r8.<org.json.JSONObject: void <init>()>();
+
+        virtualinvoke $r8.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("request", $r2);
+
+     label04:
+        $r3 = virtualinvoke $r8.<org.json.JSONObject: java.lang.String toString()>();
+
+        $r9 = virtualinvoke $r3.<java.lang.String: byte[] getBytes()>();
+
+        $i0 = lengthof $r9;
+
+        $r3 = staticinvoke <java.lang.String: java.lang.String valueOf(int)>($i0);
+
+        virtualinvoke $r7.<java.net.URLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Length", $r3);
+
+        virtualinvoke $r7.<java.net.URLConnection: void setUseCaches(boolean)>(0);
+
+        $r10 = virtualinvoke $r7.<java.net.URLConnection: java.io.OutputStream getOutputStream()>();
+
+     label05:
+        $r3 = virtualinvoke $r8.<org.json.JSONObject: java.lang.String toString()>();
+
+        $r9 = virtualinvoke $r3.<java.lang.String: byte[] getBytes()>();
+
+        virtualinvoke $r10.<java.io.OutputStream: void write(byte[])>($r9);
+
+        virtualinvoke $r10.<java.io.OutputStream: void flush()>();
+
+     label06:
+        virtualinvoke $r10.<java.io.OutputStream: void close()>();
+
+        $r3 = specialinvoke r0.<com.pushwoosh.internal.network.e: java.lang.String a(java.net.HttpURLConnection)>($r7);
+
+     label07:
+        if $z0 != 0 goto label09;
+
+        $r5 = new java.lang.StringBuilder;
+
+     label08:
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\nx\n|     Pushwoosh request:\n| Url: ");
+
+        $r11 = virtualinvoke $r4.<java.net.URL: java.lang.String toString()>();
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r11);
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n| Payload: ");
+
+        $r11 = virtualinvoke $r8.<org.json.JSONObject: java.lang.String toString()>();
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r11);
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n| Response: ");
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\nx");
+
+        $r11 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.pushwoosh.internal.utils.PWLog: void info(java.lang.String,java.lang.String)>("RequestManager", $r11);
+
+     label09:
+        $r2 = new org.json.JSONObject;
+
+     label10:
+        specialinvoke $r2.<org.json.JSONObject: void <init>(java.lang.String)>($r3);
+
+     label11:
+        $r12 = new com.pushwoosh.internal.network.e$a;
+
+     label12:
+        $i0 = virtualinvoke $r7.<java.net.HttpURLConnection: int getResponseCode()>();
+
+        $i1 = virtualinvoke $r2.<org.json.JSONObject: int getInt(java.lang.String)>("status_code");
+
+        specialinvoke $r12.<com.pushwoosh.internal.network.e$a: void <init>(int,int,org.json.JSONObject)>($i0, $i1, $r2);
+
+     label13:
+        return $r12;
+
+     label14:
+        $r13 := @caughtexception;
+
+     label15:
+        throw $r13;
+
+     label16:
+        $r14 := @caughtexception;
+
+        if $r10 == null goto label21;
+
+     label17:
+        virtualinvoke $r10.<java.io.OutputStream: void close()>();
+
+     label18:
+        goto label21;
+
+     label19:
+        $r15 := @caughtexception;
+
+     label20:
+        virtualinvoke $r13.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r15);
+
+     label21:
+        throw $r14;
+
+     label22:
+        $r16 := @caughtexception;
+
+        $r3 = r0.<com.pushwoosh.internal.network.e: java.lang.String c>;
+
+        $z0 = virtualinvoke $r1.<java.lang.String: boolean equals(java.lang.Object)>($r3);
+
+        if $z0 == 0 goto label23;
+
+        $r17 = r0.<com.pushwoosh.internal.network.e: com.pushwoosh.repository.RegistrationPrefs a>;
+
+        $r1 = virtualinvoke $r17.<com.pushwoosh.repository.RegistrationPrefs: java.lang.String getDefaultBaseUrl()>();
+
+        r0.<com.pushwoosh.internal.network.e: java.lang.String c> = $r1;
+
+     label23:
+        throw $r16;
+
+        catch java.lang.Exception from label01 to label02 with label22;
+        catch java.lang.Exception from label03 to label04 with label22;
+        catch java.lang.Exception from label04 to label05 with label22;
+        catch java.lang.Throwable from label05 to label06 with label14;
+        catch java.lang.Exception from label06 to label07 with label22;
+        catch java.lang.Exception from label08 to label09 with label22;
+        catch java.lang.Exception from label10 to label11 with label22;
+        catch java.lang.Exception from label12 to label13 with label22;
+        catch java.lang.Throwable from label15 to label16 with label16;
+        catch java.lang.Throwable from label17 to label18 with label19;
+        catch java.lang.Exception from label20 to label22 with label22;
+    }

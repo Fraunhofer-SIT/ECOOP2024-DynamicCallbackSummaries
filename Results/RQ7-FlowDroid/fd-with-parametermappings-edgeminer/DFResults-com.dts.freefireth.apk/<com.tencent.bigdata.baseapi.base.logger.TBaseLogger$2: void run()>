@@ -1,0 +1,537 @@
+    public void run()
+    {
+        java.lang.Throwable $r5, $r16, $r17, $r18, $r19, $r20;
+        android.content.Context $r13;
+        long $l0;
+        com.tencent.bigdata.baseapi.base.logger.TBaseLogger$WriteFileCallback $r3;
+        byte $b1;
+        int $i2;
+        java.lang.String $r2, $r7, $r8;
+        boolean $z0;
+        java.util.Iterator $r14;
+        java.io.BufferedWriter $r1, $r11, $r23;
+        java.io.FileWriter $r22;
+        java.io.File $r9, $r10;
+        java.util.List $r4;
+        com.tencent.bigdata.baseapi.base.logger.DeviceInfo $r12, $r24;
+        java.lang.StringBuilder $r6, $r21;
+        java.lang.Object $r15;
+        com.tencent.bigdata.baseapi.base.logger.TBaseLogger$2 r0;
+
+        r0 := @this: com.tencent.bigdata.baseapi.base.logger.TBaseLogger$2;
+
+        $r1 = null;
+
+     label001:
+        $r2 = staticinvoke <com.tencent.bigdata.baseapi.base.logger.TBaseLogger: java.lang.String a()>();
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r2);
+
+     label002:
+        if $z0 == 0 goto label010;
+
+     label003:
+        $r3 = r0.<com.tencent.bigdata.baseapi.base.logger.TBaseLogger$2: com.tencent.bigdata.baseapi.base.logger.TBaseLogger$WriteFileCallback a>;
+
+     label004:
+        if $r3 == null goto label007;
+
+     label005:
+        $r3 = r0.<com.tencent.bigdata.baseapi.base.logger.TBaseLogger$2: com.tencent.bigdata.baseapi.base.logger.TBaseLogger$WriteFileCallback a>;
+
+     label006:
+        interfaceinvoke $r3.<com.tencent.bigdata.baseapi.base.logger.TBaseLogger$WriteFileCallback: void onFinished()>();
+
+     label007:
+        $r4 = r0.<com.tencent.bigdata.baseapi.base.logger.TBaseLogger$2: java.util.List b>;
+
+        interfaceinvoke $r4.<java.util.List: void clear()>();
+
+     label008:
+        return;
+
+     label009:
+        $r5 := @caughtexception;
+
+        staticinvoke <com.tencent.bigdata.baseapi.base.logger.TBaseLogger: void e(java.lang.String,java.lang.String,java.lang.Throwable)>("TBase - TPush", "close file stream error", $r5);
+
+        return;
+
+     label010:
+        $r21 = new java.lang.StringBuilder;
+
+     label011:
+        specialinvoke $r21.<java.lang.StringBuilder: void <init>()>();
+
+        $r6 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+     label012:
+        $r2 = <java.io.File: java.lang.String separator>;
+
+     label013:
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+     label014:
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Logs");
+
+     label015:
+        $r2 = <java.io.File: java.lang.String separator>;
+
+     label016:
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+     label017:
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("log");
+
+        $r2 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r7 = staticinvoke <com.tencent.bigdata.baseapi.base.logger.TBaseLogger: java.lang.String b()>();
+
+     label018:
+        $r8 = $r7;
+
+     label019:
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r7);
+
+     label020:
+        if $z0 == 0 goto label026;
+
+     label021:
+        $r21 = new java.lang.StringBuilder;
+
+     label022:
+        specialinvoke $r21.<java.lang.StringBuilder: void <init>()>();
+
+        $r6 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+     label023:
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("-");
+
+        $r7 = staticinvoke <com.tencent.bigdata.baseapi.base.logger.LogUtil: java.lang.String getTodayDateTimeForFilename()>();
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+     label024:
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".txt");
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label025:
+        $r8 = $r7;
+
+     label026:
+        $r10 = new java.io.File;
+
+     label027:
+        $r9 = $r10;
+
+     label028:
+        specialinvoke $r10.<java.io.File: void <init>(java.lang.String)>($r8);
+
+        $r10 = virtualinvoke $r10.<java.io.File: java.io.File getParentFile()>();
+
+        virtualinvoke $r10.<java.io.File: boolean mkdirs()>();
+
+     label029:
+        $r7 = $r8;
+
+     label030:
+        $z0 = virtualinvoke $r9.<java.io.File: boolean exists()>();
+
+     label031:
+        if $z0 == 0 goto label046;
+
+     label032:
+        $l0 = virtualinvoke $r9.<java.io.File: long length()>();
+
+     label033:
+        $b1 = $l0 cmp 1048576L;
+
+        $i2 = (int) $b1;
+
+        if $i2 <= 0 goto label046;
+
+     label034:
+        $r21 = new java.lang.StringBuilder;
+
+     label035:
+        specialinvoke $r21.<java.lang.StringBuilder: void <init>()>();
+
+     label036:
+        $r6 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("length:");
+
+        $l0 = virtualinvoke $r9.<java.io.File: long length()>();
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+
+     label037:
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", max size:");
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(1048576);
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.tencent.bigdata.baseapi.base.logger.TBaseLogger: void v(java.lang.String,java.lang.String)>("TBase - TPush", $r7);
+
+     label038:
+        $r21 = new java.lang.StringBuilder;
+
+     label039:
+        specialinvoke $r21.<java.lang.StringBuilder: void <init>()>();
+
+        $r6 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+     label040:
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("-");
+
+        $r7 = staticinvoke <com.tencent.bigdata.baseapi.base.logger.LogUtil: java.lang.String getTodayDateTimeForFilename()>();
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+     label041:
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".txt");
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label042:
+        $r10 = new java.io.File;
+
+     label043:
+        $r9 = $r10;
+
+     label044:
+        specialinvoke $r10.<java.io.File: void <init>(java.lang.String)>($r7);
+
+     label045:
+        goto label030;
+
+     label046:
+        $r21 = new java.lang.StringBuilder;
+
+     label047:
+        specialinvoke $r21.<java.lang.StringBuilder: void <init>()>();
+
+     label048:
+        $r6 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Write log file: ");
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r2 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.tencent.bigdata.baseapi.base.logger.TBaseLogger: void v(java.lang.String,java.lang.String)>("TBase - TPush", $r2);
+
+     label049:
+        $r23 = new java.io.BufferedWriter;
+
+     label050:
+        $r11 = $r23;
+
+     label051:
+        $r22 = new java.io.FileWriter;
+
+     label052:
+        specialinvoke $r22.<java.io.FileWriter: void <init>(java.lang.String,boolean)>($r7, 1);
+
+        specialinvoke $r23.<java.io.BufferedWriter: void <init>(java.io.Writer)>($r22);
+
+     label053:
+        $l0 = virtualinvoke $r9.<java.io.File: long length()>();
+
+     label054:
+        $b1 = $l0 cmp 0L;
+
+        if $b1 != 0 goto label064;
+
+     label055:
+        $r12 = staticinvoke <com.tencent.bigdata.baseapi.base.logger.TBaseLogger: com.tencent.bigdata.baseapi.base.logger.DeviceInfo c()>();
+
+     label056:
+        if $r12 != null goto label061;
+
+     label057:
+        $r13 = staticinvoke <com.tencent.bigdata.baseapi.base.logger.TBaseLogger: android.content.Context d()>();
+
+     label058:
+        if $r13 == null goto label061;
+
+     label059:
+        $r24 = new com.tencent.bigdata.baseapi.base.logger.DeviceInfo;
+
+     label060:
+        $r13 = staticinvoke <com.tencent.bigdata.baseapi.base.logger.TBaseLogger: android.content.Context d()>();
+
+        specialinvoke $r24.<com.tencent.bigdata.baseapi.base.logger.DeviceInfo: void <init>(android.content.Context)>($r13);
+
+        staticinvoke <com.tencent.bigdata.baseapi.base.logger.TBaseLogger: com.tencent.bigdata.baseapi.base.logger.DeviceInfo a(com.tencent.bigdata.baseapi.base.logger.DeviceInfo)>($r24);
+
+     label061:
+        $r21 = new java.lang.StringBuilder;
+
+     label062:
+        specialinvoke $r21.<java.lang.StringBuilder: void <init>()>();
+
+        $r12 = staticinvoke <com.tencent.bigdata.baseapi.base.logger.TBaseLogger: com.tencent.bigdata.baseapi.base.logger.DeviceInfo c()>();
+
+        $r2 = virtualinvoke $r12.<com.tencent.bigdata.baseapi.base.logger.DeviceInfo: java.lang.String toString()>();
+
+        $r6 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+     label063:
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r2 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r23.<java.io.BufferedWriter: void write(java.lang.String)>($r2);
+
+     label064:
+        $r4 = r0.<com.tencent.bigdata.baseapi.base.logger.TBaseLogger$2: java.util.List b>;
+
+     label065:
+        $r14 = interfaceinvoke $r4.<java.util.List: java.util.Iterator iterator()>();
+
+     label066:
+        $z0 = interfaceinvoke $r14.<java.util.Iterator: boolean hasNext()>();
+
+     label067:
+        if $z0 == 0 goto label082;
+
+     label068:
+        $r15 = interfaceinvoke $r14.<java.util.Iterator: java.lang.Object next()>();
+
+     label069:
+        $r2 = (java.lang.String) $r15;
+
+        $r21 = new java.lang.StringBuilder;
+
+     label070:
+        specialinvoke $r21.<java.lang.StringBuilder: void <init>()>();
+
+        $r6 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+     label071:
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\n");
+
+        $r2 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r23.<java.io.BufferedWriter: void write(java.lang.String)>($r2);
+
+     label072:
+        goto label066;
+
+     label073:
+        $r16 := @caughtexception;
+
+        $r1 = $r23;
+
+     label074:
+        $i2 = staticinvoke <com.tencent.bigdata.baseapi.base.logger.TBaseLogger: int e()>();
+
+     label075:
+        if $i2 >= 5 goto label077;
+
+     label076:
+        staticinvoke <com.tencent.bigdata.baseapi.base.logger.TBaseLogger: void w(java.lang.String,java.lang.String,java.lang.Throwable)>("TBase - TPush", "write logs to file error", $r16);
+
+     label077:
+        staticinvoke <com.tencent.bigdata.baseapi.base.logger.TBaseLogger: int f()>();
+
+     label078:
+        $r4 = r0.<com.tencent.bigdata.baseapi.base.logger.TBaseLogger$2: java.util.List b>;
+
+        interfaceinvoke $r4.<java.util.List: void clear()>();
+
+     label079:
+        if $r1 == null goto label081;
+
+     label080:
+        virtualinvoke $r1.<java.io.BufferedWriter: void close()>();
+
+     label081:
+        $r3 = r0.<com.tencent.bigdata.baseapi.base.logger.TBaseLogger$2: com.tencent.bigdata.baseapi.base.logger.TBaseLogger$WriteFileCallback a>;
+
+        if $r3 == null goto label098;
+
+        interfaceinvoke $r3.<com.tencent.bigdata.baseapi.base.logger.TBaseLogger$WriteFileCallback: void onFinished()>();
+
+        return;
+
+     label082:
+        staticinvoke <com.tencent.bigdata.baseapi.base.logger.TBaseLogger: java.lang.String a(java.lang.String)>($r7);
+
+     label083:
+        $r4 = r0.<com.tencent.bigdata.baseapi.base.logger.TBaseLogger$2: java.util.List b>;
+
+        interfaceinvoke $r4.<java.util.List: void clear()>();
+
+        virtualinvoke $r23.<java.io.BufferedWriter: void close()>();
+
+     label084:
+        goto label081;
+
+     label085:
+        $r17 := @caughtexception;
+
+        staticinvoke <com.tencent.bigdata.baseapi.base.logger.TBaseLogger: void e(java.lang.String,java.lang.String,java.lang.Throwable)>("TBase - TPush", "close file stream error", $r17);
+
+        goto label081;
+
+     label086:
+        $r4 = r0.<com.tencent.bigdata.baseapi.base.logger.TBaseLogger$2: java.util.List b>;
+
+        interfaceinvoke $r4.<java.util.List: void clear()>();
+
+     label087:
+        if $r1 == null goto label089;
+
+     label088:
+        virtualinvoke $r1.<java.io.BufferedWriter: void close()>();
+
+     label089:
+        throw $r5;
+
+     label090:
+        $r18 := @caughtexception;
+
+     label091:
+        $r5 = $r18;
+
+        goto label086;
+
+     label092:
+        $r19 := @caughtexception;
+
+        $r11 = null;
+
+     label093:
+        staticinvoke <com.tencent.bigdata.baseapi.base.logger.TBaseLogger: void e(java.lang.String,java.lang.String,java.lang.Throwable)>("TBase - TPush", "write logs to file error", $r19);
+
+     label094:
+        $r4 = r0.<com.tencent.bigdata.baseapi.base.logger.TBaseLogger$2: java.util.List b>;
+
+        interfaceinvoke $r4.<java.util.List: void clear()>();
+
+     label095:
+        if $r11 == null goto label081;
+
+     label096:
+        virtualinvoke $r11.<java.io.BufferedWriter: void close()>();
+
+     label097:
+        goto label081;
+
+     label098:
+        staticinvoke <com.tencent.bigdata.baseapi.base.logger.TBaseLogger: void removeOldDebugLogFiles(int)>(0);
+
+        return;
+
+     label099:
+        $r20 := @caughtexception;
+
+        staticinvoke <com.tencent.bigdata.baseapi.base.logger.TBaseLogger: void e(java.lang.String,java.lang.String,java.lang.Throwable)>("TBase - TPush", "close file stream error", $r20);
+
+        goto label089;
+
+     label100:
+        $r16 := @caughtexception;
+
+        goto label074;
+
+     label101:
+        $r18 := @caughtexception;
+
+        $r1 = $r11;
+
+        goto label091;
+
+     label102:
+        $r19 := @caughtexception;
+
+        goto label093;
+
+        catch java.io.FileNotFoundException from label001 to label002 with label100;
+        catch java.io.FileNotFoundException from label006 to label007 with label100;
+        catch java.lang.Throwable from label001 to label002 with label092;
+        catch java.lang.Throwable from label003 to label004 with label092;
+        catch java.lang.Throwable from label005 to label007 with label092;
+        catch java.lang.Throwable from label007 to label008 with label009;
+        catch java.io.FileNotFoundException from label011 to label012 with label100;
+        catch java.io.FileNotFoundException from label013 to label014 with label100;
+        catch java.lang.Throwable from label010 to label011 with label092;
+        catch java.lang.Throwable from label011 to label014 with label092;
+        catch java.io.FileNotFoundException from label014 to label015 with label100;
+        catch java.io.FileNotFoundException from label016 to label017 with label100;
+        catch java.lang.Throwable from label014 to label017 with label092;
+        catch java.io.FileNotFoundException from label017 to label018 with label100;
+        catch java.io.FileNotFoundException from label019 to label020 with label100;
+        catch java.io.FileNotFoundException from label022 to label023 with label100;
+        catch java.lang.Throwable from label017 to label018 with label092;
+        catch java.lang.Throwable from label019 to label020 with label092;
+        catch java.lang.Throwable from label021 to label022 with label092;
+        catch java.lang.Throwable from label022 to label023 with label092;
+        catch java.io.FileNotFoundException from label023 to label024 with label100;
+        catch java.lang.Throwable from label023 to label024 with label092;
+        catch java.io.FileNotFoundException from label024 to label025 with label100;
+        catch java.io.FileNotFoundException from label028 to label029 with label100;
+        catch java.io.FileNotFoundException from label030 to label031 with label100;
+        catch java.io.FileNotFoundException from label032 to label033 with label100;
+        catch java.lang.Throwable from label024 to label025 with label092;
+        catch java.lang.Throwable from label026 to label027 with label092;
+        catch java.lang.Throwable from label028 to label029 with label092;
+        catch java.lang.Throwable from label030 to label031 with label092;
+        catch java.lang.Throwable from label032 to label033 with label092;
+        catch java.io.FileNotFoundException from label035 to label036 with label100;
+        catch java.lang.Throwable from label034 to label035 with label092;
+        catch java.lang.Throwable from label035 to label036 with label092;
+        catch java.io.FileNotFoundException from label036 to label037 with label100;
+        catch java.lang.Throwable from label036 to label037 with label092;
+        catch java.io.FileNotFoundException from label037 to label038 with label100;
+        catch java.io.FileNotFoundException from label039 to label040 with label100;
+        catch java.lang.Throwable from label037 to label039 with label092;
+        catch java.lang.Throwable from label039 to label040 with label092;
+        catch java.io.FileNotFoundException from label040 to label041 with label100;
+        catch java.lang.Throwable from label040 to label041 with label092;
+        catch java.io.FileNotFoundException from label041 to label042 with label100;
+        catch java.io.FileNotFoundException from label044 to label045 with label100;
+        catch java.lang.Throwable from label041 to label043 with label092;
+        catch java.lang.Throwable from label044 to label045 with label092;
+        catch java.io.FileNotFoundException from label047 to label048 with label100;
+        catch java.lang.Throwable from label046 to label047 with label092;
+        catch java.lang.Throwable from label047 to label048 with label092;
+        catch java.io.FileNotFoundException from label048 to label049 with label100;
+        catch java.io.FileNotFoundException from label052 to label053 with label100;
+        catch java.lang.Throwable from label048 to label050 with label092;
+        catch java.lang.Throwable from label051 to label052 with label092;
+        catch java.lang.Throwable from label052 to label053 with label092;
+        catch java.io.FileNotFoundException from label053 to label054 with label073;
+        catch java.io.FileNotFoundException from label055 to label056 with label073;
+        catch java.io.FileNotFoundException from label057 to label058 with label073;
+        catch java.io.FileNotFoundException from label060 to label061 with label073;
+        catch java.io.FileNotFoundException from label062 to label063 with label073;
+        catch java.lang.Throwable from label053 to label054 with label102;
+        catch java.lang.Throwable from label055 to label056 with label102;
+        catch java.lang.Throwable from label057 to label058 with label102;
+        catch java.lang.Throwable from label059 to label060 with label102;
+        catch java.lang.Throwable from label060 to label062 with label102;
+        catch java.lang.Throwable from label062 to label063 with label102;
+        catch java.io.FileNotFoundException from label063 to label064 with label073;
+        catch java.io.FileNotFoundException from label065 to label067 with label073;
+        catch java.io.FileNotFoundException from label068 to label069 with label073;
+        catch java.io.FileNotFoundException from label070 to label071 with label073;
+        catch java.lang.Throwable from label063 to label067 with label102;
+        catch java.lang.Throwable from label068 to label070 with label102;
+        catch java.lang.Throwable from label070 to label071 with label102;
+        catch java.io.FileNotFoundException from label071 to label072 with label073;
+        catch java.lang.Throwable from label071 to label072 with label102;
+        catch java.lang.Throwable from label074 to label075 with label090;
+        catch java.lang.Throwable from label076 to label078 with label090;
+        catch java.lang.Throwable from label078 to label079 with label085;
+        catch java.lang.Throwable from label080 to label081 with label085;
+        catch java.io.FileNotFoundException from label082 to label083 with label073;
+        catch java.lang.Throwable from label082 to label083 with label102;
+        catch java.lang.Throwable from label083 to label084 with label085;
+        catch java.lang.Throwable from label086 to label087 with label099;
+        catch java.lang.Throwable from label088 to label089 with label099;
+        catch java.lang.Throwable from label093 to label094 with label101;
+        catch java.lang.Throwable from label094 to label095 with label085;
+        catch java.lang.Throwable from label096 to label097 with label085;
+    }

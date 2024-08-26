@@ -1,0 +1,915 @@
+2024-01-15 11:15:40
+Full thread dump OpenJDK 64-Bit Server VM (17.0.9+9-Ubuntu-120.04 mixed mode, sharing):
+
+Threads class SMR info:
+_java_thread_list=0x00007f89480019d0, length=33, elements={
+0x00007fcd34013b60, 0x00007fcd343733d0, 0x00007fcd34374840, 0x00007fcd3437b4d0,
+0x00007fcd3437c890, 0x00007fcd3437dcb0, 0x00007fcd3437f730, 0x00007fcd34380cb0,
+0x00007fcd34382150, 0x00007fcd343cf7e0, 0x00007fcd343d36c0, 0x00007fcd34cd97f0,
+0x00007fcd34ab9dc0, 0x00007fcd348d6aa0, 0x00007fcd34d795d0, 0x00007fcd34aa8cf0,
+0x00007fcd34ad7c20, 0x00007fcd34cdc270, 0x00007fcd34b38b50, 0x00007f8a08000be0,
+0x00007f8a00001040, 0x00007f8a04000be0, 0x00007f8a0c0014f0, 0x00007fcd348e1d00,
+0x00007f89f8000be0, 0x00007f8ab400a010, 0x00007f8a08001d10, 0x00007f8a000022e0,
+0x00007f8a0c0028b0, 0x00007f89fc0025a0, 0x00007f89e8000e60, 0x00007f89f0000e60,
+0x00007fcd34b8f4d0
+}
+
+"main" #1 prio=5 os_prio=0 cpu=82976.29ms elapsed=407.07s tid=0x00007fcd34013b60 nid=0x2a467b waiting on condition  [0x00007fcd3b045000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@17.0.9/Native Method)
+	- parking to wait for  <0x00007f8eb12ca800> (a heros.solver.CountLatch$Sync)
+	at java.util.concurrent.locks.LockSupport.park(java.base@17.0.9/LockSupport.java:211)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire(java.base@17.0.9/AbstractQueuedSynchronizer.java:715)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireShared(java.base@17.0.9/AbstractQueuedSynchronizer.java:1027)
+	at heros.solver.CountLatch.awaitZero(CountLatch.java:75)
+	at heros.solver.CountingThreadPoolExecutor.awaitCompletion(CountingThreadPoolExecutor.java:79)
+	at soot.jimple.infoflow.solver.executors.InterruptableExecutor.awaitCompletion(InterruptableExecutor.java:77)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver.runExecutorAndAwaitCompletion(IFDSSolver.java:256)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver.awaitCompletionComputeValuesAndShutdown(IFDSSolver.java:229)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver.solve(IFDSSolver.java:201)
+	at soot.jimple.infoflow.AbstractInfoflow.runTaintAnalysis(AbstractInfoflow.java:936)
+	at soot.jimple.infoflow.AbstractInfoflow.runAnalysis(AbstractInfoflow.java:634)
+	at soot.jimple.infoflow.AbstractInfoflow.runAnalysis(AbstractInfoflow.java:567)
+	at soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow.runAnalysis(SetupApplication.java:1316)
+	at soot.jimple.infoflow.android.SetupApplication.processEntryPoint(SetupApplication.java:1605)
+	at soot.jimple.infoflow.android.SetupApplication.runInfoflow(SetupApplication.java:1540)
+	at soot.jimple.infoflow.android.SetupApplication.runInfoflow(SetupApplication.java:1487)
+	at reproduction.dcidsubmit.FlowDroidSecondStep.main(FlowDroidSecondStep.java:121)
+
+"Reference Handler" #2 daemon prio=10 os_prio=0 cpu=2.53ms elapsed=407.00s tid=0x00007fcd343733d0 nid=0x2a4682 waiting on condition  [0x00007f8c324d3000]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.ref.Reference.waitForReferencePendingList(java.base@17.0.9/Native Method)
+	at java.lang.ref.Reference.processPendingReferences(java.base@17.0.9/Reference.java:253)
+	at java.lang.ref.Reference$ReferenceHandler.run(java.base@17.0.9/Reference.java:215)
+
+"Finalizer" #3 daemon prio=8 os_prio=0 cpu=0.49ms elapsed=407.00s tid=0x00007fcd34374840 nid=0x2a4683 in Object.wait()  [0x00007f8c323d2000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@17.0.9/Native Method)
+	- waiting on <0x00007f8e9a001cd8> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(java.base@17.0.9/ReferenceQueue.java:155)
+	- locked <0x00007f8e9a001cd8> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(java.base@17.0.9/ReferenceQueue.java:176)
+	at java.lang.ref.Finalizer$FinalizerThread.run(java.base@17.0.9/Finalizer.java:172)
+
+"Signal Dispatcher" #4 daemon prio=9 os_prio=0 cpu=0.26ms elapsed=406.99s tid=0x00007fcd3437b4d0 nid=0x2a4684 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Service Thread" #5 daemon prio=9 os_prio=0 cpu=9.87ms elapsed=406.99s tid=0x00007fcd3437c890 nid=0x2a4685 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Monitor Deflation Thread" #6 daemon prio=9 os_prio=0 cpu=145.15ms elapsed=406.99s tid=0x00007fcd3437dcb0 nid=0x2a4686 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread0" #7 daemon prio=9 os_prio=0 cpu=34394.19ms elapsed=406.99s tid=0x00007fcd3437f730 nid=0x2a4687 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+"C1 CompilerThread0" #21 daemon prio=9 os_prio=0 cpu=2194.44ms elapsed=406.98s tid=0x00007fcd34380cb0 nid=0x2a4688 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+"Sweeper thread" #28 daemon prio=9 os_prio=0 cpu=567.58ms elapsed=406.97s tid=0x00007fcd34382150 nid=0x2a4689 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Notification Thread" #29 daemon prio=9 os_prio=0 cpu=0.15ms elapsed=406.94s tid=0x00007fcd343cf7e0 nid=0x2a468b runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Common-Cleaner" #30 daemon prio=8 os_prio=0 cpu=3.27ms elapsed=406.91s tid=0x00007fcd343d36c0 nid=0x2a4692 in Object.wait()  [0x00007f8c30f53000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@17.0.9/Native Method)
+	- waiting on <0x00007f8e9a002168> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(java.base@17.0.9/ReferenceQueue.java:155)
+	- locked <0x00007f8e9a002168> (a java.lang.ref.ReferenceQueue$Lock)
+	at jdk.internal.ref.CleanerImpl.run(java.base@17.0.9/CleanerImpl.java:140)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+	at jdk.internal.misc.InnocuousThread.run(java.base@17.0.9/InnocuousThread.java:162)
+
+"Low memory monitor" #34 daemon prio=1 os_prio=0 cpu=86.13ms elapsed=400.75s tid=0x00007fcd34cd97f0 nid=0x2a46e2 waiting on condition  [0x00007f8c31155000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(java.base@17.0.9/Native Method)
+	at soot.jimple.infoflow.memory.MemoryWarningSystem$4.run(MemoryWarningSystem.java:250)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"FlowDroid Timeout Watcher" #36 daemon prio=5 os_prio=0 cpu=16.26ms elapsed=319.64s tid=0x00007fcd34ab9dc0 nid=0x2a4762 waiting on condition  [0x00007f8c30815000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(java.base@17.0.9/Native Method)
+	at soot.jimple.infoflow.memory.FlowDroidTimeoutWatcher$1.run(FlowDroidTimeoutWatcher.java:117)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"FlowDroid" #37 daemon prio=5 os_prio=0 cpu=87510.73ms elapsed=319.27s tid=0x00007fcd348d6aa0 nid=0x2a4769 waiting on condition  [0x00007f8be03d2000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@17.0.9/Native Method)
+	- parking to wait for  <0x00007f8eb23e8690> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(java.base@17.0.9/LockSupport.java:211)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire(java.base@17.0.9/AbstractQueuedSynchronizer.java:715)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireInterruptibly(java.base@17.0.9/AbstractQueuedSynchronizer.java:958)
+	at java.util.concurrent.locks.ReentrantLock$Sync.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:161)
+	at java.util.concurrent.locks.ReentrantLock.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:372)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@17.0.9/LinkedBlockingQueue.java:432)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@17.0.9/ThreadPoolExecutor.java:1062)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1122)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"FlowDroid" #38 daemon prio=5 os_prio=0 cpu=86805.89ms elapsed=319.27s tid=0x00007fcd34d795d0 nid=0x2a476a waiting for monitor entry  [0x00007f8ab18d7000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at soot.Scene.getOrMakeFastHierarchy(Scene.java:1341)
+	- waiting to lock <0x00007f8e9a0005b8> (a soot.Scene)
+	at soot.jimple.infoflow.typing.TypeUtils.getMorePreciseType(TypeUtils.java:197)
+	at soot.jimple.infoflow.data.AccessPathFactory.createAccessPath(AccessPathFactory.java:271)
+	at soot.jimple.infoflow.data.AccessPathFactory.copyWithNewValue(AccessPathFactory.java:499)
+	at soot.jimple.infoflow.data.AccessPathFactory.copyWithNewValue(AccessPathFactory.java:477)
+	at soot.jimple.infoflow.data.AccessPathFactory.copyWithNewValue(AccessPathFactory.java:463)
+	at soot.jimple.infoflow.problems.AliasProblem$1$3.computeTargets(AliasProblem.java:689)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.computeReturnFlowFunction(InfoflowSolver.java:92)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.computeReturnFlowFunction(InfoflowSolver.java:37)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver.applyEndSummaryOnCall(IFDSSolver.java:398)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.applySummary(InfoflowSolver.java:84)
+	at soot.jimple.infoflow.solver.DefaultSolverPeerGroup.addIncoming(DefaultSolverPeerGroup.java:46)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.addIncoming(InfoflowSolver.java:78)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.addIncoming(InfoflowSolver.java:37)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver$1.accept(IFDSSolver.java:338)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver$1.accept(IFDSSolver.java:308)
+	at java.util.ArrayList.forEach(java.base@17.0.9/ArrayList.java:1511)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver.processCall(IFDSSolver.java:308)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver$PathEdgeProcessingTask.runInternal(IFDSSolver.java:745)
+	at soot.jimple.infoflow.solver.fastSolver.LocalWorklistTask.run(LocalWorklistTask.java:27)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"FlowDroid" #39 daemon prio=5 os_prio=0 cpu=86477.09ms elapsed=319.26s tid=0x00007fcd34aa8cf0 nid=0x2a476b waiting on condition  [0x00007f8ab17d6000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@17.0.9/Native Method)
+	- parking to wait for  <0x00007f8eb23e8690> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(java.base@17.0.9/LockSupport.java:211)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire(java.base@17.0.9/AbstractQueuedSynchronizer.java:715)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireInterruptibly(java.base@17.0.9/AbstractQueuedSynchronizer.java:958)
+	at java.util.concurrent.locks.ReentrantLock$Sync.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:161)
+	at java.util.concurrent.locks.ReentrantLock.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:372)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@17.0.9/LinkedBlockingQueue.java:432)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@17.0.9/ThreadPoolExecutor.java:1062)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1122)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"FlowDroid" #40 daemon prio=5 os_prio=0 cpu=86599.13ms elapsed=319.26s tid=0x00007fcd34ad7c20 nid=0x2a476c waiting on condition  [0x00007f8ab16d5000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@17.0.9/Native Method)
+	- parking to wait for  <0x00007f8eb23e8690> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(java.base@17.0.9/LockSupport.java:211)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire(java.base@17.0.9/AbstractQueuedSynchronizer.java:715)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireInterruptibly(java.base@17.0.9/AbstractQueuedSynchronizer.java:958)
+	at java.util.concurrent.locks.ReentrantLock$Sync.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:161)
+	at java.util.concurrent.locks.ReentrantLock.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:372)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@17.0.9/LinkedBlockingQueue.java:432)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@17.0.9/ThreadPoolExecutor.java:1062)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1122)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"FlowDroid" #41 daemon prio=5 os_prio=0 cpu=86806.31ms elapsed=319.26s tid=0x00007fcd34cdc270 nid=0x2a476d waiting on condition  [0x00007f8ab15d4000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@17.0.9/Native Method)
+	- parking to wait for  <0x00007f8eb23e8690> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(java.base@17.0.9/LockSupport.java:211)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire(java.base@17.0.9/AbstractQueuedSynchronizer.java:715)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireInterruptibly(java.base@17.0.9/AbstractQueuedSynchronizer.java:958)
+	at java.util.concurrent.locks.ReentrantLock$Sync.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:161)
+	at java.util.concurrent.locks.ReentrantLock.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:372)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@17.0.9/LinkedBlockingQueue.java:432)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@17.0.9/ThreadPoolExecutor.java:1062)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1122)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"FlowDroid" #44 daemon prio=5 os_prio=0 cpu=86869.14ms elapsed=319.25s tid=0x00007fcd34b38b50 nid=0x2a476e waiting on condition  [0x00007f8ab14d3000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@17.0.9/Native Method)
+	- parking to wait for  <0x00007f8eb23e8690> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(java.base@17.0.9/LockSupport.java:211)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire(java.base@17.0.9/AbstractQueuedSynchronizer.java:715)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireInterruptibly(java.base@17.0.9/AbstractQueuedSynchronizer.java:958)
+	at java.util.concurrent.locks.ReentrantLock$Sync.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:161)
+	at java.util.concurrent.locks.ReentrantLock.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:372)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@17.0.9/LinkedBlockingQueue.java:432)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@17.0.9/ThreadPoolExecutor.java:1062)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1122)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"FlowDroid" #46 daemon prio=5 os_prio=0 cpu=85719.63ms elapsed=319.25s tid=0x00007f8a08000be0 nid=0x2a476f waiting on condition  [0x00007f8ab13d2000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@17.0.9/Native Method)
+	- parking to wait for  <0x00007f8eb23e8690> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(java.base@17.0.9/LockSupport.java:211)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire(java.base@17.0.9/AbstractQueuedSynchronizer.java:715)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireInterruptibly(java.base@17.0.9/AbstractQueuedSynchronizer.java:958)
+	at java.util.concurrent.locks.ReentrantLock$Sync.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:161)
+	at java.util.concurrent.locks.ReentrantLock.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:372)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@17.0.9/LinkedBlockingQueue.java:432)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@17.0.9/ThreadPoolExecutor.java:1062)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1122)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"FlowDroid" #42 daemon prio=5 os_prio=0 cpu=89175.82ms elapsed=319.25s tid=0x00007f8a00001040 nid=0x2a4770 waiting for monitor entry  [0x00007f8ab12d1000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at soot.Scene.getOrMakeFastHierarchy(Scene.java:1341)
+	- waiting to lock <0x00007f8e9a0005b8> (a soot.Scene)
+	at soot.jimple.infoflow.typing.TypeUtils.getMorePreciseType(TypeUtils.java:197)
+	at soot.jimple.infoflow.data.AccessPathFactory.createAccessPath(AccessPathFactory.java:271)
+	at soot.jimple.infoflow.data.AccessPathFactory.copyWithNewValue(AccessPathFactory.java:499)
+	at soot.jimple.infoflow.data.AccessPathFactory.copyWithNewValue(AccessPathFactory.java:477)
+	at soot.jimple.infoflow.data.AccessPathFactory.copyWithNewValue(AccessPathFactory.java:463)
+	at soot.jimple.infoflow.problems.AliasProblem$1$3.computeTargets(AliasProblem.java:689)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.computeReturnFlowFunction(InfoflowSolver.java:92)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.computeReturnFlowFunction(InfoflowSolver.java:37)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver.applyEndSummaryOnCall(IFDSSolver.java:398)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.applySummary(InfoflowSolver.java:84)
+	at soot.jimple.infoflow.solver.DefaultSolverPeerGroup.addIncoming(DefaultSolverPeerGroup.java:46)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.addIncoming(InfoflowSolver.java:78)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.addIncoming(InfoflowSolver.java:37)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver$1.accept(IFDSSolver.java:338)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver$1.accept(IFDSSolver.java:308)
+	at java.util.ArrayList.forEach(java.base@17.0.9/ArrayList.java:1511)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver.processCall(IFDSSolver.java:308)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver$PathEdgeProcessingTask.runInternal(IFDSSolver.java:745)
+	at soot.jimple.infoflow.solver.fastSolver.LocalWorklistTask.run(LocalWorklistTask.java:27)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"FlowDroid" #45 daemon prio=5 os_prio=0 cpu=87380.35ms elapsed=319.23s tid=0x00007f8a04000be0 nid=0x2a4771 waiting on condition  [0x00007f8ab11d0000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@17.0.9/Native Method)
+	- parking to wait for  <0x00007f8eb23e8690> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(java.base@17.0.9/LockSupport.java:211)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire(java.base@17.0.9/AbstractQueuedSynchronizer.java:715)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireInterruptibly(java.base@17.0.9/AbstractQueuedSynchronizer.java:958)
+	at java.util.concurrent.locks.ReentrantLock$Sync.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:161)
+	at java.util.concurrent.locks.ReentrantLock.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:372)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@17.0.9/LinkedBlockingQueue.java:432)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@17.0.9/ThreadPoolExecutor.java:1062)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1122)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"FlowDroid" #43 daemon prio=5 os_prio=0 cpu=86471.58ms elapsed=319.22s tid=0x00007f8a0c0014f0 nid=0x2a4772 runnable  [0x00007f8ab10cf000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@17.0.9/Native Method)
+	- parking to wait for  <0x00007f8eb23e8690> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(java.base@17.0.9/LockSupport.java:211)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire(java.base@17.0.9/AbstractQueuedSynchronizer.java:715)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireInterruptibly(java.base@17.0.9/AbstractQueuedSynchronizer.java:958)
+	at java.util.concurrent.locks.ReentrantLock$Sync.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:161)
+	at java.util.concurrent.locks.ReentrantLock.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:372)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@17.0.9/LinkedBlockingQueue.java:432)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@17.0.9/ThreadPoolExecutor.java:1062)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1122)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"FlowDroid" #47 daemon prio=5 os_prio=0 cpu=86380.13ms elapsed=319.22s tid=0x00007fcd348e1d00 nid=0x2a4773 waiting on condition  [0x00007f8ab0fce000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@17.0.9/Native Method)
+	- parking to wait for  <0x00007f8eb23e8690> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(java.base@17.0.9/LockSupport.java:211)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire(java.base@17.0.9/AbstractQueuedSynchronizer.java:715)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireInterruptibly(java.base@17.0.9/AbstractQueuedSynchronizer.java:958)
+	at java.util.concurrent.locks.ReentrantLock$Sync.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:161)
+	at java.util.concurrent.locks.ReentrantLock.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:372)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@17.0.9/LinkedBlockingQueue.java:432)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@17.0.9/ThreadPoolExecutor.java:1062)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1122)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"FlowDroid" #48 daemon prio=5 os_prio=0 cpu=86714.37ms elapsed=319.22s tid=0x00007f89f8000be0 nid=0x2a4774 runnable  [0x00007f8ab0ecc000]
+   java.lang.Thread.State: RUNNABLE
+	at soot.jimple.infoflow.problems.AliasProblem$1$3.computeTargets(AliasProblem.java:768)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.computeReturnFlowFunction(InfoflowSolver.java:92)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.computeReturnFlowFunction(InfoflowSolver.java:37)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver.applyEndSummaryOnCall(IFDSSolver.java:398)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.applySummary(InfoflowSolver.java:84)
+	at soot.jimple.infoflow.solver.DefaultSolverPeerGroup.addIncoming(DefaultSolverPeerGroup.java:46)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.addIncoming(InfoflowSolver.java:78)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.addIncoming(InfoflowSolver.java:37)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver$1.accept(IFDSSolver.java:338)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver$1.accept(IFDSSolver.java:308)
+	at java.util.ArrayList.forEach(java.base@17.0.9/ArrayList.java:1511)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver.processCall(IFDSSolver.java:308)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver$PathEdgeProcessingTask.runInternal(IFDSSolver.java:745)
+	at soot.jimple.infoflow.solver.fastSolver.LocalWorklistTask.run(LocalWorklistTask.java:27)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"FlowDroid" #49 daemon prio=5 os_prio=0 cpu=87291.33ms elapsed=319.22s tid=0x00007f8ab400a010 nid=0x2a4775 runnable  [0x00007f8ab0dcb000]
+   java.lang.Thread.State: RUNNABLE
+	at soot.jimple.infoflow.problems.AliasProblem$1$3.computeTargets(AliasProblem.java:727)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.computeReturnFlowFunction(InfoflowSolver.java:92)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.computeReturnFlowFunction(InfoflowSolver.java:37)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver.applyEndSummaryOnCall(IFDSSolver.java:398)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.applySummary(InfoflowSolver.java:84)
+	at soot.jimple.infoflow.solver.DefaultSolverPeerGroup.addIncoming(DefaultSolverPeerGroup.java:46)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.addIncoming(InfoflowSolver.java:78)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.addIncoming(InfoflowSolver.java:37)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver$1.accept(IFDSSolver.java:338)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver$1.accept(IFDSSolver.java:308)
+	at java.util.ArrayList.forEach(java.base@17.0.9/ArrayList.java:1511)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver.processCall(IFDSSolver.java:308)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver$PathEdgeProcessingTask.runInternal(IFDSSolver.java:745)
+	at soot.jimple.infoflow.solver.fastSolver.LocalWorklistTask.run(LocalWorklistTask.java:27)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"FlowDroid" #50 daemon prio=5 os_prio=0 cpu=86944.74ms elapsed=319.21s tid=0x00007f8a08001d10 nid=0x2a4776 runnable  [0x00007f8ab0cca000]
+   java.lang.Thread.State: RUNNABLE
+	at com.google.common.cache.LocalCache$Segment.get(LocalCache.java:2059)
+	at com.google.common.cache.LocalCache.get(LocalCache.java:3966)
+	at com.google.common.cache.LocalCache.getOrLoad(LocalCache.java:3989)
+	at com.google.common.cache.LocalCache$LocalLoadingCache.get(LocalCache.java:4950)
+	at com.google.common.cache.LocalCache$LocalLoadingCache.getUnchecked(LocalCache.java:4956)
+	at soot.jimple.infoflow.solver.cfg.InfoflowCFG.methodWritesValue(InfoflowCFG.java:515)
+	at soot.jimple.infoflow.solver.cfg.BackwardsInfoflowCFG.methodWritesValue(BackwardsInfoflowCFG.java:58)
+	at soot.jimple.infoflow.problems.AliasProblem$1$3.computeTargets(AliasProblem.java:686)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.computeReturnFlowFunction(InfoflowSolver.java:92)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.computeReturnFlowFunction(InfoflowSolver.java:37)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver.applyEndSummaryOnCall(IFDSSolver.java:398)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.applySummary(InfoflowSolver.java:84)
+	at soot.jimple.infoflow.solver.DefaultSolverPeerGroup.addIncoming(DefaultSolverPeerGroup.java:46)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.addIncoming(InfoflowSolver.java:78)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.addIncoming(InfoflowSolver.java:37)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver$1.accept(IFDSSolver.java:338)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver$1.accept(IFDSSolver.java:308)
+	at java.util.ArrayList.forEach(java.base@17.0.9/ArrayList.java:1511)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver.processCall(IFDSSolver.java:308)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver$PathEdgeProcessingTask.runInternal(IFDSSolver.java:745)
+	at soot.jimple.infoflow.solver.fastSolver.LocalWorklistTask.run(LocalWorklistTask.java:27)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"FlowDroid" #51 daemon prio=5 os_prio=0 cpu=86836.44ms elapsed=319.21s tid=0x00007f8a000022e0 nid=0x2a4777 waiting on condition  [0x00007f8ab0bca000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@17.0.9/Native Method)
+	- parking to wait for  <0x00007f8eb23e8690> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(java.base@17.0.9/LockSupport.java:211)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire(java.base@17.0.9/AbstractQueuedSynchronizer.java:715)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireInterruptibly(java.base@17.0.9/AbstractQueuedSynchronizer.java:958)
+	at java.util.concurrent.locks.ReentrantLock$Sync.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:161)
+	at java.util.concurrent.locks.ReentrantLock.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:372)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@17.0.9/LinkedBlockingQueue.java:432)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@17.0.9/ThreadPoolExecutor.java:1062)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1122)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"FlowDroid" #52 daemon prio=5 os_prio=0 cpu=86948.36ms elapsed=319.20s tid=0x00007f8a0c0028b0 nid=0x2a4778 runnable  [0x00007f8ab0ac8000]
+   java.lang.Thread.State: RUNNABLE
+	at soot.jimple.infoflow.data.AccessPathFactory.createAccessPath(AccessPathFactory.java:218)
+	at soot.jimple.infoflow.data.AccessPathFactory.copyWithNewValue(AccessPathFactory.java:499)
+	at soot.jimple.infoflow.data.AccessPathFactory.copyWithNewValue(AccessPathFactory.java:477)
+	at soot.jimple.infoflow.data.AccessPathFactory.copyWithNewValue(AccessPathFactory.java:463)
+	at soot.jimple.infoflow.problems.AliasProblem$1$3.computeTargets(AliasProblem.java:689)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.computeReturnFlowFunction(InfoflowSolver.java:92)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.computeReturnFlowFunction(InfoflowSolver.java:37)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver.applyEndSummaryOnCall(IFDSSolver.java:398)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.applySummary(InfoflowSolver.java:84)
+	at soot.jimple.infoflow.solver.DefaultSolverPeerGroup.addIncoming(DefaultSolverPeerGroup.java:46)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.addIncoming(InfoflowSolver.java:78)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.addIncoming(InfoflowSolver.java:37)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver$1.accept(IFDSSolver.java:338)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver$1.accept(IFDSSolver.java:308)
+	at java.util.ArrayList.forEach(java.base@17.0.9/ArrayList.java:1511)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver.processCall(IFDSSolver.java:308)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver$PathEdgeProcessingTask.runInternal(IFDSSolver.java:745)
+	at soot.jimple.infoflow.solver.fastSolver.LocalWorklistTask.run(LocalWorklistTask.java:27)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"FlowDroid" #53 daemon prio=5 os_prio=0 cpu=86980.70ms elapsed=319.20s tid=0x00007f89fc0025a0 nid=0x2a4779 runnable  [0x00007f8ab09c7000]
+   java.lang.Thread.State: RUNNABLE
+	at soot.jimple.infoflow.problems.AbstractInfoflowProblem.registerActivationCallSite(AbstractInfoflowProblem.java:191)
+	at soot.jimple.infoflow.problems.AliasProblem$1$3.computeTargets(AliasProblem.java:697)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.computeReturnFlowFunction(InfoflowSolver.java:92)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.computeReturnFlowFunction(InfoflowSolver.java:37)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver.applyEndSummaryOnCall(IFDSSolver.java:398)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.applySummary(InfoflowSolver.java:84)
+	at soot.jimple.infoflow.solver.DefaultSolverPeerGroup.addIncoming(DefaultSolverPeerGroup.java:46)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.addIncoming(InfoflowSolver.java:78)
+	at soot.jimple.infoflow.solver.fastSolver.InfoflowSolver.addIncoming(InfoflowSolver.java:37)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver$1.accept(IFDSSolver.java:338)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver$1.accept(IFDSSolver.java:308)
+	at java.util.ArrayList.forEach(java.base@17.0.9/ArrayList.java:1511)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver.processCall(IFDSSolver.java:308)
+	at soot.jimple.infoflow.solver.fastSolver.IFDSSolver$PathEdgeProcessingTask.runInternal(IFDSSolver.java:745)
+	at soot.jimple.infoflow.solver.fastSolver.LocalWorklistTask.run(LocalWorklistTask.java:27)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"FlowDroid" #55 daemon prio=5 os_prio=0 cpu=86986.14ms elapsed=319.19s tid=0x00007f89e8000e60 nid=0x2a477a waiting on condition  [0x00007f8ab08c7000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@17.0.9/Native Method)
+	- parking to wait for  <0x00007f8eb23e8690> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(java.base@17.0.9/LockSupport.java:211)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire(java.base@17.0.9/AbstractQueuedSynchronizer.java:715)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireInterruptibly(java.base@17.0.9/AbstractQueuedSynchronizer.java:958)
+	at java.util.concurrent.locks.ReentrantLock$Sync.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:161)
+	at java.util.concurrent.locks.ReentrantLock.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:372)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@17.0.9/LinkedBlockingQueue.java:432)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@17.0.9/ThreadPoolExecutor.java:1062)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1122)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"FlowDroid" #54 daemon prio=5 os_prio=0 cpu=87182.52ms elapsed=319.19s tid=0x00007f89f0000e60 nid=0x2a477b waiting on condition  [0x00007f8ab07c6000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@17.0.9/Native Method)
+	- parking to wait for  <0x00007f8eb23e8690> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(java.base@17.0.9/LockSupport.java:211)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire(java.base@17.0.9/AbstractQueuedSynchronizer.java:715)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireInterruptibly(java.base@17.0.9/AbstractQueuedSynchronizer.java:958)
+	at java.util.concurrent.locks.ReentrantLock$Sync.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:161)
+	at java.util.concurrent.locks.ReentrantLock.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:372)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@17.0.9/LinkedBlockingQueue.java:432)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@17.0.9/ThreadPoolExecutor.java:1062)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1122)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"FlowDroid" #56 daemon prio=5 os_prio=0 cpu=86426.43ms elapsed=319.18s tid=0x00007fcd34b8f4d0 nid=0x2a477c waiting on condition  [0x00007f8ab06c5000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@17.0.9/Native Method)
+	- parking to wait for  <0x00007f8eb23e8690> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(java.base@17.0.9/LockSupport.java:211)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire(java.base@17.0.9/AbstractQueuedSynchronizer.java:715)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireInterruptibly(java.base@17.0.9/AbstractQueuedSynchronizer.java:958)
+	at java.util.concurrent.locks.ReentrantLock$Sync.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:161)
+	at java.util.concurrent.locks.ReentrantLock.lockInterruptibly(java.base@17.0.9/ReentrantLock.java:372)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@17.0.9/LinkedBlockingQueue.java:432)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@17.0.9/ThreadPoolExecutor.java:1062)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@17.0.9/ThreadPoolExecutor.java:1122)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@17.0.9/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@17.0.9/Thread.java:840)
+
+"VM Thread" os_prio=0 cpu=611.65ms elapsed=407.01s tid=0x00007fcd3436eb10 nid=0x2a4681 runnable  
+
+"GC Thread#0" os_prio=0 cpu=4153.13ms elapsed=407.06s tid=0x00007fcd340bdd10 nid=0x2a467c runnable  
+
+"GC Thread#1" os_prio=0 cpu=3806.36ms elapsed=404.86s tid=0x00007f8bdc017510 nid=0x2a469a runnable  
+
+"GC Thread#2" os_prio=0 cpu=4068.91ms elapsed=404.85s tid=0x00007f8bdc017f20 nid=0x2a469b runnable  
+
+"GC Thread#3" os_prio=0 cpu=4542.39ms elapsed=404.85s tid=0x00007f8bdc018930 nid=0x2a469c runnable  
+
+"GC Thread#4" os_prio=0 cpu=3636.19ms elapsed=404.85s tid=0x00007f8bdc019340 nid=0x2a469d runnable  
+
+"GC Thread#5" os_prio=0 cpu=4017.95ms elapsed=404.85s tid=0x00007f8bdc019d50 nid=0x2a469e runnable  
+
+"GC Thread#6" os_prio=0 cpu=4504.73ms elapsed=404.85s tid=0x00007f8bdc01a790 nid=0x2a469f runnable  
+
+"GC Thread#7" os_prio=0 cpu=4186.39ms elapsed=404.85s tid=0x00007f8bdc01b1d0 nid=0x2a46a0 runnable  
+
+"GC Thread#8" os_prio=0 cpu=4494.39ms elapsed=404.85s tid=0x00007f8bdc01bc10 nid=0x2a46a1 runnable  
+
+"GC Thread#9" os_prio=0 cpu=3963.01ms elapsed=404.85s tid=0x00007f8bdc01c650 nid=0x2a46a2 runnable  
+
+"GC Thread#10" os_prio=0 cpu=4216.78ms elapsed=404.85s tid=0x00007f8bdc01d090 nid=0x2a46a3 runnable  
+
+"GC Thread#11" os_prio=0 cpu=4394.33ms elapsed=404.85s tid=0x00007f8bdc01dec0 nid=0x2a46a4 runnable  
+
+"GC Thread#12" os_prio=0 cpu=4153.93ms elapsed=404.85s tid=0x00007f8bdc01ed10 nid=0x2a46a5 runnable  
+
+"GC Thread#13" os_prio=0 cpu=4236.37ms elapsed=404.83s tid=0x00007f8bdc01fb80 nid=0x2a46a6 runnable  
+
+"GC Thread#14" os_prio=0 cpu=3734.42ms elapsed=404.83s tid=0x00007f8bdc0209f0 nid=0x2a46a7 runnable  
+
+"GC Thread#15" os_prio=0 cpu=4250.59ms elapsed=404.83s tid=0x00007f8bdc021860 nid=0x2a46a8 runnable  
+
+"GC Thread#16" os_prio=0 cpu=4286.91ms elapsed=404.83s tid=0x00007f8bdc0226d0 nid=0x2a46a9 runnable  
+
+"GC Thread#17" os_prio=0 cpu=4466.35ms elapsed=404.83s tid=0x00007f8bdc023540 nid=0x2a46aa runnable  
+
+"GC Thread#18" os_prio=0 cpu=4179.67ms elapsed=404.83s tid=0x00007f8bdc0243b0 nid=0x2a46ab runnable  
+
+"GC Thread#19" os_prio=0 cpu=4157.67ms elapsed=404.83s tid=0x00007f8bdc025220 nid=0x2a46ac runnable  
+
+"GC Thread#20" os_prio=0 cpu=4289.62ms elapsed=404.83s tid=0x00007f8bdc026090 nid=0x2a46ad runnable  
+
+"GC Thread#21" os_prio=0 cpu=4142.03ms elapsed=404.83s tid=0x00007f8bdc026f00 nid=0x2a46ae runnable  
+
+"GC Thread#22" os_prio=0 cpu=3809.01ms elapsed=404.83s tid=0x00007f8bdc027d70 nid=0x2a46af runnable  
+
+"GC Thread#23" os_prio=0 cpu=4336.83ms elapsed=404.83s tid=0x00007f8bdc028be0 nid=0x2a46b0 runnable  
+
+"GC Thread#24" os_prio=0 cpu=4545.34ms elapsed=404.82s tid=0x00007f8bdc029a50 nid=0x2a46b1 runnable  
+
+"GC Thread#25" os_prio=0 cpu=3903.87ms elapsed=404.82s tid=0x00007f8bdc02a8c0 nid=0x2a46b2 runnable  
+
+"GC Thread#26" os_prio=0 cpu=4286.13ms elapsed=404.81s tid=0x00007f8bdc02b730 nid=0x2a46b3 runnable  
+
+"GC Thread#27" os_prio=0 cpu=4088.44ms elapsed=404.80s tid=0x00007f8bdc02c5a0 nid=0x2a46b4 runnable  
+
+"GC Thread#28" os_prio=0 cpu=4022.29ms elapsed=404.80s tid=0x00007f8bdc02d410 nid=0x2a46b5 runnable  
+
+"GC Thread#29" os_prio=0 cpu=4100.55ms elapsed=404.80s tid=0x00007f8bdc02e280 nid=0x2a46b6 runnable  
+
+"GC Thread#30" os_prio=0 cpu=4143.67ms elapsed=404.80s tid=0x00007f8bdc02f0f0 nid=0x2a46b7 runnable  
+
+"GC Thread#31" os_prio=0 cpu=4720.54ms elapsed=404.80s tid=0x00007f8bdc02ff60 nid=0x2a46b8 runnable  
+
+"GC Thread#32" os_prio=0 cpu=4067.21ms elapsed=404.80s tid=0x00007f8bdc030dd0 nid=0x2a46b9 runnable  
+
+"GC Thread#33" os_prio=0 cpu=4226.50ms elapsed=404.80s tid=0x00007f8bdc031c40 nid=0x2a46ba runnable  
+
+"GC Thread#34" os_prio=0 cpu=4497.06ms elapsed=404.80s tid=0x00007f8bdc032ab0 nid=0x2a46bb runnable  
+
+"GC Thread#35" os_prio=0 cpu=3905.10ms elapsed=404.80s tid=0x00007f8bdc033920 nid=0x2a46bc runnable  
+
+"GC Thread#36" os_prio=0 cpu=3889.16ms elapsed=404.80s tid=0x00007f8bdc034790 nid=0x2a46bd runnable  
+
+"GC Thread#37" os_prio=0 cpu=4277.42ms elapsed=404.80s tid=0x00007f8bdc035600 nid=0x2a46be runnable  
+
+"GC Thread#38" os_prio=0 cpu=4633.21ms elapsed=404.79s tid=0x00007f8bdc036470 nid=0x2a46bf runnable  
+
+"GC Thread#39" os_prio=0 cpu=3946.62ms elapsed=404.79s tid=0x00007f8bdc0372e0 nid=0x2a46c0 runnable  
+
+"GC Thread#40" os_prio=0 cpu=4302.66ms elapsed=404.79s tid=0x00007f8bdc038150 nid=0x2a46c1 runnable  
+
+"GC Thread#41" os_prio=0 cpu=3504.58ms elapsed=404.79s tid=0x00007f8bdc038fc0 nid=0x2a46c2 runnable  
+
+"GC Thread#42" os_prio=0 cpu=4246.33ms elapsed=404.78s tid=0x00007f8bdc039e30 nid=0x2a46c3 runnable  
+
+"GC Thread#43" os_prio=0 cpu=3773.56ms elapsed=404.78s tid=0x00007f8bdc03aca0 nid=0x2a46c4 runnable  
+
+"GC Thread#44" os_prio=0 cpu=4048.41ms elapsed=404.78s tid=0x00007f8bdc03bb10 nid=0x2a46c5 runnable  
+
+"GC Thread#45" os_prio=0 cpu=4195.72ms elapsed=404.78s tid=0x00007f8bdc03c980 nid=0x2a46c6 runnable  
+
+"GC Thread#46" os_prio=0 cpu=4187.90ms elapsed=404.78s tid=0x00007f8bdc03d7f0 nid=0x2a46c7 runnable  
+
+"GC Thread#47" os_prio=0 cpu=4080.84ms elapsed=404.78s tid=0x00007f8bdc03e660 nid=0x2a46c8 runnable  
+
+"GC Thread#48" os_prio=0 cpu=4106.52ms elapsed=404.78s tid=0x00007f8bdc03f4d0 nid=0x2a46c9 runnable  
+
+"GC Thread#49" os_prio=0 cpu=4103.73ms elapsed=401.77s tid=0x00007f8bdc076dd0 nid=0x2a46cf runnable  
+
+"GC Thread#50" os_prio=0 cpu=3910.87ms elapsed=401.77s tid=0x00007f8bdc077750 nid=0x2a46d0 runnable  
+
+"GC Thread#51" os_prio=0 cpu=4204.81ms elapsed=401.77s tid=0x00007f8bdc0780f0 nid=0x2a46d1 runnable  
+
+"GC Thread#52" os_prio=0 cpu=3952.59ms elapsed=401.77s tid=0x00007f8bdc0789f0 nid=0x2a46d2 runnable  
+
+"GC Thread#53" os_prio=0 cpu=4207.51ms elapsed=401.77s tid=0x00007f8bdc0793c0 nid=0x2a46d3 runnable  
+
+"GC Thread#54" os_prio=0 cpu=3917.96ms elapsed=401.76s tid=0x00007f8bdc079e00 nid=0x2a46d4 runnable  
+
+"GC Thread#55" os_prio=0 cpu=3905.66ms elapsed=401.76s tid=0x00007f8bdc07a860 nid=0x2a46d5 runnable  
+
+"GC Thread#56" os_prio=0 cpu=4086.74ms elapsed=401.76s tid=0x00007f8bdc07b2e0 nid=0x2a46d6 runnable  
+
+"GC Thread#57" os_prio=0 cpu=4162.99ms elapsed=401.76s tid=0x00007f8bdc07bd60 nid=0x2a46d7 runnable  
+
+"GC Thread#58" os_prio=0 cpu=3709.28ms elapsed=401.76s tid=0x00007f8bdc07c7e0 nid=0x2a46d8 runnable  
+
+"GC Thread#59" os_prio=0 cpu=4333.54ms elapsed=401.76s tid=0x00007f8bdc07d260 nid=0x2a46d9 runnable  
+
+"GC Thread#60" os_prio=0 cpu=4220.74ms elapsed=401.76s tid=0x00007f8bdc07dce0 nid=0x2a46da runnable  
+
+"GC Thread#61" os_prio=0 cpu=4053.41ms elapsed=401.75s tid=0x00007f8bdc07e760 nid=0x2a46db runnable  
+
+"GC Thread#62" os_prio=0 cpu=4032.69ms elapsed=401.75s tid=0x00007f8bdc07f1e0 nid=0x2a46dc runnable  
+
+"GC Thread#63" os_prio=0 cpu=4342.48ms elapsed=401.75s tid=0x00007f8bdc07fc60 nid=0x2a46dd runnable  
+
+"GC Thread#64" os_prio=0 cpu=4189.04ms elapsed=401.75s tid=0x00007f8bdc0806e0 nid=0x2a46de runnable  
+
+"GC Thread#65" os_prio=0 cpu=3803.25ms elapsed=401.75s tid=0x00007f8bdc081160 nid=0x2a46df runnable  
+
+"GC Thread#66" os_prio=0 cpu=4671.30ms elapsed=401.75s tid=0x00007f8bdc081be0 nid=0x2a46e0 runnable  
+
+"GC Thread#67" os_prio=0 cpu=4312.39ms elapsed=401.75s tid=0x00007f8bdc082660 nid=0x2a46e1 runnable  
+
+"GC Thread#68" os_prio=0 cpu=5121.80ms elapsed=304.75s tid=0x00007f8bdc0955e0 nid=0x2a48d5 runnable  
+
+"GC Thread#69" os_prio=0 cpu=4095.70ms elapsed=304.75s tid=0x00007f8bdc0946d0 nid=0x2a48d6 runnable  
+
+"GC Thread#70" os_prio=0 cpu=4398.51ms elapsed=304.75s tid=0x00007f8bdc094f60 nid=0x2a48d7 runnable  
+
+"GC Thread#71" os_prio=0 cpu=4432.80ms elapsed=304.75s tid=0x00007f8bdc08b830 nid=0x2a48d8 runnable  
+
+"GC Thread#72" os_prio=0 cpu=4792.30ms elapsed=304.75s tid=0x00007f8bdc08c270 nid=0x2a48d9 runnable  
+
+"GC Thread#73" os_prio=0 cpu=4092.06ms elapsed=304.75s tid=0x00007f8bdc08ccb0 nid=0x2a48da runnable  
+
+"GC Thread#74" os_prio=0 cpu=4251.41ms elapsed=304.75s tid=0x00007f8bdc0a77e0 nid=0x2a48db runnable  
+
+"GC Thread#75" os_prio=0 cpu=4207.27ms elapsed=304.75s tid=0x00007f8bdc0a8590 nid=0x2a48dc runnable  
+
+"GC Thread#76" os_prio=0 cpu=4749.19ms elapsed=304.75s tid=0x00007f8bdc0a93c0 nid=0x2a48dd runnable  
+
+"GC Thread#77" os_prio=0 cpu=5169.92ms elapsed=294.23s tid=0x00007f8bdc11a610 nid=0x2a49bf runnable  
+
+"GC Thread#78" os_prio=0 cpu=5025.37ms elapsed=294.22s tid=0x00007f8bdc11adc0 nid=0x2a49c1 runnable  
+
+"GC Thread#79" os_prio=0 cpu=5279.15ms elapsed=294.22s tid=0x00007f8bdc11b800 nid=0x2a49c3 runnable  
+
+"GC Thread#80" os_prio=0 cpu=4731.85ms elapsed=294.22s tid=0x00007f8bdc11c240 nid=0x2a49c4 runnable  
+
+"GC Thread#81" os_prio=0 cpu=4729.30ms elapsed=294.22s tid=0x00007f8bdc11cc80 nid=0x2a49c5 runnable  
+
+"GC Thread#82" os_prio=0 cpu=5372.48ms elapsed=294.22s tid=0x00007f8bdc11d6e0 nid=0x2a49c6 runnable  
+
+"GC Thread#83" os_prio=0 cpu=4506.76ms elapsed=294.22s tid=0x00007f8bdc11e550 nid=0x2a49c8 runnable  
+
+"GC Thread#84" os_prio=0 cpu=4385.98ms elapsed=294.22s tid=0x00007f8bdc11f3c0 nid=0x2a49ca runnable  
+
+"GC Thread#85" os_prio=0 cpu=5173.62ms elapsed=294.22s tid=0x00007f8bdc120230 nid=0x2a49cb runnable  
+
+"GC Thread#86" os_prio=0 cpu=5133.19ms elapsed=294.22s tid=0x00007f8bdc1210a0 nid=0x2a49cc runnable  
+
+"GC Thread#87" os_prio=0 cpu=5468.22ms elapsed=294.22s tid=0x00007f8bdc121f10 nid=0x2a49cd runnable  
+
+"GC Thread#88" os_prio=0 cpu=4697.05ms elapsed=294.22s tid=0x00007f8bdc122d80 nid=0x2a49ce runnable  
+
+"GC Thread#89" os_prio=0 cpu=5625.40ms elapsed=294.22s tid=0x00007f8bdc123bf0 nid=0x2a49cf runnable  
+
+"GC Thread#90" os_prio=0 cpu=4530.17ms elapsed=294.22s tid=0x00007f8bdc124a60 nid=0x2a49d0 runnable  
+
+"GC Thread#91" os_prio=0 cpu=5350.56ms elapsed=294.22s tid=0x00007f8bdc1258d0 nid=0x2a49d1 runnable  
+
+"GC Thread#92" os_prio=0 cpu=4913.08ms elapsed=294.22s tid=0x00007f8bdc126740 nid=0x2a49d2 runnable  
+
+"G1 Main Marker" os_prio=0 cpu=11.02ms elapsed=407.04s tid=0x00007fcd340fddc0 nid=0x2a467d runnable  
+
+"G1 Conc#0" os_prio=0 cpu=453.74ms elapsed=407.04s tid=0x00007fcd340fedd0 nid=0x2a467e runnable  
+
+"G1 Conc#1" os_prio=0 cpu=380.41ms elapsed=400.31s tid=0x00007f8c38000d20 nid=0x2a46e4 runnable  
+
+"G1 Conc#2" os_prio=0 cpu=407.63ms elapsed=400.31s tid=0x00007f8c38001380 nid=0x2a46e5 runnable  
+
+"G1 Conc#3" os_prio=0 cpu=442.93ms elapsed=400.29s tid=0x00007f8c380019c0 nid=0x2a46e6 runnable  
+
+"G1 Conc#4" os_prio=0 cpu=318.67ms elapsed=400.28s tid=0x00007f8c38002230 nid=0x2a46e7 runnable  
+
+"G1 Conc#5" os_prio=0 cpu=401.76ms elapsed=400.28s tid=0x00007f8c38002af0 nid=0x2a46e8 runnable  
+
+"G1 Conc#6" os_prio=0 cpu=285.93ms elapsed=400.27s tid=0x00007f8c38003570 nid=0x2a46e9 runnable  
+
+"G1 Conc#7" os_prio=0 cpu=300.18ms elapsed=400.27s tid=0x00007f8c38003ff0 nid=0x2a46ea runnable  
+
+"G1 Conc#8" os_prio=0 cpu=361.65ms elapsed=400.26s tid=0x00007f8c38004a70 nid=0x2a46eb runnable  
+
+"G1 Conc#9" os_prio=0 cpu=364.37ms elapsed=400.25s tid=0x00007f8c380054f0 nid=0x2a46ec runnable  
+
+"G1 Conc#10" os_prio=0 cpu=383.75ms elapsed=400.25s tid=0x00007f8c38005f70 nid=0x2a46ed runnable  
+
+"G1 Conc#11" os_prio=0 cpu=235.60ms elapsed=400.25s tid=0x00007f8c380069f0 nid=0x2a46ee runnable  
+
+"G1 Conc#12" os_prio=0 cpu=329.55ms elapsed=400.25s tid=0x00007f8c38007470 nid=0x2a46ef runnable  
+
+"G1 Conc#13" os_prio=0 cpu=323.90ms elapsed=400.25s tid=0x00007f8c38007ef0 nid=0x2a46f0 runnable  
+
+"G1 Conc#14" os_prio=0 cpu=248.85ms elapsed=400.25s tid=0x00007f8c38008970 nid=0x2a46f1 runnable  
+
+"G1 Conc#15" os_prio=0 cpu=409.47ms elapsed=400.25s tid=0x00007f8c380093f0 nid=0x2a46f2 runnable  
+
+"G1 Conc#16" os_prio=0 cpu=295.79ms elapsed=400.25s tid=0x00007f8c38009e70 nid=0x2a46f3 runnable  
+
+"G1 Conc#17" os_prio=0 cpu=301.02ms elapsed=400.25s tid=0x00007f8c3800a8f0 nid=0x2a46f4 runnable  
+
+"G1 Conc#18" os_prio=0 cpu=374.01ms elapsed=400.25s tid=0x00007f8c3800b370 nid=0x2a46f5 runnable  
+
+"G1 Conc#19" os_prio=0 cpu=401.77ms elapsed=400.24s tid=0x00007f8c3800bdf0 nid=0x2a46f6 runnable  
+
+"G1 Conc#20" os_prio=0 cpu=312.19ms elapsed=400.24s tid=0x00007f8c3800c870 nid=0x2a46f7 runnable  
+
+"G1 Conc#21" os_prio=0 cpu=404.97ms elapsed=400.24s tid=0x00007f8c3800d2f0 nid=0x2a46f8 runnable  
+
+"G1 Conc#22" os_prio=0 cpu=413.59ms elapsed=400.24s tid=0x00007f8c3800dd70 nid=0x2a46f9 runnable  
+
+"G1 Refine#0" os_prio=0 cpu=144759.24ms elapsed=407.04s tid=0x00007fcd343195a0 nid=0x2a467f runnable  
+
+"G1 Refine#1" os_prio=0 cpu=18915.87ms elapsed=314.60s tid=0x00007f8c2c000d20 nid=0x2a47d6 runnable  
+
+"G1 Refine#2" os_prio=0 cpu=11559.61ms elapsed=314.60s tid=0x00007f8ba41c43b0 nid=0x2a47d7 runnable  
+
+"G1 Refine#3" os_prio=0 cpu=9113.28ms elapsed=314.60s tid=0x00007f8ac02e6950 nid=0x2a47d8 runnable  
+
+"G1 Refine#4" os_prio=0 cpu=8230.61ms elapsed=314.60s tid=0x00007f8b7c2efbb0 nid=0x2a47d9 runnable  
+
+"G1 Refine#5" os_prio=0 cpu=7786.13ms elapsed=314.60s tid=0x00007f89bc1e9fd0 nid=0x2a47db runnable  
+
+"G1 Refine#6" os_prio=0 cpu=7382.45ms elapsed=314.60s tid=0x00007f89b0602d10 nid=0x2a47dc runnable  
+
+"G1 Refine#7" os_prio=0 cpu=7039.67ms elapsed=314.60s tid=0x00007f8b8c33ad90 nid=0x2a47dd runnable  
+
+"G1 Refine#8" os_prio=0 cpu=6790.36ms elapsed=314.60s tid=0x00007f89b8007aa0 nid=0x2a47de runnable  
+
+"G1 Refine#9" os_prio=0 cpu=6608.88ms elapsed=314.59s tid=0x00007f8b841dd480 nid=0x2a47df runnable  
+
+"G1 Refine#10" os_prio=0 cpu=6222.28ms elapsed=314.59s tid=0x00007f89c404ef90 nid=0x2a47e1 runnable  
+
+"G1 Refine#11" os_prio=0 cpu=6114.55ms elapsed=314.59s tid=0x00007f89b4248d50 nid=0x2a47e3 runnable  
+
+"G1 Refine#12" os_prio=0 cpu=5997.78ms elapsed=314.59s tid=0x00007f89a80126a0 nid=0x2a47e5 runnable  
+
+"G1 Refine#13" os_prio=0 cpu=5787.32ms elapsed=313.25s tid=0x00007f89a04a3f90 nid=0x2a484e runnable  
+
+"G1 Refine#14" os_prio=0 cpu=5522.94ms elapsed=311.81s tid=0x00007f8bb4133430 nid=0x2a4850 runnable  
+
+"G1 Refine#15" os_prio=0 cpu=5437.06ms elapsed=311.80s tid=0x00007f8b90493ee0 nid=0x2a4851 runnable  
+
+"G1 Refine#16" os_prio=0 cpu=4996.37ms elapsed=310.27s tid=0x00007f8b94124e30 nid=0x2a4869 runnable  
+
+"G1 Refine#17" os_prio=0 cpu=5004.36ms elapsed=310.27s tid=0x00007f8b984dcd60 nid=0x2a486a runnable  
+
+"G1 Refine#18" os_prio=0 cpu=4809.19ms elapsed=310.27s tid=0x00007f8bac106bf0 nid=0x2a486b runnable  
+
+"G1 Refine#19" os_prio=0 cpu=4732.78ms elapsed=310.27s tid=0x00007f8bb01ff050 nid=0x2a486c runnable  
+
+"G1 Refine#20" os_prio=0 cpu=4541.07ms elapsed=310.26s tid=0x00007f89a4220360 nid=0x2a486d runnable  
+
+"G1 Refine#21" os_prio=0 cpu=4338.00ms elapsed=310.26s tid=0x00007f8998000be0 nid=0x2a486e runnable  
+
+"G1 Refine#22" os_prio=0 cpu=4291.90ms elapsed=310.21s tid=0x00007f899c000be0 nid=0x2a486f runnable  
+
+"G1 Refine#23" os_prio=0 cpu=4208.80ms elapsed=310.21s tid=0x00007f8990000be0 nid=0x2a4870 runnable  
+
+"G1 Refine#24" os_prio=0 cpu=4116.44ms elapsed=310.21s tid=0x00007f8994000be0 nid=0x2a4871 runnable  
+
+"G1 Refine#25" os_prio=0 cpu=3937.56ms elapsed=310.21s tid=0x00007f8988000be0 nid=0x2a4872 runnable  
+
+"G1 Refine#26" os_prio=0 cpu=3861.28ms elapsed=310.21s tid=0x00007f898c000be0 nid=0x2a4873 runnable  
+
+"G1 Refine#27" os_prio=0 cpu=3649.29ms elapsed=310.21s tid=0x00007f8980000be0 nid=0x2a4874 runnable  
+
+"G1 Refine#28" os_prio=0 cpu=3596.75ms elapsed=310.21s tid=0x00007f8984000be0 nid=0x2a4875 runnable  
+
+"G1 Refine#29" os_prio=0 cpu=3441.13ms elapsed=310.21s tid=0x00007f8978000be0 nid=0x2a4876 runnable  
+
+"G1 Refine#30" os_prio=0 cpu=3375.75ms elapsed=310.21s tid=0x00007f897c000be0 nid=0x2a4877 runnable  
+
+"G1 Refine#31" os_prio=0 cpu=3286.96ms elapsed=310.21s tid=0x00007f8970000be0 nid=0x2a4878 runnable  
+
+"G1 Refine#32" os_prio=0 cpu=3171.48ms elapsed=310.20s tid=0x00007f8974000be0 nid=0x2a4879 runnable  
+
+"G1 Refine#33" os_prio=0 cpu=3030.99ms elapsed=310.20s tid=0x00007f8968000be0 nid=0x2a487a runnable  
+
+"G1 Refine#34" os_prio=0 cpu=3048.05ms elapsed=310.20s tid=0x00007f896c000be0 nid=0x2a487b runnable  
+
+"G1 Refine#35" os_prio=0 cpu=2913.27ms elapsed=310.20s tid=0x00007f8960000be0 nid=0x2a487c runnable  
+
+"G1 Refine#36" os_prio=0 cpu=2774.00ms elapsed=310.20s tid=0x00007f8964000be0 nid=0x2a487d runnable  
+
+"G1 Refine#37" os_prio=0 cpu=2630.43ms elapsed=310.20s tid=0x00007f8958000be0 nid=0x2a487e runnable  
+
+"G1 Refine#38" os_prio=0 cpu=2674.81ms elapsed=310.20s tid=0x00007f895c000be0 nid=0x2a487f runnable  
+
+"G1 Refine#39" os_prio=0 cpu=2457.78ms elapsed=310.20s tid=0x00007f8950000be0 nid=0x2a4880 runnable  
+
+"G1 Refine#40" os_prio=0 cpu=2415.24ms elapsed=309.38s tid=0x00007f8954000be0 nid=0x2a4884 runnable  
+
+"G1 Refine#41" os_prio=0 cpu=2363.31ms elapsed=309.38s tid=0x00007f8948001b40 nid=0x2a4885 runnable  
+
+"G1 Refine#42" os_prio=0 cpu=2338.14ms elapsed=309.37s tid=0x00007f894c0024a0 nid=0x2a4886 runnable  
+
+"G1 Refine#43" os_prio=0 cpu=2221.32ms elapsed=309.37s tid=0x00007f8940000be0 nid=0x2a4887 runnable  
+
+"G1 Refine#44" os_prio=0 cpu=2173.31ms elapsed=309.36s tid=0x00007f8944000be0 nid=0x2a4888 runnable  
+
+"G1 Refine#45" os_prio=0 cpu=2032.41ms elapsed=308.67s tid=0x00007f8938000be0 nid=0x2a48b2 runnable  
+
+"G1 Refine#46" os_prio=0 cpu=2023.53ms elapsed=308.66s tid=0x00007f893c000be0 nid=0x2a48b3 runnable  
+
+"G1 Refine#47" os_prio=0 cpu=1865.06ms elapsed=308.64s tid=0x00007f8930000be0 nid=0x2a48b5 runnable  
+
+"G1 Refine#48" os_prio=0 cpu=1796.10ms elapsed=307.90s tid=0x00007f8934000be0 nid=0x2a48cb runnable  
+
+"G1 Refine#49" os_prio=0 cpu=1646.34ms elapsed=307.90s tid=0x00007f8928000be0 nid=0x2a48cc runnable  
+
+"G1 Refine#50" os_prio=0 cpu=1646.19ms elapsed=307.90s tid=0x00007f892c000be0 nid=0x2a48cd runnable  
+
+"G1 Refine#51" os_prio=0 cpu=1551.72ms elapsed=307.90s tid=0x00007f8920000be0 nid=0x2a48ce runnable  
+
+"G1 Refine#52" os_prio=0 cpu=1544.24ms elapsed=307.90s tid=0x00007f8924000be0 nid=0x2a48cf runnable  
+
+"G1 Refine#53" os_prio=0 cpu=1458.57ms elapsed=307.90s tid=0x00007f8918000be0 nid=0x2a48d0 runnable  
+
+"G1 Refine#54" os_prio=0 cpu=1420.41ms elapsed=307.90s tid=0x00007f891c000be0 nid=0x2a48d1 runnable  
+
+"G1 Refine#55" os_prio=0 cpu=1400.34ms elapsed=307.90s tid=0x00007f8910000be0 nid=0x2a48d2 runnable  
+
+"G1 Refine#56" os_prio=0 cpu=1383.75ms elapsed=307.90s tid=0x00007f8914000be0 nid=0x2a48d3 runnable  
+
+"G1 Refine#57" os_prio=0 cpu=1244.88ms elapsed=307.40s tid=0x00007f8908000be0 nid=0x2a48d4 runnable  
+
+"G1 Refine#58" os_prio=0 cpu=1209.23ms elapsed=304.65s tid=0x00007f890c000be0 nid=0x2a48de runnable  
+
+"G1 Refine#59" os_prio=0 cpu=1199.24ms elapsed=304.65s tid=0x00007f88e4000be0 nid=0x2a48df runnable  
+
+"G1 Refine#60" os_prio=0 cpu=1159.96ms elapsed=304.65s tid=0x00007f88d8000be0 nid=0x2a48e0 runnable  
+
+"G1 Refine#61" os_prio=0 cpu=1115.60ms elapsed=304.64s tid=0x00007f88dc000be0 nid=0x2a48e1 runnable  
+
+"G1 Refine#62" os_prio=0 cpu=1089.28ms elapsed=304.64s tid=0x00007f88d0000be0 nid=0x2a48e2 runnable  
+
+"G1 Refine#63" os_prio=0 cpu=1036.38ms elapsed=302.12s tid=0x00007f88d4000be0 nid=0x2a48e3 runnable  
+
+"G1 Refine#64" os_prio=0 cpu=985.26ms elapsed=302.12s tid=0x00007f88c8000be0 nid=0x2a48e4 runnable  
+
+"G1 Refine#65" os_prio=0 cpu=953.88ms elapsed=302.11s tid=0x00007f88cc000be0 nid=0x2a48e5 runnable  
+
+"G1 Refine#66" os_prio=0 cpu=902.74ms elapsed=302.11s tid=0x00007f88c0000be0 nid=0x2a48e6 runnable  
+
+"G1 Refine#67" os_prio=0 cpu=902.31ms elapsed=302.11s tid=0x00007f88c4000be0 nid=0x2a48e7 runnable  
+
+"G1 Refine#68" os_prio=0 cpu=846.96ms elapsed=302.11s tid=0x00007f88b8000be0 nid=0x2a48e8 runnable  
+
+"G1 Refine#69" os_prio=0 cpu=809.98ms elapsed=302.11s tid=0x00007f88bc000be0 nid=0x2a48e9 runnable  
+
+"G1 Refine#70" os_prio=0 cpu=812.16ms elapsed=302.11s tid=0x00007f88b0000be0 nid=0x2a48ea runnable  
+
+"G1 Refine#71" os_prio=0 cpu=785.66ms elapsed=299.87s tid=0x00007f88b4000be0 nid=0x2a48eb runnable  
+
+"G1 Refine#72" os_prio=0 cpu=751.54ms elapsed=294.11s tid=0x00007f88a8000be0 nid=0x2a4a3c runnable  
+
+"G1 Refine#73" os_prio=0 cpu=703.50ms elapsed=294.11s tid=0x00007f8860000be0 nid=0x2a4a3e runnable  
+
+"G1 Refine#74" os_prio=0 cpu=698.28ms elapsed=294.11s tid=0x00007f8864000be0 nid=0x2a4a3f runnable  
+
+"G1 Refine#75" os_prio=0 cpu=641.31ms elapsed=294.11s tid=0x00007f8858000be0 nid=0x2a4a41 runnable  
+
+"G1 Refine#76" os_prio=0 cpu=622.41ms elapsed=294.11s tid=0x00007f885c000be0 nid=0x2a4a45 runnable  
+
+"G1 Refine#77" os_prio=0 cpu=603.09ms elapsed=294.10s tid=0x00007f8850000be0 nid=0x2a4a49 runnable  
+
+"G1 Refine#78" os_prio=0 cpu=550.86ms elapsed=294.10s tid=0x00007f8854000be0 nid=0x2a4a4a runnable  
+
+"G1 Refine#79" os_prio=0 cpu=517.83ms elapsed=289.89s tid=0x00007f8848000be0 nid=0x2a4da7 runnable  
+
+"G1 Refine#80" os_prio=0 cpu=527.75ms elapsed=289.87s tid=0x00007f884c000be0 nid=0x2a4da8 runnable  
+
+"G1 Refine#81" os_prio=0 cpu=463.10ms elapsed=287.09s tid=0x00007f8840000be0 nid=0x2a4ddf runnable  
+
+"G1 Refine#82" os_prio=0 cpu=453.16ms elapsed=287.08s tid=0x00007f8844000be0 nid=0x2a4de0 runnable  
+
+"G1 Refine#83" os_prio=0 cpu=456.63ms elapsed=283.85s tid=0x00007f8838000be0 nid=0x2a4df7 runnable  
+
+"G1 Refine#84" os_prio=0 cpu=425.76ms elapsed=283.83s tid=0x00007f883c000be0 nid=0x2a4df8 runnable  
+
+"G1 Refine#85" os_prio=0 cpu=392.59ms elapsed=280.18s tid=0x00007f8830000be0 nid=0x2a4fd0 runnable  
+
+"G1 Refine#86" os_prio=0 cpu=396.48ms elapsed=280.18s tid=0x00007f8834000be0 nid=0x2a4fd1 runnable  
+
+"G1 Refine#87" os_prio=0 cpu=390.32ms elapsed=280.18s tid=0x00007f8828000be0 nid=0x2a4fd3 runnable  
+
+"G1 Refine#88" os_prio=0 cpu=367.16ms elapsed=280.18s tid=0x00007f882c000be0 nid=0x2a4fd4 runnable  
+
+"G1 Refine#89" os_prio=0 cpu=376.28ms elapsed=280.17s tid=0x00007f8820000be0 nid=0x2a4fd8 runnable  
+
+"G1 Refine#90" os_prio=0 cpu=342.85ms elapsed=280.17s tid=0x00007f8824000be0 nid=0x2a4fd9 runnable  
+
+"G1 Refine#91" os_prio=0 cpu=338.07ms elapsed=280.15s tid=0x00007f8818000be0 nid=0x2a4fe5 runnable  
+
+"G1 Refine#92" os_prio=0 cpu=310.58ms elapsed=277.40s tid=0x00007f881c000be0 nid=0x2a50bb runnable  
+
+"G1 Service" os_prio=0 cpu=157.77ms elapsed=407.03s tid=0x00007fcd3431a4a0 nid=0x2a4680 runnable  
+
+"VM Periodic Task Thread" os_prio=0 cpu=327.18ms elapsed=406.93s tid=0x00007fcd343d11e0 nid=0x2a468e waiting on condition  
+
+JNI global refs: 33, weak refs: 0
+
+Heap
+ garbage-first heap   total 127434752K, used 41480258K [0x00007f8e9a000000, 0x00007fcd1a000000)
+  region size 32768K, 194 young (6356992K), 25 survivors (819200K)
+ Metaspace       used 27679K, committed 27904K, reserved 1114112K
+  class space    used 2900K, committed 3008K, reserved 1048576K
+
+2024-01-15 11:26:46,736 [WARNING] ANDROID Unable to get new instance of class com.j256.ormlite.android.AndroidLogBackend$AndroidLogBackendFactory, so had to use local log: com.j256.ormlite.android.AndroidLogBackend$AndroidLogBackendFactory
+2024-01-15 11:26:46,737 [WARNING] LOGBACK Unable to get new instance of class com.j256.ormlite.logger.LogbackLogBackend$LogbackLogBackendFactory, so had to use local log: org/slf4j/impl/StaticLoggerBinder
+2024-01-15 11:26:46,738 [WARNING] COMMONS_LOGGING Unable to get new instance of class com.j256.ormlite.logger.CommonsLoggingLogBackend$CommonsLoggingLogBackendFactory, so had to use local log: org/apache/commons/logging/LogFactory
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+2024-01-15 11:26:46,750 [WARNING] LOG4J Unable to get new instance of class com.j256.ormlite.logger.Log4jLogBackend$Log4jLogBackendFactory, so had to use local log: org/apache/log4j/Priority
+11:26:47.321 [main] ERROR reproduction.dcidsubmit.MainClass - Could not write callgraph data to database
+org.postgresql.util.PSQLException: FATAL: Datenbank »dcid-callbacks3« existiert nicht
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2674) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at org.postgresql.core.v3.QueryExecutorImpl.readStartupMessages(QueryExecutorImpl.java:2786) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at org.postgresql.core.v3.QueryExecutorImpl.<init>(QueryExecutorImpl.java:172) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:271) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:51) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:225) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at org.postgresql.Driver.makeConnection(Driver.java:466) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at org.postgresql.Driver.connect(Driver.java:265) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at java.sql.DriverManager.getConnection(DriverManager.java:681) ~[java.sql:?]
+	at java.sql.DriverManager.getConnection(DriverManager.java:190) ~[java.sql:?]
+	at com.j256.ormlite.jdbc.JdbcConnectionSource.makeConnection(JdbcConnectionSource.java:139) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at com.j256.ormlite.jdbc.BaseJdbcConnectionSource.getReadWriteConnection(BaseJdbcConnectionSource.java:154) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at com.j256.ormlite.dao.BaseDaoImpl.create(BaseDaoImpl.java:330) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at reproduction.dcidsubmit.database.DatabaseManager.addToDatabase(DatabaseManager.java:103) ~[JobSubmissionTool-jar-with-dependencies.jar:?]
+	at reproduction.dcidsubmit.FlowDroidSecondStep.main(FlowDroidSecondStep.java:181) [JobSubmissionTool-jar-with-dependencies.jar:?]

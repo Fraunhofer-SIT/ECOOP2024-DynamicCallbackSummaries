@@ -1,0 +1,575 @@
+    public static java.io.File downloadFile(java.lang.String)
+    {
+        java.net.HttpURLConnection $r8;
+        byte[] $r11;
+        java.net.URL $r25;
+        boolean $z0;
+        javax.net.ssl.SSLSocketFactory $r6;
+        java.lang.StringBuilder $r24;
+        java.lang.Throwable $r13, $r14, $r15, $r16, $r17, $r18, $r19, $r20, $r21, $r22, $r23;
+        java.io.ByteArrayOutputStream $r29;
+        java.lang.String[] $r9;
+        java.io.BufferedOutputStream $r12, $r31;
+        java.net.URLConnection $r4;
+        java.lang.StringBuffer $r27;
+        int $i0, $i1;
+        java.lang.String $r0, $r1, $r2;
+        javax.net.ssl.HttpsURLConnection $r5;
+        java.io.FileOutputStream $r30;
+        java.io.IOException $r32;
+        java.io.File $r10, $r28;
+        java.io.InputStream $r3, $r7;
+        kr.co.deotis.wisemobile.common.WMCommonUtil$2 $r26;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r1 = <kr.co.deotis.wisemobile.common.WMCommonUtil: java.lang.String TAG>;
+
+        $r24 = new java.lang.StringBuilder;
+
+        specialinvoke $r24.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("downloadFile() url:");
+
+        virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r2 = virtualinvoke $r24.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <kr.co.deotis.wiseportal.library.common.WiseLog: void d(java.lang.String,java.lang.String)>($r1, $r2);
+
+        $z0 = staticinvoke <kr.co.deotis.wisemobile.common.WMCommonUtil: boolean isNotEmpty(java.lang.String)>($r0);
+
+        if $z0 == 0 goto label001;
+
+        $r0 = virtualinvoke $r0.<java.lang.String: java.lang.String replaceAll(java.lang.String,java.lang.String)>(" ", "%20");
+
+     label001:
+        $r3 = null;
+
+     label002:
+        $r25 = new java.net.URL;
+
+     label003:
+        specialinvoke $r25.<java.net.URL: void <init>(java.lang.String)>($r0);
+
+     label004:
+        $r26 = new kr.co.deotis.wisemobile.common.WMCommonUtil$2;
+
+     label005:
+        specialinvoke $r26.<kr.co.deotis.wisemobile.common.WMCommonUtil$2: void <init>(java.net.URL)>($r25);
+
+        $z0 = virtualinvoke $r0.<java.lang.String: boolean startsWith(java.lang.String)>("https://");
+
+     label006:
+        if $z0 == 0 goto label016;
+
+     label007:
+        $r4 = virtualinvoke $r25.<java.net.URL: java.net.URLConnection openConnection()>();
+
+     label008:
+        $r5 = (javax.net.ssl.HttpsURLConnection) $r4;
+
+     label009:
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setReadTimeout(int)>(7000);
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setConnectTimeout(int)>(5000);
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setDoInput(boolean)>(1);
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setDoOutput(boolean)>(1);
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("User-Agent", "SMART IVR Client");
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setHostnameVerifier(javax.net.ssl.HostnameVerifier)>($r26);
+
+        $r6 = staticinvoke <kr.co.deotis.wisemobile.common.WMCommonUtil: javax.net.ssl.SSLSocketFactory getSSLSocketFactory()>();
+
+     label010:
+        if $r6 == null goto label012;
+
+     label011:
+        $r6 = staticinvoke <kr.co.deotis.wisemobile.common.WMCommonUtil: javax.net.ssl.SSLSocketFactory getSSLSocketFactory()>();
+
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void setSSLSocketFactory(javax.net.ssl.SSLSocketFactory)>($r6);
+
+     label012:
+        $r7 = virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: java.io.InputStream getInputStream()>();
+
+     label013:
+        $i0 = virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: int getResponseCode()>();
+
+     label014:
+        virtualinvoke $r5.<javax.net.ssl.HttpsURLConnection: void disconnect()>();
+
+     label015:
+        goto label021;
+
+     label016:
+        $r4 = virtualinvoke $r25.<java.net.URL: java.net.URLConnection openConnection()>();
+
+     label017:
+        $r8 = (java.net.HttpURLConnection) $r4;
+
+     label018:
+        virtualinvoke $r8.<java.net.HttpURLConnection: void setReadTimeout(int)>(7000);
+
+        virtualinvoke $r8.<java.net.HttpURLConnection: void setConnectTimeout(int)>(5000);
+
+        virtualinvoke $r8.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+        virtualinvoke $r8.<java.net.HttpURLConnection: void setDoInput(boolean)>(1);
+
+        virtualinvoke $r8.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+        virtualinvoke $r8.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("User-Agent", "SMART IVR Client");
+
+        $r7 = virtualinvoke $r8.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+     label019:
+        $i0 = virtualinvoke $r8.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label020:
+        virtualinvoke $r8.<java.net.HttpURLConnection: void disconnect()>();
+
+     label021:
+        if $i0 != 200 goto label083;
+
+     label022:
+        $z0 = virtualinvoke $r0.<java.lang.String: boolean startsWith(java.lang.String)>("https://");
+
+     label023:
+        $r1 = "";
+
+        if $z0 == 0 goto label026;
+
+     label024:
+        $r0 = virtualinvoke $r0.<java.lang.String: java.lang.String replaceAll(java.lang.String,java.lang.String)>("https://", "");
+
+     label025:
+        goto label029;
+
+     label026:
+        $z0 = virtualinvoke $r0.<java.lang.String: boolean startsWith(java.lang.String)>("http://");
+
+     label027:
+        if $z0 == 0 goto label079;
+
+     label028:
+        $r0 = virtualinvoke $r0.<java.lang.String: java.lang.String replaceAll(java.lang.String,java.lang.String)>("http://", "");
+
+     label029:
+        $r9 = virtualinvoke $r0.<java.lang.String: java.lang.String[] split(java.lang.String)>("/");
+
+     label030:
+        $i0 = lengthof $r9;
+
+     label031:
+        if $i0 <= 1 goto label075;
+
+     label032:
+        $r27 = new java.lang.StringBuffer;
+
+     label033:
+        $r24 = new java.lang.StringBuilder;
+
+     label034:
+        specialinvoke $r24.<java.lang.StringBuilder: void <init>()>();
+
+     label035:
+        $r0 = <kr.co.deotis.wiseportal.library.common.WMConst: java.lang.String STORAGE_PAHT>;
+
+     label036:
+        virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/WiseTemp");
+
+        $r0 = virtualinvoke $r24.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r27.<java.lang.StringBuffer: void <init>(java.lang.String)>($r0);
+
+     label037:
+        $i0 = 1;
+
+     label038:
+        $i1 = lengthof $r9;
+
+     label039:
+        if $i0 >= $i1 goto label049;
+
+     label040:
+        $i1 = lengthof $r9;
+
+     label041:
+        $i1 = $i1 - 1;
+
+        if $i1 != $i0 goto label044;
+
+     label042:
+        $r0 = $r9[$i0];
+
+     label043:
+        $r1 = $r0;
+
+        goto label048;
+
+     label044:
+        $r24 = new java.lang.StringBuilder;
+
+     label045:
+        specialinvoke $r24.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+     label046:
+        $r0 = $r9[$i0];
+
+     label047:
+        virtualinvoke $r24.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r0);
+
+        $r0 = virtualinvoke $r24.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r27.<java.lang.StringBuffer: java.lang.StringBuffer append(java.lang.String)>($r0);
+
+     label048:
+        $i0 = $i0 + 1;
+
+        goto label038;
+
+     label049:
+        $r28 = new java.io.File;
+
+     label050:
+        $r0 = virtualinvoke $r27.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        specialinvoke $r28.<java.io.File: void <init>(java.lang.String)>($r0);
+
+        virtualinvoke $r28.<java.io.File: boolean mkdirs()>();
+
+     label051:
+        $r11 = newarray (byte)[1024];
+
+     label052:
+        $r29 = new java.io.ByteArrayOutputStream;
+
+     label053:
+        specialinvoke $r29.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label054:
+        $i0 = virtualinvoke $r7.<java.io.InputStream: int read(byte[])>($r11);
+
+     label055:
+        if $i0 >= 1 goto label073;
+
+     label056:
+        $r11 = virtualinvoke $r29.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label057:
+        $r28 = new java.io.File;
+
+     label058:
+        $r10 = $r28;
+
+     label059:
+        $r0 = virtualinvoke $r27.<java.lang.StringBuffer: java.lang.String toString()>();
+
+        specialinvoke $r28.<java.io.File: void <init>(java.lang.String,java.lang.String)>($r0, $r1);
+
+     label060:
+        $r31 = new java.io.BufferedOutputStream;
+
+     label061:
+        $r12 = $r31;
+
+     label062:
+        $r30 = new java.io.FileOutputStream;
+
+     label063:
+        specialinvoke $r30.<java.io.FileOutputStream: void <init>(java.io.File)>($r28);
+
+        specialinvoke $r31.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r30);
+
+     label064:
+        virtualinvoke $r31.<java.io.BufferedOutputStream: void write(byte[])>($r11);
+
+        virtualinvoke $r31.<java.io.BufferedOutputStream: void flush()>();
+
+     label065:
+        if $r7 == null goto label069;
+
+     label066:
+        virtualinvoke $r7.<java.io.InputStream: void close()>();
+
+     label067:
+        goto label069;
+
+     label068:
+        $r13 := @caughtexception;
+
+        $r32 = (java.io.IOException) $r13;
+
+        virtualinvoke $r32.<java.io.IOException: void printStackTrace()>();
+
+     label069:
+        virtualinvoke $r31.<java.io.BufferedOutputStream: void close()>();
+
+     label070:
+        return $r10;
+
+     label071:
+        $r14 := @caughtexception;
+
+        $r32 = (java.io.IOException) $r14;
+
+        virtualinvoke $r32.<java.io.IOException: void printStackTrace()>();
+
+        return $r10;
+
+     label072:
+        $r15 := @caughtexception;
+
+        goto label091;
+
+     label073:
+        virtualinvoke $r29.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r11, 0, $i0);
+
+     label074:
+        goto label054;
+
+     label075:
+        if $r7 == null goto label111;
+
+     label076:
+        virtualinvoke $r7.<java.io.InputStream: void close()>();
+
+     label077:
+        return null;
+
+     label078:
+        $r16 := @caughtexception;
+
+        $r32 = (java.io.IOException) $r16;
+
+        virtualinvoke $r32.<java.io.IOException: void printStackTrace()>();
+
+        return null;
+
+     label079:
+        if $r7 == null goto label111;
+
+     label080:
+        virtualinvoke $r7.<java.io.InputStream: void close()>();
+
+     label081:
+        return null;
+
+     label082:
+        $r17 := @caughtexception;
+
+        $r32 = (java.io.IOException) $r17;
+
+        virtualinvoke $r32.<java.io.IOException: void printStackTrace()>();
+
+        return null;
+
+     label083:
+        if $r7 == null goto label111;
+
+     label084:
+        virtualinvoke $r7.<java.io.InputStream: void close()>();
+
+     label085:
+        return null;
+
+     label086:
+        $r18 := @caughtexception;
+
+        $r32 = (java.io.IOException) $r18;
+
+        virtualinvoke $r32.<java.io.IOException: void printStackTrace()>();
+
+        return null;
+
+     label087:
+        $r19 := @caughtexception;
+
+        $r12 = null;
+
+        goto label101;
+
+     label088:
+        $r15 := @caughtexception;
+
+        $r12 = null;
+
+        goto label091;
+
+     label089:
+        $r19 := @caughtexception;
+
+        $r12 = null;
+
+        goto label102;
+
+     label090:
+        $r15 := @caughtexception;
+
+        $r12 = null;
+
+        $r7 = null;
+
+     label091:
+        $r32 = (java.io.IOException) $r15;
+
+        virtualinvoke $r32.<java.io.IOException: void printStackTrace()>();
+
+     label092:
+        if $r7 == null goto label096;
+
+     label093:
+        virtualinvoke $r7.<java.io.InputStream: void close()>();
+
+     label094:
+        goto label096;
+
+     label095:
+        $r20 := @caughtexception;
+
+        $r32 = (java.io.IOException) $r20;
+
+        virtualinvoke $r32.<java.io.IOException: void printStackTrace()>();
+
+     label096:
+        if $r12 == null goto label111;
+
+     label097:
+        virtualinvoke $r12.<java.io.BufferedOutputStream: void close()>();
+
+     label098:
+        return null;
+
+     label099:
+        $r21 := @caughtexception;
+
+        $r32 = (java.io.IOException) $r21;
+
+        virtualinvoke $r32.<java.io.IOException: void printStackTrace()>();
+
+        return null;
+
+     label100:
+        $r19 := @caughtexception;
+
+     label101:
+        $r3 = $r7;
+
+     label102:
+        if $r3 == null goto label106;
+
+     label103:
+        virtualinvoke $r3.<java.io.InputStream: void close()>();
+
+     label104:
+        goto label106;
+
+     label105:
+        $r22 := @caughtexception;
+
+        $r32 = (java.io.IOException) $r22;
+
+        virtualinvoke $r32.<java.io.IOException: void printStackTrace()>();
+
+     label106:
+        if $r12 == null goto label110;
+
+     label107:
+        virtualinvoke $r12.<java.io.BufferedOutputStream: void close()>();
+
+     label108:
+        goto label110;
+
+     label109:
+        $r23 := @caughtexception;
+
+        $r32 = (java.io.IOException) $r23;
+
+        virtualinvoke $r32.<java.io.IOException: void printStackTrace()>();
+
+     label110:
+        throw $r19;
+
+     label111:
+        return null;
+
+        catch java.io.IOException from label003 to label004 with label090;
+        catch java.io.IOException from label005 to label006 with label090;
+        catch java.lang.Throwable from label002 to label003 with label089;
+        catch java.lang.Throwable from label003 to label005 with label089;
+        catch java.lang.Throwable from label005 to label006 with label089;
+        catch java.io.IOException from label007 to label008 with label090;
+        catch java.io.IOException from label009 to label010 with label090;
+        catch java.io.IOException from label011 to label013 with label090;
+        catch java.lang.Throwable from label007 to label010 with label089;
+        catch java.lang.Throwable from label011 to label013 with label089;
+        catch java.io.IOException from label013 to label014 with label088;
+        catch java.io.IOException from label014 to label015 with label088;
+        catch java.lang.Throwable from label013 to label014 with label087;
+        catch java.lang.Throwable from label014 to label015 with label087;
+        catch java.io.IOException from label016 to label017 with label090;
+        catch java.io.IOException from label018 to label019 with label090;
+        catch java.lang.Throwable from label016 to label019 with label089;
+        catch java.io.IOException from label019 to label020 with label088;
+        catch java.io.IOException from label020 to label021 with label088;
+        catch java.io.IOException from label022 to label023 with label088;
+        catch java.lang.Throwable from label019 to label020 with label087;
+        catch java.lang.Throwable from label020 to label021 with label087;
+        catch java.lang.Throwable from label022 to label023 with label087;
+        catch java.io.IOException from label024 to label025 with label088;
+        catch java.io.IOException from label026 to label027 with label088;
+        catch java.io.IOException from label028 to label029 with label088;
+        catch java.io.IOException from label029 to label030 with label088;
+        catch java.io.IOException from label034 to label035 with label088;
+        catch java.io.IOException from label036 to label037 with label088;
+        catch java.io.IOException from label045 to label046 with label088;
+        catch java.io.IOException from label047 to label048 with label088;
+        catch java.io.IOException from label050 to label051 with label088;
+        catch java.io.IOException from label053 to label055 with label088;
+        catch java.io.IOException from label056 to label057 with label088;
+        catch java.io.IOException from label059 to label060 with label088;
+        catch java.io.IOException from label063 to label064 with label088;
+        catch java.lang.Throwable from label024 to label025 with label087;
+        catch java.lang.Throwable from label026 to label027 with label087;
+        catch java.lang.Throwable from label028 to label029 with label087;
+        catch java.lang.Throwable from label029 to label031 with label087;
+        catch java.lang.Throwable from label032 to label033 with label087;
+        catch java.lang.Throwable from label033 to label034 with label087;
+        catch java.lang.Throwable from label034 to label037 with label087;
+        catch java.lang.Throwable from label038 to label039 with label087;
+        catch java.lang.Throwable from label040 to label041 with label087;
+        catch java.lang.Throwable from label042 to label043 with label087;
+        catch java.lang.Throwable from label044 to label045 with label087;
+        catch java.lang.Throwable from label045 to label048 with label087;
+        catch java.lang.Throwable from label049 to label050 with label087;
+        catch java.lang.Throwable from label050 to label051 with label087;
+        catch java.lang.Throwable from label052 to label053 with label087;
+        catch java.lang.Throwable from label053 to label055 with label087;
+        catch java.lang.Throwable from label056 to label058 with label087;
+        catch java.lang.Throwable from label059 to label061 with label087;
+        catch java.lang.Throwable from label062 to label063 with label087;
+        catch java.lang.Throwable from label063 to label064 with label087;
+        catch java.io.IOException from label064 to label065 with label072;
+        catch java.lang.Throwable from label064 to label065 with label100;
+        catch java.io.IOException from label066 to label067 with label068;
+        catch java.io.IOException from label069 to label070 with label071;
+        catch java.io.IOException from label073 to label074 with label088;
+        catch java.lang.Throwable from label073 to label074 with label087;
+        catch java.io.IOException from label076 to label077 with label078;
+        catch java.io.IOException from label080 to label081 with label082;
+        catch java.io.IOException from label084 to label085 with label086;
+        catch java.lang.Throwable from label091 to label092 with label100;
+        catch java.io.IOException from label093 to label094 with label095;
+        catch java.io.IOException from label097 to label098 with label099;
+        catch java.io.IOException from label103 to label104 with label105;
+        catch java.io.IOException from label107 to label108 with label109;
+    }

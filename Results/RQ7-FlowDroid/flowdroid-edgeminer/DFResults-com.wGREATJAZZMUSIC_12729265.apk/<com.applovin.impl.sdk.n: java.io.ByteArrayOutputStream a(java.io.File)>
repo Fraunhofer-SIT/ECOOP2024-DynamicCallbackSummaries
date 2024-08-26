@@ -1,0 +1,296 @@
+    public java.io.ByteArrayOutputStream a(java.io.File)
+    {
+        java.lang.Throwable $r17, $r18, $r19, $r20, $r21;
+        byte[] $r16;
+        java.io.ByteArrayOutputStream $r15;
+        com.applovin.impl.sdk.p $r10;
+        com.applovin.impl.sdk.n r0;
+        int $i0;
+        java.lang.String $r12;
+        java.io.FileInputStream $r14;
+        java.lang.Exception $r1, $r2, $r3, $r4, $r5, $r6, $r7, $r8;
+        java.io.File $r9;
+        java.lang.StringBuilder $r11;
+        java.lang.Object $r13;
+
+        r0 := @this: com.applovin.impl.sdk.n;
+
+        $r9 := @parameter0: java.io.File;
+
+        if $r9 != null goto label01;
+
+        return null;
+
+     label01:
+        $r10 = r0.<com.applovin.impl.sdk.n: com.applovin.impl.sdk.p c>;
+
+        $r11 = new java.lang.StringBuilder;
+
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Reading resource from filesystem: ");
+
+        $r12 = virtualinvoke $r9.<java.io.File: java.lang.String getName()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r12);
+
+        $r12 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r10.<com.applovin.impl.sdk.p: void a(java.lang.String,java.lang.String)>("FileManager", $r12);
+
+        $r13 = r0.<com.applovin.impl.sdk.n: java.lang.Object d>;
+
+        entermonitor $r13;
+
+     label02:
+        $r14 = new java.io.FileInputStream;
+
+     label03:
+        specialinvoke $r14.<java.io.FileInputStream: void <init>(java.io.File)>($r9);
+
+     label04:
+        $r15 = new java.io.ByteArrayOutputStream;
+
+     label05:
+        specialinvoke $r15.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label06:
+        $r16 = newarray (byte)[1024];
+
+     label07:
+        $i0 = virtualinvoke $r14.<java.io.FileInputStream: int read(byte[],int,int)>($r16, 0, 1024);
+
+     label08:
+        if $i0 < 0 goto label15;
+
+     label09:
+        virtualinvoke $r15.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r16, 0, $i0);
+
+     label10:
+        goto label07;
+
+     label11:
+        virtualinvoke $r15.<java.io.ByteArrayOutputStream: void close()>();
+
+     label12:
+        virtualinvoke $r14.<java.io.FileInputStream: void close()>();
+
+     label13:
+        exitmonitor $r13;
+
+     label14:
+        return null;
+
+     label15:
+        virtualinvoke $r14.<java.io.FileInputStream: void close()>();
+
+     label16:
+        exitmonitor $r13;
+
+     label17:
+        return $r15;
+
+     label18:
+        $r17 := @caughtexception;
+
+        goto label22;
+
+     label19:
+        $r18 := @caughtexception;
+
+        goto label28;
+
+     label20:
+        $r19 := @caughtexception;
+
+        goto label34;
+
+     label21:
+        $r17 := @caughtexception;
+
+        $r14 = null;
+
+     label22:
+        $r10 = r0.<com.applovin.impl.sdk.n: com.applovin.impl.sdk.p c>;
+
+        virtualinvoke $r10.<com.applovin.impl.sdk.p: void b(java.lang.String,java.lang.String,java.lang.Throwable)>("FileManager", "Unknown failure to read file.", $r17);
+
+     label23:
+        if $r14 == null goto label25;
+
+     label24:
+        virtualinvoke $r14.<java.io.FileInputStream: void close()>();
+
+     label25:
+        exitmonitor $r13;
+
+     label26:
+        return null;
+
+     label27:
+        $r18 := @caughtexception;
+
+        $r14 = null;
+
+     label28:
+        $r10 = r0.<com.applovin.impl.sdk.n: com.applovin.impl.sdk.p c>;
+
+        $r11 = new java.lang.StringBuilder;
+
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Failed to read file: ");
+
+        $r12 = virtualinvoke $r9.<java.io.File: java.lang.String getName()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r12);
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r18);
+
+        $r12 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r10.<com.applovin.impl.sdk.p: void a(java.lang.String,java.lang.String)>("FileManager", $r12);
+
+     label29:
+        if $r14 == null goto label31;
+
+     label30:
+        virtualinvoke $r14.<java.io.FileInputStream: void close()>();
+
+     label31:
+        exitmonitor $r13;
+
+     label32:
+        return null;
+
+     label33:
+        $r19 := @caughtexception;
+
+        $r14 = null;
+
+     label34:
+        $r10 = r0.<com.applovin.impl.sdk.n: com.applovin.impl.sdk.p c>;
+
+        $r11 = new java.lang.StringBuilder;
+
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("File not found. ");
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r19);
+
+        $r12 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r10.<com.applovin.impl.sdk.p: void b(java.lang.String,java.lang.String)>("FileManager", $r12);
+
+     label35:
+        if $r14 == null goto label37;
+
+     label36:
+        virtualinvoke $r14.<java.io.FileInputStream: void close()>();
+
+     label37:
+        exitmonitor $r13;
+
+     label38:
+        return null;
+
+     label39:
+        $r20 := @caughtexception;
+
+        if $r14 == null goto label43;
+
+     label40:
+        virtualinvoke $r14.<java.io.FileInputStream: void close()>();
+
+     label41:
+        goto label43;
+
+     label42:
+        $r21 := @caughtexception;
+
+        goto label44;
+
+     label43:
+        throw $r20;
+
+     label44:
+        exitmonitor $r13;
+
+     label45:
+        throw $r21;
+
+     label46:
+        $r1 := @caughtexception;
+
+        goto label11;
+
+     label47:
+        $r2 := @caughtexception;
+
+        goto label12;
+
+     label48:
+        $r3 := @caughtexception;
+
+        goto label13;
+
+     label49:
+        $r4 := @caughtexception;
+
+        goto label16;
+
+     label50:
+        $r5 := @caughtexception;
+
+        goto label25;
+
+     label51:
+        $r6 := @caughtexception;
+
+        goto label31;
+
+     label52:
+        $r7 := @caughtexception;
+
+        goto label37;
+
+     label53:
+        $r8 := @caughtexception;
+
+        goto label43;
+
+        catch java.io.FileNotFoundException from label03 to label04 with label33;
+        catch java.io.IOException from label03 to label04 with label27;
+        catch java.lang.Throwable from label02 to label04 with label21;
+        catch java.io.FileNotFoundException from label05 to label06 with label20;
+        catch java.io.FileNotFoundException from label07 to label08 with label20;
+        catch java.io.IOException from label05 to label06 with label19;
+        catch java.io.IOException from label07 to label08 with label19;
+        catch java.lang.Throwable from label04 to label08 with label18;
+        catch java.lang.Exception from label09 to label10 with label46;
+        catch java.lang.Throwable from label09 to label10 with label18;
+        catch java.lang.Exception from label11 to label12 with label47;
+        catch java.lang.Throwable from label11 to label12 with label18;
+        catch java.lang.Exception from label12 to label13 with label48;
+        catch java.lang.Throwable from label12 to label13 with label42;
+        catch java.lang.Throwable from label13 to label14 with label42;
+        catch java.lang.Exception from label15 to label16 with label49;
+        catch java.lang.Throwable from label15 to label16 with label42;
+        catch java.lang.Throwable from label16 to label17 with label42;
+        catch java.lang.Throwable from label22 to label23 with label39;
+        catch java.lang.Exception from label24 to label25 with label50;
+        catch java.lang.Throwable from label24 to label25 with label42;
+        catch java.lang.Throwable from label25 to label26 with label42;
+        catch java.lang.Throwable from label28 to label29 with label39;
+        catch java.lang.Exception from label30 to label31 with label51;
+        catch java.lang.Throwable from label30 to label31 with label42;
+        catch java.lang.Throwable from label31 to label32 with label42;
+        catch java.lang.Throwable from label34 to label35 with label39;
+        catch java.lang.Exception from label36 to label37 with label52;
+        catch java.lang.Throwable from label36 to label37 with label42;
+        catch java.lang.Throwable from label37 to label38 with label42;
+        catch java.lang.Exception from label40 to label41 with label53;
+        catch java.lang.Throwable from label40 to label41 with label42;
+        catch java.lang.Throwable from label43 to label45 with label42;
+    }

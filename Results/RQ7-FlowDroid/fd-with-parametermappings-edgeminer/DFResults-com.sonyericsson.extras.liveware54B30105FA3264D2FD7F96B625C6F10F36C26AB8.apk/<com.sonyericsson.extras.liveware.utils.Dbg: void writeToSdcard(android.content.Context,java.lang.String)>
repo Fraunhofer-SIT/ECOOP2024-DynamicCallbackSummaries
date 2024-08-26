@@ -1,0 +1,143 @@
+    private static void writeToSdcard(android.content.Context, java.lang.String)
+    {
+        java.lang.Throwable r10, $r11, r12;
+        android.content.Context $r0;
+        java.lang.Object[] $r7;
+        java.util.Date $r3;
+        java.text.SimpleDateFormat $r8;
+        long $l1;
+        int $i0;
+        java.io.OutputStreamWriter $r5;
+        java.lang.String $r1, $r9;
+        boolean z0;
+        java.io.BufferedWriter r2;
+        java.io.FileOutputStream $r6;
+        java.io.File $r4;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 := @parameter1: java.lang.String;
+
+        z0 = 1;
+
+        entermonitor class "Lcom/sonyericsson/extras/liveware/utils/Dbg;";
+
+     label01:
+        $r4 = <com.sonyericsson.extras.liveware.utils.Dbg: java.io.File mShareLogFile>;
+
+     label02:
+        if $r4 != null goto label04;
+
+     label03:
+        exitmonitor class "Lcom/sonyericsson/extras/liveware/utils/Dbg;";
+
+        return;
+
+     label04:
+        $i0 = <android.os.Build$VERSION: int SDK_INT>;
+
+        if $i0 >= 23 goto label03;
+
+        $i0 = staticinvoke <android.support.v4.content.ContextCompat: int checkSelfPermission(android.content.Context,java.lang.String)>(null, "android.permission.WRITE_EXTERNAL_STORAGE");
+
+     label05:
+        if $i0 != 0 goto label20;
+
+     label06:
+        if z0 == 0 goto label03;
+
+     label07:
+        r2 = new java.io.BufferedWriter;
+
+        $r5 = new java.io.OutputStreamWriter;
+
+        $r6 = new java.io.FileOutputStream;
+
+        $r4 = <com.sonyericsson.extras.liveware.utils.Dbg: java.io.File mShareLogFile>;
+
+     label08:
+        specialinvoke $r6.<java.io.FileOutputStream: void <init>(java.io.File,boolean)>($r4, 1);
+
+        specialinvoke $r5.<java.io.OutputStreamWriter: void <init>(java.io.OutputStream,java.lang.String)>($r6, "UTF-8");
+
+        specialinvoke r2.<java.io.BufferedWriter: void <init>(java.io.Writer)>($r5);
+
+     label09:
+        $r3 = <com.sonyericsson.extras.liveware.utils.Dbg: java.util.Date DATE>;
+
+     label10:
+        $l1 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        virtualinvoke $r3.<java.util.Date: void setTime(long)>($l1);
+
+     label11:
+        $r7 = newarray (java.lang.Object)[2];
+
+        $r8 = <com.sonyericsson.extras.liveware.utils.Dbg: java.text.SimpleDateFormat FILE_DATE_FORMAT>;
+
+        $r3 = <com.sonyericsson.extras.liveware.utils.Dbg: java.util.Date DATE>;
+
+     label12:
+        $r9 = virtualinvoke $r8.<java.text.SimpleDateFormat: java.lang.String format(java.util.Date)>($r3);
+
+     label13:
+        $r7[0] = $r9;
+
+        $r7[1] = $r1;
+
+     label14:
+        $r1 = staticinvoke <java.lang.String: java.lang.String format(java.lang.String,java.lang.Object[])>("%s: %s%n", $r7);
+
+        virtualinvoke r2.<java.io.BufferedWriter: void write(java.lang.String)>($r1);
+
+        virtualinvoke r2.<java.io.BufferedWriter: void flush()>();
+
+        virtualinvoke r2.<java.io.BufferedWriter: void close()>();
+
+     label15:
+        goto label03;
+
+     label16:
+        r10 := @caughtexception;
+
+     label17:
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("LiveWare - ", "Error creating logcat writer", r10);
+
+     label18:
+        goto label03;
+
+     label19:
+        $r11 := @caughtexception;
+
+        exitmonitor class "Lcom/sonyericsson/extras/liveware/utils/Dbg;";
+
+        throw $r11;
+
+     label20:
+        z0 = 0;
+
+        goto label06;
+
+     label21:
+        r12 := @caughtexception;
+
+     label22:
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("LiveWare - ", "Error writing to logcat writer", r12);
+
+     label23:
+        goto label03;
+
+        catch java.lang.Throwable from label01 to label02 with label19;
+        catch java.lang.Throwable from label04 to label05 with label19;
+        catch java.io.FileNotFoundException from label08 to label09 with label16;
+        catch java.io.FileNotFoundException from label10 to label11 with label16;
+        catch java.io.FileNotFoundException from label12 to label13 with label16;
+        catch java.io.FileNotFoundException from label14 to label15 with label16;
+        catch java.io.IOException from label08 to label09 with label21;
+        catch java.io.IOException from label10 to label11 with label21;
+        catch java.io.IOException from label12 to label13 with label21;
+        catch java.io.IOException from label14 to label15 with label21;
+        catch java.lang.Throwable from label07 to label15 with label19;
+        catch java.lang.Throwable from label17 to label18 with label19;
+        catch java.lang.Throwable from label22 to label23 with label19;
+    }

@@ -1,0 +1,61 @@
+    public static long x(java.io.InputStream, java.io.OutputStream, i.v.c.d0.c) throws java.io.IOException
+    {
+        java.io.OutputStream $r0;
+        byte[] $r3;
+        long $l0, $l4;
+        i.v.c.d0.b $r4;
+        i.v.c.d0.c $r1;
+        byte $b3;
+        int $i1, $i2;
+        java.io.InputStream $r2;
+
+        $r2 := @parameter0: java.io.InputStream;
+
+        $r0 := @parameter1: java.io.OutputStream;
+
+        $r1 := @parameter2: i.v.c.d0.c;
+
+        $r3 = newarray (byte)[4096];
+
+        $l0 = 0L;
+
+     label1:
+        $i1 = virtualinvoke $r2.<java.io.InputStream: int read(byte[])>($r3);
+
+        if $i1 == -1 goto label4;
+
+        $i2 = 0;
+
+     label2:
+        if $i2 >= $i1 goto label3;
+
+        $b3 = $r3[$i2];
+
+        $l4 = (long) $i2;
+
+        $l4 = $l4 + $l0;
+
+        $r4 = (i.v.c.d0.b) $r1;
+
+        $b3 = virtualinvoke $r4.<i.v.c.d0.b: byte a(byte,long)>($b3, $l4);
+
+        $r3[$i2] = $b3;
+
+        $i2 = $i2 + 1;
+
+        goto label2;
+
+     label3:
+        virtualinvoke $r0.<java.io.OutputStream: void write(byte[],int,int)>($r3, 0, $i1);
+
+        $l4 = (long) $i1;
+
+        $l0 = $l0 + $l4;
+
+        goto label1;
+
+     label4:
+        $l0 = $l0 + 1L;
+
+        return $l0;
+    }

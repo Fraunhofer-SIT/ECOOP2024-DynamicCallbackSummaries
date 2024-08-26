@@ -1,0 +1,93 @@
+    private static void \u0399(o.\u025e)
+    {
+        java.lang.Throwable $r7;
+        android.content.Context $r2;
+        java.io.FileOutputStream $r6;
+        java.lang.Exception $r0, $r8;
+        java.io.File $r10;
+        java.io.BufferedOutputStream $r5;
+        java.io.ObjectOutputStream $r3, $r4;
+        java.lang.String $r9;
+        o.\u025e $r1;
+
+        $r1 := @parameter0: o.\u025e;
+
+        $r2 = staticinvoke <o.\u0142\u026a: android.content.Context \u04c0()>();
+
+        $r3 = null;
+
+     label01:
+        $r4 = new java.io.ObjectOutputStream;
+
+        $r5 = new java.io.BufferedOutputStream;
+
+     label02:
+        $r6 = virtualinvoke $r2.<android.content.Context: java.io.FileOutputStream openFileOutput(java.lang.String,int)>("AppEventsLogger.persistedevents", 0);
+
+        specialinvoke $r5.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r6);
+
+        specialinvoke $r4.<java.io.ObjectOutputStream: void <init>(java.io.OutputStream)>($r5);
+
+     label03:
+        virtualinvoke $r4.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>($r1);
+
+     label04:
+        staticinvoke <o.\u0393\u04c0: void \u0131(java.io.Closeable)>($r4);
+
+        return;
+
+     label05:
+        $r7 := @caughtexception;
+
+        $r3 = $r4;
+
+        goto label12;
+
+     label06:
+        $r8 := @caughtexception;
+
+        $r3 = $r4;
+
+        goto label09;
+
+     label07:
+        $r7 := @caughtexception;
+
+        goto label12;
+
+     label08:
+        $r8 := @caughtexception;
+
+     label09:
+        $r9 = <o.\u024d\u027e: java.lang.String \u0131>;
+
+        staticinvoke <android.util.Log: int w(java.lang.String,java.lang.String,java.lang.Throwable)>($r9, "Got unexpected exception while persisting events: ", $r8);
+
+     label10:
+        $r10 = virtualinvoke $r2.<android.content.Context: java.io.File getFileStreamPath(java.lang.String)>("AppEventsLogger.persistedevents");
+
+        virtualinvoke $r10.<java.io.File: boolean delete()>();
+
+     label11:
+        staticinvoke <o.\u0393\u04c0: void \u0131(java.io.Closeable)>($r3);
+
+        return;
+
+     label12:
+        staticinvoke <o.\u0393\u04c0: void \u0131(java.io.Closeable)>($r3);
+
+        throw $r7;
+
+     label13:
+        $r0 := @caughtexception;
+
+        goto label11;
+
+        catch java.lang.Exception from label02 to label03 with label08;
+        catch java.lang.Throwable from label01 to label03 with label07;
+        catch java.lang.Exception from label03 to label04 with label06;
+        catch java.lang.Throwable from label03 to label04 with label05;
+        catch java.lang.Throwable from label09 to label10 with label07;
+        catch java.lang.Exception from label10 to label11 with label13;
+        catch java.lang.Throwable from label10 to label11 with label07;
+    }

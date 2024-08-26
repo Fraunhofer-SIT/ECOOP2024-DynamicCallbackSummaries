@@ -1,0 +1,153 @@
+    public static byte[] q(java.lang.String)
+    {
+        java.lang.Throwable $r8, $r9;
+        byte[] $r7;
+        java.io.BufferedInputStream $r1, $r10;
+        java.io.ByteArrayOutputStream $r11;
+        com.google.api.services.drive.Drive $r2;
+        com.google.api.services.drive.Drive$Files $r3;
+        java.lang.RuntimeException $r13;
+        java.io.BufferedOutputStream $r6, $r12;
+        com.google.api.services.drive.Drive$Files$Get $r4;
+        int $i0;
+        java.lang.String $r0;
+        java.io.InputStream $r5;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r1 = null;
+
+     label01:
+        $r10 = new java.io.BufferedInputStream;
+
+     label02:
+        $r2 = <j.l.q: com.google.api.services.drive.Drive c>;
+
+     label03:
+        $r3 = virtualinvoke $r2.<com.google.api.services.drive.Drive: com.google.api.services.drive.Drive$Files files()>();
+
+        $r4 = virtualinvoke $r3.<com.google.api.services.drive.Drive$Files: com.google.api.services.drive.Drive$Files$Get get(java.lang.String)>($r0);
+
+        $r5 = virtualinvoke $r4.<com.google.api.services.drive.Drive$Files$Get: java.io.InputStream executeMediaAsInputStream()>();
+
+        specialinvoke $r10.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r5);
+
+     label04:
+        $r11 = new java.io.ByteArrayOutputStream;
+
+     label05:
+        specialinvoke $r11.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label06:
+        $r12 = new java.io.BufferedOutputStream;
+
+     label07:
+        $r6 = $r12;
+
+     label08:
+        specialinvoke $r12.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r11);
+
+     label09:
+        $r7 = newarray (byte)[16384];
+
+     label10:
+        $i0 = virtualinvoke $r10.<java.io.BufferedInputStream: int read(byte[])>($r7);
+
+     label11:
+        if $i0 == -1 goto label14;
+
+     label12:
+        virtualinvoke $r12.<java.io.BufferedOutputStream: void write(byte[],int,int)>($r7, 0, $i0);
+
+     label13:
+        goto label10;
+
+     label14:
+        virtualinvoke $r12.<java.io.BufferedOutputStream: void flush()>();
+
+        $r7 = virtualinvoke $r11.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label15:
+        staticinvoke <j.l.r: void j(java.io.InputStream)>($r10);
+
+        staticinvoke <j.l.r: void k(java.io.OutputStream)>($r12);
+
+        return $r7;
+
+     label16:
+        $r8 := @caughtexception;
+
+        goto label19;
+
+     label17:
+        $r9 := @caughtexception;
+
+        goto label21;
+
+     label18:
+        $r8 := @caughtexception;
+
+        $r6 = null;
+
+     label19:
+        $r1 = $r10;
+
+        goto label27;
+
+     label20:
+        $r9 := @caughtexception;
+
+        $r6 = null;
+
+     label21:
+        $r1 = $r10;
+
+        goto label24;
+
+     label22:
+        $r8 := @caughtexception;
+
+        $r6 = null;
+
+        goto label27;
+
+     label23:
+        $r9 := @caughtexception;
+
+        $r6 = null;
+
+     label24:
+        $r13 = new java.lang.RuntimeException;
+
+     label25:
+        specialinvoke $r13.<java.lang.RuntimeException: void <init>(java.lang.Throwable)>($r9);
+
+        throw $r13;
+
+     label26:
+        $r8 := @caughtexception;
+
+     label27:
+        staticinvoke <j.l.r: void j(java.io.InputStream)>($r1);
+
+        staticinvoke <j.l.r: void k(java.io.OutputStream)>($r6);
+
+        throw $r8;
+
+        catch java.io.IOException from label03 to label04 with label23;
+        catch java.lang.Throwable from label01 to label02 with label22;
+        catch java.lang.Throwable from label02 to label04 with label22;
+        catch java.io.IOException from label05 to label06 with label20;
+        catch java.io.IOException from label08 to label09 with label20;
+        catch java.lang.Throwable from label04 to label05 with label18;
+        catch java.lang.Throwable from label05 to label07 with label18;
+        catch java.lang.Throwable from label08 to label09 with label18;
+        catch java.io.IOException from label10 to label11 with label17;
+        catch java.io.IOException from label12 to label13 with label17;
+        catch java.io.IOException from label14 to label15 with label17;
+        catch java.lang.Throwable from label10 to label11 with label16;
+        catch java.lang.Throwable from label12 to label13 with label16;
+        catch java.lang.Throwable from label14 to label15 with label16;
+        catch java.lang.Throwable from label24 to label25 with label26;
+        catch java.lang.Throwable from label25 to label26 with label26;
+    }

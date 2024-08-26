@@ -1,0 +1,133 @@
+    public static java.lang.String compact(java.lang.String)
+    {
+        byte[] $r0, $r2, $r9;
+        fr.pcsoft.wdjava.core.application.f $r5;
+        java.security.MessageDigest $r7;
+        javax.crypto.spec.SecretKeySpec $r8;
+        javax.crypto.Cipher $r3;
+        java.lang.Exception $r11;
+        javax.crypto.spec.IvParameterSpec $r10;
+        fr.pcsoft.wdjava.core.application.WDProjet $r6;
+        int $i0, $i1;
+        java.lang.StringBuilder $r4;
+        java.lang.String $r1;
+        boolean $z0;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $z0 = staticinvoke <fr.pcsoft.wdjava.core.utils.c0: boolean l(java.lang.String)>($r1);
+
+        if $z0 == 0 goto label01;
+
+        return $r1;
+
+     label01:
+        $r2 = staticinvoke <fr.pcsoft.wdjava.core.utils.p: byte[] a(java.lang.String,int,int)>($r1, 1, 0);
+
+        $r3 = <fr.pcsoft.wdjava.core.context.WDContexte: javax.crypto.Cipher oa>;
+
+        if $r3 != null goto label08;
+
+        $r4 = new java.lang.StringBuilder;
+
+     label02:
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+     label03:
+        $r1 = <fr.pcsoft.wdjava.core.context.WDContexte: java.lang.String zz>;
+
+     label04:
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r5 = staticinvoke <fr.pcsoft.wdjava.core.application.f: fr.pcsoft.wdjava.core.application.f f0()>();
+
+        $r6 = virtualinvoke $r5.<fr.pcsoft.wdjava.core.application.d: fr.pcsoft.wdjava.core.application.WDProjet o()>();
+
+        $r1 = virtualinvoke $r6.<fr.pcsoft.wdjava.core.application.e: java.lang.String getVersionApplication()>();
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r7 = staticinvoke <java.security.MessageDigest: java.security.MessageDigest getInstance(java.lang.String)>("MD5");
+
+        $r0 = virtualinvoke $r1.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8");
+
+        $r0 = virtualinvoke $r7.<java.security.MessageDigest: byte[] digest(byte[])>($r0);
+
+        $r3 = staticinvoke <javax.crypto.Cipher: javax.crypto.Cipher getInstance(java.lang.String)>("AES/CBC/PKCS5Padding");
+
+     label05:
+        <fr.pcsoft.wdjava.core.context.WDContexte: javax.crypto.Cipher oa> = $r3;
+
+        $r8 = new javax.crypto.spec.SecretKeySpec;
+
+     label06:
+        specialinvoke $r8.<javax.crypto.spec.SecretKeySpec: void <init>(byte[],java.lang.String)>($r0, "AES");
+
+     label07:
+        <fr.pcsoft.wdjava.core.context.WDContexte: javax.crypto.spec.SecretKeySpec pa> = $r8;
+
+     label08:
+        $r3 = <fr.pcsoft.wdjava.core.context.WDContexte: javax.crypto.Cipher oa>;
+
+     label09:
+        $i0 = virtualinvoke $r3.<javax.crypto.Cipher: int getBlockSize()>();
+
+        $r9 = newarray (byte)[$i0];
+
+        $i1 = lengthof $r2;
+
+     label10:
+        $i1 = $i1 - $i0;
+
+     label11:
+        $r0 = newarray (byte)[$i1];
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($r2, 0, $r9, 0, $i0);
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>($r2, $i0, $r0, 0, $i1);
+
+     label12:
+        $r3 = <fr.pcsoft.wdjava.core.context.WDContexte: javax.crypto.Cipher oa>;
+
+        $r8 = <fr.pcsoft.wdjava.core.context.WDContexte: javax.crypto.spec.SecretKeySpec pa>;
+
+        $r10 = new javax.crypto.spec.IvParameterSpec;
+
+     label13:
+        specialinvoke $r10.<javax.crypto.spec.IvParameterSpec: void <init>(byte[])>($r9);
+
+        virtualinvoke $r3.<javax.crypto.Cipher: void init(int,java.security.Key,java.security.spec.AlgorithmParameterSpec)>(2, $r8, $r10);
+
+     label14:
+        $r3 = <fr.pcsoft.wdjava.core.context.WDContexte: javax.crypto.Cipher oa>;
+
+     label15:
+        $r2 = virtualinvoke $r3.<javax.crypto.Cipher: byte[] doFinal(byte[])>($r0);
+
+     label16:
+        $r1 = new java.lang.String;
+
+     label17:
+        specialinvoke $r1.<java.lang.String: void <init>(byte[],java.lang.String)>($r2, "UTF-8");
+
+     label18:
+        return $r1;
+
+     label19:
+        $r11 := @caughtexception;
+
+        staticinvoke <fr.pcsoft.wdjava.core.debug.a: void a(java.lang.String,java.lang.Throwable)>("Impossible de d\u00e9crypter la chaine.", $r11);
+
+        return "";
+
+        catch java.lang.Exception from label02 to label03 with label19;
+        catch java.lang.Exception from label04 to label05 with label19;
+        catch java.lang.Exception from label06 to label07 with label19;
+        catch java.lang.Exception from label09 to label10 with label19;
+        catch java.lang.Exception from label11 to label12 with label19;
+        catch java.lang.Exception from label13 to label14 with label19;
+        catch java.lang.Exception from label15 to label16 with label19;
+        catch java.lang.Exception from label17 to label18 with label19;
+    }

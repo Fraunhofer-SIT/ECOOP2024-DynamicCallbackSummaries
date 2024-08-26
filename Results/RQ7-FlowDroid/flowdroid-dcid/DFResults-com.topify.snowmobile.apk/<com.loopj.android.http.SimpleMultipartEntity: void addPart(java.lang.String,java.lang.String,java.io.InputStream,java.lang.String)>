@@ -1,0 +1,75 @@
+    public void addPart(java.lang.String, java.lang.String, java.io.InputStream, java.lang.String) throws java.io.IOException
+    {
+        byte[] r5;
+        java.io.ByteArrayOutputStream $r6;
+        int $i0;
+        com.loopj.android.http.SimpleMultipartEntity r0;
+        java.lang.String $r1, $r2, $r4;
+        java.io.InputStream $r3;
+
+        r0 := @this: com.loopj.android.http.SimpleMultipartEntity;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r3 := @parameter2: java.io.InputStream;
+
+        $r4 := @parameter3: java.lang.String;
+
+        $r6 = r0.<com.loopj.android.http.SimpleMultipartEntity: java.io.ByteArrayOutputStream out>;
+
+        r5 = r0.<com.loopj.android.http.SimpleMultipartEntity: byte[] boundaryLine>;
+
+        virtualinvoke $r6.<java.io.ByteArrayOutputStream: void write(byte[])>(r5);
+
+        $r6 = r0.<com.loopj.android.http.SimpleMultipartEntity: java.io.ByteArrayOutputStream out>;
+
+        r5 = specialinvoke r0.<com.loopj.android.http.SimpleMultipartEntity: byte[] createContentDisposition(java.lang.String,java.lang.String)>($r1, $r2);
+
+        virtualinvoke $r6.<java.io.ByteArrayOutputStream: void write(byte[])>(r5);
+
+        $r6 = r0.<com.loopj.android.http.SimpleMultipartEntity: java.io.ByteArrayOutputStream out>;
+
+        r5 = specialinvoke r0.<com.loopj.android.http.SimpleMultipartEntity: byte[] createContentType(java.lang.String)>($r4);
+
+        virtualinvoke $r6.<java.io.ByteArrayOutputStream: void write(byte[])>(r5);
+
+        $r6 = r0.<com.loopj.android.http.SimpleMultipartEntity: java.io.ByteArrayOutputStream out>;
+
+        r5 = <com.loopj.android.http.SimpleMultipartEntity: byte[] TRANSFER_ENCODING_BINARY>;
+
+        virtualinvoke $r6.<java.io.ByteArrayOutputStream: void write(byte[])>(r5);
+
+        $r6 = r0.<com.loopj.android.http.SimpleMultipartEntity: java.io.ByteArrayOutputStream out>;
+
+        r5 = <com.loopj.android.http.SimpleMultipartEntity: byte[] CR_LF>;
+
+        virtualinvoke $r6.<java.io.ByteArrayOutputStream: void write(byte[])>(r5);
+
+        r5 = newarray (byte)[4096];
+
+     label1:
+        $i0 = virtualinvoke $r3.<java.io.InputStream: int read(byte[])>(r5);
+
+        if $i0 == -1 goto label2;
+
+        $r6 = r0.<com.loopj.android.http.SimpleMultipartEntity: java.io.ByteArrayOutputStream out>;
+
+        virtualinvoke $r6.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>(r5, 0, $i0);
+
+        goto label1;
+
+     label2:
+        $r6 = r0.<com.loopj.android.http.SimpleMultipartEntity: java.io.ByteArrayOutputStream out>;
+
+        r5 = <com.loopj.android.http.SimpleMultipartEntity: byte[] CR_LF>;
+
+        virtualinvoke $r6.<java.io.ByteArrayOutputStream: void write(byte[])>(r5);
+
+        $r6 = r0.<com.loopj.android.http.SimpleMultipartEntity: java.io.ByteArrayOutputStream out>;
+
+        virtualinvoke $r6.<java.io.ByteArrayOutputStream: void flush()>();
+
+        return;
+    }

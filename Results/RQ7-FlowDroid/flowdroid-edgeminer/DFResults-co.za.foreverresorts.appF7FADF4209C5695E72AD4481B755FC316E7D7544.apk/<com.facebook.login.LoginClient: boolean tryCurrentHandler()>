@@ -1,0 +1,61 @@
+    boolean tryCurrentHandler()
+    {
+        com.facebook.login.LoginClient r0;
+        com.facebook.login.LoginClient$Request $r2;
+        java.lang.String $r4, $r5;
+        com.facebook.login.LoginMethodHandler $r1;
+        com.facebook.login.LoginLogger $r3;
+        boolean $z0;
+
+        r0 := @this: com.facebook.login.LoginClient;
+
+        $r1 = virtualinvoke r0.<com.facebook.login.LoginClient: com.facebook.login.LoginMethodHandler getCurrentHandler()>();
+
+        $z0 = virtualinvoke $r1.<com.facebook.login.LoginMethodHandler: boolean needsInternetPermission()>();
+
+        if $z0 == 0 goto label1;
+
+        $z0 = virtualinvoke r0.<com.facebook.login.LoginClient: boolean checkInternetPermission()>();
+
+        if $z0 != 0 goto label1;
+
+        specialinvoke r0.<com.facebook.login.LoginClient: void addLoggingExtra(java.lang.String,java.lang.String,boolean)>("no_internet_permission", "1", 0);
+
+        return 0;
+
+     label1:
+        $r2 = r0.<com.facebook.login.LoginClient: com.facebook.login.LoginClient$Request pendingRequest>;
+
+        $z0 = virtualinvoke $r1.<com.facebook.login.LoginMethodHandler: boolean tryAuthorize(com.facebook.login.LoginClient$Request)>($r2);
+
+        if $z0 == 0 goto label2;
+
+        $r3 = specialinvoke r0.<com.facebook.login.LoginClient: com.facebook.login.LoginLogger getLogger()>();
+
+        $r2 = r0.<com.facebook.login.LoginClient: com.facebook.login.LoginClient$Request pendingRequest>;
+
+        $r4 = virtualinvoke $r2.<com.facebook.login.LoginClient$Request: java.lang.String getAuthId()>();
+
+        $r5 = virtualinvoke $r1.<com.facebook.login.LoginMethodHandler: java.lang.String getNameForLogging()>();
+
+        virtualinvoke $r3.<com.facebook.login.LoginLogger: void logAuthorizationMethodStart(java.lang.String,java.lang.String)>($r4, $r5);
+
+        return $z0;
+
+     label2:
+        $r3 = specialinvoke r0.<com.facebook.login.LoginClient: com.facebook.login.LoginLogger getLogger()>();
+
+        $r2 = r0.<com.facebook.login.LoginClient: com.facebook.login.LoginClient$Request pendingRequest>;
+
+        $r4 = virtualinvoke $r2.<com.facebook.login.LoginClient$Request: java.lang.String getAuthId()>();
+
+        $r5 = virtualinvoke $r1.<com.facebook.login.LoginMethodHandler: java.lang.String getNameForLogging()>();
+
+        virtualinvoke $r3.<com.facebook.login.LoginLogger: void logAuthorizationMethodNotTried(java.lang.String,java.lang.String)>($r4, $r5);
+
+        $r4 = virtualinvoke $r1.<com.facebook.login.LoginMethodHandler: java.lang.String getNameForLogging()>();
+
+        specialinvoke r0.<com.facebook.login.LoginClient: void addLoggingExtra(java.lang.String,java.lang.String,boolean)>("not_tried", $r4, 1);
+
+        return $z0;
+    }

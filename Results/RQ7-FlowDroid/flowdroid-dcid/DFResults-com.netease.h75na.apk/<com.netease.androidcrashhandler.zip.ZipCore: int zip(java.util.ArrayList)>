@@ -1,0 +1,444 @@
+    private int zip(java.util.ArrayList)
+    {
+        java.util.zip.ZipOutputStream $r6, $r18;
+        java.lang.Throwable $r10, $r12, $r13;
+        byte[] $r7;
+        java.io.BufferedInputStream $r3, $r20;
+        long $l2;
+        java.util.ArrayList $r1;
+        java.io.BufferedOutputStream $r17;
+        byte $b3;
+        int $i0, $i1;
+        java.lang.String $r2, $r5, $r9;
+        java.util.zip.ZipEntry $r21;
+        boolean $z0;
+        java.io.FileOutputStream $r16;
+        java.io.IOException $r22;
+        java.io.FileInputStream $r19;
+        java.lang.Exception $r11;
+        java.io.File $r15;
+        com.netease.androidcrashhandler.zip.ZipCore r0;
+        java.lang.StringBuilder $r4, $r14;
+        java.lang.Object $r8;
+
+        r0 := @this: com.netease.androidcrashhandler.zip.ZipCore;
+
+        $r1 := @parameter0: java.util.ArrayList;
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", "ZipCore [zip] start");
+
+        if $r1 == null goto label69;
+
+        $i0 = virtualinvoke $r1.<java.util.ArrayList: int size()>();
+
+        if $i0 < 2 goto label69;
+
+        $r2 = r0.<com.netease.androidcrashhandler.zip.ZipCore: java.lang.String mZipFileName>;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r2);
+
+        if $z0 != 0 goto label69;
+
+        $r2 = r0.<com.netease.androidcrashhandler.zip.ZipCore: java.lang.String mUploadFilePath>;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r2);
+
+        if $z0 != 0 goto label69;
+
+        $r2 = r0.<com.netease.androidcrashhandler.zip.ZipCore: java.lang.String mUploadFilePath>;
+
+        $r3 = null;
+
+     label01:
+        $r14 = new java.lang.StringBuilder;
+
+     label02:
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("ZipCore [zip] zipDirPath=");
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r5 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", $r5);
+
+     label03:
+        $r18 = new java.util.zip.ZipOutputStream;
+
+     label04:
+        $r6 = $r18;
+
+     label05:
+        $r17 = new java.io.BufferedOutputStream;
+
+     label06:
+        $r16 = new java.io.FileOutputStream;
+
+     label07:
+        $r15 = new java.io.File;
+
+     label08:
+        $r5 = r0.<com.netease.androidcrashhandler.zip.ZipCore: java.lang.String mZipFileName>;
+
+        specialinvoke $r15.<java.io.File: void <init>(java.lang.String,java.lang.String)>($r2, $r5);
+
+        specialinvoke $r16.<java.io.FileOutputStream: void <init>(java.io.File)>($r15);
+
+        specialinvoke $r17.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r16);
+
+        specialinvoke $r18.<java.util.zip.ZipOutputStream: void <init>(java.io.OutputStream)>($r17);
+
+     label09:
+        $r7 = newarray (byte)[1024];
+
+        $i0 = 0;
+
+     label10:
+        $i1 = virtualinvoke $r1.<java.util.ArrayList: int size()>();
+
+     label11:
+        if $i0 >= $i1 goto label37;
+
+     label12:
+        $r15 = new java.io.File;
+
+     label13:
+        $r8 = virtualinvoke $r1.<java.util.ArrayList: java.lang.Object get(int)>($i0);
+
+        $r5 = (java.lang.String) $r8;
+
+        specialinvoke $r15.<java.io.File: void <init>(java.lang.String,java.lang.String)>($r2, $r5);
+
+        $z0 = virtualinvoke $r15.<java.io.File: boolean exists()>();
+
+     label14:
+        if $z0 != 0 goto label18;
+
+     label15:
+        $r14 = new java.lang.StringBuilder;
+
+     label16:
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("ZipCore [zip] file name:");
+
+        $r8 = virtualinvoke $r1.<java.util.ArrayList: java.lang.Object get(int)>($i0);
+
+        $r5 = (java.lang.String) $r8;
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" is not exist");
+
+        $r5 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", $r5);
+
+     label17:
+        goto label34;
+
+     label18:
+        $r14 = new java.lang.StringBuilder;
+
+     label19:
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("ZipCore [zip] file name:");
+
+        $r5 = virtualinvoke $r15.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  size:");
+
+        $l2 = virtualinvoke $r15.<java.io.File: long length()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l2);
+
+        $r5 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", $r5);
+
+     label20:
+        $r19 = new java.io.FileInputStream;
+
+     label21:
+        $r15 = new java.io.File;
+
+     label22:
+        $r8 = virtualinvoke $r1.<java.util.ArrayList: java.lang.Object get(int)>($i0);
+
+        $r5 = (java.lang.String) $r8;
+
+        specialinvoke $r15.<java.io.File: void <init>(java.lang.String,java.lang.String)>($r2, $r5);
+
+        specialinvoke $r19.<java.io.FileInputStream: void <init>(java.io.File)>($r15);
+
+     label23:
+        $r20 = new java.io.BufferedInputStream;
+
+     label24:
+        specialinvoke $r20.<java.io.BufferedInputStream: void <init>(java.io.InputStream,int)>($r19, 1024);
+
+     label25:
+        $r21 = new java.util.zip.ZipEntry;
+
+     label26:
+        $r8 = virtualinvoke $r1.<java.util.ArrayList: java.lang.Object get(int)>($i0);
+
+        $r5 = (java.lang.String) $r8;
+
+        $r8 = virtualinvoke $r1.<java.util.ArrayList: java.lang.Object get(int)>($i0);
+
+        $r9 = (java.lang.String) $r8;
+
+        $i1 = virtualinvoke $r9.<java.lang.String: int lastIndexOf(java.lang.String)>("/");
+
+     label27:
+        $i1 = $i1 + 1;
+
+     label28:
+        $r5 = virtualinvoke $r5.<java.lang.String: java.lang.String substring(int)>($i1);
+
+        specialinvoke $r21.<java.util.zip.ZipEntry: void <init>(java.lang.String)>($r5);
+
+        virtualinvoke $r18.<java.util.zip.ZipOutputStream: void putNextEntry(java.util.zip.ZipEntry)>($r21);
+
+     label29:
+        $i1 = virtualinvoke $r20.<java.io.BufferedInputStream: int read(byte[],int,int)>($r7, 0, 1024);
+
+     label30:
+        if $i1 == -1 goto label33;
+
+     label31:
+        virtualinvoke $r18.<java.util.zip.ZipOutputStream: void write(byte[],int,int)>($r7, 0, $i1);
+
+     label32:
+        goto label29;
+
+     label33:
+        $r3 = $r20;
+
+     label34:
+        $i0 = $i0 + 1;
+
+        goto label10;
+
+     label35:
+        $r10 := @caughtexception;
+
+        $r3 = $r20;
+
+        goto label60;
+
+     label36:
+        $r11 := @caughtexception;
+
+        $r3 = $r20;
+
+        goto label48;
+
+     label37:
+        $b3 = 3;
+
+        if $r3 == null goto label41;
+
+     label38:
+        virtualinvoke $r3.<java.io.BufferedInputStream: void close()>();
+
+     label39:
+        goto label41;
+
+     label40:
+        $r12 := @caughtexception;
+
+        goto label43;
+
+     label41:
+        virtualinvoke $r18.<java.util.zip.ZipOutputStream: void close()>();
+
+     label42:
+        return 3;
+
+     label43:
+        $r14 = new java.lang.StringBuilder;
+
+        $r4 = $r14;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+     label44:
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("ZipCore [zip] IOException=");
+
+        virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r12);
+
+        $r2 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", $r2);
+
+        $r22 = (java.io.IOException) $r12;
+
+        virtualinvoke $r22.<java.io.IOException: void printStackTrace()>();
+
+        return $b3;
+
+     label45:
+        $r11 := @caughtexception;
+
+        goto label48;
+
+     label46:
+        $r10 := @caughtexception;
+
+        $r6 = null;
+
+        goto label60;
+
+     label47:
+        $r11 := @caughtexception;
+
+        $r6 = null;
+
+     label48:
+        $r14 = new java.lang.StringBuilder;
+
+     label49:
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("ZipCore [zip] Exception=");
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r11);
+
+        $r2 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", $r2);
+
+     label50:
+        $b3 = 4;
+
+        if $r3 == null goto label54;
+
+     label51:
+        virtualinvoke $r3.<java.io.BufferedInputStream: void close()>();
+
+     label52:
+        goto label54;
+
+     label53:
+        $r12 := @caughtexception;
+
+        goto label57;
+
+     label54:
+        if $r6 == null goto label58;
+
+     label55:
+        virtualinvoke $r6.<java.util.zip.ZipOutputStream: void close()>();
+
+     label56:
+        return 4;
+
+     label57:
+        $r14 = new java.lang.StringBuilder;
+
+        $r4 = $r14;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        goto label44;
+
+     label58:
+        return 4;
+
+     label59:
+        $r10 := @caughtexception;
+
+     label60:
+        if $r3 == null goto label64;
+
+     label61:
+        virtualinvoke $r3.<java.io.BufferedInputStream: void close()>();
+
+     label62:
+        goto label64;
+
+     label63:
+        $r13 := @caughtexception;
+
+        goto label67;
+
+     label64:
+        if $r6 == null goto label68;
+
+     label65:
+        virtualinvoke $r6.<java.util.zip.ZipOutputStream: void close()>();
+
+     label66:
+        goto label68;
+
+     label67:
+        $r14 = new java.lang.StringBuilder;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("ZipCore [zip] IOException=");
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r13);
+
+        $r2 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", $r2);
+
+        $r22 = (java.io.IOException) $r13;
+
+        virtualinvoke $r22.<java.io.IOException: void printStackTrace()>();
+
+     label68:
+        throw $r10;
+
+     label69:
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", "ZipCore [zip] param error");
+
+        return -1;
+
+        catch java.lang.Exception from label02 to label03 with label47;
+        catch java.lang.Exception from label08 to label09 with label47;
+        catch java.lang.Throwable from label01 to label02 with label46;
+        catch java.lang.Throwable from label02 to label04 with label46;
+        catch java.lang.Throwable from label05 to label06 with label46;
+        catch java.lang.Throwable from label06 to label07 with label46;
+        catch java.lang.Throwable from label07 to label08 with label46;
+        catch java.lang.Throwable from label08 to label09 with label46;
+        catch java.lang.Exception from label10 to label11 with label45;
+        catch java.lang.Exception from label13 to label14 with label45;
+        catch java.lang.Throwable from label10 to label11 with label59;
+        catch java.lang.Throwable from label12 to label13 with label59;
+        catch java.lang.Throwable from label13 to label14 with label59;
+        catch java.lang.Exception from label16 to label17 with label45;
+        catch java.lang.Exception from label19 to label20 with label45;
+        catch java.lang.Exception from label22 to label23 with label45;
+        catch java.lang.Exception from label24 to label25 with label45;
+        catch java.lang.Throwable from label15 to label16 with label59;
+        catch java.lang.Throwable from label16 to label17 with label59;
+        catch java.lang.Throwable from label18 to label19 with label59;
+        catch java.lang.Throwable from label19 to label21 with label59;
+        catch java.lang.Throwable from label21 to label22 with label59;
+        catch java.lang.Throwable from label22 to label24 with label59;
+        catch java.lang.Throwable from label24 to label25 with label59;
+        catch java.lang.Exception from label26 to label27 with label36;
+        catch java.lang.Exception from label28 to label30 with label36;
+        catch java.lang.Exception from label31 to label32 with label36;
+        catch java.lang.Throwable from label25 to label26 with label35;
+        catch java.lang.Throwable from label26 to label27 with label35;
+        catch java.lang.Throwable from label28 to label30 with label35;
+        catch java.lang.Throwable from label31 to label32 with label35;
+        catch java.io.IOException from label38 to label39 with label40;
+        catch java.io.IOException from label41 to label42 with label40;
+        catch java.lang.Throwable from label48 to label49 with label59;
+        catch java.lang.Throwable from label49 to label50 with label59;
+        catch java.io.IOException from label51 to label52 with label53;
+        catch java.io.IOException from label55 to label56 with label53;
+        catch java.io.IOException from label61 to label62 with label63;
+        catch java.io.IOException from label65 to label66 with label63;
+    }

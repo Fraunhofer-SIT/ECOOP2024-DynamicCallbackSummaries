@@ -1,0 +1,241 @@
+    public void save()
+    {
+        java.lang.Throwable r9, r10, $r11, $r12, r13, $r14, r15, $r16, r17;
+        android.content.Context $r6;
+        java.util.HashMap $r8;
+        java.util.concurrent.locks.ReentrantReadWriteLock $r4;
+        java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock $r5;
+        java.io.ObjectOutputStream r1, r3;
+        com.openfeint.internal.SyncedStore r0;
+        java.io.FileOutputStream r2, $r7;
+
+        r0 := @this: com.openfeint.internal.SyncedStore;
+
+        r2 = null;
+
+        r3 = null;
+
+        $r4 = r0.<com.openfeint.internal.SyncedStore: java.util.concurrent.locks.ReentrantReadWriteLock mLock>;
+
+        $r5 = virtualinvoke $r4.<java.util.concurrent.locks.ReentrantReadWriteLock: java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock readLock()>();
+
+        virtualinvoke $r5.<java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock: void lock()>();
+
+     label01:
+        $r6 = r0.<com.openfeint.internal.SyncedStore: android.content.Context mContext>;
+
+     label02:
+        $r7 = virtualinvoke $r6.<android.content.Context: java.io.FileOutputStream openFileOutput(java.lang.String,int)>("of_prefs", 1);
+
+     label03:
+        r2 = $r7;
+
+     label04:
+        r1 = new java.io.ObjectOutputStream;
+
+     label05:
+        specialinvoke r1.<java.io.ObjectOutputStream: void <init>(java.io.OutputStream)>($r7);
+
+     label06:
+        $r8 = r0.<com.openfeint.internal.SyncedStore: java.util.HashMap mMap>;
+
+     label07:
+        virtualinvoke r1.<java.io.ObjectOutputStream: void writeObject(java.lang.Object)>($r8);
+
+     label08:
+        if r1 == null goto label35;
+
+     label09:
+        virtualinvoke r1.<java.io.ObjectOutputStream: void close()>();
+
+     label10:
+        $r4 = r0.<com.openfeint.internal.SyncedStore: java.util.concurrent.locks.ReentrantReadWriteLock mLock>;
+
+        $r5 = virtualinvoke $r4.<java.util.concurrent.locks.ReentrantReadWriteLock: java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock readLock()>();
+
+        virtualinvoke $r5.<java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock: void unlock()>();
+
+        return;
+
+     label11:
+        r9 := @caughtexception;
+
+     label12:
+        staticinvoke <com.openfeint.internal.logcat.OFLog: void e(java.lang.String,java.lang.String)>("DistributedPrefs", "Couldn\'t open of_prefs for writing");
+
+     label13:
+        if r3 == null goto label16;
+
+     label14:
+        virtualinvoke r3.<java.io.ObjectOutputStream: void close()>();
+
+     label15:
+        $r4 = r0.<com.openfeint.internal.SyncedStore: java.util.concurrent.locks.ReentrantReadWriteLock mLock>;
+
+        $r5 = virtualinvoke $r4.<java.util.concurrent.locks.ReentrantReadWriteLock: java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock readLock()>();
+
+        virtualinvoke $r5.<java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock: void unlock()>();
+
+        return;
+
+     label16:
+        if r2 == null goto label15;
+
+     label17:
+        virtualinvoke r2.<java.io.OutputStream: void close()>();
+
+     label18:
+        goto label15;
+
+     label19:
+        r10 := @caughtexception;
+
+     label20:
+        staticinvoke <com.openfeint.internal.logcat.OFLog: void e(java.lang.String,java.lang.String)>("DistributedPrefs", "IOException while cleaning up");
+
+     label21:
+        $r4 = r0.<com.openfeint.internal.SyncedStore: java.util.concurrent.locks.ReentrantReadWriteLock mLock>;
+
+        $r5 = virtualinvoke $r4.<java.util.concurrent.locks.ReentrantReadWriteLock: java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock readLock()>();
+
+        virtualinvoke $r5.<java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock: void unlock()>();
+
+        return;
+
+     label22:
+        $r11 := @caughtexception;
+
+        $r4 = r0.<com.openfeint.internal.SyncedStore: java.util.concurrent.locks.ReentrantReadWriteLock mLock>;
+
+        $r5 = virtualinvoke $r4.<java.util.concurrent.locks.ReentrantReadWriteLock: java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock readLock()>();
+
+        virtualinvoke $r5.<java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock: void unlock()>();
+
+        throw $r11;
+
+     label23:
+        $r12 := @caughtexception;
+
+     label24:
+        if r3 == null goto label28;
+
+     label25:
+        virtualinvoke r3.<java.io.ObjectOutputStream: void close()>();
+
+     label26:
+        $r4 = r0.<com.openfeint.internal.SyncedStore: java.util.concurrent.locks.ReentrantReadWriteLock mLock>;
+
+        $r5 = virtualinvoke $r4.<java.util.concurrent.locks.ReentrantReadWriteLock: java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock readLock()>();
+
+        virtualinvoke $r5.<java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock: void unlock()>();
+
+     label27:
+        throw $r12;
+
+     label28:
+        if r2 == null goto label26;
+
+     label29:
+        virtualinvoke r2.<java.io.OutputStream: void close()>();
+
+     label30:
+        goto label26;
+
+     label31:
+        r13 := @caughtexception;
+
+     label32:
+        staticinvoke <com.openfeint.internal.logcat.OFLog: void e(java.lang.String,java.lang.String)>("DistributedPrefs", "IOException while cleaning up");
+
+     label33:
+        $r4 = r0.<com.openfeint.internal.SyncedStore: java.util.concurrent.locks.ReentrantReadWriteLock mLock>;
+
+        $r5 = virtualinvoke $r4.<java.util.concurrent.locks.ReentrantReadWriteLock: java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock readLock()>();
+
+        virtualinvoke $r5.<java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock: void unlock()>();
+
+        goto label27;
+
+     label34:
+        $r14 := @caughtexception;
+
+        $r4 = r0.<com.openfeint.internal.SyncedStore: java.util.concurrent.locks.ReentrantReadWriteLock mLock>;
+
+        $r5 = virtualinvoke $r4.<java.util.concurrent.locks.ReentrantReadWriteLock: java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock readLock()>();
+
+        virtualinvoke $r5.<java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock: void unlock()>();
+
+        throw $r14;
+
+     label35:
+        if $r7 == null goto label10;
+
+     label36:
+        virtualinvoke $r7.<java.io.OutputStream: void close()>();
+
+     label37:
+        goto label10;
+
+     label38:
+        r15 := @caughtexception;
+
+     label39:
+        staticinvoke <com.openfeint.internal.logcat.OFLog: void e(java.lang.String,java.lang.String)>("DistributedPrefs", "IOException while cleaning up");
+
+     label40:
+        $r4 = r0.<com.openfeint.internal.SyncedStore: java.util.concurrent.locks.ReentrantReadWriteLock mLock>;
+
+        $r5 = virtualinvoke $r4.<java.util.concurrent.locks.ReentrantReadWriteLock: java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock readLock()>();
+
+        virtualinvoke $r5.<java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock: void unlock()>();
+
+        return;
+
+     label41:
+        $r16 := @caughtexception;
+
+        $r4 = r0.<com.openfeint.internal.SyncedStore: java.util.concurrent.locks.ReentrantReadWriteLock mLock>;
+
+        $r5 = virtualinvoke $r4.<java.util.concurrent.locks.ReentrantReadWriteLock: java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock readLock()>();
+
+        virtualinvoke $r5.<java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock: void unlock()>();
+
+        throw $r16;
+
+     label42:
+        $r12 := @caughtexception;
+
+        r3 = r1;
+
+        goto label24;
+
+     label43:
+        r17 := @caughtexception;
+
+        r3 = r1;
+
+        goto label12;
+
+        catch java.io.IOException from label02 to label03 with label11;
+        catch java.io.IOException from label05 to label06 with label11;
+        catch java.lang.Throwable from label01 to label03 with label23;
+        catch java.lang.Throwable from label04 to label06 with label23;
+        catch java.io.IOException from label07 to label08 with label43;
+        catch java.lang.Throwable from label06 to label08 with label42;
+        catch java.io.IOException from label09 to label10 with label38;
+        catch java.lang.Throwable from label09 to label10 with label41;
+        catch java.lang.Throwable from label12 to label13 with label23;
+        catch java.io.IOException from label14 to label15 with label19;
+        catch java.lang.Throwable from label14 to label15 with label22;
+        catch java.io.IOException from label17 to label18 with label19;
+        catch java.lang.Throwable from label17 to label18 with label22;
+        catch java.lang.Throwable from label20 to label21 with label22;
+        catch java.io.IOException from label25 to label26 with label31;
+        catch java.lang.Throwable from label25 to label26 with label34;
+        catch java.io.IOException from label29 to label30 with label31;
+        catch java.lang.Throwable from label29 to label30 with label34;
+        catch java.lang.Throwable from label32 to label33 with label34;
+        catch java.io.IOException from label36 to label37 with label38;
+        catch java.lang.Throwable from label36 to label37 with label41;
+        catch java.lang.Throwable from label39 to label40 with label41;
+    }

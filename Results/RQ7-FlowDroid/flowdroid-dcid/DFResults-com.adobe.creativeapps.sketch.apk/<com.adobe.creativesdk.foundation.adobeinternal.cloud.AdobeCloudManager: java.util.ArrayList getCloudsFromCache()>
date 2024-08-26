@@ -1,0 +1,108 @@
+    protected java.util.ArrayList getCloudsFromCache()
+    {
+        java.util.Iterator $r10;
+        com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud r12;
+        java.util.ArrayList r1, r3, $r9;
+        org.json.JSONObject $r5;
+        com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException r2;
+        com.adobe.creativesdk.foundation.internal.utils.logging.Level $r6;
+        com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementSession $r4;
+        java.lang.StringBuilder $r7;
+        java.lang.Object $r11;
+        java.lang.Class $r13;
+        java.lang.String $r8;
+        com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager r0;
+        boolean $z0;
+
+        r0 := @this: com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager;
+
+        r3 = null;
+
+        $r4 = staticinvoke <com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementSession: com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementSession getSharedSession()>();
+
+        $r5 = virtualinvoke $r4.<com.adobe.creativesdk.foundation.adobeinternal.entitlement.AdobeEntitlementSession: org.json.JSONObject getUserProfileFromCache()>();
+
+        $r6 = <com.adobe.creativesdk.foundation.internal.utils.logging.Level: com.adobe.creativesdk.foundation.internal.utils.logging.Level DEBUG>;
+
+        $r7 = new java.lang.StringBuilder;
+
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>()>();
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("The cached userprofile information = ");
+
+        if $r5 == null goto label6;
+
+        $r8 = virtualinvoke $r5.<org.json.JSONObject: java.lang.String toString()>();
+
+     label1:
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.adobe.creativesdk.foundation.internal.utils.logging.AdobeLogger: void log(com.adobe.creativesdk.foundation.internal.utils.logging.Level,java.lang.String,java.lang.String)>($r6, "AdobeCloudManager", $r8);
+
+        if $r5 == null goto label4;
+
+        r1 = new java.util.ArrayList;
+
+        $r9 = r0.<com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudManager: java.util.ArrayList clouds>;
+
+        specialinvoke r1.<java.util.ArrayList: void <init>(java.util.Collection)>($r9);
+
+     label2:
+        staticinvoke <com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudUtils: boolean getCloudsFromUserProfile(org.json.JSONObject,java.util.List)>($r5, r1);
+
+     label3:
+        $z0 = virtualinvoke r1.<java.util.ArrayList: boolean isEmpty()>();
+
+        if $z0 != 0 goto label4;
+
+        r3 = r1;
+
+     label4:
+        if r3 == null goto label8;
+
+        $r10 = virtualinvoke r3.<java.util.ArrayList: java.util.Iterator iterator()>();
+
+     label5:
+        $z0 = interfaceinvoke $r10.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label8;
+
+        $r11 = interfaceinvoke $r10.<java.util.Iterator: java.lang.Object next()>();
+
+        r12 = (com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud) $r11;
+
+        $z0 = staticinvoke <com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloudUtils: boolean isCloudValid(com.adobe.creativesdk.foundation.adobeinternal.cloud.AdobeCloud)>(r12);
+
+        if $z0 != 0 goto label5;
+
+        $r6 = <com.adobe.creativesdk.foundation.internal.utils.logging.Level: com.adobe.creativesdk.foundation.internal.utils.logging.Level DEBUG>;
+
+        staticinvoke <com.adobe.creativesdk.foundation.internal.utils.logging.AdobeLogger: void log(com.adobe.creativesdk.foundation.internal.utils.logging.Level,java.lang.String,java.lang.String)>($r6, "AdobeCloudManager", "Should not hit this condition");
+
+        return null;
+
+     label6:
+        $r8 = "";
+
+        goto label1;
+
+     label7:
+        r2 := @caughtexception;
+
+        $r6 = <com.adobe.creativesdk.foundation.internal.utils.logging.Level: com.adobe.creativesdk.foundation.internal.utils.logging.Level DEBUG>;
+
+        $r13 = class "Lcom/adobe/creativesdk/foundation/adobeinternal/cloud/AdobeCloudManager;";
+
+        $r8 = virtualinvoke $r13.<java.lang.Class: java.lang.String getSimpleName()>();
+
+        staticinvoke <com.adobe.creativesdk.foundation.internal.utils.logging.AdobeLogger: void log(com.adobe.creativesdk.foundation.internal.utils.logging.Level,java.lang.String,java.lang.String,java.lang.Throwable)>($r6, $r8, null, r2);
+
+        goto label3;
+
+     label8:
+        return r3;
+
+        catch com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException from label2 to label3 with label7;
+    }

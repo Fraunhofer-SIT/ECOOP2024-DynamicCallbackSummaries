@@ -1,0 +1,47 @@
+    public static java.lang.String n(android.app.Activity)
+    {
+        android.telephony.TelephonyManager $r2;
+        java.lang.Object $r1;
+        java.lang.StringBuilder $r5;
+        java.lang.String $r3;
+        android.app.Activity $r0;
+        java.lang.Exception $r4;
+
+        $r0 := @parameter0: android.app.Activity;
+
+     label1:
+        $r1 = virtualinvoke $r0.<android.app.Activity: java.lang.Object getSystemService(java.lang.String)>("phone");
+
+        $r2 = (android.telephony.TelephonyManager) $r1;
+
+        $r3 = virtualinvoke $r2.<android.telephony.TelephonyManager: java.lang.String getNetworkOperatorName()>();
+
+     label2:
+        if $r3 != null goto label4;
+
+        return null;
+
+     label3:
+        $r4 := @caughtexception;
+
+        $r5 = new java.lang.StringBuilder;
+
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>()>();
+
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("getNetworkOperatorName e:");
+
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r4);
+
+        $r3 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.pollfish.f.b: void b(java.lang.String,java.lang.String)>("PollfishUtilities", $r3);
+
+        staticinvoke <com.pollfish.f.b.a: void a(java.lang.Throwable)>($r4);
+
+        return null;
+
+     label4:
+        return $r3;
+
+        catch java.lang.Exception from label1 to label2 with label3;
+    }

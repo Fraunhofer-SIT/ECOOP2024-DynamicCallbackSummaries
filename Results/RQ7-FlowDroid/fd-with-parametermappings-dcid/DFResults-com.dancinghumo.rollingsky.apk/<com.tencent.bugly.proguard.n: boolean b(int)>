@@ -1,0 +1,221 @@
+    private boolean b(int)
+    {
+        java.lang.Throwable $r12;
+        java.lang.Object[] $r13;
+        long $l1, $l3;
+        java.util.ArrayList $r6, $r7, $r14;
+        byte $b4;
+        int $i0, $i2;
+        java.lang.String $r1, $r11;
+        boolean $z0;
+        java.util.Iterator $r8;
+        java.lang.Exception $r2, $r3, $r4;
+        java.util.List $r5;
+        com.tencent.bugly.proguard.m $r10;
+        com.tencent.bugly.proguard.n r0;
+        java.lang.Object $r9;
+
+        r0 := @this: com.tencent.bugly.proguard.n;
+
+        $i0 := @parameter0: int;
+
+        entermonitor r0;
+
+     label01:
+        $r5 = specialinvoke r0.<com.tencent.bugly.proguard.n: java.util.List c(int)>($i0);
+
+     label02:
+        if $r5 != null goto label03;
+
+        exitmonitor r0;
+
+        return 0;
+
+     label03:
+        $l1 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+     label04:
+        $r7 = new java.util.ArrayList;
+
+        $r6 = $r7;
+
+     label05:
+        specialinvoke $r7.<java.util.ArrayList: void <init>()>();
+
+     label06:
+        $r14 = new java.util.ArrayList;
+
+     label07:
+        specialinvoke $r14.<java.util.ArrayList: void <init>()>();
+
+        $r8 = interfaceinvoke $r5.<java.util.List: java.util.Iterator iterator()>();
+
+     label08:
+        $z0 = interfaceinvoke $r8.<java.util.Iterator: boolean hasNext()>();
+
+     label09:
+        if $z0 == 0 goto label21;
+
+     label10:
+        $r9 = interfaceinvoke $r8.<java.util.Iterator: java.lang.Object next()>();
+
+        $r10 = (com.tencent.bugly.proguard.m) $r9;
+
+        $r1 = $r10.<com.tencent.bugly.proguard.m: java.lang.String b>;
+
+     label11:
+        if $r1 == null goto label17;
+
+     label12:
+        $r11 = $r10.<com.tencent.bugly.proguard.m: java.lang.String b>;
+
+        $r1 = r0.<com.tencent.bugly.proguard.n: java.lang.String d>;
+
+        $z0 = virtualinvoke $r11.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>($r1);
+
+     label13:
+        if $z0 == 0 goto label17;
+
+     label14:
+        $i2 = $r10.<com.tencent.bugly.proguard.m: int d>;
+
+     label15:
+        if $i2 <= 0 goto label17;
+
+     label16:
+        interfaceinvoke $r6.<java.util.List: boolean add(java.lang.Object)>($r10);
+
+     label17:
+        $l3 = $r10.<com.tencent.bugly.proguard.m: long c>;
+
+     label18:
+        $l3 = $l3 + 86400000L;
+
+        $b4 = $l3 cmp $l1;
+
+        $i2 = (int) $b4;
+
+        if $i2 >= 0 goto label08;
+
+     label19:
+        interfaceinvoke $r14.<java.util.List: boolean add(java.lang.Object)>($r10);
+
+     label20:
+        goto label08;
+
+     label21:
+        staticinvoke <java.util.Collections: void sort(java.util.List)>($r6);
+
+        $i2 = interfaceinvoke $r6.<java.util.List: int size()>();
+
+     label22:
+        if $i2 < 2 goto label32;
+
+     label23:
+        $i2 = interfaceinvoke $r6.<java.util.List: int size()>();
+
+     label24:
+        if $i2 <= 0 goto label31;
+
+     label25:
+        $i2 = interfaceinvoke $r6.<java.util.List: int size()>();
+
+     label26:
+        $i2 = $i2 - 1;
+
+     label27:
+        $r9 = interfaceinvoke $r6.<java.util.List: java.lang.Object get(int)>($i2);
+
+        $r10 = (com.tencent.bugly.proguard.m) $r9;
+
+        $l3 = $r10.<com.tencent.bugly.proguard.m: long c>;
+
+     label28:
+        $l3 = $l3 + 86400000L;
+
+        $b4 = $l3 cmp $l1;
+
+        $i2 = (int) $b4;
+
+        if $i2 >= 0 goto label31;
+
+     label29:
+        interfaceinvoke $r5.<java.util.List: void clear()>();
+
+        specialinvoke r0.<com.tencent.bugly.proguard.n: void a(int,java.util.List)>($i0, $r5);
+
+     label30:
+        exitmonitor r0;
+
+        return 0;
+
+     label31:
+        exitmonitor r0;
+
+        return 1;
+
+     label32:
+        interfaceinvoke $r5.<java.util.List: boolean removeAll(java.util.Collection)>($r14);
+
+        specialinvoke r0.<com.tencent.bugly.proguard.n: void a(int,java.util.List)>($i0, $r5);
+
+     label33:
+        exitmonitor r0;
+
+        return 0;
+
+     label34:
+        $r12 := @caughtexception;
+
+        goto label37;
+
+     label35:
+        $r13 = newarray (java.lang.Object)[0];
+
+        staticinvoke <com.tencent.bugly.proguard.x: boolean e(java.lang.String,java.lang.Object[])>("isFrequentCrash failed", $r13);
+
+     label36:
+        exitmonitor r0;
+
+        return 0;
+
+     label37:
+        exitmonitor r0;
+
+        throw $r12;
+
+     label38:
+        $r2 := @caughtexception;
+
+        goto label35;
+
+     label39:
+        $r3 := @caughtexception;
+
+        goto label35;
+
+     label40:
+        $r4 := @caughtexception;
+
+        goto label35;
+
+        catch java.lang.Exception from label01 to label02 with label38;
+        catch java.lang.Throwable from label01 to label02 with label34;
+        catch java.lang.Exception from label03 to label04 with label39;
+        catch java.lang.Exception from label05 to label06 with label39;
+        catch java.lang.Exception from label07 to label09 with label39;
+        catch java.lang.Exception from label10 to label11 with label39;
+        catch java.lang.Exception from label12 to label13 with label39;
+        catch java.lang.Exception from label14 to label15 with label39;
+        catch java.lang.Exception from label16 to label18 with label39;
+        catch java.lang.Exception from label19 to label20 with label39;
+        catch java.lang.Exception from label21 to label22 with label39;
+        catch java.lang.Exception from label23 to label24 with label39;
+        catch java.lang.Exception from label25 to label26 with label39;
+        catch java.lang.Exception from label27 to label28 with label39;
+        catch java.lang.Exception from label29 to label30 with label39;
+        catch java.lang.Throwable from label03 to label30 with label34;
+        catch java.lang.Exception from label32 to label33 with label40;
+        catch java.lang.Throwable from label32 to label33 with label34;
+        catch java.lang.Throwable from label35 to label36 with label34;
+    }

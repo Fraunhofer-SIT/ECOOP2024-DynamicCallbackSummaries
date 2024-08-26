@@ -1,0 +1,68 @@
+    private java.lang.String e(java.lang.String)
+    {
+        byte[] $r3, $r4;
+        j.l.p r0;
+        java.lang.RuntimeException $r8;
+        javax.crypto.Cipher $r5;
+        java.lang.Exception $r7;
+        javax.crypto.spec.IvParameterSpec $r1;
+        int $i0;
+        java.lang.String $r2;
+        javax.crypto.SecretKey $r6;
+        boolean $z0;
+
+        r0 := @this: j.l.p;
+
+        $r2 := @parameter0: java.lang.String;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r2);
+
+        if $z0 == 0 goto label1;
+
+        return $r2;
+
+     label1:
+        $r3 = staticinvoke <android.util.Base64: byte[] decode(java.lang.String,int)>($r2, 2);
+
+        $r4 = staticinvoke <java.util.Arrays: byte[] copyOfRange(byte[],int,int)>($r3, 0, 16);
+
+        $i0 = lengthof $r3;
+
+        $r3 = staticinvoke <java.util.Arrays: byte[] copyOfRange(byte[],int,int)>($r3, 16, $i0);
+
+        $r5 = staticinvoke <javax.crypto.Cipher: javax.crypto.Cipher getInstance(java.lang.String)>("AES/CBC/PKCS5Padding");
+
+        $r6 = r0.<j.l.p: javax.crypto.SecretKey b>;
+
+     label2:
+        $r1 = new javax.crypto.spec.IvParameterSpec;
+
+     label3:
+        specialinvoke $r1.<javax.crypto.spec.IvParameterSpec: void <init>(byte[])>($r4);
+
+        virtualinvoke $r5.<javax.crypto.Cipher: void init(int,java.security.Key,java.security.spec.AlgorithmParameterSpec)>(2, $r6, $r1);
+
+        $r4 = virtualinvoke $r5.<javax.crypto.Cipher: byte[] doFinal(byte[])>($r3);
+
+     label4:
+        $r2 = new java.lang.String;
+
+     label5:
+        specialinvoke $r2.<java.lang.String: void <init>(byte[],java.lang.String)>($r4, "UTF-8");
+
+     label6:
+        return $r2;
+
+     label7:
+        $r7 := @caughtexception;
+
+        $r8 = new java.lang.RuntimeException;
+
+        specialinvoke $r8.<java.lang.RuntimeException: void <init>(java.lang.Throwable)>($r7);
+
+        throw $r8;
+
+        catch java.lang.Exception from label1 to label2 with label7;
+        catch java.lang.Exception from label3 to label4 with label7;
+        catch java.lang.Exception from label5 to label6 with label7;
+    }

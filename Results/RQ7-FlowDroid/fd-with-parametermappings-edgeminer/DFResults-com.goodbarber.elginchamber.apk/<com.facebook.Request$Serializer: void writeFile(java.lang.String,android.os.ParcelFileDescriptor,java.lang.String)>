@@ -1,0 +1,175 @@
+    public void writeFile(java.lang.String, android.os.ParcelFileDescriptor, java.lang.String) throws java.io.IOException
+    {
+        com.facebook.internal.Logger $r8;
+        java.lang.Throwable $r13;
+        byte[] r3;
+        android.os.ParcelFileDescriptor $r2;
+        java.lang.Object[] $r7;
+        java.io.BufferedInputStream r12, $r16;
+        long $l1;
+        java.lang.Integer $r10;
+        com.facebook.Request$Serializer r0;
+        int i0, $i2;
+        java.lang.String $r1, $r4;
+        boolean $z0;
+        java.io.OutputStream $r5;
+        com.facebook.ProgressNoopOutputStream $r6;
+        java.lang.StringBuilder $r9, $r14;
+        android.os.ParcelFileDescriptor$AutoCloseInputStream r11, $r15;
+
+        r0 := @this: com.facebook.Request$Serializer;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: android.os.ParcelFileDescriptor;
+
+        $r4 := @parameter2: java.lang.String;
+
+        if $r4 != null goto label01;
+
+        $r4 = "content/unknown";
+
+     label01:
+        virtualinvoke r0.<com.facebook.Request$Serializer: void writeContentDisposition(java.lang.String,java.lang.String,java.lang.String)>($r1, $r1, $r4);
+
+        i0 = 0;
+
+        $r5 = r0.<com.facebook.Request$Serializer: java.io.OutputStream outputStream>;
+
+        $z0 = $r5 instanceof com.facebook.ProgressNoopOutputStream;
+
+        if $z0 == 0 goto label03;
+
+        $r5 = r0.<com.facebook.Request$Serializer: java.io.OutputStream outputStream>;
+
+        $r6 = (com.facebook.ProgressNoopOutputStream) $r5;
+
+        $l1 = virtualinvoke $r2.<android.os.ParcelFileDescriptor: long getStatSize()>();
+
+        virtualinvoke $r6.<com.facebook.ProgressNoopOutputStream: void addProgress(long)>($l1);
+
+     label02:
+        $r7 = newarray (java.lang.Object)[0];
+
+        virtualinvoke r0.<com.facebook.Request$Serializer: void writeLine(java.lang.String,java.lang.Object[])>("", $r7);
+
+        virtualinvoke r0.<com.facebook.Request$Serializer: void writeRecordBoundary()>();
+
+        $r8 = r0.<com.facebook.Request$Serializer: com.facebook.internal.Logger logger>;
+
+        if $r8 == null goto label21;
+
+        $r8 = r0.<com.facebook.Request$Serializer: com.facebook.internal.Logger logger>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        $r9 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("    ");
+
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r7 = newarray (java.lang.Object)[1];
+
+        $r10 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(i0);
+
+        $r7[0] = $r10;
+
+        $r4 = staticinvoke <java.lang.String: java.lang.String format(java.lang.String,java.lang.Object[])>("<Data: %d>", $r7);
+
+        virtualinvoke $r8.<com.facebook.internal.Logger: void appendKeyValue(java.lang.String,java.lang.Object)>($r1, $r4);
+
+        return;
+
+     label03:
+        r11 = null;
+
+        r12 = null;
+
+     label04:
+        $r15 = new android.os.ParcelFileDescriptor$AutoCloseInputStream;
+
+     label05:
+        specialinvoke $r15.<android.os.ParcelFileDescriptor$AutoCloseInputStream: void <init>(android.os.ParcelFileDescriptor)>($r2);
+
+     label06:
+        $r16 = new java.io.BufferedInputStream;
+
+     label07:
+        specialinvoke $r16.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r15);
+
+     label08:
+        r3 = newarray (byte)[8192];
+
+     label09:
+        $i2 = virtualinvoke $r16.<java.io.BufferedInputStream: int read(byte[])>(r3);
+
+     label10:
+        if $i2 == -1 goto label13;
+
+     label11:
+        $r5 = r0.<com.facebook.Request$Serializer: java.io.OutputStream outputStream>;
+
+        virtualinvoke $r5.<java.io.OutputStream: void write(byte[],int,int)>(r3, 0, $i2);
+
+     label12:
+        i0 = i0 + $i2;
+
+        goto label09;
+
+     label13:
+        if $r16 == null goto label14;
+
+        virtualinvoke $r16.<java.io.BufferedInputStream: void close()>();
+
+     label14:
+        if $r15 == null goto label02;
+
+        virtualinvoke $r15.<android.os.ParcelFileDescriptor$AutoCloseInputStream: void close()>();
+
+        goto label02;
+
+     label15:
+        $r13 := @caughtexception;
+
+     label16:
+        if r12 == null goto label17;
+
+        virtualinvoke r12.<java.io.BufferedInputStream: void close()>();
+
+     label17:
+        if r11 == null goto label18;
+
+        virtualinvoke r11.<android.os.ParcelFileDescriptor$AutoCloseInputStream: void close()>();
+
+     label18:
+        throw $r13;
+
+     label19:
+        $r13 := @caughtexception;
+
+        r11 = $r15;
+
+        goto label16;
+
+     label20:
+        $r13 := @caughtexception;
+
+        r12 = $r16;
+
+        r11 = $r15;
+
+        goto label16;
+
+     label21:
+        return;
+
+        catch java.lang.Throwable from label04 to label05 with label15;
+        catch java.lang.Throwable from label05 to label06 with label15;
+        catch java.lang.Throwable from label06 to label07 with label19;
+        catch java.lang.Throwable from label07 to label08 with label19;
+        catch java.lang.Throwable from label09 to label10 with label20;
+        catch java.lang.Throwable from label11 to label12 with label20;
+    }

@@ -1,0 +1,191 @@
+    public static byte[] d(java.io.File)
+    {
+        java.lang.Throwable $r5, $r6;
+        byte[] $r1, $r2, $r3;
+        long $l0;
+        byte $b1;
+        int $i2, $i3, $i4, $i5;
+        java.lang.String $r4;
+        kotlin.io.d $r8;
+        java.io.FileInputStream $r7;
+        java.io.File $r0;
+        java.lang.StringBuilder $r9;
+        java.lang.OutOfMemoryError $r10;
+
+        $r0 := @parameter0: java.io.File;
+
+        staticinvoke <kotlin.jvm.internal.o: void i(java.lang.Object,java.lang.String)>($r0, "<this>");
+
+        $r7 = new java.io.FileInputStream;
+
+        specialinvoke $r7.<java.io.FileInputStream: void <init>(java.io.File)>($r0);
+
+     label01:
+        $l0 = virtualinvoke $r0.<java.io.File: long length()>();
+
+     label02:
+        $b1 = $l0 cmp 2147483647L;
+
+        $i2 = (int) $b1;
+
+        if $i2 > 0 goto label25;
+
+        $i2 = (int) $l0;
+
+     label03:
+        $r1 = newarray (byte)[$i2];
+
+     label04:
+        $i3 = $i2;
+
+        $i4 = 0;
+
+     label05:
+        if $i3 <= 0 goto label13;
+
+     label06:
+        $i5 = virtualinvoke $r7.<java.io.FileInputStream: int read(byte[],int,int)>($r1, $i4, $i3);
+
+     label07:
+        if $i5 < 0 goto label08;
+
+        $i3 = $i3 - $i5;
+
+        $i4 = $i4 + $i5;
+
+        goto label05;
+
+     label08:
+        if $i3 <= 0 goto label13;
+
+     label09:
+        $r2 = staticinvoke <java.util.Arrays: byte[] copyOf(byte[],int)>($r1, $i4);
+
+     label10:
+        $r1 = $r2;
+
+     label11:
+        staticinvoke <kotlin.jvm.internal.o: void h(java.lang.Object,java.lang.String)>($r2, "copyOf(this, newSize)");
+
+     label12:
+        goto label21;
+
+     label13:
+        $i3 = virtualinvoke $r7.<java.io.FileInputStream: int read()>();
+
+     label14:
+        if $i3 == -1 goto label21;
+
+     label15:
+        $r8 = new kotlin.io.d;
+
+     label16:
+        specialinvoke $r8.<kotlin.io.d: void <init>(int)>(8193);
+
+        virtualinvoke $r8.<java.io.ByteArrayOutputStream: void write(int)>($i3);
+
+        staticinvoke <kotlin.io.a: long b(java.io.InputStream,java.io.OutputStream,int,int,java.lang.Object)>($r7, $r8, 0, 2, null);
+
+        $i3 = virtualinvoke $r8.<java.io.ByteArrayOutputStream: int size()>();
+
+     label17:
+        $i3 = $i3 + $i2;
+
+        if $i3 < 0 goto label22;
+
+     label18:
+        $r2 = virtualinvoke $r8.<kotlin.io.d: byte[] a()>();
+
+        $r3 = staticinvoke <java.util.Arrays: byte[] copyOf(byte[],int)>($r1, $i3);
+
+     label19:
+        $r1 = $r3;
+
+     label20:
+        staticinvoke <kotlin.jvm.internal.o: void h(java.lang.Object,java.lang.String)>($r3, "copyOf(this, newSize)");
+
+        $i3 = virtualinvoke $r8.<java.io.ByteArrayOutputStream: int size()>();
+
+        staticinvoke <kotlin.collections.h: byte[] f(byte[],byte[],int,int,int)>($r2, $r3, $i2, 0, $i3);
+
+     label21:
+        staticinvoke <kotlin.io.b: void a(java.io.Closeable,java.lang.Throwable)>($r7, null);
+
+        return $r1;
+
+     label22:
+        $r10 = new java.lang.OutOfMemoryError;
+
+     label23:
+        $r9 = new java.lang.StringBuilder;
+
+     label24:
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("File ");
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r0);
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" is too big to fit in memory.");
+
+        $r4 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r10.<java.lang.OutOfMemoryError: void <init>(java.lang.String)>($r4);
+
+        throw $r10;
+
+     label25:
+        $r10 = new java.lang.OutOfMemoryError;
+
+     label26:
+        $r9 = new java.lang.StringBuilder;
+
+     label27:
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("File ");
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r0);
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" is too big (");
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" bytes) to fit in memory.");
+
+        $r4 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r10.<java.lang.OutOfMemoryError: void <init>(java.lang.String)>($r4);
+
+        throw $r10;
+
+     label28:
+        $r5 := @caughtexception;
+
+     label29:
+        throw $r5;
+
+     label30:
+        $r6 := @caughtexception;
+
+        staticinvoke <kotlin.io.b: void a(java.io.Closeable,java.lang.Throwable)>($r7, $r5);
+
+        throw $r6;
+
+        catch java.lang.Throwable from label01 to label02 with label28;
+        catch java.lang.Throwable from label03 to label04 with label28;
+        catch java.lang.Throwable from label06 to label07 with label28;
+        catch java.lang.Throwable from label09 to label10 with label28;
+        catch java.lang.Throwable from label11 to label12 with label28;
+        catch java.lang.Throwable from label13 to label14 with label28;
+        catch java.lang.Throwable from label15 to label16 with label28;
+        catch java.lang.Throwable from label16 to label17 with label28;
+        catch java.lang.Throwable from label18 to label19 with label28;
+        catch java.lang.Throwable from label20 to label21 with label28;
+        catch java.lang.Throwable from label22 to label23 with label28;
+        catch java.lang.Throwable from label23 to label24 with label28;
+        catch java.lang.Throwable from label24 to label26 with label28;
+        catch java.lang.Throwable from label26 to label27 with label28;
+        catch java.lang.Throwable from label27 to label28 with label28;
+        catch java.lang.Throwable from label29 to label30 with label30;
+    }

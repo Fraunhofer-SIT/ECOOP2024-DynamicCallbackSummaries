@@ -1,0 +1,425 @@
+    private java.util.Map getSessionParameters(boolean)
+    {
+        android.content.Context $r3;
+        com.adjust.sdk.SessionParameters $r7;
+        java.lang.Object[] $r12;
+        java.util.HashMap $r1;
+        long $l1;
+        com.adjust.sdk.PackageBuilder r0;
+        android.content.ContentResolver $r4;
+        java.util.Map $r6;
+        com.adjust.sdk.ILogger $r5;
+        int $i0;
+        java.lang.Boolean $r11, $r13;
+        java.lang.String $r10;
+        boolean $z0;
+        com.adjust.sdk.PackageBuilder$ActivityStateCopy $r9;
+        com.adjust.sdk.AdjustConfig $r2;
+        com.adjust.sdk.DeviceInfo $r8;
+
+        r0 := @this: com.adjust.sdk.PackageBuilder;
+
+        $z0 := @parameter0: boolean;
+
+        $r2 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.AdjustConfig adjustConfig>;
+
+        $r3 = $r2.<com.adjust.sdk.AdjustConfig: android.content.Context context>;
+
+        $r4 = virtualinvoke $r3.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+        $r1 = new java.util.HashMap;
+
+        specialinvoke $r1.<java.util.HashMap: void <init>()>();
+
+        $r2 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.AdjustConfig adjustConfig>;
+
+        $r3 = $r2.<com.adjust.sdk.AdjustConfig: android.content.Context context>;
+
+        $r5 = <com.adjust.sdk.PackageBuilder: com.adjust.sdk.ILogger logger>;
+
+        $r6 = staticinvoke <com.adjust.sdk.Reflection: java.util.Map getImeiParameters(android.content.Context,com.adjust.sdk.ILogger)>($r3, $r5);
+
+        if $r6 == null goto label1;
+
+        interfaceinvoke $r1.<java.util.Map: void putAll(java.util.Map)>($r6);
+
+     label1:
+        $r2 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.AdjustConfig adjustConfig>;
+
+        $r3 = $r2.<com.adjust.sdk.AdjustConfig: android.content.Context context>;
+
+        $r5 = <com.adjust.sdk.PackageBuilder: com.adjust.sdk.ILogger logger>;
+
+        $r6 = staticinvoke <com.adjust.sdk.Reflection: java.util.Map getOaidParameters(android.content.Context,com.adjust.sdk.ILogger)>($r3, $r5);
+
+        if $r6 == null goto label2;
+
+        interfaceinvoke $r1.<java.util.Map: void putAll(java.util.Map)>($r6);
+
+     label2:
+        if $z0 != 0 goto label3;
+
+        $r7 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.SessionParameters sessionParameters>;
+
+        $r6 = $r7.<com.adjust.sdk.SessionParameters: java.util.Map callbackParameters>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addMapJson(java.util.Map,java.lang.String,java.util.Map)>($r1, "callback_params", $r6);
+
+        $r7 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.SessionParameters sessionParameters>;
+
+        $r6 = $r7.<com.adjust.sdk.SessionParameters: java.util.Map partnerParameters>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addMapJson(java.util.Map,java.lang.String,java.util.Map)>($r1, "partner_params", $r6);
+
+     label3:
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r2 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.AdjustConfig adjustConfig>;
+
+        $r3 = $r2.<com.adjust.sdk.AdjustConfig: android.content.Context context>;
+
+        virtualinvoke $r8.<com.adjust.sdk.DeviceInfo: void reloadPlayIds(android.content.Context)>($r3);
+
+        $r9 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.PackageBuilder$ActivityStateCopy activityStateCopy>;
+
+        $r10 = $r9.<com.adjust.sdk.PackageBuilder$ActivityStateCopy: java.lang.String uuid>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "android_uuid", $r10);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r11 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.Boolean isTrackingEnabled>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addBoolean(java.util.Map,java.lang.String,java.lang.Boolean)>($r1, "tracking_enabled", $r11);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String playAdId>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "gps_adid", $r10);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String playAdIdSource>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "gps_adid_src", $r10);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $i0 = $r8.<com.adjust.sdk.DeviceInfo: int playAdIdAttempt>;
+
+        $l1 = (long) $i0;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addLong(java.util.Map,java.lang.String,long)>($r1, "gps_adid_attempt", $l1);
+
+        $z0 = specialinvoke r0.<com.adjust.sdk.PackageBuilder: boolean containsPlayIds(java.util.Map)>($r1);
+
+        if $z0 != 0 goto label4;
+
+        $r5 = <com.adjust.sdk.PackageBuilder: com.adjust.sdk.ILogger logger>;
+
+        $r12 = newarray (java.lang.Object)[0];
+
+        interfaceinvoke $r5.<com.adjust.sdk.ILogger: void warn(java.lang.String,java.lang.Object[])>("Google Advertising ID not detected, fallback to non Google Play identifiers will take place", $r12);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r2 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.AdjustConfig adjustConfig>;
+
+        $r3 = $r2.<com.adjust.sdk.AdjustConfig: android.content.Context context>;
+
+        virtualinvoke $r8.<com.adjust.sdk.DeviceInfo: void reloadNonPlayIds(android.content.Context)>($r3);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String macSha1>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "mac_sha1", $r10);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String macShortMd5>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "mac_md5", $r10);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String androidId>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "android_id", $r10);
+
+     label4:
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String apiLevel>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "api_level", $r10);
+
+        $r2 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.AdjustConfig adjustConfig>;
+
+        $r10 = $r2.<com.adjust.sdk.AdjustConfig: java.lang.String appSecret>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "app_secret", $r10);
+
+        $r2 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.AdjustConfig adjustConfig>;
+
+        $r10 = $r2.<com.adjust.sdk.AdjustConfig: java.lang.String appToken>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "app_token", $r10);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String appVersion>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "app_version", $r10);
+
+        $r11 = <java.lang.Boolean: java.lang.Boolean TRUE>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addBoolean(java.util.Map,java.lang.String,java.lang.Boolean)>($r1, "attribution_deeplink", $r11);
+
+        $r2 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.AdjustConfig adjustConfig>;
+
+        $r3 = $r2.<com.adjust.sdk.AdjustConfig: android.content.Context context>;
+
+        $i0 = staticinvoke <com.adjust.sdk.Util: int getConnectivityType(android.content.Context)>($r3);
+
+        $l1 = (long) $i0;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addLong(java.util.Map,java.lang.String,long)>($r1, "connectivity_type", $l1);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String country>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "country", $r10);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String abi>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "cpu_type", $r10);
+
+        $l1 = r0.<com.adjust.sdk.PackageBuilder: long createdAt>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addDateInMilliseconds(java.util.Map,java.lang.String,long)>($r1, "created_at", $l1);
+
+        $r2 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.AdjustConfig adjustConfig>;
+
+        $r10 = $r2.<com.adjust.sdk.AdjustConfig: java.lang.String defaultTracker>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "default_tracker", $r10);
+
+        $r2 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.AdjustConfig adjustConfig>;
+
+        $r13 = $r2.<com.adjust.sdk.AdjustConfig: java.lang.Boolean deviceKnown>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addBoolean(java.util.Map,java.lang.String,java.lang.Boolean)>($r1, "device_known", $r13);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String deviceManufacturer>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "device_manufacturer", $r10);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String deviceName>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "device_name", $r10);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String deviceType>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "device_type", $r10);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String displayHeight>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "display_height", $r10);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String displayWidth>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "display_width", $r10);
+
+        $r2 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.AdjustConfig adjustConfig>;
+
+        $r10 = $r2.<com.adjust.sdk.AdjustConfig: java.lang.String environment>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "environment", $r10);
+
+        $r2 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.AdjustConfig adjustConfig>;
+
+        $z0 = $r2.<com.adjust.sdk.AdjustConfig: boolean eventBufferingEnabled>;
+
+        $r13 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>($z0);
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addBoolean(java.util.Map,java.lang.String,java.lang.Boolean)>($r1, "event_buffering_enabled", $r13);
+
+        $r2 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.AdjustConfig adjustConfig>;
+
+        $r10 = $r2.<com.adjust.sdk.AdjustConfig: java.lang.String externalDeviceId>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "external_device_id", $r10);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String fbAttributionId>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "fb_id", $r10);
+
+        $r10 = staticinvoke <com.adjust.sdk.Util: java.lang.String getFireAdvertisingId(android.content.ContentResolver)>($r4);
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "fire_adid", $r10);
+
+        $r13 = staticinvoke <com.adjust.sdk.Util: java.lang.Boolean getFireTrackingEnabled(android.content.ContentResolver)>($r4);
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addBoolean(java.util.Map,java.lang.String,java.lang.Boolean)>($r1, "fire_tracking_enabled", $r13);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String hardwareName>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "hardware_name", $r10);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String appInstallTime>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "installed_at", $r10);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String language>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "language", $r10);
+
+        $r9 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.PackageBuilder$ActivityStateCopy activityStateCopy>;
+
+        $l1 = $r9.<com.adjust.sdk.PackageBuilder$ActivityStateCopy: long lastInterval>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addDuration(java.util.Map,java.lang.String,long)>($r1, "last_interval", $l1);
+
+        $r2 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.AdjustConfig adjustConfig>;
+
+        $r3 = $r2.<com.adjust.sdk.AdjustConfig: android.content.Context context>;
+
+        $r10 = staticinvoke <com.adjust.sdk.Util: java.lang.String getMcc(android.content.Context)>($r3);
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "mcc", $r10);
+
+        $r2 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.AdjustConfig adjustConfig>;
+
+        $r3 = $r2.<com.adjust.sdk.AdjustConfig: android.content.Context context>;
+
+        $r10 = staticinvoke <com.adjust.sdk.Util: java.lang.String getMnc(android.content.Context)>($r3);
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "mnc", $r10);
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addBoolean(java.util.Map,java.lang.String,java.lang.Boolean)>($r1, "needs_response_details", $r11);
+
+        $r2 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.AdjustConfig adjustConfig>;
+
+        $r3 = $r2.<com.adjust.sdk.AdjustConfig: android.content.Context context>;
+
+        $i0 = staticinvoke <com.adjust.sdk.Util: int getNetworkType(android.content.Context)>($r3);
+
+        $l1 = (long) $i0;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addLong(java.util.Map,java.lang.String,long)>($r1, "network_type", $l1);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String buildName>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "os_build", $r10);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String osName>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "os_name", $r10);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String osVersion>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "os_version", $r10);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String packageName>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "package_name", $r10);
+
+        $r9 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.PackageBuilder$ActivityStateCopy activityStateCopy>;
+
+        $r10 = $r9.<com.adjust.sdk.PackageBuilder$ActivityStateCopy: java.lang.String pushToken>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "push_token", $r10);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String screenDensity>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "screen_density", $r10);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String screenFormat>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "screen_format", $r10);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String screenSize>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "screen_size", $r10);
+
+        $r2 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.AdjustConfig adjustConfig>;
+
+        $r10 = $r2.<com.adjust.sdk.AdjustConfig: java.lang.String secretId>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "secret_id", $r10);
+
+        $r9 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.PackageBuilder$ActivityStateCopy activityStateCopy>;
+
+        $i0 = $r9.<com.adjust.sdk.PackageBuilder$ActivityStateCopy: int sessionCount>;
+
+        $l1 = (long) $i0;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addLong(java.util.Map,java.lang.String,long)>($r1, "session_count", $l1);
+
+        $r9 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.PackageBuilder$ActivityStateCopy activityStateCopy>;
+
+        $l1 = $r9.<com.adjust.sdk.PackageBuilder$ActivityStateCopy: long sessionLength>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addDuration(java.util.Map,java.lang.String,long)>($r1, "session_length", $l1);
+
+        $r9 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.PackageBuilder$ActivityStateCopy activityStateCopy>;
+
+        $i0 = $r9.<com.adjust.sdk.PackageBuilder$ActivityStateCopy: int subsessionCount>;
+
+        $l1 = (long) $i0;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addLong(java.util.Map,java.lang.String,long)>($r1, "subsession_count", $l1);
+
+        $r9 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.PackageBuilder$ActivityStateCopy activityStateCopy>;
+
+        $l1 = $r9.<com.adjust.sdk.PackageBuilder$ActivityStateCopy: long timeSpent>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addDuration(java.util.Map,java.lang.String,long)>($r1, "time_spent", $l1);
+
+        $r8 = r0.<com.adjust.sdk.PackageBuilder: com.adjust.sdk.DeviceInfo deviceInfo>;
+
+        $r10 = $r8.<com.adjust.sdk.DeviceInfo: java.lang.String appUpdateTime>;
+
+        staticinvoke <com.adjust.sdk.PackageBuilder: void addString(java.util.Map,java.lang.String,java.lang.String)>($r1, "updated_at", $r10);
+
+        specialinvoke r0.<com.adjust.sdk.PackageBuilder: void checkDeviceIds(java.util.Map)>($r1);
+
+        return $r1;
+    }

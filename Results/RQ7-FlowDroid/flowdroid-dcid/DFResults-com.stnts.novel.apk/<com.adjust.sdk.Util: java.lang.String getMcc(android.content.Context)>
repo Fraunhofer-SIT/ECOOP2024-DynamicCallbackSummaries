@@ -1,0 +1,62 @@
+    public static java.lang.String getMcc(android.content.Context)
+    {
+        android.content.Context $r2;
+        java.lang.Object[] $r0;
+        java.lang.Exception $r1;
+        android.telephony.TelephonyManager $r4;
+        com.adjust.sdk.ILogger $r6;
+        java.lang.Object $r3;
+        java.lang.String $r5;
+        boolean $z0;
+
+        $r2 := @parameter0: android.content.Context;
+
+     label01:
+        $r3 = virtualinvoke $r2.<android.content.Context: java.lang.Object getSystemService(java.lang.String)>("phone");
+
+        $r4 = (android.telephony.TelephonyManager) $r3;
+
+        $r5 = virtualinvoke $r4.<android.telephony.TelephonyManager: java.lang.String getNetworkOperator()>();
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r5);
+
+     label02:
+        if $z0 == 0 goto label07;
+
+     label03:
+        $r6 = staticinvoke <com.adjust.sdk.AdjustFactory: com.adjust.sdk.ILogger getLogger()>();
+
+     label04:
+        $r0 = newarray (java.lang.Object)[0];
+
+     label05:
+        interfaceinvoke $r6.<com.adjust.sdk.ILogger: void warn(java.lang.String,java.lang.Object[])>("Couldn\'t receive networkOperator string to read MCC", $r0);
+
+     label06:
+        return null;
+
+     label07:
+        $r5 = virtualinvoke $r5.<java.lang.String: java.lang.String substring(int,int)>(0, 3);
+
+     label08:
+        return $r5;
+
+     label09:
+        $r6 = staticinvoke <com.adjust.sdk.AdjustFactory: com.adjust.sdk.ILogger getLogger()>();
+
+        $r0 = newarray (java.lang.Object)[0];
+
+        interfaceinvoke $r6.<com.adjust.sdk.ILogger: void warn(java.lang.String,java.lang.Object[])>("Couldn\'t return mcc", $r0);
+
+        return null;
+
+     label10:
+        $r1 := @caughtexception;
+
+        goto label09;
+
+        catch java.lang.Exception from label01 to label02 with label10;
+        catch java.lang.Exception from label03 to label04 with label10;
+        catch java.lang.Exception from label05 to label06 with label10;
+        catch java.lang.Exception from label07 to label08 with label10;
+    }

@@ -1,0 +1,48 @@
+    public static java.lang.String a(java.io.InputStream)
+    {
+        java.lang.Throwable $r3;
+        byte[] $r1;
+        java.io.ByteArrayOutputStream $r4;
+        int $i0;
+        java.lang.String $r2;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $r4 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r4.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r1 = newarray (byte)[1024];
+
+     label1:
+        $i0 = virtualinvoke $r0.<java.io.InputStream: int read(byte[])>($r1);
+
+     label2:
+        if $i0 == -1 goto label5;
+
+     label3:
+        virtualinvoke $r4.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r1, 0, $i0);
+
+     label4:
+        goto label1;
+
+     label5:
+        $r2 = virtualinvoke $r4.<java.io.ByteArrayOutputStream: java.lang.String toString(java.lang.String)>("UTF-8");
+
+     label6:
+        staticinvoke <l.bjc: void a(java.io.Closeable)>($r4);
+
+        return $r2;
+
+     label7:
+        $r3 := @caughtexception;
+
+        staticinvoke <l.bjc: void a(java.io.Closeable)>($r4);
+
+        throw $r3;
+
+        catch java.lang.Throwable from label1 to label2 with label7;
+        catch java.lang.Throwable from label3 to label4 with label7;
+        catch java.lang.Throwable from label5 to label6 with label7;
+    }

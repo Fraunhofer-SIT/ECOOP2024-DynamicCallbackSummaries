@@ -1,0 +1,36 @@
+    public java.lang.String getDeviceUUID()
+    {
+        android.content.Context $r2;
+        io.fabric.sdk.android.services.common.IdManager r0;
+        android.content.SharedPreferences $r3;
+        java.lang.String $r1;
+        boolean $z0;
+
+        r0 := @this: io.fabric.sdk.android.services.common.IdManager;
+
+        $z0 = r0.<io.fabric.sdk.android.services.common.IdManager: boolean collectHardwareIds>;
+
+        if $z0 == 0 goto label1;
+
+        $r1 = virtualinvoke r0.<io.fabric.sdk.android.services.common.IdManager: java.lang.String getAndroidId()>();
+
+        if $r1 != null goto label2;
+
+        $r2 = r0.<io.fabric.sdk.android.services.common.IdManager: android.content.Context appContext>;
+
+        $r3 = staticinvoke <io.fabric.sdk.android.services.common.CommonUtils: android.content.SharedPreferences getSharedPrefs(android.content.Context)>($r2);
+
+        $r1 = interfaceinvoke $r3.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("crashlytics.installation.id", null);
+
+        if $r1 != null goto label2;
+
+        $r1 = specialinvoke r0.<io.fabric.sdk.android.services.common.IdManager: java.lang.String createInstallationUUID(android.content.SharedPreferences)>($r3);
+
+        return $r1;
+
+     label1:
+        return "";
+
+     label2:
+        return $r1;
+    }

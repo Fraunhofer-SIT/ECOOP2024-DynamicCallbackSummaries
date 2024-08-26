@@ -1,0 +1,138 @@
+    static void \u01c3(android.app.Activity)
+    {
+        android.hardware.SensorManager $r17;
+        o.\u0268\u0140 $r0;
+        long $l1;
+        java.util.HashMap $r8;
+        java.util.Timer $r15;
+        o.\u026a\u019a$3 $r10;
+        o.\u0269\u028c $r12;
+        java.util.concurrent.atomic.AtomicInteger $r2;
+        java.lang.Thread $r4, $r6;
+        android.os.Looper $r5;
+        int $i0;
+        java.util.concurrent.ScheduledExecutorService $r11;
+        java.lang.String $r3;
+        java.lang.ref.WeakReference $r13;
+        boolean $z0;
+        o.\u0268\u019a $r18;
+        com.facebook.FacebookException $r9;
+        java.util.Set $r7;
+        java.lang.Exception $r16;
+        java.lang.Object $r14;
+        android.app.Activity $r1;
+
+        $r1 := @parameter0: android.app.Activity;
+
+        $r2 = <o.\u026a\u019a: java.util.concurrent.atomic.AtomicInteger \u03b9>;
+
+        $i0 = virtualinvoke $r2.<java.util.concurrent.atomic.AtomicInteger: int decrementAndGet()>();
+
+        if $i0 >= 0 goto label1;
+
+        $r2 = <o.\u026a\u019a: java.util.concurrent.atomic.AtomicInteger \u03b9>;
+
+        virtualinvoke $r2.<java.util.concurrent.atomic.AtomicInteger: void set(int)>(0);
+
+        $r3 = <o.\u026a\u019a: java.lang.String \u0131>;
+
+        staticinvoke <android.util.Log: int w(java.lang.String,java.lang.String)>($r3, "Unexpected activity pause without a matching activity resume. Logging data may be incorrect. Make sure you call activateApp from your Application\'s onCreate method");
+
+     label1:
+        staticinvoke <o.\u026a\u019a: void \u027f()>();
+
+        $l1 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $r3 = staticinvoke <o.\u0393\u04c0: java.lang.String \u03b9(android.content.Context)>($r1);
+
+        $r0 = <o.\u026a\u019a: o.\u0268\u0140 \u0196>;
+
+        $z0 = staticinvoke <o.\u029f\u024d: boolean \u0269()>();
+
+        if $z0 != 0 goto label3;
+
+        $r4 = staticinvoke <java.lang.Thread: java.lang.Thread currentThread()>();
+
+        $r5 = staticinvoke <android.os.Looper: android.os.Looper getMainLooper()>();
+
+        $r6 = virtualinvoke $r5.<android.os.Looper: java.lang.Thread getThread()>();
+
+        if $r4 != $r6 goto label2;
+
+        $r7 = $r0.<o.\u0268\u0140: java.util.Set \u0131>;
+
+        interfaceinvoke $r7.<java.util.Set: boolean remove(java.lang.Object)>($r1);
+
+        $r7 = $r0.<o.\u0268\u0140: java.util.Set \u01c3>;
+
+        interfaceinvoke $r7.<java.util.Set: void clear()>();
+
+        $r8 = $r0.<o.\u0268\u0140: java.util.HashMap \u03b9>;
+
+        virtualinvoke $r8.<java.util.AbstractMap: void clear()>();
+
+        goto label3;
+
+     label2:
+        $r9 = new com.facebook.FacebookException;
+
+        specialinvoke $r9.<com.facebook.FacebookException: void <init>(java.lang.String)>("Can\'t remove activity from CodelessMatcher on non-UI thread");
+
+        throw $r9;
+
+     label3:
+        $r10 = new o.\u026a\u019a$3;
+
+        specialinvoke $r10.<o.\u026a\u019a$3: void <init>(long,java.lang.String)>($l1, $r3);
+
+        $r11 = <o.\u026a\u019a: java.util.concurrent.ScheduledExecutorService \u0269>;
+
+        interfaceinvoke $r11.<java.util.concurrent.ScheduledExecutorService: void execute(java.lang.Runnable)>($r10);
+
+        $r12 = <o.\u026a\u019a: o.\u0269\u028c \u0268>;
+
+        if $r12 == null goto label7;
+
+        $r13 = $r12.<o.\u0269\u028c: java.lang.ref.WeakReference \u0399>;
+
+        $r14 = virtualinvoke $r13.<java.lang.ref.Reference: java.lang.Object get()>();
+
+        $r1 = (android.app.Activity) $r14;
+
+        if $r1 == null goto label7;
+
+        $r15 = $r12.<o.\u0269\u028c: java.util.Timer \u01c3>;
+
+        if $r15 == null goto label7;
+
+     label4:
+        $r15 = $r12.<o.\u0269\u028c: java.util.Timer \u01c3>;
+
+        virtualinvoke $r15.<java.util.Timer: void cancel()>();
+
+        $r12.<o.\u0269\u028c: java.util.Timer \u01c3> = null;
+
+     label5:
+        goto label7;
+
+     label6:
+        $r16 := @caughtexception;
+
+        $r3 = <o.\u0269\u028c: java.lang.String \u03b9>;
+
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>($r3, "Error unscheduling indexing job", $r16);
+
+     label7:
+        $r17 = <o.\u026a\u019a: android.hardware.SensorManager \u0237>;
+
+        if $r17 == null goto label8;
+
+        $r18 = <o.\u026a\u019a: o.\u0268\u019a \u04cf>;
+
+        virtualinvoke $r17.<android.hardware.SensorManager: void unregisterListener(android.hardware.SensorEventListener)>($r18);
+
+     label8:
+        return;
+
+        catch java.lang.Exception from label4 to label5 with label6;
+    }

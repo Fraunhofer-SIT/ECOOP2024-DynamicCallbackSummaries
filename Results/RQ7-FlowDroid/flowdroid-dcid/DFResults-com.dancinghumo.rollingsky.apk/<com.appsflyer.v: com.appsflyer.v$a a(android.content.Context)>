@@ -1,0 +1,285 @@
+    static com.appsflyer.v$a a(android.content.Context)
+    {
+        java.lang.Throwable $r11;
+        android.content.Context $r0;
+        android.telephony.TelephonyManager $r9;
+        int $i0, $i1;
+        java.lang.String $r1, $r2, $r8, $r10;
+        boolean $z0, $z1;
+        android.net.ConnectivityManager $r4;
+        android.net.NetworkInfo $r7;
+        com.appsflyer.v$a $r12;
+        android.net.Network $r6;
+        java.lang.Object $r3;
+        android.net.Network[] $r5;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 = "unknown";
+
+        $r2 = null;
+
+     label01:
+        $r3 = virtualinvoke $r0.<android.content.Context: java.lang.Object getSystemService(java.lang.String)>("connectivity");
+
+        $r4 = (android.net.ConnectivityManager) $r3;
+
+     label02:
+        if $r4 == null goto label42;
+
+     label03:
+        $i0 = <android.os.Build$VERSION: int SDK_INT>;
+
+     label04:
+        $z0 = 0;
+
+        if 21 > $i0 goto label21;
+
+     label05:
+        $r5 = virtualinvoke $r4.<android.net.ConnectivityManager: android.net.Network[] getAllNetworks()>();
+
+        $i0 = lengthof $r5;
+
+     label06:
+        $i1 = 0;
+
+     label07:
+        if $i1 >= $i0 goto label20;
+
+     label08:
+        $r6 = $r5[$i1];
+
+        $r7 = virtualinvoke $r4.<android.net.ConnectivityManager: android.net.NetworkInfo getNetworkInfo(android.net.Network)>($r6);
+
+     label09:
+        if $r7 == null goto label12;
+
+     label10:
+        $z0 = virtualinvoke $r7.<android.net.NetworkInfo: boolean isConnectedOrConnecting()>();
+
+     label11:
+        if $z0 == 0 goto label12;
+
+        $z0 = 1;
+
+        goto label13;
+
+     label12:
+        $z0 = 0;
+
+     label13:
+        if $z0 == 0 goto label19;
+
+     label14:
+        $i0 = virtualinvoke $r7.<android.net.NetworkInfo: int getType()>();
+
+     label15:
+        if 1 != $i0 goto label16;
+
+        $r8 = "WIFI";
+
+        goto label43;
+
+     label16:
+        $i0 = virtualinvoke $r7.<android.net.NetworkInfo: int getType()>();
+
+     label17:
+        if $i0 != 0 goto label18;
+
+        $r8 = "MOBILE";
+
+        goto label43;
+
+     label18:
+        $r8 = "unknown";
+
+        goto label43;
+
+     label19:
+        $i1 = $i1 + 1;
+
+        goto label07;
+
+     label20:
+        $r8 = "unknown";
+
+        goto label43;
+
+     label21:
+        $r7 = virtualinvoke $r4.<android.net.ConnectivityManager: android.net.NetworkInfo getNetworkInfo(int)>(1);
+
+     label22:
+        if $r7 == null goto label25;
+
+     label23:
+        $z1 = virtualinvoke $r7.<android.net.NetworkInfo: boolean isConnectedOrConnecting()>();
+
+     label24:
+        if $z1 == 0 goto label25;
+
+        $z1 = 1;
+
+        goto label26;
+
+     label25:
+        $z1 = 0;
+
+     label26:
+        if $z1 == 0 goto label27;
+
+        $r8 = "WIFI";
+
+        goto label43;
+
+     label27:
+        $r7 = virtualinvoke $r4.<android.net.ConnectivityManager: android.net.NetworkInfo getNetworkInfo(int)>(0);
+
+     label28:
+        if $r7 == null goto label31;
+
+     label29:
+        $z1 = virtualinvoke $r7.<android.net.NetworkInfo: boolean isConnectedOrConnecting()>();
+
+     label30:
+        if $z1 == 0 goto label31;
+
+        $z1 = 1;
+
+        goto label32;
+
+     label31:
+        $z1 = 0;
+
+     label32:
+        if $z1 == 0 goto label33;
+
+        $r8 = "MOBILE";
+
+        goto label43;
+
+     label33:
+        $r7 = virtualinvoke $r4.<android.net.ConnectivityManager: android.net.NetworkInfo getActiveNetworkInfo()>();
+
+     label34:
+        if $r7 == null goto label37;
+
+     label35:
+        $z1 = virtualinvoke $r7.<android.net.NetworkInfo: boolean isConnectedOrConnecting()>();
+
+     label36:
+        if $z1 == 0 goto label37;
+
+        $z0 = 1;
+
+     label37:
+        if $z0 == 0 goto label42;
+
+     label38:
+        $i0 = virtualinvoke $r7.<android.net.NetworkInfo: int getType()>();
+
+     label39:
+        if 1 != $i0 goto label40;
+
+        $r8 = "WIFI";
+
+        goto label43;
+
+     label40:
+        $i0 = virtualinvoke $r7.<android.net.NetworkInfo: int getType()>();
+
+     label41:
+        if $i0 != 0 goto label42;
+
+        $r8 = "MOBILE";
+
+        goto label43;
+
+     label42:
+        $r8 = "unknown";
+
+     label43:
+        $r1 = $r8;
+
+     label44:
+        $r3 = virtualinvoke $r0.<android.content.Context: java.lang.Object getSystemService(java.lang.String)>("phone");
+
+        $r9 = (android.telephony.TelephonyManager) $r3;
+
+        $r8 = virtualinvoke $r9.<android.telephony.TelephonyManager: java.lang.String getSimOperatorName()>();
+
+     label45:
+        $r10 = virtualinvoke $r9.<android.telephony.TelephonyManager: java.lang.String getNetworkOperatorName()>();
+
+     label46:
+        if $r10 == null goto label50;
+
+     label47:
+        $z0 = virtualinvoke $r10.<java.lang.String: boolean isEmpty()>();
+
+     label48:
+        if $z0 == 0 goto label52;
+
+        goto label50;
+
+     label49:
+        $r11 := @caughtexception;
+
+        $r2 = $r10;
+
+        goto label55;
+
+     label50:
+        $i0 = virtualinvoke $r9.<android.telephony.TelephonyManager: int getPhoneType()>();
+
+     label51:
+        if 2 != $i0 goto label52;
+
+        $r2 = "CDMA";
+
+        goto label56;
+
+     label52:
+        $r2 = $r10;
+
+        goto label56;
+
+     label53:
+        $r11 := @caughtexception;
+
+        goto label55;
+
+     label54:
+        $r11 := @caughtexception;
+
+        $r8 = null;
+
+     label55:
+        staticinvoke <com.appsflyer.d: void a(java.lang.String,java.lang.Throwable)>("Exception while collecting network info. ", $r11);
+
+     label56:
+        $r12 = new com.appsflyer.v$a;
+
+        specialinvoke $r12.<com.appsflyer.v$a: void <init>(java.lang.String,java.lang.String,java.lang.String)>($r1, $r2, $r8);
+
+        return $r12;
+
+        catch java.lang.Throwable from label01 to label02 with label54;
+        catch java.lang.Throwable from label03 to label04 with label54;
+        catch java.lang.Throwable from label05 to label06 with label54;
+        catch java.lang.Throwable from label08 to label09 with label54;
+        catch java.lang.Throwable from label10 to label11 with label54;
+        catch java.lang.Throwable from label14 to label15 with label54;
+        catch java.lang.Throwable from label16 to label17 with label54;
+        catch java.lang.Throwable from label21 to label22 with label54;
+        catch java.lang.Throwable from label23 to label24 with label54;
+        catch java.lang.Throwable from label27 to label28 with label54;
+        catch java.lang.Throwable from label29 to label30 with label54;
+        catch java.lang.Throwable from label33 to label34 with label54;
+        catch java.lang.Throwable from label35 to label36 with label54;
+        catch java.lang.Throwable from label38 to label39 with label54;
+        catch java.lang.Throwable from label40 to label41 with label54;
+        catch java.lang.Throwable from label44 to label45 with label54;
+        catch java.lang.Throwable from label45 to label46 with label53;
+        catch java.lang.Throwable from label47 to label48 with label49;
+        catch java.lang.Throwable from label50 to label51 with label49;
+    }

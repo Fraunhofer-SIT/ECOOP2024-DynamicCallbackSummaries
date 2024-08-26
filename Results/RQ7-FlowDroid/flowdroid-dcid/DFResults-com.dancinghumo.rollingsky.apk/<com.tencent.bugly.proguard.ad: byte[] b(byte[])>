@@ -1,0 +1,62 @@
+    public final byte[] b(byte[]) throws java.lang.Exception
+    {
+        byte[] $r1;
+        java.util.zip.ZipInputStream $r4;
+        java.io.ByteArrayInputStream $r3;
+        java.io.ByteArrayOutputStream $r5;
+        int $i0;
+        com.tencent.bugly.proguard.ad r0;
+        java.util.zip.ZipEntry $r2;
+
+        r0 := @this: com.tencent.bugly.proguard.ad;
+
+        $r1 := @parameter0: byte[];
+
+        $r3 = new java.io.ByteArrayInputStream;
+
+        specialinvoke $r3.<java.io.ByteArrayInputStream: void <init>(byte[])>($r1);
+
+        $r4 = new java.util.zip.ZipInputStream;
+
+        specialinvoke $r4.<java.util.zip.ZipInputStream: void <init>(java.io.InputStream)>($r3);
+
+        $r1 = null;
+
+     label1:
+        $r2 = virtualinvoke $r4.<java.util.zip.ZipInputStream: java.util.zip.ZipEntry getNextEntry()>();
+
+        if $r2 == null goto label4;
+
+        $r1 = newarray (byte)[1024];
+
+        $r5 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r5.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label2:
+        $i0 = lengthof $r1;
+
+        $i0 = virtualinvoke $r4.<java.util.zip.ZipInputStream: int read(byte[],int,int)>($r1, 0, $i0);
+
+        if $i0 == -1 goto label3;
+
+        virtualinvoke $r5.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r1, 0, $i0);
+
+        goto label2;
+
+     label3:
+        $r1 = virtualinvoke $r5.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        virtualinvoke $r5.<java.io.ByteArrayOutputStream: void flush()>();
+
+        virtualinvoke $r5.<java.io.ByteArrayOutputStream: void close()>();
+
+        goto label1;
+
+     label4:
+        virtualinvoke $r4.<java.util.zip.ZipInputStream: void close()>();
+
+        virtualinvoke $r3.<java.io.ByteArrayInputStream: void close()>();
+
+        return $r1;
+    }

@@ -1,0 +1,84 @@
+    protected final void g()
+    {
+        java.net.HttpURLConnection $r1, $r4;
+        java.lang.Throwable $r9;
+        com.adincube.sdk.j.i r0;
+        java.net.URL $r2;
+        com.adincube.sdk.d.c.d $r6;
+        com.adincube.sdk.d.c.a $r5;
+        org.json.JSONObject $r3;
+        int $i0;
+        java.lang.StringBuilder $r7;
+        java.lang.String $r8;
+
+        r0 := @this: com.adincube.sdk.j.i;
+
+        $r1 = null;
+
+     label01:
+        $r2 = staticinvoke <com.adincube.sdk.util.y: java.net.URL f()>();
+
+        $r3 = virtualinvoke r0.<com.adincube.sdk.j.i: org.json.JSONObject a()>();
+
+        $r4 = virtualinvoke r0.<com.adincube.sdk.j.i: java.net.HttpURLConnection a(java.net.URL,org.json.JSONObject)>($r2, $r3);
+
+     label02:
+        $r1 = $r4;
+
+     label03:
+        $i0 = virtualinvoke $r4.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label04:
+        if $i0 < 400 goto label06;
+
+        if $i0 >= 500 goto label07;
+
+     label05:
+        $r5 = new com.adincube.sdk.d.c.a;
+
+        specialinvoke $r5.<com.adincube.sdk.d.c.a: void <init>(int)>($i0);
+
+        throw $r5;
+
+     label06:
+        if $i0 >= 500 goto label07;
+
+        if $r4 == null goto label10;
+
+        virtualinvoke $r4.<java.net.HttpURLConnection: void disconnect()>();
+
+        return;
+
+     label07:
+        $r6 = new com.adincube.sdk.d.c.d;
+
+        $r7 = new java.lang.StringBuilder;
+
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>(java.lang.String)>("Server Error : ");
+
+        virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        $r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r6.<com.adincube.sdk.d.c.d: void <init>(java.lang.String)>($r8);
+
+        throw $r6;
+
+     label08:
+        $r9 := @caughtexception;
+
+        if $r1 == null goto label09;
+
+        virtualinvoke $r1.<java.net.HttpURLConnection: void disconnect()>();
+
+     label09:
+        throw $r9;
+
+     label10:
+        return;
+
+        catch java.lang.Throwable from label01 to label02 with label08;
+        catch java.lang.Throwable from label03 to label04 with label08;
+        catch java.lang.Throwable from label05 to label06 with label08;
+        catch java.lang.Throwable from label07 to label08 with label08;
+    }

@@ -1,0 +1,547 @@
+    private void y()
+    {
+        byte[] $r13;
+        android.content.Context $r19;
+        java.util.HashMap $r6;
+        java.lang.String[] $r10;
+        long $l3;
+        java.util.ArrayList $r5;
+        io.dcloud.common.DHInterface.IConfusionMgr $r11;
+        org.json.JSONObject $r2, $r3;
+        byte $b1;
+        java.util.Map $r12;
+        int $i0, $i2;
+        java.lang.String $r1, $r4, $r8, $r9;
+        boolean $z0, $z1, $z2;
+        java.lang.Exception $r16;
+        java.io.File $r18;
+        io.dcloud.g.a.e r0;
+        java.lang.Object $r15;
+        java.lang.StringBuilder $r17;
+        android.app.Activity $r14;
+        org.json.JSONArray $r7;
+
+        r0 := @this: io.dcloud.g.a.e;
+
+        $r1 = r0.<io.dcloud.g.a.f: java.lang.String m>;
+
+        $z0 = staticinvoke <io.dcloud.common.util.BaseInfo: boolean isWap2AppAppid(java.lang.String)>($r1);
+
+        if $z0 != 0 goto label001;
+
+        return;
+
+     label001:
+        $r2 = specialinvoke r0.<io.dcloud.g.a.e: org.json.JSONObject j()>();
+
+        $r3 = $r2;
+
+        if $r2 != null goto label002;
+
+        $r1 = <io.dcloud.common.util.BaseInfo: java.lang.String sWap2AppTemplateVersion>;
+
+        goto label003;
+
+     label002:
+        $r1 = virtualinvoke $r2.<org.json.JSONObject: java.lang.String optString(java.lang.String)>("version");
+
+     label003:
+        $r2 = specialinvoke r0.<io.dcloud.g.a.e: org.json.JSONObject i()>();
+
+     label004:
+        if $r2 == null goto label017;
+
+     label005:
+        $r4 = virtualinvoke $r2.<org.json.JSONObject: java.lang.String optString(java.lang.String)>("version");
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r4);
+
+     label006:
+        if $z0 != 0 goto label017;
+
+     label007:
+        $z0 = staticinvoke <io.dcloud.common.util.BaseInfo$BaseAppInfo: boolean compareVersion(java.lang.String,java.lang.String)>($r4, $r1);
+
+     label008:
+        if $z0 == 0 goto label017;
+
+        $r17 = new java.lang.StringBuilder;
+
+     label009:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>()>();
+
+     label010:
+        $r1 = <io.dcloud.common.util.BaseInfo: java.lang.String sBaseWap2AppTemplatePath>;
+
+     label011:
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("wap2app__template/");
+
+        $r1 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <io.dcloud.common.adapter.io.DHFile: int deleteFile(java.lang.String)>($r1);
+
+     label012:
+        $r5 = <io.dcloud.common.util.BaseInfo: java.util.ArrayList mWap2appTemplateFiles>;
+
+     label013:
+        virtualinvoke $r5.<java.util.ArrayList: void clear()>();
+
+     label014:
+        $r6 = <io.dcloud.common.util.BaseInfo: java.util.HashMap mW2AE>;
+
+     label015:
+        virtualinvoke $r6.<java.util.HashMap: void clear()>();
+
+     label016:
+        $r1 = $r4;
+
+        $r3 = $r2;
+
+        $z0 = 1;
+
+        goto label018;
+
+     label017:
+        $z0 = 0;
+
+     label018:
+        $r5 = <io.dcloud.common.util.BaseInfo: java.util.ArrayList mWap2appTemplateFiles>;
+
+     label019:
+        $i0 = virtualinvoke $r5.<java.util.ArrayList: int size()>();
+
+     label020:
+        if $i0 != 0 goto label078;
+
+        if $r3 == null goto label069;
+
+     label021:
+        $z1 = virtualinvoke $r3.<org.json.JSONObject: boolean has(java.lang.String)>("files");
+
+     label022:
+        if $z1 == 0 goto label069;
+
+     label023:
+        $r7 = virtualinvoke $r3.<org.json.JSONObject: org.json.JSONArray optJSONArray(java.lang.String)>("files");
+
+        $i0 = virtualinvoke $r7.<org.json.JSONArray: int length()>();
+
+        $b1 = virtualinvoke r0.<io.dcloud.g.a.e: byte obtainRunningAppMode()>();
+
+     label024:
+        if $b1 != 1 goto label025;
+
+        $z1 = 1;
+
+        goto label026;
+
+     label025:
+        $z1 = 0;
+
+     label026:
+        $i2 = 0;
+
+     label027:
+        if $i2 >= $i0 goto label049;
+
+     label028:
+        $r4 = virtualinvoke $r7.<org.json.JSONArray: java.lang.String optString(int)>($i2);
+
+     label029:
+        $r5 = <io.dcloud.common.util.BaseInfo: java.util.ArrayList mWap2appTemplateFiles>;
+
+     label030:
+        virtualinvoke $r5.<java.util.ArrayList: boolean add(java.lang.Object)>($r4);
+
+     label031:
+        if $z0 == 0 goto label048;
+
+        if $z1 == 0 goto label040;
+
+        $r17 = new java.lang.StringBuilder;
+
+     label032:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>()>();
+
+     label033:
+        $r8 = <io.dcloud.common.util.BaseInfo: java.lang.String sBaseResAppsPath>;
+
+     label034:
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r8 = r0.<io.dcloud.g.a.f: java.lang.String m>;
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/www/");
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        $r8 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label035:
+        $r17 = new java.lang.StringBuilder;
+
+     label036:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>()>();
+
+     label037:
+        $r9 = <io.dcloud.common.util.BaseInfo: java.lang.String sBaseWap2AppTemplatePath>;
+
+     label038:
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("wap2app__template/");
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        $r4 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <io.dcloud.common.adapter.io.DHFile: boolean copyAssetsFile(java.lang.String,java.lang.String)>($r8, $r4);
+
+     label039:
+        goto label048;
+
+     label040:
+        $r17 = new java.lang.StringBuilder;
+
+     label041:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>()>();
+
+     label042:
+        $r8 = <io.dcloud.common.util.BaseInfo: java.lang.String sCacheFsAppsPath>;
+
+     label043:
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r8 = r0.<io.dcloud.g.a.f: java.lang.String m>;
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/www/");
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        $r8 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label044:
+        $r17 = new java.lang.StringBuilder;
+
+     label045:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>()>();
+
+     label046:
+        $r9 = <io.dcloud.common.util.BaseInfo: java.lang.String sBaseWap2AppTemplatePath>;
+
+     label047:
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("wap2app__template/");
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        $r4 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <io.dcloud.common.adapter.io.DHFile: int copyFile(java.lang.String,java.lang.String,boolean,boolean)>($r8, $r4, 1, 0);
+
+     label048:
+        $i2 = $i2 + 1;
+
+        goto label027;
+
+     label049:
+        if $z0 == 0 goto label078;
+
+        $r5 = <io.dcloud.common.util.BaseInfo: java.util.ArrayList mWap2appTemplateFiles>;
+
+     label050:
+        $z2 = virtualinvoke $r5.<java.util.ArrayList: boolean contains(java.lang.Object)>("__template.json");
+
+     label051:
+        if $z2 != 0 goto label078;
+
+        if $z1 == 0 goto label060;
+
+        $r17 = new java.lang.StringBuilder;
+
+     label052:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>()>();
+
+     label053:
+        $r4 = <io.dcloud.common.util.BaseInfo: java.lang.String sBaseResAppsPath>;
+
+     label054:
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        $r4 = r0.<io.dcloud.g.a.f: java.lang.String m>;
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/www/__template.json");
+
+        $r4 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label055:
+        $r17 = new java.lang.StringBuilder;
+
+     label056:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>()>();
+
+     label057:
+        $r8 = <io.dcloud.common.util.BaseInfo: java.lang.String sBaseWap2AppTemplatePath>;
+
+     label058:
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("wap2app__template/");
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("__template.json");
+
+        $r8 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <io.dcloud.common.adapter.io.DHFile: boolean copyAssetsFile(java.lang.String,java.lang.String)>($r4, $r8);
+
+     label059:
+        goto label078;
+
+     label060:
+        $r17 = new java.lang.StringBuilder;
+
+     label061:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>()>();
+
+     label062:
+        $r4 = <io.dcloud.common.util.BaseInfo: java.lang.String sCacheFsAppsPath>;
+
+     label063:
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        $r4 = r0.<io.dcloud.g.a.f: java.lang.String m>;
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/www/__template.json");
+
+        $r4 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label064:
+        $r17 = new java.lang.StringBuilder;
+
+     label065:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>()>();
+
+     label066:
+        $r8 = <io.dcloud.common.util.BaseInfo: java.lang.String sBaseWap2AppTemplatePath>;
+
+     label067:
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("wap2app__template/");
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("__template.json");
+
+        $r8 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <io.dcloud.common.adapter.io.DHFile: int copyFile(java.lang.String,java.lang.String,boolean,boolean)>($r4, $r8, 1, 0);
+
+     label068:
+        goto label078;
+
+     label069:
+        $r18 = new java.io.File;
+
+        $r17 = new java.lang.StringBuilder;
+
+     label070:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>()>();
+
+     label071:
+        $r4 = <io.dcloud.common.util.BaseInfo: java.lang.String sBaseWap2AppTemplatePath>;
+
+     label072:
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("wap2app__template/");
+
+        $r4 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r18.<java.io.File: void <init>(java.lang.String)>($r4);
+
+        $r10 = virtualinvoke $r18.<java.io.File: java.lang.String[] list()>();
+
+     label073:
+        if $r10 == null goto label078;
+
+        $i0 = 0;
+
+     label074:
+        $i2 = lengthof $r10;
+
+     label075:
+        if $i0 >= $i2 goto label078;
+
+        $r5 = <io.dcloud.common.util.BaseInfo: java.util.ArrayList mWap2appTemplateFiles>;
+
+     label076:
+        $r4 = $r10[$i0];
+
+        virtualinvoke $r5.<java.util.ArrayList: boolean add(java.lang.Object)>($r4);
+
+     label077:
+        $i0 = $i0 + 1;
+
+        goto label074;
+
+     label078:
+        if $z0 != 0 goto label081;
+
+     label079:
+        $r11 = r0.<io.dcloud.g.a.e: io.dcloud.common.DHInterface.IConfusionMgr p1>;
+
+        $r12 = interfaceinvoke $r11.<io.dcloud.common.DHInterface.IConfusionMgr: java.util.Map getData(java.lang.String)>("__w2a__template__");
+
+     label080:
+        if $r12 != null goto label093;
+
+     label081:
+        if $r3 == null goto label093;
+
+     label082:
+        $z0 = virtualinvoke $r3.<org.json.JSONObject: boolean has(java.lang.String)>("confusion");
+
+     label083:
+        if $z0 == 0 goto label093;
+
+     label084:
+        $r4 = virtualinvoke $r3.<org.json.JSONObject: java.lang.String optString(java.lang.String)>("confusion");
+
+        $r13 = staticinvoke <io.dcloud.common.util.Base64: byte[] decode2bytes(java.lang.String)>($r4);
+
+        $r14 = virtualinvoke r0.<io.dcloud.g.a.f: android.app.Activity getActivity()>();
+
+     label085:
+        $r15 = $r14;
+
+        if $r14 != null goto label086;
+
+        $r15 = <io.dcloud.common.adapter.util.DeviceInfo: android.content.Context sApplicationContext>;
+
+     label086:
+        $r11 = r0.<io.dcloud.g.a.e: io.dcloud.common.DHInterface.IConfusionMgr p1>;
+
+        $r19 = (android.content.Context) $r15;
+
+        $r4 = interfaceinvoke $r11.<io.dcloud.common.DHInterface.IConfusionMgr: java.lang.String handleEncryption(android.content.Context,byte[])>($r19, $r13);
+
+     label087:
+        $r8 = $r4;
+
+     label088:
+        $z0 = staticinvoke <io.dcloud.common.util.PdrUtil: boolean isEmpty(java.lang.Object)>($r4);
+
+     label089:
+        if $z0 == 0 goto label090;
+
+        $r8 = "{}";
+
+     label090:
+        $r11 = r0.<io.dcloud.g.a.e: io.dcloud.common.DHInterface.IConfusionMgr p1>;
+
+        interfaceinvoke $r11.<io.dcloud.common.DHInterface.IConfusionMgr: void removeData(java.lang.String)>("__w2a__template__");
+
+        $r11 = r0.<io.dcloud.g.a.e: io.dcloud.common.DHInterface.IConfusionMgr p1>;
+
+     label091:
+        $r2 = new org.json.JSONObject;
+
+     label092:
+        specialinvoke $r2.<org.json.JSONObject: void <init>(java.lang.String)>($r8);
+
+        interfaceinvoke $r11.<io.dcloud.common.DHInterface.IConfusionMgr: void recordEncryptionResources(java.lang.String,org.json.JSONObject)>("__w2a__template__", $r2);
+
+     label093:
+        $r18 = new java.io.File;
+
+        $r17 = new java.lang.StringBuilder;
+
+     label094:
+        specialinvoke $r17.<java.lang.StringBuilder: void <init>()>();
+
+     label095:
+        $r4 = <io.dcloud.common.util.BaseInfo: java.lang.String sBaseWap2AppTemplatePath>;
+
+     label096:
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+
+        virtualinvoke $r17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("wap2app__template/__template.json");
+
+        $r4 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r18.<java.io.File: void <init>(java.lang.String)>($r4);
+
+        $l3 = virtualinvoke $r18.<java.io.File: long lastModified()>();
+
+     label097:
+        <io.dcloud.common.util.BaseInfo: long sTemplateModifyTime> = $l3;
+
+        <io.dcloud.common.util.BaseInfo: java.lang.String sWap2AppTemplateVersion> = $r1;
+
+     label098:
+        r0.<io.dcloud.g.a.e: java.lang.String z> = $r1;
+
+     label099:
+        return;
+
+     label100:
+        $r16 := @caughtexception;
+
+        virtualinvoke $r16.<java.lang.Exception: void printStackTrace()>();
+
+        return;
+
+        catch java.lang.Exception from label003 to label004 with label100;
+        catch java.lang.Exception from label005 to label006 with label100;
+        catch java.lang.Exception from label007 to label008 with label100;
+        catch java.lang.Exception from label009 to label010 with label100;
+        catch java.lang.Exception from label011 to label012 with label100;
+        catch java.lang.Exception from label013 to label014 with label100;
+        catch java.lang.Exception from label015 to label016 with label100;
+        catch java.lang.Exception from label019 to label020 with label100;
+        catch java.lang.Exception from label021 to label022 with label100;
+        catch java.lang.Exception from label023 to label024 with label100;
+        catch java.lang.Exception from label028 to label029 with label100;
+        catch java.lang.Exception from label030 to label031 with label100;
+        catch java.lang.Exception from label032 to label033 with label100;
+        catch java.lang.Exception from label034 to label035 with label100;
+        catch java.lang.Exception from label036 to label037 with label100;
+        catch java.lang.Exception from label038 to label039 with label100;
+        catch java.lang.Exception from label041 to label042 with label100;
+        catch java.lang.Exception from label043 to label044 with label100;
+        catch java.lang.Exception from label045 to label046 with label100;
+        catch java.lang.Exception from label047 to label048 with label100;
+        catch java.lang.Exception from label050 to label051 with label100;
+        catch java.lang.Exception from label052 to label053 with label100;
+        catch java.lang.Exception from label054 to label055 with label100;
+        catch java.lang.Exception from label056 to label057 with label100;
+        catch java.lang.Exception from label058 to label059 with label100;
+        catch java.lang.Exception from label061 to label062 with label100;
+        catch java.lang.Exception from label063 to label064 with label100;
+        catch java.lang.Exception from label065 to label066 with label100;
+        catch java.lang.Exception from label067 to label068 with label100;
+        catch java.lang.Exception from label070 to label071 with label100;
+        catch java.lang.Exception from label072 to label073 with label100;
+        catch java.lang.Exception from label074 to label075 with label100;
+        catch java.lang.Exception from label076 to label077 with label100;
+        catch java.lang.Exception from label079 to label080 with label100;
+        catch java.lang.Exception from label082 to label083 with label100;
+        catch java.lang.Exception from label084 to label085 with label100;
+        catch java.lang.Exception from label086 to label087 with label100;
+        catch java.lang.Exception from label088 to label089 with label100;
+        catch java.lang.Exception from label090 to label091 with label100;
+        catch java.lang.Exception from label092 to label093 with label100;
+        catch java.lang.Exception from label094 to label095 with label100;
+        catch java.lang.Exception from label096 to label097 with label100;
+        catch java.lang.Exception from label098 to label099 with label100;
+    }

@@ -1,0 +1,121 @@
+    private java.lang.String b(java.lang.String)
+    {
+        java.lang.Throwable $r11;
+        byte[] $r4, $r5;
+        java.io.ByteArrayOutputStream $r9;
+        java.lang.RuntimeException $r12;
+        javax.crypto.Cipher $r7;
+        java.lang.Exception $r10;
+        java.security.SecureRandom $r6;
+        javax.crypto.spec.IvParameterSpec $r1;
+        java.nio.charset.Charset $r3;
+        d.j.o r0;
+        int $i0;
+        java.lang.String $r2;
+        javax.crypto.SecretKey $r8;
+
+        r0 := @this: d.j.o;
+
+        $r2 := @parameter0: java.lang.String;
+
+     label01:
+        $r3 = staticinvoke <java.nio.charset.Charset: java.nio.charset.Charset forName(java.lang.String)>("UTF-8");
+
+        $r4 = virtualinvoke $r2.<java.lang.String: byte[] getBytes(java.nio.charset.Charset)>($r3);
+
+     label02:
+        $r5 = newarray (byte)[16];
+
+     label03:
+        $r6 = r0.<d.j.o: java.security.SecureRandom c>;
+
+        virtualinvoke $r6.<java.security.SecureRandom: void nextBytes(byte[])>($r5);
+
+        $r7 = staticinvoke <javax.crypto.Cipher: javax.crypto.Cipher getInstance(java.lang.String)>("AES/CBC/PKCS5Padding");
+
+        $r8 = r0.<d.j.o: javax.crypto.SecretKey b>;
+
+     label04:
+        $r1 = new javax.crypto.spec.IvParameterSpec;
+
+     label05:
+        specialinvoke $r1.<javax.crypto.spec.IvParameterSpec: void <init>(byte[])>($r5);
+
+        virtualinvoke $r7.<javax.crypto.Cipher: void init(int,java.security.Key,java.security.spec.AlgorithmParameterSpec)>(1, $r8, $r1);
+
+        $r4 = virtualinvoke $r7.<javax.crypto.Cipher: byte[] doFinal(byte[])>($r4);
+
+     label06:
+        $r9 = new java.io.ByteArrayOutputStream;
+
+     label07:
+        specialinvoke $r9.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label08:
+        $i0 = lengthof $r5;
+
+     label09:
+        virtualinvoke $r9.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r5, 0, $i0);
+
+     label10:
+        $i0 = lengthof $r4;
+
+     label11:
+        virtualinvoke $r9.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r4, 0, $i0);
+
+        $r5 = virtualinvoke $r9.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $r2 = staticinvoke <android.util.Base64: java.lang.String encodeToString(byte[],int)>($r5, 2);
+
+     label12:
+        staticinvoke <d.j.q: void a(java.io.OutputStream)>(null);
+
+        staticinvoke <d.j.q: void a(java.io.OutputStream)>($r9);
+
+        return $r2;
+
+     label13:
+        $r10 := @caughtexception;
+
+        goto label16;
+
+     label14:
+        $r11 := @caughtexception;
+
+        $r9 = null;
+
+        goto label18;
+
+     label15:
+        $r10 := @caughtexception;
+
+        $r9 = null;
+
+     label16:
+        $r12 = new java.lang.RuntimeException;
+
+        specialinvoke $r12.<java.lang.RuntimeException: void <init>(java.lang.Throwable)>($r10);
+
+        throw $r12;
+
+     label17:
+        $r11 := @caughtexception;
+
+     label18:
+        staticinvoke <d.j.q: void a(java.io.OutputStream)>(null);
+
+        staticinvoke <d.j.q: void a(java.io.OutputStream)>($r9);
+
+        throw $r11;
+
+        catch java.lang.Exception from label01 to label02 with label15;
+        catch java.lang.Exception from label03 to label04 with label15;
+        catch java.lang.Exception from label05 to label06 with label15;
+        catch java.lang.Exception from label07 to label08 with label15;
+        catch java.lang.Throwable from label01 to label02 with label14;
+        catch java.lang.Throwable from label03 to label08 with label14;
+        catch java.lang.Exception from label08 to label12 with label13;
+        catch java.lang.Throwable from label09 to label10 with label17;
+        catch java.lang.Throwable from label11 to label12 with label17;
+        catch java.lang.Throwable from label16 to label17 with label17;
+    }

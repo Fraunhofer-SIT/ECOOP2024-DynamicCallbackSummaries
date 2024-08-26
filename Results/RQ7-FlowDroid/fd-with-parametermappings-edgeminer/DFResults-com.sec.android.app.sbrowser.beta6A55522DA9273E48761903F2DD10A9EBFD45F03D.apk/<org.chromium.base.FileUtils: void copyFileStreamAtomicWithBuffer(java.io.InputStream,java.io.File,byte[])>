@@ -1,0 +1,120 @@
+    public static void copyFileStreamAtomicWithBuffer(java.io.InputStream, java.io.File, byte[])
+    {
+        java.lang.Throwable $r5, $r6, $r7;
+        byte[] $r0;
+        java.lang.Object[] $r4;
+        java.io.FileOutputStream $r10;
+        java.io.IOException $r11;
+        java.io.File $r2, $r9;
+        int $i0;
+        java.lang.StringBuilder $r8;
+        java.lang.String $r3;
+        java.io.InputStream $r1;
+        boolean $z0;
+
+        $r1 := @parameter0: java.io.InputStream;
+
+        $r2 := @parameter1: java.io.File;
+
+        $r0 := @parameter2: byte[];
+
+        $r9 = new java.io.File;
+
+        $r8 = new java.lang.StringBuilder;
+
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>()>();
+
+        $r3 = virtualinvoke $r2.<java.io.File: java.lang.String getPath()>();
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".tmp");
+
+        $r3 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r9.<java.io.File: void <init>(java.lang.String)>($r3);
+
+        $r10 = new java.io.FileOutputStream;
+
+        specialinvoke $r10.<java.io.FileOutputStream: void <init>(java.io.File)>($r9);
+
+     label01:
+        $r4 = newarray (java.lang.Object)[1];
+
+        $r4[0] = $r2;
+
+        staticinvoke <org.chromium.base.Log: void i(java.lang.String,java.lang.String,java.lang.Object[])>("FileUtils", "Writing to %s", $r4);
+
+     label02:
+        $i0 = lengthof $r0;
+
+        $i0 = virtualinvoke $r1.<java.io.InputStream: int read(byte[],int,int)>($r0, 0, $i0);
+
+     label03:
+        if $i0 == -1 goto label06;
+
+     label04:
+        virtualinvoke $r10.<java.io.OutputStream: void write(byte[],int,int)>($r0, 0, $i0);
+
+     label05:
+        goto label02;
+
+     label06:
+        if $r10 == null goto label07;
+
+        virtualinvoke $r10.<java.io.OutputStream: void close()>();
+
+     label07:
+        $z0 = virtualinvoke $r9.<java.io.File: boolean renameTo(java.io.File)>($r2);
+
+        if $z0 != 0 goto label17;
+
+        $r11 = new java.io.IOException;
+
+        specialinvoke $r11.<java.io.IOException: void <init>()>();
+
+        throw $r11;
+
+     label08:
+        $r5 := @caughtexception;
+
+        goto label11;
+
+     label09:
+        $r6 := @caughtexception;
+
+     label10:
+        throw $r6;
+
+     label11:
+        if $r10 == null goto label16;
+
+        if $r6 == null goto label15;
+
+     label12:
+        virtualinvoke $r10.<java.io.OutputStream: void close()>();
+
+     label13:
+        goto label16;
+
+     label14:
+        $r7 := @caughtexception;
+
+        virtualinvoke $r6.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r7);
+
+        goto label16;
+
+     label15:
+        virtualinvoke $r10.<java.io.OutputStream: void close()>();
+
+     label16:
+        throw $r5;
+
+     label17:
+        return;
+
+        catch java.lang.Throwable from label01 to label03 with label09;
+        catch java.lang.Throwable from label04 to label05 with label09;
+        catch java.lang.Throwable from label10 to label11 with label08;
+        catch java.lang.Throwable from label12 to label13 with label14;
+    }

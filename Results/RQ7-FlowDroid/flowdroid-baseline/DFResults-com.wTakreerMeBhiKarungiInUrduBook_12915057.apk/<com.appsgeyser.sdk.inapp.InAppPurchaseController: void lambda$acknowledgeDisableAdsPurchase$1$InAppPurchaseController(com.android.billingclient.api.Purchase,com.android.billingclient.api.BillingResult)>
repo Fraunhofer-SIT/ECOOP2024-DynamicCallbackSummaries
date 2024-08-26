@@ -1,0 +1,51 @@
+    public void lambda$acknowledgeDisableAdsPurchase$1$InAppPurchaseController(com.android.billingclient.api.Purchase, com.android.billingclient.api.BillingResult)
+    {
+        android.content.Context $r8;
+        com.appsgeyser.sdk.server.StatController $r7;
+        java.util.Date $r6;
+        java.util.HashMap $r3;
+        long $l0;
+        com.android.billingclient.api.Purchase $r1;
+        java.util.Calendar $r5;
+        com.android.billingclient.api.BillingResult $r2;
+        com.appsgeyser.sdk.inapp.InAppPurchaseController r0;
+        java.lang.String $r4;
+
+        r0 := @this: com.appsgeyser.sdk.inapp.InAppPurchaseController;
+
+        $r1 := @parameter0: com.android.billingclient.api.Purchase;
+
+        $r2 := @parameter1: com.android.billingclient.api.BillingResult;
+
+        $r3 = r0.<com.appsgeyser.sdk.inapp.InAppPurchaseController: java.util.HashMap reportingDetails>;
+
+        $r4 = virtualinvoke $r1.<com.android.billingclient.api.Purchase: java.lang.String getSku()>();
+
+        virtualinvoke $r3.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>("item", $r4);
+
+        $r5 = staticinvoke <java.util.Calendar: java.util.Calendar getInstance()>();
+
+        $l0 = virtualinvoke $r1.<com.android.billingclient.api.Purchase: long getPurchaseTime()>();
+
+        virtualinvoke $r5.<java.util.Calendar: void setTimeInMillis(long)>($l0);
+
+        $r3 = r0.<com.appsgeyser.sdk.inapp.InAppPurchaseController: java.util.HashMap reportingDetails>;
+
+        $r6 = virtualinvoke $r5.<java.util.Calendar: java.util.Date getTime()>();
+
+        $r4 = virtualinvoke $r6.<java.util.Date: java.lang.String toString()>();
+
+        virtualinvoke $r3.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>("date", $r4);
+
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("inAppPurchaseTag", "purchase successfully acknowledged");
+
+        $r7 = staticinvoke <com.appsgeyser.sdk.server.StatController: com.appsgeyser.sdk.server.StatController getInstance()>();
+
+        $r3 = r0.<com.appsgeyser.sdk.inapp.InAppPurchaseController: java.util.HashMap reportingDetails>;
+
+        $r8 = r0.<com.appsgeyser.sdk.inapp.InAppPurchaseController: android.content.Context context>;
+
+        virtualinvoke $r7.<com.appsgeyser.sdk.server.StatController: void sendRequestAsyncByKey(java.lang.String,java.util.HashMap,android.content.Context,boolean)>("inapp_disable_ads_acknowledged", $r3, $r8, 1);
+
+        return;
+    }

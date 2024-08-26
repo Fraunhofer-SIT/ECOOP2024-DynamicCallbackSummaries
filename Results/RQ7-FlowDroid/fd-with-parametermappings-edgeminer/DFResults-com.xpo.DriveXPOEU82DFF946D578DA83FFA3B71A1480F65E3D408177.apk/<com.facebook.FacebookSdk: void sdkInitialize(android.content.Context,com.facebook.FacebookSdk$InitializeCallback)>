@@ -1,0 +1,161 @@
+    public static void sdkInitialize(android.content.Context, com.facebook.FacebookSdk$InitializeCallback)
+    {
+        java.lang.Throwable $r15;
+        android.content.Context $r0, $r3;
+        java.util.concurrent.FutureTask $r11;
+        com.facebook.FacebookSdk$3 $r10;
+        com.facebook.FacebookSdk$4 $r12;
+        com.facebook.internal.FeatureManager$Feature $r8;
+        java.lang.Boolean $r2;
+        java.lang.String $r4;
+        com.facebook.internal.LockOnGetVariable $r6;
+        com.facebook.FacebookSdk$1 $r7;
+        boolean $z0;
+        com.facebook.FacebookSdk$2 $r9;
+        java.util.concurrent.Executor $r13;
+        com.facebook.FacebookException $r14;
+        com.facebook.FacebookSdk$InitializeCallback $r1;
+        android.app.Application $r5;
+
+        $r0 := @parameter0: android.content.Context;
+
+        $r1 := @parameter1: com.facebook.FacebookSdk$InitializeCallback;
+
+        entermonitor class "Lcom/facebook/FacebookSdk;";
+
+     label1:
+        $r2 = <com.facebook.FacebookSdk: java.lang.Boolean sdkInitialized>;
+
+        $z0 = virtualinvoke $r2.<java.lang.Boolean: boolean booleanValue()>();
+
+        if $z0 == 0 goto label3;
+
+        goto label2;
+
+     label2:
+        exitmonitor class "Lcom/facebook/FacebookSdk;";
+
+        return;
+
+     label3:
+        staticinvoke <com.facebook.internal.Validate: void notNull(java.lang.Object,java.lang.String)>($r0, "applicationContext");
+
+        staticinvoke <com.facebook.internal.Validate: void hasFacebookActivity(android.content.Context,boolean)>($r0, 0);
+
+        staticinvoke <com.facebook.internal.Validate: void hasInternetPermissions(android.content.Context,boolean)>($r0, 0);
+
+        $r3 = virtualinvoke $r0.<android.content.Context: android.content.Context getApplicationContext()>();
+
+        <com.facebook.FacebookSdk: android.content.Context applicationContext> = $r3;
+
+        staticinvoke <com.facebook.appevents.AppEventsLogger: java.lang.String getAnonymousAppDeviceGUID(android.content.Context)>($r0);
+
+        $r3 = <com.facebook.FacebookSdk: android.content.Context applicationContext>;
+
+        staticinvoke <com.facebook.FacebookSdk: void loadDefaultsFromMetadata(android.content.Context)>($r3);
+
+        $r4 = <com.facebook.FacebookSdk: java.lang.String applicationId>;
+
+        $z0 = staticinvoke <com.facebook.internal.Utility: boolean isNullOrEmpty(java.lang.String)>($r4);
+
+        if $z0 != 0 goto label7;
+
+        $r2 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(1);
+
+        <com.facebook.FacebookSdk: java.lang.Boolean sdkInitialized> = $r2;
+
+        $z0 = staticinvoke <com.facebook.FacebookSdk: boolean getAutoInitEnabled()>();
+
+        if $z0 == 0 goto label4;
+
+        staticinvoke <com.facebook.FacebookSdk: void fullyInitialize()>();
+
+     label4:
+        $r3 = <com.facebook.FacebookSdk: android.content.Context applicationContext>;
+
+        $z0 = $r3 instanceof android.app.Application;
+
+        if $z0 == 0 goto label5;
+
+        $z0 = staticinvoke <com.facebook.UserSettingsManager: boolean getAutoLogAppEventsEnabled()>();
+
+        if $z0 == 0 goto label5;
+
+        $r3 = <com.facebook.FacebookSdk: android.content.Context applicationContext>;
+
+        $r5 = (android.app.Application) $r3;
+
+        $r4 = <com.facebook.FacebookSdk: java.lang.String applicationId>;
+
+        staticinvoke <com.facebook.appevents.internal.ActivityLifecycleTracker: void startTracking(android.app.Application,java.lang.String)>($r5, $r4);
+
+     label5:
+        staticinvoke <com.facebook.internal.FetchedAppSettingsManager: void loadAppSettingsAsync()>();
+
+        staticinvoke <com.facebook.internal.NativeProtocol: void updateAllAvailableProtocolVersionsAsync()>();
+
+        $r3 = <com.facebook.FacebookSdk: android.content.Context applicationContext>;
+
+        staticinvoke <com.facebook.internal.BoltsMeasurementEventListener: com.facebook.internal.BoltsMeasurementEventListener getInstance(android.content.Context)>($r3);
+
+        $r6 = new com.facebook.internal.LockOnGetVariable;
+
+        $r7 = new com.facebook.FacebookSdk$1;
+
+        specialinvoke $r7.<com.facebook.FacebookSdk$1: void <init>()>();
+
+        specialinvoke $r6.<com.facebook.internal.LockOnGetVariable: void <init>(java.util.concurrent.Callable)>($r7);
+
+        <com.facebook.FacebookSdk: com.facebook.internal.LockOnGetVariable cacheDir> = $r6;
+
+        $r8 = <com.facebook.internal.FeatureManager$Feature: com.facebook.internal.FeatureManager$Feature Instrument>;
+
+        $r9 = new com.facebook.FacebookSdk$2;
+
+        specialinvoke $r9.<com.facebook.FacebookSdk$2: void <init>()>();
+
+        staticinvoke <com.facebook.internal.FeatureManager: void checkFeature(com.facebook.internal.FeatureManager$Feature,com.facebook.internal.FeatureManager$Callback)>($r8, $r9);
+
+        $r8 = <com.facebook.internal.FeatureManager$Feature: com.facebook.internal.FeatureManager$Feature AppEvents>;
+
+        $r10 = new com.facebook.FacebookSdk$3;
+
+        specialinvoke $r10.<com.facebook.FacebookSdk$3: void <init>()>();
+
+        staticinvoke <com.facebook.internal.FeatureManager: void checkFeature(com.facebook.internal.FeatureManager$Feature,com.facebook.internal.FeatureManager$Callback)>($r8, $r10);
+
+        $r11 = new java.util.concurrent.FutureTask;
+
+        $r12 = new com.facebook.FacebookSdk$4;
+
+        specialinvoke $r12.<com.facebook.FacebookSdk$4: void <init>(com.facebook.FacebookSdk$InitializeCallback,android.content.Context)>(null, $r0);
+
+        specialinvoke $r11.<java.util.concurrent.FutureTask: void <init>(java.util.concurrent.Callable)>($r12);
+
+        $r13 = staticinvoke <com.facebook.FacebookSdk: java.util.concurrent.Executor getExecutor()>();
+
+        interfaceinvoke $r13.<java.util.concurrent.Executor: void execute(java.lang.Runnable)>($r11);
+
+     label6:
+        exitmonitor class "Lcom/facebook/FacebookSdk;";
+
+        return;
+
+     label7:
+        $r14 = new com.facebook.FacebookException;
+
+        specialinvoke $r14.<com.facebook.FacebookException: void <init>(java.lang.String)>("A valid Facebook app id must be set in the AndroidManifest.xml or set by calling FacebookSdk.setApplicationId before initializing the sdk.");
+
+        throw $r14;
+
+     label8:
+        $r15 := @caughtexception;
+
+        exitmonitor class "Lcom/facebook/FacebookSdk;";
+
+        throw $r15;
+
+        catch java.lang.Throwable from label1 to label2 with label8;
+        catch java.lang.Throwable from label3 to label6 with label8;
+        catch java.lang.Throwable from label7 to label8 with label8;
+    }

@@ -1,0 +1,43 @@
+    public static com.vk.sdk.VKAccessToken currentToken()
+    {
+        java.lang.Throwable $r2;
+        android.content.Context $r1;
+        com.vk.sdk.VKAccessToken $r0;
+
+        $r0 = <com.vk.sdk.VKAccessToken: com.vk.sdk.VKAccessToken sCurrentToken>;
+
+        if $r0 != null goto label3;
+
+        entermonitor class "Lcom/vk/sdk/VKAccessToken;";
+
+     label1:
+        $r0 = <com.vk.sdk.VKAccessToken: com.vk.sdk.VKAccessToken sCurrentToken>;
+
+        if $r0 != null goto label2;
+
+        $r1 = staticinvoke <com.vk.sdk.VKUIHelper: android.content.Context getApplicationContext()>();
+
+        $r0 = staticinvoke <com.vk.sdk.VKAccessToken: com.vk.sdk.VKAccessToken tokenFromSharedPreferences(android.content.Context,java.lang.String)>($r1, "VK_SDK_ACCESS_TOKEN_PLEASE_DONT_TOUCH");
+
+        <com.vk.sdk.VKAccessToken: com.vk.sdk.VKAccessToken sCurrentToken> = $r0;
+
+     label2:
+        exitmonitor class "Lcom/vk/sdk/VKAccessToken;";
+
+     label3:
+        $r0 = <com.vk.sdk.VKAccessToken: com.vk.sdk.VKAccessToken sCurrentToken>;
+
+        return $r0;
+
+     label4:
+        $r2 := @caughtexception;
+
+     label5:
+        exitmonitor class "Lcom/vk/sdk/VKAccessToken;";
+
+     label6:
+        throw $r2;
+
+        catch java.lang.Throwable from label1 to label3 with label4;
+        catch java.lang.Throwable from label5 to label6 with label4;
+    }

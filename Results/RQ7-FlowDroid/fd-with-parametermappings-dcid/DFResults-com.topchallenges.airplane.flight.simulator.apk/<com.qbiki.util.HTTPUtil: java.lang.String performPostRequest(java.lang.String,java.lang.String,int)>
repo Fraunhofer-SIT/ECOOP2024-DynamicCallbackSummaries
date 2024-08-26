@@ -1,0 +1,89 @@
+    public static java.lang.String performPostRequest(java.lang.String, java.lang.String, int) throws java.io.IOException
+    {
+        java.net.HttpURLConnection $r6;
+        java.io.OutputStream $r7;
+        java.lang.Throwable $r9;
+        java.net.URL r2;
+        java.net.URLConnection $r5;
+        int $i0;
+        java.io.OutputStreamWriter r3, r4;
+        java.lang.String $r0, $r1;
+        java.io.InputStream $r8;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $i0 := @parameter2: int;
+
+        r4 = null;
+
+     label1:
+        r2 = new java.net.URL;
+
+        specialinvoke r2.<java.net.URL: void <init>(java.lang.String)>($r0);
+
+        $r5 = virtualinvoke r2.<java.net.URL: java.net.URLConnection openConnection()>();
+
+        $r6 = (java.net.HttpURLConnection) $r5;
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setReadTimeout(int)>(30000);
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setConnectTimeout(int)>(30000);
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setRequestMethod(java.lang.String)>("POST");
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setRequestProperty(java.lang.String,java.lang.String)>("Content-Type", "application/x-www-form-urlencoded");
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setDoInput(boolean)>(1);
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void setDoOutput(boolean)>(1);
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void connect()>();
+
+        r3 = new java.io.OutputStreamWriter;
+
+        $r7 = virtualinvoke $r6.<java.net.HttpURLConnection: java.io.OutputStream getOutputStream()>();
+
+        specialinvoke r3.<java.io.OutputStreamWriter: void <init>(java.io.OutputStream)>($r7);
+
+     label2:
+        virtualinvoke r3.<java.io.OutputStreamWriter: void write(java.lang.String)>($r1);
+
+        virtualinvoke r3.<java.io.OutputStreamWriter: void flush()>();
+
+        $r8 = virtualinvoke $r6.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+        $r0 = staticinvoke <com.qbiki.util.DataUtil: java.lang.String readString(java.io.InputStream)>($r8);
+
+     label3:
+        if r3 == null goto label8;
+
+        virtualinvoke r3.<java.io.OutputStreamWriter: void close()>();
+
+        return $r0;
+
+     label4:
+        $r9 := @caughtexception;
+
+     label5:
+        if r4 == null goto label6;
+
+        virtualinvoke r4.<java.io.OutputStreamWriter: void close()>();
+
+     label6:
+        throw $r9;
+
+     label7:
+        $r9 := @caughtexception;
+
+        r4 = r3;
+
+        goto label5;
+
+     label8:
+        return $r0;
+
+        catch java.lang.Throwable from label1 to label2 with label4;
+        catch java.lang.Throwable from label2 to label3 with label7;
+    }

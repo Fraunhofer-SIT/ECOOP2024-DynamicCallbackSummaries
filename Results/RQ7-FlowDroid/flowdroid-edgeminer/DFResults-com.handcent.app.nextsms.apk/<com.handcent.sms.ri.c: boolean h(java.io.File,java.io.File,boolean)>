@@ -1,0 +1,79 @@
+    private static boolean h(java.io.File, java.io.File, boolean)
+    {
+        java.lang.Throwable $r3;
+        java.io.FileInputStream $r4;
+        java.io.File $r0, $r1, $r2;
+        java.io.FileNotFoundException $r5;
+        boolean $z0, $z1;
+
+        $r0 := @parameter0: java.io.File;
+
+        $r1 := @parameter1: java.io.File;
+
+        $z0 := @parameter2: boolean;
+
+        if $r0 == null goto label9;
+
+        if $r1 != null goto label1;
+
+        return 0;
+
+     label1:
+        $z1 = virtualinvoke $r0.<java.io.File: boolean exists()>();
+
+        if $z1 == 0 goto label9;
+
+        $z1 = virtualinvoke $r0.<java.io.File: boolean isFile()>();
+
+        if $z1 != 0 goto label2;
+
+        return 0;
+
+     label2:
+        $z1 = virtualinvoke $r1.<java.io.File: boolean exists()>();
+
+        if $z1 == 0 goto label3;
+
+        $z1 = virtualinvoke $r1.<java.io.File: boolean isFile()>();
+
+        if $z1 == 0 goto label3;
+
+        return 0;
+
+     label3:
+        $r2 = virtualinvoke $r1.<java.io.File: java.io.File getParentFile()>();
+
+        $z1 = staticinvoke <com.handcent.sms.ri.c: boolean l(java.io.File)>($r2);
+
+        if $z1 != 0 goto label4;
+
+        return 0;
+
+     label4:
+        $r4 = new java.io.FileInputStream;
+
+     label5:
+        specialinvoke $r4.<java.io.FileInputStream: void <init>(java.io.File)>($r0);
+
+        $z1 = staticinvoke <com.handcent.sms.ri.c: boolean o0(java.io.File,java.io.InputStream,boolean)>($r1, $r4, 0);
+
+     label6:
+        if $z1 == 0 goto label9;
+
+        goto label7;
+
+     label7:
+        return 1;
+
+     label8:
+        $r3 := @caughtexception;
+
+        $r5 = (java.io.FileNotFoundException) $r3;
+
+        virtualinvoke $r5.<java.io.FileNotFoundException: void printStackTrace()>();
+
+     label9:
+        return 0;
+
+        catch java.io.FileNotFoundException from label5 to label6 with label8;
+    }

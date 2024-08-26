@@ -1,0 +1,100 @@
+    public com.google.api.services.drive.model.File uploadDriveConfigJson(notes.easy.android.mynotes.backup.drivesync.SyncConfig)
+    {
+        notes.easy.android.mynotes.backup.drivesync.SyncConfig $r1;
+        java.io.File $r6, $r7;
+        java.lang.Exception $r9;
+        notes.easy.android.mynotes.backup.drivesync.BackupHelper r0;
+        com.google.gson.Gson $r5;
+        com.google.api.services.drive.model.File $r8;
+        java.lang.StringBuilder $r3;
+        java.lang.String $r2, $r4;
+        boolean $z0;
+
+        r0 := @this: notes.easy.android.mynotes.backup.drivesync.BackupHelper;
+
+        $r1 := @parameter0: notes.easy.android.mynotes.backup.drivesync.SyncConfig;
+
+     label01:
+        $r2 = virtualinvoke $r1.<notes.easy.android.mynotes.backup.drivesync.SyncConfig: java.lang.String getConfigFileId()>();
+
+     label02:
+        $r3 = new java.lang.StringBuilder;
+
+     label03:
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("configFileId = ");
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r4 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <notes.easy.android.mynotes.backup.drivesync.BackupHelper: void Log(java.lang.String,java.lang.String,java.lang.String)>("BackupHelper", "uploadDriveConfigJson", $r4);
+
+        $r5 = r0.<notes.easy.android.mynotes.backup.drivesync.BackupHelper: com.google.gson.Gson mGson>;
+
+        $r4 = virtualinvoke $r5.<com.google.gson.Gson: java.lang.String toJson(java.lang.Object,java.lang.reflect.Type)>($r1, class "Lnotes/easy/android/mynotes/backup/drivesync/SyncConfig;");
+
+        $r6 = staticinvoke <notes.easy.android.mynotes.backup.drivesync.BackupHelper: java.io.File getBackupDir()>();
+
+     label04:
+        $r7 = new java.io.File;
+
+     label05:
+        specialinvoke $r7.<java.io.File: void <init>(java.io.File,java.lang.String)>($r6, "backup_config.json");
+
+        staticinvoke <notes.easy.android.mynotes.utils.FileUtils: boolean saveJsonToFile(java.lang.String,java.io.File)>($r4, $r7);
+
+        $z0 = staticinvoke <org.apache.commons.lang3.StringUtils: boolean isEmpty(java.lang.CharSequence)>($r2);
+
+     label06:
+        if $z0 == 0 goto label09;
+
+        $r7 = new java.io.File;
+
+     label07:
+        specialinvoke $r7.<java.io.File: void <init>(java.io.File,java.lang.String)>($r6, "backup_config.json");
+
+        $r8 = staticinvoke <notes.easy.android.mynotes.backup.drivesync.BackupHelper: com.google.api.services.drive.model.File uploadDriveFile(java.io.File,java.lang.String)>($r7, "application/json");
+
+     label08:
+        return $r8;
+
+     label09:
+        $r7 = new java.io.File;
+
+     label10:
+        specialinvoke $r7.<java.io.File: void <init>(java.io.File,java.lang.String)>($r6, "backup_config.json");
+
+        $r8 = staticinvoke <notes.easy.android.mynotes.backup.drivesync.BackupHelper: com.google.api.services.drive.model.File updateDriveFile(java.lang.String,java.io.File,java.lang.String)>($r2, $r7, "application/json");
+
+     label11:
+        return $r8;
+
+     label12:
+        $r9 := @caughtexception;
+
+        virtualinvoke $r9.<java.lang.Exception: void printStackTrace()>();
+
+        $r3 = new java.lang.StringBuilder;
+
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("e = ");
+
+        $r2 = virtualinvoke $r9.<java.lang.Exception: java.lang.String getMessage()>();
+
+        virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <notes.easy.android.mynotes.backup.drivesync.BackupHelper: void Log(java.lang.String,java.lang.String,java.lang.String)>("BackupHelper", "uploadDriveConfigJson", $r2);
+
+        return null;
+
+        catch java.lang.Exception from label01 to label02 with label12;
+        catch java.lang.Exception from label03 to label04 with label12;
+        catch java.lang.Exception from label05 to label06 with label12;
+        catch java.lang.Exception from label07 to label08 with label12;
+        catch java.lang.Exception from label10 to label11 with label12;
+    }

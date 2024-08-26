@@ -1,0 +1,40 @@
+    public static java.lang.String readString(java.io.InputStream) throws java.io.IOException
+    {
+        java.nio.charset.Charset $r1;
+        int $i0;
+        char[] $r2;
+        java.lang.StringBuilder $r5;
+        java.lang.String $r3;
+        java.io.InputStreamReader $r4;
+        java.io.InputStream $r0;
+
+        $r0 := @parameter0: java.io.InputStream;
+
+        $r4 = new java.io.InputStreamReader;
+
+        $r1 = <java.nio.charset.StandardCharsets: java.nio.charset.Charset UTF_8>;
+
+        specialinvoke $r4.<java.io.InputStreamReader: void <init>(java.io.InputStream,java.nio.charset.Charset)>($r0, $r1);
+
+        $r2 = newarray (char)[1024];
+
+        $r5 = new java.lang.StringBuilder;
+
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>()>();
+
+     label1:
+        $i0 = lengthof $r2;
+
+        $i0 = virtualinvoke $r4.<java.io.InputStreamReader: int read(char[],int,int)>($r2, 0, $i0);
+
+        if $i0 == -1 goto label2;
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(char[],int,int)>($r2, 0, $i0);
+
+        goto label1;
+
+     label2:
+        $r3 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        return $r3;
+    }

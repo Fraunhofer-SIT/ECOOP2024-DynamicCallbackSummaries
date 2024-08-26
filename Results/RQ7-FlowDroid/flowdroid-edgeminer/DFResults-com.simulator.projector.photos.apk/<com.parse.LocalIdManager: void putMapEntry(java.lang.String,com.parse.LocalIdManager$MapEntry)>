@@ -1,0 +1,123 @@
+    private void putMapEntry(java.lang.String, com.parse.LocalIdManager$MapEntry)
+    {
+        java.lang.Throwable $r8, $r11;
+        java.lang.IllegalStateException $r6;
+        com.parse.LocalIdManager$MapEntry $r2;
+        java.io.File r3, $r10;
+        com.parse.LocalIdManager r0;
+        org.json.JSONException r4;
+        org.json.JSONObject r5;
+        int $i0;
+        java.lang.StringBuilder $r7;
+        java.lang.String $r1, $r9;
+        boolean $z0;
+
+        r0 := @this: com.parse.LocalIdManager;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: com.parse.LocalIdManager$MapEntry;
+
+        entermonitor r0;
+
+     label01:
+        $z0 = specialinvoke r0.<com.parse.LocalIdManager: boolean isLocalId(java.lang.String)>($r1);
+
+        if $z0 != 0 goto label03;
+
+        $r6 = new java.lang.IllegalStateException;
+
+        $r7 = new java.lang.StringBuilder;
+
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>()>();
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Tried to get invalid local id: \"");
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\".");
+
+        $r1 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r6.<java.lang.IllegalStateException: void <init>(java.lang.String)>($r1);
+
+        throw $r6;
+
+     label02:
+        $r8 := @caughtexception;
+
+        exitmonitor r0;
+
+        throw $r8;
+
+     label03:
+        r5 = new org.json.JSONObject;
+
+        specialinvoke r5.<org.json.JSONObject: void <init>()>();
+
+     label04:
+        $i0 = $r2.<com.parse.LocalIdManager$MapEntry: int retainCount>;
+
+     label05:
+        virtualinvoke r5.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,int)>("retainCount", $i0);
+
+     label06:
+        $r9 = $r2.<com.parse.LocalIdManager$MapEntry: java.lang.String objectId>;
+
+        if $r9 == null goto label08;
+
+        $r9 = $r2.<com.parse.LocalIdManager$MapEntry: java.lang.String objectId>;
+
+     label07:
+        virtualinvoke r5.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("objectId", $r9);
+
+     label08:
+        r3 = new java.io.File;
+
+        $r10 = r0.<com.parse.LocalIdManager: java.io.File diskPath>;
+
+        specialinvoke r3.<java.io.File: void <init>(java.io.File,java.lang.String)>($r10, $r1);
+
+        $r10 = r0.<com.parse.LocalIdManager: java.io.File diskPath>;
+
+        $z0 = virtualinvoke $r10.<java.io.File: boolean exists()>();
+
+        if $z0 != 0 goto label09;
+
+        $r10 = r0.<com.parse.LocalIdManager: java.io.File diskPath>;
+
+        virtualinvoke $r10.<java.io.File: boolean mkdirs()>();
+
+     label09:
+        staticinvoke <com.parse.ParseFileUtils: void writeJSONObjectToFile(java.io.File,org.json.JSONObject)>(r3, r5);
+
+     label10:
+        exitmonitor r0;
+
+        return;
+
+     label11:
+        r4 := @caughtexception;
+
+     label12:
+        $r6 = new java.lang.IllegalStateException;
+
+        specialinvoke $r6.<java.lang.IllegalStateException: void <init>(java.lang.String,java.lang.Throwable)>("Error creating local id map entry.", r4);
+
+        throw $r6;
+
+     label13:
+        $r11 := @caughtexception;
+
+        goto label10;
+
+        catch java.lang.Throwable from label01 to label02 with label02;
+        catch java.lang.Throwable from label03 to label04 with label02;
+        catch org.json.JSONException from label05 to label06 with label11;
+        catch org.json.JSONException from label07 to label08 with label11;
+        catch java.lang.Throwable from label04 to label08 with label02;
+        catch java.lang.Throwable from label08 to label09 with label02;
+        catch java.io.IOException from label09 to label10 with label13;
+        catch java.lang.Throwable from label09 to label10 with label02;
+        catch java.lang.Throwable from label12 to label13 with label02;
+    }

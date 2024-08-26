@@ -1,0 +1,248 @@
+    private boolean setAlarm()
+    {
+        java.lang.Throwable r2, $r16, $r21, $r22;
+        byte[] r1;
+        android.net.Uri $r15;
+        java.util.HashMap $r8;
+        long $l0;
+        java.lang.Integer $r12;
+        java.lang.Long $r11;
+        android.content.ContentResolver $r14;
+        int $i1;
+        java.lang.Boolean $r13;
+        java.lang.String $r10, $r19;
+        java.io.OutputStream $r17;
+        yad.bekheir.music.Ayat r0;
+        java.lang.Exception r3;
+        java.io.File r4, $r6;
+        java.lang.StringBuilder $r7;
+        java.lang.Object $r9;
+        android.content.ContentValues r5;
+        android.content.res.Resources $r18;
+        java.io.InputStream $r20;
+
+        r0 := @this: yad.bekheir.music.Ayat;
+
+        r4 = new java.io.File;
+
+        $r6 = virtualinvoke r0.<yad.bekheir.music.Ayat: java.io.File getExternalFilesDir(java.lang.String)>(null);
+
+        $r7 = new java.lang.StringBuilder;
+
+        $r8 = <yad.bekheir.music.Ayat: java.util.HashMap book>;
+
+        $r9 = virtualinvoke $r8.<java.util.HashMap: java.lang.Object get(java.lang.Object)>("save");
+
+        $r10 = virtualinvoke $r9.<java.lang.Object: java.lang.String toString()>();
+
+        $r10 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r10);
+
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>(java.lang.String)>($r10);
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".mp3");
+
+        $r10 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke r4.<java.io.File: void <init>(java.io.File,java.lang.String)>($r6, $r10);
+
+        r5 = new android.content.ContentValues;
+
+        specialinvoke r5.<android.content.ContentValues: void <init>()>();
+
+        $r8 = <yad.bekheir.music.Ayat: java.util.HashMap book>;
+
+        $r9 = virtualinvoke $r8.<java.util.HashMap: java.lang.Object get(java.lang.Object)>("save");
+
+        $r10 = virtualinvoke $r9.<java.lang.Object: java.lang.String toString()>();
+
+        virtualinvoke r5.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("title", $r10);
+
+        $l0 = virtualinvoke r4.<java.io.File: long length()>();
+
+        $r11 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>($l0);
+
+        virtualinvoke r5.<android.content.ContentValues: void put(java.lang.String,java.lang.Long)>("_size", $r11);
+
+        virtualinvoke r5.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("mime_type", "audio/*");
+
+        $r12 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(590);
+
+        virtualinvoke r5.<android.content.ContentValues: void put(java.lang.String,java.lang.Integer)>("duration", $r12);
+
+        $r13 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(0);
+
+        virtualinvoke r5.<android.content.ContentValues: void put(java.lang.String,java.lang.Boolean)>("is_ringtone", $r13);
+
+        $r13 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(0);
+
+        virtualinvoke r5.<android.content.ContentValues: void put(java.lang.String,java.lang.Boolean)>("is_notification", $r13);
+
+        $r13 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(1);
+
+        virtualinvoke r5.<android.content.ContentValues: void put(java.lang.String,java.lang.Boolean)>("is_alarm", $r13);
+
+        $r13 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(0);
+
+        virtualinvoke r5.<android.content.ContentValues: void put(java.lang.String,java.lang.Boolean)>("is_music", $r13);
+
+        $i1 = <android.os.Build$VERSION: int SDK_INT>;
+
+        if $i1 < 29 goto label22;
+
+        $r14 = virtualinvoke r0.<yad.bekheir.music.Ayat: android.content.ContentResolver getContentResolver()>();
+
+        $r15 = <android.provider.MediaStore$Audio$Media: android.net.Uri EXTERNAL_CONTENT_URI>;
+
+        $r15 = virtualinvoke $r14.<android.content.ContentResolver: android.net.Uri insert(android.net.Uri,android.content.ContentValues)>($r15, r5);
+
+        $r16 = null;
+
+     label01:
+        $r14 = virtualinvoke r0.<yad.bekheir.music.Ayat: android.content.ContentResolver getContentResolver()>();
+
+        $r17 = virtualinvoke $r14.<android.content.ContentResolver: java.io.OutputStream openOutputStream(android.net.Uri)>($r15);
+
+     label02:
+        $r18 = virtualinvoke r0.<yad.bekheir.music.Ayat: android.content.res.Resources getResources()>();
+
+     label03:
+        $r8 = <yad.bekheir.music.Ayat: java.util.HashMap book>;
+
+     label04:
+        $r9 = virtualinvoke $r8.<java.util.HashMap: java.lang.Object get(java.lang.Object)>("save");
+
+        $r10 = virtualinvoke $r9.<java.lang.Object: java.lang.String toString()>();
+
+        $r19 = virtualinvoke r0.<yad.bekheir.music.Ayat: java.lang.String getPackageName()>();
+
+        $i1 = virtualinvoke $r18.<android.content.res.Resources: int getIdentifier(java.lang.String,java.lang.String,java.lang.String)>($r10, "raw", $r19);
+
+        $r18 = virtualinvoke r0.<yad.bekheir.music.Ayat: android.content.res.Resources getResources()>();
+
+        $r20 = virtualinvoke $r18.<android.content.res.Resources: java.io.InputStream openRawResource(int)>($i1);
+
+        $i1 = virtualinvoke $r20.<java.io.InputStream: int available()>();
+
+     label05:
+        r1 = newarray (byte)[$i1];
+
+     label06:
+        virtualinvoke $r20.<java.io.InputStream: int read(byte[])>(r1);
+
+        virtualinvoke $r17.<java.io.OutputStream: void write(byte[])>(r1);
+
+        virtualinvoke $r20.<java.io.InputStream: void close()>();
+
+        virtualinvoke $r17.<java.io.OutputStream: void close()>();
+
+     label07:
+        if $r17 == null goto label09;
+
+     label08:
+        virtualinvoke $r17.<java.io.OutputStream: void close()>();
+
+     label09:
+        staticinvoke <android.media.RingtoneManager: void setActualDefaultRingtoneUri(android.content.Context,int,android.net.Uri)>(r0, 4, $r15);
+
+        return 1;
+
+     label10:
+        r2 := @caughtexception;
+
+        if $r17 == null goto label12;
+
+     label11:
+        virtualinvoke $r17.<java.io.OutputStream: void close()>();
+
+     label12:
+        return 0;
+
+     label13:
+        $r21 := @caughtexception;
+
+        $r16 = $r21;
+
+        if $r17 == null goto label15;
+
+     label14:
+        virtualinvoke $r17.<java.io.OutputStream: void close()>();
+
+     label15:
+        throw $r21;
+
+     label16:
+        $r22 := @caughtexception;
+
+        if $r16 != null goto label19;
+
+     label17:
+        throw $r22;
+
+     label18:
+        r3 := @caughtexception;
+
+        return 0;
+
+     label19:
+        if $r16 == $r22 goto label21;
+
+     label20:
+        virtualinvoke $r16.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r22);
+
+     label21:
+        $r22 = $r16;
+
+        goto label17;
+
+     label22:
+        $r10 = virtualinvoke r4.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke r5.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("_data", $r10);
+
+        $r10 = virtualinvoke r4.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $r15 = staticinvoke <android.provider.MediaStore$Audio$Media: android.net.Uri getContentUriForPath(java.lang.String)>($r10);
+
+        $r14 = virtualinvoke r0.<yad.bekheir.music.Ayat: android.content.ContentResolver getContentResolver()>();
+
+        $r7 = new java.lang.StringBuilder;
+
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>(java.lang.String)>("_data=\"");
+
+        $r10 = virtualinvoke r4.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\"");
+
+        $r10 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r14.<android.content.ContentResolver: int delete(android.net.Uri,java.lang.String,java.lang.String[])>($r15, $r10, null);
+
+        $r14 = virtualinvoke r0.<yad.bekheir.music.Ayat: android.content.ContentResolver getContentResolver()>();
+
+        $r15 = virtualinvoke $r14.<android.content.ContentResolver: android.net.Uri insert(android.net.Uri,android.content.ContentValues)>($r15, r5);
+
+        staticinvoke <android.media.RingtoneManager: void setActualDefaultRingtoneUri(android.content.Context,int,android.net.Uri)>(r0, 4, $r15);
+
+        $r14 = virtualinvoke r0.<yad.bekheir.music.Ayat: android.content.ContentResolver getContentResolver()>();
+
+        $r10 = virtualinvoke r4.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        $r15 = staticinvoke <android.provider.MediaStore$Audio$Media: android.net.Uri getContentUriForPath(java.lang.String)>($r10);
+
+        virtualinvoke $r14.<android.content.ContentResolver: android.net.Uri insert(android.net.Uri,android.content.ContentValues)>($r15, r5);
+
+        return 1;
+
+        catch java.lang.Throwable from label01 to label02 with label16;
+        catch java.io.IOException from label02 to label03 with label10;
+        catch java.io.IOException from label04 to label05 with label10;
+        catch java.io.IOException from label06 to label07 with label10;
+        catch java.lang.Throwable from label02 to label07 with label13;
+        catch java.lang.Throwable from label08 to label09 with label16;
+        catch java.lang.Throwable from label11 to label12 with label16;
+        catch java.lang.Throwable from label14 to label16 with label16;
+        catch java.lang.Exception from label17 to label18 with label18;
+        catch java.lang.Exception from label20 to label21 with label18;
+    }

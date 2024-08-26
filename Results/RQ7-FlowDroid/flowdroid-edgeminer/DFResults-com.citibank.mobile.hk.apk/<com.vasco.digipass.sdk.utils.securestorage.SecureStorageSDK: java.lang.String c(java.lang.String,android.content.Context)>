@@ -1,0 +1,119 @@
+    private java.lang.String c(java.lang.String, android.content.Context) throws com.vasco.digipass.sdk.utils.securestorage.SecureStorageSDKException, java.lang.Exception
+    {
+        java.lang.Throwable $r6, $r7, $r9;
+        android.content.Context $r2;
+        byte[] $r3;
+        java.io.ByteArrayOutputStream $r10;
+        java.io.FileInputStream $r4, $r5;
+        java.lang.Exception $r8;
+        com.vasco.digipass.sdk.utils.securestorage.SecureStorageSDKException $r12;
+        int $i0;
+        java.lang.String $r1, $r11;
+        com.vasco.digipass.sdk.utils.securestorage.SecureStorageSDK r0;
+
+        r0 := @this: com.vasco.digipass.sdk.utils.securestorage.SecureStorageSDK;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: android.content.Context;
+
+        $r10 = new java.io.ByteArrayOutputStream;
+
+        specialinvoke $r10.<java.io.ByteArrayOutputStream: void <init>()>();
+
+        $r3 = newarray (byte)[1024];
+
+        $r4 = null;
+
+     label01:
+        $r1 = staticinvoke <com.vasco.digipass.sdk.utils.securestorage.SecureStorageSDK: java.lang.String e(java.lang.String)>($r1);
+
+        $r5 = virtualinvoke $r2.<android.content.Context: java.io.FileInputStream openFileInput(java.lang.String)>($r1);
+
+     label02:
+        $r4 = $r5;
+
+     label03:
+        $i0 = virtualinvoke $r5.<java.io.FileInputStream: int read(byte[])>($r3);
+
+     label04:
+        if $i0 == -1 goto label07;
+
+     label05:
+        virtualinvoke $r10.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r3, 0, $i0);
+
+     label06:
+        goto label03;
+
+     label07:
+        $r11 = new java.lang.String;
+
+     label08:
+        $r3 = virtualinvoke $r10.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        specialinvoke $r11.<java.lang.String: void <init>(byte[])>($r3);
+
+     label09:
+        if $r5 == null goto label22;
+
+     label10:
+        virtualinvoke $r5.<java.io.FileInputStream: void close()>();
+
+     label11:
+        return $r11;
+
+     label12:
+        $r6 := @caughtexception;
+
+        throw $r6;
+
+     label13:
+        $r7 := @caughtexception;
+
+        goto label17;
+
+     label14:
+        $r8 := @caughtexception;
+
+     label15:
+        $r12 = new com.vasco.digipass.sdk.utils.securestorage.SecureStorageSDKException;
+
+     label16:
+        specialinvoke $r12.<com.vasco.digipass.sdk.utils.securestorage.SecureStorageSDKException: void <init>(int,java.lang.Throwable)>(-4305, $r8);
+
+        throw $r12;
+
+     label17:
+        if $r4 == null goto label21;
+
+     label18:
+        virtualinvoke $r4.<java.io.FileInputStream: void close()>();
+
+     label19:
+        goto label21;
+
+     label20:
+        $r9 := @caughtexception;
+
+        throw $r9;
+
+     label21:
+        throw $r7;
+
+     label22:
+        return $r11;
+
+        catch java.lang.Exception from label01 to label02 with label14;
+        catch java.lang.Exception from label03 to label04 with label14;
+        catch java.lang.Exception from label05 to label06 with label14;
+        catch java.lang.Exception from label08 to label09 with label14;
+        catch java.lang.Throwable from label01 to label02 with label13;
+        catch java.lang.Throwable from label03 to label04 with label13;
+        catch java.lang.Throwable from label05 to label06 with label13;
+        catch java.lang.Throwable from label07 to label08 with label13;
+        catch java.lang.Throwable from label08 to label09 with label13;
+        catch java.io.IOException from label10 to label11 with label12;
+        catch java.lang.Throwable from label15 to label16 with label13;
+        catch java.lang.Throwable from label16 to label17 with label13;
+        catch java.io.IOException from label18 to label19 with label20;
+    }

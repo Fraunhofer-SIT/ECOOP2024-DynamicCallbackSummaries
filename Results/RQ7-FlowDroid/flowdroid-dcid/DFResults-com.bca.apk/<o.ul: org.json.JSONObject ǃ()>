@@ -1,0 +1,120 @@
+    public final org.json.JSONObject \u01c3()
+    {
+        java.lang.Throwable $r10, $r11;
+        o.ul r0;
+        java.io.FileInputStream $r2;
+        o.zz $r4;
+        java.io.File $r3, $r6;
+        java.lang.Exception $r9;
+        o.yz $r5;
+        org.json.JSONObject $r8;
+        java.lang.String $r7;
+        o.yG $r1;
+        boolean $z0;
+
+        r0 := @this: o.ul;
+
+        $r1 = staticinvoke <o.yt: o.yG \u0269()>();
+
+        interfaceinvoke $r1.<o.yG: void \u01c3(java.lang.String,java.lang.String)>("Fabric", "Reading cached settings...");
+
+        $r2 = null;
+
+     label01:
+        $r3 = new java.io.File;
+
+        $r4 = new o.zz;
+
+     label02:
+        $r5 = r0.<o.ul: o.yz \u03b9>;
+
+        specialinvoke $r4.<o.zz: void <init>(o.yz)>($r5);
+
+        $r6 = virtualinvoke $r4.<o.zz: java.io.File \u03b9()>();
+
+        specialinvoke $r3.<java.io.File: void <init>(java.io.File,java.lang.String)>($r6, "com.crashlytics.settings.json");
+
+        $z0 = virtualinvoke $r3.<java.io.File: boolean exists()>();
+
+     label03:
+        if $z0 == 0 goto label11;
+
+     label04:
+        $r2 = new java.io.FileInputStream;
+
+     label05:
+        specialinvoke $r2.<java.io.FileInputStream: void <init>(java.io.File)>($r3);
+
+     label06:
+        $r7 = staticinvoke <o.yR: java.lang.String \u0399(java.io.InputStream)>($r2);
+
+     label07:
+        $r8 = new org.json.JSONObject;
+
+     label08:
+        specialinvoke $r8.<org.json.JSONObject: void <init>(java.lang.String)>($r7);
+
+     label09:
+        goto label13;
+
+     label10:
+        $r9 := @caughtexception;
+
+        goto label16;
+
+     label11:
+        $r1 = staticinvoke <o.yt: o.yG \u0269()>();
+
+        interfaceinvoke $r1.<o.yG: void \u01c3(java.lang.String,java.lang.String)>("Fabric", "No cached settings found.");
+
+     label12:
+        $r8 = null;
+
+     label13:
+        staticinvoke <o.yR: void \u0131(java.io.Closeable,java.lang.String)>($r2, "Error while closing settings cache file.");
+
+        return $r8;
+
+     label14:
+        $r10 := @caughtexception;
+
+        $r2 = null;
+
+        $r11 = $r10;
+
+        goto label19;
+
+     label15:
+        $r9 := @caughtexception;
+
+        $r2 = null;
+
+     label16:
+        $r1 = staticinvoke <o.yt: o.yG \u0269()>();
+
+        interfaceinvoke $r1.<o.yG: void \u0269(java.lang.String,java.lang.String,java.lang.Throwable)>("Fabric", "Failed to fetch cached settings", $r9);
+
+     label17:
+        staticinvoke <o.yR: void \u0131(java.io.Closeable,java.lang.String)>($r2, "Error while closing settings cache file.");
+
+        return null;
+
+     label18:
+        $r11 := @caughtexception;
+
+     label19:
+        staticinvoke <o.yR: void \u0131(java.io.Closeable,java.lang.String)>($r2, "Error while closing settings cache file.");
+
+        throw $r11;
+
+        catch java.lang.Exception from label02 to label03 with label15;
+        catch java.lang.Exception from label05 to label06 with label15;
+        catch java.lang.Throwable from label01 to label03 with label14;
+        catch java.lang.Throwable from label04 to label06 with label14;
+        catch java.lang.Exception from label06 to label07 with label10;
+        catch java.lang.Exception from label08 to label09 with label10;
+        catch java.lang.Throwable from label06 to label09 with label18;
+        catch java.lang.Exception from label11 to label12 with label15;
+        catch java.lang.Throwable from label11 to label12 with label14;
+        catch java.lang.Throwable from label16 to label17 with label18;
+    }

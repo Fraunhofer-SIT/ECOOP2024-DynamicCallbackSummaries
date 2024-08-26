@@ -1,0 +1,56 @@
+    private void copyDataBase() throws java.io.IOException
+    {
+        byte[] r1;
+        android.content.Context $r3;
+        com.recipes.app.DBHelper r0;
+        java.io.FileOutputStream r2;
+        android.content.res.AssetManager $r4;
+        int $i0;
+        java.lang.StringBuilder $r6;
+        java.lang.String $r7;
+        java.io.InputStream $r5;
+
+        r0 := @this: com.recipes.app.DBHelper;
+
+        $r3 = r0.<com.recipes.app.DBHelper: android.content.Context context>;
+
+        $r4 = virtualinvoke $r3.<android.content.Context: android.content.res.AssetManager getAssets()>();
+
+        $r5 = virtualinvoke $r4.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>("db_recipes");
+
+        $r6 = new java.lang.StringBuilder;
+
+        $r7 = <com.recipes.app.DBHelper: java.lang.String DB_PATH>;
+
+        $r7 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>($r7);
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>(java.lang.String)>($r7);
+
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("db_recipes");
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        r2 = new java.io.FileOutputStream;
+
+        specialinvoke r2.<java.io.FileOutputStream: void <init>(java.lang.String)>($r7);
+
+        r1 = newarray (byte)[1024];
+
+     label1:
+        $i0 = virtualinvoke $r5.<java.io.InputStream: int read(byte[])>(r1);
+
+        if $i0 > 0 goto label2;
+
+        virtualinvoke r2.<java.io.OutputStream: void flush()>();
+
+        virtualinvoke r2.<java.io.OutputStream: void close()>();
+
+        virtualinvoke $r5.<java.io.InputStream: void close()>();
+
+        return;
+
+     label2:
+        virtualinvoke r2.<java.io.OutputStream: void write(byte[],int,int)>(r1, 0, $i0);
+
+        goto label1;
+    }

@@ -1,0 +1,275 @@
+    public void run()
+    {
+        byte[] r4;
+        android.os.Bundle $r8;
+        java.util.Date $r27;
+        android.net.Uri r13;
+        com.adobe.creativesdk.foundation.IAdobeGenericErrorCallback $r10;
+        com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3 r0;
+        android.content.ContentResolver $r17;
+        android.os.Handler $r11;
+        boolean $z0;
+        java.lang.Exception $r34;
+        java.io.Serializable $r14;
+        java.lang.Throwable r5, $r24;
+        com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowException $r25;
+        android.content.Intent $r7;
+        long $l0;
+        com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentData $r32;
+        int $i1;
+        java.lang.Boolean $r15;
+        java.lang.String $r19, $r20;
+        com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360Message[] r2;
+        com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360Message $r22;
+        com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException[] r3;
+        android.os.Parcelable $r12;
+        java.util.concurrent.locks.ReentrantLock $r26;
+        boolean[] r1;
+        java.io.FileOutputStream $r29;
+        java.io.File $r28;
+        com.adobe.creativesdk.foundation.internal.analytics.AdobeAnalyticsETSPrimaryAppComplete360WorkflowEvent $r33;
+        com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowErrorCode $r9;
+        java.util.concurrent.locks.Condition $r16;
+        com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3$1 $r30;
+        com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException $r21;
+        com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3$2 $r31;
+        com.adobe.creativesdk.foundation.IAdobeGenericCompletionCallback $r23;
+        com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader $r6;
+        java.io.InputStream $r18;
+
+        r0 := @this: com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3;
+
+        $r6 = r0.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3: com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader this$0>;
+
+        $r7 = staticinvoke <com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader: android.content.Intent access$000(com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader)>($r6);
+
+        $r8 = virtualinvoke $r7.<android.content.Intent: android.os.Bundle getBundleExtra(java.lang.String)>("360#action-response");
+
+        if $r8 != null goto label01;
+
+        $r6 = r0.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3: com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader this$0>;
+
+        $r25 = new com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowException;
+
+        $r9 = <com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowErrorCode: com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowErrorCode Adobe360WorkflowErrorBadRequest>;
+
+        specialinvoke $r25.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowException: void <init>(com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowErrorCode)>($r9);
+
+        $r10 = r0.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3: com.adobe.creativesdk.foundation.IAdobeGenericErrorCallback val$errorCallback>;
+
+        $r11 = r0.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3: android.os.Handler val$handler>;
+
+        staticinvoke <com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader: void access$100(com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader,com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException,com.adobe.creativesdk.foundation.IAdobeGenericErrorCallback,android.os.Handler)>($r6, $r25, $r10, $r11);
+
+        return;
+
+     label01:
+        $r12 = virtualinvoke $r8.<android.os.Bundle: android.os.Parcelable getParcelable(java.lang.String)>("response_message_snapshot_uri");
+
+        r13 = (android.net.Uri) $r12;
+
+        $r14 = virtualinvoke $r8.<android.os.Bundle: java.io.Serializable getSerializable(java.lang.String)>("own_response_message");
+
+        $r15 = (java.lang.Boolean) $r14;
+
+        $z0 = virtualinvoke $r15.<java.lang.Boolean: boolean booleanValue()>();
+
+        r3 = newarray (com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException)[1];
+
+        r3[0] = null;
+
+        r2 = newarray (com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360Message)[1];
+
+        r2[0] = null;
+
+        if r13 == null goto label24;
+
+        $r26 = new java.util.concurrent.locks.ReentrantLock;
+
+     label02:
+        specialinvoke $r26.<java.util.concurrent.locks.ReentrantLock: void <init>()>();
+
+        $r16 = virtualinvoke $r26.<java.util.concurrent.locks.ReentrantLock: java.util.concurrent.locks.Condition newCondition()>();
+
+     label03:
+        r1 = newarray (boolean)[1];
+
+        r1[0] = 0;
+
+        $r6 = r0.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3: com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader this$0>;
+
+     label04:
+        $r17 = staticinvoke <com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader: android.content.ContentResolver access$200(com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader)>($r6);
+
+        $r18 = virtualinvoke $r17.<android.content.ContentResolver: java.io.InputStream openInputStream(android.net.Uri)>(r13);
+
+        $r19 = staticinvoke <org.apache.commons.io.FileUtils: java.lang.String getTempDirectoryPath()>();
+
+     label05:
+        $r27 = new java.util.Date;
+
+     label06:
+        specialinvoke $r27.<java.util.Date: void <init>()>();
+
+        $l0 = virtualinvoke $r27.<java.util.Date: long getTime()>();
+
+        $r20 = staticinvoke <java.lang.String: java.lang.String valueOf(long)>($l0);
+
+        $r19 = staticinvoke <com.adobe.creativesdk.foundation.adobeinternal.storage.dcx.AdobeDCXUtils: java.lang.String stringByAppendingLastPathComponent(java.lang.String,java.lang.String)>($r19, $r20);
+
+     label07:
+        $r28 = new java.io.File;
+
+     label08:
+        specialinvoke $r28.<java.io.File: void <init>(java.lang.String)>($r19);
+
+        virtualinvoke $r28.<java.io.File: boolean createNewFile()>();
+
+     label09:
+        $r29 = new java.io.FileOutputStream;
+
+     label10:
+        specialinvoke $r29.<java.io.FileOutputStream: void <init>(java.io.File)>($r28);
+
+     label11:
+        r4 = newarray (byte)[1024];
+
+     label12:
+        $r6 = r0.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3: com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader this$0>;
+
+     label13:
+        $i1 = virtualinvoke $r6.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader: int readFromBuffer(java.io.InputStream,byte[])>($r18, r4);
+
+     label14:
+        if $i1 != -1 goto label26;
+
+     label15:
+        virtualinvoke $r29.<java.io.FileOutputStream: void close()>();
+
+     label16:
+        $r30 = new com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3$1;
+
+     label17:
+        specialinvoke $r30.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3$1: void <init>(com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3,java.util.concurrent.locks.ReentrantLock,boolean[],com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360Message[],java.util.concurrent.locks.Condition)>(r0, $r26, r1, r2, $r16);
+
+     label18:
+        $r31 = new com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3$2;
+
+     label19:
+        specialinvoke $r31.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3$2: void <init>(com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3,java.util.concurrent.locks.ReentrantLock,boolean[],com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException[],java.util.concurrent.locks.Condition)>(r0, $r26, r1, r3, $r16);
+
+        staticinvoke <com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360Message: com.adobe.creativesdk.foundation.adobeinternal.util.AdobeCSDKProgress readFromPath(java.lang.String,android.os.Handler,com.adobe.creativesdk.foundation.IAdobeGenericCompletionCallback,com.adobe.creativesdk.foundation.IAdobeGenericErrorCallback)>($r19, null, $r30, $r31);
+
+        virtualinvoke $r26.<java.util.concurrent.locks.ReentrantLock: void lock()>();
+
+     label20:
+        $r6 = r0.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3: com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader this$0>;
+
+        virtualinvoke $r6.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader: void loopUntilCondition(java.util.concurrent.locks.Condition,boolean[])>($r16, r1);
+
+     label21:
+        virtualinvoke $r26.<java.util.concurrent.locks.ReentrantLock: void unlock()>();
+
+        staticinvoke <org.apache.commons.io.FileUtils: boolean deleteQuietly(java.io.File)>($r28);
+
+     label22:
+        if $z0 == 0 goto label24;
+
+        $r6 = r0.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3: com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader this$0>;
+
+     label23:
+        $r17 = staticinvoke <com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader: android.content.ContentResolver access$200(com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader)>($r6);
+
+        virtualinvoke $r17.<android.content.ContentResolver: int delete(android.net.Uri,java.lang.String,java.lang.String[])>(r13, null, null);
+
+     label24:
+        $r21 = r3[0];
+
+        if $r21 == null goto label25;
+
+        $r6 = r0.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3: com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader this$0>;
+
+        $r21 = r3[0];
+
+        $r10 = r0.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3: com.adobe.creativesdk.foundation.IAdobeGenericErrorCallback val$errorCallback>;
+
+        $r11 = r0.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3: android.os.Handler val$handler>;
+
+        staticinvoke <com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader: void access$100(com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader,com.adobe.creativesdk.foundation.internal.utils.AdobeCSDKException,com.adobe.creativesdk.foundation.IAdobeGenericErrorCallback,android.os.Handler)>($r6, $r21, $r10, $r11);
+
+     label25:
+        $r32 = new com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentData;
+
+        specialinvoke $r32.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentData: void <init>()>();
+
+        $r22 = r2[0];
+
+        virtualinvoke $r32.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentData: void setResponseMessage(com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360Message)>($r22);
+
+        $r33 = new com.adobe.creativesdk.foundation.internal.analytics.AdobeAnalyticsETSPrimaryAppComplete360WorkflowEvent;
+
+        $r22 = virtualinvoke $r32.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentData: com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360Message getResponseMessage()>();
+
+        $r19 = virtualinvoke $r22.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360Message: java.lang.String getActionId()>();
+
+        specialinvoke $r33.<com.adobe.creativesdk.foundation.internal.analytics.AdobeAnalyticsETSPrimaryAppComplete360WorkflowEvent: void <init>(java.lang.String)>($r19);
+
+        virtualinvoke $r33.<com.adobe.creativesdk.foundation.internal.analytics.AdobeAnalyticsETSPrimaryAppComplete360WorkflowEvent: void endAndTrackEvent()>();
+
+        $r6 = r0.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3: com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader this$0>;
+
+        $r23 = r0.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3: com.adobe.creativesdk.foundation.IAdobeGenericCompletionCallback val$completionCallback>;
+
+        $r11 = r0.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader$3: android.os.Handler val$handler>;
+
+        staticinvoke <com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader: void access$300(com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentReader,com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowResponseIntentData,com.adobe.creativesdk.foundation.IAdobeGenericCompletionCallback,android.os.Handler)>($r6, $r32, $r23, $r11);
+
+        return;
+
+     label26:
+        virtualinvoke $r29.<java.io.FileOutputStream: void write(byte[],int,int)>(r4, 0, $i1);
+
+     label27:
+        goto label12;
+
+     label28:
+        r5 := @caughtexception;
+
+        $r25 = new com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowException;
+
+        $r9 = <com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowErrorCode: com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowErrorCode Adobe360WorkflowErrorFileSystemError>;
+
+        $r34 = (java.lang.Exception) r5;
+
+        specialinvoke $r25.<com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowException: void <init>(com.adobe.creativesdk.foundation.adobeinternal.adobe360.Adobe360WorkflowErrorCode,java.lang.String,java.lang.Exception)>($r9, null, $r34);
+
+        r3[0] = $r25;
+
+        goto label24;
+
+     label29:
+        $r24 := @caughtexception;
+
+     label30:
+        virtualinvoke $r26.<java.util.concurrent.locks.ReentrantLock: void unlock()>();
+
+        throw $r24;
+
+     label31:
+        nop;
+
+        catch java.io.IOException from label02 to label03 with label28;
+        catch java.io.IOException from label04 to label05 with label28;
+        catch java.io.IOException from label06 to label07 with label28;
+        catch java.io.IOException from label08 to label09 with label28;
+        catch java.io.IOException from label10 to label11 with label28;
+        catch java.io.IOException from label13 to label14 with label28;
+        catch java.io.IOException from label15 to label16 with label28;
+        catch java.io.IOException from label17 to label18 with label28;
+        catch java.io.IOException from label19 to label20 with label28;
+        catch java.lang.Throwable from label20 to label21 with label29;
+        catch java.io.IOException from label21 to label22 with label28;
+        catch java.io.IOException from label23 to label24 with label28;
+        catch java.io.IOException from label26 to label27 with label28;
+        catch java.io.IOException from label30 to label31 with label28;
+    }

@@ -1,0 +1,63 @@
+    public void run()
+    {
+        java.lang.Throwable r5;
+        java.util.concurrent.Callable $r3;
+        bolts.TaskCompletionSource $r2;
+        java.lang.Exception r6;
+        bolts.CancellationToken $r1;
+        bolts.Task$4 r0;
+        java.lang.Object $r4;
+        boolean $z0;
+
+        r0 := @this: bolts.Task$4;
+
+        $r1 = r0.<bolts.Task$4: bolts.CancellationToken val$ct>;
+
+        if $r1 == null goto label1;
+
+        $r1 = r0.<bolts.Task$4: bolts.CancellationToken val$ct>;
+
+        $z0 = virtualinvoke $r1.<bolts.CancellationToken: boolean isCancellationRequested()>();
+
+        if $z0 == 0 goto label1;
+
+        $r2 = r0.<bolts.Task$4: bolts.TaskCompletionSource val$tcs>;
+
+        virtualinvoke $r2.<bolts.TaskCompletionSource: void setCancelled()>();
+
+        return;
+
+     label1:
+        $r2 = r0.<bolts.Task$4: bolts.TaskCompletionSource val$tcs>;
+
+        $r3 = r0.<bolts.Task$4: java.util.concurrent.Callable val$callable>;
+
+     label2:
+        $r4 = interfaceinvoke $r3.<java.util.concurrent.Callable: java.lang.Object call()>();
+
+        virtualinvoke $r2.<bolts.TaskCompletionSource: void setResult(java.lang.Object)>($r4);
+
+     label3:
+        return;
+
+     label4:
+        r5 := @caughtexception;
+
+        $r2 = r0.<bolts.Task$4: bolts.TaskCompletionSource val$tcs>;
+
+        virtualinvoke $r2.<bolts.TaskCompletionSource: void setCancelled()>();
+
+        return;
+
+     label5:
+        r6 := @caughtexception;
+
+        $r2 = r0.<bolts.Task$4: bolts.TaskCompletionSource val$tcs>;
+
+        virtualinvoke $r2.<bolts.TaskCompletionSource: void setError(java.lang.Exception)>(r6);
+
+        return;
+
+        catch java.util.concurrent.CancellationException from label2 to label3 with label4;
+        catch java.lang.Exception from label1 to label3 with label5;
+    }

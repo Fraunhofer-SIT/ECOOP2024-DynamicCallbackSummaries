@@ -1,0 +1,406 @@
+    public java.lang.String getANRContent()
+    {
+        java.lang.Throwable $r14;
+        java.lang.String[] $r11;
+        int $i0, $i1;
+        java.lang.String $r2, $r3, $r8, $r9, $r12;
+        boolean $z0, $z1, $z2;
+        com.netease.androidcrashhandler.init.InitProxy $r1;
+        java.io.FileInputStream $r4;
+        java.io.InputStreamReader $r7;
+        java.io.File $r5;
+        java.lang.Exception $r15;
+        com.netease.androidcrashhandler.entity.anr.AnrCore r0;
+        java.lang.StringBuilder $r10, $r13;
+        java.io.BufferedReader $r6;
+
+        r0 := @this: com.netease.androidcrashhandler.entity.anr.AnrCore;
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", "AnrCore [getANRContent] start");
+
+        $r1 = staticinvoke <com.netease.androidcrashhandler.init.InitProxy: com.netease.androidcrashhandler.init.InitProxy getInstance()>();
+
+        $r2 = $r1.<com.netease.androidcrashhandler.init.InitProxy: java.lang.String mPacakageName>;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r2);
+
+        $r2 = null;
+
+        if $z0 != 0 goto label60;
+
+        $r3 = r0.<com.netease.androidcrashhandler.entity.anr.AnrCore: java.lang.String mSystemAnrFileName>;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r3);
+
+        if $z0 == 0 goto label01;
+
+        return null;
+
+     label01:
+        $r4 = new java.io.FileInputStream;
+
+        $r5 = new java.io.File;
+
+        $r3 = r0.<com.netease.androidcrashhandler.entity.anr.AnrCore: java.lang.String mSystemAnrFileName>;
+
+        specialinvoke $r5.<java.io.File: void <init>(java.lang.String)>($r3);
+
+        specialinvoke $r4.<java.io.FileInputStream: void <init>(java.io.File)>($r5);
+
+     label02:
+        $r6 = new java.io.BufferedReader;
+
+        $r7 = new java.io.InputStreamReader;
+
+        specialinvoke $r7.<java.io.InputStreamReader: void <init>(java.io.InputStream)>($r4);
+
+        specialinvoke $r6.<java.io.BufferedReader: void <init>(java.io.Reader)>($r7);
+
+     label03:
+        $i0 = 0;
+
+     label04:
+        $r8 = virtualinvoke $r6.<java.io.BufferedReader: java.lang.String readLine()>();
+
+     label05:
+        $r3 = $r8;
+
+        if $r8 != null goto label06;
+
+        $i0 = $i0 + 1;
+
+        if $i0 != 100 goto label04;
+
+     label06:
+        $r9 = null;
+
+        $z0 = 0;
+
+     label07:
+        if $r3 == null goto label25;
+
+     label08:
+        $z1 = virtualinvoke $r3.<java.lang.String: boolean contains(java.lang.CharSequence)>("-----");
+
+     label09:
+        if $z1 == 0 goto label25;
+
+     label10:
+        $r8 = virtualinvoke $r6.<java.io.BufferedReader: java.lang.String readLine()>();
+
+     label11:
+        if $r8 == null goto label24;
+
+     label12:
+        $r1 = staticinvoke <com.netease.androidcrashhandler.init.InitProxy: com.netease.androidcrashhandler.init.InitProxy getInstance()>();
+
+        $r9 = $r1.<com.netease.androidcrashhandler.init.InitProxy: java.lang.String mPacakageName>;
+
+        $z1 = virtualinvoke $r8.<java.lang.String: boolean contains(java.lang.CharSequence)>($r9);
+
+     label13:
+        if $z1 == 0 goto label24;
+
+     label14:
+        $r10 = new java.lang.StringBuilder;
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        $r1 = staticinvoke <com.netease.androidcrashhandler.init.InitProxy: com.netease.androidcrashhandler.init.InitProxy getInstance()>();
+
+        $r9 = $r1.<com.netease.androidcrashhandler.init.InitProxy: java.lang.String mPacakageName>;
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".");
+
+        $r9 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $z1 = virtualinvoke $r8.<java.lang.String: boolean contains(java.lang.CharSequence)>($r9);
+
+     label15:
+        if $z1 != 0 goto label24;
+
+     label16:
+        $r10 = new java.lang.StringBuilder;
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".");
+
+        $r1 = staticinvoke <com.netease.androidcrashhandler.init.InitProxy: com.netease.androidcrashhandler.init.InitProxy getInstance()>();
+
+        $r9 = $r1.<com.netease.androidcrashhandler.init.InitProxy: java.lang.String mPacakageName>;
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        $r9 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $z1 = virtualinvoke $r8.<java.lang.String: boolean contains(java.lang.CharSequence)>($r9);
+
+     label17:
+        if $z1 != 0 goto label24;
+
+     label18:
+        $r10 = new java.lang.StringBuilder;
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("line = ");
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(", bundleID=");
+
+        $r1 = staticinvoke <com.netease.androidcrashhandler.init.InitProxy: com.netease.androidcrashhandler.init.InitProxy getInstance()>();
+
+        $r9 = $r1.<com.netease.androidcrashhandler.init.InitProxy: java.lang.String mPacakageName>;
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+        $r9 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void e(java.lang.String,java.lang.String)>("trace", $r9);
+
+        $r11 = virtualinvoke $r8.<java.lang.String: java.lang.String[] split(java.lang.String)>(" ");
+
+        $i0 = lengthof $r11;
+
+     label19:
+        $i1 = 0;
+
+     label20:
+        if $i1 >= $i0 goto label24;
+
+     label21:
+        $r9 = $r11[$i1];
+
+        $r1 = staticinvoke <com.netease.androidcrashhandler.init.InitProxy: com.netease.androidcrashhandler.init.InitProxy getInstance()>();
+
+        $r12 = $r1.<com.netease.androidcrashhandler.init.InitProxy: java.lang.String mPacakageName>;
+
+        $z1 = virtualinvoke $r9.<java.lang.String: boolean equals(java.lang.Object)>($r12);
+
+     label22:
+        if $z1 == 0 goto label23;
+
+        $z0 = 1;
+
+        goto label24;
+
+     label23:
+        $i1 = $i1 + 1;
+
+        goto label20;
+
+     label24:
+        $r9 = $r3;
+
+        $r3 = $r8;
+
+     label25:
+        if $z0 != 0 goto label28;
+
+     label26:
+        $r8 = virtualinvoke $r6.<java.io.BufferedReader: java.lang.String readLine()>();
+
+     label27:
+        $r3 = $r8;
+
+        if $r8 != null goto label07;
+
+     label28:
+        $r10 = new java.lang.StringBuilder;
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("AnrCore [getANRContent] ANRMatch=");
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(boolean)>($z0);
+
+        $r8 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", $r8);
+
+     label29:
+        if $z0 == 0 goto label47;
+
+     label30:
+        $r10 = new java.lang.StringBuilder;
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        $r13 = new java.lang.StringBuilder;
+
+        specialinvoke $r13.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r9.<java.lang.String: java.lang.String[] split(java.lang.String)>(" ");
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9);
+
+     label31:
+        $z0 = 0;
+
+        $z1 = 0;
+
+     label32:
+        $r8 = <com.netease.androidcrashhandler.entity.anr.AnrCore: java.lang.String CRLF>;
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+     label33:
+        if $z1 == 0 goto label34;
+
+        if $z0 != 0 goto label39;
+
+     label34:
+        $z2 = virtualinvoke $r3.<java.lang.String: boolean contains(java.lang.CharSequence)>("at");
+
+     label35:
+        if $z2 == 0 goto label38;
+
+     label36:
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+     label37:
+        $z1 = 1;
+
+        goto label39;
+
+     label38:
+        if $z1 == 0 goto label39;
+
+        $z0 = 1;
+
+     label39:
+        $r8 = virtualinvoke $r6.<java.io.BufferedReader: java.lang.String readLine()>();
+
+     label40:
+        $r3 = $r8;
+
+        if $r8 == null goto label43;
+
+     label41:
+        $z2 = virtualinvoke $r8.<java.lang.String: boolean contains(java.lang.CharSequence)>("-----");
+
+     label42:
+        if $z2 == 0 goto label32;
+
+     label43:
+        $r3 = <com.netease.androidcrashhandler.entity.anr.AnrCore: java.lang.String CRLF>;
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r13.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r3 = virtualinvoke $r13.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label44:
+        $r2 = $r3;
+
+     label45:
+        virtualinvoke $r6.<java.io.BufferedReader: void close()>();
+
+        virtualinvoke $r4.<java.io.InputStream: void close()>();
+
+     label46:
+        return $r3;
+
+     label47:
+        virtualinvoke $r6.<java.io.BufferedReader: void close()>();
+
+        virtualinvoke $r4.<java.io.InputStream: void close()>();
+
+     label48:
+        return null;
+
+     label49:
+        $r14 := @caughtexception;
+
+        goto label52;
+
+     label50:
+        $r14 := @caughtexception;
+
+        $r6 = null;
+
+        goto label52;
+
+     label51:
+        $r14 := @caughtexception;
+
+        $r4 = null;
+
+        $r6 = null;
+
+     label52:
+        if $r6 == null goto label56;
+
+     label53:
+        virtualinvoke $r6.<java.io.BufferedReader: void close()>();
+
+     label54:
+        goto label56;
+
+     label55:
+        $r15 := @caughtexception;
+
+        goto label59;
+
+     label56:
+        if $r4 == null goto label58;
+
+     label57:
+        virtualinvoke $r4.<java.io.InputStream: void close()>();
+
+     label58:
+        throw $r14;
+
+     label59:
+        virtualinvoke $r15.<java.lang.Exception: void printStackTrace()>();
+
+        $r10 = new java.lang.StringBuilder;
+
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("AnrCore [getANRContent] Exception=");
+
+        $r3 = virtualinvoke $r15.<java.lang.Exception: java.lang.String toString()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $r3 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", $r3);
+
+        return $r2;
+
+     label60:
+        return null;
+
+        catch java.lang.Throwable from label01 to label02 with label51;
+        catch java.lang.Throwable from label02 to label03 with label50;
+        catch java.lang.Throwable from label04 to label05 with label49;
+        catch java.lang.Throwable from label08 to label09 with label49;
+        catch java.lang.Throwable from label10 to label11 with label49;
+        catch java.lang.Throwable from label12 to label13 with label49;
+        catch java.lang.Throwable from label14 to label15 with label49;
+        catch java.lang.Throwable from label16 to label17 with label49;
+        catch java.lang.Throwable from label18 to label19 with label49;
+        catch java.lang.Throwable from label21 to label22 with label49;
+        catch java.lang.Throwable from label26 to label27 with label49;
+        catch java.lang.Throwable from label28 to label29 with label49;
+        catch java.lang.Throwable from label30 to label31 with label49;
+        catch java.lang.Throwable from label32 to label33 with label49;
+        catch java.lang.Throwable from label34 to label35 with label49;
+        catch java.lang.Throwable from label36 to label37 with label49;
+        catch java.lang.Throwable from label39 to label40 with label49;
+        catch java.lang.Throwable from label41 to label42 with label49;
+        catch java.lang.Throwable from label43 to label44 with label49;
+        catch java.lang.Exception from label45 to label46 with label55;
+        catch java.lang.Exception from label47 to label48 with label55;
+        catch java.lang.Exception from label53 to label54 with label55;
+        catch java.lang.Exception from label57 to label59 with label55;
+    }

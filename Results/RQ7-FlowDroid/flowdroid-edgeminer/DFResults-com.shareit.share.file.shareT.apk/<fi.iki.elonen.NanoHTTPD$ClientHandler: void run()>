@@ -1,0 +1,153 @@
+    public void run()
+    {
+        java.lang.Throwable $r10;
+        java.net.Socket $r3;
+        java.util.logging.Level $r15;
+        fi.iki.elonen.NanoHTTPD$TempFileManager $r7;
+        java.net.InetAddress $r9;
+        java.lang.String $r12, $r13;
+        boolean $z0;
+        java.io.OutputStream $r2, $r4;
+        fi.iki.elonen.NanoHTTPD$AsyncRunner $r16;
+        java.util.logging.Logger $r14;
+        fi.iki.elonen.NanoHTTPD$ClientHandler r0;
+        fi.iki.elonen.NanoHTTPD$HTTPSession $r8;
+        java.lang.Exception $r11;
+        fi.iki.elonen.NanoHTTPD $r5;
+        fi.iki.elonen.NanoHTTPD$TempFileManagerFactory $r6;
+        java.io.InputStream $r1;
+
+        r0 := @this: fi.iki.elonen.NanoHTTPD$ClientHandler;
+
+        $r2 = null;
+
+     label01:
+        $r3 = r0.<fi.iki.elonen.NanoHTTPD$ClientHandler: java.net.Socket acceptSocket>;
+
+        $r4 = virtualinvoke $r3.<java.net.Socket: java.io.OutputStream getOutputStream()>();
+
+     label02:
+        $r2 = $r4;
+
+     label03:
+        $r5 = r0.<fi.iki.elonen.NanoHTTPD$ClientHandler: fi.iki.elonen.NanoHTTPD this$0>;
+
+        $r6 = staticinvoke <fi.iki.elonen.NanoHTTPD: fi.iki.elonen.NanoHTTPD$TempFileManagerFactory access$100(fi.iki.elonen.NanoHTTPD)>($r5);
+
+        $r7 = interfaceinvoke $r6.<fi.iki.elonen.NanoHTTPD$TempFileManagerFactory: fi.iki.elonen.NanoHTTPD$TempFileManager create()>();
+
+     label04:
+        $r8 = new fi.iki.elonen.NanoHTTPD$HTTPSession;
+
+     label05:
+        $r5 = r0.<fi.iki.elonen.NanoHTTPD$ClientHandler: fi.iki.elonen.NanoHTTPD this$0>;
+
+        $r1 = r0.<fi.iki.elonen.NanoHTTPD$ClientHandler: java.io.InputStream inputStream>;
+
+        $r3 = r0.<fi.iki.elonen.NanoHTTPD$ClientHandler: java.net.Socket acceptSocket>;
+
+        $r9 = virtualinvoke $r3.<java.net.Socket: java.net.InetAddress getInetAddress()>();
+
+        specialinvoke $r8.<fi.iki.elonen.NanoHTTPD$HTTPSession: void <init>(fi.iki.elonen.NanoHTTPD,fi.iki.elonen.NanoHTTPD$TempFileManager,java.io.InputStream,java.io.OutputStream,java.net.InetAddress)>($r5, $r7, $r1, $r4, $r9);
+
+     label06:
+        $r3 = r0.<fi.iki.elonen.NanoHTTPD$ClientHandler: java.net.Socket acceptSocket>;
+
+        $z0 = virtualinvoke $r3.<java.net.Socket: boolean isClosed()>();
+
+     label07:
+        if $z0 != 0 goto label19;
+
+     label08:
+        virtualinvoke $r8.<fi.iki.elonen.NanoHTTPD$HTTPSession: void execute()>();
+
+     label09:
+        goto label06;
+
+     label10:
+        $r10 := @caughtexception;
+
+        goto label20;
+
+     label11:
+        $r11 := @caughtexception;
+
+     label12:
+        $z0 = $r11 instanceof java.net.SocketException;
+
+     label13:
+        if $z0 == 0 goto label16;
+
+        $r12 = "NanoHttpd Shutdown";
+
+     label14:
+        $r13 = virtualinvoke $r11.<java.lang.Exception: java.lang.String getMessage()>();
+
+        $z0 = virtualinvoke $r12.<java.lang.String: boolean equals(java.lang.Object)>($r13);
+
+     label15:
+        if $z0 != 0 goto label19;
+
+     label16:
+        $z0 = $r11 instanceof java.net.SocketTimeoutException;
+
+     label17:
+        if $z0 != 0 goto label19;
+
+     label18:
+        $r14 = staticinvoke <fi.iki.elonen.NanoHTTPD: java.util.logging.Logger access$200()>();
+
+        $r15 = <java.util.logging.Level: java.util.logging.Level SEVERE>;
+
+        virtualinvoke $r14.<java.util.logging.Logger: void log(java.util.logging.Level,java.lang.String,java.lang.Throwable)>($r15, "Communication with the client broken, or an bug in the handler code", $r11);
+
+     label19:
+        staticinvoke <fi.iki.elonen.NanoHTTPD: void access$000(java.lang.Object)>($r2);
+
+        $r1 = r0.<fi.iki.elonen.NanoHTTPD$ClientHandler: java.io.InputStream inputStream>;
+
+        staticinvoke <fi.iki.elonen.NanoHTTPD: void access$000(java.lang.Object)>($r1);
+
+        $r3 = r0.<fi.iki.elonen.NanoHTTPD$ClientHandler: java.net.Socket acceptSocket>;
+
+        staticinvoke <fi.iki.elonen.NanoHTTPD: void access$000(java.lang.Object)>($r3);
+
+        $r5 = r0.<fi.iki.elonen.NanoHTTPD$ClientHandler: fi.iki.elonen.NanoHTTPD this$0>;
+
+        $r16 = $r5.<fi.iki.elonen.NanoHTTPD: fi.iki.elonen.NanoHTTPD$AsyncRunner asyncRunner>;
+
+        interfaceinvoke $r16.<fi.iki.elonen.NanoHTTPD$AsyncRunner: void closed(fi.iki.elonen.NanoHTTPD$ClientHandler)>(r0);
+
+        return;
+
+     label20:
+        staticinvoke <fi.iki.elonen.NanoHTTPD: void access$000(java.lang.Object)>($r2);
+
+        $r1 = r0.<fi.iki.elonen.NanoHTTPD$ClientHandler: java.io.InputStream inputStream>;
+
+        staticinvoke <fi.iki.elonen.NanoHTTPD: void access$000(java.lang.Object)>($r1);
+
+        $r3 = r0.<fi.iki.elonen.NanoHTTPD$ClientHandler: java.net.Socket acceptSocket>;
+
+        staticinvoke <fi.iki.elonen.NanoHTTPD: void access$000(java.lang.Object)>($r3);
+
+        $r5 = r0.<fi.iki.elonen.NanoHTTPD$ClientHandler: fi.iki.elonen.NanoHTTPD this$0>;
+
+        $r16 = $r5.<fi.iki.elonen.NanoHTTPD: fi.iki.elonen.NanoHTTPD$AsyncRunner asyncRunner>;
+
+        interfaceinvoke $r16.<fi.iki.elonen.NanoHTTPD$AsyncRunner: void closed(fi.iki.elonen.NanoHTTPD$ClientHandler)>(r0);
+
+        throw $r10;
+
+        catch java.lang.Exception from label01 to label02 with label11;
+        catch java.lang.Exception from label03 to label04 with label11;
+        catch java.lang.Exception from label05 to label07 with label11;
+        catch java.lang.Exception from label08 to label09 with label11;
+        catch java.lang.Throwable from label01 to label02 with label10;
+        catch java.lang.Throwable from label03 to label07 with label10;
+        catch java.lang.Throwable from label08 to label09 with label10;
+        catch java.lang.Throwable from label12 to label13 with label10;
+        catch java.lang.Throwable from label14 to label15 with label10;
+        catch java.lang.Throwable from label16 to label17 with label10;
+        catch java.lang.Throwable from label18 to label19 with label10;
+    }

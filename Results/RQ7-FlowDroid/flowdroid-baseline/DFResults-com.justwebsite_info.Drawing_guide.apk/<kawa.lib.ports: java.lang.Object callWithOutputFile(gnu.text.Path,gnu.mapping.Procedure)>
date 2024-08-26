@@ -1,0 +1,31 @@
+    public static java.lang.Object callWithOutputFile(gnu.text.Path, gnu.mapping.Procedure)
+    {
+        java.lang.Throwable $r4;
+        gnu.mapping.OutPort $r2;
+        java.lang.Object $r3;
+        gnu.mapping.Procedure $r1;
+        gnu.text.Path $r0;
+
+        $r0 := @parameter0: gnu.text.Path;
+
+        $r1 := @parameter1: gnu.mapping.Procedure;
+
+        $r2 = staticinvoke <kawa.lib.ports: gnu.mapping.OutPort openOutputFile(gnu.text.Path)>($r0);
+
+     label1:
+        $r3 = virtualinvoke $r1.<gnu.mapping.Procedure: java.lang.Object apply1(java.lang.Object)>($r2);
+
+     label2:
+        staticinvoke <kawa.lib.ports: java.lang.Object closeOutputPort(gnu.mapping.OutPort)>($r2);
+
+        return $r3;
+
+     label3:
+        $r4 := @caughtexception;
+
+        staticinvoke <kawa.lib.ports: java.lang.Object closeOutputPort(gnu.mapping.OutPort)>($r2);
+
+        throw $r4;
+
+        catch java.lang.Throwable from label1 to label2 with label3;
+    }

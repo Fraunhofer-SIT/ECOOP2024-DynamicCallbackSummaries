@@ -1,0 +1,69 @@
+    public void d(byte[])
+    {
+        java.lang.Throwable $r5, $r6;
+        byte[] $r1;
+        android.content.Context $r2;
+        z.xi3 $r9;
+        com.verisec.frejaeid.services.general.h r0;
+        java.io.FileOutputStream $r4;
+        java.lang.Exception $r7;
+        z.io3 $r8;
+        java.lang.String $r3;
+
+        r0 := @this: com.verisec.frejaeid.services.general.h;
+
+        $r1 := @parameter0: byte[];
+
+     label01:
+        $r2 = r0.<com.verisec.frejaeid.services.general.h: android.content.Context c>;
+
+        $r3 = staticinvoke <gy.t: java.lang.String a(int)>(31135);
+
+        $r4 = virtualinvoke $r2.<android.content.Context: java.io.FileOutputStream openFileOutput(java.lang.String,int)>($r3, 0);
+
+     label02:
+        virtualinvoke $r4.<java.io.FileOutputStream: void write(byte[])>($r1);
+
+     label03:
+        virtualinvoke $r4.<java.io.FileOutputStream: void close()>();
+
+     label04:
+        return;
+
+     label05:
+        $r5 := @caughtexception;
+
+        if $r4 == null goto label10;
+
+     label06:
+        virtualinvoke $r4.<java.io.FileOutputStream: void close()>();
+
+     label07:
+        goto label10;
+
+     label08:
+        $r6 := @caughtexception;
+
+     label09:
+        virtualinvoke $r5.<java.lang.Throwable: void addSuppressed(java.lang.Throwable)>($r6);
+
+     label10:
+        throw $r5;
+
+     label11:
+        $r7 := @caughtexception;
+
+        $r8 = new z.io3;
+
+        $r9 = <z.xi3: z.xi3 AVATAR_PHOTO_SAVE_ERROR>;
+
+        specialinvoke $r8.<z.io3: void <init>(z.xi3,java.lang.Throwable)>($r9, $r7);
+
+        throw $r8;
+
+        catch java.lang.Exception from label01 to label02 with label11;
+        catch java.lang.Throwable from label02 to label03 with label05;
+        catch java.lang.Exception from label03 to label04 with label11;
+        catch java.lang.Throwable from label06 to label07 with label08;
+        catch java.lang.Exception from label09 to label11 with label11;
+    }

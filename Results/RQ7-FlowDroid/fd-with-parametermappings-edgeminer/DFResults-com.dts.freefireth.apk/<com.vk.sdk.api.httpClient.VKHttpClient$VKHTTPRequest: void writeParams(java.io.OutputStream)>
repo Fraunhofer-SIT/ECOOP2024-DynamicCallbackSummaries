@@ -1,0 +1,50 @@
+    void writeParams(java.io.OutputStream) throws java.io.IOException
+    {
+        java.io.OutputStream $r1;
+        com.vk.sdk.api.httpClient.VKMultipartEntity $r3;
+        com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest r0;
+        java.io.BufferedWriter r2;
+        int $i0;
+        java.io.OutputStreamWriter $r5;
+        java.lang.String $r4;
+
+        r0 := @this: com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest;
+
+        $r1 := @parameter0: java.io.OutputStream;
+
+        $r3 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: com.vk.sdk.api.httpClient.VKMultipartEntity entity>;
+
+        if $r3 == null goto label1;
+
+        $r3 = r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: com.vk.sdk.api.httpClient.VKMultipartEntity entity>;
+
+        virtualinvoke $r3.<com.vk.sdk.api.httpClient.VKMultipartEntity: void writeTo(java.io.OutputStream)>($r1);
+
+        return;
+
+     label1:
+        $r4 = virtualinvoke r0.<com.vk.sdk.api.httpClient.VKHttpClient$VKHTTPRequest: java.lang.String getQuery()>();
+
+        if $r4 == null goto label2;
+
+        $i0 = virtualinvoke $r4.<java.lang.String: int length()>();
+
+        if $i0 <= 0 goto label2;
+
+        r2 = new java.io.BufferedWriter;
+
+        $r5 = new java.io.OutputStreamWriter;
+
+        specialinvoke $r5.<java.io.OutputStreamWriter: void <init>(java.io.OutputStream,java.lang.String)>($r1, "UTF-8");
+
+        specialinvoke r2.<java.io.BufferedWriter: void <init>(java.io.Writer)>($r5);
+
+        virtualinvoke r2.<java.io.BufferedWriter: void write(java.lang.String)>($r4);
+
+        virtualinvoke r2.<java.io.BufferedWriter: void flush()>();
+
+        virtualinvoke r2.<java.io.BufferedWriter: void close()>();
+
+     label2:
+        return;
+    }

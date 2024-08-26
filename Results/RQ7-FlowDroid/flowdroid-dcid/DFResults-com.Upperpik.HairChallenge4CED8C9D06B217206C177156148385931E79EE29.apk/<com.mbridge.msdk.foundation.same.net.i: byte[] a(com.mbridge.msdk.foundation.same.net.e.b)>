@@ -1,0 +1,202 @@
+    private byte[] a(com.mbridge.msdk.foundation.same.net.e.b) throws java.io.IOException, com.mbridge.msdk.foundation.same.net.a.a
+    {
+        java.lang.Throwable $r8, $r11, $r12, $r13;
+        com.mbridge.msdk.foundation.same.net.a.a $r16;
+        byte[] $r7;
+        java.util.zip.GZIPInputStream $r14;
+        com.mbridge.msdk.foundation.same.net.i r0;
+        java.io.ByteArrayOutputStream $r6, $r15;
+        com.mbridge.msdk.foundation.same.net.e.b $r1;
+        int $i0;
+        java.lang.String $r9, $r10;
+        boolean $z0;
+        java.io.IOException $r17;
+        java.util.List $r5;
+        java.lang.Object $r2, $r4;
+        java.io.InputStream $r3;
+
+        r0 := @this: com.mbridge.msdk.foundation.same.net.i;
+
+        $r1 := @parameter0: com.mbridge.msdk.foundation.same.net.e.b;
+
+        $r2 = null;
+
+     label01:
+        $r3 = virtualinvoke $r1.<com.mbridge.msdk.foundation.same.net.e.b: java.io.InputStream c()>();
+
+     label02:
+        $r4 = $r3;
+
+     label03:
+        $r5 = virtualinvoke $r1.<com.mbridge.msdk.foundation.same.net.e.b: java.util.List b()>();
+
+        $z0 = staticinvoke <com.mbridge.msdk.foundation.same.net.f.b: boolean b(java.util.List)>($r5);
+
+     label04:
+        if $z0 == 0 goto label10;
+
+     label05:
+        $z0 = $r3 instanceof java.util.zip.GZIPInputStream;
+
+     label06:
+        if $z0 != 0 goto label10;
+
+     label07:
+        $r14 = new java.util.zip.GZIPInputStream;
+
+     label08:
+        specialinvoke $r14.<java.util.zip.GZIPInputStream: void <init>(java.io.InputStream)>($r3);
+
+     label09:
+        $r4 = $r14;
+
+     label10:
+        if $r4 == null goto label28;
+
+     label11:
+        $r15 = new java.io.ByteArrayOutputStream;
+
+     label12:
+        $r6 = $r15;
+
+     label13:
+        specialinvoke $r15.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label14:
+        $r7 = newarray (byte)[1024];
+
+     label15:
+        $r3 = (java.io.InputStream) $r4;
+
+        $i0 = virtualinvoke $r3.<java.io.InputStream: int read(byte[])>($r7);
+
+     label16:
+        if $i0 == -1 goto label19;
+
+     label17:
+        virtualinvoke $r15.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r7, 0, $i0);
+
+     label18:
+        goto label15;
+
+     label19:
+        $r7 = virtualinvoke $r15.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label20:
+        if $r4 == null goto label24;
+
+        $r3 = (java.io.InputStream) $r4;
+
+     label21:
+        virtualinvoke $r3.<java.io.InputStream: void close()>();
+
+     label22:
+        goto label24;
+
+     label23:
+        $r8 := @caughtexception;
+
+        goto label26;
+
+     label24:
+        virtualinvoke $r15.<java.io.ByteArrayOutputStream: void close()>();
+
+     label25:
+        return $r7;
+
+     label26:
+        $r9 = <com.mbridge.msdk.foundation.same.net.i: java.lang.String c>;
+
+        $r17 = (java.io.IOException) $r8;
+
+        $r10 = virtualinvoke $r17.<java.io.IOException: java.lang.String getMessage()>();
+
+        staticinvoke <com.mbridge.msdk.foundation.tools.v: void d(java.lang.String,java.lang.String)>($r9, $r10);
+
+        return $r7;
+
+     label27:
+        $r11 := @caughtexception;
+
+        $r2 = $r4;
+
+        $r12 = $r11;
+
+        goto label32;
+
+     label28:
+        $r16 = new com.mbridge.msdk.foundation.same.net.a.a;
+
+     label29:
+        specialinvoke $r16.<com.mbridge.msdk.foundation.same.net.a.a: void <init>(int,com.mbridge.msdk.foundation.same.net.e.c)>(7, null);
+
+        throw $r16;
+
+     label30:
+        $r12 := @caughtexception;
+
+        $r2 = $r4;
+
+        $r6 = null;
+
+        goto label32;
+
+     label31:
+        $r12 := @caughtexception;
+
+        $r6 = null;
+
+     label32:
+        if $r2 == null goto label36;
+
+        $r3 = (java.io.InputStream) $r2;
+
+     label33:
+        virtualinvoke $r3.<java.io.InputStream: void close()>();
+
+     label34:
+        goto label36;
+
+     label35:
+        $r13 := @caughtexception;
+
+        goto label39;
+
+     label36:
+        if $r6 == null goto label40;
+
+     label37:
+        virtualinvoke $r6.<java.io.ByteArrayOutputStream: void close()>();
+
+     label38:
+        goto label40;
+
+     label39:
+        $r9 = <com.mbridge.msdk.foundation.same.net.i: java.lang.String c>;
+
+        $r17 = (java.io.IOException) $r13;
+
+        $r10 = virtualinvoke $r17.<java.io.IOException: java.lang.String getMessage()>();
+
+        staticinvoke <com.mbridge.msdk.foundation.tools.v: void d(java.lang.String,java.lang.String)>($r9, $r10);
+
+     label40:
+        throw $r12;
+
+        catch java.lang.Throwable from label01 to label02 with label31;
+        catch java.lang.Throwable from label03 to label04 with label30;
+        catch java.lang.Throwable from label05 to label06 with label30;
+        catch java.lang.Throwable from label07 to label08 with label30;
+        catch java.lang.Throwable from label08 to label09 with label30;
+        catch java.lang.Throwable from label11 to label12 with label30;
+        catch java.lang.Throwable from label13 to label14 with label30;
+        catch java.lang.Throwable from label15 to label16 with label27;
+        catch java.lang.Throwable from label17 to label18 with label27;
+        catch java.lang.Throwable from label19 to label20 with label27;
+        catch java.io.IOException from label21 to label22 with label23;
+        catch java.io.IOException from label24 to label25 with label23;
+        catch java.lang.Throwable from label28 to label29 with label30;
+        catch java.lang.Throwable from label29 to label30 with label30;
+        catch java.io.IOException from label33 to label34 with label35;
+        catch java.io.IOException from label37 to label38 with label35;
+    }

@@ -1,0 +1,945 @@
+    protected void onCreate(android.os.Bundle)
+    {
+        byte[] $r43;
+        android.os.Bundle $r1;
+        java.io.BufferedInputStream $r40, $r51;
+        android.content.pm.PackageManager $r23;
+        java.lang.NoSuchMethodException $r57;
+        android.net.Uri $r14, $r15;
+        com.changdu.browser.filebrowser.ad $r49;
+        android.content.pm.ProviderInfo $r29;
+        android.content.ContentResolver $r39;
+        android.content.pm.ProviderInfo[] $r28;
+        java.lang.reflect.Method $r33;
+        boolean $z0, $z1;
+        java.lang.IllegalAccessException $r55;
+        java.lang.Exception $r2, $r3, $r4, $r47, $r48;
+        java.lang.reflect.InvocationTargetException $r56;
+        java.util.List $r24;
+        com.changdu.BaseActivity $r12;
+        java.lang.StringBuilder $r50;
+        java.lang.Throwable $r35, $r36, $r37, $r44, $r45, $r46;
+        com.changdu.common.ResultMessage $r20;
+        java.lang.Object[] $r21;
+        android.content.Intent $r5, $r7;
+        long $l2;
+        com.changdu.OpenFileActivity r0;
+        android.content.pm.PackageInfo $r27;
+        java.io.BufferedOutputStream $r38, $r53;
+        android.widget.Toast $r22;
+        com.changdu.zone.ndaction.v $r9;
+        int $i0, $i1;
+        java.lang.String $r6, $r8, $r17, $r30, $r31;
+        java.util.Iterator $r26;
+        com.changdu.download.i$c $r18;
+        com.changdu.download.i$b $r19;
+        java.lang.Class[] $r32;
+        java.io.FileOutputStream $r52;
+        java.io.File $r16, $r42;
+        com.changdu.common.a $r11;
+        java.lang.Object $r13;
+        java.lang.Class $r25;
+        java.lang.ClassNotFoundException $r34;
+        com.changdu.zone.ndaction.u$b $r10;
+        android.app.Activity $r54;
+        java.io.InputStream $r41;
+
+        r0 := @this: com.changdu.OpenFileActivity;
+
+        $r1 := @parameter0: android.os.Bundle;
+
+        specialinvoke r0.<android.app.Activity: void onCreate(android.os.Bundle)>($r1);
+
+        $r5 = virtualinvoke r0.<com.changdu.OpenFileActivity: android.content.Intent getIntent()>();
+
+        $r6 = virtualinvoke $r5.<android.content.Intent: java.lang.String getAction()>();
+
+        $r7 = virtualinvoke r0.<com.changdu.OpenFileActivity: android.content.Intent getIntent()>();
+
+        $r1 = virtualinvoke $r7.<android.content.Intent: android.os.Bundle getExtras()>();
+
+        if $r1 == null goto label002;
+
+        $r8 = virtualinvoke $r1.<android.os.Bundle: java.lang.String getString(java.lang.String)>("READ_NDACTION_KEY");
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r8);
+
+        if $z0 != 0 goto label001;
+
+        $r9 = staticinvoke <com.changdu.zone.ndaction.v: com.changdu.zone.ndaction.v a(android.app.Activity)>(r0);
+
+        virtualinvoke $r9.<com.changdu.zone.ndaction.v: boolean a(java.lang.String,boolean)>($r8, 0);
+
+        virtualinvoke r0.<com.changdu.OpenFileActivity: void finish()>();
+
+        return;
+
+     label001:
+        $r8 = virtualinvoke $r1.<android.os.Bundle: java.lang.String getString(java.lang.String)>("game_id");
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r8);
+
+        if $z0 != 0 goto label002;
+
+        $r7 = new android.content.Intent;
+
+        $r5 = $r7;
+
+        specialinvoke $r7.<android.content.Intent: void <init>(android.content.Context,java.lang.Class)>(r0, class "Lcom/changdu/zone/xwebview/XBrowserActivity;");
+
+        $r7 = virtualinvoke r0.<com.changdu.OpenFileActivity: android.content.Intent getIntent()>();
+
+        $r1 = virtualinvoke $r7.<android.content.Intent: android.os.Bundle getExtras()>();
+
+        virtualinvoke $r5.<android.content.Intent: android.content.Intent putExtras(android.os.Bundle)>($r1);
+
+        virtualinvoke r0.<com.changdu.OpenFileActivity: void startActivity(android.content.Intent)>($r5);
+
+        virtualinvoke r0.<com.changdu.OpenFileActivity: void finish()>();
+
+        return;
+
+     label002:
+        $r8 = "com.changdu.zone.chapter.push.ChapterNotification";
+
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean equals(java.lang.Object)>($r6);
+
+        if $z0 == 0 goto label005;
+
+        $r6 = virtualinvoke $r5.<android.content.Intent: java.lang.String getStringExtra(java.lang.String)>("key_primeval_url");
+
+        $r8 = virtualinvoke $r5.<android.content.Intent: java.lang.String getStringExtra(java.lang.String)>("chapterIndex");
+
+        $z0 = virtualinvoke $r5.<android.content.Intent: boolean getBooleanExtra(java.lang.String,boolean)>("need_to_jump_next", 0);
+
+        $r10 = staticinvoke <com.changdu.zone.ndaction.u$b: com.changdu.zone.ndaction.u$b c(java.lang.String)>($r6);
+
+        if $r10 == null goto label102;
+
+        virtualinvoke $r10.<com.changdu.zone.ndaction.u$b: void g(java.lang.String)>($r8);
+
+        if $z0 == 0 goto label003;
+
+        virtualinvoke $r10.<com.changdu.zone.ndaction.u$b: void b(java.lang.String,java.lang.String)>("need_to_jump_next", "1");
+
+     label003:
+        $r11 = staticinvoke <com.changdu.common.a: com.changdu.common.a a()>();
+
+        $r12 = virtualinvoke $r11.<com.changdu.common.a: com.changdu.BaseActivity d()>();
+
+        $r13 = $r12;
+
+        if $r12 != null goto label004;
+
+        $r13 = r0;
+
+     label004:
+        $r54 = (android.app.Activity) $r13;
+
+        $r9 = staticinvoke <com.changdu.zone.ndaction.v: com.changdu.zone.ndaction.v a(android.app.Activity)>($r54);
+
+        virtualinvoke $r9.<com.changdu.zone.ndaction.v: boolean a(com.changdu.zone.ndaction.u$b)>($r10);
+
+        goto label102;
+
+     label005:
+        $r8 = "android.intent.action.VIEW";
+
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean equals(java.lang.Object)>($r6);
+
+        if $z0 != 0 goto label006;
+
+        $r8 = "android.intent.action.MAIN";
+
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean equals(java.lang.Object)>($r6);
+
+        if $z0 == 0 goto label102;
+
+     label006:
+        $r14 = virtualinvoke $r5.<android.content.Intent: android.net.Uri getData()>();
+
+        $r15 = $r14;
+
+        $r6 = virtualinvoke $r5.<android.content.Intent: java.lang.String getStringExtra(java.lang.String)>("uri");
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r6);
+
+        if $z0 == 0 goto label007;
+
+        if $r14 != null goto label007;
+
+        virtualinvoke r0.<com.changdu.OpenFileActivity: void finish()>();
+
+        return;
+
+     label007:
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r6);
+
+        if $z0 != 0 goto label008;
+
+        $r42 = new java.io.File;
+
+        specialinvoke $r42.<java.io.File: void <init>(java.lang.String)>($r6);
+
+        $r15 = staticinvoke <android.net.Uri: android.net.Uri fromFile(java.io.File)>($r42);
+
+     label008:
+        $r6 = virtualinvoke $r15.<android.net.Uri: java.lang.String toString()>();
+
+        $z0 = staticinvoke <android.webkit.URLUtil: boolean isFileUrl(java.lang.String)>($r6);
+
+        if $z0 == 0 goto label010;
+
+        $i0 = <android.os.Build$VERSION: int SDK_INT>;
+
+        if $i0 < 24 goto label009;
+
+        $r6 = virtualinvoke $r5.<android.content.Intent: java.lang.String getStringExtra(java.lang.String)>("uri");
+
+        $r8 = $r6;
+
+        if $r6 != null goto label101;
+
+        $r8 = virtualinvoke $r15.<android.net.Uri: java.lang.String getPath()>();
+
+        goto label101;
+
+     label009:
+        $r8 = virtualinvoke $r15.<android.net.Uri: java.lang.String getPath()>();
+
+        goto label101;
+
+     label010:
+        $z0 = staticinvoke <android.webkit.URLUtil: boolean isNetworkUrl(java.lang.String)>($r6);
+
+        if $z0 == 0 goto label014;
+
+        $i0 = virtualinvoke $r6.<java.lang.String: int lastIndexOf(java.lang.String)>("/");
+
+        $i0 = $i0 + 1;
+
+        if $i0 <= 0 goto label011;
+
+        $r8 = virtualinvoke $r6.<java.lang.String: java.lang.String substring(int)>($i0);
+
+        goto label012;
+
+     label011:
+        $r8 = "";
+
+     label012:
+        $r50 = new java.lang.StringBuilder;
+
+        specialinvoke $r50.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r50.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("temp/");
+
+        virtualinvoke $r50.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r8 = virtualinvoke $r50.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r8 = staticinvoke <com.changdu.changdulib.e.c.b: java.lang.String e(java.lang.String)>($r8);
+
+        $r17 = $r8;
+
+        $r18 = <com.changdu.download.i$c: com.changdu.download.i$c a>;
+
+        $r19 = staticinvoke <com.changdu.download.j: com.changdu.download.i$b a(com.changdu.download.i$c)>($r18);
+
+        $r20 = virtualinvoke $r19.<com.changdu.download.i$b: com.changdu.common.ResultMessage a(java.lang.String,java.lang.String,int)>($r6, $r8, -1);
+
+        if $r20 == null goto label013;
+
+        $i0 = virtualinvoke $r20.<com.changdu.common.ResultMessage: int b()>();
+
+        if $i0 == 0 goto label013;
+
+        $r21 = newarray (java.lang.Object)[1];
+
+        $r21[0] = $r6;
+
+        $r6 = virtualinvoke r0.<com.changdu.OpenFileActivity: java.lang.String getString(int,java.lang.Object[])>(2131820993, $r21);
+
+        $r22 = staticinvoke <android.widget.Toast: android.widget.Toast makeText(android.content.Context,java.lang.CharSequence,int)>(r0, $r6, 0);
+
+        virtualinvoke $r22.<android.widget.Toast: void show()>();
+
+        $r8 = null;
+
+        goto label101;
+
+     label013:
+        $r8 = $r17;
+
+        goto label101;
+
+     label014:
+        $z0 = staticinvoke <android.webkit.URLUtil: boolean isContentUrl(java.lang.String)>($r6);
+
+        if $z0 == 0 goto label100;
+
+        $i0 = <android.os.Build$VERSION: int SDK_INT>;
+
+        if $i0 < 24 goto label048;
+
+        $r23 = virtualinvoke r0.<com.changdu.OpenFileActivity: android.content.pm.PackageManager getPackageManager()>();
+
+        $r24 = virtualinvoke $r23.<android.content.pm.PackageManager: java.util.List getInstalledPackages(int)>(8);
+
+        if $r24 == null goto label048;
+
+        $r25 = class "Landroidx/core/content/FileProvider;";
+
+        $r8 = virtualinvoke $r25.<java.lang.Class: java.lang.String getName()>();
+
+        $r26 = interfaceinvoke $r24.<java.util.List: java.util.Iterator iterator()>();
+
+        $z0 = 0;
+
+        $r17 = null;
+
+     label015:
+        $z1 = interfaceinvoke $r26.<java.util.Iterator: boolean hasNext()>();
+
+        if $z1 == 0 goto label047;
+
+        $r13 = interfaceinvoke $r26.<java.util.Iterator: java.lang.Object next()>();
+
+        $r27 = (android.content.pm.PackageInfo) $r13;
+
+        $r28 = $r27.<android.content.pm.PackageInfo: android.content.pm.ProviderInfo[] providers>;
+
+        if $r28 == null goto label015;
+
+        $i0 = lengthof $r28;
+
+        $i1 = 0;
+
+     label016:
+        if $i1 >= $i0 goto label015;
+
+        $r29 = $r28[$i1];
+
+        $r30 = virtualinvoke $r15.<android.net.Uri: java.lang.String getAuthority()>();
+
+        $r31 = $r29.<android.content.pm.ProviderInfo: java.lang.String authority>;
+
+        $z1 = virtualinvoke $r30.<java.lang.String: boolean equals(java.lang.Object)>($r31);
+
+        if $z1 == 0 goto label046;
+
+        $r30 = $r29.<android.content.pm.ProviderInfo: java.lang.String name>;
+
+        $z1 = virtualinvoke $r30.<java.lang.String: boolean equalsIgnoreCase(java.lang.String)>($r8);
+
+        if $z1 == 0 goto label045;
+
+        $r25 = class "Landroidx/core/content/FileProvider;";
+
+        $r32 = newarray (java.lang.Class)[2];
+
+        $r32[0] = class "Landroid/content/Context;";
+
+        $r32[1] = class "Ljava/lang/String;";
+
+     label017:
+        $r33 = virtualinvoke $r25.<java.lang.Class: java.lang.reflect.Method getDeclaredMethod(java.lang.String,java.lang.Class[])>("getPathStrategy", $r32);
+
+        virtualinvoke $r33.<java.lang.reflect.Method: void setAccessible(boolean)>(1);
+
+     label018:
+        $r21 = newarray (java.lang.Object)[2];
+
+        $r21[0] = r0;
+
+     label019:
+        $r30 = virtualinvoke $r15.<android.net.Uri: java.lang.String getAuthority()>();
+
+     label020:
+        $r21[1] = $r30;
+
+     label021:
+        $r13 = virtualinvoke $r33.<java.lang.reflect.Method: java.lang.Object invoke(java.lang.Object,java.lang.Object[])>(null, $r21);
+
+     label022:
+        if $r13 == null goto label015;
+
+        $r50 = new java.lang.StringBuilder;
+
+     label023:
+        specialinvoke $r50.<java.lang.StringBuilder: void <init>()>();
+
+     label024:
+        $r25 = class "Landroidx/core/content/FileProvider;";
+
+     label025:
+        $r30 = virtualinvoke $r25.<java.lang.Class: java.lang.String getName()>();
+
+        virtualinvoke $r50.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r30);
+
+        virtualinvoke $r50.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("$PathStrategy");
+
+        $r30 = virtualinvoke $r50.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r25 = staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>($r30);
+
+     label026:
+        $r32 = newarray (java.lang.Class)[1];
+
+        $r32[0] = class "Landroid/net/Uri;";
+
+     label027:
+        $r33 = virtualinvoke $r25.<java.lang.Class: java.lang.reflect.Method getDeclaredMethod(java.lang.String,java.lang.Class[])>("getFileForUri", $r32);
+
+        virtualinvoke $r33.<java.lang.reflect.Method: void setAccessible(boolean)>(1);
+
+     label028:
+        $r21 = newarray (java.lang.Object)[1];
+
+        $r21[0] = $r15;
+
+     label029:
+        $r13 = virtualinvoke $r33.<java.lang.reflect.Method: java.lang.Object invoke(java.lang.Object,java.lang.Object[])>($r13, $r21);
+
+     label030:
+        $z1 = $r13 instanceof java.io.File;
+
+        if $z1 == 0 goto label015;
+
+        $r16 = (java.io.File) $r13;
+
+     label031:
+        $r30 = virtualinvoke $r16.<java.io.File: java.lang.String getAbsolutePath()>();
+
+     label032:
+        $r17 = $r30;
+
+        $z0 = 1;
+
+        goto label015;
+
+     label033:
+        $r34 := @caughtexception;
+
+        goto label038;
+
+     label034:
+        $r35 := @caughtexception;
+
+        goto label040;
+
+     label035:
+        $r36 := @caughtexception;
+
+        goto label042;
+
+     label036:
+        $r37 := @caughtexception;
+
+        goto label044;
+
+     label037:
+        $r34 := @caughtexception;
+
+     label038:
+        virtualinvoke $r34.<java.lang.ClassNotFoundException: void printStackTrace()>();
+
+        goto label015;
+
+     label039:
+        $r35 := @caughtexception;
+
+     label040:
+        $r55 = (java.lang.IllegalAccessException) $r35;
+
+        virtualinvoke $r55.<java.lang.IllegalAccessException: void printStackTrace()>();
+
+        goto label015;
+
+     label041:
+        $r36 := @caughtexception;
+
+     label042:
+        $r56 = (java.lang.reflect.InvocationTargetException) $r36;
+
+        virtualinvoke $r56.<java.lang.reflect.InvocationTargetException: void printStackTrace()>();
+
+        goto label015;
+
+     label043:
+        $r37 := @caughtexception;
+
+     label044:
+        $r57 = (java.lang.NoSuchMethodException) $r37;
+
+        virtualinvoke $r57.<java.lang.NoSuchMethodException: void printStackTrace()>();
+
+        goto label015;
+
+     label045:
+        staticinvoke <com.changdu.changdulib.e.i: void e(java.lang.Object)>($r29);
+
+        goto label015;
+
+     label046:
+        $i1 = $i1 + 1;
+
+        goto label016;
+
+     label047:
+        $r38 = null;
+
+        goto label049;
+
+     label048:
+        $r38 = null;
+
+        $r17 = null;
+
+        $z0 = 0;
+
+     label049:
+        if $z0 != 0 goto label099;
+
+        $r8 = virtualinvoke $r15.<android.net.Uri: java.lang.String getHost()>();
+
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean contains(java.lang.CharSequence)>("com.android.htmlfileprovider");
+
+        if $z0 == 0 goto label050;
+
+        $r17 = virtualinvoke $r15.<android.net.Uri: java.lang.String getPath()>();
+
+        goto label013;
+
+     label050:
+        $r8 = virtualinvoke $r15.<android.net.Uri: java.lang.String getHost()>();
+
+        $z0 = virtualinvoke $r8.<java.lang.String: boolean contains(java.lang.CharSequence)>("com.android.email.AttachmentProvider");
+
+        if $z0 == 0 goto label051;
+
+        $r21 = newarray (java.lang.Object)[1];
+
+        $r21[0] = $r6;
+
+        $r6 = virtualinvoke r0.<com.changdu.OpenFileActivity: java.lang.String getString(int,java.lang.Object[])>(2131820991, $r21);
+
+        $r22 = staticinvoke <android.widget.Toast: android.widget.Toast makeText(android.content.Context,java.lang.CharSequence,int)>(r0, $r6, 1);
+
+        virtualinvoke $r22.<android.widget.Toast: void show()>();
+
+        virtualinvoke r0.<com.changdu.OpenFileActivity: void finish()>();
+
+        return;
+
+     label051:
+        $r50 = new java.lang.StringBuilder;
+
+        specialinvoke $r50.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r50.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("uri:");
+
+        virtualinvoke $r50.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r15);
+
+        $r8 = virtualinvoke $r50.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.changdu.changdulib.e.i: void b(java.lang.Object)>($r8);
+
+        $r39 = virtualinvoke r0.<com.changdu.OpenFileActivity: android.content.ContentResolver getContentResolver()>();
+
+        $r8 = virtualinvoke $r39.<android.content.ContentResolver: java.lang.String getType(android.net.Uri)>($r15);
+
+        if $r8 != null goto label052;
+
+        $r21 = newarray (java.lang.Object)[1];
+
+        $r21[0] = $r6;
+
+        $r6 = virtualinvoke r0.<com.changdu.OpenFileActivity: java.lang.String getString(int,java.lang.Object[])>(2131820993, $r21);
+
+        $r22 = staticinvoke <android.widget.Toast: android.widget.Toast makeText(android.content.Context,java.lang.CharSequence,int)>(r0, $r6, 0);
+
+        virtualinvoke $r22.<android.widget.Toast: void show()>();
+
+        virtualinvoke r0.<com.changdu.OpenFileActivity: void finish()>();
+
+        return;
+
+     label052:
+        $r50 = new java.lang.StringBuilder;
+
+        specialinvoke $r50.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r50.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("type:");
+
+        virtualinvoke $r50.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r8 = virtualinvoke $r50.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.changdu.changdulib.e.i: void b(java.lang.Object)>($r8);
+
+        $l2 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $r8 = virtualinvoke $r15.<android.net.Uri: java.lang.String getPath()>();
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r8);
+
+        if $z0 != 0 goto label054;
+
+        $i0 = virtualinvoke $r8.<java.lang.String: int lastIndexOf(java.lang.String)>("/");
+
+        if $i0 <= 0 goto label053;
+
+        $i1 = virtualinvoke $r8.<java.lang.String: int length()>();
+
+        $i1 = $i1 - 1;
+
+        if $i0 >= $i1 goto label053;
+
+        $r50 = new java.lang.StringBuilder;
+
+        specialinvoke $r50.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r50.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("temp/");
+
+        $i0 = $i0 + 1;
+
+        $i1 = virtualinvoke $r8.<java.lang.String: int length()>();
+
+        $r8 = virtualinvoke $r8.<java.lang.String: java.lang.String substring(int,int)>($i0, $i1);
+
+        virtualinvoke $r50.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r8);
+
+        $r8 = virtualinvoke $r50.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r17 = staticinvoke <com.changdu.changdulib.e.c.b: java.lang.String e(java.lang.String)>($r8);
+
+        goto label055;
+
+     label053:
+        $r50 = new java.lang.StringBuilder;
+
+        specialinvoke $r50.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r50.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("temp/");
+
+        virtualinvoke $r50.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l2);
+
+        virtualinvoke $r50.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("temp.txt");
+
+        $r8 = virtualinvoke $r50.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r17 = staticinvoke <com.changdu.changdulib.e.c.b: java.lang.String e(java.lang.String)>($r8);
+
+        goto label055;
+
+     label054:
+        $r50 = new java.lang.StringBuilder;
+
+        specialinvoke $r50.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r50.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("temp/");
+
+        virtualinvoke $r50.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l2);
+
+        virtualinvoke $r50.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("temp.txt");
+
+        $r8 = virtualinvoke $r50.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r17 = staticinvoke <com.changdu.changdulib.e.c.b: java.lang.String e(java.lang.String)>($r8);
+
+     label055:
+        $r8 = $r17;
+
+     label056:
+        $r51 = new java.io.BufferedInputStream;
+
+     label057:
+        $r40 = $r51;
+
+     label058:
+        $r39 = virtualinvoke r0.<com.changdu.OpenFileActivity: android.content.ContentResolver getContentResolver()>();
+
+        $r41 = virtualinvoke $r39.<android.content.ContentResolver: java.io.InputStream openInputStream(android.net.Uri)>($r15);
+
+        specialinvoke $r51.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r41);
+
+     label059:
+        $r42 = new java.io.File;
+
+     label060:
+        $r16 = $r42;
+
+     label061:
+        specialinvoke $r42.<java.io.File: void <init>(java.lang.String)>($r17);
+
+        $z0 = virtualinvoke $r42.<java.io.File: boolean exists()>();
+
+     label062:
+        if $z0 != 0 goto label064;
+
+     label063:
+        $r42 = virtualinvoke $r42.<java.io.File: java.io.File getParentFile()>();
+
+        virtualinvoke $r42.<java.io.File: boolean mkdirs()>();
+
+        virtualinvoke $r16.<java.io.File: boolean createNewFile()>();
+
+     label064:
+        $r53 = new java.io.BufferedOutputStream;
+
+     label065:
+        $r52 = new java.io.FileOutputStream;
+
+     label066:
+        specialinvoke $r52.<java.io.FileOutputStream: void <init>(java.io.File)>($r16);
+
+        specialinvoke $r53.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r52);
+
+     label067:
+        $r43 = newarray (byte)[1024];
+
+     label068:
+        $i0 = virtualinvoke $r51.<java.io.BufferedInputStream: int read(byte[])>($r43);
+
+     label069:
+        if $i0 <= 0 goto label072;
+
+     label070:
+        virtualinvoke $r53.<java.io.BufferedOutputStream: void write(byte[],int,int)>($r43, 0, $i0);
+
+     label071:
+        goto label068;
+
+     label072:
+        virtualinvoke $r53.<java.io.BufferedOutputStream: void flush()>();
+
+     label073:
+        virtualinvoke $r53.<java.io.BufferedOutputStream: void close()>();
+
+        virtualinvoke $r51.<java.io.BufferedInputStream: void close()>();
+
+     label074:
+        goto label101;
+
+     label075:
+        $r44 := @caughtexception;
+
+        $r38 = $r53;
+
+        goto label089;
+
+     label076:
+        $r38 = $r53;
+
+        goto label079;
+
+     label077:
+        $r45 := @caughtexception;
+
+        $r46 = $r45;
+
+        $r40 = null;
+
+        goto label090;
+
+     label078:
+        $r40 = null;
+
+     label079:
+        $r21 = newarray (java.lang.Object)[1];
+
+        $r21[0] = $r6;
+
+        $r6 = virtualinvoke r0.<com.changdu.OpenFileActivity: java.lang.String getString(int,java.lang.Object[])>(2131820993, $r21);
+
+        $r22 = staticinvoke <android.widget.Toast: android.widget.Toast makeText(android.content.Context,java.lang.CharSequence,int)>(r0, $r6, 0);
+
+        virtualinvoke $r22.<android.widget.Toast: void show()>();
+
+     label080:
+        if $r38 == null goto label084;
+
+     label081:
+        virtualinvoke $r38.<java.io.BufferedOutputStream: void close()>();
+
+     label082:
+        goto label084;
+
+     label083:
+        $r47 := @caughtexception;
+
+        goto label087;
+
+     label084:
+        if $r40 == null goto label101;
+
+     label085:
+        virtualinvoke $r40.<java.io.BufferedInputStream: void close()>();
+
+     label086:
+        goto label101;
+
+     label087:
+        staticinvoke <com.changdu.changdulib.e.i: void a(java.lang.Object)>($r47);
+
+        goto label101;
+
+     label088:
+        $r44 := @caughtexception;
+
+     label089:
+        $r46 = $r44;
+
+     label090:
+        if $r38 == null goto label094;
+
+     label091:
+        virtualinvoke $r38.<java.io.BufferedOutputStream: void close()>();
+
+     label092:
+        goto label094;
+
+     label093:
+        $r48 := @caughtexception;
+
+        goto label097;
+
+     label094:
+        if $r40 == null goto label098;
+
+     label095:
+        virtualinvoke $r40.<java.io.BufferedInputStream: void close()>();
+
+     label096:
+        goto label098;
+
+     label097:
+        staticinvoke <com.changdu.changdulib.e.i: void a(java.lang.Object)>($r48);
+
+     label098:
+        throw $r46;
+
+     label099:
+        $r8 = $r17;
+
+        goto label101;
+
+     label100:
+        $r8 = null;
+
+        $r21 = newarray (java.lang.Object)[1];
+
+        $r6 = staticinvoke <java.net.URLDecoder: java.lang.String decode(java.lang.String)>($r6);
+
+        $r21[0] = $r6;
+
+        $r6 = virtualinvoke r0.<com.changdu.OpenFileActivity: java.lang.String getString(int,java.lang.Object[])>(2131821396, $r21);
+
+        $r22 = staticinvoke <android.widget.Toast: android.widget.Toast makeText(android.content.Context,java.lang.CharSequence,int)>(r0, $r6, 1);
+
+        virtualinvoke $r22.<android.widget.Toast: void show()>();
+
+     label101:
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r8);
+
+        if $z0 != 0 goto label102;
+
+        $r42 = new java.io.File;
+
+        specialinvoke $r42.<java.io.File: void <init>(java.lang.String)>($r8);
+
+        $r6 = virtualinvoke $r42.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        staticinvoke <com.changdu.changdulib.e.i: void b(java.lang.Object)>($r6);
+
+        $z0 = virtualinvoke $r42.<java.io.File: boolean exists()>();
+
+        if $z0 == 0 goto label102;
+
+        $r49 = staticinvoke <com.changdu.browser.filebrowser.ad: com.changdu.browser.filebrowser.ad a(android.app.Activity)>(r0);
+
+        virtualinvoke $r49.<com.changdu.browser.filebrowser.ad: void a(java.io.File)>($r42);
+
+        $z0 = staticinvoke <com.changdu.browser.filebrowser.ad: boolean d(java.lang.String)>($r8);
+
+        if $z0 == 0 goto label102;
+
+        return;
+
+     label102:
+        virtualinvoke r0.<com.changdu.OpenFileActivity: void finish()>();
+
+        return;
+
+     label103:
+        $r2 := @caughtexception;
+
+        goto label078;
+
+     label104:
+        $r3 := @caughtexception;
+
+        goto label079;
+
+     label105:
+        $r4 := @caughtexception;
+
+        goto label076;
+
+        catch java.lang.NoSuchMethodException from label017 to label018 with label043;
+        catch java.lang.NoSuchMethodException from label019 to label020 with label043;
+        catch java.lang.reflect.InvocationTargetException from label017 to label018 with label041;
+        catch java.lang.reflect.InvocationTargetException from label019 to label020 with label041;
+        catch java.lang.IllegalAccessException from label017 to label018 with label039;
+        catch java.lang.IllegalAccessException from label019 to label020 with label039;
+        catch java.lang.ClassNotFoundException from label017 to label018 with label037;
+        catch java.lang.ClassNotFoundException from label019 to label020 with label037;
+        catch java.lang.NoSuchMethodException from label021 to label022 with label036;
+        catch java.lang.NoSuchMethodException from label023 to label024 with label036;
+        catch java.lang.NoSuchMethodException from label025 to label026 with label036;
+        catch java.lang.NoSuchMethodException from label027 to label028 with label036;
+        catch java.lang.NoSuchMethodException from label029 to label030 with label036;
+        catch java.lang.NoSuchMethodException from label031 to label032 with label036;
+        catch java.lang.reflect.InvocationTargetException from label021 to label022 with label035;
+        catch java.lang.reflect.InvocationTargetException from label023 to label024 with label035;
+        catch java.lang.reflect.InvocationTargetException from label025 to label026 with label035;
+        catch java.lang.reflect.InvocationTargetException from label027 to label028 with label035;
+        catch java.lang.reflect.InvocationTargetException from label029 to label030 with label035;
+        catch java.lang.reflect.InvocationTargetException from label031 to label032 with label035;
+        catch java.lang.IllegalAccessException from label021 to label022 with label034;
+        catch java.lang.IllegalAccessException from label023 to label024 with label034;
+        catch java.lang.IllegalAccessException from label025 to label026 with label034;
+        catch java.lang.IllegalAccessException from label027 to label028 with label034;
+        catch java.lang.IllegalAccessException from label029 to label030 with label034;
+        catch java.lang.IllegalAccessException from label031 to label032 with label034;
+        catch java.lang.ClassNotFoundException from label021 to label022 with label033;
+        catch java.lang.ClassNotFoundException from label023 to label024 with label033;
+        catch java.lang.ClassNotFoundException from label025 to label026 with label033;
+        catch java.lang.ClassNotFoundException from label027 to label028 with label033;
+        catch java.lang.ClassNotFoundException from label029 to label030 with label033;
+        catch java.lang.ClassNotFoundException from label031 to label032 with label033;
+        catch java.lang.Exception from label058 to label059 with label103;
+        catch java.lang.Throwable from label056 to label057 with label077;
+        catch java.lang.Throwable from label058 to label059 with label077;
+        catch java.lang.Exception from label061 to label062 with label104;
+        catch java.lang.Exception from label063 to label064 with label104;
+        catch java.lang.Exception from label066 to label067 with label104;
+        catch java.lang.Throwable from label059 to label060 with label088;
+        catch java.lang.Throwable from label061 to label062 with label088;
+        catch java.lang.Throwable from label063 to label065 with label088;
+        catch java.lang.Throwable from label065 to label066 with label088;
+        catch java.lang.Throwable from label066 to label067 with label088;
+        catch java.lang.Exception from label068 to label069 with label105;
+        catch java.lang.Exception from label070 to label071 with label105;
+        catch java.lang.Exception from label072 to label073 with label105;
+        catch java.lang.Throwable from label068 to label069 with label075;
+        catch java.lang.Throwable from label070 to label071 with label075;
+        catch java.lang.Throwable from label072 to label073 with label075;
+        catch java.lang.Exception from label073 to label074 with label083;
+        catch java.lang.Throwable from label079 to label080 with label088;
+        catch java.lang.Exception from label081 to label082 with label083;
+        catch java.lang.Exception from label085 to label086 with label083;
+        catch java.lang.Exception from label091 to label092 with label093;
+        catch java.lang.Exception from label095 to label096 with label093;
+    }

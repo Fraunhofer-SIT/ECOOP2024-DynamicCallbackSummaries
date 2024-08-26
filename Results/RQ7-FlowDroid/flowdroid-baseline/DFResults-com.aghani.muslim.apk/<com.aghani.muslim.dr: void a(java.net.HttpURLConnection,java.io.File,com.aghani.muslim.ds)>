@@ -1,0 +1,232 @@
+    private static void a(java.net.HttpURLConnection, java.io.File, com.aghani.muslim.ds)
+    {
+        java.net.HttpURLConnection $r0;
+        java.lang.Throwable $r6, $r10, $r11, $r12, $r13;
+        byte[] $r3;
+        java.io.BufferedInputStream $r4, $r7, $r16;
+        com.aghani.muslim.ds $r2;
+        long $l2, $l3;
+        java.io.BufferedOutputStream $r5, $r9, $r18;
+        byte $b5;
+        int $i0, $i1;
+        java.io.FileOutputStream $r17;
+        java.lang.IllegalArgumentException $r14;
+        java.io.File $r1;
+        java.io.FileNotFoundException $r15;
+        java.io.InputStream $r8;
+
+        $r0 := @parameter0: java.net.HttpURLConnection;
+
+        $r1 := @parameter1: java.io.File;
+
+        $r2 := @parameter2: com.aghani.muslim.ds;
+
+        if $r0 != null goto label01;
+
+        $r14 = new java.lang.IllegalArgumentException;
+
+        specialinvoke $r14.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>("connection cannot be null");
+
+        throw $r14;
+
+     label01:
+        if $r1 != null goto label02;
+
+        $r14 = new java.lang.IllegalArgumentException;
+
+        specialinvoke $r14.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>("toFile cannot be null");
+
+        throw $r14;
+
+     label02:
+        $r4 = null;
+
+        $r5 = null;
+
+        if $r0 == null goto label32;
+
+     label03:
+        $i0 = virtualinvoke $r0.<java.net.HttpURLConnection: int getContentLength()>();
+
+        $i1 = virtualinvoke $r0.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label04:
+        if $i0 > 0 goto label13;
+
+     label05:
+        $r15 = new java.io.FileNotFoundException;
+
+     label06:
+        specialinvoke $r15.<java.io.FileNotFoundException: void <init>(java.lang.String)>("The content-length indicates an empty file or a stream.");
+
+        throw $r15;
+
+     label07:
+        $r6 := @caughtexception;
+
+     label08:
+        if $r4 == null goto label10;
+
+     label09:
+        virtualinvoke $r4.<java.io.BufferedInputStream: void close()>();
+
+     label10:
+        if $r5 == null goto label12;
+
+     label11:
+        virtualinvoke $r5.<java.io.BufferedOutputStream: void close()>();
+
+     label12:
+        throw $r6;
+
+     label13:
+        if $i1 < 400 goto label16;
+
+     label14:
+        $r15 = new java.io.FileNotFoundException;
+
+     label15:
+        specialinvoke $r15.<java.io.FileNotFoundException: void <init>(java.lang.String)>("Invalid response code.");
+
+        throw $r15;
+
+     label16:
+        $r16 = new java.io.BufferedInputStream;
+
+     label17:
+        $r7 = $r16;
+
+     label18:
+        $r8 = virtualinvoke $r0.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+        specialinvoke $r16.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r8);
+
+     label19:
+        $r18 = new java.io.BufferedOutputStream;
+
+     label20:
+        $r9 = $r18;
+
+     label21:
+        $r17 = new java.io.FileOutputStream;
+
+     label22:
+        specialinvoke $r17.<java.io.FileOutputStream: void <init>(java.io.File)>($r1);
+
+        specialinvoke $r18.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r17);
+
+     label23:
+        $r3 = newarray (byte)[8192];
+
+        $l2 = 0L;
+
+        goto label28;
+
+     label24:
+        $b5 = $l2 cmp 0L;
+
+        $i0 = (int) $b5;
+
+        if $i0 > 0 goto label33;
+
+     label25:
+        $r15 = new java.io.FileNotFoundException;
+
+     label26:
+        specialinvoke $r15.<java.io.FileNotFoundException: void <init>(java.lang.String)>("Empty file (no data retrieved).");
+
+        throw $r15;
+
+     label27:
+        $r6 := @caughtexception;
+
+        $r5 = $r18;
+
+        $r4 = $r16;
+
+        goto label08;
+
+     label28:
+        $i0 = virtualinvoke $r16.<java.io.BufferedInputStream: int read(byte[])>($r3);
+
+     label29:
+        if $i0 == -1 goto label24;
+
+     label30:
+        virtualinvoke $r18.<java.io.BufferedOutputStream: void write(byte[],int,int)>($r3, 0, $i0);
+
+     label31:
+        $l3 = (long) $i0;
+
+        $l2 = $l2 + $l3;
+
+        goto label28;
+
+     label32:
+        $r7 = null;
+
+        $r9 = null;
+
+     label33:
+        if $r7 == null goto label35;
+
+     label34:
+        virtualinvoke $r7.<java.io.BufferedInputStream: void close()>();
+
+     label35:
+        if $r9 == null goto label43;
+
+     label36:
+        virtualinvoke $r9.<java.io.BufferedOutputStream: void close()>();
+
+     label37:
+        return;
+
+     label38:
+        $r10 := @caughtexception;
+
+        goto label35;
+
+     label39:
+        $r11 := @caughtexception;
+
+        return;
+
+     label40:
+        $r12 := @caughtexception;
+
+        goto label10;
+
+     label41:
+        $r13 := @caughtexception;
+
+        goto label12;
+
+     label42:
+        $r6 := @caughtexception;
+
+        $r4 = $r16;
+
+        goto label08;
+
+     label43:
+        return;
+
+        catch java.lang.Throwable from label03 to label04 with label07;
+        catch java.lang.Throwable from label05 to label06 with label07;
+        catch java.lang.Throwable from label06 to label07 with label07;
+        catch java.io.IOException from label09 to label10 with label40;
+        catch java.io.IOException from label11 to label12 with label41;
+        catch java.lang.Throwable from label14 to label15 with label07;
+        catch java.lang.Throwable from label15 to label17 with label07;
+        catch java.lang.Throwable from label18 to label19 with label07;
+        catch java.lang.Throwable from label19 to label20 with label42;
+        catch java.lang.Throwable from label21 to label22 with label42;
+        catch java.lang.Throwable from label22 to label23 with label42;
+        catch java.lang.Throwable from label25 to label26 with label27;
+        catch java.lang.Throwable from label26 to label27 with label27;
+        catch java.lang.Throwable from label28 to label29 with label27;
+        catch java.lang.Throwable from label30 to label31 with label27;
+        catch java.io.IOException from label34 to label35 with label38;
+        catch java.io.IOException from label36 to label37 with label39;
+    }

@@ -1,0 +1,308 @@
+    private static boolean loadFromZip(android.content.Context, java.io.File, java.io.File, java.lang.String)
+    {
+        java.lang.Throwable $r19;
+        android.content.Context $r1;
+        byte[] $r14;
+        java.lang.Error $r15;
+        int $i0, $i1;
+        java.util.zip.ZipFile $r7;
+        java.lang.String $r3, $r9;
+        java.util.zip.ZipEntry $r11;
+        java.io.FileOutputStream $r13;
+        java.io.File $r0, $r2;
+        java.lang.Exception $r5, $r16, $r17, $r18, $r20, $r21, $r22, $r23;
+        java.lang.StringBuilder $r10;
+        java.io.File[] $r4;
+        android.content.pm.ApplicationInfo $r8;
+        java.io.InputStream $r6, $r12;
+
+        $r1 := @parameter0: android.content.Context;
+
+        $r0 := @parameter1: java.io.File;
+
+        $r2 := @parameter2: java.io.File;
+
+        $r3 := @parameter3: java.lang.String;
+
+     label01:
+        $r4 = virtualinvoke $r0.<java.io.File: java.io.File[] listFiles()>();
+
+        $i0 = lengthof $r4;
+
+     label02:
+        $i1 = 0;
+
+     label03:
+        if $i1 >= $i0 goto label07;
+
+     label04:
+        $r0 = $r4[$i1];
+
+        virtualinvoke $r0.<java.io.File: boolean delete()>();
+
+     label05:
+        $i1 = $i1 + 1;
+
+        goto label03;
+
+     label06:
+        $r5 := @caughtexception;
+
+        staticinvoke <org.telegram.messenger.FileLog: void e(java.lang.Throwable)>($r5);
+
+     label07:
+        $r6 = null;
+
+     label08:
+        $r7 = new java.util.zip.ZipFile;
+
+     label09:
+        $r8 = virtualinvoke $r1.<android.content.Context: android.content.pm.ApplicationInfo getApplicationInfo()>();
+
+        $r9 = $r8.<android.content.pm.ApplicationInfo: java.lang.String sourceDir>;
+
+        specialinvoke $r7.<java.util.zip.ZipFile: void <init>(java.lang.String)>($r9);
+
+     label10:
+        $r10 = new java.lang.StringBuilder;
+
+     label11:
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("lib/");
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("libtmessages.32.so");
+
+        $r9 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r11 = virtualinvoke $r7.<java.util.zip.ZipFile: java.util.zip.ZipEntry getEntry(java.lang.String)>($r9);
+
+     label12:
+        if $r11 == null goto label35;
+
+     label13:
+        $r12 = virtualinvoke $r7.<java.util.zip.ZipFile: java.io.InputStream getInputStream(java.util.zip.ZipEntry)>($r11);
+
+     label14:
+        $r6 = $r12;
+
+     label15:
+        $r13 = new java.io.FileOutputStream;
+
+     label16:
+        specialinvoke $r13.<java.io.FileOutputStream: void <init>(java.io.File)>($r2);
+
+     label17:
+        $r14 = newarray (byte)[4096];
+
+     label18:
+        $i0 = virtualinvoke $r12.<java.io.InputStream: int read(byte[])>($r14);
+
+     label19:
+        if $i0 <= 0 goto label22;
+
+     label20:
+        staticinvoke <java.lang.Thread: void yield()>();
+
+        virtualinvoke $r13.<java.io.OutputStream: void write(byte[],int,int)>($r14, 0, $i0);
+
+     label21:
+        goto label18;
+
+     label22:
+        virtualinvoke $r13.<java.io.OutputStream: void close()>();
+
+        virtualinvoke $r2.<java.io.File: boolean setReadable(boolean,boolean)>(1, 0);
+
+        virtualinvoke $r2.<java.io.File: boolean setExecutable(boolean,boolean)>(1, 0);
+
+        virtualinvoke $r2.<java.io.File: boolean setWritable(boolean)>(1);
+
+     label23:
+        $r3 = virtualinvoke $r2.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        staticinvoke <java.lang.System: void load(java.lang.String)>($r3);
+
+     label24:
+        <org.telegram.messenger.NativeLoader: boolean nativeLoaded> = 1;
+
+     label25:
+        goto label28;
+
+     label26:
+        $r15 := @caughtexception;
+
+     label27:
+        staticinvoke <org.telegram.messenger.FileLog: void e(java.lang.Throwable)>($r15);
+
+     label28:
+        if $r12 == null goto label32;
+
+     label29:
+        virtualinvoke $r12.<java.io.InputStream: void close()>();
+
+     label30:
+        goto label32;
+
+     label31:
+        $r16 := @caughtexception;
+
+        staticinvoke <org.telegram.messenger.FileLog: void e(java.lang.Throwable)>($r16);
+
+     label32:
+        virtualinvoke $r7.<java.util.zip.ZipFile: void close()>();
+
+     label33:
+        return 1;
+
+     label34:
+        $r17 := @caughtexception;
+
+        staticinvoke <org.telegram.messenger.FileLog: void e(java.lang.Throwable)>($r17);
+
+        return 1;
+
+     label35:
+        $r5 = new java.lang.Exception;
+
+        $r10 = new java.lang.StringBuilder;
+
+     label36:
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Unable to find file in apk:lib/");
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/");
+
+        virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("tmessages.32");
+
+        $r3 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r5.<java.lang.Exception: void <init>(java.lang.String)>($r3);
+
+        throw $r5;
+
+     label37:
+        $r18 := @caughtexception;
+
+        goto label40;
+
+     label38:
+        $r19 := @caughtexception;
+
+        $r7 = null;
+
+        goto label50;
+
+     label39:
+        $r18 := @caughtexception;
+
+        $r7 = null;
+
+     label40:
+        staticinvoke <org.telegram.messenger.FileLog: void e(java.lang.Throwable)>($r18);
+
+     label41:
+        if $r6 == null goto label45;
+
+     label42:
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+     label43:
+        goto label45;
+
+     label44:
+        $r20 := @caughtexception;
+
+        staticinvoke <org.telegram.messenger.FileLog: void e(java.lang.Throwable)>($r20);
+
+     label45:
+        if $r7 == null goto label59;
+
+     label46:
+        virtualinvoke $r7.<java.util.zip.ZipFile: void close()>();
+
+     label47:
+        return 0;
+
+     label48:
+        $r21 := @caughtexception;
+
+        staticinvoke <org.telegram.messenger.FileLog: void e(java.lang.Throwable)>($r21);
+
+        return 0;
+
+     label49:
+        $r19 := @caughtexception;
+
+     label50:
+        if $r6 == null goto label54;
+
+     label51:
+        virtualinvoke $r6.<java.io.InputStream: void close()>();
+
+     label52:
+        goto label54;
+
+     label53:
+        $r22 := @caughtexception;
+
+        staticinvoke <org.telegram.messenger.FileLog: void e(java.lang.Throwable)>($r22);
+
+     label54:
+        if $r7 == null goto label58;
+
+     label55:
+        virtualinvoke $r7.<java.util.zip.ZipFile: void close()>();
+
+     label56:
+        goto label58;
+
+     label57:
+        $r23 := @caughtexception;
+
+        staticinvoke <org.telegram.messenger.FileLog: void e(java.lang.Throwable)>($r23);
+
+     label58:
+        throw $r19;
+
+     label59:
+        return 0;
+
+        catch java.lang.Exception from label01 to label02 with label06;
+        catch java.lang.Exception from label04 to label05 with label06;
+        catch java.lang.Exception from label09 to label10 with label39;
+        catch java.lang.Throwable from label08 to label10 with label38;
+        catch java.lang.Exception from label11 to label12 with label37;
+        catch java.lang.Exception from label13 to label14 with label37;
+        catch java.lang.Exception from label16 to label17 with label37;
+        catch java.lang.Exception from label18 to label19 with label37;
+        catch java.lang.Exception from label20 to label21 with label37;
+        catch java.lang.Exception from label22 to label23 with label37;
+        catch java.lang.Throwable from label10 to label12 with label49;
+        catch java.lang.Throwable from label13 to label14 with label49;
+        catch java.lang.Throwable from label15 to label17 with label49;
+        catch java.lang.Throwable from label18 to label19 with label49;
+        catch java.lang.Throwable from label20 to label21 with label49;
+        catch java.lang.Throwable from label22 to label23 with label49;
+        catch java.lang.Error from label23 to label25 with label26;
+        catch java.lang.Exception from label23 to label24 with label37;
+        catch java.lang.Throwable from label23 to label24 with label49;
+        catch java.lang.Exception from label27 to label28 with label37;
+        catch java.lang.Throwable from label27 to label28 with label49;
+        catch java.lang.Exception from label29 to label30 with label31;
+        catch java.lang.Exception from label32 to label33 with label34;
+        catch java.lang.Exception from label36 to label37 with label37;
+        catch java.lang.Throwable from label35 to label37 with label49;
+        catch java.lang.Throwable from label40 to label41 with label49;
+        catch java.lang.Exception from label42 to label43 with label44;
+        catch java.lang.Exception from label46 to label47 with label48;
+        catch java.lang.Exception from label51 to label52 with label53;
+        catch java.lang.Exception from label55 to label56 with label57;
+    }

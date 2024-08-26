@@ -1,0 +1,107 @@
+    void logEvent(java.lang.String, java.lang.Double, android.os.Bundle, boolean, java.util.UUID)
+    {
+        android.os.Bundle $r3;
+        java.lang.Object[] $r7;
+        java.lang.Double $r2;
+        com.facebook.FacebookException $r10;
+        java.util.UUID $r4;
+        com.facebook.appevents.AppEvent $r8;
+        com.facebook.LoggingBehavior $r6;
+        org.json.JSONException $r11;
+        com.facebook.appevents.AppEventsLoggerImpl r0;
+        com.facebook.appevents.AccessTokenAppIdPair $r9;
+        java.lang.String $r1, $r5;
+        boolean $z0, $z1;
+
+        r0 := @this: com.facebook.appevents.AppEventsLoggerImpl;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: java.lang.Double;
+
+        $r3 := @parameter2: android.os.Bundle;
+
+        $z0 := @parameter3: boolean;
+
+        $r4 := @parameter4: java.util.UUID;
+
+        if $r1 == null goto label9;
+
+        $z1 = virtualinvoke $r1.<java.lang.String: boolean isEmpty()>();
+
+        if $z1 == 0 goto label1;
+
+        return;
+
+     label1:
+        $r5 = staticinvoke <com.facebook.FacebookSdk: java.lang.String getApplicationId()>();
+
+        $z1 = staticinvoke <com.facebook.internal.FetchedAppGateKeepersManager: boolean getGateKeeperForKey(java.lang.String,java.lang.String,boolean)>("app_events_killswitch", $r5, 0);
+
+        if $z1 == 0 goto label2;
+
+        $r6 = <com.facebook.LoggingBehavior: com.facebook.LoggingBehavior APP_EVENTS>;
+
+        $r7 = newarray (java.lang.Object)[1];
+
+        $r7[0] = $r1;
+
+        staticinvoke <com.facebook.internal.Logger: void log(com.facebook.LoggingBehavior,java.lang.String,java.lang.String,java.lang.Object[])>($r6, "AppEvents", "KillSwitch is enabled and fail to log app event: %s", $r7);
+
+        return;
+
+     label2:
+        $r8 = new com.facebook.appevents.AppEvent;
+
+        $r5 = r0.<com.facebook.appevents.AppEventsLoggerImpl: java.lang.String contextName>;
+
+     label3:
+        $z1 = staticinvoke <com.facebook.appevents.internal.ActivityLifecycleTracker: boolean isInBackground()>();
+
+        specialinvoke $r8.<com.facebook.appevents.AppEvent: void <init>(java.lang.String,java.lang.String,java.lang.Double,android.os.Bundle,boolean,boolean,java.util.UUID)>($r5, $r1, $r2, $r3, $z0, $z1, $r4);
+
+     label4:
+        $r9 = r0.<com.facebook.appevents.AppEventsLoggerImpl: com.facebook.appevents.AccessTokenAppIdPair accessTokenAppId>;
+
+     label5:
+        staticinvoke <com.facebook.appevents.AppEventsLoggerImpl: void logEvent(com.facebook.appevents.AppEvent,com.facebook.appevents.AccessTokenAppIdPair)>($r8, $r9);
+
+     label6:
+        return;
+
+     label7:
+        $r10 := @caughtexception;
+
+        $r6 = <com.facebook.LoggingBehavior: com.facebook.LoggingBehavior APP_EVENTS>;
+
+        $r7 = newarray (java.lang.Object)[1];
+
+        $r1 = virtualinvoke $r10.<com.facebook.FacebookException: java.lang.String toString()>();
+
+        $r7[0] = $r1;
+
+        staticinvoke <com.facebook.internal.Logger: void log(com.facebook.LoggingBehavior,java.lang.String,java.lang.String,java.lang.Object[])>($r6, "AppEvents", "Invalid app event: %s", $r7);
+
+        return;
+
+     label8:
+        $r11 := @caughtexception;
+
+        $r6 = <com.facebook.LoggingBehavior: com.facebook.LoggingBehavior APP_EVENTS>;
+
+        $r7 = newarray (java.lang.Object)[1];
+
+        $r1 = virtualinvoke $r11.<org.json.JSONException: java.lang.String toString()>();
+
+        $r7[0] = $r1;
+
+        staticinvoke <com.facebook.internal.Logger: void log(com.facebook.LoggingBehavior,java.lang.String,java.lang.String,java.lang.Object[])>($r6, "AppEvents", "JSON encoding for app event failed: \'%s\'", $r7);
+
+     label9:
+        return;
+
+        catch org.json.JSONException from label3 to label4 with label8;
+        catch org.json.JSONException from label5 to label6 with label8;
+        catch com.facebook.FacebookException from label3 to label4 with label7;
+        catch com.facebook.FacebookException from label5 to label6 with label7;
+    }

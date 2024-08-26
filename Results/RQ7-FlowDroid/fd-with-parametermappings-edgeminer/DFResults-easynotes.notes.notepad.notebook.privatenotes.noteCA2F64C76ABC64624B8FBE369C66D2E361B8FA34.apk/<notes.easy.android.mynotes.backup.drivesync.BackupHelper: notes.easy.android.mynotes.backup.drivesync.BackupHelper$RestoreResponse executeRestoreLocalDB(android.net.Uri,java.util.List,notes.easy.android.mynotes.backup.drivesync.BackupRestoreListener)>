@@ -1,0 +1,552 @@
+    private notes.easy.android.mynotes.backup.drivesync.BackupHelper$RestoreResponse executeRestoreLocalDB(android.net.Uri, java.util.List, notes.easy.android.mynotes.backup.drivesync.BackupRestoreListener)
+    {
+        byte[] $r11;
+        notes.easy.android.mynotes.backup.drivesync.SyncInfo $r17, $r34;
+        android.net.Uri $r1;
+        java.util.Random $r19;
+        byte $b2;
+        android.content.ContentResolver $r8;
+        java.lang.Long $r26;
+        boolean $z0;
+        java.lang.Exception $r4, $r12, $r14;
+        java.util.List $r2;
+        float $f0, $f1;
+        java.lang.StringBuilder $r37;
+        long $l1;
+        notes.easy.android.mynotes.backup.drivesync.SyncTaskInfo $r27, $r36;
+        java.util.ArrayList $r13, $r15, $r20, $r21, $r35;
+        notes.easy.android.mynotes.backup.drivesync.BackupHelper r0;
+        notes.easy.android.mynotes.backup.drivesync.BackupHelper$10 $r39;
+        int $i0, $i3;
+        java.lang.String $r10, $r18;
+        java.util.concurrent.ExecutorService $r32;
+        java.util.Iterator $r22, $r24;
+        notes.easy.android.mynotes.App $r7;
+        java.io.FileOutputStream $r33;
+        notes.easy.android.mynotes.models.Note $r25;
+        java.io.File $r5, $r6, $r28, $r29, $r30, $r31, $r38;
+        notes.easy.android.mynotes.backup.drivesync.BackupRestoreListener $r3;
+        java.lang.Object $r23;
+        notes.easy.android.mynotes.backup.drivesync.BackupHelper$RestoreResponse $r40;
+        java.io.File[] $r16;
+        java.io.InputStream $r9;
+
+        r0 := @this: notes.easy.android.mynotes.backup.drivesync.BackupHelper;
+
+        $r1 := @parameter0: android.net.Uri;
+
+        $r2 := @parameter1: java.util.List;
+
+        $r3 := @parameter2: notes.easy.android.mynotes.backup.drivesync.BackupRestoreListener;
+
+        $r5 = staticinvoke <notes.easy.android.mynotes.backup.drivesync.BackupHelper: java.io.File getZipTempDir()>();
+
+        $r28 = new java.io.File;
+
+        $r6 = $r28;
+
+        specialinvoke $r28.<java.io.File: void <init>(java.io.File,java.lang.String)>($r5, "backup_temp.zip");
+
+        $r7 = <notes.easy.android.mynotes.App: notes.easy.android.mynotes.App app>;
+
+     label01:
+        $r8 = virtualinvoke $r7.<notes.easy.android.mynotes.App: android.content.ContentResolver getContentResolver()>();
+
+        $r9 = virtualinvoke $r8.<android.content.ContentResolver: java.io.InputStream openInputStream(android.net.Uri)>($r1);
+
+     label02:
+        $r33 = new java.io.FileOutputStream;
+
+     label03:
+        $r10 = virtualinvoke $r28.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        specialinvoke $r33.<java.io.FileOutputStream: void <init>(java.lang.String)>($r10);
+
+     label04:
+        $r11 = newarray (byte)[1024];
+
+     label05:
+        $i0 = virtualinvoke $r9.<java.io.InputStream: int read(byte[])>($r11);
+
+     label06:
+        if $i0 == -1 goto label09;
+
+     label07:
+        $i0 = lengthof $r11;
+
+        virtualinvoke $r33.<java.io.FileOutputStream: void write(byte[],int,int)>($r11, 0, $i0);
+
+     label08:
+        goto label05;
+
+     label09:
+        virtualinvoke $r33.<java.io.FileOutputStream: void close()>();
+
+     label10:
+        goto label12;
+
+     label11:
+        $r12 := @caughtexception;
+
+        virtualinvoke $r12.<java.lang.Exception: void printStackTrace()>();
+
+     label12:
+        $r15 = new java.util.ArrayList;
+
+        $r13 = $r15;
+
+        specialinvoke $r15.<java.util.ArrayList: void <init>()>();
+
+        $l1 = virtualinvoke $r6.<java.io.File: long getTotalSpace()>();
+
+        $b2 = $l1 cmp 0L;
+
+        $i0 = (int) $b2;
+
+        if $i0 <= 0 goto label16;
+
+     label13:
+        staticinvoke <notes.easy.android.mynotes.utils.ZipUtils: void unzipFolder(java.io.File,java.io.File)>($r6, $r5);
+
+     label14:
+        goto label16;
+
+     label15:
+        $r14 := @caughtexception;
+
+        virtualinvoke $r14.<java.lang.Exception: void printStackTrace()>();
+
+     label16:
+        $r20 = new java.util.ArrayList;
+
+        $r15 = $r20;
+
+        specialinvoke $r20.<java.util.ArrayList: void <init>()>();
+
+        $z0 = virtualinvoke $r5.<java.io.File: boolean isDirectory()>();
+
+        if $z0 == 0 goto label19;
+
+        $r16 = virtualinvoke $r5.<java.io.File: java.io.File[] listFiles()>();
+
+        $i0 = 0;
+
+     label17:
+        $i3 = lengthof $r16;
+
+        if $i0 >= $i3 goto label19;
+
+        $r6 = $r16[$i0];
+
+        if $r6 == null goto label18;
+
+        $r6 = $r16[$i0];
+
+        $r10 = virtualinvoke $r6.<java.io.File: java.lang.String getName()>();
+
+        $i3 = virtualinvoke $r10.<java.lang.String: int length()>();
+
+        if $i3 <= 18 goto label18;
+
+        $r6 = $r16[$i0];
+
+        interfaceinvoke $r13.<java.util.List: boolean add(java.lang.Object)>($r6);
+
+        $r34 = new notes.easy.android.mynotes.backup.drivesync.SyncInfo;
+
+        $r6 = $r16[$i0];
+
+        $r10 = virtualinvoke $r6.<java.io.File: java.lang.String getName()>();
+
+        $r10 = virtualinvoke $r10.<java.lang.String: java.lang.String substring(int,int)>(7, 20);
+
+        $r6 = $r16[$i0];
+
+        $r18 = virtualinvoke $r6.<java.io.File: java.lang.String getName()>();
+
+        $r18 = virtualinvoke $r18.<java.lang.String: java.lang.String substring(int,int)>(21, 34);
+
+        $l1 = staticinvoke <java.lang.Long: long parseLong(java.lang.String)>($r18);
+
+        specialinvoke $r34.<notes.easy.android.mynotes.backup.drivesync.SyncInfo: void <init>(java.lang.String,long,java.lang.String)>($r10, $l1, null);
+
+        interfaceinvoke $r15.<java.util.List: boolean add(java.lang.Object)>($r34);
+
+     label18:
+        $i0 = $i0 + 1;
+
+        goto label17;
+
+     label19:
+        r0.<notes.easy.android.mynotes.backup.drivesync.BackupHelper: float restoreProgress> = 0.0F;
+
+        $r19 = r0.<notes.easy.android.mynotes.backup.drivesync.BackupHelper: java.util.Random mRandom>;
+
+        $i0 = virtualinvoke $r19.<java.util.Random: int nextInt(int)>(4);
+
+        $i0 = $i0 + 2;
+
+        specialinvoke r0.<notes.easy.android.mynotes.backup.drivesync.BackupHelper: void progressRestoreFakeStart(int,notes.easy.android.mynotes.backup.drivesync.BackupRestoreListener)>($i0, $r3);
+
+        r0.<notes.easy.android.mynotes.backup.drivesync.BackupHelper: boolean restoreFake> = 0;
+
+        $f0 = r0.<notes.easy.android.mynotes.backup.drivesync.BackupHelper: float restoreProgress>;
+
+        $f1 = (float) $i0;
+
+        $f0 = $f0 + $f1;
+
+        specialinvoke r0.<notes.easy.android.mynotes.backup.drivesync.BackupHelper: void notifyRestoreProgress(notes.easy.android.mynotes.backup.drivesync.BackupRestoreListener,float)>($r3, $f0);
+
+        $r21 = new java.util.ArrayList;
+
+        $r20 = $r21;
+
+        specialinvoke $r21.<java.util.ArrayList: void <init>()>();
+
+        $r35 = new java.util.ArrayList;
+
+        $r21 = $r35;
+
+        specialinvoke $r35.<java.util.ArrayList: void <init>()>();
+
+        $r22 = interfaceinvoke $r15.<java.util.List: java.util.Iterator iterator()>();
+
+     label20:
+        $z0 = interfaceinvoke $r22.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label26;
+
+        $r23 = interfaceinvoke $r22.<java.util.Iterator: java.lang.Object next()>();
+
+        $r17 = (notes.easy.android.mynotes.backup.drivesync.SyncInfo) $r23;
+
+        $r24 = interfaceinvoke $r2.<java.util.List: java.util.Iterator iterator()>();
+
+     label21:
+        $z0 = interfaceinvoke $r24.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label22;
+
+        $r23 = interfaceinvoke $r24.<java.util.Iterator: java.lang.Object next()>();
+
+        $r25 = (notes.easy.android.mynotes.models.Note) $r23;
+
+        $r26 = virtualinvoke $r25.<notes.easy.android.mynotes.models.Note: java.lang.Long getCreation()>();
+
+        if $r26 == null goto label21;
+
+        $r26 = virtualinvoke $r25.<notes.easy.android.mynotes.models.Note: java.lang.Long getCreation()>();
+
+        $r10 = virtualinvoke $r26.<java.lang.Long: java.lang.String toString()>();
+
+        $r18 = virtualinvoke $r17.<notes.easy.android.mynotes.backup.drivesync.SyncInfo: java.lang.String getId()>();
+
+        $z0 = virtualinvoke $r10.<java.lang.String: boolean equals(java.lang.Object)>($r18);
+
+        if $z0 == 0 goto label21;
+
+        interfaceinvoke $r21.<java.util.List: boolean add(java.lang.Object)>($r25);
+
+        goto label23;
+
+     label22:
+        $r25 = null;
+
+     label23:
+        $r36 = new notes.easy.android.mynotes.backup.drivesync.SyncTaskInfo;
+
+        specialinvoke $r36.<notes.easy.android.mynotes.backup.drivesync.SyncTaskInfo: void <init>(notes.easy.android.mynotes.backup.drivesync.SyncInfo,notes.easy.android.mynotes.models.Note,boolean)>($r17, $r25, 0);
+
+        $r24 = interfaceinvoke $r13.<java.util.List: java.util.Iterator iterator()>();
+
+     label24:
+        $z0 = interfaceinvoke $r24.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label25;
+
+        $r23 = interfaceinvoke $r24.<java.util.Iterator: java.lang.Object next()>();
+
+        $r6 = (java.io.File) $r23;
+
+        $r10 = virtualinvoke $r6.<java.io.File: java.lang.String getName()>();
+
+        $r18 = virtualinvoke $r17.<notes.easy.android.mynotes.backup.drivesync.SyncInfo: java.lang.String getId()>();
+
+        $z0 = virtualinvoke $r10.<java.lang.String: boolean contains(java.lang.CharSequence)>($r18);
+
+        if $z0 == 0 goto label24;
+
+        virtualinvoke $r36.<notes.easy.android.mynotes.backup.drivesync.SyncTaskInfo: void setRestoreZipFile(java.io.File)>($r6);
+
+        goto label25;
+
+     label25:
+        interfaceinvoke $r20.<java.util.List: boolean add(java.lang.Object)>($r36);
+
+        goto label20;
+
+     label26:
+        $r35 = new java.util.ArrayList;
+
+        $r13 = $r35;
+
+        specialinvoke $r35.<java.util.ArrayList: void <init>()>();
+
+        $r22 = interfaceinvoke $r2.<java.util.List: java.util.Iterator iterator()>();
+
+     label27:
+        $z0 = interfaceinvoke $r22.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label28;
+
+        $r23 = interfaceinvoke $r22.<java.util.Iterator: java.lang.Object next()>();
+
+        $r25 = (notes.easy.android.mynotes.models.Note) $r23;
+
+        $z0 = interfaceinvoke $r21.<java.util.List: boolean contains(java.lang.Object)>($r25);
+
+        if $z0 != 0 goto label27;
+
+        interfaceinvoke $r13.<java.util.List: boolean add(java.lang.Object)>($r25);
+
+        goto label27;
+
+     label28:
+        $f0 = r0.<notes.easy.android.mynotes.backup.drivesync.BackupHelper: float restoreProgress>;
+
+        $f1 = $f0 + $f1;
+
+        specialinvoke r0.<notes.easy.android.mynotes.backup.drivesync.BackupHelper: void notifyRestoreProgress(notes.easy.android.mynotes.backup.drivesync.BackupRestoreListener,float)>($r3, $f1);
+
+        $z0 = specialinvoke r0.<notes.easy.android.mynotes.backup.drivesync.BackupHelper: boolean unzipList(java.util.List)>($r20);
+
+        $r37 = new java.lang.StringBuilder;
+
+        specialinvoke $r37.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r37.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("unzipList = ");
+
+        virtualinvoke $r37.<java.lang.StringBuilder: java.lang.StringBuilder append(boolean)>($z0);
+
+        $r10 = virtualinvoke $r37.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <notes.easy.android.mynotes.backup.drivesync.BackupHelper: void Log(java.lang.String,java.lang.String,java.lang.String)>("BackupHelper", "executeRestore", $r10);
+
+        if $z0 != 0 goto label29;
+
+        $z0 = specialinvoke r0.<notes.easy.android.mynotes.backup.drivesync.BackupHelper: boolean unzipList(java.util.List)>($r20);
+
+        $r37 = new java.lang.StringBuilder;
+
+        specialinvoke $r37.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r37.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("unzipList2 = ");
+
+        virtualinvoke $r37.<java.lang.StringBuilder: java.lang.StringBuilder append(boolean)>($z0);
+
+        $r10 = virtualinvoke $r37.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <notes.easy.android.mynotes.backup.drivesync.BackupHelper: void Log(java.lang.String,java.lang.String,java.lang.String)>("BackupHelper", "executeRestore", $r10);
+
+     label29:
+        $r6 = staticinvoke <notes.easy.android.mynotes.backup.drivesync.BackupHelper: java.io.File getExternalFilesDir()>();
+
+        $r28 = staticinvoke <notes.easy.android.mynotes.backup.drivesync.BackupHelper: java.io.File getRestoreDir()>();
+
+        $r35 = new java.util.ArrayList;
+
+        $r21 = $r35;
+
+        specialinvoke $r35.<java.util.ArrayList: void <init>()>();
+
+        interfaceinvoke $r35.<java.util.List: boolean addAll(java.util.Collection)>($r13);
+
+        $r22 = interfaceinvoke $r20.<java.util.List: java.util.Iterator iterator()>();
+
+     label30:
+        $z0 = interfaceinvoke $r22.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label35;
+
+        $r23 = interfaceinvoke $r22.<java.util.Iterator: java.lang.Object next()>();
+
+        $r27 = (notes.easy.android.mynotes.backup.drivesync.SyncTaskInfo) $r23;
+
+        $r17 = virtualinvoke $r27.<notes.easy.android.mynotes.backup.drivesync.SyncTaskInfo: notes.easy.android.mynotes.backup.drivesync.SyncInfo getSyncInfo()>();
+
+        $r10 = virtualinvoke $r17.<notes.easy.android.mynotes.backup.drivesync.SyncInfo: java.lang.String getId()>();
+
+        $r25 = virtualinvoke $r27.<notes.easy.android.mynotes.backup.drivesync.SyncTaskInfo: notes.easy.android.mynotes.models.Note getNoteEntry()>();
+
+        $r29 = virtualinvoke $r27.<notes.easy.android.mynotes.backup.drivesync.SyncTaskInfo: java.io.File getRestoreZipFile()>();
+
+        if $r29 == null goto label34;
+
+        $z0 = staticinvoke <org.apache.commons.lang3.StringUtils: boolean isEmpty(java.lang.CharSequence)>($r10);
+
+        if $z0 != 0 goto label34;
+
+        $r37 = new java.lang.StringBuilder;
+
+        specialinvoke $r37.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r37.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("copy syncTaskInfo =");
+
+        virtualinvoke $r37.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r27);
+
+        $r10 = virtualinvoke $r37.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <notes.easy.android.mynotes.backup.drivesync.BackupHelper: void Log(java.lang.String,java.lang.String,java.lang.String)>("BackupHelper", "executeRestore", $r10);
+
+        $r30 = virtualinvoke $r27.<notes.easy.android.mynotes.backup.drivesync.SyncTaskInfo: java.io.File getRestoreZipFile()>();
+
+        $r31 = new java.io.File;
+
+        $r29 = $r31;
+
+        $r37 = new java.lang.StringBuilder;
+
+        specialinvoke $r37.<java.lang.StringBuilder: void <init>()>();
+
+        $r10 = virtualinvoke $r30.<java.io.File: java.lang.String getName()>();
+
+        virtualinvoke $r37.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r10);
+
+        virtualinvoke $r37.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("_temp");
+
+        $r10 = virtualinvoke $r37.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r31.<java.io.File: void <init>(java.io.File,java.lang.String)>($r28, $r10);
+
+        $z0 = virtualinvoke $r31.<java.io.File: boolean isDirectory()>();
+
+        if $z0 == 0 goto label34;
+
+        $i0 = 0;
+
+     label31:
+        $r16 = virtualinvoke $r29.<java.io.File: java.io.File[] listFiles()>();
+
+        $i3 = lengthof $r16;
+
+        if $i0 >= $i3 goto label34;
+
+        $r16 = virtualinvoke $r29.<java.io.File: java.io.File[] listFiles()>();
+
+        $r30 = $r16[$i0];
+
+        $r10 = virtualinvoke $r30.<java.io.File: java.lang.String getName()>();
+
+        if $r10 == null goto label33;
+
+        $r10 = virtualinvoke $r30.<java.io.File: java.lang.String getName()>();
+
+        $z0 = virtualinvoke $r10.<java.lang.String: boolean equals(java.lang.Object)>("note.json");
+
+        if $z0 != 0 goto label33;
+
+        $r38 = new java.io.File;
+
+        $r10 = virtualinvoke $r30.<java.io.File: java.lang.String getName()>();
+
+        specialinvoke $r38.<java.io.File: void <init>(java.io.File,java.lang.String)>($r6, $r10);
+
+        $z0 = virtualinvoke $r38.<java.io.File: boolean exists()>();
+
+        if $z0 == 0 goto label32;
+
+        staticinvoke <notes.easy.android.mynotes.utils.FileUtils: void deleteFile(java.io.File)>($r38);
+
+     label32:
+        $r38 = new java.io.File;
+
+        $r10 = virtualinvoke $r30.<java.io.File: java.lang.String getName()>();
+
+        specialinvoke $r38.<java.io.File: void <init>(java.io.File,java.lang.String)>($r6, $r10);
+
+        virtualinvoke $r30.<java.io.File: boolean renameTo(java.io.File)>($r38);
+
+        $i0 = $i0 + -1;
+
+     label33:
+        $i0 = $i0 + 1;
+
+        goto label31;
+
+     label34:
+        if $r25 == null goto label30;
+
+        interfaceinvoke $r21.<java.util.List: boolean add(java.lang.Object)>($r25);
+
+        goto label30;
+
+     label35:
+        $f1 = r0.<notes.easy.android.mynotes.backup.drivesync.BackupHelper: float restoreProgress>;
+
+        $f1 = $f1 + 3.0F;
+
+        specialinvoke r0.<notes.easy.android.mynotes.backup.drivesync.BackupHelper: void notifyRestoreProgress(notes.easy.android.mynotes.backup.drivesync.BackupRestoreListener,float)>($r3, $f1);
+
+        virtualinvoke r0.<notes.easy.android.mynotes.backup.drivesync.BackupHelper: void replaceAll(java.util.List)>($r21);
+
+        virtualinvoke r0.<notes.easy.android.mynotes.backup.drivesync.BackupHelper: void cleanRestoreTempFile(java.io.File)>($r5);
+
+        $f1 = r0.<notes.easy.android.mynotes.backup.drivesync.BackupHelper: float restoreProgress>;
+
+        $b2 = $f1 cmpg 90.0F;
+
+        $i0 = (int) $b2;
+
+        if $i0 >= 0 goto label36;
+
+        $r32 = staticinvoke <notes.easy.android.mynotes.utils.ExecutorUtils: java.util.concurrent.ExecutorService getSyncDriveTaskThreadPool()>();
+
+        $r39 = new notes.easy.android.mynotes.backup.drivesync.BackupHelper$10;
+
+        specialinvoke $r39.<notes.easy.android.mynotes.backup.drivesync.BackupHelper$10: void <init>(notes.easy.android.mynotes.backup.drivesync.BackupHelper,notes.easy.android.mynotes.backup.drivesync.BackupRestoreListener)>(r0, $r3);
+
+        interfaceinvoke $r32.<java.util.concurrent.ExecutorService: void execute(java.lang.Runnable)>($r39);
+
+        goto label37;
+
+     label36:
+        specialinvoke r0.<notes.easy.android.mynotes.backup.drivesync.BackupHelper: void notifyRestoreProgress(notes.easy.android.mynotes.backup.drivesync.BackupRestoreListener,float)>($r3, 100.0F);
+
+     label37:
+        $f1 = r0.<notes.easy.android.mynotes.backup.drivesync.BackupHelper: float restoreProgress>;
+
+        $b2 = $f1 cmpg 99.0F;
+
+        $i0 = (int) $b2;
+
+        if $i0 >= 0 goto label40;
+
+     label38:
+        staticinvoke <java.lang.Thread: void sleep(long)>(1000L);
+
+     label39:
+        goto label37;
+
+     label40:
+        $r40 = new notes.easy.android.mynotes.backup.drivesync.BackupHelper$RestoreResponse;
+
+        $i0 = interfaceinvoke $r15.<java.util.List: int size()>();
+
+        specialinvoke $r40.<notes.easy.android.mynotes.backup.drivesync.BackupHelper$RestoreResponse: void <init>(int,int,int)>(300, -1, $i0);
+
+        return $r40;
+
+     label41:
+        $r4 := @caughtexception;
+
+        goto label37;
+
+        catch java.lang.Exception from label01 to label02 with label11;
+        catch java.lang.Exception from label03 to label04 with label11;
+        catch java.lang.Exception from label05 to label06 with label11;
+        catch java.lang.Exception from label07 to label08 with label11;
+        catch java.lang.Exception from label09 to label10 with label11;
+        catch java.lang.Exception from label13 to label14 with label15;
+        catch java.lang.Exception from label38 to label39 with label41;
+    }

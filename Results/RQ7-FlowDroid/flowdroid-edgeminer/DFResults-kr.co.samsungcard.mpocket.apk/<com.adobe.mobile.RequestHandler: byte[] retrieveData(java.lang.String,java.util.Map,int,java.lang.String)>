@@ -1,0 +1,412 @@
+    public static byte[] retrieveData(java.lang.String, java.util.Map, int, java.lang.String)
+    {
+        java.net.HttpURLConnection $r4, $r5, $r6;
+        java.lang.Throwable $r14, $r18, $r19, $r20, $r21, $r22, $r23;
+        byte[] $r3;
+        java.lang.Object[] $r15;
+        java.io.ByteArrayOutputStream $r24;
+        java.lang.Error $r16;
+        java.util.Map $r1;
+        int $i0;
+        java.lang.String $r0, $r2;
+        boolean $z0;
+        java.io.IOException $r25;
+        java.lang.Exception $r17;
+        java.io.InputStream $r12, $r13;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r1 := @parameter1: java.util.Map;
+
+        $i0 := @parameter2: int;
+
+        $r2 := @parameter3: java.lang.String;
+
+        $z0 = staticinvoke <com.adobe.mobile.StaticMethods: boolean isWearableApp()>();
+
+        if $z0 == 0 goto label01;
+
+        $r3 = staticinvoke <com.adobe.mobile.WearableFunctionBridge: byte[] retrieveData(java.lang.String,java.util.Map,int,java.lang.String)>($r0, null, $i0, $r2);
+
+        return $r3;
+
+     label01:
+        $r4 = null;
+
+     label02:
+        $r5 = staticinvoke <com.adobe.mobile.RequestHandler: java.net.HttpURLConnection requestConnect(java.lang.String)>($r0);
+
+     label03:
+        $r6 = $r5;
+
+     label04:
+        virtualinvoke $r5.<java.net.HttpURLConnection: void setConnectTimeout(int)>(2000);
+
+        virtualinvoke $r5.<java.net.HttpURLConnection: void setReadTimeout(int)>($i0);
+
+     label05:
+        goto label06;
+
+     label06:
+        $i0 = virtualinvoke $r5.<java.net.HttpURLConnection: int getResponseCode()>();
+
+     label07:
+        if $i0 != 200 goto label25;
+
+     label08:
+        $r12 = virtualinvoke $r5.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>();
+
+     label09:
+        $r13 = $r12;
+
+        $r3 = newarray (byte)[1024];
+
+     label10:
+        $r24 = new java.io.ByteArrayOutputStream;
+
+     label11:
+        specialinvoke $r24.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label12:
+        $i0 = virtualinvoke $r12.<java.io.InputStream: int read(byte[])>($r3);
+
+     label13:
+        if $i0 == -1 goto label16;
+
+     label14:
+        virtualinvoke $r24.<java.io.ByteArrayOutputStream: void write(byte[])>($r3);
+
+     label15:
+        goto label12;
+
+     label16:
+        virtualinvoke $r12.<java.io.InputStream: void close()>();
+
+        $r3 = virtualinvoke $r24.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+     label17:
+        if $r5 == null goto label18;
+
+        virtualinvoke $r5.<java.net.HttpURLConnection: void disconnect()>();
+
+     label18:
+        if $r12 == null goto label61;
+
+     label19:
+        virtualinvoke $r12.<java.io.InputStream: void close()>();
+
+     label20:
+        return $r3;
+
+     label21:
+        $r14 := @caughtexception;
+
+        $r15 = newarray (java.lang.Object)[2];
+
+        $r15[0] = $r2;
+
+        $r25 = (java.io.IOException) $r14;
+
+        $r0 = virtualinvoke $r25.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        $r15[1] = $r0;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("%s - Unable to close stream (%s)", $r15);
+
+        return $r3;
+
+     label22:
+        $r16 := @caughtexception;
+
+        goto label31;
+
+     label23:
+        $r17 := @caughtexception;
+
+        goto label38;
+
+     label24:
+        $r18 := @caughtexception;
+
+        goto label45;
+
+     label25:
+        if $r5 == null goto label62;
+
+        virtualinvoke $r5.<java.net.HttpURLConnection: void disconnect()>();
+
+        return null;
+
+     label26:
+        $r16 := @caughtexception;
+
+        $r13 = null;
+
+        goto label31;
+
+     label27:
+        $r17 := @caughtexception;
+
+        $r13 = null;
+
+        goto label38;
+
+     label28:
+        $r18 := @caughtexception;
+
+        $r13 = null;
+
+        goto label45;
+
+     label29:
+        $r19 := @caughtexception;
+
+        $r13 = null;
+
+        goto label55;
+
+     label30:
+        $r16 := @caughtexception;
+
+        $r6 = null;
+
+        $r13 = null;
+
+     label31:
+        $r15 = newarray (java.lang.Object)[2];
+
+        $r15[0] = $r2;
+
+        $r0 = virtualinvoke $r16.<java.lang.Error: java.lang.String getLocalizedMessage()>();
+
+        $r15[1] = $r0;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("%s - Unexpected error while sending request (%s)", $r15);
+
+     label32:
+        if $r6 == null goto label33;
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void disconnect()>();
+
+     label33:
+        if $r13 == null goto label62;
+
+     label34:
+        virtualinvoke $r13.<java.io.InputStream: void close()>();
+
+     label35:
+        return null;
+
+     label36:
+        $r20 := @caughtexception;
+
+        $r15 = newarray (java.lang.Object)[2];
+
+        $r15[0] = $r2;
+
+        $r25 = (java.io.IOException) $r20;
+
+        $r0 = virtualinvoke $r25.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        $r15[1] = $r0;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("%s - Unable to close stream (%s)", $r15);
+
+        return null;
+
+     label37:
+        $r17 := @caughtexception;
+
+        $r6 = null;
+
+        $r13 = null;
+
+     label38:
+        $r15 = newarray (java.lang.Object)[2];
+
+        $r15[0] = $r2;
+
+        $r0 = virtualinvoke $r17.<java.lang.Exception: java.lang.String getLocalizedMessage()>();
+
+        $r15[1] = $r0;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("%s - Exception while sending request (%s)", $r15);
+
+     label39:
+        if $r6 == null goto label40;
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void disconnect()>();
+
+     label40:
+        if $r13 == null goto label62;
+
+     label41:
+        virtualinvoke $r13.<java.io.InputStream: void close()>();
+
+     label42:
+        return null;
+
+     label43:
+        $r21 := @caughtexception;
+
+        $r15 = newarray (java.lang.Object)[2];
+
+        $r15[0] = $r2;
+
+        $r25 = (java.io.IOException) $r21;
+
+        $r0 = virtualinvoke $r25.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        $r15[1] = $r0;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("%s - Unable to close stream (%s)", $r15);
+
+        return null;
+
+     label44:
+        $r18 := @caughtexception;
+
+        $r6 = null;
+
+        $r13 = null;
+
+     label45:
+        $r15 = newarray (java.lang.Object)[2];
+
+        $r15[0] = $r2;
+
+        $r25 = (java.io.IOException) $r18;
+
+        $r0 = virtualinvoke $r25.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        $r15[1] = $r0;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("%s - IOException while sending request (%s)", $r15);
+
+     label46:
+        if $r6 == null goto label47;
+
+        virtualinvoke $r6.<java.net.HttpURLConnection: void disconnect()>();
+
+     label47:
+        if $r13 == null goto label62;
+
+     label48:
+        virtualinvoke $r13.<java.io.InputStream: void close()>();
+
+     label49:
+        return null;
+
+     label50:
+        $r22 := @caughtexception;
+
+        $r15 = newarray (java.lang.Object)[2];
+
+        $r15[0] = $r2;
+
+        $r25 = (java.io.IOException) $r22;
+
+        $r0 = virtualinvoke $r25.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        $r15[1] = $r0;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("%s - Unable to close stream (%s)", $r15);
+
+        return null;
+
+     label51:
+        $r19 := @caughtexception;
+
+        goto label53;
+
+     label52:
+        $r19 := @caughtexception;
+
+        $r13 = null;
+
+     label53:
+        $r4 = $r6;
+
+        goto label55;
+
+     label54:
+        $r19 := @caughtexception;
+
+        $r4 = $r5;
+
+     label55:
+        if $r4 == null goto label56;
+
+        virtualinvoke $r4.<java.net.HttpURLConnection: void disconnect()>();
+
+     label56:
+        if $r13 == null goto label60;
+
+     label57:
+        virtualinvoke $r13.<java.io.InputStream: void close()>();
+
+     label58:
+        goto label60;
+
+     label59:
+        $r23 := @caughtexception;
+
+        $r15 = newarray (java.lang.Object)[2];
+
+        $r15[0] = $r2;
+
+        $r25 = (java.io.IOException) $r23;
+
+        $r0 = virtualinvoke $r25.<java.io.IOException: java.lang.String getLocalizedMessage()>();
+
+        $r15[1] = $r0;
+
+        staticinvoke <com.adobe.mobile.StaticMethods: void logWarningFormat(java.lang.String,java.lang.Object[])>("%s - Unable to close stream (%s)", $r15);
+
+     label60:
+        throw $r19;
+
+     label61:
+        return $r3;
+
+     label62:
+        return null;
+
+        catch java.io.IOException from label02 to label03 with label44;
+        catch java.lang.Exception from label02 to label03 with label37;
+        catch java.lang.Error from label02 to label03 with label30;
+        catch java.lang.Throwable from label02 to label03 with label29;
+        catch java.io.IOException from label04 to label05 with label28;
+        catch java.io.IOException from label06 to label07 with label28;
+        catch java.io.IOException from label08 to label09 with label28;
+        catch java.lang.Exception from label04 to label05 with label27;
+        catch java.lang.Exception from label06 to label07 with label27;
+        catch java.lang.Exception from label08 to label09 with label27;
+        catch java.lang.Error from label04 to label05 with label26;
+        catch java.lang.Error from label06 to label07 with label26;
+        catch java.lang.Error from label08 to label09 with label26;
+        catch java.lang.Throwable from label04 to label05 with label52;
+        catch java.lang.Throwable from label06 to label07 with label52;
+        catch java.lang.Throwable from label08 to label09 with label52;
+        catch java.io.IOException from label11 to label13 with label24;
+        catch java.io.IOException from label14 to label15 with label24;
+        catch java.io.IOException from label16 to label17 with label24;
+        catch java.lang.Exception from label11 to label13 with label23;
+        catch java.lang.Exception from label14 to label15 with label23;
+        catch java.lang.Exception from label16 to label17 with label23;
+        catch java.lang.Error from label10 to label11 with label22;
+        catch java.lang.Error from label11 to label13 with label22;
+        catch java.lang.Error from label14 to label15 with label22;
+        catch java.lang.Error from label16 to label17 with label22;
+        catch java.lang.Throwable from label11 to label13 with label54;
+        catch java.lang.Throwable from label14 to label15 with label54;
+        catch java.lang.Throwable from label16 to label17 with label54;
+        catch java.io.IOException from label19 to label20 with label21;
+        catch java.lang.Throwable from label31 to label32 with label51;
+        catch java.io.IOException from label34 to label35 with label36;
+        catch java.lang.Throwable from label38 to label39 with label51;
+        catch java.io.IOException from label41 to label42 with label43;
+        catch java.lang.Throwable from label45 to label46 with label51;
+        catch java.io.IOException from label48 to label49 with label50;
+        catch java.io.IOException from label57 to label58 with label59;
+    }

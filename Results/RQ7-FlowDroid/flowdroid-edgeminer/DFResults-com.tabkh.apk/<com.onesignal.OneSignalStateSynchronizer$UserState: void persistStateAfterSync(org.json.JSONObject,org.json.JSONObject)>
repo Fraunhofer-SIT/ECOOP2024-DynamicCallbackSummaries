@@ -1,0 +1,134 @@
+    private void persistStateAfterSync(org.json.JSONObject, org.json.JSONObject)
+    {
+        java.lang.Throwable $r11, $r12;
+        java.util.Iterator $r6;
+        com.onesignal.OneSignalStateSynchronizer$UserState r0;
+        org.json.JSONObject $r1, $r2, r3, $r4;
+        java.lang.Object $r5, $r7;
+        java.lang.String r8, $r9, $r10;
+        boolean $z0;
+
+        r0 := @this: com.onesignal.OneSignalStateSynchronizer$UserState;
+
+        $r1 := @parameter0: org.json.JSONObject;
+
+        $r2 := @parameter1: org.json.JSONObject;
+
+        if $r1 == null goto label01;
+
+        r3 = r0.<com.onesignal.OneSignalStateSynchronizer$UserState: org.json.JSONObject dependValues>;
+
+        $r4 = r0.<com.onesignal.OneSignalStateSynchronizer$UserState: org.json.JSONObject dependValues>;
+
+        staticinvoke <com.onesignal.OneSignalStateSynchronizer: org.json.JSONObject access$200(org.json.JSONObject,org.json.JSONObject,org.json.JSONObject,java.util.Set)>(r3, $r1, $r4, null);
+
+     label01:
+        if $r2 == null goto label07;
+
+        r3 = r0.<com.onesignal.OneSignalStateSynchronizer$UserState: org.json.JSONObject syncValues>;
+
+        $r4 = r0.<com.onesignal.OneSignalStateSynchronizer$UserState: org.json.JSONObject syncValues>;
+
+        staticinvoke <com.onesignal.OneSignalStateSynchronizer: org.json.JSONObject access$200(org.json.JSONObject,org.json.JSONObject,org.json.JSONObject,java.util.Set)>(r3, $r2, $r4, null);
+
+        $r5 = staticinvoke <com.onesignal.OneSignalStateSynchronizer: java.lang.Object access$400()>();
+
+        entermonitor $r5;
+
+     label02:
+        $z0 = virtualinvoke $r2.<org.json.JSONObject: boolean has(java.lang.String)>("tags");
+
+        if $z0 == 0 goto label06;
+
+        r3 = new org.json.JSONObject;
+
+        specialinvoke r3.<org.json.JSONObject: void <init>()>();
+
+        $r4 = virtualinvoke $r2.<org.json.JSONObject: org.json.JSONObject optJSONObject(java.lang.String)>("tags");
+
+        $r6 = virtualinvoke $r4.<org.json.JSONObject: java.util.Iterator keys()>();
+
+     label03:
+        $z0 = interfaceinvoke $r6.<java.util.Iterator: boolean hasNext()>();
+
+        if $z0 == 0 goto label09;
+
+        $r7 = interfaceinvoke $r6.<java.util.Iterator: java.lang.Object next()>();
+
+        r8 = (java.lang.String) $r7;
+
+        $r9 = "";
+
+        $r10 = virtualinvoke $r4.<org.json.JSONObject: java.lang.String optString(java.lang.String)>(r8);
+
+        $z0 = virtualinvoke $r9.<java.lang.String: boolean equals(java.lang.Object)>($r10);
+
+        if $z0 != 0 goto label03;
+
+        $r9 = virtualinvoke $r4.<org.json.JSONObject: java.lang.String optString(java.lang.String)>(r8);
+
+        virtualinvoke r3.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>(r8, $r9);
+
+     label04:
+        goto label03;
+
+     label05:
+        $r11 := @caughtexception;
+
+     label06:
+        exitmonitor $r5;
+
+     label07:
+        if $r1 != null goto label08;
+
+        if $r2 == null goto label16;
+
+     label08:
+        specialinvoke r0.<com.onesignal.OneSignalStateSynchronizer$UserState: void persistState()>();
+
+        return;
+
+     label09:
+        r8 = virtualinvoke r3.<org.json.JSONObject: java.lang.String toString()>();
+
+        $z0 = virtualinvoke r8.<java.lang.String: boolean equals(java.lang.Object)>("{}");
+
+        if $z0 == 0 goto label14;
+
+        r3 = r0.<com.onesignal.OneSignalStateSynchronizer$UserState: org.json.JSONObject syncValues>;
+
+        virtualinvoke r3.<org.json.JSONObject: java.lang.Object remove(java.lang.String)>("tags");
+
+     label10:
+        goto label06;
+
+     label11:
+        $r12 := @caughtexception;
+
+     label12:
+        exitmonitor $r5;
+
+     label13:
+        throw $r12;
+
+     label14:
+        $r4 = r0.<com.onesignal.OneSignalStateSynchronizer$UserState: org.json.JSONObject syncValues>;
+
+        virtualinvoke $r4.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("tags", r3);
+
+     label15:
+        goto label06;
+
+     label16:
+        return;
+
+        catch java.lang.Throwable from label02 to label03 with label11;
+        catch java.lang.Throwable from label03 to label04 with label05;
+        catch java.lang.Throwable from label03 to label04 with label11;
+        catch java.lang.Throwable from label06 to label07 with label11;
+        catch java.lang.Throwable from label09 to label10 with label05;
+        catch java.lang.Throwable from label09 to label10 with label11;
+        catch java.lang.Throwable from label12 to label13 with label11;
+        catch java.lang.Throwable from label14 to label15 with label05;
+        catch java.lang.Throwable from label14 to label15 with label11;
+    }

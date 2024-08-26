@@ -1,0 +1,182 @@
+    public final java.util.List a()
+    {
+        android.content.Context $r4;
+        byte[] $r11;
+        java.io.ByteArrayOutputStream $r15;
+        radio.fm.onlineradio.a.d r0;
+        java.lang.NullPointerException $r16;
+        java.util.ArrayList $r13;
+        radio.fm.onlineradio.App $r3;
+        android.content.res.AssetManager $r9;
+        java.nio.charset.Charset $r12;
+        int $i0;
+        java.lang.String $r5, $r6;
+        boolean $z0;
+        java.lang.CharSequence $r7;
+        java.lang.Exception $r1;
+        java.util.List $r2, $r8;
+        java.lang.StringBuilder $r14;
+        java.io.InputStream $r10;
+
+        r0 := @this: radio.fm.onlineradio.a.d;
+
+        $r13 = new java.util.ArrayList;
+
+        specialinvoke $r13.<java.util.ArrayList: void <init>()>();
+
+        $r2 = (java.util.List) $r13;
+
+        $r3 = <radio.fm.onlineradio.App: radio.fm.onlineradio.App a>;
+
+        staticinvoke <f.f.b.k: void b(java.lang.Object,java.lang.String)>($r3, "App.app");
+
+        $r4 = (android.content.Context) $r3;
+
+        $r5 = staticinvoke <radio.fm.onlineradio.utils.m: java.lang.String b(android.content.Context)>($r4);
+
+        $r6 = $r5;
+
+        $r7 = (java.lang.CharSequence) $r5;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r7);
+
+        if $z0 == 0 goto label01;
+
+        $r6 = "US";
+
+     label01:
+        $r7 = (java.lang.CharSequence) $r6;
+
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r7);
+
+        if $z0 != 0 goto label26;
+
+        $r8 = <radio.fm.onlineradio.a: java.util.List j>;
+
+        if $r6 == null goto label24;
+
+        $r5 = virtualinvoke $r6.<java.lang.String: java.lang.String toUpperCase()>();
+
+        staticinvoke <f.f.b.k: void b(java.lang.Object,java.lang.String)>($r5, "(this as java.lang.String).toUpperCase()");
+
+        $z0 = interfaceinvoke $r8.<java.util.List: boolean contains(java.lang.Object)>($r5);
+
+        if $z0 == 0 goto label26;
+
+        $r14 = new java.lang.StringBuilder;
+
+     label02:
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("stations_");
+
+     label03:
+        if $r6 == null goto label22;
+
+     label04:
+        $r6 = virtualinvoke $r6.<java.lang.String: java.lang.String toLowerCase()>();
+
+        staticinvoke <f.f.b.k: void b(java.lang.Object,java.lang.String)>($r6, "(this as java.lang.String).toLowerCase()");
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".json");
+
+        $r6 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label05:
+        $r3 = <radio.fm.onlineradio.App: radio.fm.onlineradio.App a>;
+
+     label06:
+        staticinvoke <f.f.b.k: void b(java.lang.Object,java.lang.String)>($r3, "App.app");
+
+        $r9 = virtualinvoke $r3.<radio.fm.onlineradio.App: android.content.res.AssetManager getAssets()>();
+
+        $r10 = virtualinvoke $r9.<android.content.res.AssetManager: java.io.InputStream open(java.lang.String)>($r6);
+
+        staticinvoke <f.f.b.k: void b(java.lang.Object,java.lang.String)>($r10, "App.app.assets.open(jsonName)");
+
+     label07:
+        $r15 = new java.io.ByteArrayOutputStream;
+
+     label08:
+        specialinvoke $r15.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label09:
+        $r11 = newarray (byte)[4096];
+
+     label10:
+        $i0 = virtualinvoke $r10.<java.io.InputStream: int read(byte[])>($r11);
+
+     label11:
+        if $i0 == -1 goto label14;
+
+     label12:
+        virtualinvoke $r15.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r11, 0, $i0);
+
+     label13:
+        goto label10;
+
+     label14:
+        $r11 = virtualinvoke $r15.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        staticinvoke <f.f.b.k: void b(java.lang.Object,java.lang.String)>($r11, "bos.toByteArray()");
+
+     label15:
+        $r5 = new java.lang.String;
+
+        $r12 = <f.k.d: java.nio.charset.Charset a>;
+
+     label16:
+        specialinvoke $r5.<java.lang.String: void <init>(byte[],java.nio.charset.Charset)>($r11, $r12);
+
+     label17:
+        $r7 = (java.lang.CharSequence) $r5;
+
+     label18:
+        $z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r7);
+
+     label19:
+        if $z0 != 0 goto label26;
+
+     label20:
+        $r8 = staticinvoke <radio.fm.onlineradio.station.DataRadioStation: java.util.List a(java.lang.String,boolean)>($r5, 0);
+
+        staticinvoke <f.f.b.k: void b(java.lang.Object,java.lang.String)>($r8, "DataRadioStation.DecodeJson(result, false)");
+
+     label21:
+        return $r8;
+
+     label22:
+        $r16 = new java.lang.NullPointerException;
+
+     label23:
+        specialinvoke $r16.<java.lang.NullPointerException: void <init>(java.lang.String)>("null cannot be cast to non-null type java.lang.String");
+
+        throw $r16;
+
+     label24:
+        $r16 = new java.lang.NullPointerException;
+
+        specialinvoke $r16.<java.lang.NullPointerException: void <init>(java.lang.String)>("null cannot be cast to non-null type java.lang.String");
+
+        throw $r16;
+
+     label25:
+        $r1 := @caughtexception;
+
+     label26:
+        return $r2;
+
+        catch java.lang.Exception from label02 to label03 with label25;
+        catch java.lang.Exception from label04 to label05 with label25;
+        catch java.lang.Exception from label06 to label07 with label25;
+        catch java.lang.Exception from label08 to label09 with label25;
+        catch java.lang.Exception from label10 to label11 with label25;
+        catch java.lang.Exception from label12 to label13 with label25;
+        catch java.lang.Exception from label14 to label15 with label25;
+        catch java.lang.Exception from label16 to label17 with label25;
+        catch java.lang.Exception from label18 to label19 with label25;
+        catch java.lang.Exception from label20 to label21 with label25;
+        catch java.lang.Exception from label23 to label24 with label25;
+    }

@@ -1,0 +1,184 @@
+    public void showFullscreen(java.lang.String, java.lang.String, boolean)
+    {
+        android.content.Context $r9;
+        com.appsgeyser.sdk.ads.fastTrack.adapters.'-$$Lambda$FastTrackAdmobAdapter$6sIzaOit_HD_P5rBIrvUtAo52c8' $r15;
+        com.appsgeyser.sdk.server.StatController $r8;
+        long $l0, $l1;
+        java.util.HashMap $r7;
+        com.appsgeyser.sdk.ui.AppsgeyserProgressDialog $r10;
+        java.util.Random $r13;
+        com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter r0;
+        java.lang.Integer $r4;
+        java.lang.Runnable $r12;
+        byte $b3;
+        android.os.Handler $r11;
+        int $i2, $i4;
+        java.lang.String $r1, $r2;
+        boolean $z0;
+        com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackBaseAdapter$FullscreenListener $r5;
+        com.google.android.gms.ads.InterstitialAd $r6;
+        java.lang.StringBuilder $r14;
+        com.appsgeyser.sdk.configuration.PreferencesCoder $r3;
+
+        r0 := @this: com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $z0 := @parameter2: boolean;
+
+        if $z0 == 0 goto label1;
+
+        $l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $r3 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter: com.appsgeyser.sdk.configuration.PreferencesCoder preferencesCoder>;
+
+        $l1 = virtualinvoke $r3.<com.appsgeyser.sdk.configuration.PreferencesCoder: long getPrefLong(java.lang.String,long)>("appsgeyserSdk_lastRequestTiming", 0L);
+
+        $l0 = $l0 - $l1;
+
+        $r4 = virtualinvoke r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter: java.lang.Integer getFullscreenFrequencyTimerValue()>();
+
+        $i2 = virtualinvoke $r4.<java.lang.Integer: int intValue()>();
+
+        $l1 = (long) $i2;
+
+        $b3 = $l0 cmp $l1;
+
+        $i2 = (int) $b3;
+
+        if $i2 > 0 goto label1;
+
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("fastTrackTag", "admob fullscreen show request was cancelled due to frequency timing settings");
+
+        return;
+
+     label1:
+        $r3 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter: com.appsgeyser.sdk.configuration.PreferencesCoder preferencesCoder>;
+
+        $l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        virtualinvoke $r3.<com.appsgeyser.sdk.configuration.PreferencesCoder: void savePrefLong(java.lang.String,long)>("appsgeyserSdk_lastRequestTiming", $l0);
+
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("fastTrackTag", "admob fullscreen show request");
+
+        $r5 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter: com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackBaseAdapter$FullscreenListener fullscreenListener>;
+
+        if $r5 == null goto label2;
+
+        $r5 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter: com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackBaseAdapter$FullscreenListener fullscreenListener>;
+
+        interfaceinvoke $r5.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackBaseAdapter$FullscreenListener: void onRequest()>();
+
+     label2:
+        $r13 = new java.util.Random;
+
+        specialinvoke $r13.<java.util.Random: void <init>()>();
+
+        $i2 = virtualinvoke $r13.<java.util.Random: int nextInt(int)>(100);
+
+        $i2 = $i2 + 1;
+
+        $r4 = virtualinvoke r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter: java.lang.Integer getFullscreenIntensityPoints(java.lang.String)>($r2);
+
+        $i4 = virtualinvoke $r4.<java.lang.Integer: int intValue()>();
+
+        if $i2 > $i4 goto label5;
+
+        $r6 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter: com.google.android.gms.ads.InterstitialAd interstitialAd>;
+
+        if $r6 == null goto label4;
+
+        $r7 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter: java.util.HashMap interstitialDetails>;
+
+        $r14 = new java.lang.StringBuilder;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("fs id: ");
+
+        $r1 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter: java.lang.String fullscreenPlacementId>;
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r7.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>("details", $r1);
+
+        $r8 = staticinvoke <com.appsgeyser.sdk.server.StatController: com.appsgeyser.sdk.server.StatController getInstance()>();
+
+        $r7 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter: java.util.HashMap interstitialDetails>;
+
+        $r9 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter: android.content.Context context>;
+
+        virtualinvoke $r8.<com.appsgeyser.sdk.server.StatController: void sendRequestAsyncByKey(java.lang.String,java.util.HashMap,android.content.Context,boolean)>("ft_interstitial_sdk_attempt", $r7, $r9, 1);
+
+        $r6 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter: com.google.android.gms.ads.InterstitialAd interstitialAd>;
+
+        $z0 = virtualinvoke $r6.<com.google.android.gms.ads.InterstitialAd: boolean isLoaded()>();
+
+        if $z0 == 0 goto label3;
+
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("fastTrackTag", "admob fullscreen attempt to show");
+
+        $r10 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter: com.appsgeyser.sdk.ui.AppsgeyserProgressDialog progressDialog>;
+
+        virtualinvoke $r10.<com.appsgeyser.sdk.ui.AppsgeyserProgressDialog: void show()>();
+
+        $r11 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter: android.os.Handler handler>;
+
+        $r15 = new com.appsgeyser.sdk.ads.fastTrack.adapters.'-$$Lambda$FastTrackAdmobAdapter$6sIzaOit_HD_P5rBIrvUtAo52c8';
+
+        specialinvoke $r15.<com.appsgeyser.sdk.ads.fastTrack.adapters.'-$$Lambda$FastTrackAdmobAdapter$6sIzaOit_HD_P5rBIrvUtAo52c8': void <init>(com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter,com.appsgeyser.sdk.ui.AppsgeyserProgressDialog)>(r0, $r10);
+
+        virtualinvoke $r11.<android.os.Handler: boolean postDelayed(java.lang.Runnable,long)>($r15, 2000L);
+
+        return;
+
+     label3:
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("fastTrackTag", "admob fullscreen not loaded yet, waiting for load");
+
+        r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter: boolean pendingFullscreenRequest> = 1;
+
+        $r11 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter: android.os.Handler handler>;
+
+        $r12 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter: java.lang.Runnable fullscreenPendingRequestCancelRunnable>;
+
+        $r4 = virtualinvoke r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter: java.lang.Integer getFullscreenPendingDelayTimerValue()>();
+
+        $i2 = virtualinvoke $r4.<java.lang.Integer: int intValue()>();
+
+        $l0 = (long) $i2;
+
+        virtualinvoke $r11.<android.os.Handler: boolean postDelayed(java.lang.Runnable,long)>($r12, $l0);
+
+        return;
+
+     label4:
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("fastTrackTag", "admob fullscreen disabled");
+
+        $r5 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter: com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackBaseAdapter$FullscreenListener fullscreenListener>;
+
+        if $r5 == null goto label6;
+
+        $r5 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter: com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackBaseAdapter$FullscreenListener fullscreenListener>;
+
+        interfaceinvoke $r5.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackBaseAdapter$FullscreenListener: void onFailedToShow()>();
+
+        return;
+
+     label5:
+        staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>("fastTrackTag", "admob fullscreen attempt to show canceled due to intensity settings");
+
+        $r5 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter: com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackBaseAdapter$FullscreenListener fullscreenListener>;
+
+        if $r5 == null goto label6;
+
+        $r5 = r0.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackAdmobAdapter: com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackBaseAdapter$FullscreenListener fullscreenListener>;
+
+        interfaceinvoke $r5.<com.appsgeyser.sdk.ads.fastTrack.adapters.FastTrackBaseAdapter$FullscreenListener: void onFailedToShow()>();
+
+     label6:
+        return;
+    }

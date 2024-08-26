@@ -1,0 +1,146 @@
+    java.lang.String getBaseFont()
+    {
+        java.lang.Object[] $r8;
+        java.util.HashMap $r1;
+        long $l1;
+        int[] $r3;
+        int $i0, $i2, $i3, $i4, $i5, $i6, $i7;
+        java.lang.String $r5;
+        com.itextpdf.text.pdf.RandomAccessFileOrArray $r4;
+        java.io.File $r6;
+        com.itextpdf.text.pdf.TrueTypeFont r0;
+        com.itextpdf.text.DocumentException $r7;
+        java.lang.Object $r2;
+        java.lang.StringBuilder $r9;
+
+        r0 := @this: com.itextpdf.text.pdf.TrueTypeFont;
+
+        $r1 = r0.<com.itextpdf.text.pdf.TrueTypeFont: java.util.HashMap tables>;
+
+        $r2 = virtualinvoke $r1.<java.util.HashMap: java.lang.Object get(java.lang.Object)>("name");
+
+        $r3 = (int[]) $r2;
+
+        if $r3 == null goto label5;
+
+        $r4 = r0.<com.itextpdf.text.pdf.TrueTypeFont: com.itextpdf.text.pdf.RandomAccessFileOrArray rf>;
+
+        $i0 = $r3[0];
+
+        $i0 = $i0 + 2;
+
+        $l1 = (long) $i0;
+
+        virtualinvoke $r4.<com.itextpdf.text.pdf.RandomAccessFileOrArray: void seek(long)>($l1);
+
+        $r4 = r0.<com.itextpdf.text.pdf.TrueTypeFont: com.itextpdf.text.pdf.RandomAccessFileOrArray rf>;
+
+        $i2 = virtualinvoke $r4.<com.itextpdf.text.pdf.RandomAccessFileOrArray: int readUnsignedShort()>();
+
+        $r4 = r0.<com.itextpdf.text.pdf.TrueTypeFont: com.itextpdf.text.pdf.RandomAccessFileOrArray rf>;
+
+        $i3 = virtualinvoke $r4.<com.itextpdf.text.pdf.RandomAccessFileOrArray: int readUnsignedShort()>();
+
+        $i4 = 0;
+
+     label1:
+        if $i4 >= $i2 goto label4;
+
+        $r4 = r0.<com.itextpdf.text.pdf.TrueTypeFont: com.itextpdf.text.pdf.RandomAccessFileOrArray rf>;
+
+        $i0 = virtualinvoke $r4.<com.itextpdf.text.pdf.RandomAccessFileOrArray: int readUnsignedShort()>();
+
+        $r4 = r0.<com.itextpdf.text.pdf.TrueTypeFont: com.itextpdf.text.pdf.RandomAccessFileOrArray rf>;
+
+        virtualinvoke $r4.<com.itextpdf.text.pdf.RandomAccessFileOrArray: int readUnsignedShort()>();
+
+        $r4 = r0.<com.itextpdf.text.pdf.TrueTypeFont: com.itextpdf.text.pdf.RandomAccessFileOrArray rf>;
+
+        virtualinvoke $r4.<com.itextpdf.text.pdf.RandomAccessFileOrArray: int readUnsignedShort()>();
+
+        $r4 = r0.<com.itextpdf.text.pdf.TrueTypeFont: com.itextpdf.text.pdf.RandomAccessFileOrArray rf>;
+
+        $i5 = virtualinvoke $r4.<com.itextpdf.text.pdf.RandomAccessFileOrArray: int readUnsignedShort()>();
+
+        $r4 = r0.<com.itextpdf.text.pdf.TrueTypeFont: com.itextpdf.text.pdf.RandomAccessFileOrArray rf>;
+
+        $i6 = virtualinvoke $r4.<com.itextpdf.text.pdf.RandomAccessFileOrArray: int readUnsignedShort()>();
+
+        $r4 = r0.<com.itextpdf.text.pdf.TrueTypeFont: com.itextpdf.text.pdf.RandomAccessFileOrArray rf>;
+
+        $i7 = virtualinvoke $r4.<com.itextpdf.text.pdf.RandomAccessFileOrArray: int readUnsignedShort()>();
+
+        if $i5 != 6 goto label3;
+
+        $r4 = r0.<com.itextpdf.text.pdf.TrueTypeFont: com.itextpdf.text.pdf.RandomAccessFileOrArray rf>;
+
+        $i2 = $r3[0];
+
+        $i3 = $i2 + $i3;
+
+        $i7 = $i3 + $i7;
+
+        $l1 = (long) $i7;
+
+        virtualinvoke $r4.<com.itextpdf.text.pdf.RandomAccessFileOrArray: void seek(long)>($l1);
+
+        if $i0 == 0 goto label2;
+
+        if $i0 == 3 goto label2;
+
+        $r5 = virtualinvoke r0.<com.itextpdf.text.pdf.TrueTypeFont: java.lang.String readStandardString(int)>($i6);
+
+        return $r5;
+
+     label2:
+        $r5 = virtualinvoke r0.<com.itextpdf.text.pdf.TrueTypeFont: java.lang.String readUnicodeString(int)>($i6);
+
+        return $r5;
+
+     label3:
+        $i4 = $i4 + 1;
+
+        goto label1;
+
+     label4:
+        $r6 = new java.io.File;
+
+        $r5 = r0.<com.itextpdf.text.pdf.TrueTypeFont: java.lang.String fileName>;
+
+        specialinvoke $r6.<java.io.File: void <init>(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r6.<java.io.File: java.lang.String getName()>();
+
+        $r5 = virtualinvoke $r5.<java.lang.String: java.lang.String replace(char,char)>(32, 45);
+
+        return $r5;
+
+     label5:
+        $r7 = new com.itextpdf.text.DocumentException;
+
+        $r8 = newarray (java.lang.Object)[2];
+
+        $r8[0] = "name";
+
+        $r9 = new java.lang.StringBuilder;
+
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+
+        $r5 = r0.<com.itextpdf.text.pdf.TrueTypeFont: java.lang.String fileName>;
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = r0.<com.itextpdf.text.pdf.TrueTypeFont: java.lang.String style>;
+
+        virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r5 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r8[1] = $r5;
+
+        $r5 = staticinvoke <com.itextpdf.text.error_messages.MessageLocalization: java.lang.String getComposedMessage(java.lang.String,java.lang.Object[])>("table.1.does.not.exist.in.2", $r8);
+
+        specialinvoke $r7.<com.itextpdf.text.DocumentException: void <init>(java.lang.String)>($r5);
+
+        throw $r7;
+    }

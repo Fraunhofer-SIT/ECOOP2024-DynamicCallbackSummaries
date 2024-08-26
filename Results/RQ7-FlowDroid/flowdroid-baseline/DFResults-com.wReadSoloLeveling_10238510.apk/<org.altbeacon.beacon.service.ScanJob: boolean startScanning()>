@@ -1,0 +1,85 @@
+    private boolean startScanning()
+    {
+        android.content.Context $r1;
+        java.lang.Object[] $r4;
+        org.altbeacon.beacon.distance.ModelSpecificDistanceCalculator $r8;
+        int $i0;
+        org.altbeacon.beacon.BeaconManager $r2;
+        java.lang.StringBuilder $r6;
+        java.lang.String $r3, $r7;
+        org.altbeacon.beacon.utils.ProcessUtils $r5;
+        org.altbeacon.beacon.service.ScanJob r0;
+        boolean $z0;
+
+        r0 := @this: org.altbeacon.beacon.service.ScanJob;
+
+        $r1 = virtualinvoke r0.<org.altbeacon.beacon.service.ScanJob: android.content.Context getApplicationContext()>();
+
+        $r2 = staticinvoke <org.altbeacon.beacon.BeaconManager: org.altbeacon.beacon.BeaconManager getInstanceForApplication(android.content.Context)>($r1);
+
+        virtualinvoke $r2.<org.altbeacon.beacon.BeaconManager: void setScannerInSameProcess(boolean)>(1);
+
+        $z0 = virtualinvoke $r2.<org.altbeacon.beacon.BeaconManager: boolean isMainProcess()>();
+
+        if $z0 == 0 goto label1;
+
+        $r3 = <org.altbeacon.beacon.service.ScanJob: java.lang.String TAG>;
+
+        $r4 = newarray (java.lang.Object)[1];
+
+        $r4[0] = "2.13.1";
+
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void i(java.lang.String,java.lang.String,java.lang.Object[])>($r3, "scanJob version %s is starting up on the main process", $r4);
+
+        goto label2;
+
+     label1:
+        $r3 = <org.altbeacon.beacon.service.ScanJob: java.lang.String TAG>;
+
+        $r4 = newarray (java.lang.Object)[1];
+
+        $r4[0] = "2.13.1";
+
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void i(java.lang.String,java.lang.String,java.lang.Object[])>($r3, "beaconScanJob library version %s is starting up on a separate process", $r4);
+
+        $r5 = new org.altbeacon.beacon.utils.ProcessUtils;
+
+        specialinvoke $r5.<org.altbeacon.beacon.utils.ProcessUtils: void <init>(android.content.Context)>(r0);
+
+        $r3 = <org.altbeacon.beacon.service.ScanJob: java.lang.String TAG>;
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("beaconScanJob PID is ");
+
+        $i0 = virtualinvoke $r5.<org.altbeacon.beacon.utils.ProcessUtils: int getPid()>();
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" with process name ");
+
+        $r7 = virtualinvoke $r5.<org.altbeacon.beacon.utils.ProcessUtils: java.lang.String getProcessName()>();
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r7);
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r4 = newarray (java.lang.Object)[0];
+
+        staticinvoke <org.altbeacon.beacon.logging.LogManager: void i(java.lang.String,java.lang.String,java.lang.Object[])>($r3, $r7, $r4);
+
+     label2:
+        $r8 = new org.altbeacon.beacon.distance.ModelSpecificDistanceCalculator;
+
+        $r3 = staticinvoke <org.altbeacon.beacon.BeaconManager: java.lang.String getDistanceModelUpdateUrl()>();
+
+        specialinvoke $r8.<org.altbeacon.beacon.distance.ModelSpecificDistanceCalculator: void <init>(android.content.Context,java.lang.String)>(r0, $r3);
+
+        staticinvoke <org.altbeacon.beacon.Beacon: void setDistanceCalculator(org.altbeacon.beacon.distance.DistanceCalculator)>($r8);
+
+        $z0 = specialinvoke r0.<org.altbeacon.beacon.service.ScanJob: boolean restartScanning()>();
+
+        return $z0;
+    }

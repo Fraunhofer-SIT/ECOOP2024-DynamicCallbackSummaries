@@ -1,0 +1,54 @@
+    public static java.lang.String a(com.adincube.sdk.h.b.b, java.lang.String)
+    {
+        byte[] $r4;
+        java.lang.Object[] $r6;
+        java.io.ByteArrayOutputStream $r2;
+        com.adincube.sdk.h.b.b $r0;
+        java.util.zip.GZIPOutputStream $r3;
+        java.lang.String $r1;
+        java.lang.Exception $r5;
+
+        $r0 := @parameter0: com.adincube.sdk.h.b.b;
+
+        $r1 := @parameter1: java.lang.String;
+
+        $r2 = new java.io.ByteArrayOutputStream;
+
+     label1:
+        specialinvoke $r2.<java.io.ByteArrayOutputStream: void <init>()>();
+
+     label2:
+        $r3 = new java.util.zip.GZIPOutputStream;
+
+     label3:
+        specialinvoke $r3.<java.util.zip.GZIPOutputStream: void <init>(java.io.OutputStream)>($r2);
+
+        $r4 = virtualinvoke $r1.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8");
+
+        virtualinvoke $r3.<java.util.zip.GZIPOutputStream: void write(byte[])>($r4);
+
+        virtualinvoke $r3.<java.util.zip.GZIPOutputStream: void flush()>();
+
+        virtualinvoke $r3.<java.util.zip.GZIPOutputStream: void close()>();
+
+        $r4 = virtualinvoke $r2.<java.io.ByteArrayOutputStream: byte[] toByteArray()>();
+
+        $r1 = staticinvoke <com.adincube.sdk.util.g: java.lang.String a(com.adincube.sdk.h.b.b,byte[])>($r0, $r4);
+
+     label4:
+        return $r1;
+
+     label5:
+        $r5 := @caughtexception;
+
+        $r6 = newarray (java.lang.Object)[1];
+
+        $r6[0] = $r5;
+
+        staticinvoke <com.adincube.sdk.util.a: void c(java.lang.String,java.lang.Object[])>("DataEncryptionHelper.gzipAndEncode()", $r6);
+
+        return null;
+
+        catch java.lang.Exception from label1 to label2 with label5;
+        catch java.lang.Exception from label3 to label4 with label5;
+    }

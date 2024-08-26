@@ -1,0 +1,180 @@
+    public static java.io.File b(java.lang.String)
+    {
+        java.lang.Throwable $r12, $r13;
+        android.content.Context $r1;
+        byte[] $r11;
+        java.io.BufferedInputStream $r5, $r16;
+        com.google.api.services.drive.Drive $r6;
+        long $l0;
+        java.io.BufferedOutputStream $r10, $r18;
+        java.security.SecureRandom $r4;
+        com.google.api.services.drive.Drive$Files$Get $r8;
+        int $i1;
+        java.lang.String $r0, $r3;
+        com.google.api.services.drive.Drive$Files $r7;
+        java.io.FileOutputStream $r17;
+        java.lang.RuntimeException $r19;
+        java.io.File $r2, $r15;
+        java.lang.StringBuilder $r14;
+        java.io.InputStream $r9;
+
+        $r0 := @parameter0: java.lang.String;
+
+        $r15 = new java.io.File;
+
+        $r14 = new java.lang.StringBuilder;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        $r1 = staticinvoke <d.b.b: android.content.Context b()>();
+
+        $r2 = virtualinvoke $r1.<android.content.Context: java.io.File getCacheDir()>();
+
+        $r3 = virtualinvoke $r2.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/tmp_");
+
+        $r4 = <d.j.p: java.security.SecureRandom b>;
+
+        $l0 = virtualinvoke $r4.<java.security.SecureRandom: long nextLong()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+
+        $r3 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r15.<java.io.File: void <init>(java.lang.String)>($r3);
+
+        $r5 = null;
+
+     label01:
+        $r16 = new java.io.BufferedInputStream;
+
+     label02:
+        $r6 = <d.j.p: com.google.api.services.drive.Drive c>;
+
+     label03:
+        $r7 = virtualinvoke $r6.<com.google.api.services.drive.Drive: com.google.api.services.drive.Drive$Files files()>();
+
+        $r8 = virtualinvoke $r7.<com.google.api.services.drive.Drive$Files: com.google.api.services.drive.Drive$Files$Get get(java.lang.String)>($r0);
+
+        $r9 = virtualinvoke $r8.<com.google.api.services.drive.Drive$Files$Get: java.io.InputStream executeMediaAsInputStream()>();
+
+        specialinvoke $r16.<java.io.BufferedInputStream: void <init>(java.io.InputStream,int)>($r9, 16384);
+
+     label04:
+        $r18 = new java.io.BufferedOutputStream;
+
+     label05:
+        $r10 = $r18;
+
+     label06:
+        $r17 = new java.io.FileOutputStream;
+
+     label07:
+        specialinvoke $r17.<java.io.FileOutputStream: void <init>(java.io.File)>($r15);
+
+        specialinvoke $r18.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r17);
+
+     label08:
+        $r11 = newarray (byte)[16384];
+
+     label09:
+        $i1 = virtualinvoke $r16.<java.io.BufferedInputStream: int read(byte[])>($r11);
+
+     label10:
+        if $i1 == -1 goto label13;
+
+     label11:
+        virtualinvoke $r18.<java.io.BufferedOutputStream: void write(byte[],int,int)>($r11, 0, $i1);
+
+     label12:
+        goto label09;
+
+     label13:
+        virtualinvoke $r18.<java.io.BufferedOutputStream: void flush()>();
+
+     label14:
+        staticinvoke <d.j.q: void a(java.io.InputStream)>($r16);
+
+        staticinvoke <d.j.q: void a(java.io.OutputStream)>($r18);
+
+        return $r15;
+
+     label15:
+        $r12 := @caughtexception;
+
+        goto label18;
+
+     label16:
+        $r13 := @caughtexception;
+
+        goto label20;
+
+     label17:
+        $r12 := @caughtexception;
+
+        $r10 = null;
+
+     label18:
+        $r5 = $r16;
+
+        goto label26;
+
+     label19:
+        $r13 := @caughtexception;
+
+        $r10 = null;
+
+     label20:
+        $r5 = $r16;
+
+        goto label23;
+
+     label21:
+        $r12 := @caughtexception;
+
+        $r10 = null;
+
+        goto label26;
+
+     label22:
+        $r13 := @caughtexception;
+
+        $r10 = null;
+
+     label23:
+        $r19 = new java.lang.RuntimeException;
+
+     label24:
+        specialinvoke $r19.<java.lang.RuntimeException: void <init>(java.lang.Throwable)>($r13);
+
+        throw $r19;
+
+     label25:
+        $r12 := @caughtexception;
+
+     label26:
+        staticinvoke <d.j.q: void a(java.io.InputStream)>($r5);
+
+        staticinvoke <d.j.q: void a(java.io.OutputStream)>($r10);
+
+        throw $r12;
+
+        catch java.io.IOException from label03 to label04 with label22;
+        catch java.lang.Throwable from label01 to label02 with label21;
+        catch java.lang.Throwable from label02 to label04 with label21;
+        catch java.io.IOException from label07 to label08 with label19;
+        catch java.lang.Throwable from label04 to label05 with label17;
+        catch java.lang.Throwable from label06 to label07 with label17;
+        catch java.lang.Throwable from label07 to label08 with label17;
+        catch java.io.IOException from label09 to label10 with label16;
+        catch java.io.IOException from label11 to label12 with label16;
+        catch java.io.IOException from label13 to label14 with label16;
+        catch java.lang.Throwable from label09 to label10 with label15;
+        catch java.lang.Throwable from label11 to label12 with label15;
+        catch java.lang.Throwable from label13 to label14 with label15;
+        catch java.lang.Throwable from label23 to label24 with label25;
+        catch java.lang.Throwable from label24 to label25 with label25;
+    }

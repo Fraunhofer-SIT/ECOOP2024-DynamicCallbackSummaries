@@ -1,0 +1,206 @@
+    public static boolean copyFileToPath(java.io.File)
+    {
+        byte[] $r7;
+        java.util.Date $r10;
+        android.net.Uri $r4;
+        java.text.SimpleDateFormat $r16;
+        java.util.Calendar $r9;
+        android.content.ContentResolver $r3;
+        int $i0;
+        java.lang.String $r1, $r11;
+        java.io.OutputStream $r6;
+        notes.easy.android.mynotes.App $r2;
+        java.io.FileOutputStream $r18;
+        java.io.FileInputStream $r5, $r15;
+        java.io.File $r0, $r17;
+        java.lang.Exception $r8, $r12;
+        java.lang.StringBuilder $r14;
+        android.content.ContentValues $r13;
+
+        $r0 := @parameter0: java.io.File;
+
+        $i0 = <android.os.Build$VERSION: int SDK_INT>;
+
+        if $i0 < 29 goto label15;
+
+        $r13 = new android.content.ContentValues;
+
+        specialinvoke $r13.<android.content.ContentValues: void <init>()>();
+
+        $r14 = new java.lang.StringBuilder;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        $r1 = <android.os.Environment: java.lang.String DIRECTORY_DOWNLOADS>;
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/easynotes/backup");
+
+        $r1 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        virtualinvoke $r13.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("relative_path", $r1);
+
+        $r1 = virtualinvoke $r0.<java.io.File: java.lang.String getName()>();
+
+        virtualinvoke $r13.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("_display_name", $r1);
+
+        $r2 = <notes.easy.android.mynotes.App: notes.easy.android.mynotes.App app>;
+
+        $r3 = virtualinvoke $r2.<notes.easy.android.mynotes.App: android.content.ContentResolver getContentResolver()>();
+
+        $r4 = <android.provider.MediaStore$Downloads: android.net.Uri EXTERNAL_CONTENT_URI>;
+
+        $r4 = virtualinvoke $r3.<android.content.ContentResolver: android.net.Uri insert(android.net.Uri,android.content.ContentValues)>($r4, $r13);
+
+        if $r4 == null goto label27;
+
+        $r15 = new java.io.FileInputStream;
+
+        $r5 = $r15;
+
+     label01:
+        $r1 = virtualinvoke $r0.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        specialinvoke $r15.<java.io.FileInputStream: void <init>(java.lang.String)>($r1);
+
+     label02:
+        $r2 = <notes.easy.android.mynotes.App: notes.easy.android.mynotes.App app>;
+
+     label03:
+        $r3 = virtualinvoke $r2.<notes.easy.android.mynotes.App: android.content.ContentResolver getContentResolver()>();
+
+        $r6 = virtualinvoke $r3.<android.content.ContentResolver: java.io.OutputStream openOutputStream(android.net.Uri)>($r4);
+
+     label04:
+        if $r6 == null goto label10;
+
+        $r7 = newarray (byte)[1024];
+
+     label05:
+        $i0 = virtualinvoke $r5.<java.io.InputStream: int read(byte[])>($r7);
+
+     label06:
+        if $i0 == -1 goto label09;
+
+     label07:
+        $i0 = lengthof $r7;
+
+        virtualinvoke $r6.<java.io.OutputStream: void write(byte[],int,int)>($r7, 0, $i0);
+
+     label08:
+        goto label05;
+
+     label09:
+        virtualinvoke $r6.<java.io.OutputStream: void close()>();
+
+     label10:
+        $r2 = <notes.easy.android.mynotes.App: notes.easy.android.mynotes.App app>;
+
+     label11:
+        $r1 = staticinvoke <notes.easy.android.mynotes.utils.FileHelper: java.lang.String getPath(android.content.Context,android.net.Uri)>($r2, $r4);
+
+     label12:
+        <notes.easy.android.mynotes.utils.FileHelper: java.lang.String LOCAL_BACKUP_PATH> = $r1;
+
+        goto label14;
+
+     label13:
+        $r8 := @caughtexception;
+
+        virtualinvoke $r8.<java.lang.Exception: void printStackTrace()>();
+
+     label14:
+        return 1;
+
+     label15:
+        $r9 = staticinvoke <java.util.Calendar: java.util.Calendar getInstance()>();
+
+        $r16 = new java.text.SimpleDateFormat;
+
+        specialinvoke $r16.<java.text.SimpleDateFormat: void <init>(java.lang.String)>("yyyyMMddHHmm");
+
+        $r10 = virtualinvoke $r9.<java.util.Calendar: java.util.Date getTime()>();
+
+        $r11 = virtualinvoke $r16.<java.text.SimpleDateFormat: java.lang.String format(java.util.Date)>($r10);
+
+        $r1 = staticinvoke <notes.easy.android.mynotes.utils.FileHelper: java.lang.String getBackupDir()>();
+
+        $r17 = new java.io.File;
+
+        $r14 = new java.lang.StringBuilder;
+
+        specialinvoke $r14.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("backup_");
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r11);
+
+        virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(".zip");
+
+        $r11 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r17.<java.io.File: void <init>(java.lang.String,java.lang.String)>($r1, $r11);
+
+        $r15 = new java.io.FileInputStream;
+
+        $r5 = $r15;
+
+     label16:
+        $r1 = virtualinvoke $r0.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        specialinvoke $r15.<java.io.FileInputStream: void <init>(java.lang.String)>($r1);
+
+     label17:
+        $r18 = new java.io.FileOutputStream;
+
+     label18:
+        $r1 = virtualinvoke $r17.<java.io.File: java.lang.String getAbsolutePath()>();
+
+        specialinvoke $r18.<java.io.FileOutputStream: void <init>(java.lang.String)>($r1);
+
+     label19:
+        $r7 = newarray (byte)[1024];
+
+     label20:
+        $i0 = virtualinvoke $r5.<java.io.InputStream: int read(byte[])>($r7);
+
+     label21:
+        if $i0 == -1 goto label24;
+
+     label22:
+        $i0 = lengthof $r7;
+
+        virtualinvoke $r18.<java.io.FileOutputStream: void write(byte[],int,int)>($r7, 0, $i0);
+
+     label23:
+        goto label20;
+
+     label24:
+        $r1 = virtualinvoke $r17.<java.io.File: java.lang.String getAbsolutePath()>();
+
+     label25:
+        <notes.easy.android.mynotes.utils.FileHelper: java.lang.String LOCAL_BACKUP_PATH> = $r1;
+
+        return 0;
+
+     label26:
+        $r12 := @caughtexception;
+
+        virtualinvoke $r12.<java.lang.Exception: void printStackTrace()>();
+
+     label27:
+        return 0;
+
+        catch java.lang.Exception from label01 to label02 with label13;
+        catch java.lang.Exception from label03 to label04 with label13;
+        catch java.lang.Exception from label05 to label06 with label13;
+        catch java.lang.Exception from label07 to label08 with label13;
+        catch java.lang.Exception from label09 to label10 with label13;
+        catch java.lang.Exception from label11 to label12 with label13;
+        catch java.lang.Exception from label16 to label17 with label26;
+        catch java.lang.Exception from label18 to label19 with label26;
+        catch java.lang.Exception from label20 to label21 with label26;
+        catch java.lang.Exception from label22 to label23 with label26;
+        catch java.lang.Exception from label24 to label25 with label26;
+    }

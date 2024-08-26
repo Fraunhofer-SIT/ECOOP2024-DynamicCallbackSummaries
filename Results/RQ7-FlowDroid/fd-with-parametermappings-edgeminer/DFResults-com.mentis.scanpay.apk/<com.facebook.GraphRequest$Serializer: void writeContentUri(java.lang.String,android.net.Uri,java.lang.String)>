@@ -1,0 +1,99 @@
+    public void writeContentUri(java.lang.String, android.net.Uri, java.lang.String) throws java.io.IOException
+    {
+        com.facebook.internal.Logger $r10;
+        android.content.Context $r6;
+        java.lang.Object[] $r9;
+        android.net.Uri $r2;
+        long $l0;
+        java.lang.Integer $r13;
+        android.content.ContentResolver $r7;
+        java.util.Locale $r12;
+        int $i1;
+        java.lang.String $r1, $r3;
+        boolean $z0;
+        java.io.OutputStream $r4;
+        com.facebook.GraphRequest$Serializer r0;
+        com.facebook.ProgressNoopOutputStream $r5;
+        java.lang.StringBuilder $r11;
+        java.io.InputStream $r8;
+
+        r0 := @this: com.facebook.GraphRequest$Serializer;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: android.net.Uri;
+
+        $r3 := @parameter2: java.lang.String;
+
+        if $r3 != null goto label1;
+
+        $r3 = "content/unknown";
+
+     label1:
+        virtualinvoke r0.<com.facebook.GraphRequest$Serializer: void writeContentDisposition(java.lang.String,java.lang.String,java.lang.String)>($r1, $r1, $r3);
+
+        $r4 = r0.<com.facebook.GraphRequest$Serializer: java.io.OutputStream outputStream>;
+
+        $z0 = $r4 instanceof com.facebook.ProgressNoopOutputStream;
+
+        if $z0 == 0 goto label2;
+
+        $l0 = staticinvoke <com.facebook.internal.Utility: long getContentSize(android.net.Uri)>($r2);
+
+        $r4 = r0.<com.facebook.GraphRequest$Serializer: java.io.OutputStream outputStream>;
+
+        $r5 = (com.facebook.ProgressNoopOutputStream) $r4;
+
+        virtualinvoke $r5.<com.facebook.ProgressNoopOutputStream: void addProgress(long)>($l0);
+
+        $i1 = 0;
+
+        goto label3;
+
+     label2:
+        $r6 = staticinvoke <com.facebook.FacebookSdk: android.content.Context getApplicationContext()>();
+
+        $r7 = virtualinvoke $r6.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+        $r8 = virtualinvoke $r7.<android.content.ContentResolver: java.io.InputStream openInputStream(android.net.Uri)>($r2);
+
+        $r4 = r0.<com.facebook.GraphRequest$Serializer: java.io.OutputStream outputStream>;
+
+        $i1 = staticinvoke <com.facebook.internal.Utility: int copyAndCloseInputStream(java.io.InputStream,java.io.OutputStream)>($r8, $r4);
+
+     label3:
+        $r9 = newarray (java.lang.Object)[0];
+
+        virtualinvoke r0.<com.facebook.GraphRequest$Serializer: void writeLine(java.lang.String,java.lang.Object[])>("", $r9);
+
+        virtualinvoke r0.<com.facebook.GraphRequest$Serializer: void writeRecordBoundary()>();
+
+        $r10 = r0.<com.facebook.GraphRequest$Serializer: com.facebook.internal.Logger logger>;
+
+        if $r10 == null goto label4;
+
+        $r11 = new java.lang.StringBuilder;
+
+        specialinvoke $r11.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("    ");
+
+        virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r12 = <java.util.Locale: java.util.Locale ROOT>;
+
+        $r9 = newarray (java.lang.Object)[1];
+
+        $r13 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i1);
+
+        $r9[0] = $r13;
+
+        $r3 = staticinvoke <java.lang.String: java.lang.String format(java.util.Locale,java.lang.String,java.lang.Object[])>($r12, "<Data: %d>", $r9);
+
+        virtualinvoke $r10.<com.facebook.internal.Logger: void appendKeyValue(java.lang.String,java.lang.Object)>($r1, $r3);
+
+     label4:
+        return;
+    }

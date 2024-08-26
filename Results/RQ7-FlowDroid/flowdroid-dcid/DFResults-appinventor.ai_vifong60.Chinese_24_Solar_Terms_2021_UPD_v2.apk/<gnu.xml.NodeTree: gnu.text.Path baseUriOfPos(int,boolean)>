@@ -1,0 +1,113 @@
+    public gnu.text.Path baseUriOfPos(int, boolean)
+    {
+        java.lang.Object[] $r4;
+        char c0;
+        gnu.xml.NodeTree r0;
+        gnu.text.Path r1;
+        int $i1, $i2, $i3;
+        gnu.text.URIPath r3;
+        char[] $r2;
+        java.lang.Object $r5;
+        java.lang.String $r6;
+        boolean $z0, $z1;
+
+        r0 := @this: gnu.xml.NodeTree;
+
+        $i1 := @parameter0: int;
+
+        $z0 := @parameter1: boolean;
+
+        r1 = null;
+
+        $i2 = virtualinvoke r0.<gnu.xml.NodeTree: int posToDataIndex(int)>($i1);
+
+     label01:
+        $r2 = r0.<gnu.xml.NodeTree: char[] data>;
+
+        $i3 = lengthof $r2;
+
+        if $i2 != $i3 goto label02;
+
+        return null;
+
+     label02:
+        $r2 = r0.<gnu.xml.NodeTree: char[] data>;
+
+        c0 = $r2[$i2];
+
+        r3 = null;
+
+        $i3 = (int) c0;
+
+        if $i3 != 61714 goto label05;
+
+        $i1 = $i2 + 1;
+
+        $i1 = virtualinvoke r0.<gnu.xml.NodeTree: int getIntN(int)>($i1);
+
+        if $i1 < 0 goto label03;
+
+        $r4 = r0.<gnu.xml.NodeTree: java.lang.Object[] objects>;
+
+        $r5 = $r4[$i1];
+
+        r3 = staticinvoke <gnu.text.URIPath: gnu.text.URIPath makeURI(java.lang.Object)>($r5);
+
+     label03:
+        if r3 == null goto label09;
+
+        if r1 != null goto label08;
+
+        r1 = r3;
+
+     label04:
+        $z1 = virtualinvoke r1.<gnu.text.Path: boolean isAbsolute()>();
+
+        if $z1 == 0 goto label09;
+
+        return r1;
+
+     label05:
+        $i3 = (int) c0;
+
+        if $i3 < 40960 goto label06;
+
+        $i3 = (int) c0;
+
+        if $i3 <= 45055 goto label07;
+
+     label06:
+        $i3 = (int) c0;
+
+        if $i3 != 61704 goto label03;
+
+     label07:
+        $i1 = virtualinvoke r0.<gnu.xml.NodeTree: int getAttributeI(int,java.lang.String,java.lang.String)>($i1, "http://www.w3.org/XML/1998/namespace", "base");
+
+        if $i1 == 0 goto label03;
+
+        $r6 = staticinvoke <gnu.kawa.xml.KNode: java.lang.String getNodeValue(gnu.xml.NodeTree,int)>(r0, $i1);
+
+        r3 = staticinvoke <gnu.text.URIPath: gnu.text.URIPath valueOf(java.lang.String)>($r6);
+
+        goto label03;
+
+     label08:
+        r1 = virtualinvoke r3.<gnu.text.Path: gnu.text.Path resolve(gnu.text.Path)>(r1);
+
+        goto label04;
+
+     label09:
+        $i1 = virtualinvoke r0.<gnu.xml.NodeTree: int parentOrEntityI(int)>($i2);
+
+        $i2 = $i1;
+
+        if $i1 != -1 goto label10;
+
+        return r1;
+
+     label10:
+        $i1 = $i1 << 1;
+
+        goto label01;
+    }

@@ -1,0 +1,108 @@
+    private com.parse.LocalIdManager$MapEntry getMapEntry(java.lang.String)
+    {
+        java.lang.Throwable $r4, $r9;
+        java.lang.IllegalStateException $r2;
+        com.parse.LocalIdManager$MapEntry r8;
+        java.io.File $r5, $r6;
+        com.parse.LocalIdManager r0;
+        org.json.JSONException $r10;
+        org.json.JSONObject $r7;
+        int $i0;
+        java.lang.StringBuilder $r3;
+        java.lang.String $r1;
+        boolean $z0;
+
+        r0 := @this: com.parse.LocalIdManager;
+
+        $r1 := @parameter0: java.lang.String;
+
+        entermonitor r0;
+
+     label01:
+        $z0 = specialinvoke r0.<com.parse.LocalIdManager: boolean isLocalId(java.lang.String)>($r1);
+
+        if $z0 != 0 goto label03;
+
+        $r2 = new java.lang.IllegalStateException;
+
+        $r3 = new java.lang.StringBuilder;
+
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>()>();
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Tried to get invalid local id: \"");
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("\".");
+
+        $r1 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke $r2.<java.lang.IllegalStateException: void <init>(java.lang.String)>($r1);
+
+        throw $r2;
+
+     label02:
+        $r4 := @caughtexception;
+
+        exitmonitor r0;
+
+        throw $r4;
+
+     label03:
+        $r5 = new java.io.File;
+
+        $r6 = r0.<com.parse.LocalIdManager: java.io.File diskPath>;
+
+     label04:
+        specialinvoke $r5.<java.io.File: void <init>(java.io.File,java.lang.String)>($r6, $r1);
+
+        $r7 = staticinvoke <com.parse.ParseFileUtils: org.json.JSONObject readFileToJSONObject(java.io.File)>($r5);
+
+     label05:
+        r8 = new com.parse.LocalIdManager$MapEntry;
+
+     label06:
+        specialinvoke r8.<com.parse.LocalIdManager$MapEntry: void <init>(com.parse.LocalIdManager$1)>(null);
+
+        $i0 = virtualinvoke $r7.<org.json.JSONObject: int optInt(java.lang.String,int)>("retainCount", 0);
+
+     label07:
+        r8.<com.parse.LocalIdManager$MapEntry: int retainCount> = $i0;
+
+     label08:
+        $r1 = virtualinvoke $r7.<org.json.JSONObject: java.lang.String optString(java.lang.String,java.lang.String)>("objectId", null);
+
+     label09:
+        r8.<com.parse.LocalIdManager$MapEntry: java.lang.String objectId> = $r1;
+
+     label10:
+        exitmonitor r0;
+
+        return r8;
+
+     label11:
+        $r9 := @caughtexception;
+
+     label12:
+        r8 = new com.parse.LocalIdManager$MapEntry;
+
+        specialinvoke r8.<com.parse.LocalIdManager$MapEntry: void <init>(com.parse.LocalIdManager$1)>(null);
+
+     label13:
+        goto label10;
+
+     label14:
+        $r10 := @caughtexception;
+
+        goto label12;
+
+        catch java.lang.Throwable from label01 to label02 with label02;
+        catch java.io.IOException from label04 to label05 with label11;
+        catch java.io.IOException from label06 to label07 with label11;
+        catch java.io.IOException from label08 to label09 with label11;
+        catch org.json.JSONException from label04 to label05 with label14;
+        catch org.json.JSONException from label06 to label07 with label14;
+        catch org.json.JSONException from label08 to label09 with label14;
+        catch java.lang.Throwable from label03 to label10 with label02;
+        catch java.lang.Throwable from label12 to label13 with label02;
+    }

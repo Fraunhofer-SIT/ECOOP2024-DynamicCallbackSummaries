@@ -1,0 +1,81 @@
+    private java.lang.Integer b(java.lang.String, int)
+    {
+        android.content.Context r3;
+        android.net.Uri $r7;
+        java.lang.Integer $r2;
+        android.content.ContentResolver $r8;
+        int $i0;
+        java.lang.StringBuilder $r5;
+        java.lang.String $r1, $r6;
+        com.samsung.android.sdk.smp.j.b $r4;
+        com.samsung.android.sdk.smp.j.c r0;
+        boolean $z0;
+        android.database.Cursor $r9;
+
+        r0 := @this: com.samsung.android.sdk.smp.j.c;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $i0 := @parameter1: int;
+
+        if $r1 != null goto label1;
+
+        $r2 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+        return $r2;
+
+     label1:
+        $z0 = r0.<com.samsung.android.sdk.smp.j.c: boolean g>;
+
+        if $z0 != 0 goto label2;
+
+        r3 = r0.<com.samsung.android.sdk.smp.j.c: android.content.Context h>;
+
+        $r4 = staticinvoke <com.samsung.android.sdk.smp.j.b: com.samsung.android.sdk.smp.j.b a(android.content.Context)>(r3);
+
+        $r2 = virtualinvoke $r4.<com.samsung.android.sdk.smp.j.b: java.lang.Integer b(java.lang.String,int)>($r1, $i0);
+
+        return $r2;
+
+     label2:
+        $r5 = new java.lang.StringBuilder;
+
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>()>();
+
+        $r6 = <com.samsung.android.sdk.smp.j.c: java.lang.String d>;
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+
+        $r1 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r7 = staticinvoke <android.net.Uri: android.net.Uri parse(java.lang.String)>($r1);
+
+        r3 = r0.<com.samsung.android.sdk.smp.j.c: android.content.Context h>;
+
+        $r8 = virtualinvoke r3.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+
+        $r9 = virtualinvoke $r8.<android.content.ContentResolver: android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String)>($r7, null, null, null, null);
+
+        if $r9 == null goto label3;
+
+        $z0 = interfaceinvoke $r9.<android.database.Cursor: boolean moveToFirst()>();
+
+        if $z0 == 0 goto label3;
+
+        $i0 = interfaceinvoke $r9.<android.database.Cursor: int getColumnIndex(java.lang.String)>("value");
+
+        $i0 = interfaceinvoke $r9.<android.database.Cursor: int getInt(int)>($i0);
+
+        interfaceinvoke $r9.<android.database.Cursor: void close()>();
+
+        $r2 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+        return $r2;
+
+     label3:
+        $r2 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+
+        return $r2;
+    }

@@ -1,0 +1,194 @@
+    public void setVersionInfo()
+    {
+        android.content.Context $r3;
+        com.netease.androidcrashhandler.entity.di.DiInfo r0;
+        java.lang.Exception $r5;
+        org.json.JSONException $r7;
+        org.json.JSONObject $r1;
+        int $i0;
+        java.lang.StringBuilder $r6;
+        java.lang.String $r2, $r4;
+        boolean $z0;
+
+        r0 := @this: com.netease.androidcrashhandler.entity.di.DiInfo;
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", "DiInfo [setVersionInfo] start");
+
+     label01:
+        $r1 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mDiInfoJson>;
+
+     label02:
+        $r2 = <android.os.Build$VERSION: java.lang.String RELEASE>;
+
+     label03:
+        virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("system_version", $r2);
+
+     label04:
+        $r1 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mDiInfoJson>;
+
+     label05:
+        $i0 = <android.os.Build$VERSION: int SDK_INT>;
+
+     label06:
+        $r2 = staticinvoke <java.lang.String: java.lang.String valueOf(int)>($i0);
+
+        virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("system_api_level", $r2);
+
+     label07:
+        $r1 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mDiInfoJson>;
+
+        $r3 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: android.content.Context mContext>;
+
+     label08:
+        $r2 = staticinvoke <com.netease.androidcrashhandler.entity.di.DiInfo: java.lang.String getBundleVersion(android.content.Context)>($r3);
+
+        virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("bundle_version", $r2);
+
+     label09:
+        $r1 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mDiInfoJson>;
+
+        $r3 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: android.content.Context mContext>;
+
+     label10:
+        $r2 = staticinvoke <com.netease.androidcrashhandler.entity.di.DiInfo: java.lang.String getVersionCode(android.content.Context)>($r3);
+
+        virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("version_code", $r2);
+
+     label11:
+        $r1 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mDiInfoJson>;
+
+     label12:
+        $r2 = specialinvoke r0.<com.netease.androidcrashhandler.entity.di.DiInfo: java.lang.String getBundleIdentifier()>();
+
+        virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("bundle_identifier", $r2);
+
+     label13:
+        $r1 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mDiInfoJson>;
+
+     label14:
+        $r2 = specialinvoke r0.<com.netease.androidcrashhandler.entity.di.DiInfo: java.lang.String getBaseVersion()>();
+
+        virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("base_version", $r2);
+
+     label15:
+        $r1 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mDiInfoJson>;
+
+     label16:
+        virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("crashhunter_version", "3.0.13");
+
+        $r1 = staticinvoke <com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject getChannelInfos()>();
+
+     label17:
+        $r2 = "unknown";
+
+        if $r1 == null goto label27;
+
+     label18:
+        $z0 = virtualinvoke $r1.<org.json.JSONObject: boolean has(java.lang.String)>("version");
+
+     label19:
+        if $z0 == 0 goto label22;
+
+     label20:
+        $r4 = virtualinvoke $r1.<org.json.JSONObject: java.lang.String optString(java.lang.String,java.lang.String)>("version", "unknown");
+
+     label21:
+        goto label23;
+
+     label22:
+        $r4 = "unknown";
+
+     label23:
+        $z0 = virtualinvoke $r1.<org.json.JSONObject: boolean has(java.lang.String)>("channel_id");
+
+     label24:
+        if $z0 == 0 goto label28;
+
+     label25:
+        $r2 = virtualinvoke $r1.<org.json.JSONObject: java.lang.String optString(java.lang.String,java.lang.String)>("channel_id", "unknown");
+
+     label26:
+        goto label28;
+
+     label27:
+        $r4 = "unknown";
+
+     label28:
+        $r1 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mDiInfoJson>;
+
+     label29:
+        virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("channel", $r2);
+
+     label30:
+        $r1 = r0.<com.netease.androidcrashhandler.entity.di.DiInfo: org.json.JSONObject mDiInfoJson>;
+
+     label31:
+        virtualinvoke $r1.<org.json.JSONObject: org.json.JSONObject put(java.lang.String,java.lang.Object)>("unisdk_version", $r4);
+
+     label32:
+        return;
+
+     label33:
+        $r5 := @caughtexception;
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("DiInfo [setVersionInfo] Exception=");
+
+        $r2 = virtualinvoke $r5.<java.lang.Exception: java.lang.String toString()>();
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", $r2);
+
+        virtualinvoke $r5.<java.lang.Exception: java.lang.String toString()>();
+
+        return;
+
+     label34:
+        $r7 := @caughtexception;
+
+        $r6 = new java.lang.StringBuilder;
+
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>()>();
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("DiInfo [setVersionInfo] JSONException=");
+
+        $r2 = virtualinvoke $r7.<org.json.JSONException: java.lang.String toString()>();
+
+        virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r2);
+
+        $r2 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        staticinvoke <com.netease.androidcrashhandler.util.LogUtils: void i(java.lang.String,java.lang.String)>("trace", $r2);
+
+        virtualinvoke $r7.<org.json.JSONException: void printStackTrace()>();
+
+        return;
+
+        catch org.json.JSONException from label03 to label04 with label34;
+        catch org.json.JSONException from label06 to label07 with label34;
+        catch org.json.JSONException from label08 to label09 with label34;
+        catch org.json.JSONException from label10 to label11 with label34;
+        catch org.json.JSONException from label12 to label13 with label34;
+        catch org.json.JSONException from label14 to label15 with label34;
+        catch org.json.JSONException from label16 to label17 with label34;
+        catch java.lang.Exception from label01 to label02 with label33;
+        catch java.lang.Exception from label03 to label05 with label33;
+        catch java.lang.Exception from label06 to label17 with label33;
+        catch org.json.JSONException from label18 to label19 with label34;
+        catch org.json.JSONException from label20 to label21 with label34;
+        catch org.json.JSONException from label23 to label24 with label34;
+        catch org.json.JSONException from label25 to label26 with label34;
+        catch org.json.JSONException from label29 to label30 with label34;
+        catch org.json.JSONException from label31 to label32 with label34;
+        catch java.lang.Exception from label18 to label19 with label33;
+        catch java.lang.Exception from label20 to label21 with label33;
+        catch java.lang.Exception from label23 to label24 with label33;
+        catch java.lang.Exception from label25 to label26 with label33;
+        catch java.lang.Exception from label28 to label32 with label33;
+    }

@@ -1,0 +1,293 @@
+    private com.mbridge.msdk.foundation.download.DownloadResponse handleInputStream(java.lang.String, java.lang.String, java.lang.String, java.lang.String) throws java.io.IOException, java.lang.IllegalAccessException
+    {
+        byte[] $r20;
+        com.mbridge.msdk.foundation.download.core.DownloadRequest $r7, $r22;
+        com.mbridge.msdk.foundation.download.resource.stream.DownloadFileOutputStream $r18;
+        boolean $z0;
+        com.mbridge.msdk.foundation.download.core.GlobalComponent $r19;
+        com.mbridge.msdk.foundation.download.DownloadStatus $r23, $r24;
+        com.mbridge.msdk.foundation.download.DownloadResponse $r25;
+        com.mbridge.msdk.foundation.download.database.IDatabaseHelper $r14;
+        com.mbridge.msdk.foundation.download.DownloadResourceType $r13;
+        com.mbridge.msdk.foundation.download.database.DownloadModel $r6;
+        long $l0, $l2;
+        int $i1, $i3;
+        java.lang.String $r1, $r2, $r3, $r4, $r5, $r8, $r10, $r11, $r12, $r15, $r16;
+        com.mbridge.msdk.foundation.download.DownloadMessage $r9;
+        com.mbridge.msdk.foundation.download.resource.MBResourceManager $r17;
+        java.io.File $r26;
+        com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask r0;
+        java.io.InputStream $r21;
+
+        r0 := @this: com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask;
+
+        $r1 := @parameter0: java.lang.String;
+
+        $r2 := @parameter1: java.lang.String;
+
+        $r3 := @parameter2: java.lang.String;
+
+        $r4 := @parameter3: java.lang.String;
+
+        $r5 = $r2;
+
+        $r25 = new com.mbridge.msdk.foundation.download.DownloadResponse;
+
+        specialinvoke $r25.<com.mbridge.msdk.foundation.download.DownloadResponse: void <init>()>();
+
+        $r6 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.database.DownloadModel _downloadModel>;
+
+        $z0 = staticinvoke <com.mbridge.msdk.foundation.download.utils.Objects: boolean isNull(java.lang.Object)>($r6);
+
+        if $z0 == 0 goto label1;
+
+        $r7 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.core.DownloadRequest _downloadRequest>;
+
+        $r8 = virtualinvoke $r7.<com.mbridge.msdk.foundation.download.core.DownloadRequest: java.lang.String getDownloadId()>();
+
+        $r9 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.DownloadMessage _downloadMessage>;
+
+        $r10 = virtualinvoke $r9.<com.mbridge.msdk.foundation.download.DownloadMessage: java.lang.String getDownloadUrl()>();
+
+        $r9 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.DownloadMessage _downloadMessage>;
+
+        $r11 = virtualinvoke $r9.<com.mbridge.msdk.foundation.download.DownloadMessage: java.lang.String getResourceUrl()>();
+
+        $r9 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.DownloadMessage _downloadMessage>;
+
+        $r12 = virtualinvoke $r9.<com.mbridge.msdk.foundation.download.DownloadMessage: java.lang.String getSaveFileName()>();
+
+        $r7 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.core.DownloadRequest _downloadRequest>;
+
+        $l0 = virtualinvoke $r7.<com.mbridge.msdk.foundation.download.core.DownloadRequest: long getTotalBytes()>();
+
+        $r9 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.DownloadMessage _downloadMessage>;
+
+        $i1 = virtualinvoke $r9.<com.mbridge.msdk.foundation.download.DownloadMessage: int getDownloadRate()>();
+
+        $r9 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.DownloadMessage _downloadMessage>;
+
+        $r13 = virtualinvoke $r9.<com.mbridge.msdk.foundation.download.DownloadMessage: com.mbridge.msdk.foundation.download.DownloadResourceType getDownloadResourceType()>();
+
+        $r6 = staticinvoke <com.mbridge.msdk.foundation.download.database.DownloadModel: com.mbridge.msdk.foundation.download.database.DownloadModel create(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,long,long,int,int,com.mbridge.msdk.foundation.download.DownloadResourceType)>($r8, $r10, $r11, $r4, $r2, $r12, $l0, 0L, $i1, 1, $r13);
+
+        r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.database.DownloadModel _downloadModel> = $r6;
+
+        $r14 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.database.IDatabaseHelper _databaseHelper>;
+
+        interfaceinvoke $r14.<com.mbridge.msdk.foundation.download.database.IDatabaseHelper: void insert(com.mbridge.msdk.foundation.download.database.DownloadModel)>($r6);
+
+        goto label2;
+
+     label1:
+        $r6 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.database.DownloadModel _downloadModel>;
+
+        $r8 = virtualinvoke $r6.<com.mbridge.msdk.foundation.download.database.DownloadModel: java.lang.String getDownloadId()>();
+
+        $r6 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.database.DownloadModel _downloadModel>;
+
+        $r10 = virtualinvoke $r6.<com.mbridge.msdk.foundation.download.database.DownloadModel: java.lang.String getDownloadUrl()>();
+
+        $r9 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.DownloadMessage _downloadMessage>;
+
+        $r11 = virtualinvoke $r9.<com.mbridge.msdk.foundation.download.DownloadMessage: java.lang.String getResourceUrl()>();
+
+        $r6 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.database.DownloadModel _downloadModel>;
+
+        $r12 = virtualinvoke $r6.<com.mbridge.msdk.foundation.download.database.DownloadModel: java.lang.String getEtag()>();
+
+        $r6 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.database.DownloadModel _downloadModel>;
+
+        $r15 = virtualinvoke $r6.<com.mbridge.msdk.foundation.download.database.DownloadModel: java.lang.String getSaveDirectorPath()>();
+
+        $r6 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.database.DownloadModel _downloadModel>;
+
+        $r16 = virtualinvoke $r6.<com.mbridge.msdk.foundation.download.database.DownloadModel: java.lang.String getSaveFileName()>();
+
+        $r7 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.core.DownloadRequest _downloadRequest>;
+
+        $l0 = virtualinvoke $r7.<com.mbridge.msdk.foundation.download.core.DownloadRequest: long getTotalBytes()>();
+
+        $r6 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.database.DownloadModel _downloadModel>;
+
+        $l2 = virtualinvoke $r6.<com.mbridge.msdk.foundation.download.database.DownloadModel: long getDownloadedBytes()>();
+
+        $r9 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.DownloadMessage _downloadMessage>;
+
+        $i1 = virtualinvoke $r9.<com.mbridge.msdk.foundation.download.DownloadMessage: int getDownloadRate()>();
+
+        $r6 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.database.DownloadModel _downloadModel>;
+
+        $i3 = virtualinvoke $r6.<com.mbridge.msdk.foundation.download.database.DownloadModel: int getUsageCounter()>();
+
+        $i3 = $i3 + 1;
+
+        $r9 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.DownloadMessage _downloadMessage>;
+
+        $r13 = virtualinvoke $r9.<com.mbridge.msdk.foundation.download.DownloadMessage: com.mbridge.msdk.foundation.download.DownloadResourceType getDownloadResourceType()>();
+
+        $r6 = staticinvoke <com.mbridge.msdk.foundation.download.database.DownloadModel: com.mbridge.msdk.foundation.download.database.DownloadModel create(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,long,long,int,int,com.mbridge.msdk.foundation.download.DownloadResourceType)>($r8, $r10, $r11, $r12, $r15, $r16, $l0, $l2, $i1, $i3, $r13);
+
+        r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.database.DownloadModel _downloadModel> = $r6;
+
+        $r14 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.database.IDatabaseHelper _databaseHelper>;
+
+        interfaceinvoke $r14.<com.mbridge.msdk.foundation.download.database.IDatabaseHelper: void update(com.mbridge.msdk.foundation.download.database.DownloadModel,java.lang.String)>($r6, $r2);
+
+     label2:
+        $r17 = staticinvoke <com.mbridge.msdk.foundation.download.resource.MBResourceManager: com.mbridge.msdk.foundation.download.resource.MBResourceManager getInstance()>();
+
+        $r26 = new java.io.File;
+
+        specialinvoke $r26.<java.io.File: void <init>(java.lang.String,java.lang.String)>($r2, $r1);
+
+        $r18 = virtualinvoke $r17.<com.mbridge.msdk.foundation.download.resource.MBResourceManager: com.mbridge.msdk.foundation.download.resource.stream.DownloadFileOutputStream getDownloadFileOutputStream(java.io.File)>($r26);
+
+        r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.resource.stream.DownloadFileOutputStream _outputStream> = $r18;
+
+        $r7 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.core.DownloadRequest _downloadRequest>;
+
+        $l0 = virtualinvoke $r7.<com.mbridge.msdk.foundation.download.core.DownloadRequest: long getDownloadedBytes()>();
+
+        interfaceinvoke $r18.<com.mbridge.msdk.foundation.download.resource.stream.DownloadFileOutputStream: void seek(long)>($l0);
+
+        $r19 = staticinvoke <com.mbridge.msdk.foundation.download.core.GlobalComponent: com.mbridge.msdk.foundation.download.core.GlobalComponent getInstance()>();
+
+        $i1 = virtualinvoke $r19.<com.mbridge.msdk.foundation.download.core.GlobalComponent: int getByteBufferSize()>();
+
+        $r20 = newarray (byte)[$i1];
+
+     label3:
+        $r21 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: java.io.InputStream _inputStream>;
+
+        $i1 = virtualinvoke $r21.<java.io.InputStream: int read(byte[])>($r20);
+
+        if $i1 == -1 goto label6;
+
+        $r18 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.resource.stream.DownloadFileOutputStream _outputStream>;
+
+        interfaceinvoke $r18.<com.mbridge.msdk.foundation.download.resource.stream.DownloadFileOutputStream: void write(byte[],int,int)>($r20, 0, $i1);
+
+        $r7 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.core.DownloadRequest _downloadRequest>;
+
+        $l0 = virtualinvoke $r7.<com.mbridge.msdk.foundation.download.core.DownloadRequest: long getDownloadedBytes()>();
+
+        $l2 = (long) $i1;
+
+        $l0 = $l0 + $l2;
+
+        virtualinvoke $r7.<com.mbridge.msdk.foundation.download.core.DownloadRequest: void setDownloadedBytes(long)>($l0);
+
+        $r18 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.resource.stream.DownloadFileOutputStream _outputStream>;
+
+        interfaceinvoke $r18.<com.mbridge.msdk.foundation.download.resource.stream.DownloadFileOutputStream: void flushAndSync()>();
+
+        $r7 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.core.DownloadRequest _downloadRequest>;
+
+        $l0 = virtualinvoke $r7.<com.mbridge.msdk.foundation.download.core.DownloadRequest: long getTotalBytes()>();
+
+        $r7 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.core.DownloadRequest _downloadRequest>;
+
+        $l2 = virtualinvoke $r7.<com.mbridge.msdk.foundation.download.core.DownloadRequest: long getDownloadedBytes()>();
+
+        $i1 = staticinvoke <com.mbridge.msdk.foundation.download.utils.Utils: int getDownloadRate(long,long)>($l0, $l2);
+
+        $r7 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.core.DownloadRequest _downloadRequest>;
+
+        $r9 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.DownloadMessage _downloadMessage>;
+
+        $r22 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.core.DownloadRequest _downloadRequest>;
+
+        $l0 = virtualinvoke $r22.<com.mbridge.msdk.foundation.download.core.DownloadRequest: long getDownloadedBytes()>();
+
+        $r22 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.core.DownloadRequest _downloadRequest>;
+
+        $l2 = virtualinvoke $r22.<com.mbridge.msdk.foundation.download.core.DownloadRequest: long getTotalBytes()>();
+
+        $r1 = $r5;
+
+        specialinvoke r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: void sendProgress(com.mbridge.msdk.foundation.download.core.DownloadRequest,com.mbridge.msdk.foundation.download.DownloadMessage,long,long,int)>($r7, $r9, $l0, $l2, $i1);
+
+        $r9 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.DownloadMessage _downloadMessage>;
+
+        $i3 = virtualinvoke $r9.<com.mbridge.msdk.foundation.download.DownloadMessage: int getDownloadRate()>();
+
+        if $i3 == 100 goto label4;
+
+        $r9 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.DownloadMessage _downloadMessage>;
+
+        $i3 = virtualinvoke $r9.<com.mbridge.msdk.foundation.download.DownloadMessage: int getDownloadRate()>();
+
+        if $i1 >= $i3 goto label7;
+
+     label4:
+        $r7 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.core.DownloadRequest _downloadRequest>;
+
+        $r23 = virtualinvoke $r7.<com.mbridge.msdk.foundation.download.core.DownloadRequest: com.mbridge.msdk.foundation.download.DownloadStatus getStatus()>();
+
+        $r24 = <com.mbridge.msdk.foundation.download.DownloadStatus: com.mbridge.msdk.foundation.download.DownloadStatus CANCELLED>;
+
+        if $r23 != $r24 goto label5;
+
+        virtualinvoke $r25.<com.mbridge.msdk.foundation.download.DownloadResponse: void setCancelled(boolean)>(1);
+
+        goto label7;
+
+     label5:
+        $r5 = $r1;
+
+        goto label3;
+
+     label6:
+        $r1 = $r5;
+
+     label7:
+        $r19 = staticinvoke <com.mbridge.msdk.foundation.download.core.GlobalComponent: com.mbridge.msdk.foundation.download.core.GlobalComponent getInstance()>();
+
+        $r14 = virtualinvoke $r19.<com.mbridge.msdk.foundation.download.core.GlobalComponent: com.mbridge.msdk.foundation.download.database.IDatabaseHelper getDatabaseHelper()>();
+
+        $r9 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.DownloadMessage _downloadMessage>;
+
+        $r5 = virtualinvoke $r9.<com.mbridge.msdk.foundation.download.DownloadMessage: java.lang.String getDownloadUrl()>();
+
+        $r9 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.DownloadMessage _downloadMessage>;
+
+        $r8 = virtualinvoke $r9.<com.mbridge.msdk.foundation.download.DownloadMessage: java.lang.String getResourceUrl()>();
+
+        $r9 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.DownloadMessage _downloadMessage>;
+
+        $r10 = virtualinvoke $r9.<com.mbridge.msdk.foundation.download.DownloadMessage: java.lang.String getSaveFileName()>();
+
+        $r7 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.core.DownloadRequest _downloadRequest>;
+
+        $l0 = virtualinvoke $r7.<com.mbridge.msdk.foundation.download.core.DownloadRequest: long getTotalBytes()>();
+
+        $r7 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.core.DownloadRequest _downloadRequest>;
+
+        $l2 = virtualinvoke $r7.<com.mbridge.msdk.foundation.download.core.DownloadRequest: long getDownloadedBytes()>();
+
+        $r9 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.DownloadMessage _downloadMessage>;
+
+        $i1 = virtualinvoke $r9.<com.mbridge.msdk.foundation.download.DownloadMessage: int getDownloadRate()>();
+
+        $r6 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.database.DownloadModel _downloadModel>;
+
+        $i3 = virtualinvoke $r6.<com.mbridge.msdk.foundation.download.database.DownloadModel: int getUsageCounter()>();
+
+        $r9 = r0.<com.mbridge.msdk.foundation.download.core.OkHTTPFileDownloadTask: com.mbridge.msdk.foundation.download.DownloadMessage _downloadMessage>;
+
+        $r13 = virtualinvoke $r9.<com.mbridge.msdk.foundation.download.DownloadMessage: com.mbridge.msdk.foundation.download.DownloadResourceType getDownloadResourceType()>();
+
+        $r6 = staticinvoke <com.mbridge.msdk.foundation.download.database.DownloadModel: com.mbridge.msdk.foundation.download.database.DownloadModel create(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,long,long,int,int,com.mbridge.msdk.foundation.download.DownloadResourceType)>($r3, $r5, $r8, $r4, $r2, $r10, $l0, $l2, $i1, $i3, $r13);
+
+        interfaceinvoke $r14.<com.mbridge.msdk.foundation.download.database.IDatabaseHelper: void updateProgress(java.lang.String,java.lang.String,com.mbridge.msdk.foundation.download.database.DownloadModel)>($r3, $r1, $r6);
+
+        $z0 = virtualinvoke $r25.<com.mbridge.msdk.foundation.download.DownloadResponse: boolean isCancelled()>();
+
+        if $z0 != 0 goto label8;
+
+        virtualinvoke $r25.<com.mbridge.msdk.foundation.download.DownloadResponse: void setSuccessful(boolean)>(1);
+
+     label8:
+        return $r25;
+    }
